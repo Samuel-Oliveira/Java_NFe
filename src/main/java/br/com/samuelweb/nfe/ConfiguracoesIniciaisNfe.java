@@ -10,7 +10,7 @@ import br.com.samuelweb.nfe.exception.NfeException;
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
  *
- * Inicia Configurações Nfe. 
+ * Configurações Nfe. 
  */
 public final class ConfiguracoesIniciaisNfe {
 	
@@ -39,7 +39,18 @@ public final class ConfiguracoesIniciaisNfe {
 		
 	}
 	
-	
+	/**
+	 *
+	 * Inicia Configurações Nfe. 
+	 * 
+	 * - Codigo da UF 
+	 * - Ambiente (1 - Produção, 2 - Homologação) 
+     * - Alias do certificado 
+     * - Localização do arquivo Cacert 
+     * - Pasta onde se encontra os Schemas XSD
+     * - Versão da NFE.
+     * 
+	 */
 	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(String uf,String ambiente, String certificado, String cacerts, String pastaSchemas, String versaoNfe) throws NfeException{
 		if(!new File(cacerts).exists()){
 			throw new NfeException("Não encontrado o Cacert: "+cacerts);
