@@ -1,7 +1,9 @@
 # Java-NFe
 Projeto Para implementação do Java-Nfe
 
-Para Iniciar Baixe o Jar dentro de Target, e o adicione às bibliotecas de Seu Projeto.
+Para Iniciar : 
+- Baixe o java-nfe-3.10.0.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.0.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e estraia na sua Máquina.
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
 

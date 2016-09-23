@@ -1,6 +1,10 @@
 package br.com.samuelweb.nfe.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -124,7 +128,7 @@ public class CertificadoUtil {
 	}
 
 	@SuppressWarnings("restriction")
-	public void iniciaConfiguracoes() {
+	public void iniciaConfiguracoes() throws NfeException {
 
 		System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");  
 		System.setProperty("java.protocol.handler.pkgs", "com.sun.net.ssl.internal.www.protocol");
@@ -143,8 +147,27 @@ public class CertificadoUtil {
 		System.setProperty("javax.net.ssl.keyStorePassword", "");
 
 		System.setProperty("javax.net.ssl.trustStoreType", "JKS");
-		System.setProperty("javax.net.ssl.trustStore", configuracoesNfe.getCacerts());
- 
+		
+		//Extrair Cacert do Jar
+		String cacert = "";
+        try {
+            InputStream input = getClass().getResourceAsStream("/NFeCacerts");
+            File file = File.createTempFile("tempfile", ".tmp");
+            OutputStream out = new FileOutputStream(file);
+            int read;
+            byte[] bytes = new byte[1024];
+
+            while ((read = input.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.close();
+            cacert = file.getAbsolutePath();
+            file.deleteOnExit();
+        } catch (IOException ex) {
+            throw new NfeException(ex.getMessage());
+        }
+	   
+		System.setProperty("javax.net.ssl.trustStore", cacert);
 
 	}
 

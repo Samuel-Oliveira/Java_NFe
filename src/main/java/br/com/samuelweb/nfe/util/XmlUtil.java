@@ -23,7 +23,6 @@ import br.inf.portalfiscal.nfe.schema.conssitnfe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema.consstatserv.TConsStatServ;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
-import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento;
 import br.inf.portalfiscal.nfe.schema.envinfe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema.envinfe.TNfeProc;
 import br.inf.portalfiscal.nfe.schema.envinfe.TProtNFe;
@@ -45,6 +44,10 @@ public class XmlUtil {
 	private static final String NFEPROC = "TNfeProc";
 	private static final String EVENTO = "TEnvEvento";
 	private static final String TPROCEVENTO = "TProcEvento";
+	
+	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento";
+	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
+	
 	private static final String TProtNFe = "TProtNFe";
 	private static final String TProtEnvi = "br.inf.portalfiscal.nfe.schema.envinfe.TProtNFe";
 	private static final String TProtCons = "br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe";
@@ -109,8 +112,14 @@ public class XmlUtil {
 			break;
 			
 		case TPROCEVENTO:
-			context = JAXBContext.newInstance(TProcEvento.class);
-			element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((TProcEvento) obj);
+			if(obj.getClass().getName().equals(TPROCCANCELAR)){
+				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento.class);
+				element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento) obj);
+			}else if(obj.getClass().getName().equals(TPROCCCE)){
+				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TProcEvento.class);
+				element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envcce.TProcEvento) obj);
+			}
+			
 			break;
 			
 		case NFEPROC:

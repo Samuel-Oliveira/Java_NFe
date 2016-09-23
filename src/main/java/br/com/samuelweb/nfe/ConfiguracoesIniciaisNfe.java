@@ -3,8 +3,6 @@
  */
 package br.com.samuelweb.nfe;
 
-import java.io.File;
-
 import br.com.samuelweb.nfe.exception.NfeException;
 
 /**
@@ -19,7 +17,6 @@ public final class ConfiguracoesIniciaisNfe {
 	private String uf;
 	private String ambiente;
 	private String certificado;
-	private String cacerts;
 	private String pastaSchemas;
 	private String versaoNfe;
 	
@@ -27,13 +24,12 @@ public final class ConfiguracoesIniciaisNfe {
 	private ConfiguracoesIniciaisNfe(){}
 	
 	//Construtor Privado
-	private ConfiguracoesIniciaisNfe(String uf,String ambiente, String certificado, String cacerts, String pastaSchemas, String versaoNfe){
+	private ConfiguracoesIniciaisNfe(String uf,String ambiente, String certificado, String pastaSchemas, String versaoNfe){
 		
 		instance = new ConfiguracoesIniciaisNfe();
 		instance.setUf(uf);
 		instance.setAmbiente(ambiente);
 		instance.setCertificado(certificado);
-		instance.setCacerts(cacerts);
 		instance.setPastaSchemas(pastaSchemas);
 		instance.setVersaoNfe(versaoNfe);
 		
@@ -46,16 +42,11 @@ public final class ConfiguracoesIniciaisNfe {
 	 * - Codigo da UF 
 	 * - Ambiente (1 - Produção, 2 - Homologação) 
      * - Alias do certificado 
-     * - Localização do arquivo Cacert 
-     * - Pasta onde se encontra os Schemas XSD
      * - Versão da NFE.
      * 
 	 */
-	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(String uf,String ambiente, String certificado, String cacerts, String pastaSchemas, String versaoNfe) throws NfeException{
-		if(!new File(cacerts).exists()){
-			throw new NfeException("Não encontrado o Cacert: "+cacerts);
-		}
-		new ConfiguracoesIniciaisNfe(uf,ambiente,certificado,cacerts,pastaSchemas,versaoNfe);
+	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(String uf,String ambiente, String certificado, String pastaSchemas, String versaoNfe) throws NfeException{
+		new ConfiguracoesIniciaisNfe(uf,ambiente,certificado,pastaSchemas,versaoNfe);
 		return instance;
 	}
 	
@@ -96,34 +87,6 @@ public final class ConfiguracoesIniciaisNfe {
 	}
 
 	/**
-	 * @return the cacerts
-	 */
-	public String getCacerts() {
-		return cacerts;
-	}
-
-	/**
-	 * @param cacerts the cacerts to set
-	 */
-	public void setCacerts(String cacerts) {
-		this.cacerts = cacerts;
-	}
-
-	/**
-	 * @return the pastaSchemas
-	 */
-	public String getPastaSchemas() {
-		return pastaSchemas;
-	}
-
-	/**
-	 * @param pastaSchemas the pastaSchemas to set
-	 */
-	public void setPastaSchemas(String pastaSchemas) {
-		this.pastaSchemas = pastaSchemas;
-	}
-
-	/**
 	 * @return the versaoNfe
 	 */
 	public String getVersaoNfe() {
@@ -151,5 +114,18 @@ public final class ConfiguracoesIniciaisNfe {
 		this.ambiente = ambiente;
 	}
 	
+	/**
+	 * @return the pastaSchemas
+	 */
+	public String getPastaSchemas() {
+		return pastaSchemas;
+	}
+
+	/**
+	 * @param pastaSchemas the pastaSchemas to set
+	 */
+	public void setPastaSchemas(String pastaSchemas) {
+		this.pastaSchemas = pastaSchemas;
+	}
 
 }
