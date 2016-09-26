@@ -31,7 +31,7 @@ import br.inf.portalfiscal.nfe.schema.inutnfe.TInutNFe;
 /**
  * Classe Responsavel por Metodos referentes ao XML
  * 
- * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
+ * @author Samuel Oliveira
  *
  */
 public class XmlUtil {
@@ -164,8 +164,13 @@ public class XmlUtil {
 
 		StringBuilder xml = new StringBuilder();
 		xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(sw.toString());
+		
+		if((obj.getClass().getSimpleName().equals(TPROCEVENTO))){
+			return xml.toString().replaceAll("procEvento", "procEventoNFe");
+		}else{
+			return xml.toString();
+		}
 
-		return xml.toString();
 	}
 
 	public static String gZipToXml(byte[] conteudo) throws NfeException, IOException {
