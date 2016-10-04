@@ -40,7 +40,7 @@ public class Status {
 			 * Informacoes do Certificado Digital.
 			 */
 			certUtil.iniciaConfiguracoes();
-
+			
 			String xml = XmlUtil.objectToXml(consStatServ);
 	
 			String erros = Validar.validaXml(xml, Validar.STATUS);
