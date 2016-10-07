@@ -23,7 +23,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v3.10.1 - 07-10-2016
+## v3.10.2 - 07-10-2016
 - Adicionado Compatibilidade com NFC-e 
 - Adicionado Método de geração de qrCode : NFCeUtil.getCodeQRCode
 - Adicionado Possibilidade de Usar certificado Digital Fisico (Arquivo .pfx)
