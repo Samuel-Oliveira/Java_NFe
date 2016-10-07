@@ -29,7 +29,7 @@ public class Inutilizar {
 	private static ConfiguracoesIniciaisNfe configuracoesNfe;
 	private static CertificadoUtil certUtil;
 	
-	public static TRetInutNFe inutiliza(TInutNFe inutNFe) throws NfeException {
+	public static TRetInutNFe inutiliza(TInutNFe inutNFe, boolean valida) throws NfeException {
 		
 		certUtil = new CertificadoUtil();
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
@@ -49,11 +49,12 @@ public class Inutilizar {
 			 */
 			xml = Assinar.assinaNfe(xml, Assinar.INFINUT);
 			
-			
-			String erros = Validar.validaXml(xml, Validar.INUTILIZACAO);
-			
-			if(!ObjetoUtil.isEmpty(erros)){
-				throw new NfeException("Erro Na Validação do Xml: "+erros);
+			if(valida){
+				String erros = Validar.validaXml(xml, Validar.INUTILIZACAO);
+				
+				if(!ObjetoUtil.isEmpty(erros)){
+					throw new NfeException("Erro Na Validação do Xml: "+erros);
+				}
 			}
 			
 			System.out.println(xml);

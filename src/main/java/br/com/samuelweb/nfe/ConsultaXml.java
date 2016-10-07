@@ -37,7 +37,7 @@ public class ConsultaXml {
 	 * @return Resposta da Sefaz
 	 * @throws NfeException 
 	 */
-	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe) throws NfeException {
+	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida) throws NfeException {
 		
 		certUtil = new CertificadoUtil();
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
@@ -51,10 +51,12 @@ public class ConsultaXml {
 			
 			String xml = XmlUtil.objectToXml(consSitNFe);
 			
-			// Validação
-			String erros = Validar.validaXml(xml, Validar.CONSULTA_XML);
-			if(!ObjetoUtil.isEmpty(erros)){
-				throw new NfeException("Erro Na Validação do Xml: "+erros);
+			if(valida){
+				// Validação
+				String erros = Validar.validaXml(xml, Validar.CONSULTA_XML);
+				if(!ObjetoUtil.isEmpty(erros)){
+					throw new NfeException("Erro Na Validação do Xml: "+erros);
+				}
 			}
 
 			OMElement ome = AXIOMUtil.stringToOM(xml);

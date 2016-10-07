@@ -36,9 +36,9 @@ public class Nfe {
 	 * @return TRetConsStatServ
 	 * @throws NfeException
 	 */
-	public static TRetConsStatServ statusServico(TConsStatServ consStatServ) throws NfeException{
+	public static TRetConsStatServ statusServico(TConsStatServ consStatServ, boolean valida) throws NfeException{
 		
-		return Status.statusServico(consStatServ);
+		return Status.statusServico(consStatServ , valida);
 		
 	}
 	
@@ -49,9 +49,9 @@ public class Nfe {
 	 * @return TRetConsSitNFe
 	 * @throws NfeException 
 	 */
-	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe) throws NfeException{
+	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida) throws NfeException{
 		
-		return ConsultaXml.consultaXml(consSitNFe);
+		return ConsultaXml.consultaXml(consSitNFe , valida);
 			
 	}
 	
@@ -62,9 +62,9 @@ public class Nfe {
 	 * @return TRetInutNFe
 	 * @throws NfeException 
 	 */
-	public static TRetInutNFe inutilizacao(TInutNFe inutNFe) throws NfeException{
+	public static TRetInutNFe inutilizacao(TInutNFe inutNFe, boolean valida) throws NfeException{
 		
-		return Inutilizar.inutiliza(inutNFe);
+		return Inutilizar.inutiliza(inutNFe , valida);
 		
 	}
 	
@@ -75,9 +75,9 @@ public class Nfe {
 	 * @return TRetConsSitNFe
 	 * @throws NfeException 
 	 */
-	public static RetDistDFeInt distribuicaoDfe(DistDFeInt distDFeInt) throws NfeException{
+	public static RetDistDFeInt distribuicaoDfe(DistDFeInt distDFeInt, boolean valida) throws NfeException{
 		
-		return DistribuicaoDFe.consultaNfe(distDFeInt);
+		return DistribuicaoDFe.consultaNfe(distDFeInt , valida);
 		
 	}
 	
@@ -88,9 +88,9 @@ public class Nfe {
 	 * @return String
 	 * @throws NfeException 
 	 */
-	public static TEnviNFe montaNfe(TEnviNFe enviNFe) throws NfeException{
+	public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException{
 		
-		return Enviar.montaNfe(enviNFe);
+		return Enviar.montaNfe(enviNFe , valida);
 				
 	}
 	
@@ -114,9 +114,9 @@ public class Nfe {
 	 * @return TRetEnvEvento
 	 * @throws NfeException 
 	 */
-	public static TRetEnvEvento cancelarNfe(TEnvEvento evento) throws NfeException{
+	public static TRetEnvEvento cancelarNfe(TEnvEvento evento, boolean valida) throws NfeException{
 		
-		return Evento.eventoCancelamento(evento);
+		return Evento.eventoCancelamento(evento , valida);
 		
 	}
 	
@@ -127,9 +127,9 @@ public class Nfe {
 	 * @return TRetEnvEvento
 	 * @throws NfeException 
 	 */
-	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento cce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento) throws NfeException{
+	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento cce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida) throws NfeException{
 		
-		return Evento.eventoCce(evento);
+		return Evento.eventoCce(evento , valida);
 		
 	}
 
@@ -140,9 +140,9 @@ public class Nfe {
 	 * @return TRetEnvEvento
 	 * @throws NfeException 
 	 */
-	public static br.inf.portalfiscal.nfe.schema.retEnvConfRecebto.TRetEnvEvento manifestacao(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento envEvento) throws NfeException {
+	public static br.inf.portalfiscal.nfe.schema.retEnvConfRecebto.TRetEnvEvento manifestacao(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento envEvento, boolean valida) throws NfeException {
 		
-		return Evento.eventoManifestacao(envEvento);
+		return Evento.eventoManifestacao(envEvento , valida);
 		
 	}
 	

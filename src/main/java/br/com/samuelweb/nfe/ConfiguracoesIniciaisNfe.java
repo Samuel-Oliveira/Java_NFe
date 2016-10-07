@@ -6,9 +6,9 @@ package br.com.samuelweb.nfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 
 /**
- * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
+ * @author Samuel Oliveira
  *
- * Configurações Nfe. 
+ * Inicia Configurações Nfe. 
  */
 public final class ConfiguracoesIniciaisNfe {
 	
@@ -16,7 +16,7 @@ public final class ConfiguracoesIniciaisNfe {
 	
 	private String uf;
 	private String ambiente;
-	private String certificado;
+	private Certificado certificado;
 	private String pastaSchemas;
 	private String versaoNfe;
 	
@@ -24,7 +24,7 @@ public final class ConfiguracoesIniciaisNfe {
 	private ConfiguracoesIniciaisNfe(){}
 	
 	//Construtor Privado
-	private ConfiguracoesIniciaisNfe(String uf,String ambiente, String certificado, String pastaSchemas, String versaoNfe){
+	private ConfiguracoesIniciaisNfe(String uf,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
 		
 		instance = new ConfiguracoesIniciaisNfe();
 		instance.setUf(uf);
@@ -35,17 +35,7 @@ public final class ConfiguracoesIniciaisNfe {
 		
 	}
 	
-	/**
-	 *
-	 * Inicia Configurações Nfe. 
-	 * 
-	 * - Codigo da UF 
-	 * - Ambiente (1 - Produção, 2 - Homologação) 
-     * - Alias do certificado 
-     * - Versão da NFE.
-     * 
-	 */
-	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(String uf,String ambiente, String certificado, String pastaSchemas, String versaoNfe) throws NfeException{
+	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(String uf,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
 		new ConfiguracoesIniciaisNfe(uf,ambiente,certificado,pastaSchemas,versaoNfe);
 		return instance;
 	}
@@ -72,18 +62,19 @@ public final class ConfiguracoesIniciaisNfe {
 		this.uf = uf;
 	}
 
+
 	/**
-	 * @return the certificado
+	 * @return the pastaSchemas
 	 */
-	public String getCertificado() {
-		return certificado;
+	public String getPastaSchemas() {
+		return pastaSchemas;
 	}
 
 	/**
-	 * @param certificado the certificado to set
+	 * @param pastaSchemas the pastaSchemas to set
 	 */
-	public void setCertificado(String certificado) {
-		this.certificado = certificado;
+	public void setPastaSchemas(String pastaSchemas) {
+		this.pastaSchemas = pastaSchemas;
 	}
 
 	/**
@@ -113,19 +104,20 @@ public final class ConfiguracoesIniciaisNfe {
 	public void setAmbiente(String ambiente) {
 		this.ambiente = ambiente;
 	}
-	
+
 	/**
-	 * @return the pastaSchemas
+	 * @return the certificado
 	 */
-	public String getPastaSchemas() {
-		return pastaSchemas;
+	public Certificado getCertificado() {
+		return certificado;
 	}
 
 	/**
-	 * @param pastaSchemas the pastaSchemas to set
+	 * @param certificado the certificado to set
 	 */
-	public void setPastaSchemas(String pastaSchemas) {
-		this.pastaSchemas = pastaSchemas;
+	public void setCertificado(Certificado certificado) {
+		this.certificado = certificado;
 	}
+	
 
 }

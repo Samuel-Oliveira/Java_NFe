@@ -24,7 +24,7 @@ public class Evento {
 	private static CertificadoUtil certUtil;
 	
 	
-	public static TRetEnvEvento eventoCancelamento(TEnvEvento evento) throws NfeException{
+	public static TRetEnvEvento eventoCancelamento(TEnvEvento evento, boolean valida) throws NfeException{
 		
 		try {
 			
@@ -32,7 +32,7 @@ public class Evento {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 			
-			xml = evento(xml,"cancelar");
+			xml = evento(xml,"cancelar",valida);
 			
 			return XmlUtil.xmlToObject(xml, TRetEnvEvento.class);
 			
@@ -42,14 +42,14 @@ public class Evento {
 		
 	}
 	
-	public static br.inf.portalfiscal.nfe.schema.retEnvConfRecebto.TRetEnvEvento eventoManifestacao(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento evento) throws NfeException{
+	public static br.inf.portalfiscal.nfe.schema.retEnvConfRecebto.TRetEnvEvento eventoManifestacao(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento evento, boolean valida) throws NfeException{
 		try {
 			
 			String xml = XmlUtil.objectToXml(evento);
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 			
-			xml = evento(xml,"manifestar");
+			xml = evento(xml,"manifestar",valida);
 			
 			return XmlUtil.xmlToObject(xml, br.inf.portalfiscal.nfe.schema.retEnvConfRecebto.TRetEnvEvento.class);
 			
@@ -59,7 +59,7 @@ public class Evento {
 		
 	}
 	
-	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento eventoCce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento) throws NfeException{
+	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento eventoCce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida) throws NfeException{
 		
 		try {
 			
@@ -67,7 +67,7 @@ public class Evento {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 			
-			xml = evento(xml,"cce");
+			xml = evento(xml,"cce",valida);
 			
 			return XmlUtil.xmlToObject(xml, br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento.class);
 			
@@ -78,7 +78,7 @@ public class Evento {
 	}
 	
 
-	private static String evento(String xml, String tipo) throws NfeException {
+	private static String evento(String xml, String tipo , boolean valida) throws NfeException {
 		
 		certUtil = new CertificadoUtil();
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
@@ -94,24 +94,26 @@ public class Evento {
 			
 			xml = Assinar.assinaNfe(xml, Assinar.EVENTO);
 			
-			String erros ="";
-			switch (tipo) {
-			case "cancelar":
-				erros = Validar.validaXml(xml, Validar.CANCELAR);
-				break;
-			case "cce":
-				erros = Validar.validaXml(xml, Validar.CCE);
-				break;
-			case "manifestar":
-				erros = Validar.validaXml(xml, Validar.MANIFESTAR);
-				estado = "91";
-				break;
-			default:
-				break;
-			}
-			
-			if(!ObjetoUtil.isEmpty(erros)){
-				throw new NfeException("Erro Na Validação do Xml: "+erros);
+			if(valida){
+				String erros ="";
+				switch (tipo) {
+				case "cancelar":
+					erros = Validar.validaXml(xml, Validar.CANCELAR);
+					break;
+				case "cce":
+					erros = Validar.validaXml(xml, Validar.CCE);
+					break;
+				case "manifestar":
+					erros = Validar.validaXml(xml, Validar.MANIFESTAR);
+					estado = "91";
+					break;
+				default:
+					break;
+				}
+				
+				if(!ObjetoUtil.isEmpty(erros)){
+					throw new NfeException("Erro Na Validação do Xml: "+erros);
+				}
 			}
 			
 			System.out.println(xml);

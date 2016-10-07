@@ -7,7 +7,11 @@ import java.time.LocalDate;
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
  * 
  */
+
 public class Certificado {
+	
+	public static final String WINDOWS = "windows";
+	public static final String ARQUIVO = "arquivo";
 	
 	private String nome;
 	
@@ -15,18 +19,13 @@ public class Certificado {
 	
 	private Long diasRestantes;
 	
-	private boolean valido;
-
-	/**
-	 * Singleton
-	 */
-	public Certificado(String nome, LocalDate vencimento, Long diasRestantes, boolean valido) {
+	private String arquivo;
 	
-		this.nome = nome;
-		this.vencimento = vencimento;
-		this.diasRestantes = diasRestantes;
-		this.valido = valido;
-	}
+	private String senha;
+	
+	private String tipo;
+	
+	private boolean valido;
 
 	/**
 	 * @return the nome
@@ -82,6 +81,48 @@ public class Certificado {
 	 */
 	public void setValido(boolean valido) {
 		this.valido = valido;
+	}
+
+	/**
+	 * @return the arquivo
+	 */
+	public String getArquivo() {
+		return arquivo;
+	}
+
+	/**
+	 * @param arquivo the arquivo to set
+	 */
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
+	}
+
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * @param tipo the tipo to set
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	/**
+	 * @return the senha
+	 */
+	public String getSenha() {
+		return senha;
+	}
+
+	/**
+	 * @param senha the senha to set
+	 */
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }

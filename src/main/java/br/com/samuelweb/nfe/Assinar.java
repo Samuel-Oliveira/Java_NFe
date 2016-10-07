@@ -45,6 +45,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.CertificadoUtil;
 
 /**
  * Classe Responsavel Por Assinar O Xml.
@@ -173,20 +174,24 @@ public class Assinar {
 		return document;
 	}
 
-	private static void loadCertificates(XMLSignatureFactory signatureFactory) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException, NoSuchProviderException, CertificateException, IOException {
+	private static void loadCertificates(XMLSignatureFactory signatureFactory) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException, NoSuchProviderException, CertificateException, IOException, NfeException {
 
+		Certificado certificado = configuracoesNfe.getCertificado();
 		KeyStore.PrivateKeyEntry pkEntry = null;
-
-		KeyStore ks = KeyStore.getInstance("Windows-MY", "SunMSCAPI");
+		KeyStore ks = null;
+		if(certificado.getTipo().equals(Certificado.WINDOWS)){
+			ks = KeyStore.getInstance("Windows-MY", "SunMSCAPI");
+		}else if(certificado.getTipo().equals(Certificado.ARQUIVO)){
+			ks = CertificadoUtil.getKeyStore(certificado);
+		}
+		
 		ks.load(null, null);
 
-		if (ks.isKeyEntry(configuracoesNfe.getCertificado())) {
-			pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry(configuracoesNfe.getCertificado(), new KeyStore.PasswordProtection("".toCharArray()));
-			privateKey = pkEntry.getPrivateKey();
-		}
-
+		pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry(certificado.getNome(), new KeyStore.PasswordProtection(certificado.getSenha().toCharArray()));
+		privateKey = pkEntry.getPrivateKey();
+		
 		X509Certificate cert = (X509Certificate) pkEntry.getCertificate();
-
+		
 		KeyInfoFactory keyInfoFactory = signatureFactory.getKeyInfoFactory();
 		List<X509Certificate> x509Content = new ArrayList<X509Certificate>();
 

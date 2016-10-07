@@ -27,27 +27,24 @@ public class Status {
 
 	static NfeStatusServico2Stub.NfeStatusServicoNF2Result result;
 	private static ConfiguracoesIniciaisNfe configuracoesNfe;
-	private static CertificadoUtil certUtil;
 
-	public static TRetConsStatServ statusServico(TConsStatServ consStatServ) throws NfeException {
+	public static TRetConsStatServ statusServico(TConsStatServ consStatServ, boolean valida) throws NfeException {
 		
-		certUtil = new CertificadoUtil();
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
+		CertificadoUtil certificadoUtil = new CertificadoUtil();
+		certificadoUtil.iniciaConfiguracoes();
 
 		try {
 
-			/**
-			 * Informacoes do Certificado Digital.
-			 */
-			certUtil.iniciaConfiguracoes();
-			
 			String xml = XmlUtil.objectToXml(consStatServ);
 	
-			String erros = Validar.validaXml(xml, Validar.STATUS);
-			
-			if(!ObjetoUtil.isEmpty(erros)){
-				throw new NfeException("Erro Na Validação do Xml: "+erros);
+			if(valida){
+				String erros = Validar.validaXml(xml, Validar.STATUS);
+				if(!ObjetoUtil.isEmpty(erros)){
+					throw new NfeException("Erro Na Validação do Xml: "+erros);
+				}
 			}
+			
 
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 			NfeStatusServico2Stub.NfeDadosMsg dadosMsg = new NfeStatusServico2Stub.NfeDadosMsg();

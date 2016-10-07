@@ -33,7 +33,7 @@ public class DistribuicaoDFe {
 	 * @param nfe
 	 * @return nfe
 	 */
-	public static RetDistDFeInt consultaNfe(DistDFeInt distDFeInt) throws NfeException{
+	public static RetDistDFeInt consultaNfe(DistDFeInt distDFeInt, boolean valida) throws NfeException{
 		
 		certUtil = new CertificadoUtil();
 
@@ -46,12 +46,13 @@ public class DistribuicaoDFe {
 
 			String xml = XmlUtil.objectToXml(distDFeInt);
 			
-			String erros = Validar.validaXml(xml, Validar.DIST_DFE);
-			
-			if(!ObjetoUtil.isEmpty(erros)){
-				throw new NfeException("Erro Na Validação do Xml: "+erros);
+			if(valida){
+				String erros = Validar.validaXml(xml, Validar.DIST_DFE);
+				
+				if(!ObjetoUtil.isEmpty(erros)){
+					throw new NfeException("Erro Na Validação do Xml: "+erros);
+				}
 			}
-						
 			
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 			
