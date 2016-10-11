@@ -105,7 +105,10 @@ public class Enviar {
 
 			String xml = XmlUtil.objectToXml(enviNFe);
 			
-			enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode(qrCode);
+			if (enviNFe.getNFe().get(0).getInfNFe().getIde().getMod().equals("65")) {
+				enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode(qrCode);
+			}
+			
 			xml = xml.replaceAll("ns2:", "");
 			xml = xml.replaceAll("<Signature>", "<Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">");
 

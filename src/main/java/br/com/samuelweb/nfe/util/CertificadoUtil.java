@@ -12,11 +12,11 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
 import java.security.Security;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,9 +91,18 @@ public class CertificadoUtil {
 					cert.setNome(aliasKey);
 					cert.setTipo(Certificado.WINDOWS);
 					cert.setSenha("");
-					cert.setVencimento(DataValidade(cert).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-					cert.setDiasRestantes(diasRestantes(cert));
-					cert.setValido(valido(cert));
+					Date dataValidade = DataValidade(cert);
+					if(dataValidade == null){
+						cert.setNome("(INVÁLIDO)"+aliasKey);
+						cert.setVencimento(LocalDate.of(2000, 1, 1));
+						cert.setDiasRestantes(0L);
+						cert.setValido(false);
+					}else{
+						cert.setVencimento(dataValidade.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+						cert.setDiasRestantes(diasRestantes(cert)); 
+						cert.setValido(valido(cert));
+					}
+					
 					listaCert.add(cert);
 				}
 
@@ -117,8 +126,6 @@ public class CertificadoUtil {
 		try {
 			X509Certificate cert = null;
 			KeyStore.PrivateKeyEntry pkEntry = null;
-			@SuppressWarnings("unused")
-			PrivateKey privateKey;
 			KeyStore ks = null;
 			if(certificado.getTipo().equals(Certificado.WINDOWS)){
 				ks = KeyStore.getInstance("Windows-MY", "SunMSCAPI");
@@ -129,8 +136,8 @@ public class CertificadoUtil {
 			ks.load(null, null);
 			if (ks.isKeyEntry(certificado.getNome())) {
 				pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry(certificado.getNome(), new KeyStore.PasswordProtection(certificado.getSenha().toCharArray()));
-				privateKey = pkEntry.getPrivateKey();
-
+			}else{
+				return null;
 			}
 	
 			cert = (X509Certificate) pkEntry.getCertificate();
