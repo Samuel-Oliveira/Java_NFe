@@ -114,6 +114,10 @@ public class Evento {
 				if(!ObjetoUtil.isEmpty(erros)){
 					throw new NfeException("Erro Na Validação do Xml: "+erros);
 				}
+			}else{
+				if(tipo.equals("manifestar")){
+					estado = "91";
+				}
 			}
 			
 			System.out.println(xml);
