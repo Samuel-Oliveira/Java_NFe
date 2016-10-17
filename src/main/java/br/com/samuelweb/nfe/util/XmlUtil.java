@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.text.Normalizer;
 import java.util.zip.GZIPInputStream;
 
 import javax.xml.bind.JAXBContext;
@@ -203,6 +204,17 @@ public class XmlUtil {
 		xmlFinal = xmlFinal.replaceAll("ns2:", "");
 		
 		return xmlFinal;
+	}
+	
+	public static String removeAcentos(String str){
+		
+		str = str.replaceAll("\r", "");
+        str = str.replaceAll("\t", "");
+        str = str.replaceAll("\n", "");
+        str = str.replaceAll(">\\s+<", "><");
+        CharSequence cs = new StringBuilder(str == null ? "" : str);
+        return Normalizer.normalize(cs, Normalizer.Form.NFKD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+		
 	}
 	
 }
