@@ -46,6 +46,7 @@ import org.xml.sax.SAXException;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.XmlUtil;
 
 /**
  * Classe Responsavel Por Assinar O Xml.
@@ -83,6 +84,7 @@ public class Assinar {
 		
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
 
+		stringXml = XmlUtil.removeAcentos(stringXml);
 		stringXml = assinaDocNFe(stringXml , tipo);
 
 		return stringXml;

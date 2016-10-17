@@ -2,10 +2,11 @@
 Projeto Para implementação do Java-Nfe Utilizando JAXB.
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.2.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.2.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-3.10.3.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.3.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
+```
 	    <repository>
 			<name>Repositorio Autocom SnapShot</name>
 			<id>Snapshot</id>
@@ -14,14 +15,22 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>3.10.2</version>
+			<version>3.10.3</version>
 		</dependency>
+```
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
 
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v3.10.3 - 17-10-2016
+- Issues: #5, #6, #7 e #8.
+- Corrigido erro especifico da Sefaz de PE, referente ao cabeçalho SOAP.
+- Corrigido erro de QrCode Vazio.
+- Corrigido erro que acontece ao tentar Manifestar a Nfe, sem fazer a validação.
+- Adicionado função que remove Acentos no XML antes de assinar a Nota.
 
 ## v3.10.2 - 07-10-2016
 - Adicionado Compatibilidade com NFC-e 
