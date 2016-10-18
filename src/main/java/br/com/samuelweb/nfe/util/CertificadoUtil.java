@@ -60,7 +60,7 @@ public class CertificadoUtil {
 			certificado.setDiasRestantes(diasRestantes(certificado));
 			certificado.setValido(valido(certificado));
 		}catch (NoSuchAlgorithmException | CertificateException | IOException | KeyStoreException e){
-			throw new NfeException("Erro ao carregar informações do certificado:"+e.getMessage());
+			throw new NfeException("Erro ao carregar informaÃ§Ãµes do certificado:"+e.getMessage());
 		}
 			
 		return certificado;
@@ -93,7 +93,7 @@ public class CertificadoUtil {
 					cert.setSenha("");
 					Date dataValidade = DataValidade(cert);
 					if(dataValidade == null){
-						cert.setNome("(INVÁLIDO)"+aliasKey);
+						cert.setNome("(INVÃ�LIDO)"+aliasKey);
 						cert.setVencimento(LocalDate.of(2000, 1, 1));
 						cert.setDiasRestantes(0L);
 						cert.setValido(false);
@@ -185,6 +185,13 @@ public class CertificadoUtil {
 		System.clearProperty("javax.net.ssl.keyStore");
 		System.clearProperty("javax.net.ssl.keyStorePassword");
 		System.clearProperty("javax.net.ssl.trustStore");
+		
+		if(configuracoesNfe.getProxy()!=null){
+			System.setProperty("http.proxyHost", configuracoesNfe.getProxy().getProxyHostName());
+			System.setProperty("http.proxyPort", configuracoesNfe.getProxy().getProxyPort());
+			System.setProperty("http.proxyUser", configuracoesNfe.getProxy().getProxyUserName()); 
+			System.setProperty("http.proxyPassword", configuracoesNfe.getProxy().getProxyPassWord()); 
+		}
 
 		System.setProperty("jdk.tls.client.protocols", "TLSv1"); // Servidor do	Sefaz RS
 
@@ -228,7 +235,7 @@ public class CertificadoUtil {
 		try {
 	        File file = new File(certificado.getArquivo());
 	        if(!file.exists()){
-				throw new NfeException("Certificado Digital não Encontrado");
+				throw new NfeException("Certificado Digital nÃ£o Encontrado");
 	        }
 	        
 			KeyStore keyStore = KeyStore.getInstance("PKCS12");
