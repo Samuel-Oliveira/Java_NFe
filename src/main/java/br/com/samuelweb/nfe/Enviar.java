@@ -34,7 +34,7 @@ public class Enviar {
 	private static CertificadoUtil certUtil;
 
 	/**
-	 * Metodo para Montar a NFE.
+	 * Metodo para Montar a NFE..
 	 * 
 	 * @param TEnviNFe
 	 * @return String
