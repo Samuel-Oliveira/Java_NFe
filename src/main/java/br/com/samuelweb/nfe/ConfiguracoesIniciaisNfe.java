@@ -4,6 +4,7 @@
 package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.ProxyUtil;
 
 /**
  * @author Samuel Oliveira
@@ -19,6 +20,7 @@ public final class ConfiguracoesIniciaisNfe {
 	private Certificado certificado;
 	private String pastaSchemas;
 	private String versaoNfe;
+	private ProxyUtil proxyUtil; 
 	
 	//Construtor Singleton
 	private ConfiguracoesIniciaisNfe(){}
@@ -46,6 +48,10 @@ public final class ConfiguracoesIniciaisNfe {
 		}
 		
 		return instance;
+	}
+	
+	public void setProxy(String ip, int porta, String usuario,String senha){
+		proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
 	}
 
 	/**
@@ -118,6 +124,12 @@ public final class ConfiguracoesIniciaisNfe {
 	public void setCertificado(Certificado certificado) {
 		this.certificado = certificado;
 	}
-	
+	/**
+	 * 
+	 * @return configuracao do proxy
+	 */
+	public ProxyUtil getProxy() {
+		return proxyUtil;
+	}
 
 }
