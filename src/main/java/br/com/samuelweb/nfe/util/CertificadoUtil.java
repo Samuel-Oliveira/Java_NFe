@@ -60,7 +60,7 @@ public class CertificadoUtil {
 			certificado.setDiasRestantes(diasRestantes(certificado));
 			certificado.setValido(valido(certificado));
 		}catch (NoSuchAlgorithmException | CertificateException | IOException | KeyStoreException e){
-			throw new NfeException("Erro ao carregar informaÃ§Ãµes do certificado:"+e.getMessage());
+			throw new NfeException("Erro ao carregar informações do certificado:"+e.getMessage());
 		}
 			
 		return certificado;
@@ -93,7 +93,7 @@ public class CertificadoUtil {
 					cert.setSenha("");
 					Date dataValidade = DataValidade(cert);
 					if(dataValidade == null){
-						cert.setNome("(INVÃ�LIDO)"+aliasKey);
+						cert.setNome("(INVÁLIDO)"+aliasKey);
 						cert.setVencimento(LocalDate.of(2000, 1, 1));
 						cert.setDiasRestantes(0L);
 						cert.setValido(false);
@@ -235,7 +235,7 @@ public class CertificadoUtil {
 		try {
 	        File file = new File(certificado.getArquivo());
 	        if(!file.exists()){
-				throw new NfeException("Certificado Digital nÃ£o Encontrado");
+				throw new NfeException("Certificado Digital não Encontrado");
 	        }
 	        
 			KeyStore keyStore = KeyStore.getInstance("PKCS12");
