@@ -185,6 +185,13 @@ public class CertificadoUtil {
 		System.clearProperty("javax.net.ssl.keyStore");
 		System.clearProperty("javax.net.ssl.keyStorePassword");
 		System.clearProperty("javax.net.ssl.trustStore");
+		
+		if(configuracoesNfe.getProxy()!=null){
+			System.setProperty("http.proxyHost", configuracoesNfe.getProxy().getProxyHostName());
+			System.setProperty("http.proxyPort", configuracoesNfe.getProxy().getProxyPort());
+			System.setProperty("http.proxyUser", configuracoesNfe.getProxy().getProxyUserName()); 
+			System.setProperty("http.proxyPassword", configuracoesNfe.getProxy().getProxyPassWord()); 
+		}
 
 		System.setProperty("jdk.tls.client.protocols", "TLSv1"); // Servidor do	Sefaz RS
 

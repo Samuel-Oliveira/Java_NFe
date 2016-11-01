@@ -167,9 +167,9 @@ public class XmlUtil {
 		xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(sw.toString());
 		
 		if((obj.getClass().getSimpleName().equals(TPROCEVENTO))){
-			return xml.toString().replaceAll("procEvento", "procEventoNFe");
+			return replacesNfe(xml.toString().replaceAll("procEvento", "procEventoNFe"));
 		}else{
-			return xml.toString();
+			return replacesNfe(xml.toString());
 		}
 
 	}
@@ -200,9 +200,6 @@ public class XmlUtil {
 		
 		String xmlFinal = XmlUtil.objectToXml(nfeProc);
 				
-		xmlFinal = xmlFinal.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
-		xmlFinal = xmlFinal.replaceAll("ns2:", "");
-		
 		return xmlFinal;
 	}
 	
@@ -214,6 +211,18 @@ public class XmlUtil {
         str = str.replaceAll(">\\s+<", "><");
         CharSequence cs = new StringBuilder(str == null ? "" : str);
         return Normalizer.normalize(cs, Normalizer.Form.NFKD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+		
+	}
+	
+	public static String replacesNfe(String xml){
+		
+		xml = xml.replaceAll("ns2:", "");
+		xml = xml.replaceAll("ns3:", "");
+		xml = xml.replaceAll("<Signature>", "<Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">");
+		xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
+		xml = xml.replaceAll(" xmlns=\"\" xmlns:ns3=\"http://www.portalfiscal.inf.br/nfe\"", "");
+		
+        return xml;
 		
 	}
 	

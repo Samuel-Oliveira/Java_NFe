@@ -34,7 +34,7 @@ public class Enviar {
 	private static CertificadoUtil certUtil;
 
 	/**
-	 * Metodo para Montar a NFE.
+	 * Metodo para Montar a NFE..
 	 * 
 	 * @param TEnviNFe
 	 * @return String
@@ -55,9 +55,6 @@ public class Enviar {
 			 * Cria o xml
 			 */
 			String xml = XmlUtil.objectToXml(enviNFe);
-			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
-			xml = xml.replaceAll(" xmlns=\"\" xmlns:ns3=\"http://www.portalfiscal.inf.br/nfe\"", "");
-			xml = xml.replaceAll("ns3:", "");
 
 			/**
 			 * Assina o Xml
@@ -74,7 +71,7 @@ public class Enviar {
 				}
 			}
 
-			System.out.println(xml);
+			System.out.println("Xml Assinado: " + xml);
 
 			return XmlUtil.xmlToObject(xml, TEnviNFe.class);
 
@@ -109,9 +106,6 @@ public class Enviar {
 				enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode(qrCode);
 			}
 			
-			xml = xml.replaceAll("ns2:", "");
-			xml = xml.replaceAll("<Signature>", "<Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">");
-
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 
 			Iterator<?> children = ome.getChildrenWithLocalName("NFe");
@@ -142,6 +136,8 @@ public class Enviar {
 					}
 				}
 			}
+			
+			System.out.println("Xml para Envio: " + ome.toString()); 
 			
 			NfeAutorizacaoStub.NfeDadosMsg dadosMsg = new NfeAutorizacaoStub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
