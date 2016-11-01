@@ -1,7 +1,7 @@
 language: java
 jdk: oraclejdk8
 
-sudo: false
+sudo: required
 
 env:
   global:
@@ -20,6 +20,5 @@ addons:
       name: "Samuel-Oliveira/Java_NFe"
       description: "Build submitted via Travis CI"
     notification_email: samuk.exe@hotmail.com
-    build_command_prepend: "mvn clean"
-    build_command:   "mvn verify"
+    build_command:   "mvn clean verify"
     branch_pattern: master
