@@ -2,7 +2,7 @@
 Projeto Para implementação do Java-Nfe Utilizando JAXB.
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.3.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.3.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-3.10.4.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.4.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -15,7 +15,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>3.10.3</version>
+			<version>3.10.4</version>
 		</dependency>
 ```
 
@@ -24,6 +24,12 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v3.10.4 - 01-11-2016
+- Issues: #10, #11 e #12.
+- Corrigido erro especifico do WebServices SVRS, referente ao nameSpace.
+- Melhorado Lógica de Replace para os "Lixos" gerados ao Converter Objeto pra Xml
+- Adicionado Proxy
 
 ## v3.10.3 - 17-10-2016
 - Issues: #5, #6, #7 e #8.
