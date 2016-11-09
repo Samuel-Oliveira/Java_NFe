@@ -137,6 +137,9 @@ public class Enviar {
 				}
 			}
 			
+			//Adicionado CDATA após OM
+			enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode("<![CDATA["+qrCode +"]]>");
+			
 			System.out.println("Xml para Envio: " + ome.toString()); 
 			
 			NfeAutorizacaoStub.NfeDadosMsg dadosMsg = new NfeAutorizacaoStub.NfeDadosMsg();

@@ -20,6 +20,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.inf.portalfiscal.nfe.schema.consrecinfe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema.conssitnfe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema.consstatserv.TConsStatServ;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
@@ -45,6 +46,7 @@ public class XmlUtil {
 	private static final String NFEPROC = "TNfeProc";
 	private static final String EVENTO = "TEnvEvento";
 	private static final String TPROCEVENTO = "TProcEvento";
+	private static final String TCONSRECINFE = "TConsReciNFe";
 	
 	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento";
 	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
@@ -52,6 +54,7 @@ public class XmlUtil {
 	private static final String TProtNFe = "TProtNFe";
 	private static final String TProtEnvi = "br.inf.portalfiscal.nfe.schema.envinfe.TProtNFe";
 	private static final String TProtCons = "br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe";
+	private static final String TProtReci = "br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe";
 	
 	private static final String CANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento";
 	private static final String CCE = "br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento";
@@ -107,6 +110,11 @@ public class XmlUtil {
 			element = new br.inf.portalfiscal.nfe.schema.distdfeint.ObjectFactory().createDistDFeInt((DistDFeInt) obj);
 			break;
 
+		case TCONSRECINFE:
+			context = JAXBContext.newInstance(TConsReciNFe.class);
+			element = new br.inf.portalfiscal.nfe.schema.consrecinfe.ObjectFactory().createConsReciNFe((TConsReciNFe) obj);
+			break;
+			
 		case INUTILIZACAO:
 			context = JAXBContext.newInstance(TInutNFe.class);
 			element = new br.inf.portalfiscal.nfe.schema.inutnfe.ObjectFactory().createInutNFe((TInutNFe) obj);
@@ -149,6 +157,9 @@ public class XmlUtil {
 			}else if(obj.getClass().getName().equals(TProtCons)){
 				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe.class);
 				element = new br.inf.portalfiscal.nfe.schema.retconssitnfe.ObjectFactory().createProtNFe((br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe) obj);
+			}else if(obj.getClass().getName().equals(TProtReci)){
+				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe.class);
+				element = new br.inf.portalfiscal.nfe.schema.retconsrecinfe.ObjectFactory().createProtNFe((br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe) obj);
 			}
 			break;
 			
@@ -156,7 +167,8 @@ public class XmlUtil {
 			throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
 		}
 		Marshaller marshaller = context.createMarshaller();
-
+		
+		marshaller.setProperty("jaxb.encoding", "Unicode");
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
 		marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
@@ -208,6 +220,7 @@ public class XmlUtil {
 		str = str.replaceAll("\r", "");
         str = str.replaceAll("\t", "");
         str = str.replaceAll("\n", "");
+        str = str.replaceAll("&", "E");
         str = str.replaceAll(">\\s+<", "><");
         CharSequence cs = new StringBuilder(str == null ? "" : str);
         return Normalizer.normalize(cs, Normalizer.Form.NFKD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
@@ -218,6 +231,9 @@ public class XmlUtil {
 		
 		xml = xml.replaceAll("ns2:", "");
 		xml = xml.replaceAll("ns3:", "");
+		xml = xml.replaceAll("&lt;", "<");
+		xml = xml.replaceAll("&amp;", "&");
+		xml = xml.replaceAll("&gt;", ">");
 		xml = xml.replaceAll("<Signature>", "<Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">");
 		xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 		xml = xml.replaceAll(" xmlns=\"\" xmlns:ns3=\"http://www.portalfiscal.inf.br/nfe\"", "");

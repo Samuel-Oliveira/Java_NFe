@@ -28,6 +28,7 @@ public class Validar implements ErrorHandler {
 	public static final String CANCELAR = "cancelar";
 	public static final String MANIFESTAR = "manifestar";
 	public static final String CCE = "cce";
+	public static final String CONSULTA_RECIBO = "consultaRecibo";
 	
 	private static ConfiguracoesIniciaisNfe configuracoesNfe;
 
@@ -68,6 +69,9 @@ public class Validar implements ErrorHandler {
 			break;
 		case MANIFESTAR:
 			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.MANIFESTAR;
+			break;
+		case CONSULTA_RECIBO:
+			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CONSULTA_RECIBO;
 			break;
 		default:
 			break;

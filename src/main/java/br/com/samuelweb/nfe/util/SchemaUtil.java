@@ -17,5 +17,6 @@ public class SchemaUtil {
 	public static final String CCE = "envCCe_v1.00.xsd";
 	public static final String DIST_DFE = "distDFeInt_v1.00.xsd";
 	public static final String MANIFESTAR = "envConfRecebto_v1.00.xsd";
+	public static final String CONSULTA_RECIBO = "consReciNFe_v3.10.xsd";
 
 }

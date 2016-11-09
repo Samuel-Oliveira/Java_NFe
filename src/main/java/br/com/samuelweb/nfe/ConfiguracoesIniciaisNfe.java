@@ -21,6 +21,7 @@ public final class ConfiguracoesIniciaisNfe {
 	private String pastaSchemas;
 	private String versaoNfe;
 	private ProxyUtil proxyUtil; 
+	private boolean contigenciaSCAN;
 	
 	//Construtor Singleton
 	private ConfiguracoesIniciaisNfe(){}
@@ -130,6 +131,20 @@ public final class ConfiguracoesIniciaisNfe {
 	 */
 	public ProxyUtil getProxy() {
 		return proxyUtil;
+	}
+
+	/**
+	 * @return the contigencia
+	 */
+	public boolean isContigencia() {
+		return contigenciaSCAN;
+	}
+
+	/**
+	 * @param contigencia the contigencia to set
+	 */
+	public void setContigencia(boolean contigencia) {
+		this.contigenciaSCAN = contigencia;
 	}
 
 }

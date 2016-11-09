@@ -9,7 +9,9 @@ import br.inf.portalfiscal.nfe.schema.consstatserv.TConsStatServ;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
+import br.inf.portalfiscal.nfe.schema.consrecinfe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema.envinfe.TEnviNFe;
+import br.inf.portalfiscal.nfe.schema.retconsrecinfe.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.schema.envinfe.TRetEnviNFe;
 import br.inf.portalfiscal.nfe.schema.inutnfe.TInutNFe;
 import br.inf.portalfiscal.nfe.schema.retconssitnfe.TRetConsSitNFe;
@@ -53,6 +55,19 @@ public class Nfe {
 		
 		return ConsultaXml.consultaXml(consSitNFe , valida);
 			
+	}
+	
+	/**
+	 * Classe Reponsavel Por Consultar o retorno da NFE na SEFAZ
+	 * 
+	 * @param TConsReciNFe
+	 * @return TRetConsReciNFe
+	 * @throws NfeException 
+	 */
+	public static TRetConsReciNFe consultaXml(TConsReciNFe consReciNFe, boolean valida) throws NfeException{
+		
+		return ConsultaRecibo.reciboNfe(consReciNFe , valida);
+		
 	}
 	
 	/**
