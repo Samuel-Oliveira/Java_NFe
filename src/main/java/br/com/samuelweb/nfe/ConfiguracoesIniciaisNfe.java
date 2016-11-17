@@ -136,15 +136,15 @@ public final class ConfiguracoesIniciaisNfe {
 	/**
 	 * @return the contigencia
 	 */
-	public boolean isContigencia() {
+	public boolean isContigenciaSCAN() {
 		return contigenciaSCAN;
 	}
 
 	/**
 	 * @param contigencia the contigencia to set
 	 */
-	public void setContigencia(boolean contigencia) {
-		this.contigenciaSCAN = contigencia;
+	public void setContigenciaSCAN(boolean contigenciaSCAN) {
+		this.contigenciaSCAN = contigenciaSCAN;
 	}
 
 }

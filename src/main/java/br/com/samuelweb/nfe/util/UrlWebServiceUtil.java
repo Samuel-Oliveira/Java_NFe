@@ -29,19 +29,19 @@ public class UrlWebServiceUtil {
 			configuracaoNfe = ConfiguracoesIniciaisNfe.getInstance();
 			
 			//Contigencia
-			if(configuracaoNfe.isContigencia()){
+			if(configuracaoNfe.isContigenciaSCAN()){
 				String uf = configuracaoNfe.getUf();
 				//SVC-RS
 				if(uf.equals(52) || uf.equals(13) || uf.equals(29) || uf.equals(23) || uf.equals(21) || uf.equals(50) || uf.equals(51) || uf.equals(15) || uf.equals(26) || uf.equals(22) || uf.equals(41)){
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://nfe-homologacao.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"); // Homologação
 					}else{
 						return new URL("https://nfe.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"); // Produção
 					}
 				//SVC-AN
 				}else{
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://hom.svc.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx"); // Homologação
 					}else{
 						return new URL("https://www.svc.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx"); // Produção
 					}
@@ -282,19 +282,19 @@ public class UrlWebServiceUtil {
 			configuracaoNfe = ConfiguracoesIniciaisNfe.getInstance();
 			
 			//Contigencia
-			if(configuracaoNfe.isContigencia()){
+			if(configuracaoNfe.isContigenciaSCAN()){
 				String uf = configuracaoNfe.getUf();
 				//SVC-RS
 				if(uf.equals(52) || uf.equals(13) || uf.equals(29) || uf.equals(23) || uf.equals(21) || uf.equals(50) || uf.equals(51) || uf.equals(15) || uf.equals(26) || uf.equals(22) || uf.equals(41)){
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"); // Homologação
 					}else{
 						return new URL("https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"); // Produção
 					}
 				//SVC-AN
 				}else{
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://hom.svc.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"); // Homologação
 					}else{
 						return new URL("https://www.svc.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"); // Produção
 					}
@@ -536,19 +536,19 @@ public class UrlWebServiceUtil {
 		try {
 			
 			//Contigencia
-			if(configuracaoNfe.isContigencia()){
+			if(configuracaoNfe.isContigenciaSCAN()){
 				String uf = configuracaoNfe.getUf();
 				//SVC-RS
 				if(uf.equals(52) || uf.equals(13) || uf.equals(29) || uf.equals(23) || uf.equals(21) || uf.equals(50) || uf.equals(51) || uf.equals(15) || uf.equals(26) || uf.equals(22) || uf.equals(41)){
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://nfe-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"); // Homologação
 					}else{
 						return new URL("https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"); // Produção
 					}
 				//SVC-AN
 				}else{
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://hom.svc.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx"); // Homologação
 					}else{
 						return new URL("https://www.svc.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx"); // Produção
 					}
@@ -791,19 +791,19 @@ public class UrlWebServiceUtil {
 		try {
 			
 			//Contigencia
-			if(configuracaoNfe.isContigencia()){
+			if(configuracaoNfe.isContigenciaSCAN()){
 				String uf = configuracaoNfe.getUf();
 				//SVC-RS
 				if(uf.equals(52) || uf.equals(13) || uf.equals(29) || uf.equals(23) || uf.equals(21) || uf.equals(50) || uf.equals(51) || uf.equals(15) || uf.equals(26) || uf.equals(22) || uf.equals(41)){
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"); // Homologação
 					}else{
 						return new URL("https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"); // Produção
 					}
 				//SVC-AN
 				}else{
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://hom.svc.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"); // Homologação
 					}else{
 						return new URL("https://www.svc.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"); // Produção
 					}
@@ -1045,7 +1045,7 @@ public class UrlWebServiceUtil {
 		try {
 			
 			//Contigencia
-			if(configuracaoNfe.isContigencia()){
+			if(configuracaoNfe.isContigenciaSCAN()){
 				throw new NfeException("Não Existe Inutilização em Contigencia.");
 			}
 			
@@ -1284,19 +1284,19 @@ public class UrlWebServiceUtil {
 		try {
 			
 			//Contigencia
-			if(configuracaoNfe.isContigencia()){
+			if(configuracaoNfe.isContigenciaSCAN()){
 				String ufs = configuracaoNfe.getUf();
 				//SVC-RS
 				if(ufs.equals(52) || ufs.equals(13) || ufs.equals(29) || ufs.equals(23) || ufs.equals(21) || ufs.equals(50) || ufs.equals(51) || ufs.equals(15) || ufs.equals(26) || ufs.equals(22) || ufs.equals(41)){
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"); // Homologação
 					}else{
 						return new URL("https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"); // Produção
 					}
 				//SVC-AN
 				}else{
 					if (configuracaoNfe.getAmbiente().equals("2")){
-						return new URL(""); // Homologação
+						return new URL("https://hom.svc.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"); // Homologação
 					}else{
 						return new URL("https://www.svc.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"); // Produção
 					}
@@ -1805,7 +1805,7 @@ public class UrlWebServiceUtil {
 		configuracaoNfe = ConfiguracoesIniciaisNfe.getInstance();
 		
 		//Contigencia
-		if(configuracaoNfe.isContigencia()){
+		if(configuracaoNfe.isContigenciaSCAN()){
 			throw new NfeException("Não Existe Consulta em Contigencia.");
 		}
 
@@ -1827,7 +1827,7 @@ public class UrlWebServiceUtil {
 		configuracaoNfe = ConfiguracoesIniciaisNfe.getInstance();
 		
 		//Contigencia
-		if(configuracaoNfe.isContigencia()){
+		if(configuracaoNfe.isContigenciaSCAN()){
 			throw new NfeException("Não Existe Download em Contigencia.");
 		}
 
@@ -1850,7 +1850,7 @@ public class UrlWebServiceUtil {
 		configuracaoNfe = ConfiguracoesIniciaisNfe.getInstance();
 		
 		//Contigencia
-		if(configuracaoNfe.isContigencia()){
+		if(configuracaoNfe.isContigenciaSCAN()){
 			throw new NfeException("Não Existe Distribuição em Contigencia.");
 		}
 		
