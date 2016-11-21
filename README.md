@@ -25,7 +25,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v3.10.5 - 01-11-2016
+## v3.10.5 - 21-11-2016
 - Issues: #15, #16, #17 e #18.
 - Alterado Estrutura para as todas as funções que necessitam de Endereço WebService
 - Adicionado Constantes
