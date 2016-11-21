@@ -3,5 +3,4 @@ jdk: oraclejdk8
 
 sudo: false
 
-script: mvn clean deploy
-
+script: mvn clean install
