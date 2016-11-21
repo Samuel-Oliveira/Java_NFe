@@ -10,8 +10,9 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.UrlWebServiceUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema.retdistdfeint.RetDistDFeInt;
@@ -62,7 +63,7 @@ public class DistribuicaoDFe {
 			NFeDistribuicaoDFeStub.NfeDistDFeInteresse distDFeInteresse = new NFeDistribuicaoDFeStub.NfeDistDFeInteresse();  
 			distDFeInteresse.setNfeDadosMsg(dadosMsgType0);  
 			  
-			NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub(UrlWebServiceUtil.distribuicaoDfe().toString());  
+			NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub( WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.DISTRIBUICAO_DFE));  
 			result = stub.nfeDistDFeInteresse(distDFeInteresse);  
 
 			return XmlUtil.xmlToObject(result.getNfeDistDFeInteresseResult().getExtraElement().toString(), RetDistDFeInt.class);  

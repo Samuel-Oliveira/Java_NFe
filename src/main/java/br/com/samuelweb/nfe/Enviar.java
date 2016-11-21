@@ -14,8 +14,9 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.UrlWebServiceUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.envinfe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema.envinfe.TRetEnviNFe;
@@ -88,21 +89,22 @@ public class Enviar {
 	 * @return Nfe
 	 * @throws NfeException
 	 */
-	public static TRetEnviNFe enviaNfe(TEnviNFe enviNFe) throws NfeException {
+	public static TRetEnviNFe enviaNfe(TEnviNFe enviNFe, String tipo) throws NfeException {
 
 		certUtil = new CertificadoUtil();
+		boolean nfce = tipo.equals(ConstantesUtil.NFCE);
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
 		String qrCode = "";
 
 		try {
-			if (enviNFe.getNFe().get(0).getInfNFe().getIde().getMod().equals("65")) {
+			if (nfce) {
 				qrCode = enviNFe.getNFe().get(0).getInfNFeSupl().getQrCode();
 				enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode("");
 			}
 
 			String xml = XmlUtil.objectToXml(enviNFe);
 			
-			if (enviNFe.getNFe().get(0).getInfNFe().getIde().getMod().equals("65")) {
+			if (nfce) {
 				enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode(qrCode);
 			}
 			
@@ -113,7 +115,7 @@ public class Enviar {
 				OMElement omElementNFe = (OMElement) children.next();
 				if ((omElementNFe != null) && ("NFe".equals(omElementNFe.getLocalName()))) {
 					omElementNFe.addAttribute("xmlns", "http://www.portalfiscal.inf.br/nfe", null);
-					if (enviNFe.getNFe().get(0).getInfNFe().getIde().getMod().equals("65")) {
+					if (nfce) {
 
 						OMFactory f = OMAbstractFactory.getOMFactory();
 						OMText omt = f.createOMText(qrCode, OMElement.CDATA_SECTION_NODE);
@@ -138,7 +140,9 @@ public class Enviar {
 			}
 			
 			//Adicionado CDATA após OM
-			enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode("<![CDATA["+qrCode +"]]>");
+			if (nfce) {
+				enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode("<![CDATA["+qrCode +"]]>");
+			}
 			
 			System.out.println("Xml para Envio: " + ome.toString()); 
 			
@@ -149,7 +153,7 @@ public class Enviar {
 			/**
 			 * Codigo do Estado.
 			 */
-			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getUf()));
+			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getEstado().getCodigoIbge()));
 
 			/**
 			 * Versao do XML
@@ -159,7 +163,7 @@ public class Enviar {
 			NfeAutorizacaoStub.NfeCabecMsgE nfeCabecMsgE = new NfeAutorizacaoStub.NfeCabecMsgE();
 			nfeCabecMsgE.setNfeCabecMsg(nfeCabecMsg);
 
-			NfeAutorizacaoStub stub = new NfeAutorizacaoStub(UrlWebServiceUtil.enviarSincrono().toString());
+			NfeAutorizacaoStub stub = new NfeAutorizacaoStub(nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.ENVIO) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.ENVIO));
 			result = stub.nfeAutorizacaoLote(dadosMsg, nfeCabecMsgE);
 
 			return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);

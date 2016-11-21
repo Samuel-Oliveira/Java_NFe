@@ -10,8 +10,9 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.UrlWebServiceUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.consrecinfe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema.retconsrecinfe.TRetConsReciNFe;
@@ -38,13 +39,13 @@ public class ConsultaRecibo {
 	 * @throws NfeException 
 	 */
 	
-	//Desativado
-	public static TRetConsReciNFe reciboNfe(TConsReciNFe tConsReciNFe, boolean valida) throws NfeException {
+	public static TRetConsReciNFe reciboNfe(TConsReciNFe tConsReciNFe, boolean valida, String tipo) throws NfeException {
 
 		try {
-
+			
 			certUtil = new CertificadoUtil();
 			configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
+			boolean nfce = tipo.equals(ConstantesUtil.NFCE);
 
 			/**
 			 * Informaçoes do Certificado Digital.
@@ -68,7 +69,7 @@ public class ConsultaRecibo {
 			/**
 			 * Codigo do Estado.
 			 */
-			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getUf()));
+			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getEstado().getCodigoIbge()));
 
 			/**
 			 * Versao do XML
@@ -78,7 +79,7 @@ public class ConsultaRecibo {
 			NfeRetAutorizacaoStub.NfeCabecMsgE nfeCabecMsgE = new NfeRetAutorizacaoStub.NfeCabecMsgE();
 			nfeCabecMsgE.setNfeCabecMsg(nfeCabecMsg);
 
-			NfeRetAutorizacaoStub stub = new NfeRetAutorizacaoStub(UrlWebServiceUtil.consultaRecibo().toString());
+			NfeRetAutorizacaoStub stub = new NfeRetAutorizacaoStub(nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.CONSULTA_RECIBO) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.CONSULTA_RECIBO));
 			result = stub.nfeRetAutorizacaoLote(dadosMsg, nfeCabecMsgE);
 
 			return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsReciNFe.class);

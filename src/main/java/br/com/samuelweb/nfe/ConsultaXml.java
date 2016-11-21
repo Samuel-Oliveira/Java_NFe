@@ -10,8 +10,9 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.UrlWebServiceUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.conssitnfe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema.retconssitnfe.TRetConsSitNFe;
@@ -37,10 +38,11 @@ public class ConsultaXml {
 	 * @return Resposta da Sefaz
 	 * @throws NfeException 
 	 */
-	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida) throws NfeException {
+	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida, String tipo) throws NfeException {
 		
 		certUtil = new CertificadoUtil();
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
+		boolean nfce = tipo.equals(ConstantesUtil.NFCE);
 
 		try {
 
@@ -68,7 +70,7 @@ public class ConsultaXml {
 			/**
 			 * Codigo do Estado.
 			 */
-			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getUf()));
+			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getEstado().getCodigoIbge()));
 
 			/**
 			 * Versao do XML
@@ -77,7 +79,7 @@ public class ConsultaXml {
 			NfeConsulta2Stub.NfeCabecMsgE nfeCabecMsgE = new NfeConsulta2Stub.NfeCabecMsgE();
 			nfeCabecMsgE.setNfeCabecMsg(nfeCabecMsg);
 
-			NfeConsulta2Stub stub = new NfeConsulta2Stub(UrlWebServiceUtil.consultaXml().toString());
+			NfeConsulta2Stub stub = new NfeConsulta2Stub(nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.CONSULTA_XML) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.CONSULTA_XML));
 			result = stub.nfeConsultaNF2(dadosMsg, nfeCabecMsgE);
 
 			return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsSitNFe.class);

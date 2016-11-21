@@ -10,8 +10,9 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.UrlWebServiceUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.consstatserv.TConsStatServ;
 import br.inf.portalfiscal.nfe.schema.retconsstatserv.TRetConsStatServ;
@@ -28,11 +29,12 @@ public class Status {
 	static NfeStatusServico2Stub.NfeStatusServicoNF2Result result;
 	private static ConfiguracoesIniciaisNfe configuracoesNfe;
 
-	public static TRetConsStatServ statusServico(TConsStatServ consStatServ, boolean valida) throws NfeException {
+	public static TRetConsStatServ statusServico(TConsStatServ consStatServ, boolean valida , String tipo) throws NfeException {
 		
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
 		CertificadoUtil certificadoUtil = new CertificadoUtil();
 		certificadoUtil.iniciaConfiguracoes();
+		boolean nfce = tipo.equals(ConstantesUtil.NFCE);
 
 		try {
 
@@ -54,7 +56,7 @@ public class Status {
 			/**
 			 * Codigo do Estado.
 			 */
-			nfeCabecMsg.setCUF(configuracoesNfe.getUf());
+			nfeCabecMsg.setCUF(configuracoesNfe.getEstado().getCodigoIbge());
 
 			/**
 			 * Versao do XML
@@ -63,7 +65,7 @@ public class Status {
 			NfeStatusServico2Stub.NfeCabecMsgE nfeCabecMsgE = new NfeStatusServico2Stub.NfeCabecMsgE();
 			nfeCabecMsgE.setNfeCabecMsg(nfeCabecMsg);
 
-			NfeStatusServico2Stub stub = new NfeStatusServico2Stub(UrlWebServiceUtil.status().toString());
+			NfeStatusServico2Stub stub = new NfeStatusServico2Stub(nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.STATUS_SERVICO) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.STATUS_SERVICO));
 			result = stub.nfeStatusServicoNF2(dadosMsg, nfeCabecMsgE);
 		
 			return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsStatServ.class);

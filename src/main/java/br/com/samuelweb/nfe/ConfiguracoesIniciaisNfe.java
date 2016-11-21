@@ -4,6 +4,7 @@
 package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.Estados;
 import br.com.samuelweb.nfe.util.ProxyUtil;
 
 /**
@@ -15,7 +16,7 @@ public final class ConfiguracoesIniciaisNfe {
 	
 	private static ConfiguracoesIniciaisNfe instance;
 	
-	private String uf;
+	private Estados estado;
 	private String ambiente;
 	private Certificado certificado;
 	private String pastaSchemas;
@@ -27,10 +28,10 @@ public final class ConfiguracoesIniciaisNfe {
 	private ConfiguracoesIniciaisNfe(){}
 	
 	//Construtor Privado
-	private ConfiguracoesIniciaisNfe(String uf,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
+	private ConfiguracoesIniciaisNfe(Estados estado,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
 		
 		instance = new ConfiguracoesIniciaisNfe();
-		instance.setUf(uf);
+		instance.setEstado(estado);
 		instance.setAmbiente(ambiente);
 		instance.setCertificado(certificado);
 		instance.setPastaSchemas(pastaSchemas);
@@ -38,8 +39,8 @@ public final class ConfiguracoesIniciaisNfe {
 		
 	}
 	
-	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(String uf,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
-		new ConfiguracoesIniciaisNfe(uf,ambiente,certificado,pastaSchemas,versaoNfe);
+	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
+		new ConfiguracoesIniciaisNfe(estado,ambiente,certificado,pastaSchemas,versaoNfe);
 		return instance;
 	}
 	
@@ -54,21 +55,6 @@ public final class ConfiguracoesIniciaisNfe {
 	public void setProxy(String ip, int porta, String usuario,String senha){
 		proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
 	}
-
-	/**
-	 * @return the uf
-	 */
-	public String getUf() {
-		return uf;
-	}
-
-	/**
-	 * @param uf the uf to set
-	 */
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-
 
 	/**
 	 * @return the pastaSchemas
@@ -145,6 +131,20 @@ public final class ConfiguracoesIniciaisNfe {
 	 */
 	public void setContigenciaSCAN(boolean contigenciaSCAN) {
 		this.contigenciaSCAN = contigenciaSCAN;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public Estados getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(Estados estado) {
+		this.estado = estado;
 	}
 
 }

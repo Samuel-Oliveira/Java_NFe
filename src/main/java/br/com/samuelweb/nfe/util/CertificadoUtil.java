@@ -176,6 +176,7 @@ public class CertificadoUtil {
 
 	}
 
+	@SuppressWarnings("restriction")
 	public void iniciaConfiguracoes() throws NfeException {
 
 		System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");

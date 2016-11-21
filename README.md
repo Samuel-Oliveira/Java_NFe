@@ -2,7 +2,7 @@
 Projeto Para implementação do Java-Nfe Utilizando JAXB.
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.4.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.4.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-3.10.5.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.5.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -15,7 +15,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>3.10.4</version>
+			<version>3.10.5</version>
 		</dependency>
 ```
 
@@ -24,6 +24,18 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v3.10.5 - 01-11-2016
+- Issues: #15, #16, #17 e #18.
+- Alterado Estrutura para as todas as funções que necessitam de Endereço WebService
+- Adicionado Constantes
+- Adicionado Endereços ConsultaQrcode
+- Corrigido Erro De QrCode não vir no XML FInal
+- Modo Assincorno Implementado.
+- Modo De Contingencia Implementado.
+- **Atenção: Alterado a chamada dos metodos: statusServico, consultaXml, consultaXml, inutilizacao, enviarNfe, cancelarNfe, cce
+  Todos eles devem adicionar o parametro tipo, ondeve informar se é NFE(ConstantesUtil.NFE) ou NFC-e(ConstantesUtil.NFCE)** 
+   
 
 ## v3.10.4 - 01-11-2016
 - Issues: #10, #11 e #12.
