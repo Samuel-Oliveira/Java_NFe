@@ -10,8 +10,9 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.UrlWebServiceUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.inutnfe.TInutNFe;
 import br.inf.portalfiscal.nfe.schema.retinutnfe.TRetInutNFe;
@@ -29,11 +30,12 @@ public class Inutilizar {
 	private static ConfiguracoesIniciaisNfe configuracoesNfe;
 	private static CertificadoUtil certUtil;
 	
-	public static TRetInutNFe inutiliza(TInutNFe inutNFe, boolean valida) throws NfeException {
+	public static TRetInutNFe inutiliza(TInutNFe inutNFe, boolean valida, String tipo) throws NfeException {
 		
 		certUtil = new CertificadoUtil();
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
-
+		boolean nfce = tipo.equals(ConstantesUtil.NFCE);
+		
 		try {
 
 			/**
@@ -57,7 +59,7 @@ public class Inutilizar {
 				}
 			}
 			
-			System.out.println(xml);
+			System.out.println("Xml Inutilizar: "+xml);
 
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 			NfeInutilizacao2Stub.NfeDadosMsg dadosMsg = new NfeInutilizacao2Stub.NfeDadosMsg();
@@ -68,7 +70,7 @@ public class Inutilizar {
 			/**
 			 * Codigo do Estado.
 			 */
-			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getUf()));
+			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getEstado().getCodigoIbge()));
 
 			/**
 			 * Versao do XML
@@ -77,7 +79,7 @@ public class Inutilizar {
 			NfeInutilizacao2Stub.NfeCabecMsgE nfeCabecMsgE = new NfeInutilizacao2Stub.NfeCabecMsgE();
 			nfeCabecMsgE.setNfeCabecMsg(nfeCabecMsg);
 
-			NfeInutilizacao2Stub stub = new NfeInutilizacao2Stub(UrlWebServiceUtil.inutilizar().toString());
+			NfeInutilizacao2Stub stub = new NfeInutilizacao2Stub(nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.INUTILIZACAO) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.INUTILIZACAO));
 			result = stub.nfeInutilizacaoNF2(dadosMsg, nfeCabecMsgE);
 
 			return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetInutNFe.class);

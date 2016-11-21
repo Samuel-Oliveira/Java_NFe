@@ -10,8 +10,9 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.UrlWebServiceUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
@@ -24,7 +25,7 @@ public class Evento {
 	private static CertificadoUtil certUtil;
 	
 	
-	public static TRetEnvEvento eventoCancelamento(TEnvEvento evento, boolean valida) throws NfeException{
+	public static TRetEnvEvento eventoCancelamento(TEnvEvento evento, boolean valida, String tipo) throws NfeException{
 		
 		try {
 			
@@ -32,7 +33,7 @@ public class Evento {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 			
-			xml = evento(xml,"cancelar",valida);
+			xml = evento(xml,"cancelar",valida,tipo);
 			
 			return XmlUtil.xmlToObject(xml, TRetEnvEvento.class);
 			
@@ -49,7 +50,7 @@ public class Evento {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 			
-			xml = evento(xml,"manifestar",valida);
+			xml = evento(xml,"manifestar",valida, ConstantesUtil.NFE);
 			
 			return XmlUtil.xmlToObject(xml, br.inf.portalfiscal.nfe.schema.retEnvConfRecebto.TRetEnvEvento.class);
 			
@@ -59,7 +60,7 @@ public class Evento {
 		
 	}
 	
-	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento eventoCce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida) throws NfeException{
+	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento eventoCce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida, String tipo) throws NfeException{
 		
 		try {
 			
@@ -67,7 +68,7 @@ public class Evento {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 			
-			xml = evento(xml,"cce",valida);
+			xml = evento(xml,"cce",valida , tipo);
 			
 			return XmlUtil.xmlToObject(xml, br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento.class);
 			
@@ -78,11 +79,12 @@ public class Evento {
 	}
 	
 
-	private static String evento(String xml, String tipo , boolean valida) throws NfeException {
+	private static String evento(String xml, String tipoEvento , boolean valida, String tipo) throws NfeException {
 		
 		certUtil = new CertificadoUtil();
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
-		String estado = String.valueOf(configuracoesNfe.getUf());
+		String estado = String.valueOf(configuracoesNfe.getEstado().getCodigoIbge());
+		boolean nfce = tipo.equals(ConstantesUtil.NFCE);
 
 		try {
 			
@@ -96,7 +98,7 @@ public class Evento {
 			
 			if(valida){
 				String erros ="";
-				switch (tipo) {
+				switch (tipoEvento) {
 				case "cancelar":
 					erros = Validar.validaXml(xml, Validar.CANCELAR);
 					break;
@@ -115,12 +117,12 @@ public class Evento {
 					throw new NfeException("Erro Na Validação do Xml: "+erros);
 				}
 			}else{
-				if(tipo.equals("manifestar")){
+				if(tipoEvento.equals("manifestar")){
 					estado = "91";
 				}
 			}
 			
-			System.out.println(xml);
+			System.out.println("Xml Evento: "+ xml);
 
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 
@@ -138,7 +140,12 @@ public class Evento {
 			RecepcaoEventoStub.NfeCabecMsgE nfeCabecMsgE = new RecepcaoEventoStub.NfeCabecMsgE();
 			nfeCabecMsgE.setNfeCabecMsg(nfeCabecMsg);
 
-			RecepcaoEventoStub stub = new RecepcaoEventoStub(UrlWebServiceUtil.evento(estado).toString());
+			String url = nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.EVENTO) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.EVENTO);
+			if(tipoEvento.equals("manifestar")){
+				url =  WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.MANIFESTACAO);
+			}
+			
+			RecepcaoEventoStub stub = new RecepcaoEventoStub(url);
 			result = stub.nfeRecepcaoEvento(dadosMsg, nfeCabecMsgE);
 
 		} catch (RemoteException | XMLStreamException e) {

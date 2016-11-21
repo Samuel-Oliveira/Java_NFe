@@ -9,7 +9,8 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
-import br.com.samuelweb.nfe.util.UrlWebServiceUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.inf.portalfiscal.www.nfe.wsdl.CscNFCe.CscNFCeStub;
 
 
@@ -24,7 +25,7 @@ public class CscNfce {
 	private static ConfiguracoesIniciaisNfe configuracoesNfe;
 	private static CertificadoUtil certUtil;
 
-	public static String statusServico() throws NfeException {
+	public static String consultaCSC() throws NfeException {
 		
 		certUtil = new CertificadoUtil();
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
@@ -43,7 +44,7 @@ public class CscNfce {
 			xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
 			   .append("<consStatServ versao=\"3.10\" xmlns=\"http://www.portalfiscal.inf.br/nfe\">")
 			   .append("<tpAmb>" + configuracoesNfe.getAmbiente() + "</tpAmb>")
-               .append("<cUF>" + configuracoesNfe.getUf() +"</cUF>")
+               .append("<cUF>" + configuracoesNfe.getEstado().getCodigoIbge() +"</cUF>")
                .append("<xServ>STATUS</xServ>")
                .append("</consStatServ>");
 
@@ -55,7 +56,7 @@ public class CscNfce {
 			/**
 			 * Codigo do Estado.
 			 */
-			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getUf()));
+			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getEstado().getCodigoIbge()));
 
 			/**
 			 * Versao do XML
@@ -65,7 +66,7 @@ public class CscNfce {
 			CscNFCeStub.NfeCabecMsgE nfeCabecMsgE = new CscNFCeStub.NfeCabecMsgE();
 			nfeCabecMsgE.setNfeCabecMsg(nfeCabecMsg);
 
-			CscNFCeStub stub = new CscNFCeStub(UrlWebServiceUtil.status().toString());
+			CscNFCeStub stub = new CscNFCeStub( WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.CSC));
 			result = stub.admCscNFCe(dadosMsg, nfeCabecMsgE);
 		
 		} catch (RemoteException | XMLStreamException e) {
