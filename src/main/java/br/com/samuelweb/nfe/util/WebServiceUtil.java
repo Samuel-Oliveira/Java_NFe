@@ -45,17 +45,17 @@ public class WebServiceUtil {
 				secao = url;
 			} else if(config.isContigenciaSCAN()){
 				//SVC-RS
-				if(config.getEstado().equals(ConstantesUtil.ESTADO.GO)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.AM)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.BA)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.CE)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.MA)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.MS)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.MT)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.PA)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.PE)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.PI)
-						|| config.getEstado().equals(ConstantesUtil.ESTADO.PR)){
+				if(config.getEstado().equals(Estados.GO)
+						|| config.getEstado().equals(Estados.AM)
+						|| config.getEstado().equals(Estados.BA)
+						|| config.getEstado().equals(Estados.CE)
+						|| config.getEstado().equals(Estados.MA)
+						|| config.getEstado().equals(Estados.MS)
+						|| config.getEstado().equals(Estados.MT)
+						|| config.getEstado().equals(Estados.PA)
+						|| config.getEstado().equals(Estados.PE)
+						|| config.getEstado().equals(Estados.PI)
+						|| config.getEstado().equals(Estados.PR)){
 					secao = tipo + "_SVRS_" + (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
 				//SVC-AN	
 				}else{
