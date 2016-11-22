@@ -229,7 +229,7 @@ public class CertificadoUtil {
         }
 	   
 		System.setProperty("javax.net.ssl.trustStore", cacert);
-
+		
 	}
 
 	public static KeyStore getKeyStore(Certificado certificado) throws NfeException{
