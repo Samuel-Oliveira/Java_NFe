@@ -65,7 +65,7 @@ public class WebServiceUtil {
 
 			url = ini.get(secao, servico);
 
-			System.out.println("WebService :" + url);
+			System.out.println("WebService - " + url);
 			return url;
 
 		} catch (IOException e) {

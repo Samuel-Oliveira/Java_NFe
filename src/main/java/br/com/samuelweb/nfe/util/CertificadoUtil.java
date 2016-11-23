@@ -12,8 +12,10 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
 import java.security.Security;
 import java.security.UnrecoverableEntryException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+
+import org.apache.commons.httpclient.protocol.Protocol;
 
 import br.com.samuelweb.nfe.Certificado;
 import br.com.samuelweb.nfe.ConfiguracoesIniciaisNfe;
@@ -230,6 +234,15 @@ public class CertificadoUtil {
 	   
 		System.setProperty("javax.net.ssl.trustStore", cacert);
 		
+		if(configuracoesNfe.isProtocol()){
+			try {
+				System.out.println("Modo Protocol Ativado.");
+				ativaProtocolo(configuracoesNfe.getCertificado());
+			} catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException e) {
+				 throw new NfeException(e.getMessage());
+			}
+		}
+		
 	}
 
 	public static KeyStore getKeyStore(Certificado certificado) throws NfeException{
@@ -261,6 +274,17 @@ public class CertificadoUtil {
 
 	        return os.toByteArray();
 	    }
+	}
+	
+	public void ativaProtocolo(Certificado certificado) throws NfeException, KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException{
+		
+		KeyStore ks = getKeyStore(certificado);
+		X509Certificate certificate = (X509Certificate) ks.getCertificate(certificado.getNome());  
+        PrivateKey privateKey = (PrivateKey) ks.getKey(certificado.getNome(), certificado.getSenha().toCharArray());  
+		SocketFactoryDinamico socketFactory = new SocketFactoryDinamico(certificate, privateKey );
+		socketFactory.setFileCacerts(getClass().getResourceAsStream("/NFeCacerts"));
+		Protocol protocol = new Protocol("https", socketFactory, 443);
+		Protocol.registerProtocol("https", protocol);
 	}
 
 }

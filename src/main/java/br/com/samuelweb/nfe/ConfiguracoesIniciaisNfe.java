@@ -23,6 +23,7 @@ public final class ConfiguracoesIniciaisNfe {
 	private String versaoNfe;
 	private ProxyUtil proxyUtil; 
 	private boolean contigenciaSCAN;
+	private boolean protocol;
 	
 	//Construtor Singleton
 	private ConfiguracoesIniciaisNfe(){}
@@ -145,6 +146,20 @@ public final class ConfiguracoesIniciaisNfe {
 	 */
 	public void setEstado(Estados estado) {
 		this.estado = estado;
+	}
+
+	/**
+	 * @return the protocol
+	 */
+	public boolean isProtocol() {
+		return protocol;
+	}
+
+	/**
+	 * @param protocol the protocol to set
+	 */
+	public void setProtocol(boolean protocol) {
+		this.protocol = protocol;
 	}
 
 }
