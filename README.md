@@ -4,7 +4,7 @@ Projeto Para implementação do Java-Nfe Utilizando JAXB.
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.6.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.6.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-3.10.5.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.5.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -17,7 +17,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>3.10.6</version>
+			<version>3.10.5</version>
 		</dependency>
 ```
 
@@ -26,10 +26,6 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
-
-## v3.10.6 - XX-XX-2016
-- Issues: 
-- Adiciona Protocol para erros de certificado no ambiente Web.
 
 ## v3.10.5 - 21-11-2016
 - Issues: #15, #16, #17 e #18.
