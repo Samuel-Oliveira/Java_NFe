@@ -37,7 +37,7 @@ public interface ConstantesUtil {
 	
 	interface VERSAO{
 		public static final String V3_10 = "3.10";
-		public static final String V1_00 = "1_00";
+		public static final String V1_00 = "1.00";
 	}
 
 }

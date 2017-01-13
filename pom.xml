@@ -41,14 +41,14 @@
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-wsdl</artifactId>
-			<version>3.10a</version>
+			<version>3.10b</version>
 		</dependency>
 		
 		<!-- XSD Nfe -->
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-xsd</artifactId>
-			<version>8.i.2</version>
+			<version>8.i.2_Dfe1.02</version>
 		</dependency>
 		
 		<dependency>
@@ -106,5 +106,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	<version>3.10.5</version>
+	<version>3.10.6</version>
 </project>

@@ -55,6 +55,8 @@ public class DistribuicaoDFe {
 				}
 			}
 			
+			System.out.println("Xml: "+xml);
+			
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 			
 			NFeDistribuicaoDFeStub.NfeDadosMsg_type0 dadosMsgType0 = new NFeDistribuicaoDFeStub.NfeDadosMsg_type0();  
