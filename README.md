@@ -35,6 +35,7 @@ ________________________________________________________________________________
    - Status Serviço
    - Consulta Xml
    - Inutilização
+- Arquivo Cacert Atualizado
    
 ## v3.10.5 - 21-11-2016
 - Issues: #15, #16, #17 e #18.

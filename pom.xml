@@ -8,13 +8,13 @@
 	<!-- Repositorios SVN Autocom -->
 	<repositories>
 		<repository>
-			<name>Repositorio Autocom Releases</name>
-			<id>Release</id>
+			<name>Repositorio Autocom Snapshot</name>
+			<id>Snapshot</id>
 			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom-snapshot/</url>
 		</repository>
 		<repository>
-			<name>Repositorio Autocom SnapShot</name>
-			<id>Snapshot</id>
+			<name>Repositorio Autocom Release</name>
+			<id>Release</id>
 			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
 		</repository>
 		<repository>
@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-xsd</artifactId>
-			<version>8.i.2_Dfe1.02</version>
+			<version>8.i.2_DFe1.02</version>
 		</dependency>
 		
 		<dependency>

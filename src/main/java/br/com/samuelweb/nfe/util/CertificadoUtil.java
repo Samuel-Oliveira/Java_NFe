@@ -216,7 +216,7 @@ public class CertificadoUtil {
 		//Extrair Cacert do Jar
 		String cacert = "";
         try {
-            InputStream input = getClass().getResourceAsStream("/NFeCacerts");
+            InputStream input = getClass().getResourceAsStream("/Cacert");
             File file = File.createTempFile("tempfile", ".tmp");
             OutputStream out = new FileOutputStream(file);
             int read;
@@ -290,7 +290,7 @@ public class CertificadoUtil {
 		X509Certificate certificate = (X509Certificate) ks.getCertificate(certificado.getNome());  
         PrivateKey privateKey = (PrivateKey) ks.getKey(certificado.getNome(), certificado.getSenha().toCharArray());  
 		SocketFactoryDinamico socketFactory = new SocketFactoryDinamico(certificate, privateKey );
-		socketFactory.setFileCacerts(getClass().getResourceAsStream("/NFeCacerts"));
+		socketFactory.setFileCacerts(getClass().getResourceAsStream("/Cacert"));
 		Protocol protocol = new Protocol("https", socketFactory, 443);
 		Protocol.registerProtocol("https", protocol);
 	}
