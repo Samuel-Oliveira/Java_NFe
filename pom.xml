@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-wsdl</artifactId>
-			<version>3.10b</version>
+			<version>3.10c</version>
 		</dependency>
 		
 		<!-- XSD Nfe -->
