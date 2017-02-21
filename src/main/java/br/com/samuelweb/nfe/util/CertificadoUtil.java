@@ -216,7 +216,7 @@ public class CertificadoUtil {
 		//Extrair Cacert do Jar
 		String cacert = "";
         try {
-            InputStream input = getClass().getResourceAsStream("/NFeCacerts");
+            InputStream input = getClass().getResourceAsStream("/Cacert");
             File file = File.createTempFile("tempfile", ".tmp");
             OutputStream out = new FileOutputStream(file);
             int read;
@@ -238,7 +238,7 @@ public class CertificadoUtil {
 			try {
 				System.out.println("Modo Protocol Ativado.");
 				ativaProtocolo(configuracoesNfe.getCertificado());
-			} catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException e) {
+			} catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException | NoSuchProviderException | CertificateException | IOException e) {
 				 throw new NfeException(e.getMessage());
 			}
 		}
@@ -276,13 +276,21 @@ public class CertificadoUtil {
 	    }
 	}
 	
-	public void ativaProtocolo(Certificado certificado) throws NfeException, KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException{
+	public void ativaProtocolo(Certificado certificado) throws NfeException, KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, NoSuchProviderException, CertificateException, IOException{
 		
-		KeyStore ks = getKeyStore(certificado);
+		KeyStore ks = null ;
+		
+		if(certificado.getTipo().equals(Certificado.WINDOWS)){
+			ks = KeyStore.getInstance("Windows-MY", "SunMSCAPI");
+			ks.load(null, null);
+		}else if(certificado.getTipo().equals(Certificado.ARQUIVO)){
+			ks = getKeyStore(certificado);
+		}
+		
 		X509Certificate certificate = (X509Certificate) ks.getCertificate(certificado.getNome());  
         PrivateKey privateKey = (PrivateKey) ks.getKey(certificado.getNome(), certificado.getSenha().toCharArray());  
 		SocketFactoryDinamico socketFactory = new SocketFactoryDinamico(certificate, privateKey );
-		socketFactory.setFileCacerts(getClass().getResourceAsStream("/NFeCacerts"));
+		socketFactory.setFileCacerts(getClass().getResourceAsStream("/Cacert"));
 		Protocol protocol = new Protocol("https", socketFactory, 443);
 		Protocol.registerProtocol("https", protocol);
 	}

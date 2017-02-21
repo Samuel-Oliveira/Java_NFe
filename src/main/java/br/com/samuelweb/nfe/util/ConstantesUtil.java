@@ -19,7 +19,7 @@ public interface ConstantesUtil {
 		public static final String CONSULTA_RECIBO = "NFeRetAutorizacao_3.10";
 		public static final String URL_QRCODE = "URL-QRCode";
 		public static final String URL_CONSULTANFCE = "URL-ConsultaNFCe";
-		public static final String CONSULTA_DEST = "ConsultaDest_1.01";
+		public static final String CONSULTA_DEST = "ConsultaDest_1.00";
 		public static final String EVENTO = "RecepcaoEvento_1.00";
 		public static final String INUTILIZACAO = "NfeInutilizacao_3.10";
 		public static final String CONSULTA_XML = "NfeConsultaProtocolo_3.10";
@@ -37,7 +37,7 @@ public interface ConstantesUtil {
 	
 	interface VERSAO{
 		public static final String V3_10 = "3.10";
-		public static final String V1_00 = "1_00";
+		public static final String V1_00 = "1.00";
 	}
 
 }

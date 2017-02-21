@@ -43,14 +43,7 @@ public class Enviar {
 	 */
 	public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException {
 
-		certUtil = new CertificadoUtil();
-
 		try {
-
-			/**
-			 * Informacoes do Certificado Digital.
-			 */
-			certUtil.iniciaConfiguracoes();
 
 			/**
 			 * Cria o xml
@@ -91,7 +84,12 @@ public class Enviar {
 	 */
 	public static TRetEnviNFe enviaNfe(TEnviNFe enviNFe, String tipo) throws NfeException {
 
+		/**
+		 * Informacoes do Certificado Digital.
+		 */
 		certUtil = new CertificadoUtil();
+		certUtil.iniciaConfiguracoes();
+		
 		boolean nfce = tipo.equals(ConstantesUtil.NFCE);
 		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
 		String qrCode = "";
