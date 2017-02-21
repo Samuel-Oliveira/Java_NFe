@@ -27,10 +27,9 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v3.10.6 - 13-01-2017
-- Issues: #21 E #22.
-- Adicionado Consulta DistribuiçãoDFe Por Chave NFe.
-- Alterado Schema DistribuicaoDfe para 1.01.
+## v3.10.6 - 21-02-2017
+- Issues: #22 e #23.
+- Adicionado Metodo para Ler Arquivo XML.
 - Adicionado Stubs da Bahia :
    - Status Serviço
    - Consulta Xml

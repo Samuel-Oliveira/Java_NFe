@@ -5,6 +5,7 @@ package br.com.samuelweb.nfe.util;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
@@ -186,7 +187,7 @@ public class XmlUtil {
 
 	}
 
-	public static String gZipToXml(byte[] conteudo) throws NfeException, IOException {
+	public static String gZipToXml(byte[] conteudo) throws IOException {
 		if (conteudo == null || conteudo.length == 0) {
 			return "";
 		}
@@ -241,5 +242,31 @@ public class XmlUtil {
         return xml;
 		
 	}
+	
+	/**
+	 * Le o Arquivo XML e retona String
+	 * 
+	 * @return String
+	 * @throws CteException
+	 */
+	public static String leXml(String arquivo) throws NfeException {
+
+		StringBuilder xml = new StringBuilder();
+		BufferedReader in;
+		try {
+			in = new BufferedReader(new InputStreamReader(new FileInputStream(arquivo), "UTF-8"));
+			String linha;
+
+			while ((linha = in.readLine()) != null) {
+				xml.append(linha);
+
+			}
+			in.close();
+		} catch (IOException e) {
+			throw new NfeException("Ler Xml: "+ e.getMessage());
+		}
+		return xml.toString();
+	}
+
 	
 }
