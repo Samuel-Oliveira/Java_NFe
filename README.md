@@ -28,13 +28,16 @@ ________________________________________________________________________________
 # Historico de Versões
 
 ## v3.10.6 - 21-02-2017
-- Issues: #22 e #23.
+- Issues: # 21, #22 e #23.
 - Adicionado Metodo para Ler Arquivo XML.
 - Adicionado Stubs da Bahia :
    - Status Serviço
    - Consulta Xml
    - Inutilização
 - Arquivo Cacert Atualizado
+- Correção Endereço WebService MG.
+- Adicionado XSD DistribuicaoDFe 1.01
+- Adicionado Função PAra Download de Nfe Por Chave.
    
 ## v3.10.5 - 21-11-2016
 - Issues: #15, #16, #17 e #18.
