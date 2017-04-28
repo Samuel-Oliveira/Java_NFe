@@ -31,6 +31,7 @@ ________________________________________________________________________________
 - Issues: 
 - Correção Endereço WebService MT.
 - Adicionado Cacert com Alterações do AM
+- Adicionado Cacert com Alteracao da BA
 
 ## v3.10.6 - 21-02-2017
 - Issues: # 21, #22 e #23.
