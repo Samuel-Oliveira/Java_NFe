@@ -23,7 +23,6 @@ public final class ConfiguracoesIniciaisNfe {
 	private String versaoNfe;
 	private ProxyUtil proxyUtil; 
 	private boolean contigenciaSCAN;
-	private boolean protocol;
 	
 	//Construtor Singleton
 	private ConfiguracoesIniciaisNfe(){}
@@ -43,7 +42,7 @@ public final class ConfiguracoesIniciaisNfe {
 	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
 		new ConfiguracoesIniciaisNfe(estado,ambiente,certificado,pastaSchemas,versaoNfe);
 		System.out.println("Certificado: "+certificado.getNome() +" - Vencimento: " + certificado.getVencimento());
-		System.out.println("Ambiente: "+ (ambiente == "1" ? "Produção" : "Homologação") + " - Estado: "+estado.getNome() + " - Versão: "+versaoNfe);
+		System.out.println("Ambiente: "+ (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "+estado.getNome() + " - Versão: "+versaoNfe);
 		return instance;
 	}
 	
@@ -148,20 +147,6 @@ public final class ConfiguracoesIniciaisNfe {
 	 */
 	public void setEstado(Estados estado) {
 		this.estado = estado;
-	}
-
-	/**
-	 * @return the protocol
-	 */
-	public boolean isProtocol() {
-		return protocol;
-	}
-
-	/**
-	 * @param protocol the protocol to set
-	 */
-	public void setProtocol(boolean protocol) {
-		this.protocol = protocol;
 	}
 
 }

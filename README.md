@@ -4,7 +4,7 @@ Projeto Para implementação do Java-Nfe Utilizando JAXB.
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.6.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.6.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-3.10.7.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.7.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -17,7 +17,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>3.10.6</version>
+			<version>3.10.7</version>
 		</dependency>
 ```
 
@@ -26,6 +26,16 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v3.10.7 - 23-05-2017
+- Correção Endereço WebService MT.
+- Adicionado Cacert com Alterações do AM
+- Adicionado Cacert com Alteracao da BA
+- Removido Protocol
+- Alterado Configurações de Certificado SSL para SocketDinamico 
+- Adicionado Serviço De Consulta Cadastro.
+- Adicionado Schemas de Consulta Cadastro.
+- Alterado Projeto XSD para versão 8.i.2_DFe1.02a
 
 ## v3.10.6 - 21-02-2017
 - Issues: # 21, #22 e #23.

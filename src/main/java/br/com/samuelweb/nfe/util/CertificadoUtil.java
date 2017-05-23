@@ -4,16 +4,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
-import java.security.Security;
 import java.security.UnrecoverableEntryException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
@@ -180,67 +177,78 @@ public class CertificadoUtil {
 
 	}
 
-	@SuppressWarnings("restriction")
 	public void iniciaConfiguracoes() throws NfeException {
 
-		System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
-		System.setProperty("java.protocol.handler.pkgs", "com.sun.net.ssl.internal.www.protocol");
-		Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-
-		System.clearProperty("javax.net.ssl.keyStore");
-		System.clearProperty("javax.net.ssl.keyStorePassword");
-		System.clearProperty("javax.net.ssl.trustStore");
-		
-		if(configuracoesNfe.getProxy()!=null){
-			System.setProperty("http.proxyHost", configuracoesNfe.getProxy().getProxyHostName());
-			System.setProperty("http.proxyPort", configuracoesNfe.getProxy().getProxyPort());
-			System.setProperty("http.proxyUser", configuracoesNfe.getProxy().getProxyUserName()); 
-			System.setProperty("http.proxyPassword", configuracoesNfe.getProxy().getProxyPassWord()); 
-		}
-
-		System.setProperty("jdk.tls.client.protocols", "TLSv1"); // Servidor do	Sefaz RS
-
-		if(configuracoesNfe.getCertificado().getTipo().equals(Certificado.WINDOWS)){
-			System.setProperty("javax.net.ssl.keyStoreProvider", "SunMSCAPI");
-			System.setProperty("javax.net.ssl.keyStoreType", "Windows-MY");
-			System.setProperty("javax.net.ssl.keyStoreAlias", configuracoesNfe.getCertificado().getNome());
-		}else if(configuracoesNfe.getCertificado().getTipo().equals(Certificado.ARQUIVO)){
-			System.setProperty("javax.net.ssl.keyStoreType", "PKCS12");  
-			System.setProperty("javax.net.ssl.keyStore", configuracoesNfe.getCertificado().getArquivo());  
-		}
-
-		System.setProperty("javax.net.ssl.keyStorePassword", configuracoesNfe.getCertificado().getSenha());
-
-		System.setProperty("javax.net.ssl.trustStoreType", "JKS");
+//		System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
+//		System.setProperty("java.protocol.handler.pkgs", "com.sun.net.ssl.internal.www.protocol");
+//		Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+//
+//		System.clearProperty("javax.net.ssl.keyStore");
+//		System.clearProperty("javax.net.ssl.keyStorePassword");
+//		System.clearProperty("javax.net.ssl.trustStore");
+//		
+//		if(configuracoesNfe.getProxy()!=null){
+//			System.setProperty("http.proxyHost", configuracoesNfe.getProxy().getProxyHostName());
+//			System.setProperty("http.proxyPort", configuracoesNfe.getProxy().getProxyPort());
+//			System.setProperty("http.proxyUser", configuracoesNfe.getProxy().getProxyUserName()); 
+//			System.setProperty("http.proxyPassword", configuracoesNfe.getProxy().getProxyPassWord()); 
+//		}
+//
+//		System.setProperty("jdk.tls.client.protocols", "TLSv1"); // Servidor do	Sefaz RS
+//
+//		if(configuracoesNfe.getCertificado().getTipo().equals(Certificado.WINDOWS)){
+//			System.setProperty("javax.net.ssl.keyStoreProvider", "SunMSCAPI");
+//			System.setProperty("javax.net.ssl.keyStoreType", "Windows-MY");
+//			System.setProperty("javax.net.ssl.keyStoreAlias", configuracoesNfe.getCertificado().getNome());
+//		}else if(configuracoesNfe.getCertificado().getTipo().equals(Certificado.ARQUIVO)){
+//			System.setProperty("javax.net.ssl.keyStoreType", "PKCS12");  
+//			System.setProperty("javax.net.ssl.keyStore", configuracoesNfe.getCertificado().getArquivo());  
+//		}
+//
+//		System.setProperty("javax.net.ssl.keyStorePassword", configuracoesNfe.getCertificado().getSenha());
+//
+//		System.setProperty("javax.net.ssl.trustStoreType", "JKS");
 		
 		//Extrair Cacert do Jar
-		String cacert = "";
-        try {
-            InputStream input = getClass().getResourceAsStream("/Cacert");
-            File file = File.createTempFile("tempfile", ".tmp");
-            OutputStream out = new FileOutputStream(file);
-            int read;
-            byte[] bytes = new byte[1024];
+//		String cacert = "";
+//        try {
+//            InputStream input = getClass().getResourceAsStream("/Cacert");
+//            File file = File.createTempFile("tempfile", ".tmp");
+//            OutputStream out = new FileOutputStream(file);
+//            int read;
+//            byte[] bytes = new byte[1024];
+//
+//            while ((read = input.read(bytes)) != -1) {
+//                out.write(bytes, 0, read);
+//            }
+//            out.close();
+//            cacert = file.getAbsolutePath();
+//            file.deleteOnExit();
+//        } catch (IOException ex) {
+//            throw new NfeException(ex.getMessage());
+//        }
+        
+		try {
+			KeyStore ks = null;
 
-            while ((read = input.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            out.close();
-            cacert = file.getAbsolutePath();
-            file.deleteOnExit();
-        } catch (IOException ex) {
-            throw new NfeException(ex.getMessage());
-        }
-	   
-		System.setProperty("javax.net.ssl.trustStore", cacert);
-		
-		if(configuracoesNfe.isProtocol()){
-			try {
-				System.out.println("Modo Protocol Ativado.");
-				ativaProtocolo(configuracoesNfe.getCertificado());
-			} catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException | NoSuchProviderException | CertificateException | IOException e) {
-				 throw new NfeException(e.getMessage());
+			Certificado certificado = configuracoesNfe.getCertificado();
+
+			if (certificado.getTipo().equals(Certificado.WINDOWS)) {
+				ks = KeyStore.getInstance("Windows-MY", "SunMSCAPI");
+				ks.load(null, null);
+			} else if (certificado.getTipo().equals(Certificado.ARQUIVO)) {
+				ks = getKeyStore(configuracoesNfe.getCertificado());
 			}
+
+			X509Certificate certificate = (X509Certificate) ks.getCertificate(certificado.getNome());
+			PrivateKey privateKey = (PrivateKey) ks.getKey(certificado.getNome(), certificado.getSenha().toCharArray());
+			SocketFactoryDinamico socketFactory = new SocketFactoryDinamico(certificate, privateKey);
+			socketFactory.setFileCacerts(getClass().getResourceAsStream("/Cacert"));
+			Protocol protocol = new Protocol("https", socketFactory, 443);
+			Protocol.registerProtocol("https", protocol);
+
+		} catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException | NoSuchProviderException | CertificateException | IOException e) {
+			throw new NfeException(e.getMessage());
 		}
 		
 	}
@@ -274,25 +282,6 @@ public class CertificadoUtil {
 
 	        return os.toByteArray();
 	    }
-	}
-	
-	public void ativaProtocolo(Certificado certificado) throws NfeException, KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, NoSuchProviderException, CertificateException, IOException{
-		
-		KeyStore ks = null ;
-		
-		if(certificado.getTipo().equals(Certificado.WINDOWS)){
-			ks = KeyStore.getInstance("Windows-MY", "SunMSCAPI");
-			ks.load(null, null);
-		}else if(certificado.getTipo().equals(Certificado.ARQUIVO)){
-			ks = getKeyStore(certificado);
-		}
-		
-		X509Certificate certificate = (X509Certificate) ks.getCertificate(certificado.getNome());  
-        PrivateKey privateKey = (PrivateKey) ks.getKey(certificado.getNome(), certificado.getSenha().toCharArray());  
-		SocketFactoryDinamico socketFactory = new SocketFactoryDinamico(certificate, privateKey );
-		socketFactory.setFileCacerts(getClass().getResourceAsStream("/Cacert"));
-		Protocol protocol = new Protocol("https", socketFactory, 443);
-		Protocol.registerProtocol("https", protocol);
 	}
 
 }
