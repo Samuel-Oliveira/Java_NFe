@@ -4,6 +4,7 @@
 package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.consrecinfe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema.conssitnfe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema.consstatserv.TConsStatServ;
@@ -13,6 +14,7 @@ import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envinfe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema.envinfe.TRetEnviNFe;
 import br.inf.portalfiscal.nfe.schema.inutnfe.TInutNFe;
+import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
 import br.inf.portalfiscal.nfe.schema.retconsrecinfe.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.schema.retconssitnfe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema.retconsstatserv.TRetConsStatServ;
@@ -57,6 +59,19 @@ public class Nfe {
 		
 		return ConsultaXml.consultaXml(consSitNFe , valida, tipo);
 			
+	}
+	
+	/**
+	 * Classe Reponsavel Por Consultar o cadastro do Cnpj na SEFAZ
+	 * 
+	 * @param consCad
+	 * @return TRetConsCad
+	 * @throws NfeException 
+	 */
+	public static TRetConsCad consultaCadastro(TConsCad consCad, boolean valida) throws NfeException{
+		
+		return ConsultaCadastro.consultaCadastro(consCad, valida);
+		
 	}
 	
 	/**

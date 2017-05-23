@@ -27,14 +27,15 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v3.10.7 - 
-- Issues: 
+## v3.10.7 - 23-05-2017
 - Correção Endereço WebService MT.
 - Adicionado Cacert com Alterações do AM
 - Adicionado Cacert com Alteracao da BA
 - Removido Protocol
 - Alterado Configurações de Certificado SSL para SocketDinamico 
-- Schema Atualizado com XSD NfeDistribuicao 1.01
+- Adicionado Serviço De Consulta Cadastro.
+- Adicionado Schemas de Consulta Cadastro.
+- Alterado Projeto XSD para versão 8.i.2_DFe1.02a
 
 ## v3.10.6 - 21-02-2017
 - Issues: # 21, #22 e #23.

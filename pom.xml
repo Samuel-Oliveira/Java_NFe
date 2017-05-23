@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-xsd</artifactId>
-			<version>8.i.2_DFe1.02</version>
+			<version>8.i.2_DFe1.02a</version>
 		</dependency>
 
 		<dependency>

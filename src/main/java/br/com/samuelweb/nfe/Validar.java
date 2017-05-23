@@ -22,6 +22,7 @@ public class Validar implements ErrorHandler {
 	
 	public static final String STATUS = "status";
 	public static final String CONSULTA_XML = "consultaXml";
+	public static final String CONSULTA_CADASTRO = "consCad";
 	public static final String ENVIO = "envio";
 	public static final String DIST_DFE = "destDfe";
 	public static final String INUTILIZACAO = "inutilizacao";
@@ -54,6 +55,9 @@ public class Validar implements ErrorHandler {
 			break;
 		case CONSULTA_XML:
 			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CONSULTA_XML;
+			break;
+		case CONSULTA_CADASTRO:
+			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CONSULTA_CADASTRO;
 			break;
 		case DIST_DFE:
 			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.DIST_DFE;

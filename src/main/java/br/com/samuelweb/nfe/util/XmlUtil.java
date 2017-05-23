@@ -21,6 +21,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.consrecinfe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema.conssitnfe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema.consstatserv.TConsStatServ;
@@ -48,6 +49,7 @@ public class XmlUtil {
 	private static final String EVENTO = "TEnvEvento";
 	private static final String TPROCEVENTO = "TProcEvento";
 	private static final String TCONSRECINFE = "TConsReciNFe";
+	private static final String TConsCad = "TConsCad";
 	
 	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento";
 	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
@@ -114,6 +116,11 @@ public class XmlUtil {
 		case TCONSRECINFE:
 			context = JAXBContext.newInstance(TConsReciNFe.class);
 			element = new br.inf.portalfiscal.nfe.schema.consrecinfe.ObjectFactory().createConsReciNFe((TConsReciNFe) obj);
+			break;
+			
+		case TConsCad:
+			context = JAXBContext.newInstance(TConsCad.class);
+			element = new br.inf.portalfiscal.nfe.schema.consCad.ObjectFactory().createConsCad((TConsCad) obj);
 			break;
 			
 		case INUTILIZACAO:
