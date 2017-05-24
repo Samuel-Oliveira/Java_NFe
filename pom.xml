@@ -51,6 +51,13 @@
 			<version>8.i.2_DFe1.02a</version>
 		</dependency>
 
+		<!-- MArsheller Cdata -->
+		<dependency>
+			<groupId>com.sun.xml.txw2</groupId>
+			<artifactId>txw2</artifactId>
+			<version>20110809</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.axis2</groupId>
 			<artifactId>axis2-transport-http</artifactId>
@@ -112,5 +119,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	<version>3.10.7</version>
+	<version>3.10.8</version>
 </project>

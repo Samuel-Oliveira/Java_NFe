@@ -27,6 +27,9 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
+## v3.10.8
+- Corrigido Erro ao Gerar XML de NFC-e sem CDATA no QrCode
+
 ## v3.10.7 - 23-05-2017
 - Correção Endereço WebService MT.
 - Adicionado Cacert com Alterações do AM
