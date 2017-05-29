@@ -37,8 +37,10 @@ public class Nfe {
 	 * Metodo Responsavel Buscar o Status de Serviço do Servidor da Sefaz
 	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
 	 * 
-	 * @param TConsStatServ
-	 * @return TRetConsStatServ
+	 * @param consStatServ
+	 * @param valida
+	 * @param tipo
+	 * @return
 	 * @throws NfeException
 	 */
 	public static TRetConsStatServ statusServico(TConsStatServ consStatServ, boolean valida , String tipo) throws NfeException{
@@ -78,9 +80,11 @@ public class Nfe {
 	 * Classe Reponsavel Por Consultar o retorno da NFE na SEFAZ
 	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
 	 * 
-	 * @param TConsReciNFe
-	 * @return TRetConsReciNFe
-	 * @throws NfeException 
+	 * @param consReciNFe
+	 * @param valida
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
 	 */
 	public static TRetConsReciNFe consultaXml(TConsReciNFe consReciNFe, boolean valida, String tipo) throws NfeException{
 		
@@ -92,9 +96,11 @@ public class Nfe {
 	 * Classe Reponsavel Por Inutilizar a NFE na SEFAZ
 	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
 	 * 
-	 * @param TInutNFe
-	 * @return TRetInutNFe
-	 * @throws NfeException 
+	 * @param inutNFe
+	 * @param valida
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
 	 */
 	public static TRetInutNFe inutilizacao(TInutNFe inutNFe, boolean valida, String tipo) throws NfeException{
 		
@@ -105,9 +111,10 @@ public class Nfe {
 	/**
 	 * Classe Reponsavel Por Consultar a Distribuiçao da NFE na SEFAZ
 	 * 
-	 * @param consSitNFe
-	 * @return TRetConsSitNFe
-	 * @throws NfeException 
+	 * @param distDFeInt
+	 * @param valida
+	 * @return
+	 * @throws NfeException
 	 */
 	public static RetDistDFeInt distribuicaoDfe(DistDFeInt distDFeInt, boolean valida) throws NfeException{
 		
@@ -118,9 +125,10 @@ public class Nfe {
 	/**
 	 * Metodo para Montar a NFE.
 	 * 
-	 * @param TEnviNFe
-	 * @return String
-	 * @throws NfeException 
+	 * @param enviNFe
+	 * @param valida
+	 * @return
+	 * @throws NfeException
 	 */
 	public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException{
 		
@@ -132,9 +140,10 @@ public class Nfe {
 	 * Metodo para Enviar a NFE.
 	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
 	 * 
-	 * @param String
-	 * @return TRetEnviNFe
-	 * @throws NfeException 
+	 * @param enviNFe
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
 	 */
 	public static TRetEnviNFe enviarNfe(TEnviNFe enviNFe, String tipo) throws NfeException{
 		
@@ -143,13 +152,16 @@ public class Nfe {
 	}
 	
 	/**
-	 * Metodo para Cancelar a NFE.
+	 * 	 * Metodo para Cancelar a NFE.
 	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
 	 * 
-	 * @param String
-	 * @return TRetEnvEvento
-	 * @throws NfeException 
+	 * @param evento
+	 * @param valida
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
 	 */
+
 	public static TRetEnvEvento cancelarNfe(TEnvEvento evento, boolean valida, String tipo) throws NfeException{
 		
 		return Evento.eventoCancelamento(evento , valida, tipo);
@@ -157,12 +169,14 @@ public class Nfe {
 	}
 	
 	/**
-	 * Metodo para Envio da Carta De Correção da NFE.
+	 * 	 * Metodo para Envio da Carta De Correção da NFE.
 	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
 	 * 
-	 * @param String
-	 * @return TRetEnvEvento
-	 * @throws NfeException 
+	 * @param evento
+	 * @param valida
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
 	 */
 	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento cce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida, String tipo) throws NfeException{
 		
@@ -173,9 +187,10 @@ public class Nfe {
 	/**
 	 * Metodo para Manifestação da NFE.
 	 * 
-	 * @param String
-	 * @return TRetEnvEvento
-	 * @throws NfeException 
+	 * @param envEvento
+	 * @param valida
+	 * @return
+	 * @throws NfeException
 	 */
 	public static br.inf.portalfiscal.nfe.schema.retEnvConfRecebto.TRetEnvEvento manifestacao(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento envEvento, boolean valida) throws NfeException {
 		

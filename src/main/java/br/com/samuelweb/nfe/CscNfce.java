@@ -14,11 +14,14 @@ import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.inf.portalfiscal.www.nfe.wsdl.CscNFCe.CscNFCeStub;
 
 
+
 /**
  * Classe responsavel por trazer o Codigo Csc Do Cliente
  * 
- * @autor Samuel Oliveira
+ * @author Samuel Oliveira
+ *
  */
+
 public class CscNfce {
 
 	static CscNFCeStub.CscNFCeResult result;

@@ -9,6 +9,7 @@ import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.Estados;
@@ -37,9 +38,11 @@ public class ConsultaXml {
 	/**
 	 * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
 	 * 
-	 * @param Chave
-	 * @return Resposta da Sefaz
-	 * @throws NfeException 
+	 * @param consSitNFe
+	 * @param valida
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
 	 */
 	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida, String tipo) throws NfeException {
 		
@@ -57,7 +60,7 @@ public class ConsultaXml {
 			if(valida){
 				String erros = Validar.validaXml(xml, Validar.CONSULTA_XML);
 				if(!ObjetoUtil.isEmpty(erros)){
-					throw new NfeException("Erro Na Validação do Xml: "+erros);
+					throw new NfeValidacaoException("Erro Na Validação do Xml: "+erros);
 				}
 			}
 			

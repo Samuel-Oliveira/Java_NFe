@@ -77,7 +77,6 @@ public class Assinar {
 	
 	/**
 	 * @param stringXml
-	 * @param certificado
 	 * @param tipo ('Nfe' para nfe normal , 'infInut' para inutilizacao, 'evento' para eventos)
 	 * @return String do Xml Assinado
 	 * @throws NfeException

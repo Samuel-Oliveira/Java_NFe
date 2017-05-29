@@ -29,7 +29,7 @@ public class NFCeUtil {
      * 
      * @return String do QrCode
      */  
-    public static String getCodeQRCode(String chave, String versao, String ambiente, String cpfCnpj, String dhEmi, String valorNF, String ValorICMS, String digVal, String idToken, String CSC, String urlConsulta) {  
+    public static String getCodeQRCode(String chave, String versao, String ambiente, String cpfCnpj, String dhEmi, String valorNF, String valorICMS, String digVal, String idToken, String CSC, String urlConsulta) {  
     	
         StringBuilder value = new StringBuilder();  
         value.append("chNFe=").append(chave);  
@@ -38,7 +38,7 @@ public class NFCeUtil {
         value.append((cpfCnpj == null | "".equals(cpfCnpj)) ? "" : "&cDest=" + cpfCnpj);  
         value.append("&dhEmi=").append(getHexa(dhEmi));  
         value.append("&vNF=").append(valorNF);  
-        value.append("&vICMS=").append(ValorICMS);  
+        value.append("&vICMS=").append(valorICMS);  
         value.append("&digVal=").append(getHexa(digVal));  
         value.append("&cIdToken=").append(idToken);  
         cHashQRCode = getHexa(getHash(value.toString() + CSC, "SHA-1")).toUpperCase();  

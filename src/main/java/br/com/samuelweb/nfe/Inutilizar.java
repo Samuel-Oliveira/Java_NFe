@@ -9,6 +9,7 @@ import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.Estados;
@@ -53,7 +54,7 @@ public class Inutilizar {
 			if (valida) {
 				String erros = Validar.validaXml(xml, Validar.INUTILIZACAO);
 				if (!ObjetoUtil.isEmpty(erros)) {
-					throw new NfeException("Erro Na Validação do Xml: " + erros);
+					throw new NfeValidacaoException("Erro Na Validação do Xml: " + erros);
 				}
 			}
 

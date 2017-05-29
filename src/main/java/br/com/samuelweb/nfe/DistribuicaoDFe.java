@@ -9,6 +9,7 @@ import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
@@ -31,8 +32,10 @@ public class DistribuicaoDFe {
 	/**
 	 * Classe Reponsavel Por Consultar as NFE na SEFAZ
 	 * 
-	 * @param nfe
-	 * @return nfe
+	 * @param distDFeInt
+	 * @param valida
+	 * @return
+	 * @throws NfeException
 	 */
 	public static RetDistDFeInt consultaNfe(DistDFeInt distDFeInt, boolean valida) throws NfeException{
 		
@@ -51,7 +54,7 @@ public class DistribuicaoDFe {
 				String erros = Validar.validaXml(xml, Validar.DIST_DFE);
 				
 				if(!ObjetoUtil.isEmpty(erros)){
-					throw new NfeException("Erro Na Validação do Xml: "+erros);
+					throw new NfeValidacaoException("Erro Na Validação do Xml: "+erros);
 				}
 			}
 			

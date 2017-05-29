@@ -9,6 +9,7 @@ import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.Estados;
@@ -24,7 +25,8 @@ import br.inf.portalfiscal.www.nfe.wsdl.NfeStatusServico2.NfeStatusServico2Stub;
 /**
  * Classe responsavel por fazer a Verificacao do Status Do Webservice
  * 
- * @autor Samuel Oliveira
+ * @author Samuel Oliveira
+ *
  */
 public class Status {
 
@@ -48,7 +50,7 @@ public class Status {
 			if(valida){
 				String erros = Validar.validaXml(xml, Validar.STATUS);
 				if(!ObjetoUtil.isEmpty(erros)){
-					throw new NfeException("Erro Na Validação do Xml: "+erros);
+					throw new NfeValidacaoException("Erro Na Validação do Xml: "+erros);
 				}
 			}
 			

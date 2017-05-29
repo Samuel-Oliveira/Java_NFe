@@ -66,9 +66,9 @@ public class XmlUtil {
 	/**
 	 * Transforma o String do XML em Objeto
 	 * 
-	 * @param String
-	 * @param Class<T>
-	 * @return <T> T
+	 * @param xml
+	 * @param classe
+	 * @return T
 	 */
 	public static <T> T xmlToObject(String xml, Class<T> classe) throws JAXBException {
 
@@ -81,9 +81,10 @@ public class XmlUtil {
 	/**
 	 * Transforma o Objeto em XML(String)
 	 * 
-	 * @return String
+	 * @param obj
+	 * @return
+	 * @throws JAXBException
 	 * @throws NfeException
-	 * @throws IOException
 	 */
 	public static <T> String objectToXml(Object obj) throws JAXBException, NfeException {
 
@@ -263,7 +264,7 @@ public class XmlUtil {
 	 * Le o Arquivo XML e retona String
 	 * 
 	 * @return String
-	 * @throws CteException
+	 * @throws NfeException
 	 */
 	public static String leXml(String arquivo) throws NfeException {
 

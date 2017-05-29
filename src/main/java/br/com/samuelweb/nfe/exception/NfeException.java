@@ -24,7 +24,7 @@ public class NfeException extends Exception {
 	/**
 	 * Construtor da classe.
 	 * 
-	 * @param code
+	 * @param message
 	 */
 	public NfeException(String message) {
 		this((Throwable) null);

@@ -1,6 +1,8 @@
 # Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe)
 Projeto Para implementação do Java-Nfe Utilizando JAXB.
 
+JavaDoc -> https://samuel-oliveira.github.io/Java_NFe/
+
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
@@ -31,6 +33,8 @@ ________________________________________________________________________________
 - Corrigido Erro ao Gerar XML de NFC-e sem CDATA no QrCode
 - Removido WebService especial da Bahia Para Nfce
 - Adicionado Compatibilidade com Certificado A3 fora do Repositorio de Windows
+- Adicionado Exception Espeficifica para Erros de Validação
+- Adicionado Java_Docs
 - Removido a Parte de Certificado Digitais para outro Projeto.
 - **Atenção: Alterado o caminho do Objeto Certificado, refaça os Imports.** 
 

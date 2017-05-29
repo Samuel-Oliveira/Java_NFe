@@ -13,6 +13,7 @@ import org.apache.axiom.om.OMText;
 import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
@@ -35,10 +36,11 @@ public class Enviar {
 	private static CertificadoUtil certUtil;
 
 	/**
-	 * Metodo para Montar a NFE..
+	 * Metodo para Montar a NFE
 	 * 
-	 * @param TEnviNFe
-	 * @return String
+	 * @param enviNFe
+	 * @param valida
+	 * @return
 	 * @throws NfeException
 	 */
 	public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException {
@@ -61,7 +63,7 @@ public class Enviar {
 			if(valida){
 				String erros = Validar.validaXml(xml, Validar.ENVIO);
 				if (!ObjetoUtil.isEmpty(erros)) {
-					throw new NfeException("Erro Na Validação do Xml: " + erros);
+					throw new NfeValidacaoException("Erro Na Validação do Xml: " + erros);
 				}
 			}
 
@@ -78,8 +80,9 @@ public class Enviar {
 	/**
 	 * Metodo para Enviar a NFE.
 	 * 
-	 * @param nfe
-	 * @return Nfe
+	 * @param enviNFe
+	 * @param tipo
+	 * @return
 	 * @throws NfeException
 	 */
 	public static TRetEnviNFe enviaNfe(TEnviNFe enviNFe, String tipo) throws NfeException {
