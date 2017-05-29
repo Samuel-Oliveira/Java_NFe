@@ -56,7 +56,7 @@ public class Status {
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 			
 			
-			if(BA){
+			if(BA && !nfce){
 				NfeStatusServicoStub.NfeDadosMsg dadosMsgBA = new NfeStatusServicoStub.NfeDadosMsg();
 				dadosMsgBA.setExtraElement(ome);
 				

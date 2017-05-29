@@ -64,7 +64,7 @@ public class ConsultaXml {
 			System.out.println("Xml Consulta: "+xml);
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 			
-			if(BA){
+			if(BA && !nfce){
 				NfeConsultaStub.NfeDadosMsg dadosMsgBA = new NfeConsultaStub.NfeDadosMsg();
 				dadosMsgBA.setExtraElement(ome);
 				

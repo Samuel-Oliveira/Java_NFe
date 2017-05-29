@@ -60,7 +60,7 @@ public class Inutilizar {
 			System.out.println("Xml Inutilizar: " + xml);
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 
-			if (BA) {
+			if (BA && !nfce) {
 				NfeInutilizacaoStub.NfeDadosMsg dadosMsgBA = new NfeInutilizacaoStub.NfeDadosMsg();
 				dadosMsgBA.setExtraElement(ome);
 
