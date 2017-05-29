@@ -3,6 +3,7 @@
  */
 package br.com.samuelweb.nfe;
 
+import br.com.samuelweb.certificado.Certificado;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.Estados;
 import br.com.samuelweb.nfe.util.ProxyUtil;
