@@ -44,6 +44,14 @@ public class CertificadoUtil {
 		}
 	}
 
+	public static Certificado certificadoPfxBytes(byte[] certificadoBytes, String senha) throws NfeException {
+		try {
+			return CertificadoService.certificadoPfxBytes(certificadoBytes, senha);
+		} catch (CertificadoException e) {
+			throw new NfeException(e);
+		}
+	}
+	
 	public static Certificado certificadoPfx(String caminhoCertificado, String senha) throws NfeException {
 		try {
 			return CertificadoService.certificadoPfx(caminhoCertificado, senha);

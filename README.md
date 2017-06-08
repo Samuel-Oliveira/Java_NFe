@@ -6,7 +6,7 @@ JavaDoc -> https://samuel-oliveira.github.io/Java_NFe/
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.8b.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.8b.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-3.10.8c.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.8c.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -19,7 +19,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>3.10.8b</version>
+			<version>3.10.8c</version>
 		</dependency>
 ```
 
@@ -36,6 +36,7 @@ ________________________________________________________________________________
 - Adicionado Exception Espeficifica para Erros de Validação
 - Adicionado Java_Docs
 - Removido a Parte de Certificado Digitais para outro Projeto.
+- Melhorado Classe Socket DInamico
 - **Atenção: Alterado o caminho do Objeto Certificado, refaça os Imports.** 
 
 ## v3.10.7 - 23-05-2017
