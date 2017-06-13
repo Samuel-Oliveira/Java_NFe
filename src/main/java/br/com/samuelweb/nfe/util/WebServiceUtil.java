@@ -30,10 +30,7 @@ public class WebServiceUtil {
 			Wini ini = new Wini(is);
 			String url = ini.get(secao, "Usar");
 
-			if (servico.equals(ConstantesUtil.SERVICOS.DOWNLOAD)
-					|| servico.equals(ConstantesUtil.SERVICOS.DISTRIBUICAO_DFE)
-					|| servico.equals(ConstantesUtil.SERVICOS.CONSULTA_DEST)
-					|| servico.equals(ConstantesUtil.SERVICOS.MANIFESTACAO)) {
+			if (servico.equals(ConstantesUtil.SERVICOS.DISTRIBUICAO_DFE) || servico.equals(ConstantesUtil.SERVICOS.MANIFESTACAO)) {
 				secao = config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "NFe_AN_H" : "NFe_AN_P";
 
 				if (servico.equals(ConstantesUtil.SERVICOS.MANIFESTACAO)) {
