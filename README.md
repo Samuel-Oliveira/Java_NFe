@@ -35,7 +35,7 @@ ________________________________________________________________________________
 - Adicionado Compatibilidade com Certificado A3 fora do Repositorio de Windows
 - Adicionado Exception Espeficifica para Erros de Validação
 - Adicionado Java_Docs
-- Corrigido erros ao Consultar Cadastro de Outro Estado
+- Corrigido erros ao Consultar Cadastro de Outro Estado diferente da Configuração
 - Adicionado Exception ao não encontrar WebService.
 - Removido Metodos e Constantes de Download e Consulta Destinatario 
 - Removido a Parte de Certificado Digitais para outro Projeto.
