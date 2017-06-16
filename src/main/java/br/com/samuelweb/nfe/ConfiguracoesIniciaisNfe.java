@@ -42,7 +42,7 @@ public final class ConfiguracoesIniciaisNfe {
 	
 	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
 		new ConfiguracoesIniciaisNfe(estado,ambiente,certificado,pastaSchemas,versaoNfe);
-		System.out.println("Api Java Nfe Versão 3.10.8c - Samuel Olivera - samuk.exe@hotmail.com");
+		System.out.println("Api Java Nfe Versão 3.10.8d - Samuel Olivera - samuk.exe@hotmail.com");
 		System.out.println("Certificado: "+certificado.getNome() +" - Vencimento: " + certificado.getVencimento());
 		System.out.println("Ambiente: "+ (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "+estado.getNome() + " - Versão: "+versaoNfe);
 		return instance;

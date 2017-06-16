@@ -35,7 +35,9 @@ ________________________________________________________________________________
 - Adicionado Compatibilidade com Certificado A3 fora do Repositorio de Windows
 - Adicionado Exception Espeficifica para Erros de Validação
 - Adicionado Java_Docs
-- Removido Metodos e Constantes de Download e COnsulta Destinatario 
+- Corrigido erros ao Consultar Cadastro de Outro Estado
+- Adicionado Exception ao não encontrar WebService.
+- Removido Metodos e Constantes de Download e Consulta Destinatario 
 - Removido a Parte de Certificado Digitais para outro Projeto.
 - Melhorado Classe Socket DInamico
 - **Atenção: Alterado o caminho do Objeto Certificado, refaça os Imports.** 

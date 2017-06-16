@@ -11,7 +11,7 @@ import org.apache.axiom.om.util.AXIOMUtil;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
-import br.com.samuelweb.nfe.util.ConstantesUtil;
+import br.com.samuelweb.nfe.util.Estados;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
 import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
@@ -30,7 +30,6 @@ import br.inf.portalfiscal.www.nfe.wsdl.CadConsultaCadastro2.CadConsultaCadastro
 public class ConsultaCadastro {
 
 	private static CadConsultaCadastro2Result result;
-	private static ConfiguracoesIniciaisNfe configuracoesNfe;
 	private static CertificadoUtil certUtil;
 
 	/**
@@ -45,7 +44,6 @@ public class ConsultaCadastro {
 	public static TRetConsCad consultaCadastro(TConsCad consCad, boolean valida) throws NfeException {
 
 		certUtil = new CertificadoUtil();
-		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
 
 		try {
 
@@ -67,13 +65,13 @@ public class ConsultaCadastro {
 			dadosMsg.setExtraElement(ome);
 
 			CadConsultaCadastro2Stub.NfeCabecMsg nfeCabecMsg = new CadConsultaCadastro2Stub.NfeCabecMsg();
-			nfeCabecMsg.setCUF(String.valueOf(configuracoesNfe.getEstado().getCodigoIbge()));
+			nfeCabecMsg.setCUF(Estados.valueOf(consCad.getInfCons().getUF().toString()).getCodigoIbge());
 			nfeCabecMsg.setVersaoDados("2.00");
 
 			CadConsultaCadastro2Stub.NfeCabecMsgE nfeCabecMsgE = new CadConsultaCadastro2Stub.NfeCabecMsgE();
 			nfeCabecMsgE.setNfeCabecMsg(nfeCabecMsg);
 
-			CadConsultaCadastro2Stub stub = new CadConsultaCadastro2Stub(WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.CONSULTA_CADASTRO));
+			CadConsultaCadastro2Stub stub = new CadConsultaCadastro2Stub(WebServiceUtil.getUrlConsultaCadastro(consCad.getInfCons().getUF().toString()));
 			result = stub.cadConsultaCadastro2(dadosMsg, nfeCabecMsgE);
 			
 			return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsCad.class);

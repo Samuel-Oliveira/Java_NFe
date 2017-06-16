@@ -61,6 +61,10 @@ public class WebServiceUtil {
 			}
 
 			url = ini.get(secao, servico);
+			
+			if(ObjetoUtil.isEmpty(url)){
+				throw new NfeException("WebService de "+servico+" não encontrado para "+config.getEstado().getNome());
+			}
 
 			System.out.println("WebService - " + url);
 			return url;
@@ -69,6 +73,35 @@ public class WebServiceUtil {
 			throw new NfeException(e.getMessage());
 		}
 
+	}
+	public static String getUrlConsultaCadastro(String uf) throws NfeException {
+		
+			String tipo = ConstantesUtil.NFE;
+			String servico = ConstantesUtil.SERVICOS.CONSULTA_CADASTRO;
+		try {
+			
+			ConfiguracoesIniciaisNfe config = ConfiguracoesIniciaisNfe.getInstance();
+			String secao = tipo + "_" + uf.toUpperCase() + "_"
+					+ (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
+			
+			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServices.ini");
+			
+			Wini ini = new Wini(is);
+			String url = ini.get(secao, "Usar");
+			
+			url = ini.get(secao, servico);
+			
+			if(ObjetoUtil.isEmpty(url)){
+				throw new NfeException("WebService de "+servico+" não encontrado para "+uf);
+			}
+			
+			System.out.println("WebService - " + url);
+			return url;
+			
+		} catch (IOException e) {
+			throw new NfeException(e.getMessage());
+		}
+		
 	}
 
 }
