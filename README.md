@@ -6,7 +6,7 @@ JavaDoc -> https://samuel-oliveira.github.io/Java_NFe/
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.8c.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.8c.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-3.10.8.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.8.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -29,7 +29,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v3.10.8
+## v3.10.8 - 04-07-2017
 - Corrigido Erro ao Gerar XML de NFC-e sem CDATA no QrCode
 - Removido WebService especial da Bahia Para Nfce
 - Adicionado Compatibilidade com Certificado A3 fora do Repositorio de Windows
