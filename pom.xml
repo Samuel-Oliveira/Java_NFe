@@ -3,7 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-	<name>AutoNfeLibs</name>
+	<version>4.00.0a</version>
+	<name>Java_NFe</name>
 
 	<!-- Repositorios SVN Autocom -->
 	<repositories>
@@ -41,21 +42,21 @@
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-wsdl</artifactId>
-			<version>3.10c</version>
+			<version>4.00.0</version>
 		</dependency>
 
 		<!-- XSD Nfe -->
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-xsd</artifactId>
-			<version>8.i.2_DFe1.02a</version>
+			<version>9-v1.2</version>
 		</dependency>
 
 		<!-- Certificado Utils -->
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java_certificado</artifactId>
-			<version>1.3</version>
+			<version>1.4</version>
 		</dependency>
 
 		<!-- MArsheller Cdata -->
@@ -63,18 +64,6 @@
 			<groupId>com.sun.xml.txw2</groupId>
 			<artifactId>txw2</artifactId>
 			<version>20110809</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.axis2</groupId>
-			<artifactId>axis2-transport-http</artifactId>
-			<version>1.6.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.axis2</groupId>
-			<artifactId>axis2-transport-local</artifactId>
-			<version>1.6.2</version>
 		</dependency>
 
 		<!-- Ini4J -->
@@ -89,8 +78,13 @@
 			<artifactId>httpcore</artifactId>
 			<version>4.4.6</version>
 		</dependency>
+        <dependency>
+            <groupId>br.com.autocom</groupId>
+            <artifactId>WsdlToJar</artifactId>
+            <version>1.0</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -126,5 +120,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<version>3.10.8</version>
 </project>

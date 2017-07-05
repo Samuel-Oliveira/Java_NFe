@@ -3,34 +3,14 @@
  */
 package br.com.samuelweb.nfe.util;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.io.StringWriter;
+import br.com.samuelweb.nfe.exception.NfeException;
+import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
+
+import javax.xml.bind.*;
+import javax.xml.transform.stream.StreamSource;
+import java.io.*;
 import java.text.Normalizer;
 import java.util.zip.GZIPInputStream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.stream.StreamSource;
-
-import br.com.samuelweb.nfe.exception.NfeException;
-import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
-import br.inf.portalfiscal.nfe.schema.consrecinfe.TConsReciNFe;
-import br.inf.portalfiscal.nfe.schema.conssitnfe.TConsSitNFe;
-import br.inf.portalfiscal.nfe.schema.consstatserv.TConsStatServ;
-import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
-import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
-import br.inf.portalfiscal.nfe.schema.envinfe.TEnviNFe;
-import br.inf.portalfiscal.nfe.schema.envinfe.TNfeProc;
-import br.inf.portalfiscal.nfe.schema.envinfe.TProtNFe;
-import br.inf.portalfiscal.nfe.schema.inutnfe.TInutNFe;
 
 /**
  * Classe Responsavel por Metodos referentes ao XML
@@ -41,27 +21,27 @@ import br.inf.portalfiscal.nfe.schema.inutnfe.TInutNFe;
 public class XmlUtil {
 
 	private static final String STATUS = "TConsStatServ";
-	private static final String SITUACAO_NFE = "TConsSitNFe";
-	private static final String ENVIO_NFE = "TEnviNFe";
-	private static final String DIST_DFE = "DistDFeInt";
-	private static final String INUTILIZACAO = "TInutNFe";
-	private static final String NFEPROC = "TNfeProc";
-	private static final String EVENTO = "TEnvEvento";
-	private static final String TPROCEVENTO = "TProcEvento";
-	private static final String TCONSRECINFE = "TConsReciNFe";
-	private static final String TConsCad = "TConsCad";
+//	private static final String SITUACAO_NFE = "TConsSitNFe";
+//	private static final String ENVIO_NFE = "TEnviNFe";
+//	private static final String DIST_DFE = "DistDFeInt";
+//	private static final String INUTILIZACAO = "TInutNFe";
+//	private static final String NFEPROC = "TNfeProc";
+//	private static final String EVENTO = "TEnvEvento";
+//	private static final String TPROCEVENTO = "TProcEvento";
+//	private static final String TCONSRECINFE = "TConsReciNFe";
+//	private static final String TConsCad = "TConsCad";
 
-	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento";
-	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
-
-	private static final String TProtNFe = "TProtNFe";
-	private static final String TProtEnvi = "br.inf.portalfiscal.nfe.schema.envinfe.TProtNFe";
-	private static final String TProtCons = "br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe";
-	private static final String TProtReci = "br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe";
-
-	private static final String CANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento";
-	private static final String CCE = "br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento";
-	private static final String MANIFESTAR = "br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento";
+//	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento";
+//	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
+//
+//	private static final String TProtNFe = "TProtNFe";
+//	private static final String TProtEnvi = "br.inf.portalfiscal.nfe.schema.envinfe.TProtNFe";
+//	private static final String TProtCons = "br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe";
+//	private static final String TProtReci = "br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe";
+//
+//	private static final String CANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento";
+//	private static final String CCE = "br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento";
+//	private static final String MANIFESTAR = "br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento";
 
 	/**
 	 * Transforma o String do XML em Objeto
@@ -95,80 +75,80 @@ public class XmlUtil {
 
 		case STATUS:
 			context = JAXBContext.newInstance(TConsStatServ.class);
-			element = new br.inf.portalfiscal.nfe.schema.consstatserv.ObjectFactory().createConsStatServ((TConsStatServ) obj);
+			element = new br.inf.portalfiscal.nfe.schema_4.consStatServ.ObjectFactory().createConsStatServ((TConsStatServ) obj);
 			break;
 
-		case ENVIO_NFE:
-			context = JAXBContext.newInstance(TEnviNFe.class);
-			element = new br.inf.portalfiscal.nfe.schema.envinfe.ObjectFactory().createEnviNFe((TEnviNFe) obj);
-			break;
-
-		case SITUACAO_NFE:
-			context = JAXBContext.newInstance(TConsSitNFe.class);
-			element = new br.inf.portalfiscal.nfe.schema.conssitnfe.ObjectFactory().createConsSitNFe((TConsSitNFe) obj);
-			break;
-
-		case DIST_DFE:
-			context = JAXBContext.newInstance(DistDFeInt.class);
-			element = new br.inf.portalfiscal.nfe.schema.distdfeint.ObjectFactory().createDistDFeInt((DistDFeInt) obj);
-			break;
-
-		case TCONSRECINFE:
-			context = JAXBContext.newInstance(TConsReciNFe.class);
-			element = new br.inf.portalfiscal.nfe.schema.consrecinfe.ObjectFactory().createConsReciNFe((TConsReciNFe) obj);
-			break;
-
-		case TConsCad:
-			context = JAXBContext.newInstance(TConsCad.class);
-			element = new br.inf.portalfiscal.nfe.schema.consCad.ObjectFactory().createConsCad((TConsCad) obj);
-			break;
-
-		case INUTILIZACAO:
-			context = JAXBContext.newInstance(TInutNFe.class);
-			element = new br.inf.portalfiscal.nfe.schema.inutnfe.ObjectFactory().createInutNFe((TInutNFe) obj);
-			break;
-
-		case TPROCEVENTO:
-			if (obj.getClass().getName().equals(TPROCCANCELAR)) {
-				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento.class);
-				element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento) obj);
-			} else if (obj.getClass().getName().equals(TPROCCCE)) {
-				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TProcEvento.class);
-				element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envcce.TProcEvento) obj);
-			}
-
-			break;
-
-		case NFEPROC:
-			context = JAXBContext.newInstance(TNfeProc.class);
-			element = new br.inf.portalfiscal.nfe.schema.envinfe.ObjectFactory().createNfeProc((TNfeProc) obj);
-			break;
-
-		case EVENTO:
-			if (obj.getClass().getName().equals(CANCELAR)) {
-				context = JAXBContext.newInstance(TEnvEvento.class);
-				element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createEnvEvento((TEnvEvento) obj);
-			} else if (obj.getClass().getName().equals(CCE)) {
-				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento.class);
-				element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento) obj);
-			} else if (obj.getClass().getName().equals(MANIFESTAR)) {
-				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento.class);
-				element = new br.inf.portalfiscal.nfe.schema.envConfRecebto.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento) obj);
-			}
-			break;
-
-		case TProtNFe:
-			if (obj.getClass().getName().equals(TProtEnvi)) {
-				context = JAXBContext.newInstance(TProtNFe.class);
-				element = new br.inf.portalfiscal.nfe.schema.envinfe.ObjectFactory().createTProtNFe((br.inf.portalfiscal.nfe.schema.envinfe.TProtNFe) obj);
-			} else if (obj.getClass().getName().equals(TProtCons)) {
-				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe.class);
-				element = new br.inf.portalfiscal.nfe.schema.retconssitnfe.ObjectFactory().createProtNFe((br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe) obj);
-			} else if (obj.getClass().getName().equals(TProtReci)) {
-				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe.class);
-				element = new br.inf.portalfiscal.nfe.schema.retconsrecinfe.ObjectFactory().createProtNFe((br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe) obj);
-			}
-			break;
+//		case ENVIO_NFE:
+//			context = JAXBContext.newInstance(TEnviNFe.class);
+//			element = new br.inf.portalfiscal.nfe.schema.envinfe.ObjectFactory().createEnviNFe((TEnviNFe) obj);
+//			break;
+//
+//		case SITUACAO_NFE:
+//			context = JAXBContext.newInstance(TConsSitNFe.class);
+//			element = new br.inf.portalfiscal.nfe.schema.conssitnfe.ObjectFactory().createConsSitNFe((TConsSitNFe) obj);
+//			break;
+//
+//		case DIST_DFE:
+//			context = JAXBContext.newInstance(DistDFeInt.class);
+//			element = new br.inf.portalfiscal.nfe.schema.distdfeint.ObjectFactory().createDistDFeInt((DistDFeInt) obj);
+//			break;
+//
+//		case TCONSRECINFE:
+//			context = JAXBContext.newInstance(TConsReciNFe.class);
+//			element = new br.inf.portalfiscal.nfe.schema.consrecinfe.ObjectFactory().createConsReciNFe((TConsReciNFe) obj);
+//			break;
+//
+//		case TConsCad:
+//			context = JAXBContext.newInstance(TConsCad.class);
+//			element = new br.inf.portalfiscal.nfe.schema.consCad.ObjectFactory().createConsCad((TConsCad) obj);
+//			break;
+//
+//		case INUTILIZACAO:
+//			context = JAXBContext.newInstance(TInutNFe.class);
+//			element = new br.inf.portalfiscal.nfe.schema.inutnfe.ObjectFactory().createInutNFe((TInutNFe) obj);
+//			break;
+//
+//		case TPROCEVENTO:
+//			if (obj.getClass().getName().equals(TPROCCANCELAR)) {
+//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento.class);
+//				element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento) obj);
+//			} else if (obj.getClass().getName().equals(TPROCCCE)) {
+//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TProcEvento.class);
+//				element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envcce.TProcEvento) obj);
+//			}
+//
+//			break;
+//
+//		case NFEPROC:
+//			context = JAXBContext.newInstance(TNfeProc.class);
+//			element = new br.inf.portalfiscal.nfe.schema.envinfe.ObjectFactory().createNfeProc((TNfeProc) obj);
+//			break;
+//
+//		case EVENTO:
+//			if (obj.getClass().getName().equals(CANCELAR)) {
+//				context = JAXBContext.newInstance(TEnvEvento.class);
+//				element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createEnvEvento((TEnvEvento) obj);
+//			} else if (obj.getClass().getName().equals(CCE)) {
+//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento.class);
+//				element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento) obj);
+//			} else if (obj.getClass().getName().equals(MANIFESTAR)) {
+//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento.class);
+//				element = new br.inf.portalfiscal.nfe.schema.envConfRecebto.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento) obj);
+//			}
+//			break;
+//
+//		case TProtNFe:
+//			if (obj.getClass().getName().equals(TProtEnvi)) {
+//				context = JAXBContext.newInstance(TProtNFe.class);
+//				element = new br.inf.portalfiscal.nfe.schema.envinfe.ObjectFactory().createTProtNFe((br.inf.portalfiscal.nfe.schema.envinfe.TProtNFe) obj);
+//			} else if (obj.getClass().getName().equals(TProtCons)) {
+//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe.class);
+//				element = new br.inf.portalfiscal.nfe.schema.retconssitnfe.ObjectFactory().createProtNFe((br.inf.portalfiscal.nfe.schema.retconssitnfe.TProtNFe) obj);
+//			} else if (obj.getClass().getName().equals(TProtReci)) {
+//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe.class);
+//				element = new br.inf.portalfiscal.nfe.schema.retconsrecinfe.ObjectFactory().createProtNFe((br.inf.portalfiscal.nfe.schema.retconsrecinfe.TProtNFe) obj);
+//			}
+//			break;
 
 		default:
 			throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
@@ -181,24 +161,24 @@ public class XmlUtil {
 
 		StringWriter sw = new StringWriter();
 
-		if(obj.getClass().getSimpleName().equals(ENVIO_NFE) || obj.getClass().getSimpleName().equals(NFEPROC)){
-			try {
-				CDATAContentHandler cdataHandler = new CDATAContentHandler(sw, "utf-8");
-				marshaller.marshal(element, cdataHandler);
-			} catch (IOException e) {
-				throw new NfeException(e.getMessage());
-			}
-		}else{
+//		if(obj.getClass().getSimpleName().equals(ENVIO_NFE) || obj.getClass().getSimpleName().equals(NFEPROC)){
+//			try {
+//				CDATAContentHandler cdataHandler = new CDATAContentHandler(sw, "utf-8");
+//				marshaller.marshal(element, cdataHandler);
+//			} catch (IOException e) {
+//				throw new NfeException(e.getMessage());
+//			}
+//		}else{
 			marshaller.marshal(element, sw);
-		}
+//		}
 		StringBuilder xml = new StringBuilder();
 		xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(sw.toString());
 
-		if ((obj.getClass().getSimpleName().equals(TPROCEVENTO))) {
-			return replacesNfe(xml.toString().replaceAll("procEvento", "procEventoNFe"));
-		} else {
+//		if ((obj.getClass().getSimpleName().equals(TPROCEVENTO))) {
+//			return replacesNfe(xml.toString().replaceAll("procEvento", "procEventoNFe"));
+//		} else {
 			return replacesNfe(xml.toString());
-		}
+//		}
 
 	}
 
@@ -218,18 +198,18 @@ public class XmlUtil {
 		return outStr;
 	}
 
-	public static String criaNfeProc(TEnviNFe enviNfe, Object retorno) throws JAXBException, NfeException {
-
-		TNfeProc nfeProc = new TNfeProc();
-		nfeProc.setVersao("3.10");
-		nfeProc.setNFe(enviNfe.getNFe().get(0));
-		String xml = XmlUtil.objectToXml(retorno);
-		nfeProc.setProtNFe(XmlUtil.xmlToObject(xml, TProtNFe.class));
-
-		String xmlFinal = XmlUtil.objectToXml(nfeProc);
-
-		return xmlFinal;
-	}
+//	public static String criaNfeProc(TEnviNFe enviNfe, Object retorno) throws JAXBException, NfeException {
+//
+//		TNfeProc nfeProc = new TNfeProc();
+//		nfeProc.setVersao("3.10");
+//		nfeProc.setNFe(enviNfe.getNFe().get(0));
+//		String xml = XmlUtil.objectToXml(retorno);
+//		nfeProc.setProtNFe(XmlUtil.xmlToObject(xml, TProtNFe.class));
+//
+//		String xmlFinal = XmlUtil.objectToXml(nfeProc);
+//
+//		return xmlFinal;
+//	}
 
 	public static String removeAcentos(String str) {
 
