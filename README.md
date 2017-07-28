@@ -19,7 +19,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>3.10.8c</version>
+			<version>3.10.8</version>
 		</dependency>
 ```
 
