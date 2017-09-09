@@ -7,7 +7,9 @@ import br.com.samuelweb.nfe.exception.NfeException;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema.retdistdfeint.RetDistDFeInt;
 import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TRetEnviNFe;
 
 
 /**
@@ -111,36 +113,36 @@ public class Nfe {
 //		return Inutilizar.inutiliza(inutNFe , valida, tipo);
 //
 //	}
-//
-//	/**
-//	 * Metodo para Montar a NFE.
-//	 *
-//	 * @param enviNFe
-//	 * @param valida
-//	 * @return
-//	 * @throws NfeException
-//	 */
-//	public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException{
-//
-//		return Enviar.montaNfe(enviNFe , valida);
-//
-//	}
-//
-//	/**
-//	 * Metodo para Enviar a NFE.
-//	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-//	 *
-//	 * @param enviNFe
-//	 * @param tipo
-//	 * @return
-//	 * @throws NfeException
-//	 */
-//	public static TRetEnviNFe enviarNfe(TEnviNFe enviNFe, String tipo) throws NfeException{
-//
-//		return Enviar.enviaNfe(enviNFe, tipo);
-//
-//	}
-//
+
+	/**
+	 * Metodo para Montar a NFE.
+	 *
+	 * @param enviNFe
+	 * @param valida
+	 * @return
+	 * @throws NfeException
+	 */
+	public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException{
+
+		return Enviar.montaNfe(enviNFe , valida);
+
+	}
+
+	/**
+	 * Metodo para Enviar a NFE.
+	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+	 *
+	 * @param enviNFe
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
+	 */
+	public static TRetEnviNFe enviarNfe(TEnviNFe enviNFe, String tipo) throws NfeException{
+
+		return Enviar.enviaNfe(enviNFe, tipo);
+
+	}
+
 //	/**
 //	 * 	 * Metodo para Cancelar a NFE.
 //	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
