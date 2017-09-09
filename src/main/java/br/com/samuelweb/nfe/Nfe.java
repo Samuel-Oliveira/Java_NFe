@@ -6,10 +6,12 @@ package br.com.samuelweb.nfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema.retdistdfeint.RetDistDFeInt;
+import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
-import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
+import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 
 
 /**
@@ -55,20 +57,20 @@ public class Nfe {
 		
 	}
 	
-//	/**
-//	 * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
-//	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-//	 *
-//	 * @param consSitNFe
-//	 * @return TRetConsSitNFe
-//	 * @throws NfeException
-//	 */
-//	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida, String tipo) throws NfeException{
-//
-//		return ConsultaXml.consultaXml(consSitNFe , valida, tipo);
-//
-//	}
-//
+	/**
+	 * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
+	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+	 *
+	 * @param consSitNFe
+	 * @return TRetConsSitNFe
+	 * @throws NfeException
+	 */
+	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida, String tipo) throws NfeException{
+
+		return ConsultaXml.consultaXml(consSitNFe , valida, tipo);
+
+	}
+
 //	/**
 //	 * Classe Reponsavel Por Consultar o cadastro do Cnpj na SEFAZ
 //	 *
