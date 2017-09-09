@@ -4,7 +4,9 @@
 package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
+import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
 import br.inf.portalfiscal.nfe.schema.retdistdfeint.RetDistDFeInt;
 import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
@@ -71,19 +73,19 @@ public class Nfe {
 
 	}
 
-//	/**
-//	 * Classe Reponsavel Por Consultar o cadastro do Cnpj na SEFAZ
-//	 *
-//	 * @param consCad
-//	 * @return TRetConsCad
-//	 * @throws NfeException
-//	 */
-//	public static TRetConsCad consultaCadastro(TConsCad consCad, boolean valida) throws NfeException{
-//
-//		return ConsultaCadastro.consultaCadastro(consCad, valida);
-//
-//	}
-//
+	/**
+	 * Classe Reponsavel Por Consultar o cadastro do Cnpj na SEFAZ
+	 *
+	 * @param consCad
+	 * @return TRetConsCad
+	 * @throws NfeException
+	 */
+	public static TRetConsCad consultaCadastro(TConsCad consCad, boolean valida) throws NfeException{
+
+		return ConsultaCadastro.consultaCadastro(consCad, valida);
+
+	}
+
 //	/**
 //	 * Classe Reponsavel Por Consultar o retorno da NFE na SEFAZ
 //	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE

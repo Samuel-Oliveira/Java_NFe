@@ -4,6 +4,7 @@
 package br.com.samuelweb.nfe.util;
 
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema_4.consReciNFe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
@@ -19,7 +20,7 @@ import java.io.*;
 import java.text.Normalizer;
 import java.util.zip.GZIPInputStream;
 
-//import br.inf.portalfiscal.nfe.schema_4.consCad.TConsCad;
+//import br.inf.portalfiscal.nfe.schema_4.TConsCad;
 
 /**
  * Classe Responsavel por Metodos referentes ao XML
@@ -107,10 +108,10 @@ public class XmlUtil {
 			element = new br.inf.portalfiscal.nfe.schema_4.consReciNFe.ObjectFactory().createConsReciNFe((TConsReciNFe) obj);
 			break;
 
-//		case TConsCad:
-//			context = JAXBContext.newInstance(TConsCad.class);
-//			element = new br.inf.portalfiscal.nfe.schema_4.consCad.ObjectFactory().createConsCad((TConsCad) obj);
-//			break;
+		case TConsCad:
+			context = JAXBContext.newInstance(TConsCad.class);
+			element = new br.inf.portalfiscal.nfe.schema.consCad.ObjectFactory().createConsCad((TConsCad) obj);
+			break;
 
 		case INUTILIZACAO:
 			context = JAXBContext.newInstance(TInutNFe.class);

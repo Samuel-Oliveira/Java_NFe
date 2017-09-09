@@ -17,7 +17,7 @@ public interface ConstantesUtil {
 		public static final String STATUS_SERVICO = "NfeStatusServico_4.00";
 		public static final String ENVIO = "NfeAutorizacao_4.00";
 		public static final String CONSULTA_RECIBO = "NfeRetAutorizacao_4.00";
-		public static final String CONSULTA_CADASTRO = "NfeConsultaCadastro_2.00";
+		public static final String CONSULTA_CADASTRO = "NfeConsultaCadastro_4.00";
 		public static final String URL_QRCODE = "URL-QRCode";
 		public static final String URL_CONSULTANFCE = "URL-ConsultaNFCe";
 		public static final String EVENTO = "RecepcaoEvento_1.00";

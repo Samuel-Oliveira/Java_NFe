@@ -22,7 +22,7 @@ public class Validar implements ErrorHandler {
 	
 	public static final String STATUS = "status";
 	public static final String CONSULTA_XML = "consultaXml";
-	public static final String CONSULTA_CADASTRO = "consCad";
+	public static final String CONSULTA_CADASTRO = "br/inf/portalfiscal/nfe/schema/consCad";
 	public static final String ENVIO = "envio";
 	public static final String DIST_DFE = "destDfe";
 	public static final String INUTILIZACAO = "inutilizacao";
