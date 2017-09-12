@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-	<version>4.00.0a</version>
+	<version>4.00.0b</version>
 	<name>Java_NFe</name>
 
 	<!-- Repositorios SVN Autocom -->
@@ -42,14 +42,14 @@
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-wsdl</artifactId>
-			<version>4.00.0</version>
+			<version>4.00.1</version>
 		</dependency>
 
 		<!-- XSD Nfe -->
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-xsd</artifactId>
-			<version>9-v1.2</version>
+			<version>9-v1.2a</version>
 		</dependency>
 
 		<!-- Certificado Utils -->
