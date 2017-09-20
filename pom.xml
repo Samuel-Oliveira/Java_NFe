@@ -3,32 +3,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-	<name>AutoNfeLibs</name>
+	<name>Java-Nfe</name>
 
 	<!-- Repositorios SVN Autocom -->
 	<repositories>
 		<repository>
-			<name>Repositorio Autocom Snapshot</name>
-			<id>Snapshot</id>
-			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom-snapshot/</url>
-		</repository>
-		<repository>
-			<name>Repositorio Autocom Release</name>
+			<name>Repositorio Autocom</name>
 			<id>Release</id>
 			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
-		</repository>
-		<repository>
-			<name>Repositorio Autocom Proxy</name>
-			<id>Proxy</id>
-			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom-proxy/</url>
 		</repository>
 	</repositories>
 
 	<distributionManagement>
-		<snapshotRepository>
-			<id>autocom-snapshot</id>
-			<url>http://nexus.autocomsistemas.com.br/nexus/content/repositories/autocom-snapshot/</url>
-		</snapshotRepository>
 		<repository>
 			<id>autocom</id>
 			<url>http://nexus.autocomsistemas.com.br/nexus/content/repositories/autocom/</url>
@@ -55,7 +41,7 @@
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java_certificado</artifactId>
-			<version>1.3</version>
+			<version>1.5</version>
 		</dependency>
 
 		<!-- MArsheller Cdata -->
