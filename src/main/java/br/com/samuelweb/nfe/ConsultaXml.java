@@ -1,8 +1,10 @@
 package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.exception.NfeException;
-import br.com.samuelweb.nfe.exception.NfeValidacaoException;
-import br.com.samuelweb.nfe.util.*;
+import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ConstantesUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
+import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe_4.wsdl.NFeConsultaProtocolo4Stub;
@@ -21,47 +23,36 @@ import java.rmi.RemoteException;
 
 public class ConsultaXml {
 
-    private static NFeConsultaProtocolo4Stub.NfeResultMsg result;
-    private static ConfiguracoesIniciaisNfe configuracoesNfe;
-    private static CertificadoUtil certUtil;
-
     /**
      * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
      *
-     * @param consSitNFe
-     * @param valida
+     * @param chave
      * @param tipo
      * @return
      * @throws NfeException
      */
-    public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida, String tipo) throws NfeException {
-
-        certUtil = new CertificadoUtil();
-        configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
-        boolean nfce = tipo.equals(ConstantesUtil.NFCE);
+    public static TRetConsSitNFe consultaXml(String chave, String tipo) throws NfeException {
 
         try {
 
-            certUtil.iniciaConfiguracoes();
+            ConfiguracoesIniciaisNfe config = CertificadoUtil.iniciaConfiguracoes();
+
+            TConsSitNFe consSitNFe = new TConsSitNFe();
+            consSitNFe.setVersao(config.getVersaoNfe());
+            consSitNFe.setTpAmb(config.getAmbiente());
+            consSitNFe.setXServ("CONSULTAR");
+            consSitNFe.setChNFe(chave);
 
             String xml = XmlUtil.objectToXml(consSitNFe);
-
-            if (valida) {
-                String erros = Validar.validaXml(xml, Validar.CONSULTA_XML);
-                if (!ObjetoUtil.isEmpty(erros)) {
-                    throw new NfeValidacaoException("Erro Na Validação do Xml: " + erros);
-                }
-            }
 
             System.out.println("Xml Consulta: " + xml);
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
-
             NFeConsultaProtocolo4Stub.NfeDadosMsg dadosMsg = new NFeConsultaProtocolo4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
 
-            NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.CONSULTA_XML) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.CONSULTA_XML));
-            result = stub.nfeConsultaNF(dadosMsg);
+            NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(tipo.equals(ConstantesUtil.NFCE) ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.CONSULTA_XML) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.CONSULTA_XML));
+            NFeConsultaProtocolo4Stub.NfeResultMsg result = stub.nfeConsultaNF(dadosMsg);
 
             return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsSitNFe.class);
 

@@ -35,8 +35,8 @@ public interface ConstantesUtil {
 	}
 	
 	interface VERSAO{
-		public static final String V4_00 = "4.00";
-		public static final String V1_00 = "1.00";
+		public static final String NFE = "4.00";
+		public static final String DIST_DFE = "1.01";
 	}
 
 }

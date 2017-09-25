@@ -63,14 +63,14 @@ public final class ConfiguracoesIniciaisNfe {
 	/**
 	 * @return the pastaSchemas
 	 */
-	public String getPastaSchemas() {
+	String getPastaSchemas() {
 		return pastaSchemas;
 	}
 
 	/**
 	 * @param pastaSchemas the pastaSchemas to set
 	 */
-	public void setPastaSchemas(String pastaSchemas) {
+	private void setPastaSchemas(String pastaSchemas) {
 		this.pastaSchemas = pastaSchemas;
 	}
 
@@ -84,7 +84,7 @@ public final class ConfiguracoesIniciaisNfe {
 	/**
 	 * @param versaoNfe the versaoNfe to set
 	 */
-	public void setVersaoNfe(String versaoNfe) {
+	private void setVersaoNfe(String versaoNfe) {
 		this.versaoNfe = versaoNfe;
 	}
 
@@ -147,7 +147,7 @@ public final class ConfiguracoesIniciaisNfe {
 	/**
 	 * @param estado the estado to set
 	 */
-	public void setEstado(Estados estado) {
+	private void setEstado(Estados estado) {
 		this.estado = estado;
 	}
 

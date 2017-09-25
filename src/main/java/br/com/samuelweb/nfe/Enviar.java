@@ -48,7 +48,7 @@ public class Enviar {
             /**
              * Assina o Xml
              */
-            xml = Assinar.assinaNfe(xml, Assinar.NFE);
+            xml = Assinar.assinaNfe(xml, "NFE");
 
             /**
              * Valida o Xml caso sejá selecionado True

@@ -4,14 +4,11 @@
 package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.exception.NfeException;
-import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
-import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
 import br.inf.portalfiscal.nfe.schema.retdistdfeint.RetDistDFeInt;
-import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
-import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 
@@ -32,14 +29,16 @@ public class Nfe {
 	/**
 	 * Classe Reponsavel Por Consultar a Distribuiçao da NFE na SEFAZ
 	 *
-	 * @param distDFeInt
-	 * @param valida
+	 * @param tipoCliente Informar DistribuicaoDFe.CPF ou DistribuicaoDFe.CNPJ
+	 * @param cpfCnpj
+	 * @param tipoConsulta Informar DistribuicaoDFe.NSU ou DistribuicaoDFe.CHAVE
+	 * @param nsuChave
 	 * @return
 	 * @throws NfeException
 	 */
-	public static RetDistDFeInt distribuicaoDfe(DistDFeInt distDFeInt, boolean valida) throws NfeException{
+	public static RetDistDFeInt distribuicaoDfe(String tipoCliente, String cpfCnpj , String tipoConsulta , String nsuChave) throws NfeException{
 
-		return DistribuicaoDFe.consultaNfe(distDFeInt , valida);
+		return DistribuicaoDFe.consultaNfe(tipoCliente, cpfCnpj , tipoConsulta , nsuChave);
 
 	}
 
@@ -47,15 +46,13 @@ public class Nfe {
 	 * Metodo Responsavel Buscar o Status de Serviço do Servidor da Sefaz
 	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
 	 * 
-	 * @param consStatServ
-	 * @param valida
 	 * @param tipo
 	 * @return
 	 * @throws NfeException
 	 */
-	public static TRetConsStatServ statusServico(TConsStatServ consStatServ, boolean valida , String tipo) throws NfeException{
+	public static TRetConsStatServ statusServico(String tipo) throws NfeException{
 		
-		return Status.statusServico(consStatServ , valida, tipo);
+		return Status.statusServico(tipo);
 		
 	}
 	
@@ -63,44 +60,45 @@ public class Nfe {
 	 * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
 	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
 	 *
-	 * @param consSitNFe
+	 * @param chave
+	 * @param tipo
 	 * @return TRetConsSitNFe
 	 * @throws NfeException
 	 */
-	public static TRetConsSitNFe consultaXml(TConsSitNFe consSitNFe, boolean valida, String tipo) throws NfeException{
+	public static TRetConsSitNFe consultaXml(String chave, String tipo) throws NfeException{
 
-		return ConsultaXml.consultaXml(consSitNFe , valida, tipo);
+		return ConsultaXml.consultaXml(chave , tipo);
 
 	}
 
 	/**
-	 * Classe Reponsavel Por Consultar o cadastro do Cnpj na SEFAZ
+	 * Classe Reponsavel Por Consultar o cadastro do Cnpj/CPF na SEFAZ
 	 *
-	 * @param consCad
+	 * @param tipo Usar ConsultaCadastro.CNPJ ou ConsultaCadastro.CPF
+	 * @param cnpjCpf
 	 * @return TRetConsCad
 	 * @throws NfeException
 	 */
-	public static TRetConsCad consultaCadastro(TConsCad consCad, boolean valida) throws NfeException{
+	public static TRetConsCad consultaCadastro(String tipo, String cnpjCpf) throws NfeException{
 
-		return ConsultaCadastro.consultaCadastro(consCad, valida);
+		return ConsultaCadastro.consultaCadastro(tipo, cnpjCpf);
 
 	}
 
-//	/**
-//	 * Classe Reponsavel Por Consultar o retorno da NFE na SEFAZ
-//	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-//	 *
-//	 * @param consReciNFe
-//	 * @param valida
-//	 * @param tipo
-//	 * @return
-//	 * @throws NfeException
-//	 */
-//	public static TRetConsReciNFe consultaXml(TConsReciNFe consReciNFe, boolean valida, String tipo) throws NfeException{
-//
-//		return ConsultaRecibo.reciboNfe(consReciNFe , valida, tipo);
-//
-//	}
+	/**
+	 * Classe Reponsavel Por Consultar o retorno da NFE na SEFAZ
+	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+	 *
+	 * @param recibo
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
+	 */
+	public static TRetConsReciNFe consultaRecibo(String recibo, String tipo) throws NfeException{
+
+		return ConsultaRecibo.reciboNfe(recibo, tipo);
+
+	}
 //
 //	/**
 //	 * Classe Reponsavel Por Inutilizar a NFE na SEFAZ

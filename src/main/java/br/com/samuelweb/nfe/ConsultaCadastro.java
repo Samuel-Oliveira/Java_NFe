@@ -1,9 +1,11 @@
 package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.exception.NfeException;
-import br.com.samuelweb.nfe.exception.NfeValidacaoException;
-import br.com.samuelweb.nfe.util.*;
+import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.WebServiceUtil;
+import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
+import br.inf.portalfiscal.nfe.schema.consCad.TUfCons;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
 import br.inf.portalfiscal.nfe_4.wsdl.CadConsultaCadastro4Stub;
 import org.apache.axiom.om.OMElement;
@@ -22,8 +24,8 @@ import java.rmi.RemoteException;
 
 public class ConsultaCadastro {
 
-    private static CadConsultaCadastro4Stub.NfeResultMsg result;
-    private static CertificadoUtil certUtil;
+    public static final String CNPJ = "CNPJ";
+    public static final String CPF = "CPF";
 
     /**
      * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
@@ -34,22 +36,27 @@ public class ConsultaCadastro {
      * @throws NfeException
      */
 
-    public static TRetConsCad consultaCadastro(TConsCad consCad, boolean valida) throws NfeException {
-
-        certUtil = new CertificadoUtil();
+    static TRetConsCad consultaCadastro(String tipo, String cnpjCpf) throws NfeException {
 
         try {
 
-            certUtil.iniciaConfiguracoes();
+            ConfiguracoesIniciaisNfe config = CertificadoUtil.iniciaConfiguracoes();
+
+            TConsCad consCad = new TConsCad();
+            consCad.setVersao("2.00");
+
+            TConsCad.InfCons infCons = new TConsCad.InfCons();
+            if(CNPJ.equals(tipo)){
+                infCons.setCNPJ(cnpjCpf);
+            }else{
+                infCons.setCPF(cnpjCpf);
+            }
+            infCons.setXServ("CONS-CAD");
+            infCons.setUF(TUfCons.valueOf(config.getEstado().toString()));
+
+            consCad.setInfCons(infCons);
 
             String xml = XmlUtil.objectToXml(consCad);
-
-            if (valida) {
-                String erros = Validar.validaXml(xml, Validar.CONSULTA_CADASTRO);
-                if (!ObjetoUtil.isEmpty(erros)) {
-                    throw new NfeValidacaoException("Erro Na Validação do Xml: " + erros);
-                }
-            }
 
             System.out.println("Xml Consulta: " + xml);
             OMElement ome = AXIOMUtil.stringToOM(xml);
@@ -58,7 +65,7 @@ public class ConsultaCadastro {
             dadosMsg.setExtraElement(ome);
 
             CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(WebServiceUtil.getUrlConsultaCadastro(consCad.getInfCons().getUF().toString()));
-            result = stub.consultaCadastro(dadosMsg);
+            CadConsultaCadastro4Stub.NfeResultMsg result = stub.consultaCadastro(dadosMsg);
 
             return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsCad.class);
 
