@@ -1,18 +1,16 @@
 package br.com.samuelweb.nfe;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.SchemaUtil;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import br.com.samuelweb.nfe.exception.NfeException;
-import br.com.samuelweb.nfe.util.SchemaUtil;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 
 public class Validar implements ErrorHandler {
 
@@ -28,7 +26,7 @@ public class Validar implements ErrorHandler {
 	public static final String INUTILIZACAO = "inutilizacao";
 	public static final String CANCELAR = "cancelar";
 	public static final String MANIFESTAR = "manifestar";
-	public static final String CCE = "cce";
+	public static final String CCE = "br/inf/portalfiscal/nfe/schema/cce";
 	public static final String CONSULTA_RECIBO = "consultaRecibo";
 	
 	private static ConfiguracoesIniciaisNfe configuracoesNfe;

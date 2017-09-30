@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-xsd</artifactId>
-			<version>9-v1.2a</version>
+			<version>9-v1.2b</version>
 		</dependency>
 
 		<!-- Certificado Utils -->
@@ -78,11 +78,6 @@
 			<artifactId>httpcore</artifactId>
 			<version>4.4.6</version>
 		</dependency>
-        <dependency>
-            <groupId>br.com.autocom</groupId>
-            <artifactId>WsdlToJar</artifactId>
-            <version>1.0</version>
-        </dependency>
 
     </dependencies>
 

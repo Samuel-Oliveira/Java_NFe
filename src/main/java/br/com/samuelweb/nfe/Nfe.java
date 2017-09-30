@@ -5,6 +5,7 @@ package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
+import br.inf.portalfiscal.nfe.schema.retEnvEventoCancNFe.TRetEnvEvento;
 import br.inf.portalfiscal.nfe.schema.retdistdfeint.RetDistDFeInt;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TRetEnviNFe;
@@ -145,23 +146,25 @@ public class Nfe {
 
 	}
 
-//	/**
-//	 * 	 * Metodo para Cancelar a NFE.
-//	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-//	 *
-//	 * @param evento
-//	 * @param valida
-//	 * @param tipo
-//	 * @return
-//	 * @throws NfeException
-//	 */
-//
-//	public static TRetEnvEvento cancelarNfe(TEnvEvento evento, boolean valida, String tipo) throws NfeException{
-//
-//		return Evento.eventoCancelamento(evento , valida, tipo);
-//
-//	}
-//
+	/**
+	 * 	 * Metodo para Cancelar a NFE.
+	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+	 *
+	 * @param chave
+	 * @param protocolo
+	 * @param cnpj
+	 * @param motivo
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
+	 */
+
+	public static TRetEnvEvento cancelarNfe(String chave, String protocolo, String cnpj, String motivo, String tipo) throws NfeException{
+
+		return Cancelar.eventoCancelamento(chave, protocolo, cnpj, motivo, tipo);
+
+	}
+
 //	/**
 //	 * 	 * Metodo para Envio da Carta De Correção da NFE.
 //	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
@@ -172,7 +175,7 @@ public class Nfe {
 //	 * @return
 //	 * @throws NfeException
 //	 */
-//	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento cce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida, String tipo) throws NfeException{
+//	public static br.inf.portalfiscal.nfe.schema.TRetEnvEvento cce(br.inf.portalfiscal.nfe.schema.TEnvEvento evento, boolean valida, String tipo) throws NfeException{
 //
 //		return Evento.eventoCce(evento , valida,tipo);
 //
@@ -186,7 +189,7 @@ public class Nfe {
 //	 * @return
 //	 * @throws NfeException
 //	 */
-//	public static br.inf.portalfiscal.nfe.schema.retEnvConfRecebto.TRetEnvEvento manifestacao(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento envEvento, boolean valida) throws NfeException {
+//	public static br.inf.portalfiscal.nfe.schema.TRetEnvEvento manifestacao(br.inf.portalfiscal.nfe.schema.TEnvEvento envEvento, boolean valida) throws NfeException {
 //
 //		return Evento.eventoManifestacao(envEvento , valida);
 //

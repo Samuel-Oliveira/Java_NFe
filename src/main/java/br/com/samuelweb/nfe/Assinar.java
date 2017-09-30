@@ -42,7 +42,7 @@ import java.util.List;
 public class Assinar {
 
     private static final String INFINUT = "infInut";
-    private static final String EVENTO = "evento";
+    public static final String EVENTO = "evento";
 
     private static ConfiguracoesIniciaisNfe configuracoesNfe;
 

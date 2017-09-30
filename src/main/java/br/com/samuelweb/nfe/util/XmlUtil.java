@@ -6,6 +6,7 @@ package br.com.samuelweb.nfe.util;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
+import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema_4.consReciNFe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
@@ -15,9 +16,16 @@ import br.inf.portalfiscal.nfe.schema_4.enviNFe.TProtNFe;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TInutNFe;
 
 import javax.xml.bind.*;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.text.Normalizer;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.GregorianCalendar;
 import java.util.zip.GZIPInputStream;
 
 //import br.inf.portalfiscal.nfe.schema_4.TConsCad;
@@ -41,17 +49,17 @@ public class XmlUtil {
 	private static final String TCONSRECINFE = "TConsReciNFe";
 	private static final String TConsCad = "TConsCad";
 
-//	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema_4.envEventoCancNFe.TProcEvento";
-//	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema_4.envcce.TProcEvento";
+	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema_4.TProcEvento";
+	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema_4.TProcEvento";
 
 	private static final String TProtNFe = "TProtNFe";
 	private static final String TProtEnvi = "br.inf.portalfiscal.nfe.schema_4.enviNFe.TProtNFe";
 	private static final String TProtCons = "br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TProtNFe";
 	private static final String TProtReci = "br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TProtNFe";
-//
-//	private static final String CANCELAR = "br.inf.portalfiscal.nfe.schema_4.envEventoCancNFe.TEnvEvento";
-//	private static final String CCE = "br.inf.portalfiscal.nfe.schema_4.envcce.TEnvEvento";
-//	private static final String MANIFESTAR = "br.inf.portalfiscal.nfe.schema_4.envConfRecebto.TEnvEvento";
+
+	private static final String CANCELAR = "br.inf.portalfiscal.nfe.schema_4.TEnvEvento";
+	private static final String CCE = "br.inf.portalfiscal.nfe.schema_4.TEnvEvento";
+	private static final String MANIFESTAR = "br.inf.portalfiscal.nfe.schema_4.TEnvEvento";
 
 	/**
 	 * Transforma o String do XML em Objeto
@@ -118,35 +126,36 @@ public class XmlUtil {
 			element = new br.inf.portalfiscal.nfe.schema_4.inutNFe.ObjectFactory().createInutNFe((TInutNFe) obj);
 			break;
 
-//		case TPROCEVENTO:
-//			if (obj.getClass().getName().equals(TPROCCANCELAR)) {
-//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema_4.envEventoCancNFe.TProcEvento.class);
-//				element = new br.inf.portalfiscal.nfe.schema_4.envEventoCancNFe.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema_4.envEventoCancNFe.TProcEvento) obj);
-//			} else if (obj.getClass().getName().equals(TPROCCCE)) {
-//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema_4.envcce.TProcEvento.class);
-//				element = new br.inf.portalfiscal.nfe.schema_4.envcce.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema_4.envcce.TProcEvento) obj);
-//			}
+//			case TPROCEVENTO:
+//				if (obj.getClass().getName().equals(TPROCCANCELAR)) {
+//					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento.class);
+//					element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento) obj);
+//				} else if (obj.getClass().getName().equals(TPROCCCE)) {
+//					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TProcEvento.class);
+//					element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envcce.TProcEvento) obj);
+//				}
 //
-//			break;
+//				break;
 
-		case NFEPROC:
+			case NFEPROC:
 			context = JAXBContext.newInstance(TNfeProc.class);
 			element = new br.inf.portalfiscal.nfe.schema_4.enviNFe.ObjectFactory().createTNfeProc((TNfeProc) obj);
 			break;
 
-//		case EVENTO:
-//			if (obj.getClass().getName().equals(CANCELAR)) {
-//				context = JAXBContext.newInstance(TEnvEvento.class);
-//				element = new br.inf.portalfiscal.nfe.schema_4.envEventoCancNFe.ObjectFactory().createEnvEvento((TEnvEvento) obj);
-//			} else if (obj.getClass().getName().equals(CCE)) {
-//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema_4.envcce.TEnvEvento.class);
-//				element = new br.inf.portalfiscal.nfe.schema_4.envcce.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema_4.envcce.TEnvEvento) obj);
-//			} else if (obj.getClass().getName().equals(MANIFESTAR)) {
-//				context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema_4.envConfRecebto.TEnvEvento.class);
-//				element = new br.inf.portalfiscal.nfe.schema_4.envConfRecebto.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema_4.envConfRecebto.TEnvEvento) obj);
-//			}
-//			break;
-//
+
+			case EVENTO:
+				if (obj.getClass().getName().equals(CANCELAR)) {
+					context = JAXBContext.newInstance(TEnvEvento.class);
+					element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createEnvEvento((TEnvEvento) obj);
+				} else if (obj.getClass().getName().equals(CCE)) {
+					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento.class);
+					element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento) obj);
+				} else if (obj.getClass().getName().equals(MANIFESTAR)) {
+					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento.class);
+					element = new br.inf.portalfiscal.nfe.schema.envConfRecebto.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento) obj);
+				}
+				break;
+
 		case TProtNFe:
 			if (obj.getClass().getName().equals(TProtEnvi)) {
 				context = JAXBContext.newInstance(TProtNFe.class);
@@ -184,11 +193,11 @@ public class XmlUtil {
 		StringBuilder xml = new StringBuilder();
 		xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(sw.toString());
 
-//		if ((obj.getClass().getSimpleName().equals(TPROCEVENTO))) {
-//			return replacesNfe(xml.toString().replaceAll("procEvento", "procEventoNFe"));
-//		} else {
+		if ((obj.getClass().getSimpleName().equals(TPROCEVENTO))) {
+			return replacesNfe(xml.toString().replaceAll("procEvento", "procEventoNFe"));
+		} else {
 			return replacesNfe(xml.toString());
-//		}
+		}
 
 	}
 
@@ -273,6 +282,22 @@ public class XmlUtil {
 			throw new NfeException("Ler Xml: " + e.getMessage());
 		}
 		return xml.toString();
+	}
+
+	public static String dataNfe() throws NfeException {
+		XMLGregorianCalendar xmlCalendar = null;
+		LocalDateTime dataASerFormatada = LocalDateTime.now();
+		try {
+			GregorianCalendar calendar = GregorianCalendar.from(dataASerFormatada.atZone(ZoneId.of("Brazil/East")));
+
+			xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+			xmlCalendar.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+
+		} catch (DatatypeConfigurationException e) {
+			throw new NfeException(e.getMessage());
+		}
+
+		return (xmlCalendar.toString());
 	}
 
 }

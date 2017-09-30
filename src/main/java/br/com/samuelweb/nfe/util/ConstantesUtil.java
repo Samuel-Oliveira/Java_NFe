@@ -9,34 +9,40 @@ package br.com.samuelweb.nfe.util;
  */
 public interface ConstantesUtil {
 	
-	public static final String NFE = "NFe";
-	public static final String NFCE = "NFCe";
+	String NFE = "NFe";
+	String NFCE = "NFCe";
 	
 	interface SERVICOS {
 		
-		public static final String STATUS_SERVICO = "NfeStatusServico_4.00";
-		public static final String ENVIO = "NfeAutorizacao_4.00";
-		public static final String CONSULTA_RECIBO = "NfeRetAutorizacao_4.00";
-		public static final String CONSULTA_CADASTRO = "NfeConsultaCadastro_4.00";
-		public static final String URL_QRCODE = "URL-QRCode";
-		public static final String URL_CONSULTANFCE = "URL-ConsultaNFCe";
-		public static final String EVENTO = "RecepcaoEvento_1.00";
-		public static final String INUTILIZACAO = "NfeInutilizacao_4.00";
-		public static final String CONSULTA_XML = "NfeConsultaProtocolo_4.00";
-		public static final String DISTRIBUICAO_DFE = "NfeDistribuicaoDFe_1.01";
-		public static final String MANIFESTACAO = "MANIFESTACAO";
-		public static final String CSC = "AdministrarCSCNFCe_1.00";
+		String STATUS_SERVICO = "NfeStatusServico_4.00";
+		String ENVIO = "NfeAutorizacao_4.00";
+		String CONSULTA_RECIBO = "NfeRetAutorizacao_4.00";
+		String CONSULTA_CADASTRO = "NfeConsultaCadastro_4.00";
+		String URL_QRCODE = "URL-QRCode";
+		String URL_CONSULTANFCE = "URL-ConsultaNFCe";
+		String EVENTO = "RecepcaoEvento_1.00";
+		String INUTILIZACAO = "NfeInutilizacao_4.00";
+		String CONSULTA_XML = "NfeConsultaProtocolo_4.00";
+		String DISTRIBUICAO_DFE = "NfeDistribuicaoDFe_1.01";
+		String MANIFESTACAO = "MANIFESTACAO";
+		String CSC = "AdministrarCSCNFCe_1.00";
 		
 	}
+
+	interface EVENTO {
+		String CANCELAR = "110111";
+	}
+
 	
 	interface AMBIENTE {
-		public static final String HOMOLOGACAO = "2";
-		public static final String PRODUCAO = "1";
+		String HOMOLOGACAO = "2";
+		String PRODUCAO = "1";
 	}
 	
 	interface VERSAO{
-		public static final String NFE = "4.00";
-		public static final String DIST_DFE = "1.01";
+		String NFE = "4.00";
+		String DIST_DFE = "1.01";
+		String EVENTO_CANCELAMENTO = "1.00";
 	}
 
 }
