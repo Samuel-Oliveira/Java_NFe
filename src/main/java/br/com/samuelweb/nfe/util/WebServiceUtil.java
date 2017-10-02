@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 import org.ini4j.Wini;
 
-import br.com.samuelweb.nfe.ConfiguracoesIniciaisNfe;
+import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 
 /**

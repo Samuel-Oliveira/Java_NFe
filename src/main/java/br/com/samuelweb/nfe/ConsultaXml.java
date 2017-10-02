@@ -1,5 +1,6 @@
 package br.com.samuelweb.nfe;
 
+import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.ConstantesUtil;

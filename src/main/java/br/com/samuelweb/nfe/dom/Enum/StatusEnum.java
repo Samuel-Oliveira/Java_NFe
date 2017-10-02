@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.samuelweb.nfe.util;
+package br.com.samuelweb.nfe.dom.Enum;
 
 /**
  * @author Samuel Oliveira

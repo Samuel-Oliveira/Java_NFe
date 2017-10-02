@@ -3,7 +3,7 @@ package br.com.samuelweb.nfe.util;
 import br.com.samuelweb.certificado.Certificado;
 import br.com.samuelweb.certificado.CertificadoService;
 import br.com.samuelweb.certificado.exception.CertificadoException;
-import br.com.samuelweb.nfe.ConfiguracoesIniciaisNfe;
+import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 
 /**

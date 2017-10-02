@@ -3,6 +3,7 @@ package br.com.samuelweb.nfe;
 import br.com.samuelweb.certificado.Certificado;
 import br.com.samuelweb.certificado.CertificadoService;
 import br.com.samuelweb.certificado.exception.CertificadoException;
+import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import org.w3c.dom.Document;
@@ -54,7 +55,7 @@ public class Assinar {
 
     /**
      * @param stringXml
-     * @param tipo      ('Nfe' para nfe normal , 'infInut' para inutilizacao, 'evento' para eventos)
+     * @param tipo      ('NFe' para nfe normal , 'infInut' para inutilizacao, 'evento' para eventos)
      * @return String do Xml Assinado
      * @throws NfeException
      */

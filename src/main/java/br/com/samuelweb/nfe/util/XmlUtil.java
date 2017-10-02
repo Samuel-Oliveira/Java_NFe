@@ -49,17 +49,17 @@ public class XmlUtil {
 	private static final String TCONSRECINFE = "TConsReciNFe";
 	private static final String TConsCad = "TConsCad";
 
-	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema_4.TProcEvento";
-	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema_4.TProcEvento";
+	private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.envEventoCancNFe.TProcEvento";
+	private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
 
 	private static final String TProtNFe = "TProtNFe";
 	private static final String TProtEnvi = "br.inf.portalfiscal.nfe.schema_4.enviNFe.TProtNFe";
 	private static final String TProtCons = "br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TProtNFe";
 	private static final String TProtReci = "br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TProtNFe";
 
-	private static final String CANCELAR = "br.inf.portalfiscal.nfe.schema_4.TEnvEvento";
-	private static final String CCE = "br.inf.portalfiscal.nfe.schema_4.TEnvEvento";
-	private static final String MANIFESTAR = "br.inf.portalfiscal.nfe.schema_4.TEnvEvento";
+	private static final String CANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento";
+	private static final String CCE = "br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento";
+//	private static final String MANIFESTAR = "br.inf.portalfiscal.nfe.schema_4.TEnvEvento";
 
 	/**
 	 * Transforma o String do XML em Objeto
@@ -126,16 +126,16 @@ public class XmlUtil {
 			element = new br.inf.portalfiscal.nfe.schema_4.inutNFe.ObjectFactory().createInutNFe((TInutNFe) obj);
 			break;
 
-//			case TPROCEVENTO:
-//				if (obj.getClass().getName().equals(TPROCCANCELAR)) {
-//					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento.class);
-//					element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento) obj);
-//				} else if (obj.getClass().getName().equals(TPROCCCE)) {
-//					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TProcEvento.class);
-//					element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envcce.TProcEvento) obj);
-//				}
-//
-//				break;
+			case TPROCEVENTO:
+				if (obj.getClass().getName().equals(TPROCCANCELAR)) {
+					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento.class);
+					element = new br.inf.portalfiscal.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento) obj);
+				} else if (obj.getClass().getName().equals(TPROCCCE)) {
+					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TProcEvento.class);
+					element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createTProcEvento((br.inf.portalfiscal.nfe.schema.envcce.TProcEvento) obj);
+				}
+
+				break;
 
 			case NFEPROC:
 			context = JAXBContext.newInstance(TNfeProc.class);
@@ -150,9 +150,9 @@ public class XmlUtil {
 				} else if (obj.getClass().getName().equals(CCE)) {
 					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento.class);
 					element = new br.inf.portalfiscal.nfe.schema.envcce.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento) obj);
-				} else if (obj.getClass().getName().equals(MANIFESTAR)) {
-					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento.class);
-					element = new br.inf.portalfiscal.nfe.schema.envConfRecebto.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento) obj);
+//				} else if (obj.getClass().getName().equals(MANIFESTAR)) {
+//					context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento.class);
+//					element = new br.inf.portalfiscal.nfe.schema.envConfRecebto.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento) obj);
 				}
 				break;
 
