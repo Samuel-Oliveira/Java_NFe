@@ -1,31 +1,16 @@
 package br.com.samuelweb.nfe;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.UnrecoverableEntryException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import br.com.samuelweb.certificado.Certificado;
+import br.com.samuelweb.certificado.CertificadoService;
+import br.com.samuelweb.certificado.exception.CertificadoException;
+import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.XmlUtil;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.crypto.MarshalException;
-import javax.xml.crypto.dsig.CanonicalizationMethod;
-import javax.xml.crypto.dsig.DigestMethod;
-import javax.xml.crypto.dsig.Reference;
-import javax.xml.crypto.dsig.SignatureMethod;
-import javax.xml.crypto.dsig.SignedInfo;
-import javax.xml.crypto.dsig.Transform;
-import javax.xml.crypto.dsig.XMLSignature;
-import javax.xml.crypto.dsig.XMLSignatureException;
-import javax.xml.crypto.dsig.XMLSignatureFactory;
+import javax.xml.crypto.dsig.*;
 import javax.xml.crypto.dsig.dom.DOMSignContext;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.KeyInfoFactory;
@@ -39,16 +24,15 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import br.com.samuelweb.certificado.Certificado;
-import br.com.samuelweb.certificado.CertificadoService;
-import br.com.samuelweb.certificado.exception.CertificadoException;
-import br.com.samuelweb.nfe.exception.NfeException;
-import br.com.samuelweb.nfe.util.XmlUtil;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.security.*;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Classe Responsavel Por Assinar O Xml.
@@ -77,7 +61,7 @@ public class Assinar {
 	
 	/**
 	 * @param stringXml
-	 * @param tipo ('Nfe' para nfe normal , 'infInut' para inutilizacao, 'evento' para eventos)
+	 * @param tipo ('NFe' para nfe normal , 'infInut' para inutilizacao, 'evento' para eventos)
 	 * @return String do Xml Assinado
 	 * @throws NfeException
 	 */
