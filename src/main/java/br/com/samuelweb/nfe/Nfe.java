@@ -3,14 +3,15 @@
  */
 package br.com.samuelweb.nfe;
 
-import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.dom.Enum.TipoManifestacao;
+import br.com.samuelweb.nfe.exception.NfeException;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
 import br.inf.portalfiscal.nfe.schema.retdistdfeint.RetDistDFeInt;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.inf.portalfiscal.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
@@ -101,22 +102,25 @@ public class Nfe {
         return ConsultaRecibo.reciboNfe(recibo, tipo);
 
     }
-//
-//	/**
-//	 * Classe Reponsavel Por Inutilizar a NFE na SEFAZ
-//	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-//	 *
-//	 * @param inutNFe
-//	 * @param valida
-//	 * @param tipo
-//	 * @return
-//	 * @throws NfeException
-//	 */
-//	public static TRetInutNFe inutilizacao(TInutNFe inutNFe, boolean valida, String tipo) throws NfeException{
-//
-//		return Inutilizar.inutiliza(inutNFe , valida, tipo);
-//
-//	}
+
+	/**
+	 * Classe Reponsavel Por Inutilizar a NFE na SEFAZ
+	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+     * Id = Código da UF + Ano (2 posições) + CNPJ
+     * + modelo + série + número inicial e número final
+     * precedida do literal “ID”
+	 *
+	 * @param id
+	 * @param valida
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
+	 */
+	public static TRetInutNFe inutilizacao(String id, String motivo, String tipo) throws NfeException{
+
+		return Inutilizar.inutiliza(id , motivo, tipo);
+
+	}
 
     /**
      * Metodo para Montar a NFE.

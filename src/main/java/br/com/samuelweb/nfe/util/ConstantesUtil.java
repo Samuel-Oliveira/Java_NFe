@@ -29,6 +29,13 @@ public interface ConstantesUtil {
 		
 	}
 
+	interface TIPOS {
+		String CNPJ = "CNPJ";
+		String CPF = "CPF";
+		String NSU = "NSU";
+		String CHAVE = "CHAVE";
+	}
+
 	interface EVENTO {
 		String CANCELAR = "110111";
 		String CCE = "110110";
@@ -47,6 +54,7 @@ public interface ConstantesUtil {
 		String EVENTO_CANCELAMENTO = "4.00";
 		String EVENTO_CCE = "4.00";
 		String EVENTO_MANIFESTAR = "4.00";
+		String INUTILIZACAO = "4.00";
 	}
 
 }

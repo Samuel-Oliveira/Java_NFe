@@ -1,12 +1,10 @@
 # Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe)
 Projeto Para implementação do Java-Nfe Utilizando JAXB.
 
-JavaDoc -> https://samuel-oliveira.github.io/Java_NFe/
-
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.0a.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.0a.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.0c.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.0c.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -19,7 +17,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>4.00.0a</version>
+			<version>4.00.0c</version>
 		</dependency>
 ```
 
@@ -29,8 +27,8 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.0 - 
-- Inicio Da versão 4.0
+## v4.00.0c - 03/10/2017 
+- Versão Beta 
 
 ## v3.10.8 - 04-07-2017
 - Corrigido Erro ao Gerar XML de NFC-e sem CDATA no QrCode

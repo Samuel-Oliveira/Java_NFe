@@ -13,24 +13,22 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
-public class Validar implements ErrorHandler {
+class Validar implements ErrorHandler {
 
 	private static String xsd;
 
 	private String listaComErrosDeValidacao;
 	
-	public static final String STATUS = "status";
-	public static final String CONSULTA_XML = "consultaXml";
-	public static final String CONSULTA_CADASTRO = "br/inf/portalfiscal/nfe/schema/consCad";
-	public static final String ENVIO = "envio";
-	public static final String DIST_DFE = "destDfe";
-	public static final String INUTILIZACAO = "inutilizacao";
-	public static final String CANCELAR = "cancelar";
-	public static final String MANIFESTAR = "manifestar";
+	static final String STATUS = "status";
+	static final String CONSULTA_XML = "consultaXml";
+	static final String CONSULTA_CADASTRO = "br/inf/portalfiscal/nfe/schema/consCad";
+	static final String ENVIO = "envio";
+	static final String DIST_DFE = "destDfe";
+	static final String INUTILIZACAO = "inutilizacao";
+	static final String CANCELAR = "cancelar";
+	static final String MANIFESTAR = "manifestar";
 	public static final String CCE = "br/inf/portalfiscal/nfe/schema/cce";
-	public static final String CONSULTA_RECIBO = "consultaRecibo";
-	
-	private static ConfiguracoesIniciaisNfe configuracoesNfe;
+	static final String CONSULTA_RECIBO = "consultaRecibo";
 
 	/**
 	 * Construtor privado
@@ -43,7 +41,7 @@ public class Validar implements ErrorHandler {
 
 		String errosValidacao = null;
 
-		configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
+		ConfiguracoesIniciaisNfe configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
 		
 		switch (tipo) {
 		case STATUS:

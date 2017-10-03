@@ -23,7 +23,7 @@ import java.rmi.RemoteException;
  * @author Samuel Oliveira
  *
  */
-public class Status {
+class Status {
 
 	/**
 	 * Metodo para Consulta de Status de Serviço

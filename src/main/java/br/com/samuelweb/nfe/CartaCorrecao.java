@@ -14,9 +14,9 @@ import javax.xml.bind.JAXBException;
  * @author Samuel Oliveira - samuk.exe@hotmail.com
  * Data: 28/09/2017 - 11:11
  */
-public class CartaCorrecao {
+class CartaCorrecao {
 
-    public static TEnvEvento criaEventoCartaCorrecao(String chave, String cnpj, String motivo) throws NfeException {
+    static TEnvEvento criaEventoCartaCorrecao(String chave, String cnpj, String motivo) throws NfeException {
 
         ConfiguracoesIniciaisNfe configuracoesNfe = CertificadoUtil.iniciaConfiguracoes();
 
@@ -58,7 +58,7 @@ public class CartaCorrecao {
 
     }
 
-    public static TRetEnvEvento eventoCCe(TEnvEvento enviEvento, boolean valida, String tipo) throws NfeException {
+    static TRetEnvEvento eventoCCe(TEnvEvento enviEvento, boolean valida, String tipo) throws NfeException {
 
         try {
 

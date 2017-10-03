@@ -22,7 +22,7 @@ import java.rmi.RemoteException;
  *
  * @author Samuel Oliveira
  */
-public class ConsultaRecibo {
+class ConsultaRecibo {
 
     /**
      * Metodo Responsavel Por Pegar o Xml De Retorno.

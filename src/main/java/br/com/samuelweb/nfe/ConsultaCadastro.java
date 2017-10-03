@@ -23,10 +23,10 @@ import java.rmi.RemoteException;
  *
  */
 
-public class ConsultaCadastro {
+class ConsultaCadastro {
 
-    public static final String CNPJ = "CNPJ";
-    public static final String CPF = "CPF";
+    static final String CNPJ = "CNPJ";
+    static final String CPF = "CPF";
 
     /**
      * Classe Reponsavel Por Consultar o status da NFE na SEFAZ

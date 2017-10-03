@@ -21,12 +21,7 @@ import java.rmi.RemoteException;
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
  *
  */
-public class DistribuicaoDFe {
-
-	public static final String CNPJ = "CNPJ";
-	public static final String CPF = "CPF";
-	public static final String NSU = "NSU";
-	public static final String CHAVE = "CHAVE";
+class DistribuicaoDFe {
 
 	/**
 	 * Classe Reponsavel Por Consultar as NFE na SEFAZ
@@ -36,7 +31,7 @@ public class DistribuicaoDFe {
 	 * @return
 	 * @throws NfeException
 	 */
-	public static RetDistDFeInt consultaNfe(String tipoCliente, String cpfCnpj , String tipoConsulta , String nsuChave) throws NfeException{
+	static RetDistDFeInt consultaNfe(String tipoCliente, String cpfCnpj , String tipoConsulta , String nsuChave) throws NfeException{
 		
 		try {
 
@@ -50,13 +45,13 @@ public class DistribuicaoDFe {
 			distDFeInt.setTpAmb(config.getAmbiente());
 			distDFeInt.setCUFAutor(config.getEstado().getCodigoIbge());
 
-			if(CNPJ.equals(tipoCliente)){
+			if(ConstantesUtil.TIPOS.CNPJ.equals(tipoCliente)){
 				distDFeInt.setCNPJ(cpfCnpj);
 			}else{
 				distDFeInt.setCPF(cpfCnpj);
 			}
 
-			if(NSU.equals(tipoConsulta)){
+			if(ConstantesUtil.TIPOS.NSU.equals(tipoConsulta)){
 				DistDFeInt.DistNSU distNSU = new DistDFeInt.DistNSU();
 				distNSU.setUltNSU(nsuChave);
 				distDFeInt.setDistNSU(distNSU);

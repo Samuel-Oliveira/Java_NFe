@@ -40,10 +40,10 @@ import java.util.List;
  *
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
  */
-public class Assinar {
+class Assinar {
 
-    private static final String INFINUT = "infInut";
-    public static final String EVENTO = "evento";
+    static final String INFINUT = "infInut";
+    static final String EVENTO = "evento";
 
     private static ConfiguracoesIniciaisNfe configuracoesNfe;
 

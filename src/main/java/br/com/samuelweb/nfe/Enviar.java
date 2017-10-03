@@ -1,6 +1,5 @@
 package br.com.samuelweb.nfe;
 
-import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.*;
@@ -23,11 +22,7 @@ import java.util.Iterator;
  *
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
  */
-public class Enviar {
-
-    private static NFeAutorizacao4Stub.NfeResultMsg result;
-    private static ConfiguracoesIniciaisNfe configuracoesNfe;
-    private static CertificadoUtil certUtil;
+class Enviar {
 
     /**
      * Metodo para Montar a NFE
@@ -37,7 +32,7 @@ public class Enviar {
      * @return
      * @throws NfeException
      */
-    public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException {
+    static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException {
 
         try {
 
@@ -79,16 +74,14 @@ public class Enviar {
      * @return
      * @throws NfeException
      */
-    public static TRetEnviNFe enviaNfe(TEnviNFe enviNFe, String tipo) throws NfeException {
+    static TRetEnviNFe enviaNfe(TEnviNFe enviNFe, String tipo) throws NfeException {
 
         /**
          * Informacoes do Certificado Digital.
          */
-        certUtil = new CertificadoUtil();
-        certUtil.iniciaConfiguracoes();
+        CertificadoUtil.iniciaConfiguracoes();
 
         boolean nfce = tipo.equals(ConstantesUtil.NFCE);
-        configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
         String qrCode = "";
 
         try {
@@ -145,7 +138,7 @@ public class Enviar {
             dadosMsg.setExtraElement(ome);
 
             NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.ENVIO) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.ENVIO));
-            result = stub.nfeAutorizacaoLote(dadosMsg);
+            NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
 
             return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
 

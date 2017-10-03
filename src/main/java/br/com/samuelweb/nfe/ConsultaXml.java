@@ -22,7 +22,7 @@ import java.rmi.RemoteException;
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
  */
 
-public class ConsultaXml {
+ class ConsultaXml {
 
     /**
      * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
@@ -32,7 +32,7 @@ public class ConsultaXml {
      * @return
      * @throws NfeException
      */
-    public static TRetConsSitNFe consultaXml(String chave, String tipo) throws NfeException {
+    static TRetConsSitNFe consultaXml(String chave, String tipo) throws NfeException {
 
         try {
 

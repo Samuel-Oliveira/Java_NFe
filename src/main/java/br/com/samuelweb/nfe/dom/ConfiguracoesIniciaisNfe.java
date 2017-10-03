@@ -63,7 +63,7 @@ public final class ConfiguracoesIniciaisNfe {
 	/**
 	 * @return the pastaSchemas
 	 */
-	String getPastaSchemas() {
+	public String getPastaSchemas() {
 		return pastaSchemas;
 	}
 

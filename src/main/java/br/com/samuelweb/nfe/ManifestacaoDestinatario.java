@@ -16,9 +16,9 @@ import javax.xml.bind.JAXBException;
  * @author Samuel Oliveira - samuk.exe@hotmail.com
  * Data: 28/09/2017 - 11:11
  */
-public class ManifestacaoDestinatario {
+class ManifestacaoDestinatario {
 
-    public static TRetEnvEvento eventoManifestacao(String chave, TipoManifestacao manifestacao, String cnpj, String motivo) throws NfeException {
+    static TRetEnvEvento eventoManifestacao(String chave, TipoManifestacao manifestacao, String cnpj, String motivo) throws NfeException {
 
         try {
 

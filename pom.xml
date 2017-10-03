@@ -3,33 +3,19 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-	<version>4.00.0b</version>
+	<version>4.00.0c</version>
 	<name>Java_NFe</name>
 
 	<!-- Repositorios SVN Autocom -->
 	<repositories>
 		<repository>
-			<name>Repositorio Autocom Snapshot</name>
-			<id>Snapshot</id>
-			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom-snapshot/</url>
-		</repository>
-		<repository>
-			<name>Repositorio Autocom Release</name>
+			<name>Repositorio Autocom</name>
 			<id>Release</id>
 			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
-		</repository>
-		<repository>
-			<name>Repositorio Autocom Proxy</name>
-			<id>Proxy</id>
-			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom-proxy/</url>
 		</repository>
 	</repositories>
 
 	<distributionManagement>
-		<snapshotRepository>
-			<id>autocom-snapshot</id>
-			<url>http://nexus.autocomsistemas.com.br/nexus/content/repositories/autocom-snapshot/</url>
-		</snapshotRepository>
 		<repository>
 			<id>autocom</id>
 			<url>http://nexus.autocomsistemas.com.br/nexus/content/repositories/autocom/</url>
@@ -42,14 +28,14 @@
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-wsdl</artifactId>
-			<version>4.00.1</version>
+			<version>4.00.2</version>
 		</dependency>
 
 		<!-- XSD Nfe -->
 		<dependency>
 			<groupId>br.com.autocom</groupId>
 			<artifactId>nfe-xsd</artifactId>
-			<version>9-v1.2b</version>
+			<version>9-v1.2c</version>
 		</dependency>
 
 		<!-- Certificado Utils -->

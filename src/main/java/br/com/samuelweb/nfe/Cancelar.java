@@ -15,9 +15,9 @@ import javax.xml.bind.JAXBException;
  * @author Samuel Oliveira - samuk.exe@hotmail.com
  * Data: 28/09/2017 - 11:11
  */
-public class Cancelar {
+ class Cancelar {
 
-    public static TEnvEvento criaEventoCancelamento(String chave, String protocolo, String cnpj, String motivo) throws NfeException {
+    static TEnvEvento criaEventoCancelamento(String chave, String protocolo, String cnpj, String motivo) throws NfeException {
 
         ConfiguracoesIniciaisNfe configuracoesNfe = CertificadoUtil.iniciaConfiguracoes();
 
@@ -54,7 +54,7 @@ public class Cancelar {
         return enviEvento;
     }
 
-    public static TRetEnvEvento eventoCancelamento(TEnvEvento enviEvento, boolean valida, String tipo) throws NfeException {
+    static TRetEnvEvento eventoCancelamento(TEnvEvento enviEvento, boolean valida, String tipo) throws NfeException {
 
         try {
 
