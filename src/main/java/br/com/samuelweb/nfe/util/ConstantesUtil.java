@@ -51,10 +51,10 @@ public interface ConstantesUtil {
 	interface VERSAO{
 		String NFE = "4.00";
 		String DIST_DFE = "1.01";
-		String EVENTO_CANCELAMENTO = "4.00";
-		String EVENTO_CCE = "4.00";
-		String EVENTO_MANIFESTAR = "4.00";
-		String INUTILIZACAO = "4.00";
+		String EVENTO_CANCELAMENTO = "1.00";
+		String EVENTO_CCE = "1.00";
+		String EVENTO_MANIFESTAR = "1.00";
+		String INUTILIZACAO = "1.00";
 	}
 
 }

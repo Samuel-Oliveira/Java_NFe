@@ -17,7 +17,7 @@ import javax.xml.bind.JAXBException;
  */
  class Cancelar {
 
-    static TEnvEvento criaEventoCancelamento(String chave, String protocolo, String cnpj, String motivo) throws NfeException {
+    static TEnvEvento criaEventoCancelamento(String chave, String protocolo, String cnpj, String data,String motivo) throws NfeException {
 
         ConfiguracoesIniciaisNfe configuracoesNfe = CertificadoUtil.iniciaConfiguracoes();
 
@@ -37,7 +37,7 @@ import javax.xml.bind.JAXBException;
         infoEvento.setTpAmb(configuracoesNfe.getAmbiente());
         infoEvento.setCNPJ(cnpj);
 
-        infoEvento.setDhEvento(XmlUtil.dataNfe());
+        infoEvento.setDhEvento(data);
         infoEvento.setTpEvento(ConstantesUtil.EVENTO.CANCELAR);
         infoEvento.setNSeqEvento("1");
         infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO);

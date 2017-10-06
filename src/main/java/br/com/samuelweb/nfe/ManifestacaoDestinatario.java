@@ -18,7 +18,7 @@ import javax.xml.bind.JAXBException;
  */
 class ManifestacaoDestinatario {
 
-    static TRetEnvEvento eventoManifestacao(String chave, TipoManifestacao manifestacao, String cnpj, String motivo) throws NfeException {
+    static TRetEnvEvento eventoManifestacao(String chave, TipoManifestacao manifestacao, String cnpj, String data, String motivo) throws NfeException {
 
         try {
 
@@ -39,7 +39,7 @@ class ManifestacaoDestinatario {
             infEvento.setTpAmb(configuracoesNfe.getAmbiente());
             infEvento.setCNPJ(cnpj);
             infEvento.setChNFe(chave);
-            infEvento.setDhEvento(XmlUtil.dataNfe());
+            infEvento.setDhEvento(data);
             infEvento.setTpEvento(manifestacao.getCodigo());
             infEvento.setNSeqEvento("1");
             infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);

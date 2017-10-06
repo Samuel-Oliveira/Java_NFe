@@ -161,9 +161,9 @@ public class Nfe {
      * @return
      * @throws NfeException
      */
-    public static TEnvEvento criaObjetoCancelarNfe(String chave, String protocolo, String cnpj, String motivo) throws NfeException {
+    public static TEnvEvento criaObjetoCancelarNfe(String chave, String protocolo, String cnpj, String motivo, String data) throws NfeException {
 
-        return Cancelar.criaEventoCancelamento(chave, protocolo, cnpj, motivo);
+        return Cancelar.criaEventoCancelamento(chave, protocolo, cnpj, data, motivo);
 
     }
 
@@ -190,9 +190,9 @@ public class Nfe {
      * @return
      * @throws NfeException
      */
-    public static br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento criaObjetoCartaCorrecaoNfe(String chave, String cnpj, String motivo) throws NfeException {
+    public static br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento criaObjetoCartaCorrecaoNfe(String chave, String cnpj, String motivo, String data) throws NfeException {
 
-        return CartaCorrecao.criaEventoCartaCorrecao(chave, cnpj, motivo);
+        return CartaCorrecao.criaEventoCartaCorrecao(chave, cnpj,data, motivo);
 
     }
 
@@ -220,9 +220,9 @@ public class Nfe {
      * @return
      * @throws NfeException
      */
-    public static br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(String chave, TipoManifestacao manifestacao, String cnpj, String motivo) throws NfeException {
+    public static br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(String chave, TipoManifestacao manifestacao, String cnpj, String motivo, String data) throws NfeException {
 
-        return ManifestacaoDestinatario.eventoManifestacao(chave, manifestacao, cnpj, motivo);
+        return ManifestacaoDestinatario.eventoManifestacao(chave, manifestacao, cnpj, data, motivo);
 
     }
 

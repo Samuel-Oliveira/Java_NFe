@@ -16,7 +16,7 @@ import javax.xml.bind.JAXBException;
  */
 class CartaCorrecao {
 
-    static TEnvEvento criaEventoCartaCorrecao(String chave, String cnpj, String motivo) throws NfeException {
+    static TEnvEvento criaEventoCartaCorrecao(String chave, String cnpj, String data,String motivo) throws NfeException {
 
         ConfiguracoesIniciaisNfe configuracoesNfe = CertificadoUtil.iniciaConfiguracoes();
 
@@ -38,7 +38,7 @@ class CartaCorrecao {
         infEvento.setChNFe(chave);
 
         // Altere a Data
-        infEvento.setDhEvento(XmlUtil.dataNfe());
+        infEvento.setDhEvento(data);
         infEvento.setTpEvento(ConstantesUtil.EVENTO.CCE);
         infEvento.setNSeqEvento("1");
         infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CCE);
