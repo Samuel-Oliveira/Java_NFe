@@ -24,6 +24,7 @@ public final class ConfiguracoesIniciaisNfe {
 	private String versaoNfe;
 	private ProxyUtil proxyUtil; 
 	private boolean contigenciaSCAN;
+	private boolean log = true;
 	
 	//Construtor Singleton
 	private ConfiguracoesIniciaisNfe(){}
@@ -42,9 +43,11 @@ public final class ConfiguracoesIniciaisNfe {
 	
 	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado,String ambiente, Certificado certificado, String pastaSchemas, String versaoNfe){
 		new ConfiguracoesIniciaisNfe(estado,ambiente,certificado,pastaSchemas,versaoNfe);
-		System.out.println("Api Java Nfe Versão 4.00.0a - Samuel Olivera - samuk.exe@hotmail.com");
-		System.out.println("Certificado: "+certificado.getTipo().toUpperCase()+" - "+ certificado.getNome().toUpperCase() +" - Vencimento: " + certificado.getVencimento());
-		System.out.println("Ambiente: "+ (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "+estado.getNome() + " - Versão: "+versaoNfe);
+		if(instance.log) {
+			System.out.println("Api Java Nfe Versão 4.00.0e - Samuel Olivera - samuk.exe@hotmail.com");
+			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - " + certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
+			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: " + estado.getNome() + " - Versão: " + versaoNfe);
+		}
 		return instance;
 	}
 	
@@ -151,4 +154,11 @@ public final class ConfiguracoesIniciaisNfe {
 		this.estado = estado;
 	}
 
+	public boolean isLog() {
+		return log;
+	}
+
+	public void setLog(boolean log) {
+		this.log = log;
+	}
 }

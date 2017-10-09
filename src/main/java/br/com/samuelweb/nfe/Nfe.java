@@ -190,9 +190,9 @@ public class Nfe {
      * @return
      * @throws NfeException
      */
-    public static br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento criaObjetoCartaCorrecaoNfe(String chave, String cnpj, String motivo, String data) throws NfeException {
+    public static br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento criaObjetoCartaCorrecaoNfe(String chave, String cnpj, String motivo, String data, String nSeqEvento) throws NfeException {
 
-        return CartaCorrecao.criaEventoCartaCorrecao(chave, cnpj,data, motivo);
+        return CartaCorrecao.criaEventoCartaCorrecao(chave, cnpj,data, motivo, nSeqEvento);
 
     }
 

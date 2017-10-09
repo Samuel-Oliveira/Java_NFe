@@ -25,14 +25,14 @@ public class Inutilizar {
 
         try {
 
-            ConfiguracoesIniciaisNfe configuracoesNfe = CertificadoUtil.iniciaConfiguracoes();
+            ConfiguracoesIniciaisNfe config = CertificadoUtil.iniciaConfiguracoes();
 
             TInutNFe inutNFe = new TInutNFe();
             inutNFe.setVersao(ConstantesUtil.VERSAO.INUTILIZACAO);
 
             TInutNFe.InfInut infInut = new TInutNFe.InfInut();
             infInut.setId(id);
-            infInut.setTpAmb(configuracoesNfe.getAmbiente());
+            infInut.setTpAmb(config.getAmbiente());
             infInut.setXServ("INUTILIZAR");
             infInut.setCUF(id.substring(2,4));
             infInut.setAno(id.substring(4,6));
@@ -57,7 +57,9 @@ public class Inutilizar {
                 throw new NfeValidacaoException("Erro Na Validação do Xml: " + erros);
             }
 
-            System.out.println("Xml Inutilizar: " + xml);
+            if (config.isLog()) {
+                System.out.println("Xml Inutilizar: " + xml);
+            }
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
             NFeInutilizacao4Stub.NfeDadosMsg dadosMsg = new NFeInutilizacao4Stub.NfeDadosMsg();

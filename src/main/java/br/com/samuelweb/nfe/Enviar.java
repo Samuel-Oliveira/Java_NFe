@@ -1,5 +1,6 @@
 package br.com.samuelweb.nfe;
 
+import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.*;
@@ -56,7 +57,9 @@ class Enviar {
                 }
             }
 
-            System.out.println("Xml Assinado: " + xml);
+            if (ConfiguracoesIniciaisNfe.getInstance().isLog()) {
+                System.out.println("Xml Assinado: " + xml);
+            }
 
             return XmlUtil.xmlToObject(xml, TEnviNFe.class);
 
@@ -79,7 +82,7 @@ class Enviar {
         /**
          * Informacoes do Certificado Digital.
          */
-        CertificadoUtil.iniciaConfiguracoes();
+        ConfiguracoesIniciaisNfe config = CertificadoUtil.iniciaConfiguracoes();
 
         boolean nfce = tipo.equals(ConstantesUtil.NFCE);
         String qrCode = "";
@@ -132,7 +135,9 @@ class Enviar {
                 enviNFe.getNFe().get(0).getInfNFeSupl().setQrCode("<![CDATA["+qrCode +"]]>");
             }
 
-            System.out.println("Xml para Envio: " + ome.toString());
+            if (config.isLog()) {
+                System.out.println("Xml para Envio: " + ome.toString());
+            }
 
             NFeAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeAutorizacao4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);

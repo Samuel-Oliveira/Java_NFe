@@ -59,7 +59,9 @@ class ConsultaCadastro {
 
             String xml = XmlUtil.objectToXml(consCad);
 
-            System.out.println("Xml Consulta: " + xml);
+            if (config.isLog()) {
+                System.out.println("Xml Consulta: " + xml);
+            }
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
             CadConsultaCadastro4Stub.NfeDadosMsg dadosMsg = new CadConsultaCadastro4Stub.NfeDadosMsg();

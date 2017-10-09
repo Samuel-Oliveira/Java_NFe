@@ -1,5 +1,6 @@
 package br.com.samuelweb.nfe;
 
+import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.exception.NfeValidacaoException;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
@@ -41,16 +42,20 @@ class Eventos {
                 }
             }
 
-            System.out.println("Xml Evento: "+ xml);
+            if (ConfiguracoesIniciaisNfe.getInstance().isLog()) {
+                System.out.println("Xml Evento: " + xml);
+            }
 
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
             NFeRecepcaoEvento4Stub.NfeDadosMsg dadosMsg = new NFeRecepcaoEvento4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
 
-            String url = WebServiceUtil.getUrl(tipo, ConstantesUtil.SERVICOS.EVENTO);
+            String url ;
             if(tipoEvento.equals(ConstantesUtil.EVENTO.MANIFESTACAO)){
                 url =  WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.MANIFESTACAO);
+            }else{
+                url = WebServiceUtil.getUrl(tipo, ConstantesUtil.SERVICOS.EVENTO);
             }
 
             NFeRecepcaoEvento4Stub stub = new NFeRecepcaoEvento4Stub(url);

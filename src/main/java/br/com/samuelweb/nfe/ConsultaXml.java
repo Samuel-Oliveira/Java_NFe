@@ -46,7 +46,9 @@ import java.rmi.RemoteException;
 
             String xml = XmlUtil.objectToXml(consSitNFe);
 
-            System.out.println("Xml Consulta: " + xml);
+            if (config.isLog()) {
+                System.out.println("Xml Consulta: " + xml);
+            }
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
             NFeConsultaProtocolo4Stub.NfeDadosMsg dadosMsg = new NFeConsultaProtocolo4Stub.NfeDadosMsg();

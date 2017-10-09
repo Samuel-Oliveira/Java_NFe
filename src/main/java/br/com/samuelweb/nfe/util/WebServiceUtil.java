@@ -3,13 +3,12 @@
  */
 package br.com.samuelweb.nfe.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.ini4j.Wini;
-
 import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
+import org.ini4j.Wini;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Samuel Oliveira
@@ -66,7 +65,9 @@ public class WebServiceUtil {
 				throw new NfeException("WebService de "+servico+" não encontrado para "+config.getEstado().getNome());
 			}
 
-			System.out.println("WebService - " + url);
+			if (config.isLog()){
+				System.out.println("WebService - " + url);
+			}
 			return url;
 
 		} catch (IOException e) {
@@ -94,8 +95,10 @@ public class WebServiceUtil {
 			if(ObjetoUtil.isEmpty(url)){
 				throw new NfeException("WebService de "+servico+" não encontrado para "+uf);
 			}
-			
-			System.out.println("WebService - " + url);
+
+			if (config.isLog()) {
+				System.out.println("WebService - " + url);
+			}
 			return url;
 			
 		} catch (IOException e) {

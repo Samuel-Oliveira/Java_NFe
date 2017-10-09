@@ -63,7 +63,9 @@ class DistribuicaoDFe {
 
 			String xml = XmlUtil.objectToXml(distDFeInt);
 
-			System.out.println("Xml: "+xml);
+			if (config.isLog()) {
+				System.out.println("Xml: " + xml);
+			}
 			
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 			

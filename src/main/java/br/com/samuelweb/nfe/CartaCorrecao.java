@@ -16,11 +16,11 @@ import javax.xml.bind.JAXBException;
  */
 class CartaCorrecao {
 
-    static TEnvEvento criaEventoCartaCorrecao(String chave, String cnpj, String data,String motivo) throws NfeException {
+    static TEnvEvento criaEventoCartaCorrecao(String chave, String cnpj, String data,String motivo, String nSeqEvento) throws NfeException {
 
         ConfiguracoesIniciaisNfe configuracoesNfe = CertificadoUtil.iniciaConfiguracoes();
 
-        String id = "ID" + ConstantesUtil.EVENTO.CCE + chave + "01";
+        String id = "ID" + ConstantesUtil.EVENTO.CCE + chave + (nSeqEvento.length() < 2 ? "0" + nSeqEvento : nSeqEvento);
 
         br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento envEvento = new br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento();
         envEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CCE);
@@ -40,7 +40,7 @@ class CartaCorrecao {
         // Altere a Data
         infEvento.setDhEvento(data);
         infEvento.setTpEvento(ConstantesUtil.EVENTO.CCE);
-        infEvento.setNSeqEvento("1");
+        infEvento.setNSeqEvento(nSeqEvento);
         infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CCE);
 
         br.inf.portalfiscal.nfe.schema.envcce.TEvento.InfEvento.DetEvento detEvento = new br.inf.portalfiscal.nfe.schema.envcce.TEvento.InfEvento.DetEvento();

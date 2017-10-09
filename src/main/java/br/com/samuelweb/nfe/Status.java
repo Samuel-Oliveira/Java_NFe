@@ -35,16 +35,18 @@ class Status {
 	static TRetConsStatServ statusServico(String tipo) throws NfeException {
 
 		try {
-			ConfiguracoesIniciaisNfe configuracoesNfe = CertificadoUtil.iniciaConfiguracoes();
+			ConfiguracoesIniciaisNfe config = CertificadoUtil.iniciaConfiguracoes();
 
 			TConsStatServ consStatServ = new TConsStatServ();
-			consStatServ.setTpAmb(configuracoesNfe.getAmbiente());
-			consStatServ.setCUF(configuracoesNfe.getEstado().getCodigoIbge());
-			consStatServ.setVersao(configuracoesNfe.getVersaoNfe());
+			consStatServ.setTpAmb(config.getAmbiente());
+			consStatServ.setCUF(config.getEstado().getCodigoIbge());
+			consStatServ.setVersao(config.getVersaoNfe());
 			consStatServ.setXServ("STATUS");
 			String xml = XmlUtil.objectToXml(consStatServ);
-	
-			System.out.println("Xml Status: "+xml);
+
+			if (config.isLog()) {
+				System.out.println("Xml Status: " + xml);
+			}
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 
 			NFeStatusServico4Stub.NfeDadosMsg dadosMsg = new NFeStatusServico4Stub.NfeDadosMsg();

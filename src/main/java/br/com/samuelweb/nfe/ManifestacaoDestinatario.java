@@ -56,7 +56,7 @@ class ManifestacaoDestinatario {
             xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
             xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-            xml = Eventos.enviarEvento(xml, ConstantesUtil.EVENTO.MANIFESTACAO, true, "");
+            xml = Eventos.enviarEvento(xml, ConstantesUtil.EVENTO.MANIFESTACAO, false, "");
 
             return XmlUtil.xmlToObject(xml, TRetEnvEvento.class);
 
