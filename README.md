@@ -29,6 +29,10 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
+## v3.10.8 - 
+- Atualziado Cacert
+- Corrigido URL WS de PE
+
 ## v3.10.8 - 04-07-2017
 - Corrigido Erro ao Gerar XML de NFC-e sem CDATA no QrCode
 - Removido WebService especial da Bahia Para Nfce
