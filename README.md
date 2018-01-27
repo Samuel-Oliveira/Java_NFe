@@ -6,7 +6,7 @@ JavaDoc -> https://samuel-oliveira.github.io/Java_NFe/
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.8.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.8.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-3.10.9.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.9.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -19,7 +19,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>3.10.8</version>
+			<version>3.10.9</version>
 		</dependency>
 ```
 
@@ -29,9 +29,11 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v3.10.8 - 
+## v3.10.9 - 26-01-2018
 - Atualziado Cacert
 - Corrigido URL WS de PE
+- Corrigido URL WS de ES
+- Ultima Versão 3.10
 
 ## v3.10.8 - 04-07-2017
 - Corrigido Erro ao Gerar XML de NFC-e sem CDATA no QrCode
