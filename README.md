@@ -6,14 +6,14 @@ JavaDoc -> https://samuel-oliveira.github.io/Java_NFe/
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-3.10.9.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-3.10.9.jar) e o adicione às bibliotecas de Seu Projeto.
-- Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
+- Baixe o java-nfe-3.10.9.jar (https://github.com/Samuel-Oliveira/Java_NFe/blob/Versao_3.10/java-nfe-3.10.9.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/blob/Versao_3.10/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
 ```
 	    <repository>
-			<name>Repositorio Autocom SnapShot</name>
-			<id>Snapshot</id>
+			<name>Repositorio Autocom</name>
+			<id>Release</id>
 			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
 		</repository>
 		<dependency>
