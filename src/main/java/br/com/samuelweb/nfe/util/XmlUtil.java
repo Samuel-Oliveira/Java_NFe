@@ -14,6 +14,7 @@ import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNfeProc;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TProtNFe;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TInutNFe;
+import br.inf.portalfiscal.nfe.schema_4.inutNFe.TProcInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.util.XsdUtil;
 
 import javax.xml.bind.*;
@@ -48,6 +49,7 @@ public class XmlUtil {
     private static final String TPROCEVENTO = "TProcEvento";
     private static final String TCONSRECINFE = "TConsReciNFe";
     private static final String TConsCad = "TConsCad";
+    private static final String TPROCINUT = "TProcInutNFe";
 
     private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento";
     private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
@@ -142,6 +144,10 @@ public class XmlUtil {
                 element = XsdUtil.enviNfe.createTNfeProc((TNfeProc) obj);
                 break;
 
+            case TPROCINUT:
+                context = JAXBContext.newInstance(TProcInutNFe.class);
+                element = XsdUtil.inutNfe.createTProcInutNFe((TProcInutNFe) obj);
+                break;
 
             case EVENTO:
                 if (obj.getClass().getName().equals(CANCELAR)) {

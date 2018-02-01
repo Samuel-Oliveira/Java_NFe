@@ -1,5 +1,5 @@
 /**
- *
+ * 
  */
 package br.com.samuelweb.nfe;
 
@@ -11,6 +11,7 @@ import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
 import br.inf.portalfiscal.nfe.schema.retdistdfeint.RetDistDFeInt;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.inf.portalfiscal.nfe.schema_4.inutNFe.TInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
@@ -119,6 +120,25 @@ public class Nfe {
 	public static TRetInutNFe inutilizacao(String id, String motivo, String tipo) throws NfeException{
 
 		return Inutilizar.inutiliza(id , motivo, tipo);
+
+	}
+
+	/**
+	 * Classe Reponsavel Por criar o Objeto de Inutilização
+	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+     * Id = Código da UF + Ano (2 posições) + CNPJ
+     * + modelo + série + número inicial e número final
+     * precedida do literal “ID”
+	 *
+	 * @param id
+	 * @param valida
+	 * @param tipo
+	 * @return
+	 * @throws NfeException
+	 */
+	public static TInutNFe criaObjetoInutilizacao(String id, String motivo, String tipo) throws NfeException{
+
+		return Inutilizar.criaObjetoInutiliza(id , motivo, tipo);
 
 	}
 

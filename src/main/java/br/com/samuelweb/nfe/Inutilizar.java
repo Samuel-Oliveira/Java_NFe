@@ -21,31 +21,39 @@ import java.rmi.RemoteException;
  */
 class Inutilizar {
 
+    static TInutNFe criaObjetoInutiliza(String id, String motivo, String tipo) throws NfeException {
+        ConfiguracoesIniciaisNfe config = ConfiguracoesIniciaisNfe.getInstance();
+
+        TInutNFe inutNFe = new TInutNFe();
+        inutNFe.setVersao(ConstantesUtil.VERSAO.INUTILIZACAO);
+
+        TInutNFe.InfInut infInut = new TInutNFe.InfInut();
+        infInut.setId(id);
+        infInut.setTpAmb(config.getAmbiente());
+        infInut.setXServ("INUTILIZAR");
+        infInut.setCUF(id.substring(2,4));
+        infInut.setAno(id.substring(4,6));
+
+        infInut.setCNPJ(id.substring(6,20));
+        infInut.setMod(tipo.equals(ConstantesUtil.NFE) ? "55" : "65");
+        infInut.setSerie(Integer.valueOf(id.substring(22,25)).toString());
+
+        infInut.setNNFIni(Integer.valueOf(id.substring(25,34)).toString());
+        infInut.setNNFFin(Integer.valueOf(id.substring(34,43)).toString());
+
+        infInut.setXJust(motivo);
+        inutNFe.setInfInut(infInut);
+
+        return inutNFe;
+    }
+
     static TRetInutNFe inutiliza(String id, String motivo, String tipo) throws NfeException {
 
         try {
 
             ConfiguracoesIniciaisNfe config = CertificadoUtil.iniciaConfiguracoes();
 
-            TInutNFe inutNFe = new TInutNFe();
-            inutNFe.setVersao(ConstantesUtil.VERSAO.INUTILIZACAO);
-
-            TInutNFe.InfInut infInut = new TInutNFe.InfInut();
-            infInut.setId(id);
-            infInut.setTpAmb(config.getAmbiente());
-            infInut.setXServ("INUTILIZAR");
-            infInut.setCUF(id.substring(2,4));
-            infInut.setAno(id.substring(4,6));
-
-            infInut.setCNPJ(id.substring(6,20));
-            infInut.setMod(tipo.equals(ConstantesUtil.NFE) ? "55" : "65");
-            infInut.setSerie(Integer.valueOf(id.substring(22,25)).toString());
-
-            infInut.setNNFIni(Integer.valueOf(id.substring(25,34)).toString());
-            infInut.setNNFFin(Integer.valueOf(id.substring(34,43)).toString());
-
-            infInut.setXJust(motivo);
-            inutNFe.setInfInut(infInut);
+            TInutNFe inutNFe = criaObjetoInutiliza(id, motivo,tipo);
 
             String xml = XmlUtil.objectToXml(inutNFe);
             xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");

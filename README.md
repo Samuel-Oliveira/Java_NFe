@@ -17,7 +17,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>4.00.1</version>
+			<version>4.00.2</version>
 		</dependency>
 ```
 
@@ -26,6 +26,11 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.2 - 
+- Adicionado Metodo Para Gerar ProcInutilização (Para Armazenamento)
+- Adicionado Diversas URL de WS
+- Corrigido Schemas de Cancelamento
 
 ## v4.00.1 - 28-01-2018
 - Versão Inicial 4.00 
