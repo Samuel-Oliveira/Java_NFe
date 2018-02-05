@@ -24,7 +24,7 @@ public class WebServiceUtil {
 			String secao = tipo + "_" + config.getEstado() + "_"
 					+ (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
 
-			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServices.ini");
+			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
 
 			Wini ini = new Wini();
 			ini.getConfig().setLowerCaseOption(true);
@@ -87,7 +87,7 @@ public class WebServiceUtil {
 			String secao = tipo + "_" + uf.toUpperCase() + "_"
 					+ (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
 			
-			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServices.ini");
+			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
 
             Wini ini = new Wini();
             ini.getConfig().setLowerCaseOption(true);

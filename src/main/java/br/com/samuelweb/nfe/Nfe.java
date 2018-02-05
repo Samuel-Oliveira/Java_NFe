@@ -5,6 +5,7 @@ package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.dom.Enum.TipoManifestacao;
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
@@ -16,6 +17,8 @@ import br.inf.portalfiscal.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
+
+import javax.xml.bind.JAXBException;
 
 
 /**
@@ -136,9 +139,14 @@ public class Nfe {
 	 * @return
 	 * @throws NfeException
 	 */
-	public static TInutNFe criaObjetoInutilizacao(String id, String motivo, String tipo) throws NfeException{
+	public static TInutNFe criaObjetoInutilizacao(String id, String motivo, String tipo) throws NfeException, JAXBException {
 
-		return Inutilizar.criaObjetoInutiliza(id , motivo, tipo);
+        TInutNFe inutNFe = Inutilizar.criaObjetoInutiliza(id , motivo, tipo);
+
+        String xml = XmlUtil.objectToXml(inutNFe);
+        xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
+
+       return  XmlUtil.xmlToObject(Assinar.assinaNfe(xml, Assinar.INFINUT), TInutNFe.class );
 
 	}
 

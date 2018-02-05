@@ -31,6 +31,7 @@ ________________________________________________________________________________
 - Adicionado Metodo Para Gerar ProcInutilização (Para Armazenamento)
 - Adicionado Diversas URL de WS
 - Corrigido Schemas de Cancelamento
+- Corrigido Erro De Integração com CTE.
 
 ## v4.00.1 - 28-01-2018
 - Versão Inicial 4.00 
