@@ -12,6 +12,7 @@ import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
 import org.apache.axiom.om.OMText;
 import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.axis2.transport.http.HTTPConstants;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -143,6 +144,13 @@ class Enviar {
             dadosMsg.setExtraElement(ome);
 
             NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.ENVIO) : WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.ENVIO));
+            //Timeout
+            if (!ObjetoUtil.isEmpty(config.getTimeout())) {
+                stub._getServiceClient().getOptions().setProperty(
+                        HTTPConstants.SO_TIMEOUT, config.getTimeout());
+                stub._getServiceClient().getOptions().setProperty(
+                        HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+            }
             NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
 
             return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);

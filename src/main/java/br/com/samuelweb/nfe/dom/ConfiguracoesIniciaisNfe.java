@@ -24,8 +24,10 @@ public final class ConfiguracoesIniciaisNfe {
     private String pastaSchemas;
     private String versaoNfe;
     private ProxyUtil proxyUtil;
+    private Integer timeout;
     private boolean contigenciaSCAN;
     private boolean log = true;
+
 
     //Construtor Singleton
     private ConfiguracoesIniciaisNfe() {
@@ -170,5 +172,21 @@ public final class ConfiguracoesIniciaisNfe {
 
     public void setLog(boolean log) {
         this.log = log;
+    }
+
+    public ProxyUtil getProxyUtil() {
+        return proxyUtil;
+    }
+
+    public void setProxyUtil(ProxyUtil proxyUtil) {
+        this.proxyUtil = proxyUtil;
+    }
+
+    public Integer getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
     }
 }

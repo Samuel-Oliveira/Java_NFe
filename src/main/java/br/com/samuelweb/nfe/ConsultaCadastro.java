@@ -3,6 +3,7 @@ package br.com.samuelweb.nfe;
 import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
+import br.com.samuelweb.nfe.util.ObjetoUtil;
 import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
@@ -11,6 +12,7 @@ import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
 import br.inf.portalfiscal.www.nfe_400.wsdl.CadConsultaCadastro.CadConsultaCadastro4Stub;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.axis2.transport.http.HTTPConstants;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -67,6 +69,15 @@ class ConsultaCadastro {
             dadosMsg.setExtraElement(ome);
 
             CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(WebServiceUtil.getUrlConsultaCadastro(consCad.getInfCons().getUF().toString()));
+
+            //Timeout
+            if (!ObjetoUtil.isEmpty(config.getTimeout())) {
+                stub._getServiceClient().getOptions().setProperty(
+                        HTTPConstants.SO_TIMEOUT, config.getTimeout());
+                stub._getServiceClient().getOptions().setProperty(
+                        HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+            }
+
             CadConsultaCadastro4Stub.NfeResultMsg result = stub.consultaCadastro(dadosMsg);
 
             return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsCad.class);

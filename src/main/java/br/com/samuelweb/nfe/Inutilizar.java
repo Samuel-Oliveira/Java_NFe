@@ -9,6 +9,7 @@ import br.inf.portalfiscal.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.inf.portalfiscal.www.nfe_400.wsdl.NFeInutilizacao.NFeInutilizacao4Stub;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.axis2.transport.http.HTTPConstants;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -74,6 +75,15 @@ class Inutilizar {
             dadosMsg.setExtraElement(ome);
 
             NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(WebServiceUtil.getUrl(tipo, ConstantesUtil.SERVICOS.INUTILIZACAO));
+
+            //Timeout
+            if (!ObjetoUtil.isEmpty(config.getTimeout())) {
+                stub._getServiceClient().getOptions().setProperty(
+                        HTTPConstants.SO_TIMEOUT, config.getTimeout());
+                stub._getServiceClient().getOptions().setProperty(
+                        HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+            }
+
             NFeInutilizacao4Stub.NfeResultMsg result = stub.nfeInutilizacaoNF(dadosMsg);
 
             return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetInutNFe.class);

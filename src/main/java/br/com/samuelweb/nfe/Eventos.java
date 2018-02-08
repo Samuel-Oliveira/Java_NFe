@@ -9,6 +9,7 @@ import br.com.samuelweb.nfe.util.WebServiceUtil;
 import br.inf.portalfiscal.www.nfe_400.wsdl.NFeRecepcaoEvento.NFeRecepcaoEvento4Stub;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.axis2.transport.http.HTTPConstants;
 
 import javax.xml.stream.XMLStreamException;
 import java.rmi.RemoteException;
@@ -19,6 +20,7 @@ class Eventos {
 
         try {
 
+            ConfiguracoesIniciaisNfe config = ConfiguracoesIniciaisNfe.getInstance();
             xml = Assinar.assinaNfe(xml, Assinar.EVENTO);
 
             if(valida){
@@ -42,7 +44,7 @@ class Eventos {
                 }
             }
 
-            if (ConfiguracoesIniciaisNfe.getInstance().isLog()) {
+            if (config.isLog()) {
                 System.out.println("Xml Evento: " + xml);
             }
 
@@ -59,6 +61,13 @@ class Eventos {
             }
 
             NFeRecepcaoEvento4Stub stub = new NFeRecepcaoEvento4Stub(url);
+            //Timeout
+            if (!ObjetoUtil.isEmpty(config.getTimeout())) {
+                stub._getServiceClient().getOptions().setProperty(
+                        HTTPConstants.SO_TIMEOUT, config.getTimeout());
+                stub._getServiceClient().getOptions().setProperty(
+                        HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+            }
             NFeRecepcaoEvento4Stub.NfeResultMsg result = stub.nfeRecepcaoEvento(dadosMsg);
 
             return result.getExtraElement().toString();
