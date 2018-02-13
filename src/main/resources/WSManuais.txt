@@ -1,4 +1,4 @@
-Seguintes foram adicionados MAnualmente, verificar antes de subscrever:
+Seguintes foram adicionados Manualmente, verificar antes de subscrever:
 
 - RS NFE COnsulta Cadastro
 - Retirado 4.00 do ConsultaNFce GO

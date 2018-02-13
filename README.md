@@ -4,7 +4,7 @@ Projeto Para implementação do Java-Nfe Utilizando JAXB.
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.1.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.1.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.2.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.2.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -27,7 +27,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.2 - 
+## v4.00.2 - 13-02-2018
 - Adicionado Metodo Para Gerar ProcInutilização (Para Armazenamento)
 - Adicionado Diversas URL de WS
 - Corrigido Schemas de Cancelamento
