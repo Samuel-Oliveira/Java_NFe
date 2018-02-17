@@ -48,7 +48,7 @@ class Inutilizar {
         return inutNFe;
     }
 
-    static TRetInutNFe inutiliza(String id, String motivo, String tipo) throws NfeException {
+    static TRetInutNFe inutiliza(String id, String motivo, String tipo, boolean validar) throws NfeException {
 
         try {
 
@@ -61,9 +61,11 @@ class Inutilizar {
 
             xml = Assinar.assinaNfe(xml, Assinar.INFINUT);
 
-            String erros = Validar.validaXml(xml, Validar.INUTILIZACAO);
-            if (!ObjetoUtil.isEmpty(erros)) {
-                throw new NfeValidacaoException("Erro Na Validação do Xml: " + erros);
+            if(validar){
+                String erros = Validar.validaXml(xml, Validar.INUTILIZACAO);
+                if (!ObjetoUtil.isEmpty(erros)) {
+                    throw new NfeValidacaoException("Erro Na Validação do Xml: " + erros);
+                }
             }
 
             if (config.isLog()) {

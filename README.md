@@ -28,7 +28,10 @@ ________________________________________________________________________________
 # Historico de Versões
 
 ## v4.00.3 - 
-- 
+- Adicionado Conversão de TRetEnviNFe para XML.
+- Adicionado Consumo Indevido ao StatusEnum.
+- Corrigido Erro de Inicialização de Certificado nos Eventos
+- Adicionado opção para validar ou não a Inutilização
 
 ## v4.00.2 - 13-02-2018
 - Adicionado Metodo Para Gerar ProcInutilização (Para Armazenamento)

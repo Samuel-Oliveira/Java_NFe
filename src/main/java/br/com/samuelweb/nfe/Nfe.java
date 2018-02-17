@@ -120,9 +120,9 @@ public class Nfe {
 	 * @return
 	 * @throws NfeException
 	 */
-	public static TRetInutNFe inutilizacao(String id, String motivo, String tipo) throws NfeException{
+	public static TRetInutNFe inutilizacao(String id, String motivo, String tipo, boolean validar) throws NfeException{
 
-		return Inutilizar.inutiliza(id , motivo, tipo);
+		return Inutilizar.inutiliza(id , motivo, tipo, validar);
 
 	}
 
