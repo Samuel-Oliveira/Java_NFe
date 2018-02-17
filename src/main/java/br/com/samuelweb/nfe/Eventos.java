@@ -3,6 +3,7 @@ package br.com.samuelweb.nfe;
 import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.exception.NfeValidacaoException;
+import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.ObjetoUtil;
 import br.com.samuelweb.nfe.util.WebServiceUtil;
@@ -20,7 +21,7 @@ class Eventos {
 
         try {
 
-            ConfiguracoesIniciaisNfe config = ConfiguracoesIniciaisNfe.getInstance();
+            ConfiguracoesIniciaisNfe config = CertificadoUtil.iniciaConfiguracoes();
             xml = Assinar.assinaNfe(xml, Assinar.EVENTO);
 
             if(valida){
