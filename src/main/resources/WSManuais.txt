@@ -1,5 +1,0 @@
-Seguintes foram adicionados Manualmente, verificar antes de subscrever:
-
-- RS NFE COnsulta Cadastro
-- Retirado 4.00 do ConsultaNFce GO
-- Adicionado 4.00 para MT NFCe
