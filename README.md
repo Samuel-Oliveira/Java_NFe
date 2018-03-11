@@ -36,7 +36,7 @@ ________________________________________________________________________________
 - Atualizado Cacert
 - Adicioando Conversão de TRetConsSitNFe
 - Adicionado URLS MT Nfce Homologação
-- Corrigido URL de Consulta NFCe SP e PR
+- Corrigido URL de Consulta NFCe SP,PR e PA
 
 ## v4.00.2 - 13-02-2018
 - Adicionado Metodo Para Gerar ProcInutilização (Para Armazenamento)
