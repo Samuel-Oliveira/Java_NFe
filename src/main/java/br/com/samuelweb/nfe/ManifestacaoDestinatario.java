@@ -47,7 +47,9 @@ class ManifestacaoDestinatario {
             TEvento.InfEvento.DetEvento detEvento = new TEvento.InfEvento.DetEvento();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
             detEvento.setDescEvento(manifestacao.getValor());
-            detEvento.setXJust(motivo);
+            if(manifestacao.equals(TipoManifestacao.OPERACAO_NAO_REALIZADA)){
+                detEvento.setXJust(motivo);
+            }
             infEvento.setDetEvento(detEvento);
             evento.setInfEvento(infEvento);
             envEvento.getEvento().add(evento);

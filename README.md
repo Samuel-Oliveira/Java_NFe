@@ -37,6 +37,7 @@ ________________________________________________________________________________
 - Adicioando Conversão de TRetConsSitNFe
 - Adicionado URLS MT Nfce Homologação
 - Corrigido URL de Consulta NFCe SP,PR e PA
+- Tratamento para Adicionar justificativa de Manifestção somente no evento de Operação não Realizada.
 
 ## v4.00.2 - 13-02-2018
 - Adicionado Metodo Para Gerar ProcInutilização (Para Armazenamento)
