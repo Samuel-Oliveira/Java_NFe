@@ -35,6 +35,8 @@ ________________________________________________________________________________
 - Corrigido Erro de Unknow CA
 - Atualizado Cacert
 - Adicioando Conversão de TRetConsSitNFe
+- Adicionado URLS MT Nfce Homologação
+- Corrigido URL de Consulta NFCe SP e PR
 
 ## v4.00.2 - 13-02-2018
 - Adicionado Metodo Para Gerar ProcInutilização (Para Armazenamento)
