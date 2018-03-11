@@ -16,6 +16,7 @@ import br.inf.portalfiscal.nfe.schema_4.enviNFe.TProtNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TRetEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TProcInutNFe;
+import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.util.XsdUtil;
 
 import javax.xml.bind.*;
@@ -50,6 +51,7 @@ public class XmlUtil {
     private static final String TConsCad = "TConsCad";
     private static final String TPROCINUT = "TProcInutNFe";
     private static final String RETORNO_ENVIO = "TRetEnviNFe";
+    private static final String SITUACAO_NFE_RET = "TRetConsSitNFe";
 
     private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento";
     private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
@@ -131,6 +133,11 @@ public class XmlUtil {
             case INUTILIZACAO:
                 context = JAXBContext.newInstance(TInutNFe.class);
                 element = new br.inf.portalfiscal.nfe.schema_4.inutNFe.ObjectFactory().createInutNFe((TInutNFe) obj);
+                break;
+
+            case SITUACAO_NFE_RET:
+                context = JAXBContext.newInstance(TRetConsSitNFe.class);
+                element = new br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.ObjectFactory().createRetConsSitNFe((TRetConsSitNFe) obj);
                 break;
 
             case TPROCEVENTO:

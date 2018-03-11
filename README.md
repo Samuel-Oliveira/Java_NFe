@@ -4,7 +4,7 @@ Projeto Para implementação do Java-Nfe Utilizando JAXB.
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.3a.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.3a.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.3b.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.3b.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -17,7 +17,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>4.00.3a</version>
+			<version>4.00.3b</version>
 		</dependency>
 ```
 
@@ -32,6 +32,9 @@ ________________________________________________________________________________
 - Adicionado Consumo Indevido ao StatusEnum.
 - Corrigido Erro de Inicialização de Certificado nos Eventos
 - Adicionado opção para validar ou não a Inutilização
+- Corrigido Erro de Unknow CA
+- Atualizado Cacert
+- Adicioando Conversão de TRetConsSitNFe
 
 ## v4.00.2 - 13-02-2018
 - Adicionado Metodo Para Gerar ProcInutilização (Para Armazenamento)

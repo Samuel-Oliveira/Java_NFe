@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java_certificado</artifactId>
-			<version>1.5</version>
+			<version>1.6</version>
 		</dependency>
 
 		<!-- MArsheller Cdata -->
