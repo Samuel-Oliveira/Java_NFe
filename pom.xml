@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-	<version>4.00.4a</version>
+	<version>4.00.4b</version>
 	<name>Java_NFe</name>
 
 	<!-- Repositorios SVN Autocom -->
@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java_certificado</artifactId>
-			<version>1.6</version>
+			<version>1.7</version>
 		</dependency>
 
 		<!-- MArsheller Cdata -->
