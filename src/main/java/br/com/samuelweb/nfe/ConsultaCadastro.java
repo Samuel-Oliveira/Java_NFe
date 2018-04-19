@@ -2,10 +2,7 @@ package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
-import br.com.samuelweb.nfe.util.CertificadoUtil;
-import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.WebServiceUtil;
-import br.com.samuelweb.nfe.util.XmlUtil;
+import br.com.samuelweb.nfe.util.*;
 import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.consCad.TUfCons;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
@@ -68,7 +65,7 @@ class ConsultaCadastro {
             CadConsultaCadastro4Stub.NfeDadosMsg dadosMsg = new CadConsultaCadastro4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
 
-            CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(WebServiceUtil.getUrlConsultaCadastro(consCad.getInfCons().getUF().toString()));
+            CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(WebServiceUtil.getUrl(ConstantesUtil.NFE,ConstantesUtil.SERVICOS.CONSULTA_CADASTRO));
 
             //Timeout
             if (!ObjetoUtil.isEmpty(config.getTimeout())) {

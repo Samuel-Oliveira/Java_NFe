@@ -4,7 +4,7 @@ Projeto Para implementação do Java-Nfe Utilizando JAXB.
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.4b.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.4b.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.4c.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.4c.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -17,7 +17,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>4.00.4b</version>
+			<version>4.00.4c</version>
 		</dependency>
 ```
 
@@ -31,6 +31,8 @@ ________________________________________________________________________________
 - Adicionado URLS CE Nfe Produção
 - Adicionado URLS PE Nfe Produção
 - Adicionado URLS RS Nfce Produção
+- Adicionado URLS BA Nfce/Nfe Produção e Homologação
+- Adicionado URLS SP NFCe Produção
 - Adicionado COmpatibilidade de Doias A3 conectados na Mesma Maquina!
 
 ## v4.00.3 - 12-03-2018
