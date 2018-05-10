@@ -5,6 +5,7 @@ package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.dom.Enum.TipoManifestacao;
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.Estados;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
@@ -83,12 +84,13 @@ public class Nfe {
      *
      * @param tipo    Usar ConsultaCadastro.CNPJ ou ConsultaCadastro.CPF
      * @param cnpjCpf
+     * @param estado
      * @return TRetConsCad
      * @throws NfeException
      */
-    public static TRetConsCad consultaCadastro(String tipo, String cnpjCpf) throws NfeException {
+    public static TRetConsCad consultaCadastro(String tipo, String cnpjCpf, Estados estado) throws NfeException {
 
-        return ConsultaCadastro.consultaCadastro(tipo, cnpjCpf);
+        return ConsultaCadastro.consultaCadastro(tipo, cnpjCpf, estado);
 
     }
 
