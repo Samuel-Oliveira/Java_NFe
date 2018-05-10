@@ -2,14 +2,12 @@ package br.com.samuelweb.nfe;
 
 import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
-import br.com.samuelweb.nfe.util.CertificadoUtil;
-import br.com.samuelweb.nfe.util.ObjetoUtil;
-import br.com.samuelweb.nfe.util.WebServiceUtil;
-import br.com.samuelweb.nfe.util.XmlUtil;
+import br.com.samuelweb.nfe.util.*;
 import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.consCad.TUfCons;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
 import br.inf.portalfiscal.www.nfe_400.wsdl.CadConsultaCadastro.CadConsultaCadastro4Stub;
+import br.inf.portalfiscal.www.nfe_400.wsdl.CadConsultaCadastro.rs.CadConsultaCadastro4StubRs;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 import org.apache.axis2.transport.http.HTTPConstants;
@@ -38,7 +36,7 @@ class ConsultaCadastro {
      * @throws NfeException
      */
 
-    static TRetConsCad consultaCadastro(String tipo, String cnpjCpf) throws NfeException {
+    static TRetConsCad consultaCadastro(String tipo, String cnpjCpf, Estados estado) throws NfeException {
 
         try {
 
@@ -54,7 +52,7 @@ class ConsultaCadastro {
                 infCons.setCPF(cnpjCpf);
             }
             infCons.setXServ("CONS-CAD");
-            infCons.setUF(TUfCons.valueOf(config.getEstado().toString()));
+            infCons.setUF(TUfCons.valueOf(estado.toString()));
 
             consCad.setInfCons(infCons);
 
@@ -65,22 +63,47 @@ class ConsultaCadastro {
             }
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
-            CadConsultaCadastro4Stub.NfeDadosMsg dadosMsg = new CadConsultaCadastro4Stub.NfeDadosMsg();
-            dadosMsg.setExtraElement(ome);
+            if (estado.equals(Estados.RS)) {
+                CadConsultaCadastro4StubRs.NfeDadosMsg_type0 dadosMsgRS = new CadConsultaCadastro4StubRs.NfeDadosMsg_type0();
+                dadosMsgRS.setExtraElement(ome);
 
-            CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(WebServiceUtil.getUrlConsultaCadastro(consCad.getInfCons().getUF().toString()));
+                CadConsultaCadastro4StubRs stubRS = new CadConsultaCadastro4StubRs(WebServiceUtil.getUrlConsultaCadastro(estado.toString()));
 
-            //Timeout
-            if (!ObjetoUtil.isEmpty(config.getTimeout())) {
-                stub._getServiceClient().getOptions().setProperty(
-                        HTTPConstants.SO_TIMEOUT, config.getTimeout());
-                stub._getServiceClient().getOptions().setProperty(
-                        HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+                //Timeout
+                if (!ObjetoUtil.isEmpty(config.getTimeout())) {
+                    stubRS._getServiceClient().getOptions().setProperty(
+                            HTTPConstants.SO_TIMEOUT, config.getTimeout());
+                    stubRS._getServiceClient().getOptions().setProperty(
+                            HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+                }
+
+                CadConsultaCadastro4StubRs.ConsultaCadastro consultaCadastro = new CadConsultaCadastro4StubRs.ConsultaCadastro();
+                consultaCadastro.setNfeDadosMsg(dadosMsgRS);
+
+                CadConsultaCadastro4StubRs.NfeResultMsg resultRS = stubRS.consultaCadastro(consultaCadastro);
+
+                return XmlUtil.xmlToObject(resultRS.getConsultaCadastroResult().getExtraElement().toString(), TRetConsCad.class);
+
+            } else {
+                CadConsultaCadastro4Stub.NfeDadosMsg dadosMsg = new CadConsultaCadastro4Stub.NfeDadosMsg();
+                dadosMsg.setExtraElement(ome);
+
+                CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(WebServiceUtil.getUrlConsultaCadastro(estado.toString()));
+
+                //Timeout
+                if (!ObjetoUtil.isEmpty(config.getTimeout())) {
+                    stub._getServiceClient().getOptions().setProperty(
+                            HTTPConstants.SO_TIMEOUT, config.getTimeout());
+                    stub._getServiceClient().getOptions().setProperty(
+                            HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+                }
+
+                CadConsultaCadastro4Stub.NfeResultMsg result = stub.consultaCadastro(dadosMsg);
+
+                return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsCad.class);
             }
 
-            CadConsultaCadastro4Stub.NfeResultMsg result = stub.consultaCadastro(dadosMsg);
 
-            return XmlUtil.xmlToObject(result.getExtraElement().toString(), TRetConsCad.class);
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {
             throw new NfeException(e.getMessage());

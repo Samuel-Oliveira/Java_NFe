@@ -4,7 +4,7 @@ Projeto Para implementação do Java-Nfe Utilizando JAXB.
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.3.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.3.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.4.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.4.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -17,7 +17,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>4.00.3</version>
+			<version>4.00.4</version>
 		</dependency>
 ```
 
@@ -26,6 +26,20 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.4 - 10-05-2018
+- Adicionado URLS CE Nfe Produção
+- Adicionado URLS PE Nfe Produção
+- Adicionado URLS RS Nfce Produção
+- Adicionado URLS BA Nfce/Nfe Produção e Homologação
+- Adicionado URLS SP NFCe Produção
+- Adicionado URLS SVRS NFCe Produção
+- Adicionado URLS MG NFC Produção
+- Adicionado Compatibilidade de Doias A3 conectados na Mesma Maquina!
+- Adicionado Possibilidade de pegar o Certificado(Windows) pelo CNPJ 
+- Adicionado Consulta Cadastro 4.00 a todos os Estados
+- Adicionado WSDL Consulta Cadastro Exclusivo para o RS
+- Adicionado parametro para passar o estado da Consulta, no Consulta Cadastro.
 
 ## v4.00.3 - 12-03-2018
 - Adicionado Conversão de TRetEnviNFe para XML.
