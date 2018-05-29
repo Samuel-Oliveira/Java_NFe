@@ -29,6 +29,9 @@ ________________________________________________________________________________
 
 ## v4.00.5 - 
 - Corrigido URLs QrCode Bahia
+- Adicionado URLs NFe Produção Amazonas
+- Alterado Urls NFce Homologação Ms
+- Alterado Urls COnsulta NFce GO
 
 ## v4.00.4 - 10-05-2018
 - Adicionado URLS CE Nfe Produção
