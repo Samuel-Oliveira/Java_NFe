@@ -57,9 +57,9 @@ class Eventos {
 
 			String url;
 			if (tipoEvento.equals(ConstantesUtil.EVENTO.MANIFESTACAO)) {
-				url = WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.MANIFESTACAO);
+				url = WebServiceUtil.getUrl(config, ConstantesUtil.NFE, ConstantesUtil.SERVICOS.MANIFESTACAO);
 			} else {
-				url = WebServiceUtil.getUrl(tipo, ConstantesUtil.SERVICOS.EVENTO);
+				url = WebServiceUtil.getUrl(config, tipo, ConstantesUtil.SERVICOS.EVENTO);
 			}
 
 			NFeRecepcaoEvento4Stub stub = new NFeRecepcaoEvento4Stub(url);

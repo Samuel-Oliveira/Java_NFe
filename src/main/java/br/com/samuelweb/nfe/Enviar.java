@@ -145,8 +145,8 @@ class Enviar {
 			dadosMsg.setExtraElement(ome);
 
 			NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(
-					nfce ? WebServiceUtil.getUrl(ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.ENVIO)
-							: WebServiceUtil.getUrl(ConstantesUtil.NFE, ConstantesUtil.SERVICOS.ENVIO));
+					nfce ? WebServiceUtil.getUrl(config, ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.ENVIO)
+							: WebServiceUtil.getUrl(config, ConstantesUtil.NFE, ConstantesUtil.SERVICOS.ENVIO));
 			// Timeout
 			if (!ObjetoUtil.isEmpty(config.getTimeout())) {
 				stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());

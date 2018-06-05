@@ -81,7 +81,7 @@ class Inutilizar {
 			dadosMsg.setExtraElement(ome);
 
 			NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(
-					WebServiceUtil.getUrl(tipo, ConstantesUtil.SERVICOS.INUTILIZACAO));
+					WebServiceUtil.getUrl(config, tipo, ConstantesUtil.SERVICOS.INUTILIZACAO));
 
 			// Timeout
 			if (!ObjetoUtil.isEmpty(config.getTimeout())) {
