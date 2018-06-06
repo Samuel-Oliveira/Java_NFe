@@ -13,7 +13,6 @@ import org.apache.axiom.om.OMText;
 import org.apache.axiom.om.util.AXIOMUtil;
 import org.apache.axis2.transport.http.HTTPConstants;
 
-import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.exception.NfeValidacaoException;
@@ -64,7 +63,7 @@ class Enviar {
 				}
 			}
 
-			if (ConfiguracoesIniciaisNfe.getInstance().isLog()) {
+			if (config.isLog()) {
 				System.out.println("Xml Assinado: " + xml);
 			}
 

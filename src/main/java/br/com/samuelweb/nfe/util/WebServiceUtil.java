@@ -8,7 +8,6 @@ import java.io.InputStream;
 
 import org.ini4j.Wini;
 
-import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 
@@ -78,13 +77,12 @@ public class WebServiceUtil {
 
 	}
 
-	public static String getUrlConsultaCadastro(String uf) throws NfeException {
+	public static String getUrlConsultaCadastro(ConfiguracoesNfe config, String uf) throws NfeException {
 
 		String tipo = ConstantesUtil.NFE;
 		String servico = ConstantesUtil.SERVICOS.CONSULTA_CADASTRO;
 		try {
 
-			ConfiguracoesIniciaisNfe config = ConfiguracoesIniciaisNfe.getInstance();
 			String secao = tipo + "_" + uf.toUpperCase() + "_"
 					+ (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
 

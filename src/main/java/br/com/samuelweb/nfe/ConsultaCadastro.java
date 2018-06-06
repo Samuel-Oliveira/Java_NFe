@@ -72,7 +72,7 @@ class ConsultaCadastro {
 				dadosMsgRS.setExtraElement(ome);
 
 				CadConsultaCadastro4StubRs stubRS = new CadConsultaCadastro4StubRs(
-						WebServiceUtil.getUrlConsultaCadastro(estado.toString()));
+						WebServiceUtil.getUrlConsultaCadastro(config, estado.toString()));
 
 				// Timeout
 				if (!ObjetoUtil.isEmpty(config.getTimeout())) {
@@ -94,7 +94,7 @@ class ConsultaCadastro {
 				dadosMsg.setExtraElement(ome);
 
 				CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(
-						WebServiceUtil.getUrlConsultaCadastro(estado.toString()));
+						WebServiceUtil.getUrlConsultaCadastro(config, estado.toString()));
 
 				// Timeout
 				if (!ObjetoUtil.isEmpty(config.getTimeout())) {
