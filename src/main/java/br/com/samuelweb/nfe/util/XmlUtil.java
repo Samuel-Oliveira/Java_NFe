@@ -220,12 +220,8 @@ public class XmlUtil {
         StringWriter sw = new StringWriter();
 
         if (obj.getClass().getSimpleName().equals(ENVIO_NFE) || obj.getClass().getSimpleName().equals(NFEPROC)) {
-            try {
-                CDATAContentHandler cdataHandler = new CDATAContentHandler(sw, "utf-8");
-                marshaller.marshal(element, cdataHandler);
-            } catch (IOException e) {
-                throw new NfeException(e.getMessage());
-            }
+            CDATAContentHandler cdataHandler = new CDATAContentHandler(sw, "utf-8");
+            marshaller.marshal(element, cdataHandler);
         } else {
             marshaller.marshal(element, sw);
         }
@@ -326,7 +322,7 @@ public class XmlUtil {
             LocalDateTime dataASerFormatada = LocalDateTime.now();
             GregorianCalendar calendar = GregorianCalendar.from(dataASerFormatada.atZone(ZoneId.of("Brazil/East")));
 
-            XMLGregorianCalendar  xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+            XMLGregorianCalendar xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
             xmlCalendar.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
 
             return (xmlCalendar.toString());

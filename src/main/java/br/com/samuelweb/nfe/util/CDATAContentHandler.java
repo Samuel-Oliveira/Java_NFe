@@ -2,12 +2,11 @@ package br.com.samuelweb.nfe.util;
 import com.sun.xml.txw2.output.XMLWriter;
 import org.xml.sax.SAXException;
 
-import java.io.IOException;
 import java.io.Writer;
 import java.util.regex.Pattern;
 
 public class CDATAContentHandler extends XMLWriter {
-    public CDATAContentHandler(Writer writer, String encoding) throws IOException {
+    CDATAContentHandler(Writer writer, String encoding) {
         super(writer, encoding);
     }
 

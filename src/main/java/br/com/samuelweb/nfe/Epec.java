@@ -1,5 +1,6 @@
 package br.com.samuelweb.nfe;
 
+import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
@@ -14,7 +15,7 @@ import javax.xml.bind.JAXBException;
  */
 class Epec {
 
-    static TRetEnvEvento eventoEpec(TEnvEvento enviEvento, boolean valida, String tipo) throws NfeException {
+    static TRetEnvEvento eventoEpec(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida, String tipo) throws NfeException {
 
         try {
 
@@ -22,7 +23,7 @@ class Epec {
             xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
             xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-            xml = Eventos.enviarEvento(xml, ConstantesUtil.EVENTO.EPEC, valida, tipo);
+            xml = Eventos.enviarEvento(config, xml, ConstantesUtil.EVENTO.EPEC, valida, tipo);
 
             return XmlUtil.xmlToObject(xml, TRetEnvEvento.class);
 

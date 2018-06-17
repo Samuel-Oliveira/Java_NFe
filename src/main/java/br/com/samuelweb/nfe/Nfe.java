@@ -3,8 +3,6 @@
  */
 package br.com.samuelweb.nfe;
 
-import javax.xml.bind.JAXBException;
-
 import br.com.samuelweb.nfe.dom.Enum.TipoManifestacao;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
@@ -21,6 +19,8 @@ import br.inf.portalfiscal.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
@@ -156,20 +156,6 @@ public class Nfe {
 
 	}
 
-	/**
-	 * Metodo para Montar a NFE.
-	 *
-	 * @param enviNFe
-	 * @param valida
-	 * @return
-	 * @throws NfeException
-	 */
-	public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException {
-
-		return Enviar.montaNfe(CertificadoUtil.iniciaConfiguracoes(), enviNFe, valida);
-
-	}
-
     /**
      * Metodo para Montar a NFE.
      *
@@ -180,81 +166,7 @@ public class Nfe {
      */
     public static TEnviNFe montaNfe(TEnviNFe enviNFe, boolean valida) throws NfeException {
 
-        return Enviar.montaNfe(enviNFe, valida);
-
-    }
-
-    /**
-     * Metodo para Enviar a NFE.
-     * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-     *
-     * @param enviNFe
-     * @param tipo
-     * @return
-     * @throws NfeException
-     */
-    public static TRetEnviNFe enviarNfe(TEnviNFe enviNFe, String tipo) throws NfeException {
-
-        return Enviar.enviaNfe(enviNFe, tipo);
-
-    }
-
-    /**
-     * * Metodo para Cancelar a NFE.
-     * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-     *
-     * @param envEvento
-     * @return
-     * @throws NfeException
-     */
-    public static TRetEnvEvento cancelarNfe(TEnvEvento envEvento, boolean valida, String tipo) throws NfeException {
-
-        return Cancelar.eventoCancelamento(envEvento, valida, tipo);
-
-    }
-
-
-    /**
-     * * Metodo para Enviar o EPEC.
-     * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-     *
-     * @param envEvento
-     * @return
-     * @throws NfeException
-     */
-    public static br.inf.portalfiscal.nfe.schema.envEpec.TRetEnvEvento enviarEpec(br.inf.portalfiscal.nfe.schema.envEpec.TEnvEvento envEvento, boolean valida, String tipo) throws NfeException {
-
-        return Epec.eventoEpec(envEvento, valida, tipo);
-
-    }
-
-   /**
-     * * Metodo para Envio da Carta De Correção da NFE.
-     * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-     *
-     * @param evento
-     * @param valida
-     * @param tipo
-     * @return
-     * @throws NfeException
-     */
-    public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento cce(br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida, String tipo) throws NfeException {
-
-        return CartaCorrecao.eventoCCe(evento, valida, tipo);
-
-    }
-
-    /**
-     * Metodo para Manifestação da NFE.
-     *
-     * @param envEvento
-     * @param valida
-     * @return
-     * @throws NfeException
-     */
-    public static br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(String chave, TipoManifestacao manifestacao, String cnpj, String motivo, String data) throws NfeException {
-
-        return ManifestacaoDestinatario.eventoManifestacao(chave, manifestacao, cnpj, data, motivo);
+        return Enviar.montaNfe(CertificadoUtil.iniciaConfiguracoes(), enviNFe, valida);
 
     }
 

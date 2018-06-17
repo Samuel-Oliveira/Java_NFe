@@ -46,7 +46,7 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
 			String pastaSchemas) {
 		new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas);
-		System.out.println("Api Java Nfe Versão 4.00.4 - Samuel Olivera - samuk.exe@hotmail.com");
+        System.out.println("Api Java Nfe Versão 4.00.5 - Samuel Olivera - samuk.exe@hotmail.com");
 		System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
 				+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
 		System.out.println(
@@ -58,7 +58,7 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 			String pastaSchemas, Boolean log) {
 		new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas);
 		if (log) {
-			System.out.println("Api Java Nfe Versão 4.00.4 - Samuel Olivera - samuk.exe@hotmail.com");
+            System.out.println("Api Java Nfe Versão 4.00.5 - Samuel Olivera - samuk.exe@hotmail.com");
 			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
 					+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
 			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "

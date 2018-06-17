@@ -3,8 +3,6 @@
  */
 package br.com.samuelweb.nfe;
 
-import javax.xml.bind.JAXBException;
-
 import br.com.samuelweb.nfe.dom.ConfiguracoesWebNfe;
 import br.com.samuelweb.nfe.dom.Enum.TipoManifestacao;
 import br.com.samuelweb.nfe.exception.NfeException;
@@ -21,6 +19,8 @@ import br.inf.portalfiscal.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
@@ -233,5 +233,19 @@ public class NfeWeb {
 		return ManifestacaoDestinatario.eventoManifestacao(config, chave, manifestacao, cnpj, data, motivo);
 
 	}
+
+    /**
+     * * Metodo para Enviar o EPEC.
+     * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+     *
+     * @param envEvento
+     * @return
+     * @throws NfeException
+     */
+    public static br.inf.portalfiscal.nfe.schema.envEpec.TRetEnvEvento enviarEpec(ConfiguracoesWebNfe config, br.inf.portalfiscal.nfe.schema.envEpec.TEnvEvento envEvento, boolean valida, String tipo) throws NfeException {
+
+        return Epec.eventoEpec(config, envEvento, valida, tipo);
+
+    }
 
 }

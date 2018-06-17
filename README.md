@@ -4,7 +4,7 @@ Projeto Para implementação do Java-Nfe Utilizando JAXB.
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.5.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.5b.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.5.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.5.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -34,6 +34,8 @@ ________________________________________________________________________________
 - Alterado Urls Consulta NFce GO
 - Adicionado Schemas Versão v1_51
 - Adicionado Evento Epec
+- Atualizado Cacert
+- Atualizado Implementação para Ambiente Web
 - **Atenção: Atualizado Schemas faça o download Novamente.** 
 
 ## v4.00.4 - 10-05-2018

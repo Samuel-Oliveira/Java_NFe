@@ -6,12 +6,10 @@ import java.security.NoSuchAlgorithmException;
 /** 
 * 
 * @author Samuel Oliveira
-*/  
-public class NFCeUtil {  
-  
-    private static String cHashQRCode;  
-  
-    /** 
+*/
+public class NFCeUtil {
+
+    /**
      * 
      * Funcao Responsavel por Devolver o QrCode já no padrão da Nota.
      * 
@@ -39,15 +37,15 @@ public class NFCeUtil {
         value.append("&dhEmi=").append(getHexa(dhEmi));  
         value.append("&vNF=").append(valorNF);  
         value.append("&vICMS=").append(valorICMS);  
-        value.append("&digVal=").append(getHexa(digVal));  
-        value.append("&cIdToken=").append(idToken);  
-        cHashQRCode = getHexa(getHash(value.toString() + CSC, "SHA-1")).toUpperCase();  
-  
-        StringBuilder ret = new StringBuilder();  
-        ret.append(urlConsulta).append("?");  
-        ret.append(value);  
-        ret.append("&cHashQRCode=").append(cHashQRCode);  
-        return ret.toString();  
+        value.append("&digVal=").append(getHexa(digVal));
+        value.append("&cIdToken=").append(idToken);
+        String cHashQRCode = getHexa(getHash(value.toString() + CSC, "SHA-1")).toUpperCase();
+
+        StringBuilder ret = new StringBuilder();
+        ret.append(urlConsulta).append("?");
+        ret.append(value);
+        ret.append("&cHashQRCode=").append(cHashQRCode);
+        return ret.toString();
     }  
   
  

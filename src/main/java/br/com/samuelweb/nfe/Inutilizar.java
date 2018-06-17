@@ -1,14 +1,5 @@
 package br.com.samuelweb.nfe;
 
-import java.rmi.RemoteException;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLStreamException;
-
-import org.apache.axiom.om.OMElement;
-import org.apache.axiom.om.util.AXIOMUtil;
-import org.apache.axis2.transport.http.HTTPConstants;
-
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.exception.NfeValidacaoException;
@@ -19,6 +10,13 @@ import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.inf.portalfiscal.www.nfe_400.wsdl.NFeInutilizacao.NFeInutilizacao4Stub;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.axis2.transport.http.HTTPConstants;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
+import java.rmi.RemoteException;
 
 /**
  * Classe Responsavel por inutilizar uma Faixa de numeracao da Nfe.
@@ -27,8 +25,7 @@ import br.inf.portalfiscal.www.nfe_400.wsdl.NFeInutilizacao.NFeInutilizacao4Stub
  */
 class Inutilizar {
 
-	static TInutNFe criaObjetoInutiliza(ConfiguracoesNfe config, String id, String motivo, String tipo)
-			throws NfeException {
+    static TInutNFe criaObjetoInutiliza(ConfiguracoesNfe config, String id, String motivo, String tipo) {
 
 		TInutNFe inutNFe = new TInutNFe();
 		inutNFe.setVersao(ConstantesUtil.VERSAO.INUTILIZACAO);
