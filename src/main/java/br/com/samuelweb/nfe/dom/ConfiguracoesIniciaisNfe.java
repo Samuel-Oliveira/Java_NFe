@@ -32,31 +32,27 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 	}
 
 	// Construtor Privado
-	private ConfiguracoesIniciaisNfe(Estados estado, String ambiente, Certificado certificado, String pastaSchemas) {
+    private ConfiguracoesIniciaisNfe(Estados estado, String ambiente, Certificado certificado, String pastaSchemas, Boolean log) {
 
 		instance = new ConfiguracoesIniciaisNfe();
 		instance.setEstado(estado);
 		instance.setAmbiente(ambiente);
 		instance.setCertificado(certificado);
 		instance.setPastaSchemas(pastaSchemas);
-		instance.setVersaoNfe(ConstantesUtil.VERSAO.NFE);
+        instance.setVersaoNfe();
+        instance.setLog(log);
 
 	}
 
 	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
 			String pastaSchemas) {
-		new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas);
-        System.out.println("Api Java Nfe Versão 4.00.5 - Samuel Olivera - samuk.exe@hotmail.com");
-		System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
-				+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
-		System.out.println(
-				"Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: " + estado.getNome());
-		return instance;
+        return iniciaConfiguracoes(estado, ambiente, certificado, pastaSchemas, true);
+
 	}
 
 	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
 			String pastaSchemas, Boolean log) {
-		new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas);
+        new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas, log);
 		if (log) {
             System.out.println("Api Java Nfe Versão 4.00.5 - Samuel Olivera - samuk.exe@hotmail.com");
 			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
@@ -102,11 +98,9 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 	}
 
 	/**
-	 * @param versaoNfe
-	 *            the versaoNfe to set
-	 */
-	private void setVersaoNfe(String versaoNfe) {
-		this.versaoNfe = versaoNfe;
+     */
+    private void setVersaoNfe() {
+        this.versaoNfe = ConstantesUtil.VERSAO.NFE;
 	}
 
 	/**

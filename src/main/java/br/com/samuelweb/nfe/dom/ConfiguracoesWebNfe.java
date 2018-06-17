@@ -34,20 +34,21 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 		return iniciaConfiguracoes(estado, ambiente, certificado, pastaSchemas, true);
 	}
 
-    private static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-                                                           String pastaSchemas, Boolean log) {
+    public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
+                                                          String pastaSchemas, Boolean log) {
 		ConfiguracoesWebNfe instance = new ConfiguracoesWebNfe();
 		instance.setEstado(estado);
 		instance.setAmbiente(ambiente);
 		instance.setCertificado(certificado);
 		instance.setPastaSchemas(pastaSchemas);
-		instance.setVersaoNfe(ConstantesUtil.VERSAO.NFE);
+        instance.setVersaoNfe();
+        instance.setLog(log);
 		if (log) {
             System.out.println("Api Java Nfe Versão 4.00.5 - Samuel Olivera - samuk.exe@hotmail.com");
 			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
 					+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
 			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
-					+ estado.getNome());
+                    + estado.getNome() + " - Modo Web");
 		}
 		return instance;
 	}
@@ -79,11 +80,9 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 	}
 
 	/**
-	 * @param versaoNfe
-	 *            the versaoNfe to set
-	 */
-	private void setVersaoNfe(String versaoNfe) {
-		this.versaoNfe = versaoNfe;
+     */
+    private void setVersaoNfe() {
+        this.versaoNfe = ConstantesUtil.VERSAO.NFE;
 	}
 
 	/**
