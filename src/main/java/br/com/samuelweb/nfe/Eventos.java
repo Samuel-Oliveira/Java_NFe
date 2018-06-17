@@ -34,6 +34,9 @@ class Eventos {
 				case ConstantesUtil.EVENTO.CCE:
 					erros = Validar.validaXml(config, xml, Validar.CCE);
 					break;
+        case ConstantesUtil.EVENTO.EPEC:
+          erros = Validar.validaXml(xml, Validar.CCE);
+          break;
 				case ConstantesUtil.EVENTO.MANIFESTACAO:
 					erros = Validar.validaXml(config, xml, Validar.MANIFESTAR);
 					break;
@@ -76,6 +79,4 @@ class Eventos {
 			throw new NfeException(e.getMessage());
 		}
 
-	}
-
-}
+	}}
