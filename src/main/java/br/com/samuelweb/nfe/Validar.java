@@ -4,7 +4,6 @@ import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.SchemaUtil;
 import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -26,6 +25,7 @@ class Validar implements ErrorHandler {
 	static final String DIST_DFE = "destDfe";
 	static final String INUTILIZACAO = "inutilizacao";
 	static final String CANCELAR = "cancelar";
+    static final String EPEC = "epec";
 	static final String MANIFESTAR = "manifestar";
 	static final String CCE = "br/inf/portalfiscal/nfe/schema/cce";
 	static final String CONSULTA_RECIBO = "consultaRecibo";
@@ -65,6 +65,9 @@ class Validar implements ErrorHandler {
 		case CANCELAR:
 			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CANCELAR;
 			break;
+            case EPEC:
+                xsd = configuracoesNfe.getPastaSchemas() + "/" + SchemaUtil.EPEC;
+                break;
 		case CCE:
 			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CCE;
 			break;
@@ -113,19 +116,19 @@ class Validar implements ErrorHandler {
 		return this.getListaComErrosDeValidacao();
 	}
 
-	public void error(SAXParseException exception) throws SAXException {
+    public void error(SAXParseException exception) {
 
 		if (isError(exception)) {
 			listaComErrosDeValidacao += tratamentoRetorno(exception.getMessage());
 		}
 	}
 
-	public void fatalError(SAXParseException exception) throws SAXException {
+    public void fatalError(SAXParseException exception) {
 
 		listaComErrosDeValidacao += tratamentoRetorno(exception.getMessage());
 	}
 
-	public void warning(SAXParseException exception) throws SAXException {
+    public void warning(SAXParseException exception) {
 
 		listaComErrosDeValidacao += tratamentoRetorno(exception.getMessage());
 	}

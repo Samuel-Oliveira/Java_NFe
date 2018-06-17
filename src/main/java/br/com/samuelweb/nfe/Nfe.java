@@ -195,6 +195,21 @@ public class Nfe {
 
     }
 
+
+    /**
+     * * Metodo para Enviar o EPEC.
+     * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+     *
+     * @param envEvento
+     * @return
+     * @throws NfeException
+     */
+    public static br.inf.portalfiscal.nfe.schema.envEpec.TRetEnvEvento enviarEpec(br.inf.portalfiscal.nfe.schema.envEpec.TEnvEvento envEvento, boolean valida, String tipo) throws NfeException {
+
+        return Epec.eventoEpec(envEvento, valida, tipo);
+
+    }
+
    /**
      * * Metodo para Envio da Carta De Correção da NFE.
      * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
