@@ -1,17 +1,31 @@
 package br.com.samuelweb.nfe;
 
-import br.com.samuelweb.certificado.Certificado;
-import br.com.samuelweb.certificado.CertificadoService;
-import br.com.samuelweb.certificado.exception.CertificadoException;
-import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
-import br.com.samuelweb.nfe.exception.NfeException;
-import br.com.samuelweb.nfe.util.XmlUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.xml.crypto.MarshalException;
-import javax.xml.crypto.dsig.*;
+import javax.xml.crypto.dsig.CanonicalizationMethod;
+import javax.xml.crypto.dsig.DigestMethod;
+import javax.xml.crypto.dsig.Reference;
+import javax.xml.crypto.dsig.SignatureMethod;
+import javax.xml.crypto.dsig.SignedInfo;
+import javax.xml.crypto.dsig.Transform;
+import javax.xml.crypto.dsig.XMLSignature;
+import javax.xml.crypto.dsig.XMLSignatureException;
+import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMSignContext;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.KeyInfoFactory;
@@ -25,15 +39,17 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.security.*;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import br.com.samuelweb.certificado.Certificado;
+import br.com.samuelweb.certificado.CertificadoService;
+import br.com.samuelweb.certificado.exception.CertificadoException;
+import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
+import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.XmlUtil;
 
 /**
  * Classe Responsavel Por Assinar O Xml.
@@ -42,149 +58,160 @@ import java.util.List;
  */
 class Assinar {
 
-    static final String INFINUT = "infInut";
-    static final String EVENTO = "evento";
+	static final String INFINUT = "infInut";
+	static final String EVENTO = "evento";
 
-    private static ConfiguracoesIniciaisNfe configuracoesNfe;
+	private static PrivateKey privateKey;
 
-    private static PrivateKey privateKey;
+	private static KeyInfo keyInfo;
 
-    private static KeyInfo keyInfo;
+	Assinar assinarXMLsCertfificadoA1;
 
-    Assinar assinarXMLsCertfificadoA1;
+	/**
+	 * @param stringXml
+	 * @param tipo
+	 *            ('NFe' para nfe normal , 'infInut' para inutilizacao, 'evento'
+	 *            para eventos)
+	 * @return String do Xml Assinado
+	 * @throws NfeException
+	 */
+	static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
 
-    /**
-     * @param stringXml
-     * @param tipo      ('NFe' para nfe normal , 'infInut' para inutilizacao, 'evento' para eventos)
-     * @return String do Xml Assinado
-     * @throws NfeException
-     */
-    static String assinaNfe(String stringXml, String tipo) throws NfeException {
+		stringXml = XmlUtil.removeAcentos(stringXml);
+		stringXml = assinaDocNFe(config, stringXml, tipo);
 
-        configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
+		return stringXml;
+	}
 
-        stringXml = XmlUtil.removeAcentos(stringXml);
-        stringXml = assinaDocNFe(stringXml, tipo);
+	/**
+	 * Assinatura do XML de Envio de Lote da NF-e utilizando Certificado Digital.
+	 *
+	 * @param Conteudo
+	 *            do Xml
+	 * @param Nome
+	 *            do Certificado Digital
+	 * @return String do XMl Assinado
+	 * @throws Exception
+	 */
+	private static String assinaDocNFe(ConfiguracoesNfe config, String xml, String tipo) throws NfeException {
 
-        return stringXml;
-    }
+		try {
+			Document document = documentFactory(xml);
+			XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
+			ArrayList<Transform> transformList = signatureFactory(signatureFactory);
+			loadCertificates(config, signatureFactory);
 
-    /**
-     * Assinatura do XML de Envio de Lote da NF-e utilizando Certificado
-     * Digital.
-     *
-     * @param Conteudo do Xml
-     * @param Nome     do Certificado Digital
-     * @return String do XMl Assinado
-     * @throws Exception
-     */
-    private static String assinaDocNFe(String xml, String tipo) throws NfeException {
+			for (int i = 0; i < document.getDocumentElement().getElementsByTagName(tipo).getLength(); i++) {
+				assinarNFe(tipo, signatureFactory, transformList, privateKey, keyInfo, document, i);
+			}
 
-        try {
-            Document document = documentFactory(xml);
-            XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
-            ArrayList<Transform> transformList = signatureFactory(signatureFactory);
-            loadCertificates(signatureFactory);
+			return outputXML(document);
+		} catch (SAXException | IOException | ParserConfigurationException | NoSuchAlgorithmException
+				| InvalidAlgorithmParameterException | KeyStoreException | UnrecoverableEntryException
+				| NoSuchProviderException | CertificateException | CertificadoException | MarshalException
+				| XMLSignatureException e) {
+			throw new NfeException("Erro ao Assinar Nfe" + e.getMessage());
+		}
+	}
 
-            for (int i = 0; i < document.getDocumentElement().getElementsByTagName(tipo).getLength(); i++) {
-                assinarNFe(tipo, signatureFactory, transformList, privateKey, keyInfo, document, i);
-            }
+	private static void assinarNFe(String tipo, XMLSignatureFactory fac, ArrayList<Transform> transformList,
+			PrivateKey privateKey, KeyInfo ki, Document document, int indexNFe) throws NoSuchAlgorithmException,
+			InvalidAlgorithmParameterException, MarshalException, XMLSignatureException {
 
-            return outputXML(document);
-        } catch (SAXException | IOException | ParserConfigurationException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | KeyStoreException | UnrecoverableEntryException | NoSuchProviderException | CertificateException | CertificadoException | MarshalException | XMLSignatureException e) {
-            throw new NfeException("Erro ao Assinar Nfe" + e.getMessage());
-        }
-    }
+		NodeList elements;
+		switch (tipo) {
+		case EVENTO:
+			elements = document.getElementsByTagName("infEvento");
+			break;
+		case INFINUT:
+			elements = document.getElementsByTagName("infInut");
+			break;
+		default:
+			elements = document.getElementsByTagName("infNFe");
+		}
 
-    private static void assinarNFe(String tipo, XMLSignatureFactory fac, ArrayList<Transform> transformList, PrivateKey privateKey, KeyInfo ki, Document document, int indexNFe) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, MarshalException, XMLSignatureException {
+		org.w3c.dom.Element el = (org.w3c.dom.Element) elements.item(indexNFe);
+		String id = el.getAttribute("Id");
 
-        NodeList elements;
-        switch (tipo) {
-            case EVENTO:
-                elements = document.getElementsByTagName("infEvento");
-                break;
-            case INFINUT:
-                elements = document.getElementsByTagName("infInut");
-                break;
-            default:
-                elements = document.getElementsByTagName("infNFe");
-        }
+		el.setIdAttribute("Id", true);
 
-        org.w3c.dom.Element el = (org.w3c.dom.Element) elements.item(indexNFe);
-        String id = el.getAttribute("Id");
+		Reference ref = fac.newReference("#" + id, fac.newDigestMethod(DigestMethod.SHA1, null), transformList, null,
+				null);
 
-        el.setIdAttribute("Id", true);
+		SignedInfo si = fac.newSignedInfo(
+				fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
+				fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null), Collections.singletonList(ref));
 
-        Reference ref = fac.newReference("#" + id, fac.newDigestMethod(DigestMethod.SHA1, null), transformList, null, null);
+		XMLSignature signature = fac.newXMLSignature(si, ki);
 
-        SignedInfo si = fac.newSignedInfo(fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null), fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
-                Collections.singletonList(ref));
+		DOMSignContext dsc;
 
-        XMLSignature signature = fac.newXMLSignature(si, ki);
+		if (tipo.equals(INFINUT)) {
+			dsc = new DOMSignContext(privateKey, document.getFirstChild());
+		} else {
+			dsc = new DOMSignContext(privateKey,
+					document.getDocumentElement().getElementsByTagName(tipo).item(indexNFe));
+		}
 
-        DOMSignContext dsc;
+		dsc.setBaseURI("ok");
 
-        if (tipo.equals(INFINUT)) {
-            dsc = new DOMSignContext(privateKey, document.getFirstChild());
-        } else {
-            dsc = new DOMSignContext(privateKey, document.getDocumentElement().getElementsByTagName(tipo).item(indexNFe));
-        }
+		signature.sign(dsc);
+	}
 
-        dsc.setBaseURI("ok");
+	private static ArrayList<Transform> signatureFactory(XMLSignatureFactory signatureFactory)
+			throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
 
-        signature.sign(dsc);
-    }
+		ArrayList<Transform> transformList = new ArrayList<Transform>();
+		TransformParameterSpec tps = null;
+		Transform envelopedTransform = signatureFactory.newTransform(Transform.ENVELOPED, tps);
+		Transform c14NTransform = signatureFactory.newTransform("http://www.w3.org/TR/2001/REC-xml-c14n-20010315", tps);
 
-    private static ArrayList<Transform> signatureFactory(XMLSignatureFactory signatureFactory) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+		transformList.add(envelopedTransform);
+		transformList.add(c14NTransform);
+		return transformList;
+	}
 
-        ArrayList<Transform> transformList = new ArrayList<Transform>();
-        TransformParameterSpec tps = null;
-        Transform envelopedTransform = signatureFactory.newTransform(Transform.ENVELOPED, tps);
-        Transform c14NTransform = signatureFactory.newTransform("http://www.w3.org/TR/2001/REC-xml-c14n-20010315", tps);
+	private static Document documentFactory(String xml) throws SAXException, IOException, ParserConfigurationException {
 
-        transformList.add(envelopedTransform);
-        transformList.add(c14NTransform);
-        return transformList;
-    }
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		return factory.newDocumentBuilder().parse(new ByteArrayInputStream(xml.getBytes()));
+	}
 
-    private static Document documentFactory(String xml) throws SAXException, IOException, ParserConfigurationException {
+	private static void loadCertificates(ConfiguracoesNfe config, XMLSignatureFactory signatureFactory)
+			throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException, NoSuchProviderException,
+			CertificateException, IOException, CertificadoException {
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        return factory.newDocumentBuilder().parse(new ByteArrayInputStream(xml.getBytes()));
-    }
+		Certificado certificado = config.getCertificado();
+		KeyStore keyStore = CertificadoService.getKeyStore(certificado);
 
-    private static void loadCertificates(XMLSignatureFactory signatureFactory) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException, NoSuchProviderException, CertificateException, IOException, CertificadoException {
+		KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(certificado.getNome(),
+				new KeyStore.PasswordProtection(certificado.getSenha().toCharArray()));
+		privateKey = pkEntry.getPrivateKey();
 
-        Certificado certificado = configuracoesNfe.getCertificado();
-        KeyStore keyStore = CertificadoService.getKeyStore(certificado);
+		KeyInfoFactory keyInfoFactory = signatureFactory.getKeyInfoFactory();
+		List<X509Certificate> x509Content = new ArrayList<X509Certificate>();
 
-        KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(certificado.getNome(), new KeyStore.PasswordProtection(certificado.getSenha().toCharArray()));
-        privateKey = pkEntry.getPrivateKey();
+		x509Content.add(CertificadoService.getCertificate(certificado, keyStore));
+		X509Data x509Data = keyInfoFactory.newX509Data(x509Content);
+		keyInfo = keyInfoFactory.newKeyInfo(Collections.singletonList(x509Data));
+	}
 
-        KeyInfoFactory keyInfoFactory = signatureFactory.getKeyInfoFactory();
-        List<X509Certificate> x509Content = new ArrayList<X509Certificate>();
+	private static String outputXML(Document doc) throws NfeException {
 
-        x509Content.add(CertificadoService.getCertificate(certificado, keyStore));
-        X509Data x509Data = keyInfoFactory.newX509Data(x509Content);
-        keyInfo = keyInfoFactory.newKeyInfo(Collections.singletonList(x509Data));
-    }
+		try {
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer trans = tf.newTransformer();
+			trans.transform(new DOMSource(doc), new StreamResult(os));
+			String xml = os.toString();
+			xml = xml.replaceAll("\\r\\n", "");
+			xml = xml.replaceAll(" standalone=\"no\"", "");
+			return xml;
+		} catch (TransformerException e) {
+			throw new NfeException("Erro ao Transformar Documento:" + e.getMessage());
+		}
 
-    private static String outputXML(Document doc) throws NfeException {
-
-        try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer trans = tf.newTransformer();
-            trans.transform(new DOMSource(doc), new StreamResult(os));
-            String xml = os.toString();
-            xml = xml.replaceAll("\\r\\n", "");
-            xml = xml.replaceAll(" standalone=\"no\"", "");
-            return xml;
-        } catch (TransformerException e) {
-            throw new NfeException("Erro ao Transformar Documento:" + e.getMessage());
-        }
-
-    }
+	}
 
 }

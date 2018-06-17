@@ -4,7 +4,6 @@
 package br.com.samuelweb.nfe.dom;
 
 import br.com.samuelweb.certificado.Certificado;
-import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.Estados;
 import br.com.samuelweb.nfe.util.ProxyUtil;
@@ -14,8 +13,7 @@ import br.com.samuelweb.nfe.util.ProxyUtil;
  *         <p>
  *         Inicia Configurações Nfe.
  */
-public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
-	private static ConfiguracoesIniciaisNfe instance;
+public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 
 	private Estados estado;
 	private String ambiente;
@@ -28,35 +26,22 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 	private boolean log = true;
 
 	// Construtor Singleton
-	private ConfiguracoesIniciaisNfe() {
+	private ConfiguracoesWebNfe() {
 	}
 
-	// Construtor Privado
-	private ConfiguracoesIniciaisNfe(Estados estado, String ambiente, Certificado certificado, String pastaSchemas) {
+	public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
+			String pastaSchemas) {
+		return iniciaConfiguracoes(estado, ambiente, certificado, pastaSchemas, true);
+	}
 
-		instance = new ConfiguracoesIniciaisNfe();
+	public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
+			String pastaSchemas, Boolean log) {
+		ConfiguracoesWebNfe instance = new ConfiguracoesWebNfe();
 		instance.setEstado(estado);
 		instance.setAmbiente(ambiente);
 		instance.setCertificado(certificado);
 		instance.setPastaSchemas(pastaSchemas);
 		instance.setVersaoNfe(ConstantesUtil.VERSAO.NFE);
-
-	}
-
-	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-			String pastaSchemas) {
-		new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas);
-		System.out.println("Api Java Nfe Versão 4.00.4 - Samuel Olivera - samuk.exe@hotmail.com");
-		System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
-				+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
-		System.out.println(
-				"Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: " + estado.getNome());
-		return instance;
-	}
-
-	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-			String pastaSchemas, Boolean log) {
-		new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas);
 		if (log) {
 			System.out.println("Api Java Nfe Versão 4.00.4 - Samuel Olivera - samuk.exe@hotmail.com");
 			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
@@ -64,14 +49,6 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
 					+ estado.getNome());
 		}
-		return instance;
-	}
-
-	public static ConfiguracoesIniciaisNfe getInstance() throws NfeException {
-		if (instance == null) {
-			throw new NfeException("Configurações Não Foram Inicializadas.");
-		}
-
 		return instance;
 	}
 

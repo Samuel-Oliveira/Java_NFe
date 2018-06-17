@@ -18,9 +18,9 @@ public class CertificadoUtil {
 
 		try {
 			Certificado certificado = ConfiguracoesIniciaisNfe.getInstance().getCertificado();
-			if(!certificado.isValido()){
-			    throw new CertificadoException("Certificado vencido.");
-            }
+			if (!certificado.isValido()) {
+				throw new CertificadoException("Certificado vencido.");
+			}
 			CertificadoService.inicializaCertificado(certificado, CertificadoUtil.class.getResourceAsStream("/Cacert"));
 		} catch (CertificadoException e) {
 			throw new NfeException(e.getMessage());

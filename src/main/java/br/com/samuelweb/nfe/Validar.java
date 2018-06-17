@@ -5,19 +5,27 @@ import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.SchemaUtil;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.ByteArrayInputStream;
-import java.io.File;
+
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
+import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.SchemaUtil;
 
 class Validar implements ErrorHandler {
 
 	private static String xsd;
 
 	private String listaComErrosDeValidacao;
-	
+
 	static final String STATUS = "status";
 	static final String CONSULTA_XML = "consultaXml";
 	static final String CONSULTA_CADASTRO = "br/inf/portalfiscal/nfe/schema/consCad";
@@ -34,70 +42,69 @@ class Validar implements ErrorHandler {
 	 * Construtor privado
 	 */
 	private Validar() {
-		 this.listaComErrosDeValidacao = "";  
+		this.listaComErrosDeValidacao = "";
 	}
 
-	static String validaXml(String xml, String tipo) throws NfeException {
+	static String validaXml(ConfiguracoesNfe config, String xml, String tipo) throws NfeException {
 
 		String errosValidacao = null;
 
-		ConfiguracoesIniciaisNfe configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
-		
 		switch (tipo) {
 		case STATUS:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.STATUS;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.STATUS;
 			break;
 		case ENVIO:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.ENVIO;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.ENVIO;
 			break;
 		case CONSULTA_XML:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CONSULTA_XML;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.CONSULTA_XML;
 			break;
 		case CONSULTA_CADASTRO:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CONSULTA_CADASTRO;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.CONSULTA_CADASTRO;
 			break;
 		case DIST_DFE:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.DIST_DFE;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.DIST_DFE;
 			break;
 		case INUTILIZACAO:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.INUTILIZACAO;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.INUTILIZACAO;
 			break;
 		case CANCELAR:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CANCELAR;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.CANCELAR;
 			break;
             case EPEC:
                 xsd = configuracoesNfe.getPastaSchemas() + "/" + SchemaUtil.EPEC;
                 break;
 		case CCE:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CCE;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.CCE;
 			break;
 		case MANIFESTAR:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.MANIFESTAR;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.MANIFESTAR;
 			break;
 		case CONSULTA_RECIBO:
-			xsd = configuracoesNfe.getPastaSchemas()+ "/" + SchemaUtil.CONSULTA_RECIBO;
+			xsd = config.getPastaSchemas() + "/" + SchemaUtil.CONSULTA_RECIBO;
 			break;
 		default:
 			break;
 		}
-		
-		if(!new File(xsd).exists()){
-			throw new NfeException("Schema Nfe não Localizado: "+xsd);
+
+		if (!new File(xsd).exists()) {
+			throw new NfeException("Schema Nfe não Localizado: " + xsd);
 		}
-		
-		Validar validar= new Validar();
-		
-		 errosValidacao = validar.validateXml(xml, xsd);
-			
+
+		Validar validar = new Validar();
+
+		errosValidacao = validar.validateXml(xml, xsd);
+
 		return errosValidacao;
 	}
 
 	private String validateXml(String xml, String xsd) throws NfeException {
-		
+
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
 		factory.setValidating(true);
-		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
+		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+				"http://www.w3.org/2001/XMLSchema");
 		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", xsd);
 		DocumentBuilder builder;
 		try {
@@ -106,7 +113,7 @@ class Validar implements ErrorHandler {
 		} catch (ParserConfigurationException ex) {
 			throw new NfeException(ex.getMessage());
 		}
-		
+
 		try {
 			builder.parse(new ByteArrayInputStream(xml.getBytes()));
 		} catch (Exception ex) {
@@ -159,7 +166,10 @@ class Validar implements ErrorHandler {
 
 	private boolean isError(SAXParseException exception) {
 
-        return !exception.getMessage().startsWith("cvc-enumeration-valid") && !exception.getMessage().startsWith("cvc-pattern-valid") && !exception.getMessage().startsWith("cvc-maxLength-valid") && !exception.getMessage().startsWith("cvc-datatype");
-    }
+		return !exception.getMessage().startsWith("cvc-enumeration-valid")
+				&& !exception.getMessage().startsWith("cvc-pattern-valid")
+				&& !exception.getMessage().startsWith("cvc-maxLength-valid")
+				&& !exception.getMessage().startsWith("cvc-datatype");
+	}
 
 }
