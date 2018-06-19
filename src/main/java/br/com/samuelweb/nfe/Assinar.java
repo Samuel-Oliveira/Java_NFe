@@ -3,7 +3,7 @@ package br.com.samuelweb.nfe;
 import br.com.samuelweb.certificado.Certificado;
 import br.com.samuelweb.certificado.CertificadoService;
 import br.com.samuelweb.certificado.exception.CertificadoException;
-import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
+import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import org.w3c.dom.Document;
@@ -29,7 +29,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.*;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,8 +44,6 @@ class Assinar {
     static final String INFINUT = "infInut";
     static final String EVENTO = "evento";
 
-    private static ConfiguracoesIniciaisNfe configuracoesNfe;
-
     private static PrivateKey privateKey;
 
     private static KeyInfo keyInfo;
@@ -55,48 +52,51 @@ class Assinar {
 
     /**
      * @param stringXml
-     * @param tipo      ('NFe' para nfe normal , 'infInut' para inutilizacao, 'evento' para eventos)
+     * @param tipo      ('NFe' para nfe normal , 'infInut' para inutilizacao, 'evento'
+     *                  para eventos)
      * @return String do Xml Assinado
      * @throws NfeException
      */
-    static String assinaNfe(String stringXml, String tipo) throws NfeException {
-
-        configuracoesNfe = ConfiguracoesIniciaisNfe.getInstance();
+    static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
 
         stringXml = XmlUtil.removeAcentos(stringXml);
-        stringXml = assinaDocNFe(stringXml, tipo);
+        stringXml = assinaDocNFe(config, stringXml, tipo);
 
         return stringXml;
     }
 
     /**
-     * Assinatura do XML de Envio de Lote da NF-e utilizando Certificado
-     * Digital.
+     * Assinatura do XML de Envio de Lote da NF-e utilizando Certificado Digital.
      *
      * @param Conteudo do Xml
      * @param Nome     do Certificado Digital
      * @return String do XMl Assinado
      * @throws Exception
      */
-    private static String assinaDocNFe(String xml, String tipo) throws NfeException {
+    private static String assinaDocNFe(ConfiguracoesNfe config, String xml, String tipo) throws NfeException {
 
         try {
             Document document = documentFactory(xml);
             XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
             ArrayList<Transform> transformList = signatureFactory(signatureFactory);
-            loadCertificates(signatureFactory);
+            loadCertificates(config, signatureFactory);
 
             for (int i = 0; i < document.getDocumentElement().getElementsByTagName(tipo).getLength(); i++) {
                 assinarNFe(tipo, signatureFactory, transformList, privateKey, keyInfo, document, i);
             }
 
             return outputXML(document);
-        } catch (SAXException | IOException | ParserConfigurationException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | KeyStoreException | UnrecoverableEntryException | NoSuchProviderException | CertificateException | CertificadoException | MarshalException | XMLSignatureException e) {
+        } catch (SAXException | IOException | ParserConfigurationException | NoSuchAlgorithmException
+                | InvalidAlgorithmParameterException | KeyStoreException | UnrecoverableEntryException
+                | CertificadoException | MarshalException
+                | XMLSignatureException e) {
             throw new NfeException("Erro ao Assinar Nfe" + e.getMessage());
         }
     }
 
-    private static void assinarNFe(String tipo, XMLSignatureFactory fac, ArrayList<Transform> transformList, PrivateKey privateKey, KeyInfo ki, Document document, int indexNFe) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, MarshalException, XMLSignatureException {
+    private static void assinarNFe(String tipo, XMLSignatureFactory fac, ArrayList<Transform> transformList,
+                                   PrivateKey privateKey, KeyInfo ki, Document document, int indexNFe) throws NoSuchAlgorithmException,
+            InvalidAlgorithmParameterException, MarshalException, XMLSignatureException {
 
         NodeList elements;
         switch (tipo) {
@@ -115,10 +115,12 @@ class Assinar {
 
         el.setIdAttribute("Id", true);
 
-        Reference ref = fac.newReference("#" + id, fac.newDigestMethod(DigestMethod.SHA1, null), transformList, null, null);
+        Reference ref = fac.newReference("#" + id, fac.newDigestMethod(DigestMethod.SHA1, null), transformList, null,
+                null);
 
-        SignedInfo si = fac.newSignedInfo(fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null), fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
-                Collections.singletonList(ref));
+        SignedInfo si = fac.newSignedInfo(
+                fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
+                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null), Collections.singletonList(ref));
 
         XMLSignature signature = fac.newXMLSignature(si, ki);
 
@@ -127,7 +129,8 @@ class Assinar {
         if (tipo.equals(INFINUT)) {
             dsc = new DOMSignContext(privateKey, document.getFirstChild());
         } else {
-            dsc = new DOMSignContext(privateKey, document.getDocumentElement().getElementsByTagName(tipo).item(indexNFe));
+            dsc = new DOMSignContext(privateKey,
+                    document.getDocumentElement().getElementsByTagName(tipo).item(indexNFe));
         }
 
         dsc.setBaseURI("ok");
@@ -135,7 +138,8 @@ class Assinar {
         signature.sign(dsc);
     }
 
-    private static ArrayList<Transform> signatureFactory(XMLSignatureFactory signatureFactory) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+    private static ArrayList<Transform> signatureFactory(XMLSignatureFactory signatureFactory)
+            throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
 
         ArrayList<Transform> transformList = new ArrayList<Transform>();
         TransformParameterSpec tps = null;
@@ -154,12 +158,14 @@ class Assinar {
         return factory.newDocumentBuilder().parse(new ByteArrayInputStream(xml.getBytes()));
     }
 
-    private static void loadCertificates(XMLSignatureFactory signatureFactory) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException, NoSuchProviderException, CertificateException, IOException, CertificadoException {
+    private static void loadCertificates(ConfiguracoesNfe config, XMLSignatureFactory signatureFactory)
+            throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException, CertificadoException {
 
-        Certificado certificado = configuracoesNfe.getCertificado();
+        Certificado certificado = config.getCertificado();
         KeyStore keyStore = CertificadoService.getKeyStore(certificado);
 
-        KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(certificado.getNome(), new KeyStore.PasswordProtection(certificado.getSenha().toCharArray()));
+        KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(certificado.getNome(),
+                new KeyStore.PasswordProtection(certificado.getSenha().toCharArray()));
         privateKey = pkEntry.getPrivateKey();
 
         KeyInfoFactory keyInfoFactory = signatureFactory.getKeyInfoFactory();

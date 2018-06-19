@@ -39,6 +39,7 @@ public interface ConstantesUtil {
 	interface EVENTO {
 		String CANCELAR = "110111";
 		String CCE = "110110";
+        String EPEC = "110140";
 		String MANIFESTACAO = "MANIFESTACAO";
 	}
 
@@ -55,6 +56,7 @@ public interface ConstantesUtil {
 		String EVENTO_CANCELAMENTO = "1.00";
 		String EVENTO_CCE = "1.00";
 		String EVENTO_MANIFESTAR = "1.00";
+        String EVENTO_EPEC = "1.00";
 	}
 
 }
