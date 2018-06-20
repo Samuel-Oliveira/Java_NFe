@@ -1,5 +1,7 @@
 package br.com.samuelweb.nfe.util.consts;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class NfeConsts {
 
     public static final String DSC_AAMM = "Ano e Mês";
@@ -21,6 +23,9 @@ public class NfeConsts {
     public static final String DSC_CNPJPROD = "CNPJ do produtor da mercadoria, quando diferente do emitente";
     public static final String DSC_CPRODANP = "Código do produto ANP";
     public static final String DSC_CSELO = "Código do selo";
+    public static final String DSC_QTDE = "Quantidade em KG";
+    public static final String DSC_INFADFISCO = "Informações Adicionais de Interesse do Fisco";
+    public static final String DSC_INFCPL = "Informações Complementares de interesse do Contribuinte";
     public static final String DSC_DDESEMB = "Data do Desembaraço Aduaneiro";
     public static final String DSC_DDI = "Data de registro da DI/DSI/DA";
     public static final String DSC_DESCR = "Descrição completa";
@@ -203,4 +208,9 @@ public class NfeConsts {
     public static final String DSC_CBENEF = "Código de Benefício Fiscal na UF aplicado ao item";
     public static final String DSC_CAGREG = "Código de Agregação";
     public static final String DSC_URLCHAVE = "URL de consulta por chave de acesso a ser impressa no DANFE NFC-e";
+    public static final String DSC_XTEXTO = "Conteúdo do campo";
+    public static final String DSC_XCAMPO = "Identificação do campo";
+    public static final String DSC_OBSCONT = "Grupo Campo de uso livre do contribuinte";
+    public static final String DSC_OBSFISCO = "Grupo Campo de uso livre do Fisco";
+    public static final String DSC_PROCREF = "Grupo Processo referenciado";
 }
