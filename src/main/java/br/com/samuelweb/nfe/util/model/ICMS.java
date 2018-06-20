@@ -235,8 +235,14 @@ public class ICMS {
 
     public TNFe.InfNFe.Det.Imposto.ICMS build() {
         TNFe.InfNFe.Det.Imposto.ICMS icms = new TNFe.InfNFe.Det.Imposto.ICMS();
-        this.CST.getMontaImposto().build(icms, this);
-
+        if (this.CST != null) {
+            this.CST.getMontaImposto().build(icms, this);
+        }
+//        ICMSPart();
+//        ICMSST();
+        if (this.CSOSN != null) {
+            this.CSOSN.getMontaImposto().build(icms, this);
+        }
 
         return icms;
     }
