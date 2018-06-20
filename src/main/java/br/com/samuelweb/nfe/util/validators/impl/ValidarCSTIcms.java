@@ -16,13 +16,10 @@ public class ValidarCSTIcms implements ValidadorCampo<String> {
         cstIcmsMap.put("30", CSTIcms.CST_30);
         cstIcmsMap.put("40", CSTIcms.CST_40);
         cstIcmsMap.put("41", CSTIcms.CST_41);
-        cstIcmsMap.put("45", CSTIcms.CST_45);
         cstIcmsMap.put("50", CSTIcms.CST_50);
         cstIcmsMap.put("51", CSTIcms.CST_51);
         cstIcmsMap.put("60", CSTIcms.CST_60);
         cstIcmsMap.put("70", CSTIcms.CST_70);
-        cstIcmsMap.put("80", CSTIcms.CST_80);
-        cstIcmsMap.put("81", CSTIcms.CST_81);
         cstIcmsMap.put("90", CSTIcms.CST_90);
     }
 
