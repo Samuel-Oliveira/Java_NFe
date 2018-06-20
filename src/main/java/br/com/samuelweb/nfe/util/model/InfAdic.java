@@ -51,4 +51,45 @@ public class InfAdic {
         return infAdic;
     }
 
+    public String getInfAdFisco() {
+        return infAdFisco;
+    }
+
+    public void setInfAdFisco(String infAdFisco) {
+        this.infAdFisco = infAdFisco;
+    }
+
+    public String getInfCpl() {
+        return infCpl;
+    }
+
+    public void setInfCpl(String infCpl) {
+        this.infCpl = infCpl;
+    }
+
+    public List<ObsCont> getObsCont() {
+        return obsCont;
+    }
+
+    public void setObsCont(List<ObsCont> obsCont) {
+        this.obsCont = obsCont;
+    }
+
+    public List<ObsFisco> getObsFisco() {
+        return obsFisco;
+    }
+
+    public void setObsFisco(List<ObsFisco> obsFisco) {
+        this.obsFisco = obsFisco;
+    }
+
+    public List<ProcRef> getProcRef() {
+        return procRef;
+    }
+
+    public void setProcRef(List<ProcRef> procRef) {
+        this.procRef = procRef;
+    }
+
+
 }

@@ -102,4 +102,84 @@ public class Cana {
         }
         return null;
     }
+
+    public String getSafra() {
+        return safra;
+    }
+
+    public void setSafra(String safra) {
+        this.safra = safra;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
+    }
+
+    public BigDecimal getvTotDed() {
+        return vTotDed;
+    }
+
+    public void setvTotDed(BigDecimal vTotDed) {
+        this.vTotDed = vTotDed;
+    }
+
+    public BigDecimal getvLiqFor() {
+        return vLiqFor;
+    }
+
+    public void setvLiqFor(BigDecimal vLiqFor) {
+        this.vLiqFor = vLiqFor;
+    }
+
+    public BigDecimal getqTotMes() {
+        return qTotMes;
+    }
+
+    public void setqTotMes(BigDecimal qTotMes) {
+        this.qTotMes = qTotMes;
+    }
+
+    public BigDecimal getqTotAnt() {
+        return qTotAnt;
+    }
+
+    public void setqTotAnt(BigDecimal qTotAnt) {
+        this.qTotAnt = qTotAnt;
+    }
+
+    public BigDecimal getqTotGer() {
+        return qTotGer;
+    }
+
+    public void setqTotGer(BigDecimal qTotGer) {
+        this.qTotGer = qTotGer;
+    }
+
+    public String getvFor() {
+        return vFor;
+    }
+
+    public void setvFor(String vFor) {
+        this.vFor = vFor;
+    }
+
+    public List<ForDia> getForDia() {
+        return forDia;
+    }
+
+    public void setForDia(List<ForDia> forDia) {
+        this.forDia = forDia;
+    }
+
+    public List<Deduc> getDeduc() {
+        return deduc;
+    }
+
+    public void setDeduc(List<Deduc> deduc) {
+        this.deduc = deduc;
+    }
 }

@@ -31,4 +31,19 @@ public class Deduc {
         return deduc;
     }
 
+    public String getxDed() {
+        return xDed;
+    }
+
+    public void setxDed(String xDed) {
+        this.xDed = xDed;
+    }
+
+    public BigDecimal getvDed() {
+        return vDed;
+    }
+
+    public void setvDed(BigDecimal vDed) {
+        this.vDed = vDed;
+    }
 }

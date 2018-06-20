@@ -28,4 +28,20 @@ public class ForDia {
 
         return forDia;
     }
+
+    public String getQtde() {
+        return qtde;
+    }
+
+    public void setQtde(String qtde) {
+        this.qtde = qtde;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
 }

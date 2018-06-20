@@ -213,4 +213,13 @@ public class NfeConsts {
     public static final String DSC_OBSCONT = "Grupo Campo de uso livre do contribuinte";
     public static final String DSC_OBSFISCO = "Grupo Campo de uso livre do Fisco";
     public static final String DSC_PROCREF = "Grupo Processo referenciado";
+    public static final String DSC_NDUP = "Número da Parcela";
+    public static final String DSC_DVENC = "Data de vencimento";
+    public static final String DSC_VDUP = "Valor da Parcela";
+    public static final String DSC_NFAT = "Número da Fatura";
+    public static final String DSC_VORIG = "Valor Original da Fatura";
+    public static final String DSC_VDESC = "Valor do desconto";
+    public static final String DSC_VLIQ = "Valor Líquido da Fatura";
+    public static final String DSC_GFAT = "Grupo Fatura";
+    public static final String DSC_GDUP = "Grupo Parcelas";
 }
