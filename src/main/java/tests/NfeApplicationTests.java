@@ -1,19 +1,10 @@
-package br.com.viasoft.nfe;
+package tests;
 
-import br.com.samuelweb.nfe.util.ConstantesUtil;
-import br.com.viasoft.nfe.service.NfeService;
-import br.com.viasoft.nfe.util.validators.RetornoValidar;
-import br.com.viasoft.nfe.util.validators.impl.ErrosValidacao;
-import br.com.viasoft.nfe.util.model.Ide;
-import br.com.viasoft.nfe.util.validators.impl.NfeValidator;
-import br.com.viasoft.nfe.util.validators.impl.ValidarCodigoUf;
-import br.com.viasoft.nfe.util.validators.impl.ValidarMunicipio;
-import br.com.viasoft.security.config.TenantContext;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import br.com.samuelweb.nfe.util.validators.RetornoValidar;
+import br.com.samuelweb.nfe.util.validators.impl.ErrosValidacao;
+import br.com.samuelweb.nfe.util.validators.impl.NfeValidator;
+import br.com.samuelweb.nfe.util.validators.impl.ValidarMunicipio;
+import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -23,11 +14,15 @@ public class NfeApplicationTests {
     public void contextLoads() {
     }
 
-    @Test
+    //@Test
     public void testarObjetoIde() {
         System.out.println("--------------------------------------------------------------------------");
         System.out.println("Iniciando teste Objeto IDE");
         System.out.println("--------------------------------------------------------------------------");
+        TNFe nfe = new TNFe();
+        TNFe.InfNFe infNFe = new TNFe.InfNFe();
+        infNFe.
+        nfe.setInfNFe(infNFe);
         Ide ide = new Ide();
         ide.setCuf(12);
         ide.setNatOp("");
@@ -52,7 +47,7 @@ public class NfeApplicationTests {
     }
 
 
-    @Test
+    //@Test
     public void testarCodigoMunicipio() {
         ValidarMunicipio validarMunicipio = new ValidarMunicipio();
         RetornoValidar retornoValidar;

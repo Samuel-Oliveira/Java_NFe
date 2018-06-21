@@ -33,4 +33,44 @@ public class Det {
         det.setInfAdProd(this.infAdProd);
         return det;
     }
+
+    public String getnItem() {
+        return nItem;
+    }
+
+    public void setnItem(String nItem) {
+        this.nItem = nItem;
+    }
+
+    public Prod getProd() {
+        return prod;
+    }
+
+    public void setProd(Prod prod) {
+        this.prod = prod;
+    }
+
+    public Imposto getImposto() {
+        return imposto;
+    }
+
+    public void setImposto(Imposto imposto) {
+        this.imposto = imposto;
+    }
+
+    public ImpostoDevol getImpostoDevol() {
+        return impostoDevol;
+    }
+
+    public void setImpostoDevol(ImpostoDevol impostoDevol) {
+        this.impostoDevol = impostoDevol;
+    }
+
+    public String getInfAdProd() {
+        return infAdProd;
+    }
+
+    public void setInfAdProd(String infAdProd) {
+        this.infAdProd = infAdProd;
+    }
 }
