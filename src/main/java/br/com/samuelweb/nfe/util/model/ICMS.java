@@ -238,12 +238,9 @@ public class ICMS {
         if (this.CST != null) {
             this.CST.getMontaImposto().build(icms, this);
         }
-//        ICMSPart();
-//        ICMSST();
         if (this.CSOSN != null) {
             this.CSOSN.getMontaImposto().build(icms, this);
         }
-
         return icms;
     }
 

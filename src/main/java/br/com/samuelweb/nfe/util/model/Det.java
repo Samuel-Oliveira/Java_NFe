@@ -9,8 +9,8 @@ public class Det {
     private String nItem;
 
     private Prod prod;
-    private TNFe.InfNFe.Det.Imposto imposto;
-    private TNFe.InfNFe.Det.ImpostoDevol impostoDevol;
+    private Imposto imposto;
+    private ImpostoDevol impostoDevol;
 
     @NfeCampo(tipo = String.class
             , id = "V01", tag = "infAdProd"
@@ -18,10 +18,19 @@ public class Det {
             , descricao = DfeConsts.DSC_INFADPROD)
     private String infAdProd;
 
-
     public TNFe.InfNFe.Det build() {
         TNFe.InfNFe.Det det = new TNFe.InfNFe.Det();
         det.setNItem(this.nItem);
+        if (this.prod != null) {
+            det.setProd(prod.build());
+        }
+        if (this.imposto != null) {
+            det.setImposto(this.imposto.build());
+        }
+        if (this.impostoDevol != null) {
+            det.setImpostoDevol(this.impostoDevol.build());
+        }
+        det.setInfAdProd(this.infAdProd);
         return det;
     }
 }
