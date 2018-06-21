@@ -255,4 +255,14 @@ public class NfeConsts {
     public static final String DSC_ISSQNTOT = "Grupo Totais referentes ao ISSQN";
     public static final String DSC_RETTRIB = "Grupo Retenções de Tributos";
     public static final String DSC_ICMSTOT = "Grupo Totais referentes ao ICMS";
+    public static final String DSC_TPINTEGRA = "Tipo de Integração para pagamento";
+    public static final String DSC_CNPJ = "CNPJ da Credenciadora de cartão de crédito e/ou débito";
+    public static final String DSC_TBAND = "Bandeira da operadora de cartão de crédito e/ou débito";
+    public static final String DSC_CAUT = "Número de autorização da operação cartão de crédito e/ou débito";
+    public static final String DSC_INDPAG = "Indicador da Forma de Pagamento";
+    public static final String DSC_TPAG = "Meio de pagamento";
+    public static final String DSC_VPAG = "Valor do Pagamento";
+    public static final String DSC_CARD = "Grupo de Cartões";
+    public static final String DSC_DETPAG = "Grupo Detalhamento do Pagamento";
+    public static final String DSC_VTROCO = "Valor do troco";
 }
