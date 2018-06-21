@@ -10,7 +10,7 @@ public class Det {
 
     private Prod prod;
     private Imposto imposto;
-    private TNFe.InfNFe.Det.ImpostoDevol impostoDevol;
+    private ImpostoDevol impostoDevol;
 
     @NfeCampo(tipo = String.class
             , id = "V01", tag = "infAdProd"
@@ -28,7 +28,7 @@ public class Det {
             det.setImposto(this.imposto.build());
         }
         if (this.impostoDevol != null) {
-            det.setImpostoDevol(this.impostoDevol);
+            det.setImpostoDevol(this.impostoDevol.build());
         }
         det.setInfAdProd(this.infAdProd);
         return det;

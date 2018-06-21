@@ -2,6 +2,7 @@ package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
+import br.inf.portalfiscal.nfe.schema_4.nfe.TIpi;
 import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
 
 import javax.xml.bind.JAXBElement;
@@ -24,19 +25,16 @@ public class Imposto {
     private COFINS cofins;
     private COFINSST cofinsst;
     private ISSQN issqn;
-    private Object icmsUfDest;
-
+    private ICMSUFDest icmsUfDest;
 
     public TNFe.InfNFe.Det.Imposto build() {
         TNFe.InfNFe.Det.Imposto imposto = new TNFe.InfNFe.Det.Imposto();
-        //todo verificar como impementar esse atributo
-        /*if (this.vTotTrib != null) {
-            imposto.setVTotTrib(this.vTotTrib.toString());
-            Gerador.wCampo(tcDe2, 'M02', 'vTotTrib ', 01, 15, 0, nfe.Det[i].Imposto.vTotTrib, DSC_VTOTTRIB);
-        }*/
+        if (this.vTotTrib != null) {
+            imposto.getContent().add(
+                    new JAXBElement<>(new QName("vTotTrib"), String.class, this.vTotTrib.toString()));
+        }
         if (this.issqn != null
-                /*&& ((this.issqn.cSitTrib <> ISSQNcSitTribVazio)
-                 || (this.issqn.cListServ <> ''))*/) {
+                && !this.issqn.getcListServ().isEmpty()) {
             gerarImpostoIPI(imposto);
             gerarImpostoISSQN(imposto);
         } else {
@@ -49,7 +47,6 @@ public class Imposto {
         gerarImpostoCOFINS(imposto);
         gerarImpostoCOFINSST(imposto);
         gerarImpostoICMSUFDest(imposto);
-        //if nfe.Det[i].Imposto.ICMSUFDest.pICMSInterPart > 0 then
         return imposto;
     }
 
@@ -114,26 +111,25 @@ public class Imposto {
         }
     }
     private void gerarImpostoICMSUFDest(TNFe.InfNFe.Det.Imposto imposto) {
-        if (this.icmsUfDest != null) {
-            //todo impelmentar
-            /*TNFe.InfNFe.Det.Imposto.ICMSUFDest icmsUfDest1 = this.icmsUfDest.build();
+        if (this.icmsUfDest != null
+                && this.icmsUfDest.getpICMSInterPart().compareTo(BigDecimal.ZERO) > 0) {
+            TNFe.InfNFe.Det.Imposto.ICMSUFDest icmsUfDest1 = this.icmsUfDest.build();
             if (icmsUfDest1 != null) {
                 imposto.getContent().add(
                         new JAXBElement<>(new QName("ICMSUFDest"), TNFe.InfNFe.Det.Imposto.ICMSUFDest.class, icmsUfDest1)
                 );
-            }*/
+            }
         }
     }
 
     private void gerarImpostoIPI(TNFe.InfNFe.Det.Imposto imposto) {
         if (this.ipi != null) {
-            //todo implementar
-            /*TNFe.InfNFe.Det.Imposto.IPI ipi1 = ipi.build();
+            TIpi ipi1 = ipi.build();
             if (ipi1 != null){
                 imposto.getContent().add(
-                        new JAXBElement<>(new QName("IPI"), TNFe.InfNFe.Det.Imposto.IPI.class, ipi1)
+                        new JAXBElement<>(new QName("IPI"), TIpi.class, ipi1)
                 );
-            }*/
+            }
         }
     }
 

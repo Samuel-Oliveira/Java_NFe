@@ -110,6 +110,50 @@ public class ISSQN  {
     
     public TNFe.InfNFe.Det.Imposto.ISSQN build() {
         TNFe.InfNFe.Det.Imposto.ISSQN issqn = new TNFe.InfNFe.Det.Imposto.ISSQN();
+        if (this.vBC != null) {
+            issqn.setVBC(this.vBC.toString());
+        }
+        if (this.vAliq != null) {
+            issqn.setVAliq(this.vAliq.toString());
+        }
+        if (this.vISSQN != null) {
+            issqn.setVISSQN(this.vISSQN.toString());
+        }
+        if (this.cMunFG != null) {
+            issqn.setCMunFG(this.cMunFG.toString());
+        }
+        if (this.cListServ != null) {
+            issqn.setCListServ(this.cListServ.toString());
+        }
+        if (this.vDeducao != null) {
+            issqn.setVDeducao(this.vDeducao.toString());
+        }
+        if (this.vOutro != null) {
+            issqn.setVOutro(this.vOutro.toString());
+        }
+        if (this.vDescIncond != null) {
+            issqn.setVDescIncond(this.vDescIncond.toString());
+        }
+        if (this.vDescCond != null) {
+            issqn.setVDescCond(this.vDescCond.toString());
+        }
+        if (this.vISSRet != null) {
+            issqn.setVISSRet(this.vISSRet.toString());
+        }
+        if (this.indISS != null) {
+            issqn.setIndISS(this.indISS.getValue().toString());
+        }
+        issqn.setCServico(this.cServico);
+        if (this.cMun != null) {
+            issqn.setCMun(this.cMun.toString());
+        }
+        if (this.cPais != null) {
+            issqn.setCPais(this.cPais.toString());
+        }
+        issqn.setNProcesso(this.nProcesso);
+        if (this.indIncentivo != null) {
+            issqn.setIndIncentivo(this.indIncentivo.toString());
+        }
         return issqn;
     }
 
