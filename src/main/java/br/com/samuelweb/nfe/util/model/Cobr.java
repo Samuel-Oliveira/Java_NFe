@@ -14,7 +14,7 @@ public class Cobr {
     @NfeCampo(tipo = Fat.class, id = "Y02", tag = "fat", ocorrencias = 0, descricao = NfeConsts.DSC_GFAT)
     private Fat fat;
 
-    @NfeCampo(tipo = Fat.class, id = "Y07", tag = "fat", ocorrencias = 0, descricao = NfeConsts.DSC_GDUP)
+    @NfeCampo(tipo = Fat.class, id = "Y07", tag = "dup", ocorrencias = 0, descricao = NfeConsts.DSC_GDUP)
     private List<Dup> dup;
 
     public TNFe.InfNFe.Cobr build() {
