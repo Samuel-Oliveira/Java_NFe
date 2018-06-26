@@ -67,23 +67,23 @@ public class Dest {
 
     public TNFe.InfNFe.Dest build() {
         TNFe.InfNFe.Dest dest = new TNFe.InfNFe.Dest();
-        if ((this.idEstrangeiro != null && !this.idEstrangeiro.isEmpty()) ||
-                (this.enderDest != null && this.enderDest.getcPais() != 1058)) {
-            dest.setIdEstrangeiro(this.idEstrangeiro);
-        } else if (this.cnpjCpf.length() > 11) {
-            dest.setCNPJ(this.cnpjCpf);
+        if ((this.getIdEstrangeiro() != null && !this.getIdEstrangeiro().isEmpty()) ||
+                (this.getEnderDest() != null && this.getEnderDest().getcPais() != 1058)) {
+            dest.setIdEstrangeiro(this.getIdEstrangeiro());
+        } else if (this.getCnpjCpf().length() > 11) {
+            dest.setCNPJ(this.getCnpjCpf());
         } else {
-            dest.setCPF(this.cnpjCpf);
+            dest.setCPF(this.getCnpjCpf());
         }
-        dest.setXNome(this.xNome);
-        dest.setEnderDest(enderDest.build());
-        if (this.indIEDest != null) {
-            dest.setIndIEDest(this.indIEDest.toString());
+        dest.setXNome(this.getxNome());
+        dest.setEnderDest(getEnderDest().build());
+        if (this.getIndIEDest() != null) {
+            dest.setIndIEDest(this.getIndIEDest().toString());
         }
-        dest.setIE(this.ie);
-        dest.setISUF(this.isuf);
-        dest.setIM(this.im);
-        dest.setEmail(this.email);
+        dest.setIE(this.getIe());
+        dest.setISUF(this.getIsuf());
+        dest.setIM(this.getIm());
+        dest.setEmail(this.getEmail());
         return dest;
     }
 

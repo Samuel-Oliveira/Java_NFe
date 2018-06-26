@@ -29,14 +29,14 @@ public class Cide {
 
     public TNFe.InfNFe.Det.Prod.Comb.CIDE build() {
         TNFe.InfNFe.Det.Prod.Comb.CIDE cide = new TNFe.InfNFe.Det.Prod.Comb.CIDE();
-        if (this.qbcProd != null) {
-            cide.setQBCProd(this.qbcProd.toString());
+        if (this.getQbcProd() != null) {
+            cide.setQBCProd(this.getQbcProd().toString());
         }
-        if (this.vAliqProd != null) {
-            cide.setVAliqProd(this.vAliqProd.toString());
+        if (this.getvAliqProd() != null) {
+            cide.setVAliqProd(this.getvAliqProd().toString());
         }
-        if (this.vcide != null) {
-            cide.setVCIDE(this.vcide.toString());
+        if (this.getVcide() != null) {
+            cide.setVCIDE(this.getVcide().toString());
         }
         return cide;
     }

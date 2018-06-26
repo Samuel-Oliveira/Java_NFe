@@ -48,8 +48,8 @@ public class COFINS {
 
     public TNFe.InfNFe.Det.Imposto.COFINS build() {
         TNFe.InfNFe.Det.Imposto.COFINS cofins = new TNFe.InfNFe.Det.Imposto.COFINS();
-        if (this.cst != null) {
-            this.cst.getMontaImposto().build(cofins, this);
+        if (this.getCst() != null) {
+            this.getCst().getMontaImposto().build(cofins, this);
         }
         return cofins;
     }

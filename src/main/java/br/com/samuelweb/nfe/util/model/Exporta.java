@@ -24,10 +24,10 @@ public class Exporta {
     public TNFe.InfNFe.Exporta build() {
         TNFe.InfNFe.Exporta exporta = new TNFe.InfNFe.Exporta();
 
-        if (StringUtils.isNotBlank(this.ufSaidaPais.trim() + this.xLocExporta.trim())){
-            exporta.setUFSaidaPais(TUfEmi.fromValue(this.ufSaidaPais));
-            exporta.setXLocExporta(this.xLocExporta);
-            exporta.setXLocDespacho(this.xLocDespacho);
+        if (StringUtils.isNotBlank(this.getUfSaidaPais().trim() + this.getxLocExporta().trim())){
+            exporta.setUFSaidaPais(TUfEmi.fromValue(this.getUfSaidaPais()));
+            exporta.setXLocExporta(this.getxLocExporta());
+            exporta.setXLocDespacho(this.getxLocDespacho());
         }
         return exporta;
     }

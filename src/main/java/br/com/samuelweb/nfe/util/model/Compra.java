@@ -24,9 +24,9 @@ public class Compra {
 
     public TNFe.InfNFe.Compra build() {
         TNFe.InfNFe.Compra compra = new TNFe.InfNFe.Compra();
-        compra.setXNEmp(this.xnEmp);
-        compra.setXPed(this.xPed);
-        compra.setXCont(this.xCont);
+        compra.setXNEmp(this.getXnEmp());
+        compra.setXPed(this.getxPed());
+        compra.setXCont(this.getxCont());
         return compra;
     }
 

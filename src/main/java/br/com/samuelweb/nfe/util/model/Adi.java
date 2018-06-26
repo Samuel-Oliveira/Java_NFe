@@ -41,13 +41,13 @@ public class Adi {
 
     public TNFe.InfNFe.Det.Prod.DI.Adi build() {
         TNFe.InfNFe.Det.Prod.DI.Adi adi = new TNFe.InfNFe.Det.Prod.DI.Adi();
-        adi.setNAdicao(this.nAdicao);
-        adi.setNSeqAdic(this.nSeqAdic);
-        adi.setCFabricante(this.cFabricante);
-        if (this.vDescDI != null) {
-            adi.setVDescDI(this.vDescDI.toString());
+        adi.setNAdicao(this.getnAdicao());
+        adi.setNSeqAdic(this.getnSeqAdic());
+        adi.setCFabricante(this.getcFabricante());
+        if (this.getvDescDI() != null) {
+            adi.setVDescDI(this.getvDescDI().toString());
         }
-        adi.setNDraw(this.nDraw);
+        adi.setNDraw(this.getnDraw());
         return adi;
     }
 

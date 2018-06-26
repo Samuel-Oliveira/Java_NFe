@@ -64,32 +64,32 @@ public class ICMSUFDest {
 
     public TNFe.InfNFe.Det.Imposto.ICMSUFDest build() {
         TNFe.InfNFe.Det.Imposto.ICMSUFDest icmsufDest = new TNFe.InfNFe.Det.Imposto.ICMSUFDest();
-        if (this.vBCUFDest != null) {
-            icmsufDest.setVBCUFDest(this.vBCUFDest.toString());
+        if (this.getvBCUFDest() != null) {
+            icmsufDest.setVBCUFDest(this.getvBCUFDest().toString());
         }
-        if (this.vBCFCPUFDest != null) {
-            icmsufDest.setVBCFCPUFDest(this.vBCFCPUFDest.toString());
+        if (this.getvBCFCPUFDest() != null) {
+            icmsufDest.setVBCFCPUFDest(this.getvBCFCPUFDest().toString());
         }
-        if (this.pFCPUFDest != null) {
-            icmsufDest.setPFCPUFDest(this.pFCPUFDest.toString());
+        if (this.getpFCPUFDest() != null) {
+            icmsufDest.setPFCPUFDest(this.getpFCPUFDest().toString());
         }
-        if (this.pICMSUFDest != null) {
-            icmsufDest.setPICMSUFDest(this.pICMSUFDest.toString());
+        if (this.getpICMSUFDest() != null) {
+            icmsufDest.setPICMSUFDest(this.getpICMSUFDest().toString());
         }
-        if (this.pICMSInter != null) {
-            icmsufDest.setPICMSInter(this.pICMSInter.toString());
+        if (this.getpICMSInter() != null) {
+            icmsufDest.setPICMSInter(this.getpICMSInter().toString());
         }
-        if (this.pICMSInterPart != null) {
-            icmsufDest.setPICMSInterPart(this.pICMSInterPart.toString());
+        if (this.getpICMSInterPart() != null) {
+            icmsufDest.setPICMSInterPart(this.getpICMSInterPart().toString());
         }
-        if (this.vFCPUFDest != null) {
-            icmsufDest.setVFCPUFDest(this.vFCPUFDest.toString());
+        if (this.getvFCPUFDest() != null) {
+            icmsufDest.setVFCPUFDest(this.getvFCPUFDest().toString());
         }
-        if (this.vICMSUFDest != null) {
-            icmsufDest.setVICMSUFDest(this.vICMSUFDest.toString());
+        if (this.getvICMSUFDest() != null) {
+            icmsufDest.setVICMSUFDest(this.getvICMSUFDest().toString());
         }
-        if (this.vICMSUFRemet != null) {
-            icmsufDest.setVICMSUFRemet(this.vICMSUFRemet.toString());
+        if (this.getvICMSUFRemet() != null) {
+            icmsufDest.setVICMSUFRemet(this.getvICMSUFRemet().toString());
         }
         return icmsufDest;
     }

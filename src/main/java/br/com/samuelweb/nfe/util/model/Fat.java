@@ -33,23 +33,23 @@ public class Fat {
     public TNFe.InfNFe.Cobr.Fat build() {
         TNFe.InfNFe.Cobr.Fat fat = new TNFe.InfNFe.Cobr.Fat();
 
-        if (StringUtils.isNotBlank(this.nFat.trim()) ||
-                (this.vOrig != null && this.vOrig.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vDesc != null && this.vDesc.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vLiq != null && this.vLiq.compareTo(BigDecimal.ZERO) > 0)){
+        if (StringUtils.isNotBlank(this.getnFat().trim()) ||
+                (this.getvOrig() != null && this.getvOrig().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getvDesc() != null && this.getvDesc().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getvLiq() != null && this.getvLiq().compareTo(BigDecimal.ZERO) > 0)){
 
-            fat.setNFat(this.nFat);
+            fat.setNFat(this.getnFat());
 
-            if (this.vOrig != null){
-                fat.setVOrig(this.vOrig.toString());
+            if (this.getvOrig() != null){
+                fat.setVOrig(this.getvOrig().toString());
             }
 
-            if (this.vDesc != null){
-                fat.setVOrig(this.vDesc.toString());
+            if (this.getvDesc() != null){
+                fat.setVOrig(this.getvDesc().toString());
             }
 
-            if (this.vLiq != null){
-                fat.setVOrig(this.vLiq.toString());
+            if (this.getvLiq() != null){
+                fat.setVOrig(this.getvLiq().toString());
             }
 
             return fat;

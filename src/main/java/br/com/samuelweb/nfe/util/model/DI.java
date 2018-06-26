@@ -95,25 +95,25 @@ public class DI {
 
     public TNFe.InfNFe.Det.Prod.DI build() {
         TNFe.InfNFe.Det.Prod.DI di = new TNFe.InfNFe.Det.Prod.DI();
-        di.setNDI(this.ndi);
-        if (this.ddi != null) {
-            di.setDDI(this.ddi.format(DateTimeFormatter.ISO_DATE));
+        di.setNDI(this.getNdi());
+        if (this.getDdi() != null) {
+            di.setDDI(this.getDdi().format(DateTimeFormatter.ISO_DATE));
         }
-        di.setXLocDesemb(this.xLocDesemb);
-        di.setUFDesemb(TUfEmi.fromValue(this.ufDesemb));
-        if (this.dDesemb != null) {
-            di.setDDesemb(this.dDesemb.format(DateTimeFormatter.ISO_DATE));
+        di.setXLocDesemb(this.getxLocDesemb());
+        di.setUFDesemb(TUfEmi.fromValue(this.getUfDesemb()));
+        if (this.getdDesemb() != null) {
+            di.setDDesemb(this.getdDesemb().format(DateTimeFormatter.ISO_DATE));
         }
-        di.setTpViaTransp(this.tpViaTransp);
-        if (this.vafrmm != null) {
-            di.setVAFRMM(this.vafrmm.toString());
+        di.setTpViaTransp(this.getTpViaTransp());
+        if (this.getVafrmm() != null) {
+            di.setVAFRMM(this.getVafrmm().toString());
         }
-        di.setTpIntermedio(this.tpIntermedio);
-        di.setCNPJ(this.cnpj);
-        di.setUFTerceiro(TUfEmi.fromValue(this.ufTerceiro));
-        di.setCExportador(this.cExportador);
-        if (this.adi != null) {
-            this.adi.forEach(a -> di.getAdi().add(a.build()));
+        di.setTpIntermedio(this.getTpIntermedio());
+        di.setCNPJ(this.getCnpj());
+        di.setUFTerceiro(TUfEmi.fromValue(this.getUfTerceiro()));
+        di.setCExportador(this.getcExportador());
+        if (this.getAdi() != null) {
+            this.getAdi().forEach(a -> di.getAdi().add(a.build()));
         }
         return di;
     }

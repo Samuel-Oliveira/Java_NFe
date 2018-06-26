@@ -23,8 +23,8 @@ public class ForDia {
     public TNFe.InfNFe.Cana.ForDia build(){
         TNFe.InfNFe.Cana.ForDia forDia = new TNFe.InfNFe.Cana.ForDia();
 
-        forDia.setDia(this.dia);
-        forDia.setQtde(this.qtde);
+        forDia.setDia(this.getDia());
+        forDia.setQtde(this.getQtde());
 
         return forDia;
     }

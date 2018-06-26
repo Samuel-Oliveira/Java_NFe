@@ -77,23 +77,23 @@ public class EnderDest {
 
     public TEndereco build() {
         TEndereco endereco = new TEndereco();
-        endereco.setXLgr(this.xLgr);
-        endereco.setNro(this.nro);
-        endereco.setXCpl(this.xCpl);
-        endereco.setXBairro(this.xBairro);
-        if (this.cMun != null) {
-            endereco.setCMun(this.cMun.toString());
+        endereco.setXLgr(this.getxLgr());
+        endereco.setNro(this.getNro());
+        endereco.setXCpl(this.getxCpl());
+        endereco.setXBairro(this.getxBairro());
+        if (this.getcMun() != null) {
+            endereco.setCMun(this.getcMun().toString());
         }
-        endereco.setXMun(this.xMun);
-        endereco.setUF(TUf.fromValue(this.uf));
-        if (this.cep != null) {
-            endereco.setCEP(this.cep.toString());
+        endereco.setXMun(this.getxMun());
+        endereco.setUF(TUf.fromValue(this.getUf()));
+        if (this.getCep() != null) {
+            endereco.setCEP(this.getCep().toString());
         }
-        if (this.cPais != null) {
-            endereco.setCPais(this.cPais.toString());
+        if (this.getcPais() != null) {
+            endereco.setCPais(this.getcPais().toString());
         }
-        endereco.setXPais(this.xPais);
-        endereco.setFone(this.fone);
+        endereco.setXPais(this.getxPais());
+        endereco.setFone(this.getFone());
         if (endereco.getXLgr() != null && !endereco.getXLgr().isEmpty()) {
             return endereco;
         }

@@ -30,14 +30,14 @@ public class Dup {
     public TNFe.InfNFe.Cobr.Dup build(){
         TNFe.InfNFe.Cobr.Dup dup = new TNFe.InfNFe.Cobr.Dup();
 
-        dup.setNDup(this.nDup);
+        dup.setNDup(this.getnDup());
 
-        if (this.dVenc != null){
-            dup.setDVenc(this.dVenc.format(DateTimeFormatter.ISO_DATE));
+        if (this.getdVenc() != null){
+            dup.setDVenc(this.getdVenc().format(DateTimeFormatter.ISO_DATE));
         }
 
-        if (this.vDup != null){
-            dup.setVDup(this.vDup.toString());
+        if (this.getvDup() != null){
+            dup.setVDup(this.getvDup().toString());
         }
 
         return dup;

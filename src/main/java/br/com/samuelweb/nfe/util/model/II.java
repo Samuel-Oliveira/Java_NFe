@@ -34,25 +34,57 @@ public class II {
     private BigDecimal viof;
 
     public TNFe.InfNFe.Det.Imposto.II build() {
-        if ((this.vbc.compareTo(BigDecimal.ZERO) > 0)
-                || (this.vDespAdu.compareTo(BigDecimal.ZERO) > 0)
-                || (this.vii.compareTo(BigDecimal.ZERO) > 0)
-                || (this.viof.compareTo(BigDecimal.ZERO) > 0)) {
+        if ((this.getVbc().compareTo(BigDecimal.ZERO) > 0)
+                || (this.getvDespAdu().compareTo(BigDecimal.ZERO) > 0)
+                || (this.getVii().compareTo(BigDecimal.ZERO) > 0)
+                || (this.getViof().compareTo(BigDecimal.ZERO) > 0)) {
             TNFe.InfNFe.Det.Imposto.II ii = new TNFe.InfNFe.Det.Imposto.II();
-            if (this.vbc != null) {
-                ii.setVBC(this.vbc.toString());
+            if (this.getVbc() != null) {
+                ii.setVBC(this.getVbc().toString());
             }
-            if (this.vDespAdu != null) {
-                ii.setVDespAdu(this.vDespAdu.toString());
+            if (this.getvDespAdu() != null) {
+                ii.setVDespAdu(this.getvDespAdu().toString());
             }
-            if (this.vii != null) {
-                ii.setVII(this.vii.toString());
+            if (this.getVii() != null) {
+                ii.setVII(this.getVii().toString());
             }
-            if (this.viof != null) {
-                ii.setVIOF(this.viof.toString());
+            if (this.getViof() != null) {
+                ii.setVIOF(this.getViof().toString());
             }
             return ii;
         }
         return null;
+    }
+
+    public BigDecimal getVbc() {
+        return vbc;
+    }
+
+    public void setVbc(BigDecimal vbc) {
+        this.vbc = vbc;
+    }
+
+    public BigDecimal getvDespAdu() {
+        return vDespAdu;
+    }
+
+    public void setvDespAdu(BigDecimal vDespAdu) {
+        this.vDespAdu = vDespAdu;
+    }
+
+    public BigDecimal getVii() {
+        return vii;
+    }
+
+    public void setVii(BigDecimal vii) {
+        this.vii = vii;
+    }
+
+    public BigDecimal getViof() {
+        return viof;
+    }
+
+    public void setViof(BigDecimal viof) {
+        this.viof = viof;
     }
 }

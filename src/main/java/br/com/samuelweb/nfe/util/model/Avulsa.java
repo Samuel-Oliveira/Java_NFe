@@ -82,24 +82,24 @@ public class Avulsa {
 
     public TNFe.InfNFe.Avulsa build() {
         TNFe.InfNFe.Avulsa avulsa = new TNFe.InfNFe.Avulsa();
-        avulsa.setCNPJ(this.cnpj);
-        avulsa.setXOrgao(this.xOrgao);
-        avulsa.setMatr(this.matr);
-        avulsa.setXAgente(this.xAgente);
-        avulsa.setFone(this.fone);
-        if (this.uf != null) {
-            avulsa.setUF(TUfEmi.fromValue(this.uf.toString()));
+        avulsa.setCNPJ(this.getCnpj());
+        avulsa.setXOrgao(this.getxOrgao());
+        avulsa.setMatr(this.getMatr());
+        avulsa.setXAgente(this.getxAgente());
+        avulsa.setFone(this.getFone());
+        if (this.getUf() != null) {
+            avulsa.setUF(TUfEmi.fromValue(this.getUf().toString()));
         }
-        avulsa.setNDAR(this.nDar);
-        if (this.dEmi != null) {
-            avulsa.setDEmi(this.dEmi.format(DateTimeFormatter.ISO_DATE));
+        avulsa.setNDAR(this.getnDar());
+        if (this.getdEmi() != null) {
+            avulsa.setDEmi(this.getdEmi().format(DateTimeFormatter.ISO_DATE));
         }
-        if (this.vDar != null) {
-            avulsa.setVDAR( this.vDar.toString() );
+        if (this.getvDar() != null) {
+            avulsa.setVDAR(this.getvDar().toString() );
         }
-        avulsa.setRepEmi(this.repEmi);
-        if (this.dPag != null ) {
-            avulsa.setDPag(this.dPag.format(DateTimeFormatter.ISO_DATE));
+        avulsa.setRepEmi(this.getRepEmi());
+        if (this.getdPag() != null ) {
+            avulsa.setDPag(this.getdPag().format(DateTimeFormatter.ISO_DATE));
         }
         return avulsa;
     }

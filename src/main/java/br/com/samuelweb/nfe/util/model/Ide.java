@@ -155,35 +155,35 @@ public class Ide {
 
     public TNFe.InfNFe.Ide build(){
         TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
-        ide.setCUF(this.cuf.toString());
-        ide.setCNF(this.cnf);
-        ide.setNatOp(this.natOp);
-        ide.setMod(this.mod);
-        ide.setSerie(this.serie.toString());
-        ide.setNNF(this.nnf.toString());
-        ide.setDhEmi(this.dhEmi
+        ide.setCUF(this.getCuf().toString());
+        ide.setCNF(this.getCnf());
+        ide.setNatOp(this.getNatOp());
+        ide.setMod(this.getMod());
+        ide.setSerie(this.getSerie().toString());
+        ide.setNNF(this.getNnf().toString());
+        ide.setDhEmi(this.getDhEmi()
                 .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-        if (this.mod.equals("55")) {
-            ide.setDhSaiEnt(this.dhSaiEnt
+        if (this.getMod().equals("55")) {
+            ide.setDhSaiEnt(this.getDhSaiEnt()
                     .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         }
-        ide.setTpNF(this.tpEmis.toString());
-        ide.setIdDest(this.idDest.toString());
-        ide.setCMunFG(this.cMunFG.toString());
-        ide.setTpImp(this.tpImp.toString());
-        ide.setTpEmis(this.tpEmis.toString());
-        ide.setCDV(this.cdv.toString());
-        ide.setTpAmb(this.tpAmb.toString());
-        ide.setFinNFe(this.finNFe.toString());
-        ide.setIndFinal(this.indFinal.toString());
-        ide.setIndPres(this.indPres.toString());
-        ide.setProcEmi(this.procEmi.toString());
-        ide.setVerProc(this.verProc);
-        if (this.dhCont != null && this.xJust != null && !this.xJust.isEmpty()){
-            ide.setDhCont(this.dhCont.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-            ide.setXJust(this.xJust);
+        ide.setTpNF(this.getTpNF().toString());
+        ide.setIdDest(this.getIdDest().toString());
+        ide.setCMunFG(this.getCMunFG().toString());
+        ide.setTpImp(this.getTpImp().toString());
+        ide.setTpEmis(this.getTpEmis().toString());
+        ide.setCDV(this.getCdv().toString());
+        ide.setTpAmb(this.getTpAmb().toString());
+        ide.setFinNFe(this.getFinNFe().toString());
+        ide.setIndFinal(this.getIndFinal().toString());
+        ide.setIndPres(this.getIndPres().toString());
+        ide.setProcEmi(this.getProcEmi().toString());
+        ide.setVerProc(this.getVerProc());
+        if (this.getDhCont() != null && this.getxJust() != null && !this.getxJust().isEmpty()){
+            ide.setDhCont(this.getDhCont().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+            ide.setXJust(this.getxJust());
         }
-        for (NfRef ref : nfRef) {
+        for (NfRef ref : getNfRef()) {
             ide.getNFref().add(ref.build());
         }
         return ide;
@@ -355,14 +355,6 @@ public class Ide {
 
     public void setDhCont(ZonedDateTime dhCont) {
         this.dhCont = dhCont;
-    }
-
-    public String getXJust() {
-        return xJust;
-    }
-
-    public void setXJust(String xJust) {
-        this.xJust = xJust;
     }
 
     public Integer getcMunFG() {

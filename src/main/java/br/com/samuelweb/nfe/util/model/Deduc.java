@@ -22,10 +22,10 @@ public class Deduc {
     public TNFe.InfNFe.Cana.Deduc build(){
         TNFe.InfNFe.Cana.Deduc deduc = new TNFe.InfNFe.Cana.Deduc();
 
-        deduc.setXDed(this.xDed);
+        deduc.setXDed(this.getxDed());
 
-        if (this.vDed != null){
-            deduc.setVDed(this.vDed.toString());
+        if (this.getvDed() != null){
+            deduc.setVDed(this.getvDed().toString());
         }
 
         return deduc;

@@ -33,10 +33,10 @@ public class Arma {
 
     public TNFe.InfNFe.Det.Prod.Arma build() {
         TNFe.InfNFe.Det.Prod.Arma arma = new TNFe.InfNFe.Det.Prod.Arma();
-        arma.setTpArma(this.tpArma);
-        arma.setNSerie(this.nSerie);
-        arma.setNCano(this.nCano);
-        arma.setDescr(this.descr);
+        arma.setTpArma(this.getTpArma());
+        arma.setNSerie(this.getnSerie());
+        arma.setNCano(this.getnCano());
+        arma.setDescr(this.getDescr());
         return arma;
     }
 
