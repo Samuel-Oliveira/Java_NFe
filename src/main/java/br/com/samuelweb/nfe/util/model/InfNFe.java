@@ -139,10 +139,10 @@ public class InfNFe {
     }
 
     public Ide getIde() {
-        if (this.getIde() == null) {
-            this.setIde(new Ide());
+        if (this.ide == null) {
+            this.ide = new Ide();
         }
-        return this.getIde();
+        return this.ide;
     }
 
     public void setIde(Ide ide) {
@@ -150,10 +150,10 @@ public class InfNFe {
     }
 
     public Emit getEmit() {
-        if (this.getEmit() == null) {
-            this.setEmit(new Emit());
+        if (this.emit == null) {
+            this.emit = new Emit();
         }
-        return this.getEmit();
+        return this.emit;
     }
 
     public void setEmit(Emit emit) {

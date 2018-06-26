@@ -155,29 +155,57 @@ public class Ide {
 
     public TNFe.InfNFe.Ide build(){
         TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
-        ide.setCUF(this.getCuf().toString());
+        if (this.getCuf() != null) {
+            ide.setCUF(this.getCuf().toString());
+        }
         ide.setCNF(this.getCnf());
         ide.setNatOp(this.getNatOp());
         ide.setMod(this.getMod());
-        ide.setSerie(this.getSerie().toString());
-        ide.setNNF(this.getNnf().toString());
+        if (this.getSerie() != null) {
+            ide.setSerie(this.getSerie().toString());
+        }
+        if (this.getNnf() != null) {
+            ide.setNNF(this.getNnf().toString());
+        }
         ide.setDhEmi(this.getDhEmi()
                 .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         if (this.getMod().equals("55")) {
             ide.setDhSaiEnt(this.getDhSaiEnt()
                     .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         }
-        ide.setTpNF(this.getTpNF().toString());
-        ide.setIdDest(this.getIdDest().toString());
-        ide.setCMunFG(this.getCMunFG().toString());
-        ide.setTpImp(this.getTpImp().toString());
-        ide.setTpEmis(this.getTpEmis().toString());
-        ide.setCDV(this.getCdv().toString());
-        ide.setTpAmb(this.getTpAmb().toString());
-        ide.setFinNFe(this.getFinNFe().toString());
-        ide.setIndFinal(this.getIndFinal().toString());
-        ide.setIndPres(this.getIndPres().toString());
-        ide.setProcEmi(this.getProcEmi().toString());
+        if (this.getTpNF() != null) {
+            ide.setTpNF(this.getTpNF().toString());
+        }
+        if (this.getIdDest() != null) {
+            ide.setIdDest(this.getIdDest().toString());
+        }
+        if (this.getCMunFG() != null) {
+            ide.setCMunFG(this.getCMunFG().toString());
+        }
+        if (this.getTpImp() != null) {
+            ide.setTpImp(this.getTpImp().toString());
+        }
+        if (this.getTpEmis() != null) {
+            ide.setTpEmis(this.getTpEmis().toString());
+        }
+        if (this.getCdv() != null) {
+            ide.setCDV(this.getCdv().toString());
+        }
+        if (this.getTpAmb() != null) {
+            ide.setTpAmb(this.getTpAmb().toString());
+        }
+        if (this.getFinNFe() != null) {
+            ide.setFinNFe(this.getFinNFe().toString());
+        }
+        if (this.getIndFinal() != null) {
+            ide.setIndFinal(this.getIndFinal().toString());
+        }
+        if (this.getIndPres() != null) {
+            ide.setIndPres(this.getIndPres().toString());
+        }
+        if (this.getProcEmi() != null) {
+            ide.setProcEmi(this.getProcEmi().toString());
+        }
         ide.setVerProc(this.getVerProc());
         if (this.getDhCont() != null && this.getxJust() != null && !this.getxJust().isEmpty()){
             ide.setDhCont(this.getDhCont().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));

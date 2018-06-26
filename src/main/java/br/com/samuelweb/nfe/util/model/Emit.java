@@ -77,7 +77,7 @@ public class Emit {
         emit.setXNome(this.getxNome());
         emit.setXFant(this.getxFant());
         emit.setEnderEmit(this.getEnderEmit().build());
-        if (!this.getIe().equals("ISENTO")) {
+        if (this.getIe() != null && !this.getIe().equals("ISENTO")) {
             this.setIe(this.getIe().replaceAll("\\D", ""));
         }
         emit.setIE(this.getIe());
