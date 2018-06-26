@@ -58,18 +58,18 @@ public class Retirada {
 
     public TLocal build() {
         TLocal retirada = new TLocal();
-        if (this.cnpjCpf != null && this.cnpjCpf.length() > 11) {
-            retirada.setCNPJ(this.cnpjCpf);
+        if (this.getCnpjCpf() != null && this.getCnpjCpf().length() > 11) {
+            retirada.setCNPJ(this.getCnpjCpf());
         } else {
-            retirada.setCPF(this.cnpjCpf);
+            retirada.setCPF(this.getCnpjCpf());
         }
-        retirada.setXLgr(this.xLgr);
-        retirada.setNro(this.nro);
-        retirada.setXCpl(this.xCpl);
-        retirada.setXBairro(this.xBairro);
-        retirada.setCMun(this.cMun);
-        retirada.setXMun(this.xMun);
-        retirada.setUF(TUf.fromValue(this.uf));
+        retirada.setXLgr(this.getxLgr());
+        retirada.setNro(this.getNro());
+        retirada.setXCpl(this.getxCpl());
+        retirada.setXBairro(this.getxBairro());
+        retirada.setCMun(this.getcMun());
+        retirada.setXMun(this.getxMun());
+        retirada.setUF(TUf.fromValue(this.getUf()));
         if (retirada.getXLgr() != null && !retirada.getXLgr().isEmpty()) {
             return retirada;
         }

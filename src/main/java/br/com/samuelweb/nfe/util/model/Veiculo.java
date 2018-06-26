@@ -28,13 +28,13 @@ public class Veiculo {
     public TVeiculo build() {
         TVeiculo veiculo = new TVeiculo();
 
-        if (StringUtils.isNotBlank(this.placa.trim()) ||
-                (StringUtils.isNotBlank(this.uf)) ||
-                (StringUtils.isNotBlank(this.rntc))) {
+        if (StringUtils.isNotBlank(this.getPlaca().trim()) ||
+                (StringUtils.isNotBlank(this.getUf())) ||
+                (StringUtils.isNotBlank(this.getRntc()))) {
 
-            veiculo.setPlaca(this.placa);
-            veiculo.setUF(TUf.fromValue(this.uf));
-            veiculo.setRNTC(this.rntc);
+            veiculo.setPlaca(this.getPlaca());
+            veiculo.setUF(TUf.fromValue(this.getUf()));
+            veiculo.setRNTC(this.getRntc());
             return veiculo;
         }
         return null;

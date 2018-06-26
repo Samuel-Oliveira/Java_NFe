@@ -44,13 +44,13 @@ public class Prod {
             , tamanhoMinimo = 6, tamanhoMaximo = 6, ocorrencias = 0
             , descricao = NfeConsts.DSC_NVE)
     private List<String> nve;
-    
+
     @NfeCampo(tipo = String.class
             , id = "I05c", tag = "CEST"
             , tamanhoMinimo = 7, tamanhoMaximo = 7, ocorrencias = 0
             , descricao = DfeConsts.DSC_CEST)
     private String cest;
-    
+
     @NfeCampo(tipo = String.class
             , id = "I05d", tag = "indEscala"
             , tamanhoMinimo = 1, tamanhoMaximo = 1, ocorrencias = 0
@@ -217,79 +217,79 @@ public class Prod {
 
     public TNFe.InfNFe.Det.Prod build() {
         TNFe.InfNFe.Det.Prod prod = new TNFe.InfNFe.Det.Prod();
-        prod.setCProd(this.cProd);
-        prod.setCEAN(this.cean);
-        prod.setXProd(this.xProd);
-        prod.setNCM(this.ncm);
-        if (this.nve != null) {
-            this.nve.forEach( n -> prod.getNVE().add(n) );
+        prod.setCProd(this.getcProd());
+        prod.setCEAN(this.getCean());
+        prod.setXProd(this.getxProd());
+        prod.setNCM(this.getNcm());
+        if (this.getNve() != null) {
+            this.getNve().forEach(n -> prod.getNVE().add(n));
         }
-        if (StringUtils.isNumeric(this.cest)) {
-            prod.setCEST(this.cest);
-            prod.setIndEscala(this.indEscala);
-            prod.setCNPJFab(this.cnpjFab);
+        if (StringUtils.isNumeric(this.getCest())) {
+            prod.setCEST(this.getCest());
+            prod.setIndEscala(this.getIndEscala());
+            prod.setCNPJFab(this.getCnpjFab());
         }
-        prod.setCBenef(this.cBenef);
-        prod.setEXTIPI(this.extipi);
-        prod.setCFOP(this.cfop);
-        prod.setUCom(this.uCom);
-        if (this.qCom != null) {
-            prod.setQCom(this.qCom.toString());
+        prod.setCBenef(this.getcBenef());
+        prod.setEXTIPI(this.getExtipi());
+        prod.setCFOP(this.getCfop());
+        prod.setUCom(this.getuCom());
+        if (this.getqCom() != null) {
+            prod.setQCom(this.getqCom().toString());
         }
-        if (this.vUnCom != null) {
-            prod.setVUnCom(this.vUnCom.toString());
+        if (this.getvUnCom() != null) {
+            prod.setVUnCom(this.getvUnCom().toString());
         }
-        if (this.vProd != null) {
-            prod.setVProd(this.vProd.toString());
+        if (this.getvProd() != null) {
+            prod.setVProd(this.getvProd().toString());
         }
-        prod.setCEANTrib(this.ceanTrib);
-        prod.setUTrib(this.uTrib);
-        if (this.qTrib != null) {
-            prod.setQTrib(this.qTrib.toString());
+        prod.setCEANTrib(this.getCeanTrib());
+        prod.setUTrib(this.getuTrib());
+        if (this.getqTrib() != null) {
+            prod.setQTrib(this.getqTrib().toString());
         }
-        if (this.vUnTrib != null) {
-            prod.setVUnTrib(this.vUnTrib.toString());
+        if (this.getvUnTrib() != null) {
+            prod.setVUnTrib(this.getvUnTrib().toString());
         }
-        if (this.vFrete != null) {
-            prod.setVFrete(this.vFrete.toString());
+        if (this.getvFrete() != null) {
+            prod.setVFrete(this.getvFrete().toString());
         }
-        if (this.vSeg != null) {
-            prod.setVSeg(this.vSeg.toString());
+        if (this.getvSeg() != null) {
+            prod.setVSeg(this.getvSeg().toString());
         }
-        if (this.vDesc != null) {
-            prod.setVDesc(this.vDesc.toString());
+        if (this.getvDesc() != null) {
+            prod.setVDesc(this.getvDesc().toString());
         }
-        if (this.vOutro != null) {
-            prod.setVOutro(this.vOutro.toString());
+        if (this.getvOutro() != null) {
+            prod.setVOutro(this.getvOutro().toString());
         }
-        if (this.indTot != null) {
-            prod.setIndTot(this.indTot.toString());
+        if (this.getIndTot() != null) {
+            prod.setIndTot(this.getIndTot().toString());
         }
-        if (this.di != null) {
-            this.di.forEach( i -> prod.getDI().add(i.build()));
+        if (this.getDi() != null) {
+            this.getDi().forEach(i -> prod.getDI().add(i.build()));
         }
-        if (this.detExport != null) {
-            this.detExport.forEach( export -> prod.getDetExport().add(export.build()));
+        if (this.getDetExport() != null) {
+            this.getDetExport().forEach(export -> prod.getDetExport().add(export.build()));
         }
-        prod.setXPed(this.xPed);
-        prod.setNItemPed(this.nItemPed);
-        prod.setNFCI(this.nfci);
-        if (this.rastro != null) {
-            this.rastro.forEach(ras -> prod.getRastro().add(ras.build()));
+        prod.setXPed(this.getxPed());
+        prod.setNItemPed(this.getnItemPed());
+        prod.setNFCI(this.getNfci());
+        if (this.getRastro() != null) {
+            this.getRastro().forEach(ras -> prod.getRastro().add(ras.build()));
         }
-        if (this.veicProd != null) {
-            prod.setVeicProd(this.veicProd.build());
+        if (this.getVeicProd() != null) {
+            prod.setVeicProd(this.getVeicProd().build());
         }
-        if (this.med != null) {
-            prod.setMed(this.med.build());
+        if (this.getMed() != null) {
+            prod.setMed(this.getMed().build());
         }
-        if (this.arma != null) {
-            this.arma.forEach(ar -> prod.getArma().add(ar.build()));
+        if (this.getArma() != null) {
+            this.getArma().forEach(ar -> prod.getArma().add(ar.build()));
         }
-        if (this.comb != null) {
-            prod.setComb(this.comb.build());
+        if (this.getComb() != null) {
+            prod.setComb(this.getComb().build());
         }
-        prod.setNRECOPI(this.nrecopi);
+        prod.setNRECOPI(this.getNrecopi());
         return prod;
     }
 

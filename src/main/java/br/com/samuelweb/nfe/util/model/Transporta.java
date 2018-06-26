@@ -42,26 +42,26 @@ public class Transporta {
     public TNFe.InfNFe.Transp.Transporta build() {
         TNFe.InfNFe.Transp.Transporta transporta = new TNFe.InfNFe.Transp.Transporta();
 
-        if (StringUtils.isNotBlank(this.cnpjCpf.trim()) ||
-                StringUtils.isNotBlank(this.xNome.trim()) ||
-                StringUtils.isNotBlank(this.ie.trim()) ||
-                StringUtils.isNotBlank(this.xEnder.trim()) ||
-                StringUtils.isNotBlank(this.xMun.trim()) ||
-                StringUtils.isNotBlank(this.uf.trim())) {
+        if (StringUtils.isNotBlank(this.getCnpjCpf().trim()) ||
+                StringUtils.isNotBlank(this.getxNome().trim()) ||
+                StringUtils.isNotBlank(this.getIe().trim()) ||
+                StringUtils.isNotBlank(this.getxEnder().trim()) ||
+                StringUtils.isNotBlank(this.getxMun().trim()) ||
+                StringUtils.isNotBlank(this.getUf().trim())) {
 
-            if (StringUtils.isNotBlank(this.cnpjCpf.trim())) {
-                if (this.cnpjCpf.length() > 11) {
-                    transporta.setCNPJ(this.cnpjCpf);
+            if (StringUtils.isNotBlank(this.getCnpjCpf().trim())) {
+                if (this.getCnpjCpf().length() > 11) {
+                    transporta.setCNPJ(this.getCnpjCpf());
                 } else {
-                    transporta.setCPF(this.cnpjCpf);
+                    transporta.setCPF(this.getCnpjCpf());
                 }
             }
 
-            transporta.setXNome(this.xNome);
-            transporta.setIE(this.ie);
-            transporta.setXEnder(this.xEnder);
-            transporta.setXMun(this.xMun);
-            transporta.setUF(TUf.fromValue(this.uf));
+            transporta.setXNome(this.getxNome());
+            transporta.setIE(this.getIe());
+            transporta.setXEnder(this.getxEnder());
+            transporta.setXMun(this.getxMun());
+            transporta.setUF(TUf.fromValue(this.getUf()));
         }
 
 

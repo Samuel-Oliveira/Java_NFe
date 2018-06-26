@@ -73,14 +73,14 @@ public class IPI {
 
     public TIpi build() {
         TIpi ipi = new TIpi();
-        if (this.cst != null) {
-            this.cst.getMontaImposto().build(ipi, this);
+        if (this.getCst() != null) {
+            this.getCst().getMontaImposto().build(ipi, this);
         }
-        ipi.setCEnq(this.cEnq);
-        ipi.setCNPJProd(this.CNPJProd);
-        ipi.setCSelo(this.cSelo);
-        if (this.qSelo != null) {
-            ipi.setQSelo(this.qSelo.toString());
+        ipi.setCEnq(this.getcEnq());
+        ipi.setCNPJProd(this.getCNPJProd());
+        ipi.setCSelo(this.getcSelo());
+        if (this.getqSelo() != null) {
+            ipi.setQSelo(this.getqSelo().toString());
         }
         return ipi;
     }

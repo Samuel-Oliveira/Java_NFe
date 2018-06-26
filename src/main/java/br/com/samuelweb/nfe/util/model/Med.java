@@ -22,9 +22,9 @@ public class Med {
 
     public TNFe.InfNFe.Det.Prod.Med build() {
         TNFe.InfNFe.Det.Prod.Med med = new TNFe.InfNFe.Det.Prod.Med();
-        med.setCProdANVISA(this.cProdANVISA);
-        if (this.vpmc != null) {
-            med.setVPMC(this.vpmc.toString());
+        med.setCProdANVISA(this.getcProdANVISA());
+        if (this.getVpmc()!= null) {
+            med.setVPMC(this.getVpmc().toString());
         }
         return med;
     }

@@ -49,20 +49,20 @@ public class Vol {
     public TNFe.InfNFe.Transp.Vol build() {
         TNFe.InfNFe.Transp.Vol vol = new TNFe.InfNFe.Transp.Vol();
 
-        if (this.qVol != null) {
-            vol.setQVol(this.qVol.toString());
+        if (this.getqVol() != null) {
+            vol.setQVol(this.getqVol().toString());
         }
-        vol.setEsp(this.esp);
-        vol.setMarca(this.marca);
-        vol.setNVol(this.nVol);
-        if (this.pesoL != null) {
-            vol.setPesoL(this.pesoL.toString());
+        vol.setEsp(this.getEsp());
+        vol.setMarca(this.getMarca());
+        vol.setNVol(this.getnVol());
+        if (this.getPesoL() != null) {
+            vol.setPesoL(this.getPesoL().toString());
         }
-        if (this.pesoB != null) {
-            vol.setPesoB(this.pesoB.toString());
+        if (this.getPesoB() != null) {
+            vol.setPesoB(this.getPesoB().toString());
         }
-        if (this.lacres != null) {
-            lacres.forEach(e -> vol.getLacres().add(e.build()));
+        if (this.getLacres() != null) {
+            getLacres().forEach(e -> vol.getLacres().add(e.build()));
         }
         return vol;
     }

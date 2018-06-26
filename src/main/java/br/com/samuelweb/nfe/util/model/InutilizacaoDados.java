@@ -15,12 +15,12 @@ public class InutilizacaoDados {
     public String getId(){
         //ID + UF + Ano (2 posições) + CNPJ + modelo + série + número inicial e número final
         return "ID"
-                + codigoUf.toString()
-                + cnpj
-                + modelo
-                + serie
-                + numeroInicial.toString()
-                + numeroFinal.toString();
+                + this.getCodigoUf().toString()
+                + this.getCnpj()
+                + this.getModelo()
+                + this.getSerie()
+                + this.getNumeroInicial().toString()
+                + this.getNumeroFinal().toString();
     }
 
     public Long getIdEmpresa() {

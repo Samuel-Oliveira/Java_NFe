@@ -11,16 +11,16 @@ public class ObsCont {
             , ocorrencias = 1
             , descricao = NfeConsts.DSC_XCAMPO)
     private String xCampo;
-    
+
     @NfeCampo(id = "Z06", tag = "xTexto", tamanhoMinimo = 1, tamanhoMaximo = 60
             , ocorrencias = 1, descricao = NfeConsts.DSC_XTEXTO)
     private String xTexto;
 
-    public TNFe.InfNFe.InfAdic.ObsCont build(){
+    public TNFe.InfNFe.InfAdic.ObsCont build() {
         TNFe.InfNFe.InfAdic.ObsCont obsCont = new TNFe.InfNFe.InfAdic.ObsCont();
 
-        obsCont.setXCampo(this.xCampo);
-        obsCont.setXTexto(this.xTexto);
+        obsCont.setXCampo(this.getxCampo());
+        obsCont.setXTexto(this.getxTexto());
 
         return obsCont;
 

@@ -152,53 +152,53 @@ public class VeicProd {
             , descricao = NfeConsts.DSC_TPREST)
     private Integer tpRest;
 
-    
-    public TNFe.InfNFe.Det.Prod.VeicProd build(){
-        if (this.chassi != null && this.chassi.isEmpty()) {
+
+    public TNFe.InfNFe.Det.Prod.VeicProd build() {
+        if (this.getChassi() != null && this.getChassi().isEmpty()) {
             return null;
         }
         TNFe.InfNFe.Det.Prod.VeicProd veicProd = new TNFe.InfNFe.Det.Prod.VeicProd();
-        veicProd.setTpOp(this.tpOp);
-        veicProd.setChassi(this.chassi);
-        veicProd.setCCor(this.cCor);
-        veicProd.setXCor(this.xCor);
-        veicProd.setPot(this.pot);
-        veicProd.setCilin(this.cilin);
-        veicProd.setPesoL(this.pesoL);
-        veicProd.setPesoB(this.pesoB);
-        veicProd.setNSerie(this.nSerie);
-        veicProd.setTpComb(this.tpComb);
-        veicProd.setNMotor(this.nMotor);
-        veicProd.setCMT(this.cmt);
-        veicProd.setDist(this.dist);
-        if (this.anoMod != null) {
-            veicProd.setAnoMod(this.anoMod.toString());
+        veicProd.setTpOp(this.getTpOp());
+        veicProd.setChassi(this.getChassi());
+        veicProd.setCCor(this.getcCor());
+        veicProd.setXCor(this.getxCor());
+        veicProd.setPot(this.getPot());
+        veicProd.setCilin(this.getCilin());
+        veicProd.setPesoL(this.getPesoL());
+        veicProd.setPesoB(this.getPesoB());
+        veicProd.setNSerie(this.getnSerie());
+        veicProd.setTpComb(this.getTpComb());
+        veicProd.setNMotor(this.getnMotor());
+        veicProd.setCMT(this.getCmt());
+        veicProd.setDist(this.getDist());
+        if (this.getAnoMod() != null) {
+            veicProd.setAnoMod(this.getAnoMod().toString());
         }
-        if (this.anoFab != null) {
-            veicProd.setAnoFab(this.anoFab.toString());
+        if (this.getAnoFab() != null) {
+            veicProd.setAnoFab(this.getAnoFab().toString());
         }
-        veicProd.setTpPint(this.tpPint);
-        if (this.tpVeic != null) {
-            veicProd.setTpVeic(this.tpVeic.toString());
+        veicProd.setTpPint(this.getTpPint());
+        if (this.getTpVeic() != null) {
+            veicProd.setTpVeic(this.getTpVeic().toString());
         }
-        if (this.espVeic != null) {
-            veicProd.setEspVeic(this.espVeic.toString());
+        if (this.getEspVeic() != null) {
+            veicProd.setEspVeic(this.getEspVeic().toString());
         }
-        veicProd.setVIN(this.vin);
-        if (this.condVeic != null) {
-            veicProd.setCondVeic(this.condVeic.toString());
+        veicProd.setVIN(this.getVin());
+        if (this.getCondVeic() != null) {
+            veicProd.setCondVeic(this.getCondVeic().toString());
         }
-        if (this.cMod != null) {
-            veicProd.setCMod(this.cMod.toString());
+        if (this.getcMod() != null) {
+            veicProd.setCMod(this.getcMod().toString());
         }
-        if (this.cCorDENATRAN != null) {
-            veicProd.setCCorDENATRAN(this.cCorDENATRAN.toString());
+        if (this.getcCorDENATRAN() != null) {
+            veicProd.setCCorDENATRAN(this.getcCorDENATRAN().toString());
         }
-        if (this.lota != null) {
-            veicProd.setLota(this.lota.toString());
+        if (this.getLota() != null) {
+            veicProd.setLota(this.getLota().toString());
         }
-        if (this.tpRest != null) {
-            veicProd.setTpRest(this.tpRest.toString());
+        if (this.getTpRest() != null) {
+            veicProd.setTpRest(this.getTpRest().toString());
         }
         return veicProd;
     }
@@ -361,5 +361,37 @@ public class VeicProd {
 
     public void setCondVeic(Integer condVeic) {
         this.condVeic = condVeic;
+    }
+
+    public Integer getcMod() {
+        return cMod;
+    }
+
+    public void setcMod(Integer cMod) {
+        this.cMod = cMod;
+    }
+
+    public Integer getcCorDENATRAN() {
+        return cCorDENATRAN;
+    }
+
+    public void setcCorDENATRAN(Integer cCorDENATRAN) {
+        this.cCorDENATRAN = cCorDENATRAN;
+    }
+
+    public Integer getLota() {
+        return lota;
+    }
+
+    public void setLota(Integer lota) {
+        this.lota = lota;
+    }
+
+    public Integer getTpRest() {
+        return tpRest;
+    }
+
+    public void setTpRest(Integer tpRest) {
+        this.tpRest = tpRest;
     }
 }

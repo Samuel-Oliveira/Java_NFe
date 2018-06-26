@@ -62,17 +62,17 @@ public class RefNfp {
 
     public TNFe.InfNFe.Ide.NFref.RefNFP build(){
         TNFe.InfNFe.Ide.NFref.RefNFP refNFP = new TNFe.InfNFe.Ide.NFref.RefNFP();
-        refNFP.setCUF(this.cuf);
-        refNFP.setAAMM(this.aamm);
-        if (this.cnpj != null) {
-            refNFP.setCNPJ(this.cnpj);
+        refNFP.setCUF(this.getCuf());
+        refNFP.setAAMM(this.getAamm());
+        if (this.getCnpj() != null) {
+            refNFP.setCNPJ(this.getCnpj());
         } else {
-            refNFP.setCPF(this.cpf);
+            refNFP.setCPF(this.getCpf());
         }
-        refNFP.setIE(this.ie);
-        refNFP.setMod(this.mod);
-        refNFP.setSerie(this.serie);
-        refNFP.setNNF(this.nnf);
+        refNFP.setIE(this.getIe());
+        refNFP.setMod(this.getMod());
+        refNFP.setSerie(this.getSerie());
+        refNFP.setNNF(this.getNnf());
         return refNFP;
     }
 

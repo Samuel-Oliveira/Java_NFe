@@ -16,21 +16,21 @@ public class RefECF {
     @NfeCampo(tipo = Integer.class
             , id = "B20l", tag = "nECF"
             , tamanhoMinimo = 3, tamanhoMaximo = 3, ocorrencias = 1
-            , descricao =  NfeConsts.DSC_NECF)
+            , descricao = NfeConsts.DSC_NECF)
     private Integer necf;
 
     @NfeCampo(tipo = Integer.class
             , id = "B20m", tag = "nCOO"
             , tamanhoMinimo = 6, tamanhoMaximo = 6, ocorrencias = 1
-            , descricao =  NfeConsts.DSC_NCOO)
+            , descricao = NfeConsts.DSC_NCOO)
     private Integer ncoo;
 
 
     public TNFe.InfNFe.Ide.NFref.RefECF build() {
         TNFe.InfNFe.Ide.NFref.RefECF refECF = new TNFe.InfNFe.Ide.NFref.RefECF();
-        refECF.setMod(this.mod);
-        refECF.setNECF(this.necf.toString());
-        refECF.setNCOO(this.ncoo.toString());
+        refECF.setMod(this.getMod());
+        refECF.setNECF(this.getNecf().toString());
+        refECF.setNCOO(this.getNcoo().toString());
         return refECF;
     }
 

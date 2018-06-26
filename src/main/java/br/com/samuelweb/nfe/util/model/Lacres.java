@@ -13,7 +13,7 @@ public class Lacres {
 
     public TNFe.InfNFe.Transp.Vol.Lacres build(){
         TNFe.InfNFe.Transp.Vol.Lacres lacre = new TNFe.InfNFe.Transp.Vol.Lacres();
-        lacre.setNLacre(this.nLacre);
+        lacre.setNLacre(this.getnLacre());
         return lacre;
     }
 

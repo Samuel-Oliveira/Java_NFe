@@ -32,22 +32,22 @@ public class InfAdic {
     public TNFe.InfNFe.InfAdic build() {
         TNFe.InfNFe.InfAdic infAdic = new TNFe.InfNFe.InfAdic();
 
-        infAdic.setInfAdFisco(this.infAdFisco);
-        infAdic.setInfCpl(this.infCpl);
+        infAdic.setInfAdFisco(this.getInfAdFisco());
+        infAdic.setInfCpl(this.getInfCpl());
 
-        if (this.obsCont != null) {
-            if (this.obsCont.size() <= 20) {
-                this.obsCont.forEach(e -> infAdic.getObsCont().add(e.build()));
+        if (this.getObsCont() != null) {
+            if (this.getObsCont().size() <= 20) {
+                this.getObsCont().forEach(e -> infAdic.getObsCont().add(e.build()));
             }
         }
 
-        if (this.obsFisco != null) {
-            if (this.obsFisco.size() <= 20) {
-                this.obsFisco.forEach(e -> infAdic.getObsFisco().add(e.build()));
+        if (this.getObsFisco() != null) {
+            if (this.getObsFisco().size() <= 20) {
+                this.getObsFisco().forEach(e -> infAdic.getObsFisco().add(e.build()));
             }
         }
-        if (this.procRef != null) {
-            this.procRef.forEach(e -> infAdic.getProcRef().add(e.build()));
+        if (this.getProcRef() != null) {
+            this.getProcRef().forEach(e -> infAdic.getProcRef().add(e.build()));
         }
 
         return infAdic;

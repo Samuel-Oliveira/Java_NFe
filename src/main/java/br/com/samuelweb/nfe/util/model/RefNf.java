@@ -53,12 +53,12 @@ public class RefNf {
 
     public TNFe.InfNFe.Ide.NFref.RefNF build(){
         TNFe.InfNFe.Ide.NFref.RefNF refNF = new TNFe.InfNFe.Ide.NFref.RefNF();
-        refNF.setCUF(this.cuf.toString());
-        refNF.setAAMM(this.aamm);
-        refNF.setCNPJ(this.cnpj);
-        refNF.setMod(this.mod);
-        refNF.setSerie(this.serie.toString());
-        refNF.setNNF(this.nnf.toString());
+        refNF.setCUF(this.getCuf().toString());
+        refNF.setAAMM(this.getAamm());
+        refNF.setCNPJ(this.getCnpj());
+        refNF.setMod(this.getMod());
+        refNF.setSerie(this.getSerie().toString());
+        refNF.setNNF(this.getNnf().toString());
         return refNF;
     }
 

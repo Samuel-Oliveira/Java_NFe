@@ -18,14 +18,14 @@ public class Total {
     public TNFe.InfNFe.Total build() {
         TNFe.InfNFe.Total total = new TNFe.InfNFe.Total();
 
-        if (this.icmsTot != null) {
-            total.setICMSTot(this.icmsTot.build());
+        if (this.getIcmsTot() != null) {
+            total.setICMSTot(this.getIcmsTot().build());
         }
-        if (this.issqNtot != null){
-            total.setISSQNtot(this.issqNtot.build());
+        if (this.getIssqNtot() != null) {
+            total.setISSQNtot(this.getIssqNtot().build());
         }
-        if (this.retTrib != null){
-            total.setRetTrib(this.retTrib.build());
+        if (this.getRetTrib() != null) {
+            total.setRetTrib(this.getRetTrib().build());
         }
         return total;
 

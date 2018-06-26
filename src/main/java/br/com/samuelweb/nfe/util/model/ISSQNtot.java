@@ -82,49 +82,49 @@ public class ISSQNtot {
     private RegimeTributario cRegTrib;
 
     public TNFe.InfNFe.Total.ISSQNtot build() {
-        if ((this.vServ.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vbc.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.viss.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vpis.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vcofins.compareTo(BigDecimal.ZERO) > 0)) {
+        if ((this.getvServ().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getVbc().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getViss().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getVpis().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getVcofins().compareTo(BigDecimal.ZERO) > 0)) {
 
             TNFe.InfNFe.Total.ISSQNtot issqNtot = new TNFe.InfNFe.Total.ISSQNtot();
 
-            if (this.vServ != null) {
-                issqNtot.setVServ(this.vServ.toString());
+            if (this.getvServ() != null) {
+                issqNtot.setVServ(this.getvServ().toString());
             }
-            if (this.vbc != null) {
-                issqNtot.setVBC(this.vbc.toString());
+            if (this.getVbc() != null) {
+                issqNtot.setVBC(this.getVbc().toString());
             }
-            if (this.viss != null) {
-                issqNtot.setVISS(this.viss.toString());
+            if (this.getViss() != null) {
+                issqNtot.setVISS(this.getViss().toString());
             }
-            if (this.vpis != null) {
-                issqNtot.setVPIS(this.vpis.toString());
+            if (this.getVpis() != null) {
+                issqNtot.setVPIS(this.getVpis().toString());
             }
-            if (this.vcofins != null) {
-                issqNtot.setVCOFINS(this.vcofins.toString());
+            if (this.getVcofins() != null) {
+                issqNtot.setVCOFINS(this.getVcofins().toString());
             }
-            if (this.vDeducao != null) {
-                issqNtot.setVDeducao(this.vDeducao.toString());
+            if (this.getvDeducao() != null) {
+                issqNtot.setVDeducao(this.getvDeducao().toString());
             }
-            if (this.vOutro != null) {
-                issqNtot.setVOutro(this.vOutro.toString());
+            if (this.getvOutro() != null) {
+                issqNtot.setVOutro(this.getvOutro().toString());
             }
-            if (this.vDescIncond != null) {
-                issqNtot.setVDescIncond(this.vDescIncond.toString());
+            if (this.getvDescIncond() != null) {
+                issqNtot.setVDescIncond(this.getvDescIncond().toString());
             }
-            if (this.vDescCond != null) {
-                issqNtot.setVDescCond(this.vDescCond.toString());
+            if (this.getvDescCond() != null) {
+                issqNtot.setVDescCond(this.getvDescCond().toString());
             }
-            if (this.vissRet != null) {
-                issqNtot.setVISSRet(this.vissRet.toString());
+            if (this.getVissRet() != null) {
+                issqNtot.setVISSRet(this.getVissRet().toString());
             }
-            if (this.dCompet != null) {
-                issqNtot.setDCompet(this.dCompet.format(DateTimeFormatter.ISO_DATE));
+            if (this.getdCompet() != null) {
+                issqNtot.setDCompet(this.getdCompet().format(DateTimeFormatter.ISO_DATE));
             }
-            if (this.cRegTrib != null) {
-                issqNtot.setCRegTrib(this.cRegTrib.getValue().toString());
+            if (this.getcRegTrib() != null) {
+                issqNtot.setCRegTrib(this.getcRegTrib().getValue().toString());
             }
             return issqNtot;
         }

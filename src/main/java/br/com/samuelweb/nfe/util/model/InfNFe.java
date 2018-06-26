@@ -81,68 +81,68 @@ public class InfNFe {
     public TNFe.InfNFe build() {
         TNFe.InfNFe infNFe = new TNFe.InfNFe();
         infNFe.setVersao(NFE_VERSAO_400.getValue());
-        infNFe.setId("NFe"+NfeUtil.gerarChaveAcesso(this.ide, this.emit));
-        if (this.ide != null) {
-            infNFe.setIde(this.ide.build());
+        infNFe.setId("NFe" + NfeUtil.gerarChaveAcesso(this.getIde(), this.getEmit()));
+        if (this.getIde() != null) {
+            infNFe.setIde(this.getIde().build());
         }
-        if (this.emit != null) {
-            infNFe.setEmit (this.emit.build());
+        if (this.getEmit() != null) {
+            infNFe.setEmit(this.getEmit().build());
         }
-        if (this.avulsa != null) {
-            infNFe.setAvulsa(this.avulsa.build());
+        if (this.getAvulsa() != null) {
+            infNFe.setAvulsa(this.getAvulsa().build());
         }
-        if (this.dest != null) {
-            infNFe.setDest (this.dest.build());
+        if (this.getDest() != null) {
+            infNFe.setDest(this.getDest().build());
         }
-        if (this.retirada != null) {
-            infNFe.setRetirada (this.retirada.build());
+        if (this.getRetirada() != null) {
+            infNFe.setRetirada(this.getRetirada().build());
         }
-        if (this.entrega != null) {
-            infNFe.setEntrega (this.entrega.build());
+        if (this.getEntrega() != null) {
+            infNFe.setEntrega(this.getEntrega().build());
         }
-        if (this.autXMLList != null) {
-            this.autXMLList.forEach(autXML ->  infNFe.getAutXML().add(autXML.build()));
+        if (this.getAutXMLList() != null) {
+            this.getAutXMLList().forEach(autXML -> infNFe.getAutXML().add(autXML.build()));
         }
-        if (this.detList != null) {
+        if (this.getDetList() != null) {
             Integer i = 0;
-            for (Det det : this.detList) {
+            for (Det det : this.getDetList()) {
                 i++;
                 det.setnItem(i.toString());
                 infNFe.getDet().add(det.build());
             }
         }
-        if (this.total != null) {
-            infNFe.setTotal (this.total.build());
+        if (this.getTotal() != null) {
+            infNFe.setTotal(this.getTotal().build());
         }
-        if (this.transp != null) {
-            infNFe.setTransp (this.transp.build());
+        if (this.getTransp() != null) {
+            infNFe.setTransp(this.getTransp().build());
         }
-        if (this.cobr != null) {
-            infNFe.setCobr (this.cobr.build());
+        if (this.getCobr() != null) {
+            infNFe.setCobr(this.getCobr().build());
         }
-        if (this.pag != null) {
-            infNFe.setPag(this.pag.build());
+        if (this.getPag() != null) {
+            infNFe.setPag(this.getPag().build());
         }
-        if (this.infAdic != null) {
-            infNFe.setInfAdic (this.infAdic.build());
+        if (this.getInfAdic() != null) {
+            infNFe.setInfAdic(this.getInfAdic().build());
         }
-        if (this.exporta != null) {
-            infNFe.setExporta (this.exporta.build());
+        if (this.getExporta() != null) {
+            infNFe.setExporta(this.getExporta().build());
         }
-        if (this.compra != null) {
-            infNFe.setCompra (this.compra.build());
+        if (this.getCompra() != null) {
+            infNFe.setCompra(this.getCompra().build());
         }
-        if (this.cana != null) {
-            infNFe.setCana (this.cana.build());
+        if (this.getCana() != null) {
+            infNFe.setCana(this.getCana().build());
         }
         return infNFe;
     }
 
     public Ide getIde() {
-        if (ide == null) {
-            ide = new Ide();
+        if (this.getIde() == null) {
+            this.setIde(new Ide());
         }
-        return ide;
+        return this.getIde();
     }
 
     public void setIde(Ide ide) {
@@ -150,10 +150,10 @@ public class InfNFe {
     }
 
     public Emit getEmit() {
-        if (emit == null) {
-            emit = new Emit();
+        if (this.getEmit() == null) {
+            this.setEmit(new Emit());
         }
-        return emit;
+        return this.getEmit();
     }
 
     public void setEmit(Emit emit) {

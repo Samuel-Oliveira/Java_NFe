@@ -42,17 +42,17 @@ public class Rastro {
 
     public TNFe.InfNFe.Det.Prod.Rastro build() {
         TNFe.InfNFe.Det.Prod.Rastro rastro = new TNFe.InfNFe.Det.Prod.Rastro();
-        rastro.setNLote(this.nLote);
-        if (this.qLote != null) {
-            rastro.setQLote(this.qLote.toString());
+        rastro.setNLote(this.getnLote());
+        if (this.getqLote() != null) {
+            rastro.setQLote(this.getqLote().toString());
         }
-        if (this.dFab != null) {
-            rastro.setDFab(this.dFab.format(DateTimeFormatter.ISO_DATE));
+        if (this.getdFab() != null) {
+            rastro.setDFab(this.getdFab().format(DateTimeFormatter.ISO_DATE));
         }
-        if (this.dVal != null) {
-            rastro.setDVal(this.dVal.format(DateTimeFormatter.ISO_DATE));
+        if (this.getdVal() != null) {
+            rastro.setDVal(this.getdVal().format(DateTimeFormatter.ISO_DATE));
         }
-        rastro.setCAgreg(this.cAgreg);
+        rastro.setCAgreg(this.getcAgreg());
         return rastro;
     }
 

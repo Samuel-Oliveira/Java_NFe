@@ -35,16 +35,16 @@ public class NfRef {
 
     public TNFe.InfNFe.Ide.NFref build() {
         TNFe.InfNFe.Ide.NFref nfRef = new TNFe.InfNFe.Ide.NFref();
-        nfRef.setRefNFe(refNFe);
-        if (refNF != null) {
-            nfRef.setRefNF(refNF.build());
+        nfRef.setRefNFe(this.getRefNFe());
+        if (this.getRefNF() != null) {
+            nfRef.setRefNF(this.getRefNF().build());
         }
-        if (refNFP != null) {
-            nfRef.setRefNFP(refNFP.build());
+        if (this.getRefNFP() != null) {
+            nfRef.setRefNFP(this.getRefNFP().build());
         }
-        nfRef.setRefCTe(refCTe);
-        if (refECF != null) {
-            nfRef.setRefECF(refECF.build());
+        nfRef.setRefCTe(this.getRefCTe());
+        if (this.getRefECF() != null) {
+            nfRef.setRefECF(this.getRefECF().build());
         }
         return nfRef;
     }

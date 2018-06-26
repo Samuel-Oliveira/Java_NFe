@@ -22,12 +22,12 @@ public class ImpostoDevol {
 
     public TNFe.InfNFe.Det.ImpostoDevol build() {
         TNFe.InfNFe.Det.ImpostoDevol impostoDevol = new TNFe.InfNFe.Det.ImpostoDevol();
-        if (this.pDevol != null) {
-            impostoDevol.setPDevol(this.pDevol.toString());
+        if (this.getpDevol() != null) {
+            impostoDevol.setPDevol(this.getpDevol().toString());
         }
-        if (this.vIPIDevol != null) {
+        if (this.getvIPIDevol() != null) {
             TNFe.InfNFe.Det.ImpostoDevol.IPI ipi = new TNFe.InfNFe.Det.ImpostoDevol.IPI();
-            ipi.setVIPIDevol(this.vIPIDevol.toString());
+            ipi.setVIPIDevol(this.getvIPIDevol().toString());
             impostoDevol.setIPI(ipi);
         }
         return impostoDevol;

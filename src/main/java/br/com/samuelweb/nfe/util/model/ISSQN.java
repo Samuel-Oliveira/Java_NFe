@@ -110,49 +110,49 @@ public class ISSQN  {
     
     public TNFe.InfNFe.Det.Imposto.ISSQN build() {
         TNFe.InfNFe.Det.Imposto.ISSQN issqn = new TNFe.InfNFe.Det.Imposto.ISSQN();
-        if (this.vBC != null) {
-            issqn.setVBC(this.vBC.toString());
+        if (this.getvBC() != null) {
+            issqn.setVBC(this.getvBC().toString());
         }
-        if (this.vAliq != null) {
-            issqn.setVAliq(this.vAliq.toString());
+        if (this.getvAliq() != null) {
+            issqn.setVAliq(this.getvAliq().toString());
         }
-        if (this.vISSQN != null) {
-            issqn.setVISSQN(this.vISSQN.toString());
+        if (this.getvISSQN() != null) {
+            issqn.setVISSQN(this.getvISSQN().toString());
         }
-        if (this.cMunFG != null) {
-            issqn.setCMunFG(this.cMunFG.toString());
+        if (this.getcMunFG() != null) {
+            issqn.setCMunFG(this.getcMunFG().toString());
         }
-        if (this.cListServ != null) {
-            issqn.setCListServ(this.cListServ.toString());
+        if (this.getcListServ() != null) {
+            issqn.setCListServ(this.getcListServ().toString());
         }
-        if (this.vDeducao != null) {
-            issqn.setVDeducao(this.vDeducao.toString());
+        if (this.getvDeducao()!= null) {
+            issqn.setVDeducao(this.getvDeducao().toString());
         }
-        if (this.vOutro != null) {
-            issqn.setVOutro(this.vOutro.toString());
+        if (this.getvOutro() != null) {
+            issqn.setVOutro(this.getvOutro().toString());
         }
-        if (this.vDescIncond != null) {
-            issqn.setVDescIncond(this.vDescIncond.toString());
+        if (this.getvDescIncond() != null) {
+            issqn.setVDescIncond(this.getvDescIncond().toString());
         }
-        if (this.vDescCond != null) {
-            issqn.setVDescCond(this.vDescCond.toString());
+        if (this.getvDescCond() != null) {
+            issqn.setVDescCond(this.getvDescCond().toString());
         }
-        if (this.vISSRet != null) {
-            issqn.setVISSRet(this.vISSRet.toString());
+        if (this.getvISSRet() != null) {
+            issqn.setVISSRet(this.getvISSRet().toString());
         }
-        if (this.indISS != null) {
-            issqn.setIndISS(this.indISS.getValue().toString());
+        if (this.getIndISS() != null) {
+            issqn.setIndISS(this.getIndISS().getValue().toString());
         }
-        issqn.setCServico(this.cServico);
-        if (this.cMun != null) {
-            issqn.setCMun(this.cMun.toString());
+        issqn.setCServico(this.getcServico());
+        if (this.getcMun() != null) {
+            issqn.setCMun(this.getcMun().toString());
         }
-        if (this.cPais != null) {
-            issqn.setCPais(this.cPais.toString());
+        if (this.getcPais() != null) {
+            issqn.setCPais(this.getcPais().toString());
         }
-        issqn.setNProcesso(this.nProcesso);
-        if (this.indIncentivo != null) {
-            issqn.setIndIncentivo(this.indIncentivo.toString());
+        issqn.setNProcesso(this.getnProcesso());
+        if (this.getIndIncentivo() != null) {
+            issqn.setIndIncentivo(this.getIndIncentivo().toString());
         }
         return issqn;
     }

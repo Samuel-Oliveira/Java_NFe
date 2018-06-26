@@ -19,11 +19,11 @@ public class ProcRef {
             , descricao = NfeConsts.DSC_INDPROC)
     private String indProc;
 
-    public TNFe.InfNFe.InfAdic.ProcRef build(){
+    public TNFe.InfNFe.InfAdic.ProcRef build() {
         TNFe.InfNFe.InfAdic.ProcRef procRef = new TNFe.InfNFe.InfAdic.ProcRef();
 
-        procRef.setNProc(this.nProc);
-        procRef.setIndProc(this.indProc);
+        procRef.setNProc(this.getnProc());
+        procRef.setIndProc(this.getIndProc());
 
         return procRef;
     }

@@ -23,9 +23,9 @@ public class Pag {
 
     TNFe.InfNFe.Pag build(){
         TNFe.InfNFe.Pag pag = new TNFe.InfNFe.Pag();
-        detPag.forEach(detPag -> pag.getDetPag().add(detPag.build()));
-        if (this.vTroco != null){
-            pag.setVTroco(this.vTroco.toString());
+        getDetPag().forEach(detPag -> pag.getDetPag().add(detPag.build()));
+        if (this.getvTroco()!= null){
+            pag.setVTroco(this.getvTroco().toString());
         }
         return pag;
     }

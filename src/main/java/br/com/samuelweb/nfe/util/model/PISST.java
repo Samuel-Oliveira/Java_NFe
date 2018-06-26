@@ -40,30 +40,70 @@ public class PISST {
 
     public TNFe.InfNFe.Det.Imposto.PISST build() {
         TNFe.InfNFe.Det.Imposto.PISST pisst = new TNFe.InfNFe.Det.Imposto.PISST();
-        if (this.vBc != null && this.pPis != null
-                && this.vBc.add(this.pPis).compareTo(BigDecimal.ZERO) > 0) {
-            if (this.vBc != null) {
-                pisst.setVBC(this.vBc.toString());
+        if (this.getvBc() != null && this.getpPis() != null
+                && this.getvBc().add(this.getpPis()).compareTo(BigDecimal.ZERO) > 0) {
+            if (this.getvBc() != null) {
+                pisst.setVBC(this.getvBc().toString());
             }
-            if (this.pPis != null) {
-                pisst.setPPIS(this.pPis.toString());
+            if (this.getpPis() != null) {
+                pisst.setPPIS(this.getpPis().toString());
             }
-            if (this.vPIS != null) {
-                pisst.setVPIS(this.vPIS.toString());
+            if (this.getvPIS() != null) {
+                pisst.setVPIS(this.getvPIS().toString());
             }
         }
-        if (this.qBCProd != null && this.vAliqProd != null
-                && this.qBCProd.add(this.vAliqProd).compareTo(BigDecimal.ZERO) > 0) {
-            if (this.qBCProd != null) {
-                pisst.setQBCProd(this.qBCProd.toString());
+        if (this.getqBCProd() != null && this.getvAliqProd() != null
+                && this.getqBCProd().add(this.getvAliqProd()).compareTo(BigDecimal.ZERO) > 0) {
+            if (this.getqBCProd() != null) {
+                pisst.setQBCProd(this.getqBCProd().toString());
             }
-            if (this.vAliqProd != null) {
-                pisst.setVAliqProd(this.vAliqProd.toString());
+            if (this.getvAliqProd() != null) {
+                pisst.setVAliqProd(this.getvAliqProd().toString());
             }
-            if (this.vPIS != null) {
-                pisst.setVPIS(this.vPIS.toString());
+            if (this.getvPIS() != null) {
+                pisst.setVPIS(this.getvPIS().toString());
             }
         }
         return pisst;
+    }
+
+    public BigDecimal getvBc() {
+        return vBc;
+    }
+
+    public void setvBc(BigDecimal vBc) {
+        this.vBc = vBc;
+    }
+
+    public BigDecimal getpPis() {
+        return pPis;
+    }
+
+    public void setpPis(BigDecimal pPis) {
+        this.pPis = pPis;
+    }
+
+    public BigDecimal getqBCProd() {
+        return qBCProd;
+    }
+
+    public void setqBCProd(BigDecimal qBCProd) {
+        this.qBCProd = qBCProd;
+    }
+
+    public BigDecimal getvAliqProd() {
+        return vAliqProd;
+    }
+
+    public void setvAliqProd(BigDecimal vAliqProd) {
+        this.vAliqProd = vAliqProd;
+    }
+
+    public BigDecimal getvPIS() {
+        return vPIS;
+    }
+
+    public void setvPIS(BigDecimal vPIS) {
+        this.vPIS = vPIS;
     }
 }

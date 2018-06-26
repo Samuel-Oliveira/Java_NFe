@@ -16,8 +16,8 @@ public class Transp {
             , ocorrencias = 1, descricao = NfeConsts.DSC_MODFRETE)
     private ModalidadeFrete modFrete;
 
-    @NfeCampo(id  = "X25a", tag = "vagao"
-            ,tamanhoMinimo = 1, tamanhoMaximo = 20,
+    @NfeCampo(id = "X25a", tag = "vagao"
+            , tamanhoMinimo = 1, tamanhoMaximo = 20,
             ocorrencias = 0, descricao = NfeConsts.DSC_VAGAO)
     private String vagao;
 
@@ -43,23 +43,23 @@ public class Transp {
 
     public TNFe.InfNFe.Transp build() {
         TNFe.InfNFe.Transp transp = new TNFe.InfNFe.Transp();
-        if (this.modFrete != null) {
-            transp.setModFrete(this.modFrete.getValue().toString());
+        if (this.getModFrete() != null) {
+            transp.setModFrete(this.getModFrete().getValue().toString());
         }
-        if (this.transporta != null) {
-            transp.setTransporta(this.transporta.build());
+        if (this.getTransporta() != null) {
+            transp.setTransporta(this.getTransporta().build());
         }
-        if (this.retTransp != null) {
-            transp.setRetTransp(this.retTransp.build());
+        if (this.getRetTransp() != null) {
+            transp.setRetTransp(this.getRetTransp().build());
         }
-        if (this.veicTransp != null) {
-            transp.setVeicTransp(this.veicTransp.build());
+        if (this.getVeicTransp() != null) {
+            transp.setVeicTransp(this.getVeicTransp().build());
         }
-        if (this.reboque != null) {
-            reboque.forEach(e -> transp.getReboque().add(e.build()));
+        if (this.getReboque() != null) {
+            getReboque().forEach(e -> transp.getReboque().add(e.build()));
         }
-        if (this.vol != null) {
-            vol.forEach(e -> transp.getVol().add(e.build()));
+        if (this.getVol() != null) {
+            getVol().forEach(e -> transp.getVol().add(e.build()));
         }
 
         return transp;

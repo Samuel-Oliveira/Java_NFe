@@ -45,24 +45,24 @@ public class RetTransp {
     public TNFe.InfNFe.Transp.RetTransp build(){
         TNFe.InfNFe.Transp.RetTransp repTransp = new TNFe.InfNFe.Transp.RetTransp();
 
-        if (this.vServ != null){
-            repTransp.setVServ(this.vServ.toString());
+        if (this.getvServ() != null){
+            repTransp.setVServ(this.getvServ().toString());
         }
 
-        if (this.vbcRet != null){
-            repTransp.setVBCRet(this.vbcRet.toString());
+        if (this.getVbcRet()!= null){
+            repTransp.setVBCRet(this.getVbcRet().toString());
         }
 
-        if (this.picmsRet != null){
-            repTransp.setPICMSRet(this.picmsRet.toString());
+        if (this.getPicmsRet() != null){
+            repTransp.setPICMSRet(this.getPicmsRet().toString());
         }
 
-        if (this.vicmsRet != null) {
-            repTransp.setVICMSRet(this.vicmsRet.toString());
+        if (this.getVicmsRet() != null) {
+            repTransp.setVICMSRet(this.getVicmsRet().toString());
         }
 
-        repTransp.setCFOP(this.cfop);
-        repTransp.setCMunFG(this.cMunFG);
+        repTransp.setCFOP(this.getCfop());
+        repTransp.setCMunFG(this.getcMunFG());
         return repTransp;
     }
 

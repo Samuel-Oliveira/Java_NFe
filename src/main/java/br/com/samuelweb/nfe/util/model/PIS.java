@@ -48,8 +48,8 @@ public class PIS {
 
     public TNFe.InfNFe.Det.Imposto.PIS build() {
         TNFe.InfNFe.Det.Imposto.PIS pis = new TNFe.InfNFe.Det.Imposto.PIS();
-        if (this.CST != null) {
-            this.CST.getMontaImposto().build(pis, this);
+        if (this.getCST() != null) {
+            this.getCST().getMontaImposto().build(pis, this);
         }
         return pis;
     }

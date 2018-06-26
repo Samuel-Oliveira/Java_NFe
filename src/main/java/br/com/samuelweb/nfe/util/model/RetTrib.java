@@ -50,37 +50,37 @@ public class RetTrib {
             , descricao = NfeConsts.DSC_VRETPREV)
     private BigDecimal vRetPrev;
 
-    public TNFe.InfNFe.Total.RetTrib build(){
+    public TNFe.InfNFe.Total.RetTrib build() {
         TNFe.InfNFe.Total.RetTrib retTrib = new TNFe.InfNFe.Total.RetTrib();
 
-        if ((this.vRetPIS != null && this.vRetPIS.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vRetCOFINS != null && this.vRetCOFINS.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vRetCSLL != null && this.vRetCSLL.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vbcirrf != null && this.vbcirrf.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.virrf != null && this.virrf.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vbcRetPrev != null && this.vbcRetPrev.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vRetPrev != null && this.vRetPrev.compareTo(BigDecimal.ZERO) > 0) ){
+        if ((this.getvRetPIS() != null && this.getvRetPIS().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getvRetCOFINS() != null && this.getvRetCOFINS().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getvRetCSLL() != null && this.getvRetCSLL().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getVbcirrf() != null && this.getVbcirrf().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getVirrf() != null && this.getVirrf().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getVbcRetPrev() != null && this.getVbcRetPrev().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getvRetPrev() != null && this.getvRetPrev().compareTo(BigDecimal.ZERO) > 0)) {
 
-            if (this.vRetPIS != null){
-                retTrib.setVRetPIS(this.vRetPIS.toString());
+            if (this.getvRetPIS() != null) {
+                retTrib.setVRetPIS(this.getvRetPIS().toString());
             }
-            if (this.vRetCOFINS != null){
-                retTrib.setVRetCOFINS(this.vRetCOFINS.toString());
+            if (this.getvRetCOFINS() != null) {
+                retTrib.setVRetCOFINS(this.getvRetCOFINS().toString());
             }
-            if (this.vRetCSLL!= null){
-                retTrib.setVRetCSLL(this.vRetCSLL.toString());
+            if (this.getvRetCSLL() != null) {
+                retTrib.setVRetCSLL(this.getvRetCSLL().toString());
             }
-            if (this.vbcirrf!= null){
-                retTrib.setVBCIRRF(this.vbcirrf.toString());
+            if (this.getVbcirrf() != null) {
+                retTrib.setVBCIRRF(this.getVbcirrf().toString());
             }
-            if (this.virrf!= null){
-                retTrib.setVIRRF(this.virrf.toString());
+            if (this.getVirrf() != null) {
+                retTrib.setVIRRF(this.getVirrf().toString());
             }
-            if (this.vbcRetPrev!= null){
-                retTrib.setVBCRetPrev(this.vbcRetPrev.toString());
+            if (this.getVbcRetPrev() != null) {
+                retTrib.setVBCRetPrev(this.getVbcRetPrev().toString());
             }
-            if (this.vRetPrev!= null){
-                retTrib.setVRetPrev(this.vRetPrev.toString());
+            if (this.getvRetPrev() != null) {
+                retTrib.setVRetPrev(this.getvRetPrev().toString());
             }
             return retTrib;
         }
