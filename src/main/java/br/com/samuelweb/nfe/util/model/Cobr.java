@@ -20,15 +20,15 @@ public class Cobr {
     public TNFe.InfNFe.Cobr build() {
         TNFe.InfNFe.Cobr cobr = new TNFe.InfNFe.Cobr();
 
-        if (this.fat != null && ((StringUtils.isNotBlank(this.fat.getnFat().trim())) ||
-                (this.fat.getvOrig().compareTo(BigDecimal.ZERO) > 0) ||
-                (this.fat.getvDesc().compareTo(BigDecimal.ZERO) > 0) ||
-                (this.fat.getvLiq().compareTo(BigDecimal.ZERO) > 0))) {
+        if (this.getFat() != null && ((StringUtils.isNotBlank(this.getFat().getnFat().trim())) ||
+                (this.getFat().getvOrig().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getFat().getvDesc().compareTo(BigDecimal.ZERO) > 0) ||
+                (this.getFat().getvLiq().compareTo(BigDecimal.ZERO) > 0))) {
 
-            cobr.setFat(this.fat.build());
+            cobr.setFat(this.getFat().build());
 
-            if (this.dup != null && this.dup.size() > 0) {
-                this.dup.forEach(e -> cobr.getDup().add(e.build()));
+            if (this.getDup() != null && this.getDup().size() > 0) {
+                this.getDup().forEach(e -> cobr.getDup().add(e.build()));
             }
 
             return cobr;

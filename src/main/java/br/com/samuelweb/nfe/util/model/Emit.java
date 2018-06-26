@@ -69,27 +69,27 @@ public class Emit {
 
     public TNFe.InfNFe.Emit build(){
         TNFe.InfNFe.Emit emit = new TNFe.InfNFe.Emit();
-        if (cnpjCpf.length() > 11) {
-            emit.setCNPJ(cnpjCpf);
+        if (getCnpjCpf().length() > 11) {
+            emit.setCNPJ(getCnpjCpf());
         } else {
-            emit.setCPF(cnpjCpf);
+            emit.setCPF(getCnpjCpf());
         }
-        emit.setXNome(this.xNome);
-        emit.setXFant(this.xFant);
-        emit.setEnderEmit(this.enderEmit.build());
-        if (!this.ie.equals("ISENTO")) {
-            this.ie = this.ie.replaceAll("\\D", "");
+        emit.setXNome(this.getxNome());
+        emit.setXFant(this.getxFant());
+        emit.setEnderEmit(this.getEnderEmit().build());
+        if (!this.getIe().equals("ISENTO")) {
+            this.setIe(this.getIe().replaceAll("\\D", ""));
         }
-        emit.setIE(this.ie);
-        emit.setIEST(this.iest);
-        emit.setIM(this.im);
+        emit.setIE(this.getIe());
+        emit.setIEST(this.getIest());
+        emit.setIM(this.getIm());
         // NT 2013/005 versão 1.03
         // o CNAE passa ser opcional mesmo quando informado o IM, mas o CNAE s� pode
         // ser informado se o IM for informado.
-        if (this.im != null && !this.im.isEmpty()) {
-            emit.setCNAE(this.cnae);
+        if (this.getIm() != null && !this.getIm().isEmpty()) {
+            emit.setCNAE(this.getCnae());
         }
-        emit.setCRT(this.crt);
+        emit.setCRT(this.getCrt());
         return emit;
     }
 

@@ -30,12 +30,12 @@ public class Card {
     TNFe.InfNFe.Pag.DetPag.Card build() {
         TNFe.InfNFe.Pag.DetPag.Card card = new TNFe.InfNFe.Pag.DetPag.Card();
 
-        if (this.tpIntegra != null) {
-            card.setTpIntegra(this.tpIntegra.toString());
+        if (this.getTpIntegra() != null) {
+            card.setTpIntegra(this.getTpIntegra().toString());
         }
-        card.setCNPJ(this.cnpj);
-        card.setTpIntegra(this.tBand.getValue().toString());
-        card.setCAut(this.cAut);
+        card.setCNPJ(this.getCnpj());
+        card.setTpIntegra(this.gettBand().getValue().toString());
+        card.setCAut(this.getcAut());
 
         return card;
     }

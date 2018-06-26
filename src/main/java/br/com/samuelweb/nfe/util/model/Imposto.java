@@ -48,12 +48,12 @@ public class Imposto {
 
     public TNFe.InfNFe.Det.Imposto build() {
         TNFe.InfNFe.Det.Imposto imposto = new TNFe.InfNFe.Det.Imposto();
-        if (this.vTotTrib != null) {
+        if (this.getvTotTrib() != null) {
             imposto.getContent().add(
-                    new JAXBElement<>(new QName("vTotTrib"), String.class, this.vTotTrib.toString()));
+                    new JAXBElement<>(new QName("vTotTrib"), String.class, this.getvTotTrib().toString()));
         }
-        if (this.issqn != null
-                && !this.issqn.getcListServ().isEmpty()) {
+        if (this.getIssqn() != null
+                && !this.getIssqn().getcListServ().isEmpty()) {
             gerarImpostoIPI(imposto);
             gerarImpostoISSQN(imposto);
         } else {

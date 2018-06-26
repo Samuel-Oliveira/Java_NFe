@@ -15,12 +15,19 @@ public class AutXML {
 
     public TNFe.InfNFe.AutXML build() {
         TNFe.InfNFe.AutXML autXML = new TNFe.InfNFe.AutXML();
-        if (cnpjCpf != null && cnpjCpf.length() > 11) {
-            autXML.setCNPJ(cnpjCpf);
+        if (getCnpjCpf() != null && getCnpjCpf().length() > 11) {
+            autXML.setCNPJ(getCnpjCpf());
         } else {
-            autXML.setCPF(cnpjCpf);
+            autXML.setCPF(getCnpjCpf());
         }
         return autXML;
     }
 
+    public String getCnpjCpf() {
+        return cnpjCpf;
+    }
+
+    public void setCnpjCpf(String cnpjCpf) {
+        this.cnpjCpf = cnpjCpf;
+    }
 }

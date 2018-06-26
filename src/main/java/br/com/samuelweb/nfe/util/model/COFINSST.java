@@ -40,18 +40,18 @@ public class COFINSST {
 
     public TNFe.InfNFe.Det.Imposto.COFINSST build() {
         TNFe.InfNFe.Det.Imposto.COFINSST cofinsst = new TNFe.InfNFe.Det.Imposto.COFINSST();
-        if (this.vBC != null && this.pCofins != null
-                && this.vBC.add(this.pCofins).compareTo(BigDecimal.ZERO) > 0) {
-            cofinsst.setVBC(this.vBC.toString());
-            cofinsst.setPCOFINS(this.pCofins.toString());
+        if (this.getvBC() != null && this.getpCofins() != null
+                && this.getvBC().add(this.getpCofins()).compareTo(BigDecimal.ZERO) > 0) {
+            cofinsst.setVBC(this.getvBC().toString());
+            cofinsst.setPCOFINS(this.getpCofins().toString());
         }
-        if (this.qBCProd != null && this.vAliqProd != null
-                && this.qBCProd.add(this.vAliqProd).compareTo(BigDecimal.ZERO) > 0) {
-            cofinsst.setQBCProd(this.qBCProd.toString());
-            cofinsst.setVAliqProd(this.vAliqProd.toString());
+        if (this.getqBCProd() != null && this.getvAliqProd() != null
+                && this.getqBCProd().add(this.getvAliqProd()).compareTo(BigDecimal.ZERO) > 0) {
+            cofinsst.setQBCProd(this.getqBCProd().toString());
+            cofinsst.setVAliqProd(this.getvAliqProd().toString());
         }
-        if (this.vCofins != null) {
-            cofinsst.setVCOFINS(this.vCofins.toString());
+        if (this.getvCofins() != null) {
+            cofinsst.setVCOFINS(this.getvCofins().toString());
         }
         return cofinsst;
     }

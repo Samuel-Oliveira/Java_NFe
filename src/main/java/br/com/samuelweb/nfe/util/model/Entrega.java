@@ -58,18 +58,18 @@ public class Entrega {
 
     public TLocal build() {
         TLocal entrega = new TLocal();
-        if (this.cnpjCpf != null && this.cnpjCpf.length() > 11) {
-            entrega.setCNPJ(this.cnpjCpf);
+        if (this.getCnpjCpf() != null && this.getCnpjCpf().length() > 11) {
+            entrega.setCNPJ(this.getCnpjCpf());
         } else {
-            entrega.setCPF(this.cnpjCpf);
+            entrega.setCPF(this.getCnpjCpf());
         }
-        entrega.setXLgr(this.xLgr);
-        entrega.setNro(this.nro);
-        entrega.setXCpl(this.xCpl);
-        entrega.setXBairro(this.xBairro);
-        entrega.setCMun(this.cMun);
-        entrega.setXMun(this.xMun);
-        entrega.setUF(TUf.fromValue(this.uf));
+        entrega.setXLgr(this.getxLgr());
+        entrega.setNro(this.getNro());
+        entrega.setXCpl(this.getxCpl());
+        entrega.setXBairro(this.getxBairro());
+        entrega.setCMun(this.getcMun());
+        entrega.setXMun(this.getxMun());
+        entrega.setUF(TUf.fromValue(this.getUf()));
         if (entrega.getXLgr() != null && !entrega.getXLgr().isEmpty()) {
             return entrega;
         }

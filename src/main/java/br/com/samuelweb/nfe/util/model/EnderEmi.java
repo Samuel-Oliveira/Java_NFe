@@ -76,26 +76,26 @@ public class EnderEmi {
 
     public TEnderEmi build() {
         TEnderEmi enderEmi = new TEnderEmi();
-        enderEmi.setXLgr(this.xLgr);
-        enderEmi.setNro(this.nro);
-        enderEmi.setXCpl(this.xCpl);
-        enderEmi.setXBairro(this.xBairro);
-        if (this.cMun != null) {
-            enderEmi.setCMun(this.cMun.toString());
+        enderEmi.setXLgr(this.getxLgr());
+        enderEmi.setNro(this.getNro());
+        enderEmi.setXCpl(this.getxCpl());
+        enderEmi.setXBairro(this.getxBairro());
+        if (this.getcMun() != null) {
+            enderEmi.setCMun(this.getcMun().toString());
         }
-        enderEmi.setXMun(this.xMun);
-        if (this.uf != null) {
-            enderEmi.setUF(TUfEmi.fromValue(this.uf));
+        enderEmi.setXMun(this.getxMun());
+        if (this.getUf() != null) {
+            enderEmi.setUF(TUfEmi.fromValue(this.getUf()));
         }
-        if (this.cep != null) {
-            enderEmi.setCEP(this.cep.toString());
+        if (this.getCep() != null) {
+            enderEmi.setCEP(this.getCep().toString());
         }
-        if (this.cPais != null) {
-            enderEmi.setCPais(this.cPais.toString());
+        if (this.getcPais() != null) {
+            enderEmi.setCPais(this.getcPais().toString());
         }
-        enderEmi.setXPais(this.xPais);
-        if (this.fone != null) {
-            enderEmi.setFone(this.fone.toString());
+        enderEmi.setXPais(this.getxPais());
+        if (this.getFone() != null) {
+            enderEmi.setFone(this.getFone().toString());
         }
         return enderEmi;
     }

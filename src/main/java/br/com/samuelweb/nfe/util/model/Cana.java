@@ -68,39 +68,39 @@ public class Cana {
     private List<Deduc> deduc;
 
     public TNFe.InfNFe.Cana build() {
-        if ((StringUtils.isNotBlank(this.safra) || StringUtils.isNotBlank(this.ref)) ||
-                ((this.forDia != null && this.forDia.size() > 0) || (this.deduc != null && this.deduc.size() > 0))) {
+        if ((StringUtils.isNotBlank(this.getSafra()) || StringUtils.isNotBlank(this.getRef())) ||
+                ((this.getForDia() != null && this.getForDia().size() > 0) || (this.getDeduc() != null && this.getDeduc().size() > 0))) {
 
             TNFe.InfNFe.Cana cana = new TNFe.InfNFe.Cana();
 
-            cana.setSafra(this.safra);
-            cana.setRef(this.ref);
+            cana.setSafra(this.getSafra());
+            cana.setRef(this.getRef());
 
-            if (this.forDia != null) {
-                this.forDia.forEach(dia -> cana.getForDia().add(dia.build()));
+            if (this.getForDia() != null) {
+                this.getForDia().forEach(dia -> cana.getForDia().add(dia.build()));
             }
 
-            if (this.deduc != null){
-                this.deduc.forEach(deduc -> cana.getDeduc().add(deduc.build()));
+            if (this.getDeduc() != null){
+                this.getDeduc().forEach(deduc -> cana.getDeduc().add(deduc.build()));
             }
-            if (this.vTotDed != null) {
-                cana.setVTotDed(this.vTotDed.toString());
-            }
-
-            if (this.vLiqFor != null) {
-                cana.setVLiqFor(this.vLiqFor.toString());
+            if (this.getvTotDed() != null) {
+                cana.setVTotDed(this.getvTotDed().toString());
             }
 
-            if (this.qTotMes != null) {
-                cana.setQTotMes(this.qTotMes.toString());
+            if (this.getvLiqFor() != null) {
+                cana.setVLiqFor(this.getvLiqFor().toString());
             }
 
-            if (this.qTotAnt != null) {
-                cana.setQTotAnt(this.qTotAnt.toString());
+            if (this.getqTotMes() != null) {
+                cana.setQTotMes(this.getqTotMes().toString());
             }
 
-            if (this.qTotGer != null) {
-                cana.setQTotGer(this.qTotGer.toString());
+            if (this.getqTotAnt() != null) {
+                cana.setQTotAnt(this.getqTotAnt().toString());
+            }
+
+            if (this.getqTotGer() != null) {
+                cana.setQTotGer(this.getqTotGer().toString());
             }
             return cana;
         }

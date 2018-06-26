@@ -69,34 +69,34 @@ public class Comb {
     
     public TNFe.InfNFe.Det.Prod.Comb build() {
         TNFe.InfNFe.Det.Prod.Comb comb = new TNFe.InfNFe.Det.Prod.Comb();
-        if (this.cProdANP != null) {
-            comb.setCProdANP(this.cProdANP.toString());
+        if (this.getcProdANP() != null) {
+            comb.setCProdANP(this.getcProdANP().toString());
         }
-        comb.setDescANP(this.descANP);
-        if (this.pglp != null) {
-            comb.setPGLP(this.pglp.toString());
+        comb.setDescANP(this.getDescANP());
+        if (this.getPglp() != null) {
+            comb.setPGLP(this.getPglp().toString());
         }
-        if (this.pgNn != null) {
-            comb.setPGNn(this.pgNn.toString());
+        if (this.getPgNn() != null) {
+            comb.setPGNn(this.getPgNn().toString());
         }
-        if (this.pgNi != null) {
-            comb.setPGNi(this.pgNi.toString());
+        if (this.getPgNi() != null) {
+            comb.setPGNi(this.getPgNi().toString());
         }
-        if (this.vPart != null) {
-            comb.setVPart(this.vPart.toString());
+        if (this.getvPart() != null) {
+            comb.setVPart(this.getvPart().toString());
         }
-        if (this.codif != null) {
-            comb.setCODIF(this.codif.toString());
+        if (this.getCodif() != null) {
+            comb.setCODIF(this.getCodif().toString());
         }
-        if (this.qTemp != null) {
-            comb.setQTemp(this.qTemp.toString());
+        if (this.getqTemp() != null) {
+            comb.setQTemp(this.getqTemp().toString());
         }
-        comb.setUFCons(TUf.fromValue(this.ufCons));
-        if (this.cide != null) {
-            comb.setCIDE(this.cide.build());
+        comb.setUFCons(TUf.fromValue(this.getUfCons()));
+        if (this.getCide() != null) {
+            comb.setCIDE(this.getCide().build());
         }
-        if (this.encerrante != null) {
-            comb.setEncerrante(this.encerrante.build());
+        if (this.getEncerrante() != null) {
+            comb.setEncerrante(this.getEncerrante().build());
         }
         return comb;
     }

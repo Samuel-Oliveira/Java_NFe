@@ -31,17 +31,17 @@ public class Det {
 
     public TNFe.InfNFe.Det build() {
         TNFe.InfNFe.Det det = new TNFe.InfNFe.Det();
-        det.setNItem(this.nItem);
-        if (this.prod != null) {
-            det.setProd(prod.build());
+        det.setNItem(this.getnItem());
+        if (this.getProd() != null) {
+            det.setProd(getProd().build());
         }
-        if (this.imposto != null) {
-            det.setImposto(this.imposto.build());
+        if (this.getImposto() != null) {
+            det.setImposto(this.getImposto().build());
         }
-        if (this.impostoDevol != null) {
-            det.setImpostoDevol(this.impostoDevol.build());
+        if (this.getImpostoDevol() != null) {
+            det.setImpostoDevol(this.getImpostoDevol().build());
         }
-        det.setInfAdProd(this.infAdProd);
+        det.setInfAdProd(this.getInfAdProd());
         return det;
     }
 

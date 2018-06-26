@@ -149,74 +149,74 @@ public class ICMSTot {
     public TNFe.InfNFe.Total.ICMSTot build() {
         TNFe.InfNFe.Total.ICMSTot icmsTot = new TNFe.InfNFe.Total.ICMSTot();
 
-        if (this.vbc != null) {
-            icmsTot.setVBC(this.vbc.toString());
+        if (this.getVbc() != null) {
+            icmsTot.setVBC(this.getVbc().toString());
         }
-        if (this.vicms != null) {
-            icmsTot.setVICMS(this.vicms.toString());
+        if (this.getVicms() != null) {
+            icmsTot.setVICMS(this.getVicms().toString());
         }
-        if (this.vicmsDeson != null) {
-            icmsTot.setVICMSDeson(this.vicmsDeson.toString());
+        if (this.getVicmsDeson() != null) {
+            icmsTot.setVICMSDeson(this.getVicmsDeson().toString());
         }
-        if (this.vfcpufDest != null) {
-            icmsTot.setVFCPUFDest(this.vfcpufDest.toString());
+        if (this.getVfcpufDest() != null) {
+            icmsTot.setVFCPUFDest(this.getVfcpufDest().toString());
         }
-        if (this.vicmsufDest != null) {
-            icmsTot.setVICMSUFDest(this.vicmsufDest.toString());
+        if (this.getVicmsufDest() != null) {
+            icmsTot.setVICMSUFDest(this.getVicmsufDest().toString());
         }
-        if (this.vicmsufRemet != null) {
-            icmsTot.setVICMSUFRemet(this.vicmsufRemet.toString());
+        if (this.getVicmsufRemet() != null) {
+            icmsTot.setVICMSUFRemet(this.getVicmsufRemet().toString());
         }
-        if (this.vfcp != null) {
-            icmsTot.setVFCP(this.vfcp.toString());
+        if (this.getVfcp() != null) {
+            icmsTot.setVFCP(this.getVfcp().toString());
         }
-        if (this.vbcst != null) {
-            icmsTot.setVBCST(this.vbcst.toString());
+        if (this.getVbcst() != null) {
+            icmsTot.setVBCST(this.getVbcst().toString());
         }
-        if (this.vst != null) {
-            icmsTot.setVST(this.vst.toString());
+        if (this.getVst() != null) {
+            icmsTot.setVST(this.getVst().toString());
         }
-        if (this.vfcpst != null) {
-            icmsTot.setVFCPST(this.vfcpst.toString());
+        if (this.getVfcpst() != null) {
+            icmsTot.setVFCPST(this.getVfcpst().toString());
         }
-        if (this.vfcpstRet != null) {
-            icmsTot.setVFCPSTRet(this.vfcpstRet.toString());
+        if (this.getVfcpstRet() != null) {
+            icmsTot.setVFCPSTRet(this.getVfcpstRet().toString());
         }
-        if (this.vProd != null) {
-            icmsTot.setVProd(this.vProd.toString());
+        if (this.getvProd() != null) {
+            icmsTot.setVProd(this.getvProd().toString());
         }
-        if (this.vFrete != null) {
-            icmsTot.setVFrete(this.vFrete.toString());
+        if (this.getvFrete() != null) {
+            icmsTot.setVFrete(this.getvFrete().toString());
         }
-        if (this.vSeg != null) {
-            icmsTot.setVSeg(this.vSeg.toString());
+        if (this.getvSeg() != null) {
+            icmsTot.setVSeg(this.getvSeg().toString());
         }
-        if (this.vDesc != null) {
-            icmsTot.setVDesc(this.vDesc.toString());
+        if (this.getvDesc() != null) {
+            icmsTot.setVDesc(this.getvDesc().toString());
         }
-        if (this.vii != null) {
-            icmsTot.setVII(this.vii.toString());
+        if (this.getVii() != null) {
+            icmsTot.setVII(this.getVii().toString());
         }
-        if (this.vipi != null) {
-            icmsTot.setVIPI(this.vipi.toString());
+        if (this.getVipi() != null) {
+            icmsTot.setVIPI(this.getVipi().toString());
         }
-        if (this.vipiDevol != null) {
-            icmsTot.setVIPIDevol(this.vipiDevol.toString());
+        if (this.getVipiDevol() != null) {
+            icmsTot.setVIPIDevol(this.getVipiDevol().toString());
         }
-        if (this.vpis != null) {
-            icmsTot.setVPIS(this.vpis.toString());
+        if (this.getVpis() != null) {
+            icmsTot.setVPIS(this.getVpis().toString());
         }
-        if (this.vcofins != null) {
-            icmsTot.setVCOFINS(this.vcofins.toString());
+        if (this.getVcofins() != null) {
+            icmsTot.setVCOFINS(this.getVcofins().toString());
         }
-        if (this.vOutro != null) {
-            icmsTot.setVOutro(this.vOutro.toString());
+        if (this.getvOutro() != null) {
+            icmsTot.setVOutro(this.getvOutro().toString());
         }
-        if (this.vnf != null) {
-            icmsTot.setVNF(this.vnf.toString());
+        if (this.getVnf() != null) {
+            icmsTot.setVNF(this.getVnf().toString());
         }
-        if (this.vTotTrib != null) {
-            icmsTot.setVTotTrib(this.vTotTrib.toString());
+        if (this.getvTotTrib() != null) {
+            icmsTot.setVTotTrib(this.getvTotTrib().toString());
         }
 
         return icmsTot;

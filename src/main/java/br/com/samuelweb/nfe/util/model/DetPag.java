@@ -31,16 +31,16 @@ public class DetPag {
     TNFe.InfNFe.Pag.DetPag build(){
         TNFe.InfNFe.Pag.DetPag detPag = new TNFe.InfNFe.Pag.DetPag();
 
-        if (this.indPag != null){
-            detPag.setIndPag(this.indPag.toString());
+        if (this.getIndPag() != null){
+            detPag.setIndPag(this.getIndPag().toString());
         }
 
-        detPag.setTPag(tPag.getValue());
-        if (this.vPag != null){
-            detPag.setVPag(this.vPag.toString());
+        detPag.setTPag(gettPag().getValue());
+        if (this.getvPag() != null){
+            detPag.setVPag(this.getvPag().toString());
         }
-        if (this.card != null) {
-            detPag.setCard(this.card.build());
+        if (this.getCard() != null) {
+            detPag.setCard(this.getCard().build());
         }
 
         return detPag;

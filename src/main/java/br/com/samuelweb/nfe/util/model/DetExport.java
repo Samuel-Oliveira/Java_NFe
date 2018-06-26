@@ -39,12 +39,12 @@ public class DetExport {
     public TNFe.InfNFe.Det.Prod.DetExport build() {
         TNFe.InfNFe.Det.Prod.DetExport detExport = new TNFe.InfNFe.Det.Prod.DetExport();
         TNFe.InfNFe.Det.Prod.DetExport.ExportInd exportInd = new TNFe.InfNFe.Det.Prod.DetExport.ExportInd();
-        detExport.setNDraw(this.nDraw);
-        if ((this.nre != null && !this.nre.isEmpty()) || (this.chNFe != null && !this.chNFe.isEmpty())) {
-            exportInd.setNRE(this.nre);
-            exportInd.setChNFe(this.chNFe);
-            if (this.qExport != null) {
-                exportInd.setQExport(this.qExport.toString());
+        detExport.setNDraw(this.getnDraw());
+        if ((this.getNre() != null && !this.getNre().isEmpty()) || (this.getChNFe() != null && !this.getChNFe().isEmpty())) {
+            exportInd.setNRE(this.getNre());
+            exportInd.setChNFe(this.getChNFe());
+            if (this.getqExport() != null) {
+                exportInd.setQExport(this.getqExport().toString());
             }
             detExport.setExportInd(exportInd);
         }
