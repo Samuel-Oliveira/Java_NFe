@@ -1,35 +1,87 @@
 package br.com.samuelweb.nfe.util.model;
 
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
-import org.apache.commons.lang3.StringUtils;
+import br.com.samuelweb.nfe.util.NfeUtil;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
+import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
+import br.com.samuelweb.nfe.util.consts.NfeConsts;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.com.samuelweb.nfe.util.enumeration.NfeVersao.NFE_VERSAO_400;
+
 public class InfNFe {
 
+    @NfeObjeto(id = "B01", tag = "ide"
+            , ocorrencias = 1, descricao = NfeConsts.DSC_IDE)
     private Ide ide;
+
+    @NfeObjeto(id = "C01", tag = "emit"
+            , ocorrencias = 1, descricao = NfeConsts.DSC_EMIT)
     private Emit emit;
+
+    @NfeObjeto(id = "D01", tag = "avulsa"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_AVULSA)
     private Avulsa avulsa;
+
+    @NfeObjeto(id = "E01", tag = "dest"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_DEST)
     private Dest dest;
+
+    @NfeObjeto(id = "F01", tag = "retirada"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_RETIRADA)
     private Retirada retirada;
+
+    @NfeObjeto(id = "G01", tag = "entrega"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_ENTREGA)
     private Entrega entrega;
+
+    @NfeObjetoList(id = "GA01", tag = "autXML"
+            , ocorrenciaMinima = 0, ocorrenciaMaxima = 10
+            , descricao = NfeConsts.DSC_AUTXML)
     private List<AutXML> autXMLList;
+
+    @NfeObjetoList(id = "H01", tag = "det"
+            , ocorrenciaMinima = 1, ocorrenciaMaxima = 999
+            , descricao = NfeConsts.DSC_DET)
     private List<Det> detList;
+
+    @NfeObjeto(id = "W01", tag = "total"
+            , ocorrencias = 1, descricao = NfeConsts.DSC_TOTAL)
     private Total total;
+
+    @NfeObjeto(id = "X01", tag = "transp"
+            , ocorrencias = 1, descricao = NfeConsts.DSC_TRANSP)
     private Transp transp;
+
+    @NfeObjeto(id = "Y01", tag = "cobr"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_COBR)
     private Cobr cobr;
-    //private Pag pag;
+
+    @NfeObjeto(id = "YA01", tag = "pag", ocorrencias = 1, descricao = NfeConsts.DSC_PAG)
+    private Pag pag;
+
+    @NfeObjeto(id = "Z01", tag = "infAdic"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_INFADIC)
     private InfAdic infAdic;
+
+    @NfeObjeto(id = "ZA01", tag = "exporta"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_EXPORTA)
     private Exporta exporta;
+
+    @NfeObjeto(id = "ZB01", tag = "compra"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_COMPRA)
     private Compra compra;
+
+    @NfeObjeto(id = "ZC01", tag = "cana"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_CANA)
     private Cana cana;
 
     public TNFe.InfNFe build() {
         TNFe.InfNFe infNFe = new TNFe.InfNFe();
-
+        infNFe.setVersao(NFE_VERSAO_400.getValue());
+        infNFe.setId("NFe"+NfeUtil.gerarChaveAcesso(this.ide, this.emit));
         if (this.ide != null) {
             infNFe.setIde(this.ide.build());
         }
@@ -53,11 +105,11 @@ public class InfNFe {
         }
         if (this.detList != null) {
             Integer i = 0;
-            this.detList.forEach(det -> {
+            for (Det det : this.detList) {
                 i++;
                 det.setnItem(i.toString());
                 infNFe.getDet().add(det.build());
-            });
+            }
         }
         if (this.total != null) {
             infNFe.setTotal (this.total.build());
@@ -68,9 +120,9 @@ public class InfNFe {
         if (this.cobr != null) {
             infNFe.setCobr (this.cobr.build());
         }
-        /*if (this.pag != null) {
+        if (this.pag != null) {
             infNFe.setPag(this.pag.build());
-        }*/
+        }
         if (this.infAdic != null) {
             infNFe.setInfAdic (this.infAdic.build());
         }
@@ -83,62 +135,13 @@ public class InfNFe {
         if (this.cana != null) {
             infNFe.setCana (this.cana.build());
         }
-        infNFe.setId(gerarChaveAcesso());
         return infNFe;
     }
 
-    private String gerarChaveAcesso() {
-        /*
-        // Se o usuario informar um c�digo inferior a -2 a chave n�o ser� gerada //
-        if ACodigo < -2 then
-        raise EACBrDFeException.Create('C�digo Num�rico inv�lido, Chave n�o Gerada');
-
-        // Se o usuario informar 0 ou -1; o c�digo numerico sera gerado de maneira aleat�ria //
-        if ACodigo = -1 then
-        ACodigo := 0;
-
-        while ACodigo = 0 do
-            begin
-        ACodigo := Random(99999999);
-        end;
-
-        // Se o usuario informar -2; o c�digo numerico sera ZERO //
-        if ACodigo = -2 then
-        ACodigo := 0;*/
-
-
-        StringUtils.leftPad()
-        //vUF          := Poem_Zeros(AUF, 2);
-        this.ide.getCuf();
-
-        //vDataEmissao := FormatDateTime('YYMM', ADataEmissao);
-        this.ide.getDhEmi().format(DateTimeFormatter.ofPattern("yyMM"));
-
-        //vCNPJ        := copy(OnlyNumber(ACNPJ) + '00000000000000', 1, 14);
-        (this.emit.getCnpjCpf() + "00000000000000").substring(0, 13);
-
-        //vModelo      := Poem_Zeros(AModelo, 2);
-        this.ide.getMod();
-
-        //vSerie       := Poem_Zeros(ASerie, 3);
-        this.ide.getSerie();
-
-        //vNumero      := Poem_Zeros(ANumero, 9);
-        this.ide.getNnf();
-
-        //vtpEmi       := Poem_Zeros(AtpEmi, 1);
-        this.ide.getTpEmis();
-
-        //vCodigo      := Poem_Zeros(ACodigo, 8);
-        this.ide.getCnf();
-
-        //Calcular Digito Verificador.
-
-        Result := vUF + vDataEmissao + vCNPJ + vModelo + vSerie + vNumero + vtpEmi + vCodigo;
-        Result := Result + Modulo11(Result);
-    }
-
     public Ide getIde() {
+        if (ide == null) {
+            ide = new Ide();
+        }
         return ide;
     }
 
@@ -147,6 +150,9 @@ public class InfNFe {
     }
 
     public Emit getEmit() {
+        if (emit == null) {
+            emit = new Emit();
+        }
         return emit;
     }
 
@@ -187,6 +193,9 @@ public class InfNFe {
     }
 
     public Total getTotal() {
+        if (total == null) {
+            total = new Total();
+        }
         return total;
     }
 
@@ -195,6 +204,9 @@ public class InfNFe {
     }
 
     public Transp getTransp() {
+        if (transp == null) {
+            transp = new Transp();
+        }
         return transp;
     }
 
@@ -240,6 +252,14 @@ public class InfNFe {
 
     public void setCana(Cana cana) {
         this.cana = cana;
+    }
+
+    public Pag getPag() {
+        return pag;
+    }
+
+    public void setPag(Pag pag) {
+        this.pag = pag;
     }
 
     public List<AutXML> getAutXMLList() {

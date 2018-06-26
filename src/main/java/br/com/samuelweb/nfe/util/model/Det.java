@@ -1,15 +1,26 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.com.samuelweb.nfe.util.consts.NfeConsts;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class Det {
 
+    //esse campo é controle interno, pois isso não tem validação
     private String nItem;
 
+    @NfeObjeto(id = "I01", tag = "prod"
+            , ocorrencias = 1, descricao = NfeConsts.DSC_PROD)
     private Prod prod;
+
+    @NfeObjeto(id = "M01", tag = "imposto"
+            , ocorrencias = 1, descricao = NfeConsts.DSC_IMPOSTO)
     private Imposto imposto;
+
+    @NfeObjeto(id = "UA01", tag = "impostoDevol"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_IMPOSTO_DEVOL)
     private ImpostoDevol impostoDevol;
 
     @NfeCampo(tipo = String.class
@@ -43,6 +54,9 @@ public class Det {
     }
 
     public Prod getProd() {
+        if (this.prod == null) {
+            prod = new Prod();
+        }
         return prod;
     }
 
@@ -51,6 +65,9 @@ public class Det {
     }
 
     public Imposto getImposto() {
+        if (imposto == null) {
+            imposto = new Imposto();
+        }
         return imposto;
     }
 

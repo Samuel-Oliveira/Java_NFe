@@ -5,32 +5,32 @@ import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.*;
 import br.com.samuelweb.nfe.util.validators.impl.*;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.math.BigDecimal;
 
 public class ICMS {
 
-    @NfeCampo(tipo = OrigemMercadoria.class
+    @NfeCampo(tipo = Integer.class
             , id = "N11", tag = "orig", validadores = {ValidarOrigemMercadora.class}
             , tamanhoMinimo = 0, tamanhoMaximo = 1, ocorrencias = 1
             , descricao = DfeConsts.DSC_ORIG)
-    private OrigemMercadoria orig;
+    private Integer orig;
 
     @NfeCampo(tipo = CSTIcms.class
-            , id = "N12", tag = "CST", validadores = {ValidarCSTIcms.class}
+            , id = "N12", tag = "CST"
             , tamanhoMinimo = 2, tamanhoMaximo = 2, ocorrencias = 0
             , descricao = DfeConsts.DSC_CST)
     private CSTIcms CST;
 
     @NfeCampo(tipo = CSOSNIcms.class
-            , id = "N12a", tag = "CSOSN", validadores = {ValidarCSOSNIcms.class}
+            , id = "N12a", tag = "CSOSN"
             , tamanhoMinimo = 3, tamanhoMaximo = 3, ocorrencias = 0
             , descricao = DfeConsts.DSC_CSOSN)
     private CSOSNIcms CSOSN;
 
     @NfeCampo(tipo = DeterminacaoBaseIcms.class
-            , id = "N13", tag = "modBC", validadores = {ValidarDeterminacaoBaseIcms.class}
+            , id = "N13", tag = "modBC"
             , tamanhoMinimo = 1, tamanhoMaximo = 1, ocorrencias = 0
             , descricao = NfeConsts.DSC_MODBC)
     private DeterminacaoBaseIcms modBC;
@@ -244,11 +244,11 @@ public class ICMS {
         return icms;
     }
 
-    public OrigemMercadoria getOrig() {
+    public Integer getOrig() {
         return orig;
     }
 
-    public void setOrig(OrigemMercadoria orig) {
+    public void setOrig(Integer orig) {
         this.orig = orig;
     }
 

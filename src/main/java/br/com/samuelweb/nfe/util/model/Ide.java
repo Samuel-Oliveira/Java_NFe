@@ -1,13 +1,13 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.com.samuelweb.nfe.util.enumeration.ModeloDocumento;
 import br.com.samuelweb.nfe.util.validators.impl.*;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Ide {
     
     @NfeCampo(tipo = String.class,
             id = "B03", tag = "cNF", 
-            tamanhoMinimo = 8, tamanhoMaximo = 8, ocorrencias = 1, 
+            tamanhoMinimo = 8, tamanhoMaximo = 8, ocorrencias = 0,
             descricao = DfeConsts.DSC_CNF)
     private String cnf;
     
@@ -33,7 +33,7 @@ public class Ide {
             descricao = DfeConsts.DSC_NATOP)
     private String natOp;
 
-    @NfeCampo(tipo = ModeloDocumento.class,
+    @NfeCampo(tipo = String.class,
             id = "B06", tag = "mod", ocorrencias = 1, validadores = {ValidarModeloDocumento.class},
             descricao = DfeConsts.DSC_MOD)
     private String mod;
@@ -50,15 +50,15 @@ public class Ide {
             descricao = DfeConsts.DSC_NNF)
     private Integer nnf;
 
-    @NfeCampo(tipo = LocalDateTime.class,
+    @NfeCampo(tipo = ZonedDateTime.class,
             id = "B09", tag = "dhEmi", ocorrencias = 1,
             descricao = DfeConsts.DSC_DEMI)
-    private LocalDateTime dhEmi;
+    private ZonedDateTime dhEmi;
 
-    @NfeCampo(tipo = LocalDateTime.class,
+    @NfeCampo(tipo = ZonedDateTime.class,
             id = "B10", tag = "dhSaiEnt", ocorrencias = 0,
             descricao =  NfeConsts.DSC_DSAIENT)
-    private LocalDateTime dhSaiEnt;
+    private ZonedDateTime dhSaiEnt;
 
     @NfeCampo(tipo = Integer.class,
             id = "B11", tag = "tpNF",
@@ -92,7 +92,7 @@ public class Ide {
 
     @NfeCampo(tipo = Integer.class,
             id = "B23", tag = "cDV",
-            tamanhoMinimo = 1, tamanhoMaximo = 1, ocorrencias = 1,
+            tamanhoMinimo = 1, tamanhoMaximo = 1, ocorrencias = 0,
             descricao = DfeConsts.DSC_CDV)
     private Integer cdv;
 
@@ -132,18 +132,21 @@ public class Ide {
             descricao = DfeConsts.DSC_VERPROC)
     private String verProc;
 
-    @NfeCampo(tipo = LocalDateTime.class,
+    @NfeCampo(tipo = ZonedDateTime.class,
             id = "B28", tag = "dhCont",
-            tamanhoMinimo = 5, tamanhoMaximo = 25, ocorrencias = 1,
+            tamanhoMinimo = 5, tamanhoMaximo = 25, ocorrencias = 0,
             descricao = DfeConsts.DSC_DHCONT)
-    private LocalDateTime dhCont;
+    private ZonedDateTime dhCont;
 
     @NfeCampo(tipo = String.class,
             id = "B29", tag = "xJust",
-            tamanhoMinimo = 1,tamanhoMaximo = 256, ocorrencias = 1,
+            tamanhoMinimo = 1,tamanhoMaximo = 256, ocorrencias = 0,
             descricao = DfeConsts.DSC_XJUSTCONT)
     private String xJust;
 
+    @NfeObjetoList(id = "BA01", tag = "NFref"
+            , ocorrenciaMinima = 0, ocorrenciaMaxima = 500
+            , descricao = NfeConsts.DSC_NFREF)
     private List<NfRef> nfRef;
 
     public Ide() {
@@ -176,7 +179,7 @@ public class Ide {
         ide.setIndPres(this.indPres.toString());
         ide.setProcEmi(this.procEmi.toString());
         ide.setVerProc(this.verProc);
-        if (this.dhCont != null || !this.xJust.isEmpty()){
+        if (this.dhCont != null && this.xJust != null && !this.xJust.isEmpty()){
             ide.setDhCont(this.dhCont.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
             ide.setXJust(this.xJust);
         }
@@ -234,19 +237,19 @@ public class Ide {
         this.nnf = nnf;
     }
 
-    public LocalDateTime getDhEmi() {
+    public ZonedDateTime getDhEmi() {
         return dhEmi;
     }
 
-    public void setDhEmi(LocalDateTime dhEmi) {
+    public void setDhEmi(ZonedDateTime dhEmi) {
         this.dhEmi = dhEmi;
     }
 
-    public LocalDateTime getDhSaiEnt() {
+    public ZonedDateTime getDhSaiEnt() {
         return dhSaiEnt;
     }
 
-    public void setDhSaiEnt(LocalDateTime dhSaiEnt) {
+    public void setDhSaiEnt(ZonedDateTime dhSaiEnt) {
         this.dhSaiEnt = dhSaiEnt;
     }
 
@@ -266,11 +269,11 @@ public class Ide {
         this.idDest = idDest;
     }
 
-    public Integer getcMunFG() {
+    public Integer getCMunFG() {
         return cMunFG;
     }
 
-    public void setcMunFG(Integer cMunFG) {
+    public void setCMunFG(Integer cMunFG) {
         this.cMunFG = cMunFG;
     }
 
@@ -344,5 +347,44 @@ public class Ide {
 
     public void setVerProc(String verProc) {
         this.verProc = verProc;
+    }
+
+    public ZonedDateTime getDhCont() {
+        return dhCont;
+    }
+
+    public void setDhCont(ZonedDateTime dhCont) {
+        this.dhCont = dhCont;
+    }
+
+    public String getXJust() {
+        return xJust;
+    }
+
+    public void setXJust(String xJust) {
+        this.xJust = xJust;
+    }
+
+    public Integer getcMunFG() {
+        return cMunFG;
+    }
+
+    public void setcMunFG(Integer cMunFG) {
+        this.cMunFG = cMunFG;
+    }
+
+    public String getxJust() {
+        return xJust;
+    }
+
+    public void setxJust(String xJust) {
+        this.xJust = xJust;
+    }
+
+    public List<NfRef> getNfRef() {
+        if (nfRef == null) {
+            this.nfRef = new ArrayList<>();
+        }
+        return nfRef;
     }
 }

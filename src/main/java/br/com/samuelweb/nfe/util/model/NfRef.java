@@ -1,9 +1,11 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
+import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarChaveAcesso;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class NfRef {
 
@@ -13,7 +15,12 @@ public class NfRef {
             descricao = DfeConsts.DSC_REFNFE, validadores = {ValidarChaveAcesso.class})
     private String refNFe;
 
+    @NfeObjeto(id = "BA03", tag = "refNF"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_REFNF)
     private RefNf refNF;
+
+    @NfeObjeto(id = "BA10", tag = "refNFP"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_REFNFP)
     private RefNfp refNFP;
 
     @NfeCampo(tipo = String.class,
@@ -22,6 +29,8 @@ public class NfRef {
             descricao = DfeConsts.DSC_REFCTE, validadores = {ValidarChaveAcesso.class})
     private String refCTe;
 
+    @NfeObjeto(id = "BA20", tag = "refECF"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_REFECF)
     private RefECF refECF;
 
     public TNFe.InfNFe.Ide.NFref build() {

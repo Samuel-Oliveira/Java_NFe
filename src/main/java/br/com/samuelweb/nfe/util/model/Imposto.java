@@ -1,9 +1,10 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TIpi;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TIpi;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -17,15 +18,33 @@ public class Imposto {
             , descricao = NfeConsts.DSC_VTOTTRIB)
     private BigDecimal vTotTrib;
 
+    @NfeObjeto(id = "N01", tag = "ICMS", ocorrencias = 0, descricao = NfeConsts.DSC_ICMS)
     private ICMS icms;
-    private IPI ipi;
-    private II ii;
-    private PIS pis;
-    private PISST pisst;
-    private COFINS cofins;
-    private COFINSST cofinsst;
-    private ISSQN issqn;
+
+    @NfeObjeto(id = "NA01", tag = "ICMSUFDest", ocorrencias = 0, descricao = NfeConsts.DSC_ICMSUFDEST)
     private ICMSUFDest icmsUfDest;
+
+    @NfeObjeto(id = "O01", tag = "IPI", ocorrencias = 0, descricao = NfeConsts.DSC_IPI)
+    private IPI ipi;
+
+    @NfeObjeto(id = "P01", tag = "II", ocorrencias = 0, descricao = NfeConsts.DSC_II)
+    private II ii;
+
+    @NfeObjeto(id = "Q01", tag = "PIS", ocorrencias = 0, descricao = NfeConsts.DSC_PIS)
+    private PIS pis;
+
+    @NfeObjeto(id = "R01", tag = "R01", ocorrencias = 0, descricao = NfeConsts.DSC_PISST)
+    private PISST pisst;
+
+    @NfeObjeto(id = "S01", tag = "COFINS", ocorrencias = 0, descricao = NfeConsts.DSC_COFINS)
+    private COFINS cofins;
+
+    @NfeObjeto(id = "T01", tag = "COFINSST", ocorrencias = 0, descricao = NfeConsts.DSC_COFINSST)
+    private COFINSST cofinsst;
+
+    @NfeObjeto(id = "U01", tag = "ISSQN", ocorrencias = 0, descricao = NfeConsts.DSC_ISSQN)
+    private ISSQN issqn;
+
 
     public TNFe.InfNFe.Det.Imposto build() {
         TNFe.InfNFe.Det.Imposto imposto = new TNFe.InfNFe.Det.Imposto();
@@ -142,5 +161,85 @@ public class Imposto {
                 );
             }
         }
+    }
+
+    public BigDecimal getvTotTrib() {
+        return vTotTrib;
+    }
+
+    public void setvTotTrib(BigDecimal vTotTrib) {
+        this.vTotTrib = vTotTrib;
+    }
+
+    public ICMS getIcms() {
+        return icms;
+    }
+
+    public void setIcms(ICMS icms) {
+        this.icms = icms;
+    }
+
+    public ICMSUFDest getIcmsUfDest() {
+        return icmsUfDest;
+    }
+
+    public void setIcmsUfDest(ICMSUFDest icmsUfDest) {
+        this.icmsUfDest = icmsUfDest;
+    }
+
+    public IPI getIpi() {
+        return ipi;
+    }
+
+    public void setIpi(IPI ipi) {
+        this.ipi = ipi;
+    }
+
+    public II getIi() {
+        return ii;
+    }
+
+    public void setIi(II ii) {
+        this.ii = ii;
+    }
+
+    public PIS getPis() {
+        return pis;
+    }
+
+    public void setPis(PIS pis) {
+        this.pis = pis;
+    }
+
+    public PISST getPisst() {
+        return pisst;
+    }
+
+    public void setPisst(PISST pisst) {
+        this.pisst = pisst;
+    }
+
+    public COFINS getCofins() {
+        return cofins;
+    }
+
+    public void setCofins(COFINS cofins) {
+        this.cofins = cofins;
+    }
+
+    public COFINSST getCofinsst() {
+        return cofinsst;
+    }
+
+    public void setCofinsst(COFINSST cofinsst) {
+        this.cofinsst = cofinsst;
+    }
+
+    public ISSQN getIssqn() {
+        return issqn;
+    }
+
+    public void setIssqn(ISSQN issqn) {
+        this.issqn = issqn;
     }
 }

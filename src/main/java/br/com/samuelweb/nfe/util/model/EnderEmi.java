@@ -2,10 +2,9 @@ package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
-import br.com.samuelweb.nfe.util.validators.impl.ValidarCodigoUf;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarMunicipio;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TEnderEmi;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TUfEmi;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnderEmi;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TUfEmi;
 
 public class EnderEmi {
 

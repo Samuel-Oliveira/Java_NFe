@@ -1,14 +1,14 @@
 package br.com.samuelweb.nfe.util.model.imposto;
 
 import br.com.samuelweb.nfe.util.model.ICMS;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class MontaICMSCst51 implements MontaImposto<TNFe.InfNFe.Det.Imposto.ICMS, ICMS> {
     @Override
     public void build(TNFe.InfNFe.Det.Imposto.ICMS imposto, ICMS icms) {
         TNFe.InfNFe.Det.Imposto.ICMS.ICMS51 icms51 = new TNFe.InfNFe.Det.Imposto.ICMS.ICMS51();
         if (icms.getOrig() != null) {
-            icms51.setOrig(icms.getOrig().getValue().toString());
+            icms51.setOrig(icms.getOrig().toString());
         }
         if (icms.getCST() != null) {
             icms51.setCST(icms.getCST().getValue());

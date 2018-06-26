@@ -1,8 +1,9 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -60,7 +61,10 @@ public class Cana {
             , descricao = NfeConsts.DSC_VFOR)
     private String vFor;
 
+    @NfeObjetoList(id = "ZC04", tag = "forDia", ocorrenciaMinima = 1, ocorrenciaMaxima = 31, descricao = NfeConsts.DSC_FORDIA)
     private List<ForDia> forDia;
+
+    @NfeObjetoList(id = "ZC10", tag = "deduc", ocorrenciaMinima = 0, ocorrenciaMaxima = 10, descricao = NfeConsts.DSC_DEDUC)
     private List<Deduc> deduc;
 
     public TNFe.InfNFe.Cana build() {

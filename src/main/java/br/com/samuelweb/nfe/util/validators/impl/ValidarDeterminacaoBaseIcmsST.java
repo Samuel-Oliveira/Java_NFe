@@ -21,7 +21,7 @@ public class ValidarDeterminacaoBaseIcmsST implements ValidadorCampo<Integer> {
 
     @Override
     public RetornoValidar validar(Integer valor) {
-        if (modBCSTMap.get(valor) != null) {
+        if (modBCSTMap.get(valor) != null || valor == null) {
             return new RetornoValidarImpl(true);
         }
         return new RetornoValidarImpl(false, String.format("Valor inválido para o campo Modalidade de determinação da BC do ICMS ST, informado %d", valor));

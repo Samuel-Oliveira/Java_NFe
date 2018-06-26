@@ -6,7 +6,7 @@ import br.com.samuelweb.nfe.util.enumeration.IndISS;
 import br.com.samuelweb.nfe.util.enumeration.SimNao;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarIndISS;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarMunicipio;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.math.BigDecimal;
 
@@ -73,7 +73,7 @@ public class ISSQN  {
     private BigDecimal vISSRet;
 
     @NfeCampo(tipo = IndISS.class
-            , id = "U12", tag = "indISS", validadores = {ValidarIndISS.class}
+            , id = "U12", tag = "indISS"
             , tamanhoMinimo = 2, tamanhoMaximo = 2, ocorrencias = 1
             , descricao = DfeConsts.DSC_INDISS)
     private IndISS indISS;

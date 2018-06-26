@@ -1,8 +1,10 @@
 package br.com.samuelweb.nfe.util.enumeration;
 
 import br.com.samuelweb.nfe.util.model.IPI;
-import br.com.samuelweb.nfe.util.model.imposto.*;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TIpi;
+import br.com.samuelweb.nfe.util.model.imposto.MontaIPINt;
+import br.com.samuelweb.nfe.util.model.imposto.MontaIPITrib;
+import br.com.samuelweb.nfe.util.model.imposto.MontaImposto;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TIpi;
 
 public enum CSTIpi implements EnumNfeValue<String> {
 

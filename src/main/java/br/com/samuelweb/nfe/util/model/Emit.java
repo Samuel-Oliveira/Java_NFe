@@ -1,12 +1,13 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCNPJCPF;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCRT;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarIE;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class Emit {
 
@@ -28,6 +29,8 @@ public class Emit {
             , descricao = DfeConsts.DSC_XFANT)
     private String xFant;
 
+    @NfeObjeto(id = "C05", tag = "enderEmit"
+            , ocorrencias = 1, descricao = NfeConsts.DSC_ENDEREMIT)
     private EnderEmi enderEmit;
 
     @NfeCampo(tipo = String.class
@@ -83,7 +86,7 @@ public class Emit {
         // NT 2013/005 versão 1.03
         // o CNAE passa ser opcional mesmo quando informado o IM, mas o CNAE s� pode
         // ser informado se o IM for informado.
-        if (this.im.length() > 0) {
+        if (this.im != null && !this.im.isEmpty()) {
             emit.setCNAE(this.cnae);
         }
         emit.setCRT(this.crt);

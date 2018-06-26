@@ -6,7 +6,7 @@ import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarChaveAcesso;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarDrawback;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarRE;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.math.BigDecimal;
 

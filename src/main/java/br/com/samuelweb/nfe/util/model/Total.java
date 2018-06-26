@@ -1,23 +1,19 @@
 package br.com.samuelweb.nfe.util.model;
 
-import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class Total {
 
-    @NfeCampo(tipo = ICMSTot.class, id = "W02", tag = "ICMSTot"
-            , ocorrencias = 1, descricao = NfeConsts.DSC_ICMSTOT)
+    @NfeObjeto(id = "W02", tag = "ICMSTot", ocorrencias = 0, descricao = NfeConsts.DSC_ICMSTOT)
     private ICMSTot icmsTot;
 
-    @NfeCampo(tipo = ISSQNtot.class, id = "W17", tag = "ISSQNtot"
-            , ocorrencias = 1, descricao = NfeConsts.DSC_ISSQNTOT)
+    @NfeObjeto(id = "W17", tag = "ISSQNtot", ocorrencias = 0, descricao = NfeConsts.DSC_ISSQNTOT)
     private ISSQNtot issqNtot;
 
-    @NfeCampo(tipo = ISSQNtot.class, id = "W23", tag = "retTrib"
-            , ocorrencias = 1, descricao = NfeConsts.DSC_RETTRIB)
+    @NfeObjeto(id = "W23", tag = "retTrib", ocorrencias = 0, descricao = NfeConsts.DSC_RETTRIB)
     private RetTrib retTrib;
-
 
     public TNFe.InfNFe.Total build() {
         TNFe.InfNFe.Total total = new TNFe.InfNFe.Total();
@@ -35,4 +31,27 @@ public class Total {
 
     }
 
+    public ICMSTot getIcmsTot() {
+        return icmsTot;
+    }
+
+    public void setIcmsTot(ICMSTot icmsTot) {
+        this.icmsTot = icmsTot;
+    }
+
+    public ISSQNtot getIssqNtot() {
+        return issqNtot;
+    }
+
+    public void setIssqNtot(ISSQNtot issqNtot) {
+        this.issqNtot = issqNtot;
+    }
+
+    public RetTrib getRetTrib() {
+        return retTrib;
+    }
+
+    public void setRetTrib(RetTrib retTrib) {
+        this.retTrib = retTrib;
+    }
 }

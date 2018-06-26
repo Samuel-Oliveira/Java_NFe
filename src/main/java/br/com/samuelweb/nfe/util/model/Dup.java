@@ -2,9 +2,8 @@ package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,8 +25,6 @@ public class Dup {
             , decimais = 2, precisao = 15
             , ocorrencias = 1, descricao = NfeConsts.DSC_VDUP)
     private BigDecimal vDup;
-
-
 
 
     public TNFe.InfNFe.Cobr.Dup build(){

@@ -1,6 +1,5 @@
 package br.com.samuelweb.nfe.util.validators.impl;
 
-import br.com.samuelweb.nfe.util.enumeration.CSTIcms;
 import br.com.samuelweb.nfe.util.enumeration.CSTIpi;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
 import br.com.samuelweb.nfe.util.validators.ValidadorCampo;

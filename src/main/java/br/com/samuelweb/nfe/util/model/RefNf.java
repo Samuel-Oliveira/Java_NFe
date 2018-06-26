@@ -7,7 +7,7 @@ import br.com.samuelweb.nfe.util.validators.impl.ValidarAAMM;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCNPJ;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCodigoUf;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarModeloDocumentoRef;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class RefNf {
 

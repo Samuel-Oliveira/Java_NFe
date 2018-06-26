@@ -1,17 +1,17 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class Pag {
 
-    @NfeCampo(id = "detPag", tag = "YA01a", descricao = NfeConsts.DSC_DETPAG)
+    @NfeObjetoList(id = "detPag", tag = "YA01a", ocorrenciaMinima = 1, ocorrenciaMaxima = 100, descricao = NfeConsts.DSC_DETPAG)
     private List<DetPag> detPag;
 
     @NfeCampo(tipo = BigDecimal.class, id = "YA09", tag = "vTroco"
@@ -30,4 +30,18 @@ public class Pag {
         return pag;
     }
 
+    public List<DetPag> getDetPag() {
+        if (detPag == null) {
+            detPag = new ArrayList<>();
+        }
+        return detPag;
+    }
+
+    public BigDecimal getvTroco() {
+        return vTroco;
+    }
+
+    public void setvTroco(BigDecimal vTroco) {
+        this.vTroco = vTroco;
+    }
 }

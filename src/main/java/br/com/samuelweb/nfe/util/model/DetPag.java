@@ -3,9 +3,8 @@ package br.com.samuelweb.nfe.util.model;
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.TipoPagamento;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 
 public class DetPag {
@@ -36,14 +35,46 @@ public class DetPag {
             detPag.setIndPag(this.indPag.toString());
         }
 
-        detPag.setTPag(tPag.getValue().toString());
+        detPag.setTPag(tPag.getValue());
         if (this.vPag != null){
             detPag.setVPag(this.vPag.toString());
         }
-
-        detPag.setCard(this.card.build());
+        if (this.card != null) {
+            detPag.setCard(this.card.build());
+        }
 
         return detPag;
     }
 
+    public Integer getIndPag() {
+        return indPag;
+    }
+
+    public void setIndPag(Integer indPag) {
+        this.indPag = indPag;
+    }
+
+    public TipoPagamento gettPag() {
+        return tPag;
+    }
+
+    public void settPag(TipoPagamento tPag) {
+        this.tPag = tPag;
+    }
+
+    public BigDecimal getvPag() {
+        return vPag;
+    }
+
+    public void setvPag(BigDecimal vPag) {
+        this.vPag = vPag;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
 }

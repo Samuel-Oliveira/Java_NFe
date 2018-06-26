@@ -3,13 +3,12 @@
  */
 package br.com.samuelweb.nfe.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.ini4j.Wini;
-
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
+import org.ini4j.Wini;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Samuel Oliveira

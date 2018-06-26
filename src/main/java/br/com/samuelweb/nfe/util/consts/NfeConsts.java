@@ -1,8 +1,49 @@
 package br.com.samuelweb.nfe.util.consts;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class NfeConsts {
+
+    public static final String DSC_IDE = "Informações de identificação da NF-e";
+    public static final String DSC_NFREF = "Informação de Documentos Fiscais referenciados";
+    public static final String DSC_REFNF = "Informação da NF modelo 1/1A referenciada";
+    public static final String DSC_REFNFP = "Informações da NF de produtor rural referenciada";
+    public static final String DSC_REFECF = "Informações do Cupom Fiscal referenciado";
+    public static final String DSC_EMIT = "Identificação do emitente da NF-e";
+    public static final String DSC_ENDEREMIT = "Endereço do emitente";
+    public static final String DSC_AVULSA = "Identificação de nota emitida Avulsa";
+    public static final String DSC_DEST = "Identificação do Destinatário da NF-e";
+    public static final String DSC_ENDERDEST = "Endereço do Destinatário da NF-e";
+    public static final String DSC_RETIRADA = "Identificação do Local de retirada";
+    public static final String DSC_ENTREGA = "Identificação do Local de entrega";
+    public static final String DSC_AUTXML = "Pessoas autorizadas a acessar o XML da NF-e";
+    public static final String DSC_DET = "Detalhamento de Produtos e Serviços";
+    public static final String DSC_PROD = "Detalhamento de Produtos e Serviços";
+    public static final String DSC_DI = "Declaração de Importação";
+    public static final String DSC_DETEXPORT = "Grupo de informações de exportação para o item";
+    public static final String DSC_ADICOES = "Adições";
+    public static final String DSC_RASTRO = "Detalhamento de produto sujeito a rastreabilidade";
+    public static final String DSC_VEICPROD = "Detalhamento de Veículos novos";
+    public static final String DSC_MED = "Detalhamento de Medicamentos e de matérias-primas farmacêuticas";
+    public static final String DSC_ARMA = "Detalhamento de Armamento";
+    public static final String DSC_COMB = "Informações específicas para combustíveis líquidos e lubrificantes";
+    public static final String DSC_IMPOSTO = "Tributos incidentes no Produto ou Serviço";
+    public static final String DSC_ICMS = "Informações do ICMS da Operação própria e ST";
+    public static final String DSC_IPI = "Grupo IPI";
+    public static final String DSC_II = "Grupo Imposto de Importação";
+    public static final String DSC_PIS = "Grupo PIS";
+    public static final String DSC_PISST = "Grupo PIS Substituição Tributária";
+    public static final String DSC_COFINS = "Grupo COFINS";
+    public static final String DSC_COFINSST = "Grupo COFINS Substituição Tributária";
+    public static final String DSC_ISSQN = "Grupo ISSQN";
+    public static final String DSC_ICMSUFDEST = "Informação do ICMS Interestadual";
+    public static final String DSC_IMPOSTO_DEVOL = "Informação do Imposto devolvido";
+    public static final String DSC_TOTAL = "Grupo Totais da NF-e";
+    public static final String DSC_COBR = "Grupo Cobrança";
+    public static final String DSC_INFADIC = "Grupo de Informações Adicionais";
+    public static final String DSC_EXPORTA = "Grupo Exportação";
+    public static final String DSC_COMPRA = "Grupo Compra";
+    public static final String DSC_CANA = "Grupo Cana";
+    public static final String DSC_LACRES = "Grupo Lacres";
+    public static final String DSC_PAG = "Grupo de Informações de Pagamento";
 
     public static final String DSC_AAMM = "Ano e Mês";
     public static final String DSC_ANOFAB = "Ano de Fabricação";

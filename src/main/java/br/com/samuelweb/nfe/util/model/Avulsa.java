@@ -5,11 +5,10 @@ import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCNPJ;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCodigoUf;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TUfEmi;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TUfEmi;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -96,8 +95,7 @@ public class Avulsa {
             avulsa.setDEmi(this.dEmi.format(DateTimeFormatter.ISO_DATE));
         }
         if (this.vDar != null) {
-            DecimalFormat format = new DecimalFormat("############.00");
-            avulsa.setVDAR( format.format(this.vDar) );
+            avulsa.setVDAR( this.vDar.toString() );
         }
         avulsa.setRepEmi(this.repEmi);
         if (this.dPag != null ) {

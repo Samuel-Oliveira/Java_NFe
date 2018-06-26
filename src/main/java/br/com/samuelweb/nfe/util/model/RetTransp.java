@@ -2,9 +2,8 @@ package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 
 public class RetTransp {

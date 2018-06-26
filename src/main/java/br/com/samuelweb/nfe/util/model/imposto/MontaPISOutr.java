@@ -1,7 +1,7 @@
 package br.com.samuelweb.nfe.util.model.imposto;
 
 import br.com.samuelweb.nfe.util.model.PIS;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.math.BigDecimal;
 

@@ -1,9 +1,8 @@
 package br.com.samuelweb.nfe.util.enumeration;
 
 import br.com.samuelweb.nfe.util.model.PIS;
-import br.com.samuelweb.nfe.util.model.imposto.MontaImposto;
 import br.com.samuelweb.nfe.util.model.imposto.*;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public enum CSTPis implements EnumNfeValue<String> {
     PIS01("01", new MontaPISAliq()),

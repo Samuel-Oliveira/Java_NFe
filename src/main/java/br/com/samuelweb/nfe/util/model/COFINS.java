@@ -4,14 +4,14 @@ import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.CSTCofins;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCSTCofins;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.math.BigDecimal;
 
 public class COFINS {
 
     @NfeCampo(tipo = CSTCofins.class
-            , id = "S06", tag = "CST", validadores = {ValidarCSTCofins.class}
+            , id = "S06", tag = "CST"
             , tamanhoMinimo = 2, tamanhoMaximo = 2, ocorrencias = 1
             , descricao = DfeConsts.DSC_CST)
     private CSTCofins cst;

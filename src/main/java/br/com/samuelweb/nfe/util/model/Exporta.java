@@ -2,13 +2,9 @@ package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.com.samuelweb.nfe.util.validators.impl.ValidarCodigoUf;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TUfEmi;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TUfEmi;
 import org.apache.commons.lang3.StringUtils;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 
 public class Exporta {
 
@@ -34,5 +30,29 @@ public class Exporta {
             exporta.setXLocDespacho(this.xLocDespacho);
         }
         return exporta;
+    }
+
+    public String getUfSaidaPais() {
+        return ufSaidaPais;
+    }
+
+    public void setUfSaidaPais(String ufSaidaPais) {
+        this.ufSaidaPais = ufSaidaPais;
+    }
+
+    public String getxLocExporta() {
+        return xLocExporta;
+    }
+
+    public void setxLocExporta(String xLocExporta) {
+        this.xLocExporta = xLocExporta;
+    }
+
+    public String getxLocDespacho() {
+        return xLocDespacho;
+    }
+
+    public void setxLocDespacho(String xLocDespacho) {
+        this.xLocDespacho = xLocDespacho;
     }
 }

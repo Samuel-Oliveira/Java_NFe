@@ -1,20 +1,20 @@
 package br.com.samuelweb.nfe.util.model;
 
-import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
+import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class Cobr {
 
-    @NfeCampo(tipo = Fat.class, id = "Y02", tag = "fat", ocorrencias = 0, descricao = NfeConsts.DSC_GFAT)
+    @NfeObjeto(id = "Y02", tag = "fat", ocorrencias = 0, descricao = NfeConsts.DSC_GFAT)
     private Fat fat;
 
-    @NfeCampo(tipo = Fat.class, id = "Y07", tag = "dup", ocorrencias = 0, descricao = NfeConsts.DSC_GDUP)
+    @NfeObjetoList(id = "Y07", tag = "dup", ocorrenciaMinima = 0, ocorrenciaMaxima = 120, descricao = NfeConsts.DSC_GDUP)
     private List<Dup> dup;
 
     public TNFe.InfNFe.Cobr build() {

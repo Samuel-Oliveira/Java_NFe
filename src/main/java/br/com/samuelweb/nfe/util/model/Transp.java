@@ -1,10 +1,11 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
+import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.ModalidadeFrete;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TVeiculo;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.util.List;
 
@@ -25,31 +26,41 @@ public class Transp {
             , ocorrencias = 0, descricao = NfeConsts.DSC_BALSA)
     private String balsa;
 
-    @NfeCampo(id = "X03", tag = "transporta", descricao = NfeConsts.DSC_TRANSP, ocorrencias = 0)
+    @NfeObjeto(id = "X03", tag = "transporta", descricao = NfeConsts.DSC_TRANSP, ocorrencias = 0)
     private Transporta transporta;
 
-    @NfeCampo(id = "X11", tag = "retTransp", descricao = NfeConsts.DSC_RETTRANSP, ocorrencias = 0)
+    @NfeObjeto(id = "X11", tag = "retTransp", descricao = NfeConsts.DSC_RETTRANSP, ocorrencias = 0)
     private RetTransp retTransp;
 
-    @NfeCampo(id = "X18", tag = "veicTransp", descricao = NfeConsts.DSC_VEICTRANSP, ocorrencias = 0)
+    @NfeObjeto(id = "X18", tag = "veicTransp", descricao = NfeConsts.DSC_VEICTRANSP, ocorrencias = 0)
     private Veiculo veicTransp;
 
-    @NfeCampo(id = "X22", tag = "reboque", descricao = NfeConsts.DSC_GREBOQUE, ocorrencias = 0)
+    @NfeObjetoList(id = "X22", tag = "reboque", descricao = NfeConsts.DSC_GREBOQUE, ocorrenciaMinima = 0, ocorrenciaMaxima = 5)
     private List<Veiculo> reboque;
 
-    @NfeCampo(id = "X26", tag = "vol", descricao = NfeConsts.DSC_GVOLUMES, ocorrencias = 0)
+    @NfeObjetoList(id = "X26", tag = "vol", descricao = NfeConsts.DSC_GVOLUMES, ocorrenciaMinima = 0, ocorrenciaMaxima = 5000)
     private List<Vol> vol;
 
     public TNFe.InfNFe.Transp build() {
         TNFe.InfNFe.Transp transp = new TNFe.InfNFe.Transp();
-
-        transp.setModFrete(this.modFrete.getValue().toString());
-        transp.setTransporta(this.transporta.build());
-        transp.setRetTransp(this.retTransp.build());
-        transp.setVeicTransp(this.veicTransp.build());
-
-        reboque.forEach(e -> transp.getReboque().add(e.build()));
-        vol.forEach(e -> transp.getVol().add(e.build()));
+        if (this.modFrete != null) {
+            transp.setModFrete(this.modFrete.getValue().toString());
+        }
+        if (this.transporta != null) {
+            transp.setTransporta(this.transporta.build());
+        }
+        if (this.retTransp != null) {
+            transp.setRetTransp(this.retTransp.build());
+        }
+        if (this.veicTransp != null) {
+            transp.setVeicTransp(this.veicTransp.build());
+        }
+        if (this.reboque != null) {
+            reboque.forEach(e -> transp.getReboque().add(e.build()));
+        }
+        if (this.vol != null) {
+            vol.forEach(e -> transp.getVol().add(e.build()));
+        }
 
         return transp;
     }

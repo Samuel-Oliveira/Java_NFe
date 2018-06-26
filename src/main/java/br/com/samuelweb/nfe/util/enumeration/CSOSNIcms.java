@@ -2,8 +2,7 @@ package br.com.samuelweb.nfe.util.enumeration;
 
 import br.com.samuelweb.nfe.util.model.ICMS;
 import br.com.samuelweb.nfe.util.model.imposto.*;
-import br.com.samuelweb.nfe.util.model.imposto.MontaImposto;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public enum CSOSNIcms implements EnumNfeValue<String> {
     CSOSN_101("101", new MontaICMSCsosn101()),

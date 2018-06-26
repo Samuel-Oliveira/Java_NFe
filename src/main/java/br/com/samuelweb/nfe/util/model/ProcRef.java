@@ -4,9 +4,7 @@ import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.IndicadorOrigemProcesso;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarIndicadorOrigemProcesso;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
-
-import javax.xml.bind.annotation.XmlElement;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class ProcRef {
 

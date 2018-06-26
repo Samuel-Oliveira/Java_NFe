@@ -1,13 +1,14 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCNPJ;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarDIDSI;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarDIRE;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TUfEmi;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TUfEmi;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -83,6 +84,9 @@ public class DI {
             , descricao = NfeConsts.DSC_CEXPORTADOR)
     private String cExportador;
 
+    @NfeObjetoList(id = "I25", tag = "adi"
+            , ocorrenciaMinima = 1, ocorrenciaMaxima = 100
+            , descricao = NfeConsts.DSC_ADICOES)
     private List<Adi> adi;
 
     public DI() {

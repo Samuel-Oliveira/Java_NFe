@@ -4,14 +4,14 @@ import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.CSTPis;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCSTPis;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.math.BigDecimal;
 
 public class PIS {
 
     @NfeCampo(tipo = CSTPis.class
-            , id = "Q06", tag = "CST", validadores = {ValidarCSTPis.class}
+            , id = "Q06", tag = "CST"
             , tamanhoMinimo = 2, tamanhoMaximo = 2, ocorrencias = 1
             , descricao = DfeConsts.DSC_CST)
     private CSTPis CST;

@@ -1,8 +1,9 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.util.List;
 
@@ -16,16 +17,16 @@ public class InfAdic {
             , ocorrencias = 0, descricao = NfeConsts.DSC_INFCPL)
     private String infCpl;
 
-    @NfeCampo(id = "Z04", tag = "obsCont"
-            , ocorrencias = 0, descricao = NfeConsts.DSC_OBSCONT)
+    @NfeObjetoList(id = "Z04", tag = "obsCont"
+            , ocorrenciaMinima = 0, ocorrenciaMaxima = 10, descricao = NfeConsts.DSC_OBSCONT)
     private List<ObsCont> obsCont;
 
-    @NfeCampo(id = "Z07", tag = "obsFisco"
-            , ocorrencias = 0, descricao = NfeConsts.DSC_OBSFISCO)
+    @NfeObjetoList(id = "Z07", tag = "obsFisco"
+            , ocorrenciaMinima = 0, ocorrenciaMaxima = 10, descricao = NfeConsts.DSC_OBSFISCO)
     private List<ObsFisco> obsFisco;
 
-    @NfeCampo(id = "Z10", tag = "procRef"
-            , ocorrencias = 0, descricao = NfeConsts.DSC_PROCREF)
+    @NfeObjetoList(id = "Z10", tag = "procRef"
+            , ocorrenciaMinima = 0, ocorrenciaMaxima = 100, descricao = NfeConsts.DSC_PROCREF)
     private List<ProcRef> procRef;
 
     public TNFe.InfNFe.InfAdic build() {
@@ -45,8 +46,9 @@ public class InfAdic {
                 this.obsFisco.forEach(e -> infAdic.getObsFisco().add(e.build()));
             }
         }
-
-        this.procRef.forEach(e -> infAdic.getProcRef().add(e.build()));
+        if (this.procRef != null) {
+            this.procRef.forEach(e -> infAdic.getProcRef().add(e.build()));
+        }
 
         return infAdic;
     }

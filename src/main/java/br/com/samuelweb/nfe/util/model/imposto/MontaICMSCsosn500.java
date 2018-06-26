@@ -1,7 +1,7 @@
 package br.com.samuelweb.nfe.util.model.imposto;
 
 import br.com.samuelweb.nfe.util.model.ICMS;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class MontaICMSCsosn500 implements MontaImposto<TNFe.InfNFe.Det.Imposto.ICMS, ICMS> {
 
@@ -9,7 +9,7 @@ public class MontaICMSCsosn500 implements MontaImposto<TNFe.InfNFe.Det.Imposto.I
     public void build(TNFe.InfNFe.Det.Imposto.ICMS imposto, ICMS icms) {
         TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN500 icmsSn500 = new TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN500();
         if (icms.getOrig() != null) {
-            icmsSn500.setOrig(icms.getOrig().getValue().toString());
+            icmsSn500.setOrig(icms.getOrig().toString());
         }
         if (icms.getCSOSN() != null) {
             icmsSn500.setCSOSN(icms.getCSOSN().getValue());

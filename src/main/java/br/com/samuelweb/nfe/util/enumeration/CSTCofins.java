@@ -2,8 +2,7 @@ package br.com.samuelweb.nfe.util.enumeration;
 
 import br.com.samuelweb.nfe.util.model.COFINS;
 import br.com.samuelweb.nfe.util.model.imposto.*;
-
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public enum CSTCofins implements EnumNfeValue<String> {
 

@@ -5,8 +5,7 @@ import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.CSTIpi;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCNPJ;
-import br.com.samuelweb.nfe.util.validators.impl.ValidarCSTIpi;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TIpi;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TIpi;
 
 import java.math.BigDecimal;
 
@@ -37,43 +36,52 @@ public class IPI {
     private String cEnq;
 
     @NfeCampo(tipo = CSTIpi.class
-            , id = "O09", tag = "CST", validadores = {ValidarCSTIpi.class}
+            , id = "O09", tag = "CST"
             , tamanhoMinimo = 2, tamanhoMaximo = 2, ocorrencias = 1
             , descricao = DfeConsts.DSC_CST)
-    private CSTIpi CST;
+    private CSTIpi cst;
 
     @NfeCampo(tipo = BigDecimal.class
             , id = "O10", tag = "vBC", decimais = 2, precisao = 15
-            , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
+            , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 0
             , descricao = NfeConsts.DSC_VBC)
     private BigDecimal vBC;
 
     @NfeCampo(tipo = BigDecimal.class
             , id = "O11", tag = "qUnid", decimais = 4, precisao = 16
-            , tamanhoMinimo = 1, tamanhoMaximo = 16, ocorrencias = 1
+            , tamanhoMinimo = 1, tamanhoMaximo = 16, ocorrencias = 0
             , descricao = NfeConsts.DSC_QUNID)
     private BigDecimal qUnid;
 
     @NfeCampo(tipo = BigDecimal.class
             , id = "O12", tag = "vUnid", decimais = 4, precisao = 15
-            , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
+            , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 0
             , descricao = NfeConsts.DSC_VUNID)
     private BigDecimal vUnid;
 
     @NfeCampo(tipo = BigDecimal.class
             , id = "O13", tag = "pIPI ", decimais = 4, precisao = 7
-            , tamanhoMinimo = 1, tamanhoMaximo = 7, ocorrencias = 1
+            , tamanhoMinimo = 1, tamanhoMaximo = 7, ocorrencias = 0
             , descricao = NfeConsts.DSC_PIPI)
     private BigDecimal pIPI;
 
     @NfeCampo(tipo = BigDecimal.class
             , id = "O14", tag = "vIPI", decimais = 2, precisao = 15
-            , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
+            , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 0
             , descricao = NfeConsts.DSC_VIPI)
     private BigDecimal vIPI;
 
     public TIpi build() {
         TIpi ipi = new TIpi();
+        if (this.cst != null) {
+            this.cst.getMontaImposto().build(ipi, this);
+        }
+        ipi.setCEnq(this.cEnq);
+        ipi.setCNPJProd(this.CNPJProd);
+        ipi.setCSelo(this.cSelo);
+        if (this.qSelo != null) {
+            ipi.setQSelo(this.qSelo.toString());
+        }
         return ipi;
     }
 
@@ -109,12 +117,12 @@ public class IPI {
         this.cEnq = cEnq;
     }
 
-    public CSTIpi getCST() {
-        return CST;
+    public CSTIpi getCst() {
+        return cst;
     }
 
-    public void setCST(CSTIpi CST) {
-        this.CST = CST;
+    public void setCst(CSTIpi cst) {
+        this.cst = cst;
     }
 
     public BigDecimal getvBC() {

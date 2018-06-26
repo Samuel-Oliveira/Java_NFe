@@ -1,7 +1,7 @@
 package br.com.samuelweb.nfe.util.model.imposto;
 
 import br.com.samuelweb.nfe.util.model.ICMS;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.math.BigDecimal;
 
@@ -19,7 +19,7 @@ public class MontaICMSCst60 implements MontaImposto<TNFe.InfNFe.Det.Imposto.ICMS
     private void buildIcms(TNFe.InfNFe.Det.Imposto.ICMS imposto, ICMS icms) {
         TNFe.InfNFe.Det.Imposto.ICMS.ICMS60 icms60 = new TNFe.InfNFe.Det.Imposto.ICMS.ICMS60();
         if (icms.getOrig() != null) {
-            icms60.setOrig(icms.getOrig().getValue().toString());
+            icms60.setOrig(icms.getOrig().toString());
         }
         if (icms.getCST() != null) {
             icms60.setCST(icms.getCST().getValue());
@@ -48,7 +48,7 @@ public class MontaICMSCst60 implements MontaImposto<TNFe.InfNFe.Det.Imposto.ICMS
     private void buildIcmsSt(TNFe.InfNFe.Det.Imposto.ICMS imposto, ICMS icms) {
         TNFe.InfNFe.Det.Imposto.ICMS.ICMSST icmsSt = new TNFe.InfNFe.Det.Imposto.ICMS.ICMSST();
         if (icms.getOrig() != null) {
-            icmsSt.setOrig(icms.getOrig().getValue().toString());
+            icmsSt.setOrig(icms.getOrig().toString());
         }
         if (icms.getCST() != null) {
             icmsSt.setCST(icms.getCST().getValue());

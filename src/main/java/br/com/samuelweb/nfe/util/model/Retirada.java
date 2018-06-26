@@ -3,8 +3,8 @@ package br.com.samuelweb.nfe.util.model;
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarMunicipio;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TLocal;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TUf;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TLocal;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TUf;
 
 public class Retirada {
 

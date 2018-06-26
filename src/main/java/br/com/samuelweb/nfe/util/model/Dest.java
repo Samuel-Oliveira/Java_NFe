@@ -1,13 +1,14 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarCNPJCPF;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarIE;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarISUF;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarIndIeDestinatario;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 public class Dest {
 
@@ -29,6 +30,8 @@ public class Dest {
             , descricao = DfeConsts.DSC_XNOME)
     private String xNome;
 
+    @NfeObjeto(id = "E05", tag = "enderDest"
+            , ocorrencias = 0, descricao = NfeConsts.DSC_ENDERDEST)
     private EnderDest enderDest;
 
     @NfeCampo(tipo = Integer.class
@@ -65,13 +68,13 @@ public class Dest {
     public TNFe.InfNFe.Dest build() {
         TNFe.InfNFe.Dest dest = new TNFe.InfNFe.Dest();
         if ((this.idEstrangeiro != null && !this.idEstrangeiro.isEmpty()) ||
-                (this.enderDest != null && this.enderDest.getcPais() != 1058))
-        if (this.cnpjCpf.length() > 11) {
+                (this.enderDest != null && this.enderDest.getcPais() != 1058)) {
+            dest.setIdEstrangeiro(this.idEstrangeiro);
+        } else if (this.cnpjCpf.length() > 11) {
             dest.setCNPJ(this.cnpjCpf);
         } else {
             dest.setCPF(this.cnpjCpf);
         }
-        dest.setIdEstrangeiro(this.idEstrangeiro);
         dest.setXNome(this.xNome);
         dest.setEnderDest(enderDest.build());
         if (this.indIEDest != null) {
@@ -109,6 +112,9 @@ public class Dest {
     }
 
     public EnderDest getEnderDest() {
+        if (this.enderDest == null) {
+            this.enderDest = new EnderDest();
+        }
         return enderDest;
     }
 

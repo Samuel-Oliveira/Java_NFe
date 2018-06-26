@@ -2,9 +2,8 @@ package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 
 public class RetTrib {
@@ -54,13 +53,13 @@ public class RetTrib {
     public TNFe.InfNFe.Total.RetTrib build(){
         TNFe.InfNFe.Total.RetTrib retTrib = new TNFe.InfNFe.Total.RetTrib();
 
-        if ((this.vRetPIS.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vRetCOFINS.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vRetCSLL.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vbcirrf.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.virrf.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vbcRetPrev.compareTo(BigDecimal.ZERO) > 0) ||
-                (this.vRetPrev.compareTo(BigDecimal.ZERO) > 0) ){
+        if ((this.vRetPIS != null && this.vRetPIS.compareTo(BigDecimal.ZERO) > 0) ||
+                (this.vRetCOFINS != null && this.vRetCOFINS.compareTo(BigDecimal.ZERO) > 0) ||
+                (this.vRetCSLL != null && this.vRetCSLL.compareTo(BigDecimal.ZERO) > 0) ||
+                (this.vbcirrf != null && this.vbcirrf.compareTo(BigDecimal.ZERO) > 0) ||
+                (this.virrf != null && this.virrf.compareTo(BigDecimal.ZERO) > 0) ||
+                (this.vbcRetPrev != null && this.vbcRetPrev.compareTo(BigDecimal.ZERO) > 0) ||
+                (this.vRetPrev != null && this.vRetPrev.compareTo(BigDecimal.ZERO) > 0) ){
 
             if (this.vRetPIS != null){
                 retTrib.setVRetPIS(this.vRetPIS.toString());

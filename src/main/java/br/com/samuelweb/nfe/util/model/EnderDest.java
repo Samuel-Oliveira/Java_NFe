@@ -2,11 +2,10 @@ package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
-import br.com.samuelweb.nfe.util.validators.impl.ValidarCodigoUf;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarMunicipio;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarPais;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TEndereco;
-import br.inf.portalfiscal.nfe.schema_4.nfe.TUf;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEndereco;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.TUf;
 
 public class EnderDest {
 
