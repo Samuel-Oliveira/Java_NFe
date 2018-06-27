@@ -36,23 +36,26 @@ public class Exporta {
         return ufSaidaPais;
     }
 
-    public void setUfSaidaPais(String ufSaidaPais) {
-        this.ufSaidaPais = ufSaidaPais;
-    }
-
     public String getxLocExporta() {
         return xLocExporta;
-    }
-
-    public void setxLocExporta(String xLocExporta) {
-        this.xLocExporta = xLocExporta;
     }
 
     public String getxLocDespacho() {
         return xLocDespacho;
     }
 
-    public void setxLocDespacho(String xLocDespacho) {
+    public Exporta setUfSaidaPais(String ufSaidaPais) {
+        this.ufSaidaPais = ufSaidaPais;
+        return this;
+    }
+
+    public Exporta setxLocExporta(String xLocExporta) {
+        this.xLocExporta = xLocExporta;
+        return this;
+    }
+
+    public Exporta setxLocDespacho(String xLocDespacho) {
         this.xLocDespacho = xLocDespacho;
+        return this;
     }
 }

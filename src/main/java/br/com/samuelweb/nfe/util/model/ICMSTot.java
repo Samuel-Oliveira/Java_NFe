@@ -226,183 +226,206 @@ public class ICMSTot {
         return vbc;
     }
 
-    public void setVbc(BigDecimal vbc) {
-        this.vbc = vbc;
-    }
-
     public BigDecimal getVicms() {
         return vicms;
-    }
-
-    public void setVicms(BigDecimal vicms) {
-        this.vicms = vicms;
     }
 
     public BigDecimal getVicmsDeson() {
         return vicmsDeson;
     }
 
-    public void setVicmsDeson(BigDecimal vicmsDeson) {
-        this.vicmsDeson = vicmsDeson;
-    }
-
     public BigDecimal getVfcpufDest() {
         return vfcpufDest;
-    }
-
-    public void setVfcpufDest(BigDecimal vfcpufDest) {
-        this.vfcpufDest = vfcpufDest;
     }
 
     public BigDecimal getVicmsufDest() {
         return vicmsufDest;
     }
 
-    public void setVicmsufDest(BigDecimal vicmsufDest) {
-        this.vicmsufDest = vicmsufDest;
-    }
-
     public BigDecimal getVicmsufRemet() {
         return vicmsufRemet;
-    }
-
-    public void setVicmsufRemet(BigDecimal vicmsufRemet) {
-        this.vicmsufRemet = vicmsufRemet;
     }
 
     public BigDecimal getVfcp() {
         return vfcp;
     }
 
-    public void setVfcp(BigDecimal vfcp) {
-        this.vfcp = vfcp;
-    }
-
     public BigDecimal getVbcst() {
         return vbcst;
-    }
-
-    public void setVbcst(BigDecimal vbcst) {
-        this.vbcst = vbcst;
     }
 
     public BigDecimal getVst() {
         return vst;
     }
 
-    public void setVst(BigDecimal vst) {
-        this.vst = vst;
-    }
-
     public BigDecimal getVfcpst() {
         return vfcpst;
-    }
-
-    public void setVfcpst(BigDecimal vfcpst) {
-        this.vfcpst = vfcpst;
     }
 
     public BigDecimal getVfcpstRet() {
         return vfcpstRet;
     }
 
-    public void setVfcpstRet(BigDecimal vfcpstRet) {
-        this.vfcpstRet = vfcpstRet;
-    }
-
     public BigDecimal getvProd() {
         return vProd;
-    }
-
-    public void setvProd(BigDecimal vProd) {
-        this.vProd = vProd;
     }
 
     public BigDecimal getvFrete() {
         return vFrete;
     }
 
-    public void setvFrete(BigDecimal vFrete) {
-        this.vFrete = vFrete;
-    }
-
     public BigDecimal getvSeg() {
         return vSeg;
-    }
-
-    public void setvSeg(BigDecimal vSeg) {
-        this.vSeg = vSeg;
     }
 
     public BigDecimal getvDesc() {
         return vDesc;
     }
 
-    public void setvDesc(BigDecimal vDesc) {
-        this.vDesc = vDesc;
-    }
-
     public BigDecimal getVii() {
         return vii;
-    }
-
-    public void setVii(BigDecimal vii) {
-        this.vii = vii;
     }
 
     public BigDecimal getVipi() {
         return vipi;
     }
 
-    public void setVipi(BigDecimal vipi) {
-        this.vipi = vipi;
-    }
-
     public BigDecimal getVipiDevol() {
         return vipiDevol;
-    }
-
-    public void setVipiDevol(BigDecimal vipiDevol) {
-        this.vipiDevol = vipiDevol;
     }
 
     public BigDecimal getVpis() {
         return vpis;
     }
 
-    public void setVpis(BigDecimal vpis) {
-        this.vpis = vpis;
-    }
-
     public BigDecimal getVcofins() {
         return vcofins;
-    }
-
-    public void setVcofins(BigDecimal vcofins) {
-        this.vcofins = vcofins;
     }
 
     public BigDecimal getvOutro() {
         return vOutro;
     }
 
-    public void setvOutro(BigDecimal vOutro) {
-        this.vOutro = vOutro;
-    }
-
     public BigDecimal getVnf() {
         return vnf;
-    }
-
-    public void setVnf(BigDecimal vnf) {
-        this.vnf = vnf;
     }
 
     public BigDecimal getvTotTrib() {
         return vTotTrib;
     }
 
-    public void setvTotTrib(BigDecimal vTotTrib) {
+    public ICMSTot setVbc(BigDecimal vbc) {
+        this.vbc = vbc;
+        return this;
+    }
+
+    public ICMSTot setVicms(BigDecimal vicms) {
+        this.vicms = vicms;
+        return this;
+    }
+
+    public ICMSTot setVicmsDeson(BigDecimal vicmsDeson) {
+        this.vicmsDeson = vicmsDeson;
+        return this;
+    }
+
+    public ICMSTot setVfcpufDest(BigDecimal vfcpufDest) {
+        this.vfcpufDest = vfcpufDest;
+        return this;
+    }
+
+    public ICMSTot setVicmsufDest(BigDecimal vicmsufDest) {
+        this.vicmsufDest = vicmsufDest;
+        return this;
+    }
+
+    public ICMSTot setVicmsufRemet(BigDecimal vicmsufRemet) {
+        this.vicmsufRemet = vicmsufRemet;
+        return this;
+    }
+
+    public ICMSTot setVfcp(BigDecimal vfcp) {
+        this.vfcp = vfcp;
+        return this;
+    }
+
+    public ICMSTot setVbcst(BigDecimal vbcst) {
+        this.vbcst = vbcst;
+        return this;
+    }
+
+    public ICMSTot setVst(BigDecimal vst) {
+        this.vst = vst;
+        return this;
+    }
+
+    public ICMSTot setVfcpst(BigDecimal vfcpst) {
+        this.vfcpst = vfcpst;
+        return this;
+    }
+
+    public ICMSTot setVfcpstRet(BigDecimal vfcpstRet) {
+        this.vfcpstRet = vfcpstRet;
+        return this;
+    }
+
+    public ICMSTot setvProd(BigDecimal vProd) {
+        this.vProd = vProd;
+        return this;
+    }
+
+    public ICMSTot setvFrete(BigDecimal vFrete) {
+        this.vFrete = vFrete;
+        return this;
+    }
+
+    public ICMSTot setvSeg(BigDecimal vSeg) {
+        this.vSeg = vSeg;
+        return this;
+    }
+
+    public ICMSTot setvDesc(BigDecimal vDesc) {
+        this.vDesc = vDesc;
+        return this;
+    }
+
+    public ICMSTot setVii(BigDecimal vii) {
+        this.vii = vii;
+        return this;
+    }
+
+    public ICMSTot setVipi(BigDecimal vipi) {
+        this.vipi = vipi;
+        return this;
+    }
+
+    public ICMSTot setVipiDevol(BigDecimal vipiDevol) {
+        this.vipiDevol = vipiDevol;
+        return this;
+    }
+
+    public ICMSTot setVpis(BigDecimal vpis) {
+        this.vpis = vpis;
+        return this;
+    }
+
+    public ICMSTot setVcofins(BigDecimal vcofins) {
+        this.vcofins = vcofins;
+        return this;
+    }
+
+    public ICMSTot setvOutro(BigDecimal vOutro) {
+        this.vOutro = vOutro;
+        return this;
+    }
+
+    public ICMSTot setVnf(BigDecimal vnf) {
+        this.vnf = vnf;
+        return this;
+    }
+
+    public ICMSTot setvTotTrib(BigDecimal vTotTrib) {
         this.vTotTrib = vTotTrib;
+        return this;
     }
 }

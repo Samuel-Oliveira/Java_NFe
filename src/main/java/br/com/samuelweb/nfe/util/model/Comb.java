@@ -105,87 +105,98 @@ public class Comb {
         return cProdANP;
     }
 
-    public void setcProdANP(Integer cProdANP) {
-        this.cProdANP = cProdANP;
-    }
-
     public String getDescANP() {
         return descANP;
-    }
-
-    public void setDescANP(String descANP) {
-        this.descANP = descANP;
     }
 
     public BigDecimal getPglp() {
         return pglp;
     }
 
-    public void setPglp(BigDecimal pglp) {
-        this.pglp = pglp;
-    }
-
     public BigDecimal getPgNn() {
         return pgNn;
-    }
-
-    public void setPgNn(BigDecimal pgNn) {
-        this.pgNn = pgNn;
     }
 
     public BigDecimal getPgNi() {
         return pgNi;
     }
 
-    public void setPgNi(BigDecimal pgNi) {
-        this.pgNi = pgNi;
-    }
-
     public BigDecimal getvPart() {
         return vPart;
-    }
-
-    public void setvPart(BigDecimal vPart) {
-        this.vPart = vPart;
     }
 
     public Integer getCodif() {
         return codif;
     }
 
-    public void setCodif(Integer codif) {
-        this.codif = codif;
-    }
-
     public BigDecimal getqTemp() {
         return qTemp;
-    }
-
-    public void setqTemp(BigDecimal qTemp) {
-        this.qTemp = qTemp;
     }
 
     public String getUfCons() {
         return ufCons;
     }
 
-    public void setUfCons(String ufCons) {
-        this.ufCons = ufCons;
-    }
-
     public Cide getCide() {
         return cide;
-    }
-
-    public void setCide(Cide cide) {
-        this.cide = cide;
     }
 
     public Encerrante getEncerrante() {
         return encerrante;
     }
 
-    public void setEncerrante(Encerrante encerrante) {
+    public Comb setcProdANP(Integer cProdANP) {
+        this.cProdANP = cProdANP;
+        return this;
+    }
+
+    public Comb setDescANP(String descANP) {
+        this.descANP = descANP;
+        return this;
+    }
+
+    public Comb setPglp(BigDecimal pglp) {
+        this.pglp = pglp;
+        return this;
+    }
+
+    public Comb setPgNn(BigDecimal pgNn) {
+        this.pgNn = pgNn;
+        return this;
+    }
+
+    public Comb setPgNi(BigDecimal pgNi) {
+        this.pgNi = pgNi;
+        return this;
+    }
+
+    public Comb setvPart(BigDecimal vPart) {
+        this.vPart = vPart;
+        return this;
+    }
+
+    public Comb setCodif(Integer codif) {
+        this.codif = codif;
+        return this;
+    }
+
+    public Comb setqTemp(BigDecimal qTemp) {
+        this.qTemp = qTemp;
+        return this;
+    }
+
+    public Comb setUfCons(String ufCons) {
+        this.ufCons = ufCons;
+        return this;
+    }
+
+    public Comb setCide(Cide cide) {
+        this.cide = cide;
+        return this;
+    }
+
+    public Comb setEncerrante(Encerrante encerrante) {
         this.encerrante = encerrante;
+        return this;
     }
 }

@@ -58,47 +58,53 @@ public class PIS {
         return CST;
     }
 
-    public void setCST(CSTPis CST) {
-        this.CST = CST;
-    }
-
     public BigDecimal getvBC() {
         return vBC;
-    }
-
-    public void setvBC(BigDecimal vBC) {
-        this.vBC = vBC;
     }
 
     public BigDecimal getpPIS() {
         return pPIS;
     }
 
-    public void setpPIS(BigDecimal pPIS) {
-        this.pPIS = pPIS;
-    }
-
     public BigDecimal getvPIS() {
         return vPIS;
-    }
-
-    public void setvPIS(BigDecimal vPIS) {
-        this.vPIS = vPIS;
     }
 
     public BigDecimal getqBCProd() {
         return qBCProd;
     }
 
-    public void setqBCProd(BigDecimal qBCProd) {
-        this.qBCProd = qBCProd;
-    }
-
     public BigDecimal getvAliqProd() {
         return vAliqProd;
     }
 
-    public void setvAliqProd(BigDecimal vAliqProd) {
+    public PIS setCST(CSTPis CST) {
+        this.CST = CST;
+        return this;
+    }
+
+    public PIS setvBC(BigDecimal vBC) {
+        this.vBC = vBC;
+        return this;
+    }
+
+    public PIS setpPIS(BigDecimal pPIS) {
+        this.pPIS = pPIS;
+        return this;
+    }
+
+    public PIS setvPIS(BigDecimal vPIS) {
+        this.vPIS = vPIS;
+        return this;
+    }
+
+    public PIS setqBCProd(BigDecimal qBCProd) {
+        this.qBCProd = qBCProd;
+        return this;
+    }
+
+    public PIS setvAliqProd(BigDecimal vAliqProd) {
         this.vAliqProd = vAliqProd;
+        return this;
     }
 }

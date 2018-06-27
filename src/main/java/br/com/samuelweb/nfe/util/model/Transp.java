@@ -69,63 +69,71 @@ public class Transp {
         return modFrete;
     }
 
-    public void setModFrete(ModalidadeFrete modFrete) {
-        this.modFrete = modFrete;
-    }
-
     public String getVagao() {
         return vagao;
-    }
-
-    public void setVagao(String vagao) {
-        this.vagao = vagao;
     }
 
     public String getBalsa() {
         return balsa;
     }
 
-    public void setBalsa(String balsa) {
-        this.balsa = balsa;
-    }
-
     public Transporta getTransporta() {
         return transporta;
-    }
-
-    public void setTransporta(Transporta transporta) {
-        this.transporta = transporta;
     }
 
     public RetTransp getRetTransp() {
         return retTransp;
     }
 
-    public void setRetTransp(RetTransp retTransp) {
-        this.retTransp = retTransp;
-    }
-
     public Veiculo getVeicTransp() {
         return veicTransp;
-    }
-
-    public void setVeicTransp(Veiculo veicTransp) {
-        this.veicTransp = veicTransp;
     }
 
     public List<Veiculo> getReboque() {
         return reboque;
     }
 
-    public void setReboque(List<Veiculo> reboque) {
-        this.reboque = reboque;
-    }
-
     public List<Vol> getVol() {
         return vol;
     }
 
-    public void setVol(List<Vol> vol) {
+    public Transp setModFrete(ModalidadeFrete modFrete) {
+        this.modFrete = modFrete;
+        return this;
+    }
+
+    public Transp setVagao(String vagao) {
+        this.vagao = vagao;
+        return this;
+    }
+
+    public Transp setBalsa(String balsa) {
+        this.balsa = balsa;
+        return this;
+    }
+
+    public Transp setTransporta(Transporta transporta) {
+        this.transporta = transporta;
+        return this;
+    }
+
+    public Transp setRetTransp(RetTransp retTransp) {
+        this.retTransp = retTransp;
+        return this;
+    }
+
+    public Transp setVeicTransp(Veiculo veicTransp) {
+        this.veicTransp = veicTransp;
+        return this;
+    }
+
+    public Transp setReboque(List<Veiculo> reboque) {
+        this.reboque = reboque;
+        return this;
+    }
+
+    public Transp setVol(List<Vol> vol) {
         this.vol = vol;
+        return this;
     }
 }

@@ -297,279 +297,314 @@ public class Prod {
         return cProd;
     }
 
-    public void setcProd(String cProd) {
-        this.cProd = cProd;
-    }
-
     public String getCean() {
         return cean;
-    }
-
-    public void setCean(String cean) {
-        this.cean = cean;
     }
 
     public String getxProd() {
         return xProd;
     }
 
-    public void setxProd(String xProd) {
-        this.xProd = xProd;
-    }
-
     public String getNcm() {
         return ncm;
-    }
-
-    public void setNcm(String ncm) {
-        this.ncm = ncm;
     }
 
     public List<String> getNve() {
         return nve;
     }
 
-    public void setNve(List<String> nve) {
-        this.nve = nve;
-    }
-
     public String getCest() {
         return cest;
-    }
-
-    public void setCest(String cest) {
-        this.cest = cest;
     }
 
     public String getIndEscala() {
         return indEscala;
     }
 
-    public void setIndEscala(String indEscala) {
-        this.indEscala = indEscala;
-    }
-
     public String getCnpjFab() {
         return cnpjFab;
-    }
-
-    public void setCnpjFab(String cnpjFab) {
-        this.cnpjFab = cnpjFab;
     }
 
     public String getcBenef() {
         return cBenef;
     }
 
-    public void setcBenef(String cBenef) {
-        this.cBenef = cBenef;
-    }
-
     public String getExtipi() {
         return extipi;
-    }
-
-    public void setExtipi(String extipi) {
-        this.extipi = extipi;
     }
 
     public String getCfop() {
         return cfop;
     }
 
-    public void setCfop(String cfop) {
-        this.cfop = cfop;
-    }
-
     public String getuCom() {
         return uCom;
-    }
-
-    public void setuCom(String uCom) {
-        this.uCom = uCom;
     }
 
     public BigDecimal getqCom() {
         return qCom;
     }
 
-    public void setqCom(BigDecimal qCom) {
-        this.qCom = qCom;
-    }
-
     public BigDecimal getvUnCom() {
         return vUnCom;
-    }
-
-    public void setvUnCom(BigDecimal vUnCom) {
-        this.vUnCom = vUnCom;
     }
 
     public BigDecimal getvProd() {
         return vProd;
     }
 
-    public void setvProd(BigDecimal vProd) {
-        this.vProd = vProd;
-    }
-
     public String getCeanTrib() {
         return ceanTrib;
-    }
-
-    public void setCeanTrib(String ceanTrib) {
-        this.ceanTrib = ceanTrib;
     }
 
     public String getuTrib() {
         return uTrib;
     }
 
-    public void setuTrib(String uTrib) {
-        this.uTrib = uTrib;
-    }
-
     public BigDecimal getqTrib() {
         return qTrib;
-    }
-
-    public void setqTrib(BigDecimal qTrib) {
-        this.qTrib = qTrib;
     }
 
     public BigDecimal getvUnTrib() {
         return vUnTrib;
     }
 
-    public void setvUnTrib(BigDecimal vUnTrib) {
-        this.vUnTrib = vUnTrib;
-    }
-
     public BigDecimal getvFrete() {
         return vFrete;
-    }
-
-    public void setvFrete(BigDecimal vFrete) {
-        this.vFrete = vFrete;
     }
 
     public BigDecimal getvSeg() {
         return vSeg;
     }
 
-    public void setvSeg(BigDecimal vSeg) {
-        this.vSeg = vSeg;
-    }
-
     public BigDecimal getvDesc() {
         return vDesc;
-    }
-
-    public void setvDesc(BigDecimal vDesc) {
-        this.vDesc = vDesc;
     }
 
     public BigDecimal getvOutro() {
         return vOutro;
     }
 
-    public void setvOutro(BigDecimal vOutro) {
-        this.vOutro = vOutro;
-    }
-
     public Integer getIndTot() {
         return indTot;
-    }
-
-    public void setIndTot(Integer indTot) {
-        this.indTot = indTot;
     }
 
     public List<DI> getDi() {
         return di;
     }
 
-    public void setDi(List<DI> di) {
-        this.di = di;
-    }
-
     public List<DetExport> getDetExport() {
         return detExport;
-    }
-
-    public void setDetExport(List<DetExport> detExport) {
-        this.detExport = detExport;
     }
 
     public String getxPed() {
         return xPed;
     }
 
-    public void setxPed(String xPed) {
-        this.xPed = xPed;
-    }
-
     public String getnItemPed() {
         return nItemPed;
-    }
-
-    public void setnItemPed(String nItemPed) {
-        this.nItemPed = nItemPed;
     }
 
     public String getNfci() {
         return nfci;
     }
 
-    public void setNfci(String nfci) {
-        this.nfci = nfci;
-    }
-
     public List<Rastro> getRastro() {
         return rastro;
-    }
-
-    public void setRastro(List<Rastro> rastro) {
-        this.rastro = rastro;
     }
 
     public VeicProd getVeicProd() {
         return veicProd;
     }
 
-    public void setVeicProd(VeicProd veicProd) {
-        this.veicProd = veicProd;
-    }
-
     public Med getMed() {
         return med;
-    }
-
-    public void setMed(Med med) {
-        this.med = med;
     }
 
     public List<Arma> getArma() {
         return arma;
     }
 
-    public void setArma(List<Arma> arma) {
-        this.arma = arma;
-    }
-
     public Comb getComb() {
         return comb;
-    }
-
-    public void setComb(Comb comb) {
-        this.comb = comb;
     }
 
     public String getNrecopi() {
         return nrecopi;
     }
 
-    public void setNrecopi(String nrecopi) {
+    public Prod setcProd(String cProd) {
+        this.cProd = cProd;
+        return this;
+    }
+
+    public Prod setCean(String cean) {
+        this.cean = cean;
+        return this;
+    }
+
+    public Prod setxProd(String xProd) {
+        this.xProd = xProd;
+        return this;
+    }
+
+    public Prod setNcm(String ncm) {
+        this.ncm = ncm;
+        return this;
+    }
+
+    public Prod setNve(List<String> nve) {
+        this.nve = nve;
+        return this;
+    }
+
+    public Prod setCest(String cest) {
+        this.cest = cest;
+        return this;
+    }
+
+    public Prod setIndEscala(String indEscala) {
+        this.indEscala = indEscala;
+        return this;
+    }
+
+    public Prod setCnpjFab(String cnpjFab) {
+        this.cnpjFab = cnpjFab;
+        return this;
+    }
+
+    public Prod setcBenef(String cBenef) {
+        this.cBenef = cBenef;
+        return this;
+    }
+
+    public Prod setExtipi(String extipi) {
+        this.extipi = extipi;
+        return this;
+    }
+
+    public Prod setCfop(String cfop) {
+        this.cfop = cfop;
+        return this;
+    }
+
+    public Prod setuCom(String uCom) {
+        this.uCom = uCom;
+        return this;
+    }
+
+    public Prod setqCom(BigDecimal qCom) {
+        this.qCom = qCom;
+        return this;
+    }
+
+    public Prod setvUnCom(BigDecimal vUnCom) {
+        this.vUnCom = vUnCom;
+        return this;
+    }
+
+    public Prod setvProd(BigDecimal vProd) {
+        this.vProd = vProd;
+        return this;
+    }
+
+    public Prod setCeanTrib(String ceanTrib) {
+        this.ceanTrib = ceanTrib;
+        return this;
+    }
+
+    public Prod setuTrib(String uTrib) {
+        this.uTrib = uTrib;
+        return this;
+    }
+
+    public Prod setqTrib(BigDecimal qTrib) {
+        this.qTrib = qTrib;
+        return this;
+    }
+
+    public Prod setvUnTrib(BigDecimal vUnTrib) {
+        this.vUnTrib = vUnTrib;
+        return this;
+    }
+
+    public Prod setvFrete(BigDecimal vFrete) {
+        this.vFrete = vFrete;
+        return this;
+    }
+
+    public Prod setvSeg(BigDecimal vSeg) {
+        this.vSeg = vSeg;
+        return this;
+    }
+
+    public Prod setvDesc(BigDecimal vDesc) {
+        this.vDesc = vDesc;
+        return this;
+    }
+
+    public Prod setvOutro(BigDecimal vOutro) {
+        this.vOutro = vOutro;
+        return this;
+    }
+
+    public Prod setIndTot(Integer indTot) {
+        this.indTot = indTot;
+        return this;
+    }
+
+    public Prod setDi(List<DI> di) {
+        this.di = di;
+        return this;
+    }
+
+    public Prod setDetExport(List<DetExport> detExport) {
+        this.detExport = detExport;
+        return this;
+    }
+
+    public Prod setxPed(String xPed) {
+        this.xPed = xPed;
+        return this;
+    }
+
+    public Prod setnItemPed(String nItemPed) {
+        this.nItemPed = nItemPed;
+        return this;
+    }
+
+    public Prod setNfci(String nfci) {
+        this.nfci = nfci;
+        return this;
+    }
+
+    public Prod setRastro(List<Rastro> rastro) {
+        this.rastro = rastro;
+        return this;
+    }
+
+    public Prod setVeicProd(VeicProd veicProd) {
+        this.veicProd = veicProd;
+        return this;
+    }
+
+    public Prod setMed(Med med) {
+        this.med = med;
+        return this;
+    }
+
+    public Prod setArma(List<Arma> arma) {
+        this.arma = arma;
+        return this;
+    }
+
+    public Prod setComb(Comb comb) {
+        this.comb = comb;
+        return this;
+    }
+
+    public Prod setNrecopi(String nrecopi) {
         this.nrecopi = nrecopi;
+        return this;
     }
 }

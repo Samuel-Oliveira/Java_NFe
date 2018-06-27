@@ -89,79 +89,89 @@ public class IPI {
         return CNPJProd;
     }
 
-    public void setCNPJProd(String CNPJProd) {
-        this.CNPJProd = CNPJProd;
-    }
-
     public String getcSelo() {
         return cSelo;
-    }
-
-    public void setcSelo(String cSelo) {
-        this.cSelo = cSelo;
     }
 
     public Integer getqSelo() {
         return qSelo;
     }
 
-    public void setqSelo(Integer qSelo) {
-        this.qSelo = qSelo;
-    }
-
     public String getcEnq() {
         return cEnq;
-    }
-
-    public void setcEnq(String cEnq) {
-        this.cEnq = cEnq;
     }
 
     public CSTIpi getCst() {
         return cst;
     }
 
-    public void setCst(CSTIpi cst) {
-        this.cst = cst;
-    }
-
     public BigDecimal getvBC() {
         return vBC;
-    }
-
-    public void setvBC(BigDecimal vBC) {
-        this.vBC = vBC;
     }
 
     public BigDecimal getqUnid() {
         return qUnid;
     }
 
-    public void setqUnid(BigDecimal qUnid) {
-        this.qUnid = qUnid;
-    }
-
     public BigDecimal getvUnid() {
         return vUnid;
-    }
-
-    public void setvUnid(BigDecimal vUnid) {
-        this.vUnid = vUnid;
     }
 
     public BigDecimal getpIPI() {
         return pIPI;
     }
 
-    public void setpIPI(BigDecimal pIPI) {
-        this.pIPI = pIPI;
-    }
-
     public BigDecimal getvIPI() {
         return vIPI;
     }
 
-    public void setvIPI(BigDecimal vIPI) {
+    public IPI setCNPJProd(String CNPJProd) {
+        this.CNPJProd = CNPJProd;
+        return this;
+    }
+
+    public IPI setcSelo(String cSelo) {
+        this.cSelo = cSelo;
+        return this;
+    }
+
+    public IPI setqSelo(Integer qSelo) {
+        this.qSelo = qSelo;
+        return this;
+    }
+
+    public IPI setcEnq(String cEnq) {
+        this.cEnq = cEnq;
+        return this;
+    }
+
+    public IPI setCst(CSTIpi cst) {
+        this.cst = cst;
+        return this;
+    }
+
+    public IPI setvBC(BigDecimal vBC) {
+        this.vBC = vBC;
+        return this;
+    }
+
+    public IPI setqUnid(BigDecimal qUnid) {
+        this.qUnid = qUnid;
+        return this;
+    }
+
+    public IPI setvUnid(BigDecimal vUnid) {
+        this.vUnid = vUnid;
+        return this;
+    }
+
+    public IPI setpIPI(BigDecimal pIPI) {
+        this.pIPI = pIPI;
+        return this;
+    }
+
+    public IPI setvIPI(BigDecimal vIPI) {
         this.vIPI = vIPI;
+        return this;
     }
 }

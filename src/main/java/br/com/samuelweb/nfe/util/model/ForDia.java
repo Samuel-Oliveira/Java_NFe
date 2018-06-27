@@ -33,15 +33,17 @@ public class ForDia {
         return qtde;
     }
 
-    public void setQtde(String qtde) {
-        this.qtde = qtde;
-    }
-
     public String getDia() {
         return dia;
     }
 
-    public void setDia(String dia) {
+    public ForDia setQtde(String qtde) {
+        this.qtde = qtde;
+        return this;
+    }
+
+    public ForDia setDia(String dia) {
         this.dia = dia;
+        return this;
     }
 }

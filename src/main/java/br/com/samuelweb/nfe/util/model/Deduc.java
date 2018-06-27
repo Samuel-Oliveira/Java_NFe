@@ -35,15 +35,17 @@ public class Deduc {
         return xDed;
     }
 
-    public void setxDed(String xDed) {
-        this.xDed = xDed;
-    }
-
     public BigDecimal getvDed() {
         return vDed;
     }
 
-    public void setvDed(BigDecimal vDed) {
+    public Deduc setxDed(String xDed) {
+        this.xDed = xDed;
+        return this;
+    }
+
+    public Deduc setvDed(BigDecimal vDed) {
         this.vDed = vDed;
+        return this;
     }
 }

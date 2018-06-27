@@ -37,15 +37,17 @@ public class ImpostoDevol {
         return pDevol;
     }
 
-    public void setpDevol(BigDecimal pDevol) {
-        this.pDevol = pDevol;
-    }
-
     public BigDecimal getvIPIDevol() {
         return vIPIDevol;
     }
 
-    public void setvIPIDevol(BigDecimal vIPIDevol) {
+    public ImpostoDevol setpDevol(BigDecimal pDevol) {
+        this.pDevol = pDevol;
+        return this;
+    }
+
+    public ImpostoDevol setvIPIDevol(BigDecimal vIPIDevol) {
         this.vIPIDevol = vIPIDevol;
+        return this;
     }
 }

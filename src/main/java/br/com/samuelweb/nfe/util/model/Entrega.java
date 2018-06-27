@@ -80,63 +80,71 @@ public class Entrega {
         return cnpjCpf;
     }
 
-    public void setCnpjCpf(String cnpjCpf) {
-        this.cnpjCpf = cnpjCpf;
-    }
-
     public String getxLgr() {
         return xLgr;
-    }
-
-    public void setxLgr(String xLgr) {
-        this.xLgr = xLgr;
     }
 
     public String getNro() {
         return nro;
     }
 
-    public void setNro(String nro) {
-        this.nro = nro;
-    }
-
     public String getUf() {
         return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
     }
 
     public String getxCpl() {
         return xCpl;
     }
 
-    public void setxCpl(String xCpl) {
-        this.xCpl = xCpl;
-    }
-
     public String getxBairro() {
         return xBairro;
-    }
-
-    public void setxBairro(String xBairro) {
-        this.xBairro = xBairro;
     }
 
     public String getcMun() {
         return cMun;
     }
 
-    public void setcMun(String cMun) {
-        this.cMun = cMun;
-    }
-
     public String getxMun() {
         return xMun;
     }
 
-    public void setxMun(String xMun) {
+    public Entrega setCnpjCpf(String cnpjCpf) {
+        this.cnpjCpf = cnpjCpf;
+        return this;
+    }
+
+    public Entrega setxLgr(String xLgr) {
+        this.xLgr = xLgr;
+        return this;
+    }
+
+    public Entrega setNro(String nro) {
+        this.nro = nro;
+        return this;
+    }
+
+    public Entrega setUf(String uf) {
+        this.uf = uf;
+        return this;
+    }
+
+    public Entrega setxCpl(String xCpl) {
+        this.xCpl = xCpl;
+        return this;
+    }
+
+    public Entrega setxBairro(String xBairro) {
+        this.xBairro = xBairro;
+        return this;
+    }
+
+    public Entrega setcMun(String cMun) {
+        this.cMun = cMun;
+        return this;
+    }
+
+    public Entrega setxMun(String xMun) {
         this.xMun = xMun;
+        return this;
     }
 }

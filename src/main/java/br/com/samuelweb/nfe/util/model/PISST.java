@@ -71,39 +71,44 @@ public class PISST {
         return vBc;
     }
 
-    public void setvBc(BigDecimal vBc) {
-        this.vBc = vBc;
-    }
-
     public BigDecimal getpPis() {
         return pPis;
-    }
-
-    public void setpPis(BigDecimal pPis) {
-        this.pPis = pPis;
     }
 
     public BigDecimal getqBCProd() {
         return qBCProd;
     }
 
-    public void setqBCProd(BigDecimal qBCProd) {
-        this.qBCProd = qBCProd;
-    }
-
     public BigDecimal getvAliqProd() {
         return vAliqProd;
-    }
-
-    public void setvAliqProd(BigDecimal vAliqProd) {
-        this.vAliqProd = vAliqProd;
     }
 
     public BigDecimal getvPIS() {
         return vPIS;
     }
 
-    public void setvPIS(BigDecimal vPIS) {
+    public PISST setvBc(BigDecimal vBc) {
+        this.vBc = vBc;
+        return this;
+    }
+
+    public PISST setpPis(BigDecimal pPis) {
+        this.pPis = pPis;
+        return this;
+    }
+
+    public PISST setqBCProd(BigDecimal qBCProd) {
+        this.qBCProd = qBCProd;
+        return this;
+    }
+
+    public PISST setvAliqProd(BigDecimal vAliqProd) {
+        this.vAliqProd = vAliqProd;
+        return this;
+    }
+
+    public PISST setvPIS(BigDecimal vPIS) {
         this.vPIS = vPIS;
+        return this;
     }
 }

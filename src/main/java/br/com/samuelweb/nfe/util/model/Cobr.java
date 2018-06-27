@@ -40,15 +40,17 @@ public class Cobr {
         return fat;
     }
 
-    public void setFat(Fat fat) {
-        this.fat = fat;
-    }
-
     public List<Dup> getDup() {
         return dup;
     }
 
-    public void setDup(List<Dup> dup) {
+    public Cobr setFat(Fat fat) {
+        this.fat = fat;
+        return this;
+    }
+
+    public Cobr setDup(List<Dup> dup) {
         this.dup = dup;
+        return this;
     }
 }

@@ -49,19 +49,11 @@ public class Det {
         return nItem;
     }
 
-    public void setnItem(String nItem) {
-        this.nItem = nItem;
-    }
-
     public Prod getProd() {
         if (this.prod == null) {
             prod = new Prod();
         }
         return prod;
-    }
-
-    public void setProd(Prod prod) {
-        this.prod = prod;
     }
 
     public Imposto getImposto() {
@@ -71,23 +63,36 @@ public class Det {
         return imposto;
     }
 
-    public void setImposto(Imposto imposto) {
-        this.imposto = imposto;
-    }
-
     public ImpostoDevol getImpostoDevol() {
         return impostoDevol;
-    }
-
-    public void setImpostoDevol(ImpostoDevol impostoDevol) {
-        this.impostoDevol = impostoDevol;
     }
 
     public String getInfAdProd() {
         return infAdProd;
     }
 
-    public void setInfAdProd(String infAdProd) {
+    public Det setnItem(String nItem) {
+        this.nItem = nItem;
+        return this;
+    }
+
+    public Det setProd(Prod prod) {
+        this.prod = prod;
+        return this;
+    }
+
+    public Det setImposto(Imposto imposto) {
+        this.imposto = imposto;
+        return this;
+    }
+
+    public Det setImpostoDevol(ImpostoDevol impostoDevol) {
+        this.impostoDevol = impostoDevol;
+        return this;
+    }
+
+    public Det setInfAdProd(String infAdProd) {
         this.infAdProd = infAdProd;
+        return this;
     }
 }

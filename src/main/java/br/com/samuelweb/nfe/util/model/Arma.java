@@ -44,31 +44,35 @@ public class Arma {
         return tpArma;
     }
 
-    public void setTpArma(String tpArma) {
-        this.tpArma = tpArma;
-    }
-
     public String getnSerie() {
         return nSerie;
-    }
-
-    public void setnSerie(String nSerie) {
-        this.nSerie = nSerie;
     }
 
     public String getnCano() {
         return nCano;
     }
 
-    public void setnCano(String nCano) {
-        this.nCano = nCano;
-    }
-
     public String getDescr() {
         return descr;
     }
 
-    public void setDescr(String descr) {
+    public Arma setTpArma(String tpArma) {
+        this.tpArma = tpArma;
+        return this;
+    }
+
+    public Arma setnSerie(String nSerie) {
+        this.nSerie = nSerie;
+        return this;
+    }
+
+    public Arma setnCano(String nCano) {
+        this.nCano = nCano;
+        return this;
+    }
+
+    public Arma setDescr(String descr) {
         this.descr = descr;
+        return this;
     }
 }

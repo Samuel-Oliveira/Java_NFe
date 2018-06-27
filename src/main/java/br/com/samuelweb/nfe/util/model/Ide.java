@@ -221,184 +221,92 @@ public class Ide {
         return cuf;
     }
 
-    public void setCuf(Integer cuf) {
-        this.cuf = cuf;
-    }
-
     public String getCnf() {
         return cnf;
-    }
-
-    public void setCnf(String cnf) {
-        this.cnf = cnf;
     }
 
     public String getNatOp() {
         return natOp;
     }
 
-    public void setNatOp(String natOp) {
-        this.natOp = natOp;
-    }
-
     public String getMod() {
         return mod;
-    }
-
-    public void setMod(String mod) {
-        this.mod = mod;
     }
 
     public Integer getSerie() {
         return serie;
     }
 
-    public void setSerie(Integer serie) {
-        this.serie = serie;
-    }
-
     public Integer getNnf() {
         return nnf;
-    }
-
-    public void setNnf(Integer nnf) {
-        this.nnf = nnf;
     }
 
     public ZonedDateTime getDhEmi() {
         return dhEmi;
     }
 
-    public void setDhEmi(ZonedDateTime dhEmi) {
-        this.dhEmi = dhEmi;
-    }
-
     public ZonedDateTime getDhSaiEnt() {
         return dhSaiEnt;
-    }
-
-    public void setDhSaiEnt(ZonedDateTime dhSaiEnt) {
-        this.dhSaiEnt = dhSaiEnt;
     }
 
     public Integer getTpNF() {
         return tpNF;
     }
 
-    public void setTpNF(Integer tpNF) {
-        this.tpNF = tpNF;
-    }
-
     public Integer getIdDest() {
         return idDest;
-    }
-
-    public void setIdDest(Integer idDest) {
-        this.idDest = idDest;
     }
 
     public Integer getCMunFG() {
         return cMunFG;
     }
 
-    public void setCMunFG(Integer cMunFG) {
-        this.cMunFG = cMunFG;
-    }
-
     public Integer getTpImp() {
         return tpImp;
-    }
-
-    public void setTpImp(Integer tpImp) {
-        this.tpImp = tpImp;
     }
 
     public Integer getTpEmis() {
         return tpEmis;
     }
 
-    public void setTpEmis(Integer tpEmis) {
-        this.tpEmis = tpEmis;
-    }
-
     public Integer getCdv() {
         return cdv;
-    }
-
-    public void setCdv(Integer cdv) {
-        this.cdv = cdv;
     }
 
     public Integer getTpAmb() {
         return tpAmb;
     }
 
-    public void setTpAmb(Integer tpAmb) {
-        this.tpAmb = tpAmb;
-    }
-
     public Integer getFinNFe() {
         return finNFe;
-    }
-
-    public void setFinNFe(Integer finNFe) {
-        this.finNFe = finNFe;
     }
 
     public Integer getIndFinal() {
         return indFinal;
     }
 
-    public void setIndFinal(Integer indFinal) {
-        this.indFinal = indFinal;
-    }
-
     public Integer getIndPres() {
         return indPres;
-    }
-
-    public void setIndPres(Integer indPres) {
-        this.indPres = indPres;
     }
 
     public Integer getProcEmi() {
         return procEmi;
     }
 
-    public void setProcEmi(Integer procEmi) {
-        this.procEmi = procEmi;
-    }
-
     public String getVerProc() {
         return verProc;
-    }
-
-    public void setVerProc(String verProc) {
-        this.verProc = verProc;
     }
 
     public ZonedDateTime getDhCont() {
         return dhCont;
     }
 
-    public void setDhCont(ZonedDateTime dhCont) {
-        this.dhCont = dhCont;
-    }
-
     public Integer getcMunFG() {
         return cMunFG;
     }
 
-    public void setcMunFG(Integer cMunFG) {
-        this.cMunFG = cMunFG;
-    }
-
     public String getxJust() {
         return xJust;
-    }
-
-    public void setxJust(String xJust) {
-        this.xJust = xJust;
     }
 
     public List<NfRef> getNfRef() {
@@ -406,5 +314,120 @@ public class Ide {
             this.nfRef = new ArrayList<>();
         }
         return nfRef;
+    }
+
+    public Ide setCuf(Integer cuf) {
+        this.cuf = cuf;
+        return this;
+    }
+
+    public Ide setCnf(String cnf) {
+        this.cnf = cnf;
+        return this;
+    }
+
+    public Ide setNatOp(String natOp) {
+        this.natOp = natOp;
+        return this;
+    }
+
+    public Ide setMod(String mod) {
+        this.mod = mod;
+        return this;
+    }
+
+    public Ide setSerie(Integer serie) {
+        this.serie = serie;
+        return this;
+    }
+
+    public Ide setNnf(Integer nnf) {
+        this.nnf = nnf;
+        return this;
+    }
+
+    public Ide setDhEmi(ZonedDateTime dhEmi) {
+        this.dhEmi = dhEmi;
+        return this;
+    }
+
+    public Ide setDhSaiEnt(ZonedDateTime dhSaiEnt) {
+        this.dhSaiEnt = dhSaiEnt;
+        return this;
+    }
+
+    public Ide setTpNF(Integer tpNF) {
+        this.tpNF = tpNF;
+        return this;
+    }
+
+    public Ide setIdDest(Integer idDest) {
+        this.idDest = idDest;
+        return this;
+    }
+
+    public Ide setcMunFG(Integer cMunFG) {
+        this.cMunFG = cMunFG;
+        return this;
+    }
+
+    public Ide setTpImp(Integer tpImp) {
+        this.tpImp = tpImp;
+        return this;
+    }
+
+    public Ide setTpEmis(Integer tpEmis) {
+        this.tpEmis = tpEmis;
+        return this;
+    }
+
+    public Ide setCdv(Integer cdv) {
+        this.cdv = cdv;
+        return this;
+    }
+
+    public Ide setTpAmb(Integer tpAmb) {
+        this.tpAmb = tpAmb;
+        return this;
+    }
+
+    public Ide setFinNFe(Integer finNFe) {
+        this.finNFe = finNFe;
+        return this;
+    }
+
+    public Ide setIndFinal(Integer indFinal) {
+        this.indFinal = indFinal;
+        return this;
+    }
+
+    public Ide setIndPres(Integer indPres) {
+        this.indPres = indPres;
+        return this;
+    }
+
+    public Ide setProcEmi(Integer procEmi) {
+        this.procEmi = procEmi;
+        return this;
+    }
+
+    public Ide setVerProc(String verProc) {
+        this.verProc = verProc;
+        return this;
+    }
+
+    public Ide setDhCont(ZonedDateTime dhCont) {
+        this.dhCont = dhCont;
+        return this;
+    }
+
+    public Ide setxJust(String xJust) {
+        this.xJust = xJust;
+        return this;
+    }
+
+    public Ide setNfRef(List<NfRef> nfRef) {
+        this.nfRef = nfRef;
+        return this;
     }
 }

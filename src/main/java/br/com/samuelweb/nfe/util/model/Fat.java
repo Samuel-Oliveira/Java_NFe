@@ -61,31 +61,35 @@ public class Fat {
         return nFat;
     }
 
-    public void setnFat(String nFat) {
-        this.nFat = nFat;
-    }
-
     public BigDecimal getvOrig() {
         return vOrig;
-    }
-
-    public void setvOrig(BigDecimal vOrig) {
-        this.vOrig = vOrig;
     }
 
     public BigDecimal getvDesc() {
         return vDesc;
     }
 
-    public void setvDesc(BigDecimal vDesc) {
-        this.vDesc = vDesc;
-    }
-
     public BigDecimal getvLiq() {
         return vLiq;
     }
 
-    public void setvLiq(BigDecimal vLiq) {
+    public Fat setnFat(String nFat) {
+        this.nFat = nFat;
+        return this;
+    }
+
+    public Fat setvOrig(BigDecimal vOrig) {
+        this.vOrig = vOrig;
+        return this;
+    }
+
+    public Fat setvDesc(BigDecimal vDesc) {
+        this.vDesc = vDesc;
+        return this;
+    }
+
+    public Fat setvLiq(BigDecimal vLiq) {
         this.vLiq = vLiq;
+        return this;
     }
 }

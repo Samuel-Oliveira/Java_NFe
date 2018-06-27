@@ -72,47 +72,53 @@ public class Transporta {
         return cnpjCpf;
     }
 
-    public void setCnpjCpf(String cnpjCpf) {
-        this.cnpjCpf = cnpjCpf;
-    }
-
     public String getxNome() {
         return xNome;
-    }
-
-    public void setxNome(String xNome) {
-        this.xNome = xNome;
     }
 
     public String getIe() {
         return ie;
     }
 
-    public void setIe(String ie) {
-        this.ie = ie;
-    }
-
     public String getxEnder() {
         return xEnder;
-    }
-
-    public void setxEnder(String xEnder) {
-        this.xEnder = xEnder;
     }
 
     public String getxMun() {
         return xMun;
     }
 
-    public void setxMun(String xMun) {
-        this.xMun = xMun;
-    }
-
     public String getUf() {
         return uf;
     }
 
-    public void setUf(String uf) {
+    public Transporta setCnpjCpf(String cnpjCpf) {
+        this.cnpjCpf = cnpjCpf;
+        return this;
+    }
+
+    public Transporta setxNome(String xNome) {
+        this.xNome = xNome;
+        return this;
+    }
+
+    public Transporta setIe(String ie) {
+        this.ie = ie;
+        return this;
+    }
+
+    public Transporta setxEnder(String xEnder) {
+        this.xEnder = xEnder;
+        return this;
+    }
+
+    public Transporta setxMun(String xMun) {
+        this.xMun = xMun;
+        return this;
+    }
+
+    public Transporta setUf(String uf) {
         this.uf = uf;
+        return this;
     }
 }

@@ -33,15 +33,17 @@ public class Med {
         return cProdANVISA;
     }
 
-    public void setcProdANVISA(String cProdANVISA) {
-        this.cProdANVISA = cProdANVISA;
-    }
-
     public BigDecimal getVpmc() {
         return vpmc;
     }
 
-    public void setVpmc(BigDecimal vpmc) {
+    public Med setcProdANVISA(String cProdANVISA) {
+        this.cProdANVISA = cProdANVISA;
+        return this;
+    }
+
+    public Med setVpmc(BigDecimal vpmc) {
         this.vpmc = vpmc;
+        return this;
     }
 }

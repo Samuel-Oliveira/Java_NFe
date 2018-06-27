@@ -48,7 +48,7 @@ public class NfeApplicationTests {
         infNFe.getIde().setDhSaiEnt(ZonedDateTime.parse("2018-05-28T17:19:20-03:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         infNFe.getIde().setTpNF(1);
         infNFe.getIde().setIdDest(1);
-        infNFe.getIde().setCMunFG(4106902);
+        infNFe.getIde().setcMunFG(4106902);
         infNFe.getIde().setTpImp(1);
         infNFe.getIde().setTpEmis(1);
         infNFe.getIde().setTpAmb(2);

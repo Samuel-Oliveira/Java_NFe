@@ -145,10 +145,6 @@ public class InfNFe {
         return this.ide;
     }
 
-    public void setIde(Ide ide) {
-        this.ide = ide;
-    }
-
     public Emit getEmit() {
         if (this.emit == null) {
             this.emit = new Emit();
@@ -156,40 +152,20 @@ public class InfNFe {
         return this.emit;
     }
 
-    public void setEmit(Emit emit) {
-        this.emit = emit;
-    }
-
     public Avulsa getAvulsa() {
         return avulsa;
-    }
-
-    public void setAvulsa(Avulsa avulsa) {
-        this.avulsa = avulsa;
     }
 
     public Dest getDest() {
         return dest;
     }
 
-    public void setDest(Dest dest) {
-        this.dest = dest;
-    }
-
     public Retirada getRetirada() {
         return retirada;
     }
 
-    public void setRetirada(Retirada retirada) {
-        this.retirada = retirada;
-    }
-
     public Entrega getEntrega() {
         return entrega;
-    }
-
-    public void setEntrega(Entrega entrega) {
-        this.entrega = entrega;
     }
 
     public Total getTotal() {
@@ -199,10 +175,6 @@ public class InfNFe {
         return total;
     }
 
-    public void setTotal(Total total) {
-        this.total = total;
-    }
-
     public Transp getTransp() {
         if (transp == null) {
             transp = new Transp();
@@ -210,48 +182,24 @@ public class InfNFe {
         return transp;
     }
 
-    public void setTransp(Transp transp) {
-        this.transp = transp;
-    }
-
     public Cobr getCobr() {
         return cobr;
-    }
-
-    public void setCobr(Cobr cobr) {
-        this.cobr = cobr;
     }
 
     public InfAdic getInfAdic() {
         return infAdic;
     }
 
-    public void setInfAdic(InfAdic infAdic) {
-        this.infAdic = infAdic;
-    }
-
     public Exporta getExporta() {
         return exporta;
-    }
-
-    public void setExporta(Exporta exporta) {
-        this.exporta = exporta;
     }
 
     public Compra getCompra() {
         return compra;
     }
 
-    public void setCompra(Compra compra) {
-        this.compra = compra;
-    }
-
     public Cana getCana() {
         return cana;
-    }
-
-    public void setCana(Cana cana) {
-        this.cana = cana;
     }
 
     public Pag getPag() {
@@ -274,5 +222,70 @@ public class InfNFe {
             detList = new ArrayList<>();
         }
         return detList;
+    }
+
+    public InfNFe setIde(Ide ide) {
+        this.ide = ide;
+        return this;
+    }
+
+    public InfNFe setEmit(Emit emit) {
+        this.emit = emit;
+        return this;
+    }
+
+    public InfNFe setAvulsa(Avulsa avulsa) {
+        this.avulsa = avulsa;
+        return this;
+    }
+
+    public InfNFe setDest(Dest dest) {
+        this.dest = dest;
+        return this;
+    }
+
+    public InfNFe setRetirada(Retirada retirada) {
+        this.retirada = retirada;
+        return this;
+    }
+
+    public InfNFe setEntrega(Entrega entrega) {
+        this.entrega = entrega;
+        return this;
+    }
+
+    public InfNFe setTotal(Total total) {
+        this.total = total;
+        return this;
+    }
+
+    public InfNFe setTransp(Transp transp) {
+        this.transp = transp;
+        return this;
+    }
+
+    public InfNFe setCobr(Cobr cobr) {
+        this.cobr = cobr;
+        return this;
+    }
+
+    public InfNFe setInfAdic(InfAdic infAdic) {
+        this.infAdic = infAdic;
+        return this;
+    }
+
+    public InfNFe setExporta(Exporta exporta) {
+        this.exporta = exporta;
+        return this;
+    }
+
+    public InfNFe setCompra(Compra compra) {
+        this.compra = compra;
+        return this;
+    }
+
+    public InfNFe setCana(Cana cana) {
+        this.cana = cana;
+        return this;
     }
 }

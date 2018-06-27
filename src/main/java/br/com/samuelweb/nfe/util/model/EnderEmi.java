@@ -104,87 +104,98 @@ public class EnderEmi {
         return xLgr;
     }
 
-    public void setxLgr(String xLgr) {
-        this.xLgr = xLgr;
-    }
-
     public String getNro() {
         return nro;
-    }
-
-    public void setNro(String nro) {
-        this.nro = nro;
     }
 
     public String getxCpl() {
         return xCpl;
     }
 
-    public void setxCpl(String xCpl) {
-        this.xCpl = xCpl;
-    }
-
     public String getxBairro() {
         return xBairro;
-    }
-
-    public void setxBairro(String xBairro) {
-        this.xBairro = xBairro;
     }
 
     public Integer getcMun() {
         return cMun;
     }
 
-    public void setcMun(Integer cMun) {
-        this.cMun = cMun;
-    }
-
     public String getxMun() {
         return xMun;
-    }
-
-    public void setxMun(String xMun) {
-        this.xMun = xMun;
     }
 
     public String getUf() {
         return uf;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-
     public Integer getCep() {
         return cep;
-    }
-
-    public void setCep(Integer cep) {
-        this.cep = cep;
     }
 
     public Integer getcPais() {
         return cPais;
     }
 
-    public void setcPais(Integer cPais) {
-        this.cPais = cPais;
-    }
-
     public String getxPais() {
         return xPais;
     }
 
-    public void setxPais(String xPais) {
+    public EnderEmi setxLgr(String xLgr) {
+        this.xLgr = xLgr;
+        return this;
+    }
+
+    public EnderEmi setNro(String nro) {
+        this.nro = nro;
+        return this;
+    }
+
+    public EnderEmi setxCpl(String xCpl) {
+        this.xCpl = xCpl;
+        return this;
+    }
+
+    public EnderEmi setxBairro(String xBairro) {
+        this.xBairro = xBairro;
+        return this;
+    }
+
+    public EnderEmi setcMun(Integer cMun) {
+        this.cMun = cMun;
+        return this;
+    }
+
+    public EnderEmi setxMun(String xMun) {
+        this.xMun = xMun;
+        return this;
+    }
+
+    public EnderEmi setUf(String uf) {
+        this.uf = uf;
+        return this;
+    }
+
+    public EnderEmi setCep(Integer cep) {
+        this.cep = cep;
+        return this;
+    }
+
+    public EnderEmi setcPais(Integer cPais) {
+        this.cPais = cPais;
+        return this;
+    }
+
+    public EnderEmi setxPais(String xPais) {
         this.xPais = xPais;
+        return this;
+    }
+
+    public EnderEmi setFone(Integer fone) {
+        this.fone = fone;
+        return this;
     }
 
     public Integer getFone() {
         return fone;
-    }
-
-    public void setFone(Integer fone) {
-        this.fone = fone;
     }
 }

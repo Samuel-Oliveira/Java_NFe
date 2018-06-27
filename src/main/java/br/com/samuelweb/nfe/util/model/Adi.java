@@ -55,39 +55,44 @@ public class Adi {
         return nAdicao;
     }
 
-    public void setnAdicao(String nAdicao) {
-        this.nAdicao = nAdicao;
-    }
-
     public String getnSeqAdic() {
         return nSeqAdic;
-    }
-
-    public void setnSeqAdic(String nSeqAdic) {
-        this.nSeqAdic = nSeqAdic;
     }
 
     public String getcFabricante() {
         return cFabricante;
     }
 
-    public void setcFabricante(String cFabricante) {
-        this.cFabricante = cFabricante;
-    }
-
     public BigDecimal getvDescDI() {
         return vDescDI;
-    }
-
-    public void setvDescDI(BigDecimal vDescDI) {
-        this.vDescDI = vDescDI;
     }
 
     public String getnDraw() {
         return nDraw;
     }
 
-    public void setnDraw(String nDraw) {
+    public Adi setnAdicao(String nAdicao) {
+        this.nAdicao = nAdicao;
+        return this;
+    }
+
+    public Adi setnSeqAdic(String nSeqAdic) {
+        this.nSeqAdic = nSeqAdic;
+        return this;
+    }
+
+    public Adi setcFabricante(String cFabricante) {
+        this.cFabricante = cFabricante;
+        return this;
+    }
+
+    public Adi setvDescDI(BigDecimal vDescDI) {
+        this.vDescDI = vDescDI;
+        return this;
+    }
+
+    public Adi setnDraw(String nDraw) {
         this.nDraw = nDraw;
+        return this;
     }
 }

@@ -55,31 +55,35 @@ public class DetExport {
         return nDraw;
     }
 
-    public void setnDraw(String nDraw) {
-        this.nDraw = nDraw;
-    }
-
     public String getNre() {
         return nre;
-    }
-
-    public void setNre(String nre) {
-        this.nre = nre;
     }
 
     public String getChNFe() {
         return chNFe;
     }
 
-    public void setChNFe(String chNFe) {
-        this.chNFe = chNFe;
-    }
-
     public BigDecimal getqExport() {
         return qExport;
     }
 
-    public void setqExport(BigDecimal qExport) {
+    public DetExport setnDraw(String nDraw) {
+        this.nDraw = nDraw;
+        return this;
+    }
+
+    public DetExport setNre(String nre) {
+        this.nre = nre;
+        return this;
+    }
+
+    public DetExport setChNFe(String chNFe) {
+        this.chNFe = chNFe;
+        return this;
+    }
+
+    public DetExport setqExport(BigDecimal qExport) {
         this.qExport = qExport;
+        return this;
     }
 }

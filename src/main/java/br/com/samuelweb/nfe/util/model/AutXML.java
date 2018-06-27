@@ -27,7 +27,8 @@ public class AutXML {
         return cnpjCpf;
     }
 
-    public void setCnpjCpf(String cnpjCpf) {
+    public AutXML setCnpjCpf(String cnpjCpf) {
         this.cnpjCpf = cnpjCpf;
+        return this;
     }
 }

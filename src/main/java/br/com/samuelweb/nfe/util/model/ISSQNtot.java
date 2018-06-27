@@ -135,95 +135,107 @@ public class ISSQNtot {
         return vServ;
     }
 
-    public void setvServ(BigDecimal vServ) {
-        this.vServ = vServ;
-    }
-
     public BigDecimal getVbc() {
         return vbc;
-    }
-
-    public void setVbc(BigDecimal vbc) {
-        this.vbc = vbc;
     }
 
     public BigDecimal getViss() {
         return viss;
     }
 
-    public void setViss(BigDecimal viss) {
-        this.viss = viss;
-    }
-
     public BigDecimal getVpis() {
         return vpis;
-    }
-
-    public void setVpis(BigDecimal vpis) {
-        this.vpis = vpis;
     }
 
     public BigDecimal getVcofins() {
         return vcofins;
     }
 
-    public void setVcofins(BigDecimal vcofins) {
-        this.vcofins = vcofins;
-    }
-
     public LocalDate getdCompet() {
         return dCompet;
-    }
-
-    public void setdCompet(LocalDate dCompet) {
-        this.dCompet = dCompet;
     }
 
     public BigDecimal getvDeducao() {
         return vDeducao;
     }
 
-    public void setvDeducao(BigDecimal vDeducao) {
-        this.vDeducao = vDeducao;
-    }
-
     public BigDecimal getvOutro() {
         return vOutro;
-    }
-
-    public void setvOutro(BigDecimal vOutro) {
-        this.vOutro = vOutro;
     }
 
     public BigDecimal getvDescIncond() {
         return vDescIncond;
     }
 
-    public void setvDescIncond(BigDecimal vDescIncond) {
-        this.vDescIncond = vDescIncond;
-    }
-
     public BigDecimal getvDescCond() {
         return vDescCond;
-    }
-
-    public void setvDescCond(BigDecimal vDescCond) {
-        this.vDescCond = vDescCond;
     }
 
     public BigDecimal getVissRet() {
         return vissRet;
     }
 
-    public void setVissRet(BigDecimal vissRet) {
-        this.vissRet = vissRet;
-    }
-
     public RegimeTributario getcRegTrib() {
         return cRegTrib;
     }
 
-    public void setcRegTrib(RegimeTributario cRegTrib) {
+    public ISSQNtot setvServ(BigDecimal vServ) {
+        this.vServ = vServ;
+        return this;
+    }
+
+    public ISSQNtot setVbc(BigDecimal vbc) {
+        this.vbc = vbc;
+        return this;
+    }
+
+    public ISSQNtot setViss(BigDecimal viss) {
+        this.viss = viss;
+        return this;
+    }
+
+    public ISSQNtot setVpis(BigDecimal vpis) {
+        this.vpis = vpis;
+        return this;
+    }
+
+    public ISSQNtot setVcofins(BigDecimal vcofins) {
+        this.vcofins = vcofins;
+        return this;
+    }
+
+    public ISSQNtot setdCompet(LocalDate dCompet) {
+        this.dCompet = dCompet;
+        return this;
+    }
+
+    public ISSQNtot setvDeducao(BigDecimal vDeducao) {
+        this.vDeducao = vDeducao;
+        return this;
+    }
+
+    public ISSQNtot setvOutro(BigDecimal vOutro) {
+        this.vOutro = vOutro;
+        return this;
+    }
+
+    public ISSQNtot setvDescIncond(BigDecimal vDescIncond) {
+        this.vDescIncond = vDescIncond;
+        return this;
+    }
+
+    public ISSQNtot setvDescCond(BigDecimal vDescCond) {
+        this.vDescCond = vDescCond;
+        return this;
+    }
+
+    public ISSQNtot setVissRet(BigDecimal vissRet) {
+        this.vissRet = vissRet;
+        return this;
+    }
+
+    public ISSQNtot setcRegTrib(RegimeTributario cRegTrib) {
         this.cRegTrib = cRegTrib;
+        return this;
     }
 }

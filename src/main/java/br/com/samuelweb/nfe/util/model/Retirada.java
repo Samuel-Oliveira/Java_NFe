@@ -80,63 +80,71 @@ public class Retirada {
         return cnpjCpf;
     }
 
-    public void setCnpjCpf(String cnpjCpf) {
-        this.cnpjCpf = cnpjCpf;
-    }
-
     public String getxLgr() {
         return xLgr;
-    }
-
-    public void setxLgr(String xLgr) {
-        this.xLgr = xLgr;
     }
 
     public String getNro() {
         return nro;
     }
 
-    public void setNro(String nro) {
-        this.nro = nro;
-    }
-
     public String getUf() {
         return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
     }
 
     public String getxCpl() {
         return xCpl;
     }
 
-    public void setxCpl(String xCpl) {
-        this.xCpl = xCpl;
-    }
-
     public String getxBairro() {
         return xBairro;
-    }
-
-    public void setxBairro(String xBairro) {
-        this.xBairro = xBairro;
     }
 
     public String getcMun() {
         return cMun;
     }
 
-    public void setcMun(String cMun) {
-        this.cMun = cMun;
-    }
-
     public String getxMun() {
         return xMun;
     }
 
-    public void setxMun(String xMun) {
+    public Retirada setCnpjCpf(String cnpjCpf) {
+        this.cnpjCpf = cnpjCpf;
+        return this;
+    }
+
+    public Retirada setxLgr(String xLgr) {
+        this.xLgr = xLgr;
+        return this;
+    }
+
+    public Retirada setNro(String nro) {
+        this.nro = nro;
+        return this;
+    }
+
+    public Retirada setUf(String uf) {
+        this.uf = uf;
+        return this;
+    }
+
+    public Retirada setxCpl(String xCpl) {
+        this.xCpl = xCpl;
+        return this;
+    }
+
+    public Retirada setxBairro(String xBairro) {
+        this.xBairro = xBairro;
+        return this;
+    }
+
+    public Retirada setcMun(String cMun) {
+        this.cMun = cMun;
+        return this;
+    }
+
+    public Retirada setxMun(String xMun) {
         this.xMun = xMun;
+        return this;
     }
 }

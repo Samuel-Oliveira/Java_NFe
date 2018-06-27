@@ -60,39 +60,44 @@ public class Rastro {
         return nLote;
     }
 
-    public void setnLote(String nLote) {
-        this.nLote = nLote;
-    }
-
     public BigDecimal getqLote() {
         return qLote;
-    }
-
-    public void setqLote(BigDecimal qLote) {
-        this.qLote = qLote;
     }
 
     public LocalDate getdFab() {
         return dFab;
     }
 
-    public void setdFab(LocalDate dFab) {
-        this.dFab = dFab;
-    }
-
     public LocalDate getdVal() {
         return dVal;
-    }
-
-    public void setdVal(LocalDate dVal) {
-        this.dVal = dVal;
     }
 
     public String getcAgreg() {
         return cAgreg;
     }
 
-    public void setcAgreg(String cAgreg) {
+    public Rastro setnLote(String nLote) {
+        this.nLote = nLote;
+        return this;
+    }
+
+    public Rastro setqLote(BigDecimal qLote) {
+        this.qLote = qLote;
+        return this;
+    }
+
+    public Rastro setdFab(LocalDate dFab) {
+        this.dFab = dFab;
+        return this;
+    }
+
+    public Rastro setdVal(LocalDate dVal) {
+        this.dVal = dVal;
+        return this;
+    }
+
+    public Rastro setcAgreg(String cAgreg) {
         this.cAgreg = cAgreg;
+        return this;
     }
 }

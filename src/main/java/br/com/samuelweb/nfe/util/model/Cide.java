@@ -64,4 +64,5 @@ public class Cide {
     public void setVcide(BigDecimal vcide) {
         this.vcide = vcide;
     }
+
 }

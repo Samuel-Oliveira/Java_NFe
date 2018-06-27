@@ -47,23 +47,26 @@ public class Dup {
         return nDup;
     }
 
-    public void setnDup(String nDup) {
-        this.nDup = nDup;
-    }
-
     public LocalDate getdVenc() {
         return dVenc;
-    }
-
-    public void setdVenc(LocalDate dVenc) {
-        this.dVenc = dVenc;
     }
 
     public BigDecimal getvDup() {
         return vDup;
     }
 
-    public void setvDup(BigDecimal vDup) {
+    public Dup setnDup(String nDup) {
+        this.nDup = nDup;
+        return this;
+    }
+
+    public Dup setdVenc(LocalDate dVenc) {
+        this.dVenc = dVenc;
+        return this;
+    }
+
+    public Dup setvDup(BigDecimal vDup) {
         this.vDup = vDup;
+        return this;
     }
 }

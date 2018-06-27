@@ -91,55 +91,62 @@ public class RetTrib {
         return vRetPIS;
     }
 
-    public void setvRetPIS(BigDecimal vRetPIS) {
-        this.vRetPIS = vRetPIS;
-    }
-
     public BigDecimal getvRetCOFINS() {
         return vRetCOFINS;
-    }
-
-    public void setvRetCOFINS(BigDecimal vRetCOFINS) {
-        this.vRetCOFINS = vRetCOFINS;
     }
 
     public BigDecimal getvRetCSLL() {
         return vRetCSLL;
     }
 
-    public void setvRetCSLL(BigDecimal vRetCSLL) {
-        this.vRetCSLL = vRetCSLL;
-    }
-
     public BigDecimal getVbcirrf() {
         return vbcirrf;
-    }
-
-    public void setVbcirrf(BigDecimal vbcirrf) {
-        this.vbcirrf = vbcirrf;
     }
 
     public BigDecimal getVirrf() {
         return virrf;
     }
 
-    public void setVirrf(BigDecimal virrf) {
-        this.virrf = virrf;
-    }
-
     public BigDecimal getVbcRetPrev() {
         return vbcRetPrev;
-    }
-
-    public void setVbcRetPrev(BigDecimal vbcRetPrev) {
-        this.vbcRetPrev = vbcRetPrev;
     }
 
     public BigDecimal getvRetPrev() {
         return vRetPrev;
     }
 
-    public void setvRetPrev(BigDecimal vRetPrev) {
+    public RetTrib setvRetPIS(BigDecimal vRetPIS) {
+        this.vRetPIS = vRetPIS;
+        return this;
+    }
+
+    public RetTrib setvRetCOFINS(BigDecimal vRetCOFINS) {
+        this.vRetCOFINS = vRetCOFINS;
+        return this;
+    }
+
+    public RetTrib setvRetCSLL(BigDecimal vRetCSLL) {
+        this.vRetCSLL = vRetCSLL;
+        return this;
+    }
+
+    public RetTrib setVbcirrf(BigDecimal vbcirrf) {
+        this.vbcirrf = vbcirrf;
+        return this;
+    }
+
+    public RetTrib setVirrf(BigDecimal virrf) {
+        this.virrf = virrf;
+        return this;
+    }
+
+    public RetTrib setVbcRetPrev(BigDecimal vbcRetPrev) {
+        this.vbcRetPrev = vbcRetPrev;
+        return this;
+    }
+
+    public RetTrib setvRetPrev(BigDecimal vRetPrev) {
         this.vRetPrev = vRetPrev;
+        return this;
     }
 }

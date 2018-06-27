@@ -44,23 +44,26 @@ public class Veiculo {
         return placa;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
     public String getUf() {
         return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
     }
 
     public String getRntc() {
         return rntc;
     }
 
-    public void setRntc(String rntc) {
+    public Veiculo setPlaca(String placa) {
+        this.placa = placa;
+        return this;
+    }
+
+    public Veiculo setUf(String uf) {
+        this.uf = uf;
+        return this;
+    }
+
+    public Veiculo setRntc(String rntc) {
         this.rntc = rntc;
+        return this;
     }
 }

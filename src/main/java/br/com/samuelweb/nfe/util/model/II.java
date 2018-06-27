@@ -60,31 +60,35 @@ public class II {
         return vbc;
     }
 
-    public void setVbc(BigDecimal vbc) {
-        this.vbc = vbc;
-    }
-
     public BigDecimal getvDespAdu() {
         return vDespAdu;
-    }
-
-    public void setvDespAdu(BigDecimal vDespAdu) {
-        this.vDespAdu = vDespAdu;
     }
 
     public BigDecimal getVii() {
         return vii;
     }
 
-    public void setVii(BigDecimal vii) {
-        this.vii = vii;
-    }
-
     public BigDecimal getViof() {
         return viof;
     }
 
-    public void setViof(BigDecimal viof) {
+    public II setVbc(BigDecimal vbc) {
+        this.vbc = vbc;
+        return this;
+    }
+
+    public II setvDespAdu(BigDecimal vDespAdu) {
+        this.vDespAdu = vDespAdu;
+        return this;
+    }
+
+    public II setVii(BigDecimal vii) {
+        this.vii = vii;
+        return this;
+    }
+
+    public II setViof(BigDecimal viof) {
         this.viof = viof;
+        return this;
     }
 }

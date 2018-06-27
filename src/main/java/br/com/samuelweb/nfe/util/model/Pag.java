@@ -41,7 +41,13 @@ public class Pag {
         return vTroco;
     }
 
-    public void setvTroco(BigDecimal vTroco) {
+    public Pag setDetPag(List<DetPag> detPag) {
+        this.detPag = detPag;
+        return this;
+    }
+
+    public Pag setvTroco(BigDecimal vTroco) {
         this.vTroco = vTroco;
+        return this;
     }
 }

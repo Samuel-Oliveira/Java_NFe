@@ -98,71 +98,80 @@ public class ICMSUFDest {
         return vBCUFDest;
     }
 
-    public void setvBCUFDest(BigDecimal vBCUFDest) {
-        this.vBCUFDest = vBCUFDest;
-    }
-
     public BigDecimal getvBCFCPUFDest() {
         return vBCFCPUFDest;
-    }
-
-    public void setvBCFCPUFDest(BigDecimal vBCFCPUFDest) {
-        this.vBCFCPUFDest = vBCFCPUFDest;
     }
 
     public BigDecimal getpFCPUFDest() {
         return pFCPUFDest;
     }
 
-    public void setpFCPUFDest(BigDecimal pFCPUFDest) {
-        this.pFCPUFDest = pFCPUFDest;
-    }
-
     public BigDecimal getpICMSUFDest() {
         return pICMSUFDest;
-    }
-
-    public void setpICMSUFDest(BigDecimal pICMSUFDest) {
-        this.pICMSUFDest = pICMSUFDest;
     }
 
     public BigDecimal getpICMSInter() {
         return pICMSInter;
     }
 
-    public void setpICMSInter(BigDecimal pICMSInter) {
-        this.pICMSInter = pICMSInter;
-    }
-
     public BigDecimal getpICMSInterPart() {
         return pICMSInterPart;
-    }
-
-    public void setpICMSInterPart(BigDecimal pICMSInterPart) {
-        this.pICMSInterPart = pICMSInterPart;
     }
 
     public BigDecimal getvFCPUFDest() {
         return vFCPUFDest;
     }
 
-    public void setvFCPUFDest(BigDecimal vFCPUFDest) {
-        this.vFCPUFDest = vFCPUFDest;
-    }
-
     public BigDecimal getvICMSUFDest() {
         return vICMSUFDest;
-    }
-
-    public void setvICMSUFDest(BigDecimal vICMSUFDest) {
-        this.vICMSUFDest = vICMSUFDest;
     }
 
     public BigDecimal getvICMSUFRemet() {
         return vICMSUFRemet;
     }
 
-    public void setvICMSUFRemet(BigDecimal vICMSUFRemet) {
+    public ICMSUFDest setvBCUFDest(BigDecimal vBCUFDest) {
+        this.vBCUFDest = vBCUFDest;
+        return this;
+    }
+
+    public ICMSUFDest setvBCFCPUFDest(BigDecimal vBCFCPUFDest) {
+        this.vBCFCPUFDest = vBCFCPUFDest;
+        return this;
+    }
+
+    public ICMSUFDest setpFCPUFDest(BigDecimal pFCPUFDest) {
+        this.pFCPUFDest = pFCPUFDest;
+        return this;
+    }
+
+    public ICMSUFDest setpICMSUFDest(BigDecimal pICMSUFDest) {
+        this.pICMSUFDest = pICMSUFDest;
+        return this;
+    }
+
+    public ICMSUFDest setpICMSInter(BigDecimal pICMSInter) {
+        this.pICMSInter = pICMSInter;
+        return this;
+    }
+
+    public ICMSUFDest setpICMSInterPart(BigDecimal pICMSInterPart) {
+        this.pICMSInterPart = pICMSInterPart;
+        return this;
+    }
+
+    public ICMSUFDest setvFCPUFDest(BigDecimal vFCPUFDest) {
+        this.vFCPUFDest = vFCPUFDest;
+        return this;
+    }
+
+    public ICMSUFDest setvICMSUFDest(BigDecimal vICMSUFDest) {
+        this.vICMSUFDest = vICMSUFDest;
+        return this;
+    }
+
+    public ICMSUFDest setvICMSUFRemet(BigDecimal vICMSUFRemet) {
         this.vICMSUFRemet = vICMSUFRemet;
+        return this;
     }
 }

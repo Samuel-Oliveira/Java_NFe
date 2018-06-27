@@ -122,95 +122,107 @@ public class DI {
         return ndi;
     }
 
-    public void setNdi(String ndi) {
-        this.ndi = ndi;
-    }
-
     public LocalDate getDdi() {
         return ddi;
-    }
-
-    public void setDdi(LocalDate ddi) {
-        this.ddi = ddi;
     }
 
     public String getxLocDesemb() {
         return xLocDesemb;
     }
 
-    public void setxLocDesemb(String xLocDesemb) {
-        this.xLocDesemb = xLocDesemb;
-    }
-
     public String getUfDesemb() {
         return ufDesemb;
-    }
-
-    public void setUfDesemb(String ufDesemb) {
-        this.ufDesemb = ufDesemb;
     }
 
     public LocalDate getdDesemb() {
         return dDesemb;
     }
 
-    public void setdDesemb(LocalDate dDesemb) {
-        this.dDesemb = dDesemb;
-    }
-
     public String getTpViaTransp() {
         return tpViaTransp;
-    }
-
-    public void setTpViaTransp(String tpViaTransp) {
-        this.tpViaTransp = tpViaTransp;
     }
 
     public BigDecimal getVafrmm() {
         return vafrmm;
     }
 
-    public void setVafrmm(BigDecimal vafrmm) {
-        this.vafrmm = vafrmm;
-    }
-
     public String getTpIntermedio() {
         return tpIntermedio;
-    }
-
-    public void setTpIntermedio(String tpIntermedio) {
-        this.tpIntermedio = tpIntermedio;
     }
 
     public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
     public String getUfTerceiro() {
         return ufTerceiro;
-    }
-
-    public void setUfTerceiro(String ufTerceiro) {
-        this.ufTerceiro = ufTerceiro;
     }
 
     public String getcExportador() {
         return cExportador;
     }
 
-    public void setcExportador(String cExportador) {
-        this.cExportador = cExportador;
-    }
-
     public List<Adi> getAdi() {
         return adi;
     }
 
-    public void setAdi(List<Adi> adi) {
+    public DI setNdi(String ndi) {
+        this.ndi = ndi;
+        return this;
+    }
+
+    public DI setDdi(LocalDate ddi) {
+        this.ddi = ddi;
+        return this;
+    }
+
+    public DI setxLocDesemb(String xLocDesemb) {
+        this.xLocDesemb = xLocDesemb;
+        return this;
+    }
+
+    public DI setUfDesemb(String ufDesemb) {
+        this.ufDesemb = ufDesemb;
+        return this;
+    }
+
+    public DI setdDesemb(LocalDate dDesemb) {
+        this.dDesemb = dDesemb;
+        return this;
+    }
+
+    public DI setTpViaTransp(String tpViaTransp) {
+        this.tpViaTransp = tpViaTransp;
+        return this;
+    }
+
+    public DI setVafrmm(BigDecimal vafrmm) {
+        this.vafrmm = vafrmm;
+        return this;
+    }
+
+    public DI setTpIntermedio(String tpIntermedio) {
+        this.tpIntermedio = tpIntermedio;
+        return this;
+    }
+
+    public DI setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+        return this;
+    }
+
+    public DI setUfTerceiro(String ufTerceiro) {
+        this.ufTerceiro = ufTerceiro;
+        return this;
+    }
+
+    public DI setcExportador(String cExportador) {
+        this.cExportador = cExportador;
+        return this;
+    }
+
+    public DI setAdi(List<Adi> adi) {
         this.adi = adi;
+        return this;
     }
 }

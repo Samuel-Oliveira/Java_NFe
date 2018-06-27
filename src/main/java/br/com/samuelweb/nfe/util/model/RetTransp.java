@@ -70,47 +70,53 @@ public class RetTransp {
         return vServ;
     }
 
-    public void setvServ(BigDecimal vServ) {
-        this.vServ = vServ;
-    }
-
     public BigDecimal getVbcRet() {
         return vbcRet;
-    }
-
-    public void setVbcRet(BigDecimal vbcRet) {
-        this.vbcRet = vbcRet;
     }
 
     public BigDecimal getPicmsRet() {
         return picmsRet;
     }
 
-    public void setPicmsRet(BigDecimal picmsRet) {
-        this.picmsRet = picmsRet;
-    }
-
     public BigDecimal getVicmsRet() {
         return vicmsRet;
-    }
-
-    public void setVicmsRet(BigDecimal vicmsRet) {
-        this.vicmsRet = vicmsRet;
     }
 
     public String getCfop() {
         return cfop;
     }
 
-    public void setCfop(String cfop) {
-        this.cfop = cfop;
-    }
-
     public String getcMunFG() {
         return cMunFG;
     }
 
-    public void setcMunFG(String cMunFG) {
+    public RetTransp setvServ(BigDecimal vServ) {
+        this.vServ = vServ;
+        return this;
+    }
+
+    public RetTransp setVbcRet(BigDecimal vbcRet) {
+        this.vbcRet = vbcRet;
+        return this;
+    }
+
+    public RetTransp setPicmsRet(BigDecimal picmsRet) {
+        this.picmsRet = picmsRet;
+        return this;
+    }
+
+    public RetTransp setVicmsRet(BigDecimal vicmsRet) {
+        this.vicmsRet = vicmsRet;
+        return this;
+    }
+
+    public RetTransp setCfop(String cfop) {
+        this.cfop = cfop;
+        return this;
+    }
+
+    public RetTransp setcMunFG(String cMunFG) {
         this.cMunFG = cMunFG;
+        return this;
     }
 }

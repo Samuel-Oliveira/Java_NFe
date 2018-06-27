@@ -167,79 +167,89 @@ public class Imposto {
         return vTotTrib;
     }
 
-    public void setvTotTrib(BigDecimal vTotTrib) {
-        this.vTotTrib = vTotTrib;
-    }
-
     public ICMS getIcms() {
         return icms;
-    }
-
-    public void setIcms(ICMS icms) {
-        this.icms = icms;
     }
 
     public ICMSUFDest getIcmsUfDest() {
         return icmsUfDest;
     }
 
-    public void setIcmsUfDest(ICMSUFDest icmsUfDest) {
-        this.icmsUfDest = icmsUfDest;
-    }
-
     public IPI getIpi() {
         return ipi;
-    }
-
-    public void setIpi(IPI ipi) {
-        this.ipi = ipi;
     }
 
     public II getIi() {
         return ii;
     }
 
-    public void setIi(II ii) {
-        this.ii = ii;
-    }
-
     public PIS getPis() {
         return pis;
-    }
-
-    public void setPis(PIS pis) {
-        this.pis = pis;
     }
 
     public PISST getPisst() {
         return pisst;
     }
 
-    public void setPisst(PISST pisst) {
-        this.pisst = pisst;
-    }
-
     public COFINS getCofins() {
         return cofins;
-    }
-
-    public void setCofins(COFINS cofins) {
-        this.cofins = cofins;
     }
 
     public COFINSST getCofinsst() {
         return cofinsst;
     }
 
-    public void setCofinsst(COFINSST cofinsst) {
-        this.cofinsst = cofinsst;
-    }
-
     public ISSQN getIssqn() {
         return issqn;
     }
 
-    public void setIssqn(ISSQN issqn) {
+    public Imposto setvTotTrib(BigDecimal vTotTrib) {
+        this.vTotTrib = vTotTrib;
+        return this;
+    }
+
+    public Imposto setIcms(ICMS icms) {
+        this.icms = icms;
+        return this;
+    }
+
+    public Imposto setIcmsUfDest(ICMSUFDest icmsUfDest) {
+        this.icmsUfDest = icmsUfDest;
+        return this;
+    }
+
+    public Imposto setIpi(IPI ipi) {
+        this.ipi = ipi;
+        return this;
+    }
+
+    public Imposto setIi(II ii) {
+        this.ii = ii;
+        return this;
+    }
+
+    public Imposto setPis(PIS pis) {
+        this.pis = pis;
+        return this;
+    }
+
+    public Imposto setPisst(PISST pisst) {
+        this.pisst = pisst;
+        return this;
+    }
+
+    public Imposto setCofins(COFINS cofins) {
+        this.cofins = cofins;
+        return this;
+    }
+
+    public Imposto setCofinsst(COFINSST cofinsst) {
+        this.cofinsst = cofinsst;
+        return this;
+    }
+
+    public Imposto setIssqn(ISSQN issqn) {
         this.issqn = issqn;
+        return this;
     }
 }

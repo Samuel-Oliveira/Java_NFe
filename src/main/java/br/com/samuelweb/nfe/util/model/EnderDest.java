@@ -104,87 +104,98 @@ public class EnderDest {
         return xLgr;
     }
 
-    public void setxLgr(String xLgr) {
-        this.xLgr = xLgr;
-    }
-
     public String getNro() {
         return nro;
-    }
-
-    public void setNro(String nro) {
-        this.nro = nro;
     }
 
     public String getxCpl() {
         return xCpl;
     }
 
-    public void setxCpl(String xCpl) {
-        this.xCpl = xCpl;
-    }
-
     public String getxBairro() {
         return xBairro;
-    }
-
-    public void setxBairro(String xBairro) {
-        this.xBairro = xBairro;
     }
 
     public Integer getcMun() {
         return cMun;
     }
 
-    public void setcMun(Integer cMun) {
-        this.cMun = cMun;
-    }
-
     public String getxMun() {
         return xMun;
-    }
-
-    public void setxMun(String xMun) {
-        this.xMun = xMun;
     }
 
     public String getUf() {
         return uf;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-
     public Integer getCep() {
         return cep;
-    }
-
-    public void setCep(Integer cep) {
-        this.cep = cep;
     }
 
     public Integer getcPais() {
         return cPais;
     }
 
-    public void setcPais(Integer cPais) {
-        this.cPais = cPais;
-    }
-
     public String getxPais() {
         return xPais;
-    }
-
-    public void setxPais(String xPais) {
-        this.xPais = xPais;
     }
 
     public String getFone() {
         return fone;
     }
 
-    public void setFone(String fone) {
+    public EnderDest setxLgr(String xLgr) {
+        this.xLgr = xLgr;
+        return this;
+    }
+
+    public EnderDest setNro(String nro) {
+        this.nro = nro;
+        return this;
+    }
+
+    public EnderDest setxCpl(String xCpl) {
+        this.xCpl = xCpl;
+        return this;
+    }
+
+    public EnderDest setxBairro(String xBairro) {
+        this.xBairro = xBairro;
+        return this;
+    }
+
+    public EnderDest setcMun(Integer cMun) {
+        this.cMun = cMun;
+        return this;
+    }
+
+    public EnderDest setxMun(String xMun) {
+        this.xMun = xMun;
+        return this;
+    }
+
+    public EnderDest setUf(String uf) {
+        this.uf = uf;
+        return this;
+    }
+
+    public EnderDest setCep(Integer cep) {
+        this.cep = cep;
+        return this;
+    }
+
+    public EnderDest setcPais(Integer cPais) {
+        this.cPais = cPais;
+        return this;
+    }
+
+    public EnderDest setxPais(String xPais) {
+        this.xPais = xPais;
+        return this;
+    }
+
+    public EnderDest setFone(String fone) {
         this.fone = fone;
+        return this;
     }
 }

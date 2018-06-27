@@ -50,31 +50,35 @@ public class DetPag {
         return indPag;
     }
 
-    public void setIndPag(Integer indPag) {
-        this.indPag = indPag;
-    }
-
     public TipoPagamento gettPag() {
         return tPag;
-    }
-
-    public void settPag(TipoPagamento tPag) {
-        this.tPag = tPag;
     }
 
     public BigDecimal getvPag() {
         return vPag;
     }
 
-    public void setvPag(BigDecimal vPag) {
-        this.vPag = vPag;
-    }
-
     public Card getCard() {
         return card;
     }
 
-    public void setCard(Card card) {
+    public DetPag setIndPag(Integer indPag) {
+        this.indPag = indPag;
+        return this;
+    }
+
+    public DetPag settPag(TipoPagamento tPag) {
+        this.tPag = tPag;
+        return this;
+    }
+
+    public DetPag setvPag(BigDecimal vPag) {
+        this.vPag = vPag;
+        return this;
+    }
+
+    public DetPag setCard(Card card) {
         this.card = card;
+        return this;
     }
 }

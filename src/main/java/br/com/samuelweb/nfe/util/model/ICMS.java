@@ -248,295 +248,247 @@ public class ICMS {
         return orig;
     }
 
-    public void setOrig(Integer orig) {
-        this.orig = orig;
-    }
-
     public CSTIcms getCST() {
         return CST;
-    }
-
-    public void setCST(CSTIcms CST) {
-        this.CST = CST;
     }
 
     public CSOSNIcms getCSOSN() {
         return CSOSN;
     }
 
-    public void setCSOSN(CSOSNIcms CSOSN) {
-        this.CSOSN = CSOSN;
-    }
-
     public DeterminacaoBaseIcms getModBC() {
         return modBC;
-    }
-
-    public void setModBC(DeterminacaoBaseIcms modBC) {
-        this.modBC = modBC;
     }
 
     public BigDecimal getpRedBC() {
         return pRedBC;
     }
 
-    public void setpRedBC(BigDecimal pRedBC) {
-        this.pRedBC = pRedBC;
-    }
-
     public BigDecimal getvBC() {
         return vBC;
-    }
-
-    public void setvBC(BigDecimal vBC) {
-        this.vBC = vBC;
     }
 
     public BigDecimal getpICMS() {
         return pICMS;
     }
 
-    public void setpICMS(BigDecimal pICMS) {
-        this.pICMS = pICMS;
-    }
-
     public BigDecimal getvICMSOp() {
         return vICMSOp;
-    }
-
-    public void setvICMSOp(BigDecimal vICMSOp) {
-        this.vICMSOp = vICMSOp;
     }
 
     public BigDecimal getpDif() {
         return pDif;
     }
 
-    public void setpDif(BigDecimal pDif) {
-        this.pDif = pDif;
-    }
-
     public BigDecimal getvICMSDif() {
         return vICMSDif;
-    }
-
-    public void setvICMSDif(BigDecimal vICMSDif) {
-        this.vICMSDif = vICMSDif;
     }
 
     public BigDecimal getvICMS() {
         return vICMS;
     }
 
-    public void setvICMS(BigDecimal vICMS) {
-        this.vICMS = vICMS;
-    }
-
     public BigDecimal getvBCFCP() {
         return vBCFCP;
-    }
-
-    public void setvBCFCP(BigDecimal vBCFCP) {
-        this.vBCFCP = vBCFCP;
     }
 
     public BigDecimal getpFCP() {
         return pFCP;
     }
 
-    public void setpFCP(BigDecimal pFCP) {
-        this.pFCP = pFCP;
-    }
-
     public BigDecimal getvFCP() {
         return vFCP;
-    }
-
-    public void setvFCP(BigDecimal vFCP) {
-        this.vFCP = vFCP;
     }
 
     public DeterminacaoBaseIcmsST getModBCST() {
         return modBCST;
     }
 
-    public void setModBCST(DeterminacaoBaseIcmsST modBCST) {
-        this.modBCST = modBCST;
-    }
-
     public BigDecimal getpMVAST() {
         return pMVAST;
-    }
-
-    public void setpMVAST(BigDecimal pMVAST) {
-        this.pMVAST = pMVAST;
     }
 
     public BigDecimal getpRedBCST() {
         return pRedBCST;
     }
 
-    public void setpRedBCST(BigDecimal pRedBCST) {
-        this.pRedBCST = pRedBCST;
-    }
-
     public BigDecimal getvBCST() {
         return vBCST;
-    }
-
-    public void setvBCST(BigDecimal vBCST) {
-        this.vBCST = vBCST;
     }
 
     public BigDecimal getpICMSST() {
         return pICMSST;
     }
 
-    public void setpICMSST(BigDecimal pICMSST) {
-        this.pICMSST = pICMSST;
-    }
-
     public BigDecimal getvICMSST() {
         return vICMSST;
-    }
-
-    public void setvICMSST(BigDecimal vICMSST) {
-        this.vICMSST = vICMSST;
     }
 
     public BigDecimal getvBCFCPST() {
         return vBCFCPST;
     }
 
-    public void setvBCFCPST(BigDecimal vBCFCPST) {
-        this.vBCFCPST = vBCFCPST;
-    }
-
     public BigDecimal getpFCPST() {
         return pFCPST;
-    }
-
-    public void setpFCPST(BigDecimal pFCPST) {
-        this.pFCPST = pFCPST;
     }
 
     public BigDecimal getvFCPST() {
         return vFCPST;
     }
 
-    public void setvFCPST(BigDecimal vFCPST) {
-        this.vFCPST = vFCPST;
-    }
-
     public String getUFST() {
         return UFST;
-    }
-
-    public void setUFST(String UFST) {
-        this.UFST = UFST;
     }
 
     public BigDecimal getpBCOp() {
         return pBCOp;
     }
 
-    public void setpBCOp(BigDecimal pBCOp) {
-        this.pBCOp = pBCOp;
-    }
-
     public BigDecimal getvBCSTRet() {
         return vBCSTRet;
-    }
-
-    public void setvBCSTRet(BigDecimal vBCSTRet) {
-        this.vBCSTRet = vBCSTRet;
     }
 
     public BigDecimal getpST() {
         return pST;
     }
 
-    public void setpST(BigDecimal pST) {
-        this.pST = pST;
-    }
-
     public BigDecimal getvICMSSTRet() {
         return vICMSSTRet;
-    }
-
-    public void setvICMSSTRet(BigDecimal vICMSSTRet) {
-        this.vICMSSTRet = vICMSSTRet;
     }
 
     public BigDecimal getvBCFCPSTRet() {
         return vBCFCPSTRet;
     }
 
-    public void setvBCFCPSTRet(BigDecimal vBCFCPSTRet) {
-        this.vBCFCPSTRet = vBCFCPSTRet;
-    }
-
     public BigDecimal getpFCPSTRet() {
         return pFCPSTRet;
-    }
-
-    public void setpFCPSTRet(BigDecimal pFCPSTRet) {
-        this.pFCPSTRet = pFCPSTRet;
     }
 
     public BigDecimal getvFCPSTRet() {
         return vFCPSTRet;
     }
 
-    public void setvFCPSTRet(BigDecimal vFCPSTRet) {
-        this.vFCPSTRet = vFCPSTRet;
-    }
-
     public MotivoDesoneracaoICMS getMotDesICMS() {
         return motDesICMS;
-    }
-
-    public void setMotDesICMS(MotivoDesoneracaoICMS motDesICMS) {
-        this.motDesICMS = motDesICMS;
     }
 
     public BigDecimal getvICMSDeson() {
         return vICMSDeson;
     }
 
-    public void setvICMSDeson(BigDecimal vICMSDeson) {
-        this.vICMSDeson = vICMSDeson;
-    }
-
     public BigDecimal getpCredSN() {
         return pCredSN;
-    }
-
-    public void setpCredSN(BigDecimal pCredSN) {
-        this.pCredSN = pCredSN;
     }
 
     public BigDecimal getvCredICMSSN() {
         return vCredICMSSN;
     }
 
-    public void setvCredICMSSN(BigDecimal vCredICMSSN) {
-        this.vCredICMSSN = vCredICMSSN;
-    }
-
     public BigDecimal getvBCSTDest() {
         return vBCSTDest;
-    }
-
-    public void setvBCSTDest(BigDecimal vBCSTDest) {
-        this.vBCSTDest = vBCSTDest;
     }
 
     public BigDecimal getvICMSSTDest() {
         return vICMSSTDest;
     }
 
-    public void setvICMSSTDest(BigDecimal vICMSSTDest) {
-        this.vICMSSTDest = vICMSSTDest;
+    public ICMS setOrig(Integer orig) {
+        this.orig = orig;
+        return this;
+    }
+
+    public ICMS setCST(CSTIcms CST) {
+        this.CST = CST;
+        return this;
+    }
+
+    public ICMS setCSOSN(CSOSNIcms CSOSN) {
+        this.CSOSN = CSOSN;
+        return this;
+    }
+
+    public ICMS setModBC(DeterminacaoBaseIcms modBC) {
+        this.modBC = modBC;
+        return this;
+    }
+
+    public ICMS setpRedBC(BigDecimal pRedBC) {
+        this.pRedBC = pRedBC;
+        return this;
+    }
+
+    public ICMS setvBC(BigDecimal vBC) {
+        this.vBC = vBC;
+        return this;
+    }
+
+    public ICMS setpICMS(BigDecimal pICMS) {
+        this.pICMS = pICMS;
+        return this;
+    }
+
+    public ICMS setvICMSOp(BigDecimal vICMSOp) {
+        this.vICMSOp = vICMSOp;
+        return this;
+    }
+
+    public ICMS setpDif(BigDecimal pDif) {
+        this.pDif = pDif;
+        return this;
+    }
+
+    public ICMS setvICMSDif(BigDecimal vICMSDif) {
+        this.vICMSDif = vICMSDif;
+        return this;
+    }
+
+    public ICMS setvICMS(BigDecimal vICMS) {
+        this.vICMS = vICMS;
+        return this;
+    }
+
+    public ICMS setvBCFCP(BigDecimal vBCFCP) {
+        this.vBCFCP = vBCFCP;
+        return this;
+    }
+
+    public ICMS setpFCP(BigDecimal pFCP) {
+        this.pFCP = pFCP;
+        return this;
+    }
+
+    public ICMS setvFCP(BigDecimal vFCP) {
+        this.vFCP = vFCP;
+        return this;
+    }
+
+    public ICMS setModBCST(DeterminacaoBaseIcmsST modBCST) {
+        this.modBCST = modBCST;
+        return this;
+    }
+
+    public ICMS setpMVAST(BigDecimal pMVAST) {
+        this.pMVAST = pMVAST;
+        return this;
+    }
+
+    public ICMS setpRedBCST(BigDecimal pRedBCST) {
+        this.pRedBCST = pRedBCST;
+        return this;
+    }
+
+    public ICMS setvBCST(BigDecimal vBCST) {
+        this.vBCST = vBCST;
+        return this;
+    }
+
+    public ICMS setpICMSST(BigDecimal pICMSST) {
+        this.pICMSST = pICMSST;
+        return this;
+    }
+
+    public ICMS setvICMSST(BigDecimal vICMSST) {
+        this.vICMSST = vICMSST;
+        return this;
     }
 }

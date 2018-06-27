@@ -21,7 +21,8 @@ public class Lacres {
         return nLacre;
     }
 
-    public void setnLacre(String nLacre) {
+    public Lacres setnLacre(String nLacre) {
         this.nLacre = nLacre;
+        return this;
     }
 }

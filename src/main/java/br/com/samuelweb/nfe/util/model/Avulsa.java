@@ -108,87 +108,98 @@ public class Avulsa {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
     public String getxOrgao() {
         return xOrgao;
-    }
-
-    public void setxOrgao(String xOrgao) {
-        this.xOrgao = xOrgao;
     }
 
     public String getMatr() {
         return matr;
     }
 
-    public void setMatr(String matr) {
-        this.matr = matr;
-    }
-
     public String getxAgente() {
         return xAgente;
-    }
-
-    public void setxAgente(String xAgente) {
-        this.xAgente = xAgente;
     }
 
     public String getFone() {
         return fone;
     }
 
-    public void setFone(String fone) {
-        this.fone = fone;
-    }
-
     public Integer getUf() {
         return uf;
-    }
-
-    public void setUf(Integer uf) {
-        this.uf = uf;
     }
 
     public String getnDar() {
         return nDar;
     }
 
-    public void setnDar(String nDar) {
-        this.nDar = nDar;
-    }
-
     public LocalDate getdEmi() {
         return dEmi;
-    }
-
-    public void setdEmi(LocalDate dEmi) {
-        this.dEmi = dEmi;
     }
 
     public BigDecimal getvDar() {
         return vDar;
     }
 
-    public void setvDar(BigDecimal vDar) {
-        this.vDar = vDar;
-    }
-
     public String getRepEmi() {
         return repEmi;
-    }
-
-    public void setRepEmi(String repEmi) {
-        this.repEmi = repEmi;
     }
 
     public LocalDate getdPag() {
         return dPag;
     }
 
-    public void setdPag(LocalDate dPag) {
+    public Avulsa setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+        return this;
+    }
+
+    public Avulsa setxOrgao(String xOrgao) {
+        this.xOrgao = xOrgao;
+        return this;
+    }
+
+    public Avulsa setMatr(String matr) {
+        this.matr = matr;
+        return this;
+    }
+
+    public Avulsa setxAgente(String xAgente) {
+        this.xAgente = xAgente;
+        return this;
+    }
+
+    public Avulsa setFone(String fone) {
+        this.fone = fone;
+        return this;
+    }
+
+    public Avulsa setUf(Integer uf) {
+        this.uf = uf;
+        return this;
+    }
+
+    public Avulsa setnDar(String nDar) {
+        this.nDar = nDar;
+        return this;
+    }
+
+    public Avulsa setdEmi(LocalDate dEmi) {
+        this.dEmi = dEmi;
+        return this;
+    }
+
+    public Avulsa setvDar(BigDecimal vDar) {
+        this.vDar = vDar;
+        return this;
+    }
+
+    public Avulsa setRepEmi(String repEmi) {
+        this.repEmi = repEmi;
+        return this;
+    }
+
+    public Avulsa setdPag(LocalDate dPag) {
         this.dPag = dPag;
+        return this;
     }
 }

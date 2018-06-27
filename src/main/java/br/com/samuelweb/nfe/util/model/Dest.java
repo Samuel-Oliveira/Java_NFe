@@ -91,24 +91,12 @@ public class Dest {
         return cnpjCpf;
     }
 
-    public void setCnpjCpf(String cnpjCpf) {
-        this.cnpjCpf = cnpjCpf;
-    }
-
     public String getIdEstrangeiro() {
         return idEstrangeiro;
     }
 
-    public void setIdEstrangeiro(String idEstrangeiro) {
-        this.idEstrangeiro = idEstrangeiro;
-    }
-
     public String getxNome() {
         return xNome;
-    }
-
-    public void setxNome(String xNome) {
-        this.xNome = xNome;
     }
 
     public EnderDest getEnderDest() {
@@ -118,47 +106,68 @@ public class Dest {
         return enderDest;
     }
 
-    public void setEnderDest(EnderDest enderDest) {
-        this.enderDest = enderDest;
-    }
-
     public Integer getIndIEDest() {
         return indIEDest;
-    }
-
-    public void setIndIEDest(Integer indIEDest) {
-        this.indIEDest = indIEDest;
     }
 
     public String getIe() {
         return ie;
     }
 
-    public void setIe(String ie) {
-        this.ie = ie;
-    }
-
     public String getIsuf() {
         return isuf;
-    }
-
-    public void setIsuf(String isuf) {
-        this.isuf = isuf;
     }
 
     public String getIm() {
         return im;
     }
 
-    public void setIm(String im) {
-        this.im = im;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public Dest setCnpjCpf(String cnpjCpf) {
+        this.cnpjCpf = cnpjCpf;
+        return this;
+    }
+
+    public Dest setIdEstrangeiro(String idEstrangeiro) {
+        this.idEstrangeiro = idEstrangeiro;
+        return this;
+    }
+
+    public Dest setxNome(String xNome) {
+        this.xNome = xNome;
+        return this;
+    }
+
+    public Dest setEnderDest(EnderDest enderDest) {
+        this.enderDest = enderDest;
+        return this;
+    }
+
+    public Dest setIndIEDest(Integer indIEDest) {
+        this.indIEDest = indIEDest;
+        return this;
+    }
+
+    public Dest setIe(String ie) {
+        this.ie = ie;
+        return this;
+    }
+
+    public Dest setIsuf(String isuf) {
+        this.isuf = isuf;
+        return this;
+    }
+
+    public Dest setIm(String im) {
+        this.im = im;
+        return this;
+    }
+
+    public Dest setEmail(String email) {
         this.email = email;
+        return this;
     }
 }

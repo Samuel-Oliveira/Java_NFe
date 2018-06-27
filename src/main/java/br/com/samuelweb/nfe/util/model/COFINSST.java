@@ -60,39 +60,44 @@ public class COFINSST {
         return vBC;
     }
 
-    public void setvBC(BigDecimal vBC) {
-        this.vBC = vBC;
-    }
-
     public BigDecimal getpCofins() {
         return pCofins;
-    }
-
-    public void setpCofins(BigDecimal pCofins) {
-        this.pCofins = pCofins;
     }
 
     public BigDecimal getqBCProd() {
         return qBCProd;
     }
 
-    public void setqBCProd(BigDecimal qBCProd) {
-        this.qBCProd = qBCProd;
-    }
-
     public BigDecimal getvAliqProd() {
         return vAliqProd;
-    }
-
-    public void setvAliqProd(BigDecimal vAliqProd) {
-        this.vAliqProd = vAliqProd;
     }
 
     public BigDecimal getvCofins() {
         return vCofins;
     }
 
-    public void setvCofins(BigDecimal vCofins) {
+    public COFINSST setvBC(BigDecimal vBC) {
+        this.vBC = vBC;
+        return this;
+    }
+
+    public COFINSST setpCofins(BigDecimal pCofins) {
+        this.pCofins = pCofins;
+        return this;
+    }
+
+    public COFINSST setqBCProd(BigDecimal qBCProd) {
+        this.qBCProd = qBCProd;
+        return this;
+    }
+
+    public COFINSST setvAliqProd(BigDecimal vAliqProd) {
+        this.vAliqProd = vAliqProd;
+        return this;
+    }
+
+    public COFINSST setvCofins(BigDecimal vCofins) {
         this.vCofins = vCofins;
+        return this;
     }
 }

@@ -67,7 +67,7 @@ public class Emit {
         this.enderEmit = new EnderEmi();
     }
 
-    public TNFe.InfNFe.Emit build(){
+    public TNFe.InfNFe.Emit build() {
         TNFe.InfNFe.Emit emit = new TNFe.InfNFe.Emit();
         if (getCnpjCpf().length() > 11) {
             emit.setCNPJ(getCnpjCpf());
@@ -97,71 +97,80 @@ public class Emit {
         return cnpjCpf;
     }
 
-    public void setCnpjCpf(String cnpjCpf) {
-        this.cnpjCpf = cnpjCpf;
-    }
-
     public String getxNome() {
         return xNome;
-    }
-
-    public void setxNome(String xNome) {
-        this.xNome = xNome;
     }
 
     public String getxFant() {
         return xFant;
     }
 
-    public void setxFant(String xFant) {
-        this.xFant = xFant;
-    }
-
     public EnderEmi getEnderEmit() {
         return enderEmit;
-    }
-
-    public void setEnderEmit(EnderEmi enderEmit) {
-        this.enderEmit = enderEmit;
     }
 
     public String getIe() {
         return ie;
     }
 
-    public void setIe(String ie) {
-        this.ie = ie;
-    }
-
     public String getIest() {
         return iest;
-    }
-
-    public void setIest(String iest) {
-        this.iest = iest;
     }
 
     public String getIm() {
         return im;
     }
 
-    public void setIm(String im) {
-        this.im = im;
-    }
-
     public String getCnae() {
         return cnae;
-    }
-
-    public void setCnae(String cnae) {
-        this.cnae = cnae;
     }
 
     public String getCrt() {
         return crt;
     }
 
-    public void setCrt(String crt) {
+    public Emit setCnpjCpf(String cnpjCpf) {
+        this.cnpjCpf = cnpjCpf;
+        return this;
+    }
+
+    public Emit setxNome(String xNome) {
+        this.xNome = xNome;
+        return this;
+    }
+
+    public Emit setxFant(String xFant) {
+        this.xFant = xFant;
+        return this;
+    }
+
+    public Emit setEnderEmit(EnderEmi enderEmit) {
+        this.enderEmit = enderEmit;
+        return this;
+    }
+
+    public Emit setIe(String ie) {
+        this.ie = ie;
+        return this;
+    }
+
+    public Emit setIest(String iest) {
+        this.iest = iest;
+        return this;
+    }
+
+    public Emit setIm(String im) {
+        this.im = im;
+        return this;
+    }
+
+    public Emit setCnae(String cnae) {
+        this.cnae = cnae;
+        return this;
+    }
+
+    public Emit setCrt(String crt) {
         this.crt = crt;
+        return this;
     }
 }

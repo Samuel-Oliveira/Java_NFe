@@ -71,55 +71,62 @@ public class Vol {
         return qVol;
     }
 
-    public void setqVol(Integer qVol) {
-        this.qVol = qVol;
-    }
-
     public String getEsp() {
         return esp;
-    }
-
-    public void setEsp(String esp) {
-        this.esp = esp;
     }
 
     public String getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
     public String getnVol() {
         return nVol;
-    }
-
-    public void setnVol(String nVol) {
-        this.nVol = nVol;
     }
 
     public BigDecimal getPesoL() {
         return pesoL;
     }
 
-    public void setPesoL(BigDecimal pesoL) {
-        this.pesoL = pesoL;
-    }
-
     public BigDecimal getPesoB() {
         return pesoB;
-    }
-
-    public void setPesoB(BigDecimal pesoB) {
-        this.pesoB = pesoB;
     }
 
     public List<Lacres> getLacres() {
         return lacres;
     }
 
-    public void setLacres(List<Lacres> lacres) {
+    public Vol setqVol(Integer qVol) {
+        this.qVol = qVol;
+        return this;
+    }
+
+    public Vol setEsp(String esp) {
+        this.esp = esp;
+        return this;
+    }
+
+    public Vol setMarca(String marca) {
+        this.marca = marca;
+        return this;
+    }
+
+    public Vol setnVol(String nVol) {
+        this.nVol = nVol;
+        return this;
+    }
+
+    public Vol setPesoL(BigDecimal pesoL) {
+        this.pesoL = pesoL;
+        return this;
+    }
+
+    public Vol setPesoB(BigDecimal pesoB) {
+        this.pesoB = pesoB;
+        return this;
+    }
+
+    public Vol setLacres(List<Lacres> lacres) {
         this.lacres = lacres;
+        return this;
     }
 }

@@ -58,47 +58,53 @@ public class COFINS {
         return cst;
     }
 
-    public void setCst(CSTCofins cst) {
-        this.cst = cst;
-    }
-
     public BigDecimal getvBC() {
         return vBC;
-    }
-
-    public void setvBC(BigDecimal vBC) {
-        this.vBC = vBC;
     }
 
     public BigDecimal getpCOFINS() {
         return pCOFINS;
     }
 
-    public void setpCOFINS(BigDecimal pCOFINS) {
-        this.pCOFINS = pCOFINS;
-    }
-
     public BigDecimal getvCOFINS() {
         return vCOFINS;
-    }
-
-    public void setvCOFINS(BigDecimal vCOFINS) {
-        this.vCOFINS = vCOFINS;
     }
 
     public BigDecimal getqBCProd() {
         return qBCProd;
     }
 
-    public void setqBCProd(BigDecimal qBCProd) {
-        this.qBCProd = qBCProd;
-    }
-
     public BigDecimal getvAliqProd() {
         return vAliqProd;
     }
 
-    public void setvAliqProd(BigDecimal vAliqProd) {
+    public COFINS setCst(CSTCofins cst) {
+        this.cst = cst;
+        return this;
+    }
+
+    public COFINS setvBC(BigDecimal vBC) {
+        this.vBC = vBC;
+        return this;
+    }
+
+    public COFINS setpCOFINS(BigDecimal pCOFINS) {
+        this.pCOFINS = pCOFINS;
+        return this;
+    }
+
+    public COFINS setvCOFINS(BigDecimal vCOFINS) {
+        this.vCOFINS = vCOFINS;
+        return this;
+    }
+
+    public COFINS setqBCProd(BigDecimal qBCProd) {
+        this.qBCProd = qBCProd;
+        return this;
+    }
+
+    public COFINS setvAliqProd(BigDecimal vAliqProd) {
         this.vAliqProd = vAliqProd;
+        return this;
     }
 }

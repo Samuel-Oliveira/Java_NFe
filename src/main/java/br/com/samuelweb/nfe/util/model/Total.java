@@ -35,23 +35,26 @@ public class Total {
         return icmsTot;
     }
 
-    public void setIcmsTot(ICMSTot icmsTot) {
-        this.icmsTot = icmsTot;
-    }
-
     public ISSQNtot getIssqNtot() {
         return issqNtot;
-    }
-
-    public void setIssqNtot(ISSQNtot issqNtot) {
-        this.issqNtot = issqNtot;
     }
 
     public RetTrib getRetTrib() {
         return retTrib;
     }
 
-    public void setRetTrib(RetTrib retTrib) {
+    public Total setIcmsTot(ICMSTot icmsTot) {
+        this.icmsTot = icmsTot;
+        return this;
+    }
+
+    public Total setIssqNtot(ISSQNtot issqNtot) {
+        this.issqNtot = issqNtot;
+        return this;
+    }
+
+    public Total setRetTrib(RetTrib retTrib) {
         this.retTrib = retTrib;
+        return this;
     }
 }

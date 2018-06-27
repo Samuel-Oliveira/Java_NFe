@@ -29,15 +29,17 @@ public class ObsFisco {
         return xCampo;
     }
 
-    public void setxCampo(String xCampo) {
-        this.xCampo = xCampo;
-    }
-
     public String getxTexto() {
         return xTexto;
     }
 
-    public void setxTexto(String xTexto) {
+    public ObsFisco setxCampo(String xCampo) {
+        this.xCampo = xCampo;
+        return this;
+    }
+
+    public ObsFisco setxTexto(String xTexto) {
         this.xTexto = xTexto;
+        return this;
     }
 }

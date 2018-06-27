@@ -34,23 +34,26 @@ public class Compra {
         return xnEmp;
     }
 
-    public void setXnEmp(String xnEmp) {
-        this.xnEmp = xnEmp;
-    }
-
     public String getxPed() {
         return xPed;
-    }
-
-    public void setxPed(String xPed) {
-        this.xPed = xPed;
     }
 
     public String getxCont() {
         return xCont;
     }
 
-    public void setxCont(String xCont) {
+    public Compra setXnEmp(String xnEmp) {
+        this.xnEmp = xnEmp;
+        return this;
+    }
+
+    public Compra setxPed(String xPed) {
+        this.xPed = xPed;
+        return this;
+    }
+
+    public Compra setxCont(String xCont) {
         this.xCont = xCont;
+        return this;
     }
 }
