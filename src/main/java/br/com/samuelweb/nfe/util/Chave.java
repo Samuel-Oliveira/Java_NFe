@@ -19,7 +19,7 @@ public class Chave {
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyMM");
         String aamm = format.format(now);
-        
+
         while (cUF.length()<2) { cUF = "0" + cUF; }
         this.cUf = cUF;
         this.aa = aamm.substring(0, 2);
@@ -52,8 +52,7 @@ public class Chave {
     }
 
     public String getChNFe() {
-        String chaveFinal = "NFe" + getChave() + String.valueOf(getMod11(getChave()));
-        return chaveFinal;
+        return "NFe" + getChave() + String.valueOf(getMod11(getChave()));
     }
     
     private int getMod11(String chaveSemDigito) {        // UMA CHAVE DE ACESSO DE NF-E TEM 44 DIGITOS, ENTAO O CALCULO SE DÁ COM OS 43 ANTERIORES  
@@ -70,8 +69,8 @@ public class Chave {
             total += aux[i];  
         }  
         total = total % 11; //Porque o total é modulado por onze após as somas...
-        if (total == 0 || total == 1)  
-            dv = 0;  
+        if (total == 0 || total == 1)
+            dv = 0;
         else  
             dv = 11 - total;    
         
