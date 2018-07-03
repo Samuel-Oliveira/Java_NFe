@@ -8,20 +8,20 @@ import br.inf.portalfiscal.nfe.schema_4.enviNFe.TIpi;
 
 public enum CSTIpi implements EnumNfeValue<String> {
 
-    CST00("00", new MontaIPITrib()),
-    CST49("49", new MontaIPITrib()),
-    CST50("50", new MontaIPITrib()),
-    CST99("99", new MontaIPITrib()),
-    CST01("01", new MontaIPINt()),
-    CST02("02", new MontaIPINt()),
-    CST03("03", new MontaIPINt()),
-    CST04("04", new MontaIPINt()),
-    CST05("05", new MontaIPINt()),
-    CST51("51", new MontaIPINt()),
-    CST52("52", new MontaIPINt()),
-    CST53("53", new MontaIPINt()),
-    CST54("54", new MontaIPINt()),
-    CST55("55", new MontaIPINt());
+    CST_00("00", new MontaIPITrib()),
+    CST_49("49", new MontaIPITrib()),
+    CST_50("50", new MontaIPITrib()),
+    CST_99("99", new MontaIPITrib()),
+    CST_01("01", new MontaIPINt()),
+    CST_02("02", new MontaIPINt()),
+    CST_03("03", new MontaIPINt()),
+    CST_04("04", new MontaIPINt()),
+    CST_05("05", new MontaIPINt()),
+    CST_51("51", new MontaIPINt()),
+    CST_52("52", new MontaIPINt()),
+    CST_53("53", new MontaIPINt()),
+    CST_54("54", new MontaIPINt()),
+    CST_55("55", new MontaIPINt());
 
 
     private String value;

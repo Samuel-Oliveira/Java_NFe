@@ -69,7 +69,9 @@ public class Entrega {
         entrega.setXBairro(this.getxBairro());
         entrega.setCMun(this.getcMun());
         entrega.setXMun(this.getxMun());
-        entrega.setUF(TUf.fromValue(this.getUf()));
+        if (this.getUf() != null) {
+            entrega.setUF(TUf.fromValue(this.getUf()));
+        }
         if (entrega.getXLgr() != null && !entrega.getXLgr().isEmpty()) {
             return entrega;
         }

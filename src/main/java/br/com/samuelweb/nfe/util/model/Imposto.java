@@ -53,6 +53,7 @@ public class Imposto {
                     new JAXBElement<>(new QName("vTotTrib"), String.class, this.getvTotTrib().toString()));
         }
         if (this.getIssqn() != null
+                && this.getIssqn().getcListServ() != null
                 && !this.getIssqn().getcListServ().isEmpty()) {
             gerarImpostoIPI(imposto);
             gerarImpostoISSQN(imposto);

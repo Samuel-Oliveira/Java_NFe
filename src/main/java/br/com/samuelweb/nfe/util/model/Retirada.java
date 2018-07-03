@@ -69,7 +69,9 @@ public class Retirada {
         retirada.setXBairro(this.getxBairro());
         retirada.setCMun(this.getcMun());
         retirada.setXMun(this.getxMun());
-        retirada.setUF(TUf.fromValue(this.getUf()));
+        if (this.getUf() != null) {
+            retirada.setUF(TUf.fromValue(this.getUf()));
+        }
         if (retirada.getXLgr() != null && !retirada.getXLgr().isEmpty()) {
             return retirada;
         }

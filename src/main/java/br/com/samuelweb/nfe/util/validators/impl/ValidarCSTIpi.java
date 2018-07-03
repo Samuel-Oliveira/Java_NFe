@@ -11,20 +11,20 @@ public class ValidarCSTIpi implements ValidadorCampo<String> {
 
     private static Map<String, CSTIpi> cstIpiMap =  new HashMap<>();
     static {
-        cstIpiMap.put("00", CSTIpi.CST00);
-        cstIpiMap.put("49", CSTIpi.CST49);
-        cstIpiMap.put("50", CSTIpi.CST50);
-        cstIpiMap.put("99", CSTIpi.CST99);
-        cstIpiMap.put("01", CSTIpi.CST01);
-        cstIpiMap.put("02", CSTIpi.CST02);
-        cstIpiMap.put("03", CSTIpi.CST03);
-        cstIpiMap.put("04", CSTIpi.CST04);
-        cstIpiMap.put("05", CSTIpi.CST05);
-        cstIpiMap.put("51", CSTIpi.CST51);
-        cstIpiMap.put("52", CSTIpi.CST52);
-        cstIpiMap.put("53", CSTIpi.CST53);
-        cstIpiMap.put("54", CSTIpi.CST54);
-        cstIpiMap.put("55", CSTIpi.CST55);
+        cstIpiMap.put("00", CSTIpi.CST_00);
+        cstIpiMap.put("49", CSTIpi.CST_49);
+        cstIpiMap.put("50", CSTIpi.CST_50);
+        cstIpiMap.put("99", CSTIpi.CST_99);
+        cstIpiMap.put("01", CSTIpi.CST_01);
+        cstIpiMap.put("02", CSTIpi.CST_02);
+        cstIpiMap.put("03", CSTIpi.CST_03);
+        cstIpiMap.put("04", CSTIpi.CST_04);
+        cstIpiMap.put("05", CSTIpi.CST_05);
+        cstIpiMap.put("51", CSTIpi.CST_51);
+        cstIpiMap.put("52", CSTIpi.CST_52);
+        cstIpiMap.put("53", CSTIpi.CST_53);
+        cstIpiMap.put("54", CSTIpi.CST_54);
+        cstIpiMap.put("55", CSTIpi.CST_55);
     }
 
     @Override

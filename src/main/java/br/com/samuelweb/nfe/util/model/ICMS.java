@@ -491,4 +491,89 @@ public class ICMS {
         this.vICMSST = vICMSST;
         return this;
     }
+
+    public ICMS setvBCFCPST(BigDecimal vBCFCPST) {
+        this.vBCFCPST = vBCFCPST;
+        return this;
+    }
+
+    public ICMS setpFCPST(BigDecimal pFCPST) {
+        this.pFCPST = pFCPST;
+        return this;
+    }
+
+    public ICMS setvFCPST(BigDecimal vFCPST) {
+        this.vFCPST = vFCPST;
+        return this;
+    }
+
+    public ICMS setUFST(String UFST) {
+        this.UFST = UFST;
+        return this;
+    }
+
+    public ICMS setpBCOp(BigDecimal pBCOp) {
+        this.pBCOp = pBCOp;
+        return this;
+    }
+
+    public ICMS setvBCSTRet(BigDecimal vBCSTRet) {
+        this.vBCSTRet = vBCSTRet;
+        return this;
+    }
+
+    public ICMS setpST(BigDecimal pST) {
+        this.pST = pST;
+        return this;
+    }
+
+    public ICMS setvICMSSTRet(BigDecimal vICMSSTRet) {
+        this.vICMSSTRet = vICMSSTRet;
+        return this;
+    }
+
+    public ICMS setvBCFCPSTRet(BigDecimal vBCFCPSTRet) {
+        this.vBCFCPSTRet = vBCFCPSTRet;
+        return this;
+    }
+
+    public ICMS setpFCPSTRet(BigDecimal pFCPSTRet) {
+        this.pFCPSTRet = pFCPSTRet;
+        return this;
+    }
+
+    public ICMS setvFCPSTRet(BigDecimal vFCPSTRet) {
+        this.vFCPSTRet = vFCPSTRet;
+        return this;
+    }
+
+    public ICMS setMotDesICMS(MotivoDesoneracaoICMS motDesICMS) {
+        this.motDesICMS = motDesICMS;
+        return this;
+    }
+
+    public ICMS setvICMSDeson(BigDecimal vICMSDeson) {
+        this.vICMSDeson = vICMSDeson;
+        return this;
+    }
+
+    public ICMS setpCredSN(BigDecimal pCredSN) {
+        this.pCredSN = pCredSN;
+        return this;
+    }
+
+    public ICMS setvCredICMSSN(BigDecimal vCredICMSSN) {
+        this.vCredICMSSN = vCredICMSSN;
+        return this;
+    }
+
+    public ICMS setvBCSTDest(BigDecimal vBCSTDest) {
+        this.vBCSTDest = vBCSTDest;
+        return this;
+    }
+
+    public ICMS setvICMSSTDest(BigDecimal vICMSSTDest) {
+        this.vICMSSTDest = vICMSSTDest;
+        return this;
+    }
 }
