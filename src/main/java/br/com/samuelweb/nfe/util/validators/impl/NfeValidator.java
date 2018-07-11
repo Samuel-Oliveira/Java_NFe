@@ -4,6 +4,7 @@ import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
+import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.EnumNfeValue;
 import br.com.samuelweb.nfe.util.model.InfNFe;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
@@ -36,10 +37,10 @@ public class NfeValidator {
 
     public Boolean validarInfNfe(InfNFe infNFe) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         errosList = new ArrayList<>();
-        return validarObjetoCompleto(infNFe);
+        return validarObjetoCompleto(infNFe, NfeConsts.DSC_INFNFE);
     }
 
-    private Boolean validarObjetoCompleto(Object obj)
+    private Boolean validarObjetoCompleto(Object obj, String descricaoGrupo)
             throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         if (obj == null) {
             return TRUE;
@@ -48,28 +49,38 @@ public class NfeValidator {
         Class<?> persistentClass = obj.getClass();
         for (Field field : persistentClass.getDeclaredFields()) {
             result = result
-                    & validarCampo(obj, field)
-                    & validarObjeto(obj, field)
-                    & validarObjetoList(obj, field);
+                    & validarCampo(obj, field, descricaoGrupo)
+                    & validarObjeto(obj, field, descricaoGrupo)
+                    & validarObjetoList(obj, field, descricaoGrupo);
         }
         return result;
     }
 
-    private Boolean validarObjetoList(Object obj, Field field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private Boolean validarObjetoList(Object obj, Field field, String descricaoGrupo) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (field.isAnnotationPresent(NfeObjetoList.class)) {
             Class<?> persistentClass = obj.getClass();
             NfeObjetoList nfeObjetoList = field.getAnnotation(NfeObjetoList.class);
             List<Object> objListRet = (List<Object>) executarMetodoGet(obj, field);
             Boolean result = TRUE;
             if (nfeObjetoList.ocorrenciaMinima() > 0 && (objListRet == null || objListRet.isEmpty())) {
-                errosList.add(new ErrosValidacao(nfeObjetoList.id(), nfeObjetoList.tag(), nfeObjetoList.descricao(), DfeConsts.ERR_MSG_MENOR));
+                errosList.add(
+                        new ErrosValidacao(nfeObjetoList.id()
+                                , nfeObjetoList.tag()
+                                , nfeObjetoList.descricao()
+                                , DfeConsts.ERR_MSG_MENOR
+                                , descricaoGrupo));
             }
             if (nfeObjetoList.ocorrenciaMaxima() > 0 && objListRet != null && objListRet.size() > nfeObjetoList.ocorrenciaMaxima()) {
-                errosList.add(new ErrosValidacao(nfeObjetoList.id(), nfeObjetoList.tag(), nfeObjetoList.descricao(), DfeConsts.ERR_MSG_MAIOR));
+                errosList.add(
+                        new ErrosValidacao(nfeObjetoList.id()
+                                , nfeObjetoList.tag()
+                                , nfeObjetoList.descricao()
+                                , DfeConsts.ERR_MSG_MAIOR
+                                , descricaoGrupo));
             }
             if (objListRet != null){
                 for (Object objRet : objListRet) {
-                    result = result & validarObjetoCompleto(objRet);
+                    result = result & validarObjetoCompleto(objRet, nfeObjetoList.descricao());
                 }
             }
             return result;
@@ -77,22 +88,27 @@ public class NfeValidator {
         return TRUE;
     }
 
-    private Boolean validarObjeto(Object obj, Field field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private Boolean validarObjeto(Object obj, Field field, String descricaoGrupo) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (field.isAnnotationPresent(NfeObjeto.class)) {
             Class<?> persistentClass = obj.getClass();
             NfeObjeto nfeObjeto = field.getAnnotation(NfeObjeto.class);
             Object objRet = executarMetodoGet(obj, field);
             Boolean result = TRUE;
             if (nfeObjeto.ocorrencias() == 1 && objRet == null) {
-                errosList.add(new ErrosValidacao(nfeObjeto.id(), nfeObjeto.tag(), nfeObjeto.descricao(), DfeConsts.ERR_MSG_VAZIO));
+                errosList.add(
+                        new ErrosValidacao(nfeObjeto.id()
+                                , nfeObjeto.tag()
+                                , nfeObjeto.descricao()
+                                , DfeConsts.ERR_MSG_VAZIO
+                                , descricaoGrupo));
                 result = FALSE;
             }
-            return result & validarObjetoCompleto(objRet);
+            return result & validarObjetoCompleto(objRet, nfeObjeto.descricao());
         }
         return TRUE;
     }
 
-    private Boolean validarCampo(Object obj, Field field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private Boolean validarCampo(Object obj, Field field, String descricaoGrupo) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Boolean result = TRUE;
         if (field.isAnnotationPresent(NfeCampo.class)) {
             Class<?> persistentClass = obj.getClass();
@@ -100,18 +116,18 @@ public class NfeValidator {
             Object objRet = executarMetodoGet(obj, field);
 
             if (nfeCampo.tipo().equals(String.class)) {
-                result = validaCampoString(nfeCampo, (String) objRet, obj, field);
+                result = validaCampoString(nfeCampo, (String) objRet, obj, field, descricaoGrupo);
             } else if (nfeCampo.tipo().equals(Integer.class)) {
-                result = validaCampoInteger(nfeCampo, (Integer) objRet, obj, field);
+                result = validaCampoInteger(nfeCampo, (Integer) objRet, obj, field, descricaoGrupo);
             } else if (nfeCampo.tipo().equals(ZonedDateTime.class)) {
-                result = validaCampoZonedDateTime(nfeCampo, (ZonedDateTime) objRet);
+                result = validaCampoZonedDateTime(nfeCampo, (ZonedDateTime) objRet, descricaoGrupo);
             } else if (nfeCampo.tipo().equals(BigDecimal.class)) {
-                result = validaCampoBigDecimalValue(nfeCampo, (BigDecimal) objRet, obj, field);
+                result = validaCampoBigDecimalValue(nfeCampo, (BigDecimal) objRet, obj, field, descricaoGrupo);
             } else if (EnumNfeValue.class.isAssignableFrom(nfeCampo.tipo())) {
-                result = validaCampoEnumNfeValue(nfeCampo, (EnumNfeValue) objRet);
+                result = validaCampoEnumNfeValue(nfeCampo, (EnumNfeValue) objRet, descricaoGrupo);
             }
 
-            result = executeValidadores(nfeCampo, objRet) && result;
+            result = executeValidadores(nfeCampo, objRet, descricaoGrupo) && result;
         }
         return result;
     }
@@ -138,7 +154,8 @@ public class NfeValidator {
         return method.invoke(obj, value);
     }
 
-    private Boolean validaCampoBigDecimalValue(NfeCampo nfeCampo, BigDecimal value, Object obj, Field field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private Boolean validaCampoBigDecimalValue(NfeCampo nfeCampo, BigDecimal value, Object obj, Field field, String descricaoGrupo)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Boolean result = TRUE;
         if (!nfeCampo.valorDefault().isEmpty() && value == null) {
             value = new BigDecimal(nfeCampo.valorDefault());
@@ -150,28 +167,48 @@ public class NfeValidator {
         String valueStr = (value == null? BigDecimal.ZERO.toString(): value.toString());
         if (value == null && nfeCampo.ocorrencias() >= 1) {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_VAZIO));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_VAZIO
+                            , descricaoGrupo));
         }
         //valida tamanho campo Mínimo
         if (valueStr.length() > 1 && nfeCampo.tamanhoMinimo() > 0 && valueStr.length() < nfeCampo.tamanhoMinimo()) {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_MENOR));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_MENOR
+                            , descricaoGrupo));
         }
         //valida tamanho campo máximo
         if (valueStr.length() > 0 && nfeCampo.tamanhoMaximo() > 0 && valueStr.length() > nfeCampo.tamanhoMaximo())  {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_MAIOR));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_MAIOR
+                            , descricaoGrupo));
         }
         return result;
     }
 
-    private Boolean executeValidadores(NfeCampo nfeCampo, Object objRet) throws IllegalAccessException {
+    private Boolean executeValidadores(NfeCampo nfeCampo, Object objRet, String descricaoGrupo) throws IllegalAccessException {
         try {
             for (Class<?> validador : nfeCampo.validadores()) {
                 ValidadorCampo<Object> val = (ValidadorCampo<Object>) validador.newInstance();
                 RetornoValidar retorno = val.validar(objRet);
                 if (!retorno.getValido()) {
-                    errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), retorno.getMensagem()));
+                    errosList.add(
+                            new ErrosValidacao(nfeCampo.id()
+                                    , nfeCampo.tag()
+                                    , nfeCampo.descricao()
+                                    , retorno.getMensagem()
+                                    , descricaoGrupo));
                     return FALSE;
                 }
             }
@@ -181,24 +218,35 @@ public class NfeValidator {
         return TRUE;
     }
 
-    private Boolean validaCampoEnumNfeValue(NfeCampo nfeCampo, EnumNfeValue value) {
+    private Boolean validaCampoEnumNfeValue(NfeCampo nfeCampo, EnumNfeValue value, String descricaoGrupo) {
         if (value == null && nfeCampo.ocorrencias() >= 1) {
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_VAZIO));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_VAZIO
+                            , descricaoGrupo));
             return FALSE;
         }
         return TRUE;
     }
 
-    private Boolean validaCampoZonedDateTime(NfeCampo nfeCampo, ZonedDateTime value) {
+    private Boolean validaCampoZonedDateTime(NfeCampo nfeCampo, ZonedDateTime value, String descricaoGrupo) {
         Boolean result = TRUE;
         if (value == null && nfeCampo.ocorrencias() >= 1) {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_VAZIO));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_VAZIO
+                            , descricaoGrupo));
         }
         return result;
     }
 
-    private Boolean validaCampoInteger(NfeCampo nfeCampo, Integer value, Object obj, Field field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private Boolean validaCampoInteger(NfeCampo nfeCampo, Integer value, Object obj, Field field, String descricaoGrupo)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Boolean result = TRUE;
         if (!nfeCampo.valorDefault().isEmpty() && value == null) {
             value = Integer.parseInt(nfeCampo.valorDefault());
@@ -207,22 +255,38 @@ public class NfeValidator {
         String valueStr = String.valueOf(value == null? 0: value);
         if (value == null && nfeCampo.ocorrencias() >= 1) {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_VAZIO));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_VAZIO
+                            , descricaoGrupo));
         }
         //valida tamanho campo Mínimo
         if (valueStr.length() > 1 && nfeCampo.tamanhoMinimo() > 0 && valueStr.length() < nfeCampo.tamanhoMinimo()) {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_MENOR));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_MENOR
+                            , descricaoGrupo));
         }
         //valida tamanho campo máximo
         if (valueStr.length() > 0 && nfeCampo.tamanhoMaximo() > 0 && valueStr.length() > nfeCampo.tamanhoMaximo())  {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_MAIOR));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_MAIOR
+                            , descricaoGrupo));
         }
         return result;
     }
 
-    private Boolean validaCampoString(NfeCampo nfeCampo, String value, Object obj, Field field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private Boolean validaCampoString(NfeCampo nfeCampo, String value, Object obj, Field field, String descricaoGrupo)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Boolean result = TRUE;
         if (value == null) {
             value = "";
@@ -234,17 +298,32 @@ public class NfeValidator {
         //(Existem tags obrigatórias que podem ser nulas ex. cEAN)  if (ocorrencias = 1) and (EstaVazio) then
         if (nfeCampo.ocorrencias() == 1 && value.length() ==0 && nfeCampo.tamanhoMinimo() > 0) {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_VAZIO));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_VAZIO
+                            , descricaoGrupo));
         }
         //valida tamanho campo Mínimo
         if (value.length() > 0 && nfeCampo.tamanhoMinimo() > 0 && value.length() < nfeCampo.tamanhoMinimo()) {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_MENOR));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_MENOR
+                            , descricaoGrupo));
         }
         //valida tamanho campo máximo
         if (value.length() > 0 && nfeCampo.tamanhoMaximo() > 0 && value.length() > nfeCampo.tamanhoMaximo())  {
             result = FALSE;
-            errosList.add(new ErrosValidacao(nfeCampo.id(), nfeCampo.tag(), nfeCampo.descricao(), DfeConsts.ERR_MSG_MAIOR));
+            errosList.add(
+                    new ErrosValidacao(nfeCampo.id()
+                            , nfeCampo.tag()
+                            , nfeCampo.descricao()
+                            , DfeConsts.ERR_MSG_MAIOR
+                            , descricaoGrupo));
         }
         return result;
     }

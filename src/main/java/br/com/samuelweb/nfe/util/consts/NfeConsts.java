@@ -2,6 +2,7 @@ package br.com.samuelweb.nfe.util.consts;
 
 public class NfeConsts {
 
+    public static final String DSC_INFNFE = "Informações da NF-e";
     public static final String DSC_IDE = "Informações de identificação da NF-e";
     public static final String DSC_NFREF = "Informação de Documentos Fiscais referenciados";
     public static final String DSC_REFNF = "Informação da NF modelo 1/1A referenciada";

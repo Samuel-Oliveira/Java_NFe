@@ -33,8 +33,12 @@ public class NfeApplicationTests {
 
     //@Test
     public static void main(String[] args) {
+        enviarNfe();
+    }
+
+    private static void enviarNfe() {
         System.out.println("--------------------------------------------------------------------------");
-        System.out.println("Iniciando teste Objeto IDE");
+        System.out.println("Iniciando teste EnvioNFe");
         System.out.println("--------------------------------------------------------------------------");
 
         InfNFe infNFe = new InfNFe();
@@ -119,16 +123,16 @@ public class NfeApplicationTests {
 
         det.getImposto().setIpi(new IPI());
         det.getImposto().getIpi().setcEnq("999");
-        det.getImposto().getIpi().setCst(CSTIpi.valueOf("CST53"));
+        det.getImposto().getIpi().setCst(CSTIpi.valueOf("CST_53"));
 
         det.getImposto().setPis(new PIS());
-        det.getImposto().getPis().setCST(CSTPis.valueOf("PIS01"));
+        det.getImposto().getPis().setCST(CSTPis.valueOf("CST_01"));
         det.getImposto().getPis().setvBC(new BigDecimal("24.85"));
         det.getImposto().getPis().setpPIS(new BigDecimal("0.0"));
         det.getImposto().getPis().setvPIS(new BigDecimal("0.41"));
 
         det.getImposto().setCofins(new COFINS());
-        det.getImposto().getCofins().setCst(CSTCofins.valueOf("CST01"));
+        det.getImposto().getCofins().setCst(CSTCofins.valueOf("CST_01"));
         det.getImposto().getCofins().setvBC(new BigDecimal("24.85"));
         det.getImposto().getCofins().setpCOFINS(new BigDecimal("0.0"));
         det.getImposto().getCofins().setvCOFINS(new BigDecimal("1.89"));
@@ -220,7 +224,7 @@ public class NfeApplicationTests {
             e.printStackTrace();
         }
         System.out.println("--------------------------------------------------------------------------");
-        System.out.println("Final do teste Objeto IDE");
+        System.out.println("Final do teste EnvioNFe");
         System.out.println("--------------------------------------------------------------------------");
     }
 

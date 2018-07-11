@@ -48,7 +48,7 @@ public class Retirada {
             , id = "F07", tag = "cMun", validadores = {ValidarMunicipio.class}
             , tamanhoMinimo = 1, tamanhoMaximo = 7, ocorrencias = 1
             , descricao = DfeConsts.DSC_CMUN)
-    private String cMun;
+    private Integer cMun;
 
     @NfeCampo(tipo = String.class
             , id = "F08", tag = "xMun"
@@ -67,7 +67,9 @@ public class Retirada {
         retirada.setNro(this.getNro());
         retirada.setXCpl(this.getxCpl());
         retirada.setXBairro(this.getxBairro());
-        retirada.setCMun(this.getcMun());
+        if (this.getcMun() != null) {
+            retirada.setCMun(this.getcMun().toString());
+        }
         retirada.setXMun(this.getxMun());
         if (this.getUf() != null) {
             retirada.setUF(TUf.fromValue(this.getUf()));
@@ -102,7 +104,7 @@ public class Retirada {
         return xBairro;
     }
 
-    public String getcMun() {
+    public Integer getcMun() {
         return cMun;
     }
 
@@ -140,7 +142,7 @@ public class Retirada {
         return this;
     }
 
-    public Retirada setcMun(String cMun) {
+    public Retirada setcMun(Integer cMun) {
         this.cMun = cMun;
         return this;
     }

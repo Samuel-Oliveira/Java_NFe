@@ -48,7 +48,7 @@ public class Entrega {
             , id = "F07", tag = "cMun", validadores = {ValidarMunicipio.class}
             , tamanhoMinimo = 1, tamanhoMaximo = 7, ocorrencias = 1
             , descricao = DfeConsts.DSC_CMUN)
-    private String cMun;
+    private Integer cMun;
 
     @NfeCampo(tipo = String.class
             , id = "F08", tag = "xMun"
@@ -67,7 +67,9 @@ public class Entrega {
         entrega.setNro(this.getNro());
         entrega.setXCpl(this.getxCpl());
         entrega.setXBairro(this.getxBairro());
-        entrega.setCMun(this.getcMun());
+        if (this.getcMun() != null) {
+            entrega.setCMun(this.getcMun().toString());
+        }
         entrega.setXMun(this.getxMun());
         if (this.getUf() != null) {
             entrega.setUF(TUf.fromValue(this.getUf()));
@@ -102,7 +104,7 @@ public class Entrega {
         return xBairro;
     }
 
-    public String getcMun() {
+    public Integer getcMun() {
         return cMun;
     }
 
@@ -140,7 +142,7 @@ public class Entrega {
         return this;
     }
 
-    public Entrega setcMun(String cMun) {
+    public Entrega setcMun(Integer cMun) {
         this.cMun = cMun;
         return this;
     }
