@@ -65,7 +65,7 @@ public class Entrega {
         }
         entrega.setXLgr(this.getxLgr());
         entrega.setNro(this.getNro());
-        if (this.getxCpl() != null & !this.getxCpl().isEmpty()) {
+        if (this.getxCpl() != null && !this.getxCpl().isEmpty()) {
             entrega.setXCpl(this.getxCpl());
         }
         entrega.setXBairro(this.getxBairro());
@@ -152,5 +152,9 @@ public class Entrega {
     public Entrega setxMun(String xMun) {
         this.xMun = xMun;
         return this;
+    }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
     }
 }

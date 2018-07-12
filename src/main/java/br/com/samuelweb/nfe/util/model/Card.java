@@ -71,4 +71,8 @@ public class Card {
     public void setcAut(String cAut) {
         this.cAut = cAut;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

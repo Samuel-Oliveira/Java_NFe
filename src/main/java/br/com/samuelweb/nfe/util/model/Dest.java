@@ -176,4 +176,8 @@ public class Dest {
         this.email = email;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        getEnderDest().validarRegraNegocio(infNFe);
+    }
 }

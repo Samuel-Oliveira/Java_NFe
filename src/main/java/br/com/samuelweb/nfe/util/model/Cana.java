@@ -196,4 +196,14 @@ public class Cana {
         this.deduc = deduc;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getForDia() != null) {
+            this.getForDia().forEach(forDia1 -> forDia1.validarRegraNegocio(infNFe));
+        }
+
+        if (this.getDeduc() != null){
+            this.getDeduc().forEach(deduc1 -> deduc1.validarRegraNegocio(infNFe));
+        }
+    }
 }

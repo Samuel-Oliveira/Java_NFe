@@ -45,6 +45,63 @@ public class Imposto {
     @NfeObjeto(id = "U01", tag = "ISSQN", ocorrencias = 0, descricao = NfeConsts.DSC_ISSQN)
     private ISSQN issqn;
 
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (getIcms() != null && getIcms().isEmpty()) {
+            setIcms(null);
+        }
+        if (infNFe.getEmit().getEnderEmit().getcMun().equals(infNFe.getDest().getEnderDest().getcMun())) {
+            this.setIcmsUfDest(null);
+        }
+        if (getIpi() != null && getIpi().isEmpty()) {
+            setIpi(null);
+        }
+        if (getIi() != null && getIi().isEmpty()) {
+            setIi(null);
+        }
+        if (getPis() != null && getPis().isEmpty()) {
+            setPis(null);
+        }
+        if (getPisst() != null && getPisst().isEmpty()) {
+            setPisst(null);
+        }
+        if (getCofins() != null && getCofins().isEmpty()) {
+            setCofins(null);
+        }
+        if (getCofinsst() != null && getCofinsst().isEmpty()) {
+            setCofinsst(null);
+        }
+        if (getIssqn() != null && getIssqn().isEmpty()) {
+            setIssqn(null);
+        }
+
+        if (this.getIcms() != null) {
+            this.getIcms().validarRegraNegocio(infNFe);
+        }
+        if (this.getIi() != null) {
+            this.getIi().validarRegraNegocio(infNFe);
+        }
+        if (this.getPis() != null) {
+            this.getPis().validarRegraNegocio(infNFe);
+        }
+        if (this.getPisst() != null) {
+            this.getPisst().validarRegraNegocio(infNFe);
+        }
+        if (this.getCofins() != null) {
+            this.getCofins().validarRegraNegocio(infNFe);
+        }
+        if (this.getCofinsst() != null) {
+            this.getCofinsst().validarRegraNegocio(infNFe);
+        }
+        if (this.getIcmsUfDest() != null) {
+            this.getIcmsUfDest().validarRegraNegocio(infNFe);
+        }
+        if (this.getIpi() != null) {
+            this.getIpi().validarRegraNegocio(infNFe);
+        }
+        if (this.getIssqn() != null) {
+            this.getIssqn().validarRegraNegocio(infNFe);
+        }
+    }
 
     public TNFe.InfNFe.Det.Imposto build() {
         TNFe.InfNFe.Det.Imposto imposto = new TNFe.InfNFe.Det.Imposto();

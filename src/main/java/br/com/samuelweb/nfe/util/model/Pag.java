@@ -50,4 +50,10 @@ public class Pag {
         this.vTroco = vTroco;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (getDetPag() != null) {
+            getDetPag().forEach(detPag -> detPag.validarRegraNegocio(infNFe));
+        }
+    }
 }

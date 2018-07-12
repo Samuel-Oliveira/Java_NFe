@@ -46,6 +46,19 @@ public class COFINS {
             , descricao = DfeConsts.DSC_VALIQPROD)
     private BigDecimal vAliqProd;
 
+    public boolean isEmpty() {
+        return (cst == null)
+            && (vBC == null)
+            && (pCOFINS == null)
+            && (vCOFINS == null)
+            && (qBCProd == null)
+            && (vAliqProd == null);
+    }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
+
     public TNFe.InfNFe.Det.Imposto.COFINS build() {
         if (this.getCst() == null) {
             return null;
@@ -108,4 +121,5 @@ public class COFINS {
         this.vAliqProd = vAliqProd;
         return this;
     }
+
 }

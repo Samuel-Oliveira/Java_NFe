@@ -56,4 +56,8 @@ public class Compra {
         this.xCont = xCont;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

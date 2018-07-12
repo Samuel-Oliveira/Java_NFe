@@ -38,6 +38,18 @@ public class PISST {
             , descricao = DfeConsts.DSC_VPIS)
     private BigDecimal vPIS;
 
+    public boolean isEmpty() {
+        return (vBc == null)
+            && (pPis == null)
+            && (qBCProd == null)
+            && (vAliqProd == null)
+            && (vPIS == null);
+    }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
+
     public TNFe.InfNFe.Det.Imposto.PISST build() {
         TNFe.InfNFe.Det.Imposto.PISST pisst = new TNFe.InfNFe.Det.Imposto.PISST();
         if (this.getvBc() != null && this.getpPis() != null
@@ -111,4 +123,5 @@ public class PISST {
         this.vPIS = vPIS;
         return this;
     }
+
 }

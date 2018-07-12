@@ -53,4 +53,13 @@ public class Cobr {
         this.dup = dup;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getFat() != null) {
+            this.getFat().validarRegraNegocio(infNFe);
+        }
+        if (this.getDup() != null) {
+            this.getDup().forEach(dup1 -> dup1.validarRegraNegocio(infNFe));
+        }
+    }
 }

@@ -202,4 +202,8 @@ public class Avulsa {
         this.dPag = dPag;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

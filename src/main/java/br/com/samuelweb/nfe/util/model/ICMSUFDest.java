@@ -174,4 +174,8 @@ public class ICMSUFDest {
         this.vICMSUFRemet = vICMSUFRemet;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

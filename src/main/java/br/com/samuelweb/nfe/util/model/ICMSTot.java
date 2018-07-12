@@ -428,4 +428,8 @@ public class ICMSTot {
         this.vTotTrib = vTotTrib;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

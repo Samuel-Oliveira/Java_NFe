@@ -58,4 +58,8 @@ public class Exporta {
         this.xLocDespacho = xLocDespacho;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

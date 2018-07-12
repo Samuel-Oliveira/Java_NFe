@@ -50,4 +50,8 @@ public class ImpostoDevol {
         this.vIPIDevol = vIPIDevol;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

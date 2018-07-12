@@ -95,4 +95,16 @@ public class Det {
         this.infAdProd = infAdProd;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getProd() != null) {
+            this.getProd().validarRegraNegocio(infNFe);
+        }
+        if (this.getImposto() != null) {
+            this.getImposto().validarRegraNegocio(infNFe);
+        }
+        if (this.getImpostoDevol() != null) {
+            this.getImpostoDevol().validarRegraNegocio(infNFe);
+        }
+    }
 }

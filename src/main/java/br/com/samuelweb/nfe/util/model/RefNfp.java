@@ -139,4 +139,7 @@ public class RefNfp {
     public void setNnf(String nnf) {
         this.nnf = nnf;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+    }
 }

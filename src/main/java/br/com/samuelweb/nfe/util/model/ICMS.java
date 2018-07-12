@@ -233,6 +233,50 @@ public class ICMS {
             , descricao = NfeConsts.DSC_VBCICMSSTDEST)
     private BigDecimal vICMSSTDest;
 
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
+
+    public boolean isEmpty() {
+        return (orig == null)
+            && (CST == null)
+            && (CSOSN == null)
+            && (modBC == null)
+            && (pRedBC == null)
+            && (vBC == null)
+            && (pICMS == null)
+            && (vICMSOp == null)
+            && (pDif == null)
+            && (vICMSDif == null)
+            && (vICMS == null)
+            && (vBCFCP == null)
+            && (pFCP == null)
+            && (vFCP == null)
+            && (modBCST == null)
+            && (pMVAST == null)
+            && (pRedBCST == null)
+            && (vBCST == null)
+            && (pICMSST == null)
+            && (vICMSST == null)
+            && (vBCFCPST == null)
+            && (pFCPST == null)
+            && (vFCPST == null)
+            && (UFST == null || UFST.isEmpty())
+            && (pBCOp == null)
+            && (vBCSTRet == null)
+            && (pST == null)
+            && (vICMSSTRet == null)
+            && (vBCFCPSTRet == null)
+            && (pFCPSTRet == null)
+            && (vFCPSTRet == null)
+            && (motDesICMS == null)
+            && (vICMSDeson == null)
+            && (pCredSN == null)
+            && (vCredICMSSN == null)
+            && (vBCSTDest == null)
+            && (vICMSSTDest == null);
+    }
+
     public TNFe.InfNFe.Det.Imposto.ICMS build() {
         TNFe.InfNFe.Det.Imposto.ICMS icms = new TNFe.InfNFe.Det.Imposto.ICMS();
         if (this.getCST() != null) {

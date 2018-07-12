@@ -92,4 +92,8 @@ public class Fat {
         this.vLiq = vLiq;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

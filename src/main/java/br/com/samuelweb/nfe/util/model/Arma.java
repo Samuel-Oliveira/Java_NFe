@@ -75,4 +75,8 @@ public class Arma {
         this.descr = descr;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

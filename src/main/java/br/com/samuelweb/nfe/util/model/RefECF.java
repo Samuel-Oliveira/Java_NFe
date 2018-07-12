@@ -57,4 +57,7 @@ public class RefECF {
     public void setNcoo(Integer ncoo) {
         this.ncoo = ncoo;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+    }
 }

@@ -97,4 +97,8 @@ public class Encerrante {
     public void setvEncFin(BigDecimal vEncFin) {
         this.vEncFin = vEncFin;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

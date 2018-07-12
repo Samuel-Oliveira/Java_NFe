@@ -109,4 +109,7 @@ public class RefNf {
     public void setNnf(Integer nnf) {
         this.nnf = nnf;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+    }
 }

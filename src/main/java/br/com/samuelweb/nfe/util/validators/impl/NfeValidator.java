@@ -39,6 +39,7 @@ public class NfeValidator {
 
     public Boolean validarInfNfe(InfNFe infNFe) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         errosList = new ArrayList<>();
+        infNFe.validarRegraNegocio();
         return validarObjetoCompleto(infNFe, NfeConsts.DSC_INFNFE);
     }
 
@@ -299,6 +300,9 @@ public class NfeValidator {
     private Boolean validaCampoString(NfeCampo nfeCampo, String value, Object obj, Field field, String descricaoGrupo)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Boolean result = TRUE;
+        if (value == null && nfeCampo.ocorrencias() == 0) {
+            return result;
+        }
         if (value == null) {
             value = "";
         }

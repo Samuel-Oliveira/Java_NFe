@@ -225,4 +225,10 @@ public class DI {
         this.adi = adi;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getAdi() != null) {
+            this.getAdi().forEach(adi1 -> adi1.validarRegraNegocio(infNFe));
+        }
+    }
 }

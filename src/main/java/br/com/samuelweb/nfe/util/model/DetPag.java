@@ -82,4 +82,10 @@ public class DetPag {
         this.card = card;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getCard() != null) {
+            this.getCard().validarRegraNegocio(infNFe);
+        }
+    }
 }

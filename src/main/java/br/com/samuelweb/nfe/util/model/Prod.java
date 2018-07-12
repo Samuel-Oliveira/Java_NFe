@@ -606,4 +606,28 @@ public class Prod {
         this.nrecopi = nrecopi;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getDi() != null) {
+            this.getDi().forEach(di1 -> di1.validarRegraNegocio(infNFe));
+        }
+        if (this.getDetExport() != null) {
+            this.getDetExport().forEach(detExport1 -> detExport1.validarRegraNegocio(infNFe));
+        }
+        if (this.getRastro() != null) {
+            this.getRastro().forEach(rastro1 -> rastro1.validarRegraNegocio(infNFe));
+        }
+        if (this.getVeicProd() != null) {
+            this.getVeicProd().validarRegraNegocio(infNFe);
+        }
+        if (this.getMed() != null) {
+            this.getMed().validarRegraNegocio(infNFe);
+        }
+        if (this.getArma() != null) {
+            this.getArma().forEach(arma1 -> arma1.validarRegraNegocio(infNFe));
+        }
+        if (this.getComb() != null) {
+            this.getComb().validarRegraNegocio(infNFe);
+        }
+    }
 }

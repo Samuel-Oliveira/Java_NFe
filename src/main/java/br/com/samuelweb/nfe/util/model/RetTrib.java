@@ -149,4 +149,8 @@ public class RetTrib {
         this.vRetPrev = vRetPrev;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

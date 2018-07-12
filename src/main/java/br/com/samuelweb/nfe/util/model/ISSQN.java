@@ -107,7 +107,28 @@ public class ISSQN  {
             , tamanhoMinimo = 1, tamanhoMaximo = 1, ocorrencias = 1
             , descricao = DfeConsts.DSC_INDINCENTIVO)
     private SimNao indIncentivo;
-    
+
+
+    public boolean isEmpty() {
+        return (vBC == null)
+            && (vAliq == null)
+            && (vISSQN == null)
+            && (cListServ == null || cListServ.isEmpty())
+            && (vDeducao == null)
+            && (vOutro == null)
+            && (vDescIncond == null)
+            && (vDescCond == null)
+            && (vISSRet == null)
+            && (indISS == null)
+            && (cServico == null || cServico.isEmpty())
+            && (nProcesso == null || nProcesso.isEmpty())
+            && (indIncentivo == null);
+    }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
+
     public TNFe.InfNFe.Det.Imposto.ISSQN build() {
         TNFe.InfNFe.Det.Imposto.ISSQN issqn = new TNFe.InfNFe.Det.Imposto.ISSQN();
         if (this.getvBC() != null) {
@@ -300,4 +321,5 @@ public class ISSQN  {
         this.indIncentivo = indIncentivo;
         return this;
     }
+
 }

@@ -46,4 +46,8 @@ public class ForDia {
         this.dia = dia;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

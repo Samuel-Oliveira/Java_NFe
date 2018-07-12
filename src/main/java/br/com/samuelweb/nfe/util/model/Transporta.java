@@ -121,4 +121,8 @@ public class Transporta {
         this.uf = uf;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

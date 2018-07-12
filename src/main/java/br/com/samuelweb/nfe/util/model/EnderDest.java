@@ -200,4 +200,8 @@ public class EnderDest {
         this.fone = fone;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

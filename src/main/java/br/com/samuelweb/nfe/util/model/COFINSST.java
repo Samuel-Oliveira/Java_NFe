@@ -38,6 +38,18 @@ public class COFINSST {
             , descricao = DfeConsts.DSC_VCOFINS)
     private BigDecimal vCofins;
 
+    public boolean isEmpty() {
+        return (vBC == null)
+            && (pCofins == null)
+            && (qBCProd == null)
+            && (vAliqProd == null)
+            && (vCofins == null);
+    }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
+
     public TNFe.InfNFe.Det.Imposto.COFINSST build() {
         TNFe.InfNFe.Det.Imposto.COFINSST cofinsst = new TNFe.InfNFe.Det.Imposto.COFINSST();
         if (this.getvBC() != null && this.getpCofins() != null
@@ -100,4 +112,5 @@ public class COFINSST {
         this.vCofins = vCofins;
         return this;
     }
+
 }

@@ -200,4 +200,8 @@ public class EnderEmi {
     public Integer getFone() {
         return fone;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

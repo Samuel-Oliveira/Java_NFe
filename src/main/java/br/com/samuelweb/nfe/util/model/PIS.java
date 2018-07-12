@@ -46,6 +46,19 @@ public class PIS {
             , descricao = DfeConsts.DSC_VALIQPROD)
     private BigDecimal vAliqProd;
 
+    public boolean isEmpty() {
+        return (CST == null)
+            && (vBC == null)
+            && (pPIS == null)
+            && (vPIS == null)
+            && (qBCProd == null)
+            && (vAliqProd == null);
+    }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
+
     public TNFe.InfNFe.Det.Imposto.PIS build() {
         if (this.getCST() == null) {
             return null;
@@ -108,4 +121,5 @@ public class PIS {
         this.vAliqProd = vAliqProd;
         return this;
     }
+
 }

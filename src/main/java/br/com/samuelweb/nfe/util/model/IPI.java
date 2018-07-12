@@ -71,6 +71,22 @@ public class IPI {
             , descricao = NfeConsts.DSC_VIPI)
     private BigDecimal vIPI;
 
+    public boolean isEmpty() {
+        return (CNPJProd == null || CNPJProd.isEmpty()) &&
+            (cSelo == null || cSelo.isEmpty()) &&
+            (qSelo == null) &&
+            (cEnq == null || cEnq.isEmpty()) &&
+            (cst == null) &&
+            (vBC == null) &&
+            (qUnid == null) &&
+            (vUnid == null) &&
+            (pIPI == null) &&
+            (vIPI == null);
+    }
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
+
     public TIpi build() {
         if (this.getCst() == null) {
             return null;
@@ -175,4 +191,5 @@ public class IPI {
         this.vIPI = vIPI;
         return this;
     }
+
 }

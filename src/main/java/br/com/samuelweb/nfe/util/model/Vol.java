@@ -129,4 +129,8 @@ public class Vol {
         this.lacres = lacres;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        getLacres().forEach(lacres1 -> lacres1.validarRegraNegocio(infNFe));
+    }
 }

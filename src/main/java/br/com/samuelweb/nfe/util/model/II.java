@@ -33,6 +33,16 @@ public class II {
             , descricao = NfeConsts.DSC_VIOF)
     private BigDecimal viof;
 
+    public boolean isEmpty() {
+        return (vbc == null)
+            && (vDespAdu == null)
+            && (vii == null)
+            && (viof == null);
+    }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
     public TNFe.InfNFe.Det.Imposto.II build() {
         if ((this.getVbc().compareTo(BigDecimal.ZERO) > 0)
                 || (this.getvDespAdu().compareTo(BigDecimal.ZERO) > 0)

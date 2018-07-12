@@ -177,4 +177,8 @@ public class Emit {
         this.crt = crt;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        this.getEnderEmit().validarRegraNegocio(infNFe);
+    }
 }

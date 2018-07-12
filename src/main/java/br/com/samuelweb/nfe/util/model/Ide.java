@@ -211,9 +211,7 @@ public class Ide {
             ide.setDhCont(this.getDhCont().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
             ide.setXJust(this.getxJust());
         }
-        for (NfRef ref : getNfRef()) {
-            ide.getNFref().add(ref.build());
-        }
+        getNfRef().forEach(nfRef1 -> ide.getNFref().add(nfRef1.build()));
         return ide;
     }
 
@@ -429,5 +427,9 @@ public class Ide {
     public Ide setNfRef(List<NfRef> nfRef) {
         this.nfRef = nfRef;
         return this;
+    }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        getNfRef().forEach(nfRef1 -> nfRef1.validarRegraNegocio(infNFe));
     }
 }

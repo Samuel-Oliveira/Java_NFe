@@ -69,4 +69,8 @@ public class Dup {
         this.vDup = vDup;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

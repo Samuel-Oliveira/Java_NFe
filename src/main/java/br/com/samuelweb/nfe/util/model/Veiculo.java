@@ -66,4 +66,8 @@ public class Veiculo {
         this.rntc = rntc;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

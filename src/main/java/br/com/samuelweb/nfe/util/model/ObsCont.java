@@ -42,4 +42,8 @@ public class ObsCont {
         this.xTexto = xTexto;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

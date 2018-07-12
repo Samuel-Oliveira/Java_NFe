@@ -153,4 +153,8 @@ public class Retirada {
         this.xMun = xMun;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

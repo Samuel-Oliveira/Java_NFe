@@ -57,4 +57,17 @@ public class Total {
         this.retTrib = retTrib;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getIcmsTot() != null) {
+            this.getIcmsTot().validarRegraNegocio(infNFe);
+        }
+        if (this.getIssqNtot() != null) {
+            this.getIssqNtot().validarRegraNegocio(infNFe);
+
+        }
+        if (this.getRetTrib() != null) {
+            this.getRetTrib().validarRegraNegocio(infNFe);
+        }
+    }
 }

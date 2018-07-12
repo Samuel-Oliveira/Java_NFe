@@ -86,4 +86,8 @@ public class DetExport {
         this.qExport = qExport;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

@@ -25,4 +25,8 @@ public class Lacres {
         this.nLacre = nLacre;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

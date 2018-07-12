@@ -48,4 +48,8 @@ public class Deduc {
         this.vDed = vDed;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

@@ -97,4 +97,17 @@ public class InfAdic {
         this.procRef = procRef;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getObsCont() != null) {
+            this.getObsCont().forEach(obsCont1 -> obsCont1.validarRegraNegocio(infNFe));
+        }
+
+        if (this.getObsFisco() != null) {
+            this.getObsFisco().forEach(obsFisco1 -> obsFisco1.validarRegraNegocio(infNFe));
+        }
+        if (this.getProcRef() != null) {
+            this.getProcRef().forEach(procRef1 -> procRef1.validarRegraNegocio(infNFe));
+        }
+    }
 }

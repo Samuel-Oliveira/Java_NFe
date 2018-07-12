@@ -136,4 +136,22 @@ public class Transp {
         this.vol = vol;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getTransporta() != null) {
+            this.getTransporta().validarRegraNegocio(infNFe);
+        }
+        if (this.getRetTransp() != null) {
+            this.getRetTransp().validarRegraNegocio(infNFe);
+        }
+        if (this.getVeicTransp() != null) {
+            this.getVeicTransp().validarRegraNegocio(infNFe);
+        }
+        if (this.getReboque() != null) {
+            this.getReboque().forEach(veiculo -> veiculo.validarRegraNegocio(infNFe));
+        }
+        if (this.getVol() != null) {
+            this.getVol().forEach(vol1 -> vol1.validarRegraNegocio(infNFe));
+        }
+    }
 }

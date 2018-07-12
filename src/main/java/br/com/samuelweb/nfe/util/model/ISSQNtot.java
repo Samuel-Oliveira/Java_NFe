@@ -238,4 +238,8 @@ public class ISSQNtot {
         this.cRegTrib = cRegTrib;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

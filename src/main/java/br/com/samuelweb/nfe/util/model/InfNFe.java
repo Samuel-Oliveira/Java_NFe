@@ -206,8 +206,9 @@ public class InfNFe {
         return pag;
     }
 
-    public void setPag(Pag pag) {
+    public InfNFe setPag(Pag pag) {
         this.pag = pag;
+        return this;
     }
 
     public List<AutXML> getAutXMLList() {
@@ -217,11 +218,21 @@ public class InfNFe {
         return autXMLList;
     }
 
+    public InfNFe addAllAutXMLList(List<AutXML> autList){
+        this.getAutXMLList().addAll(autList);
+        return this;
+    }
+
     public List<Det> getDetList() {
         if (this.detList == null) {
             detList = new ArrayList<>();
         }
         return detList;
+    }
+
+    public InfNFe addAllDetList(List<Det> detList){
+        this.getDetList().addAll(detList);
+        return this;
     }
 
     public InfNFe setIde(Ide ide) {
@@ -287,5 +298,56 @@ public class InfNFe {
     public InfNFe setCana(Cana cana) {
         this.cana = cana;
         return this;
+    }
+
+    public void validarRegraNegocio() {
+        if (this.getIde() != null) {
+            this.getIde().validarRegraNegocio(this);
+        }
+        if (this.getEmit() != null) {
+            this.getEmit().validarRegraNegocio(this);
+        }
+        if (this.getAvulsa() != null) {
+            this.getAvulsa().validarRegraNegocio(this);
+        }
+        if (this.getDest() != null) {
+            this.getDest().validarRegraNegocio(this);
+        }
+        if (this.getRetirada() != null) {
+            this.getRetirada().validarRegraNegocio(this);
+        }
+        if (this.getEntrega() != null) {
+            this.getEntrega().validarRegraNegocio(this);
+        }
+        if (this.getAutXMLList() != null) {
+            this.getAutXMLList().forEach(autXML -> autXML.validarRegraNegocio(this));
+        }
+        if (this.getDetList() != null) {
+            this.getDetList().forEach(det -> det.validarRegraNegocio(this));
+        }
+        if (this.getTotal() != null) {
+            this.getTotal().validarRegraNegocio(this);
+        }
+        if (this.getTransp() != null) {
+            this.getTransp().validarRegraNegocio(this);
+        }
+        if (this.getCobr() != null) {
+            this.getCobr().validarRegraNegocio(this);
+        }
+        if (this.getPag() != null) {
+            this.getPag().validarRegraNegocio(this);
+        }
+        if (this.getInfAdic() != null) {
+            this.getInfAdic().validarRegraNegocio(this);
+        }
+        if (this.getExporta() != null) {
+            this.getExporta().validarRegraNegocio(this);
+        }
+        if (this.getCompra() != null) {
+            this.getCompra().validarRegraNegocio(this);
+        }
+        if (this.getCana() != null) {
+            this.getCana().validarRegraNegocio(this);
+        }
     }
 }

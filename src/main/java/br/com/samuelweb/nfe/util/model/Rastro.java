@@ -100,4 +100,8 @@ public class Rastro {
         this.cAgreg = cAgreg;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

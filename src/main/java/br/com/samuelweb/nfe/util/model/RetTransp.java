@@ -119,4 +119,8 @@ public class RetTransp {
         this.cMunFG = cMunFG;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

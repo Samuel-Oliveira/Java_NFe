@@ -45,4 +45,8 @@ public class ProcRef {
         this.indProc = indProc;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

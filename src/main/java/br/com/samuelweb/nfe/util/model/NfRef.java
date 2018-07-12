@@ -88,4 +88,10 @@ public class NfRef {
     public void setRefECF(RefECF refECF) {
         this.refECF = refECF;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        this.getRefNF().validarRegraNegocio(infNFe);
+        this.getRefNFP().validarRegraNegocio(infNFe);
+        this.getRefECF().validarRegraNegocio(infNFe);
+    }
 }

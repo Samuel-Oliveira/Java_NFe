@@ -199,4 +199,13 @@ public class Comb {
         this.encerrante = encerrante;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+        if (this.getCide() != null) {
+            this.getCide().validarRegraNegocio(infNFe);
+        }
+        if (this.getEncerrante() != null) {
+            this.getEncerrante().validarRegraNegocio(infNFe);
+        }
+    }
 }

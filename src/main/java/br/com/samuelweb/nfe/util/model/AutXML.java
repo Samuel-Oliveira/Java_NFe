@@ -31,4 +31,8 @@ public class AutXML {
         this.cnpjCpf = cnpjCpf;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

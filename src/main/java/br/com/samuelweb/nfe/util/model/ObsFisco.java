@@ -42,4 +42,8 @@ public class ObsFisco {
         this.xTexto = xTexto;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

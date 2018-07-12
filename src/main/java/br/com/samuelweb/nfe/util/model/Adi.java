@@ -95,4 +95,8 @@ public class Adi {
         this.nDraw = nDraw;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

@@ -398,4 +398,8 @@ public class VeicProd {
         this.condVeic = condVeic;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

@@ -46,4 +46,8 @@ public class Med {
         this.vpmc = vpmc;
         return this;
     }
+
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }

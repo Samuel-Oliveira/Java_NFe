@@ -65,4 +65,7 @@ public class Cide {
         this.vcide = vcide;
     }
 
+    public void validarRegraNegocio(InfNFe infNFe) {
+
+    }
 }
