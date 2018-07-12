@@ -78,7 +78,9 @@ public class EnderEmi {
         TEnderEmi enderEmi = new TEnderEmi();
         enderEmi.setXLgr(this.getxLgr());
         enderEmi.setNro(this.getNro());
-        enderEmi.setXCpl(this.getxCpl());
+        if (this.getxCpl() != null && !this.getxCpl().isEmpty()) {
+            enderEmi.setXCpl(this.getxCpl());
+        }
         enderEmi.setXBairro(this.getxBairro());
         if (this.getcMun() != null) {
             enderEmi.setCMun(this.getcMun().toString());

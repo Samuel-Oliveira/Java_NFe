@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class ICMSTot {
 
-    @NfeCampo(tipo = BigDecimal.class, id = "W03", tag = "vBC  "
+    @NfeCampo(tipo = BigDecimal.class, id = "W03", tag = "vBC"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
             , decimais = 2, precisao = 15
             , descricao = NfeConsts.DSC_VBC)
@@ -22,7 +22,7 @@ public class ICMSTot {
 
     @NfeCampo(tipo = BigDecimal.class, id = "W04a", tag = "vICMSDeson"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
-            , decimais = 2, precisao = 15
+            , decimais = 2, precisao = 15, valorDefault = "0"
             , descricao = NfeConsts.DSC_VICMSDESON)
     private BigDecimal vicmsDeson;
 
@@ -46,31 +46,31 @@ public class ICMSTot {
 
     @NfeCampo(tipo = BigDecimal.class, id = "W04h", tag = "vFCP"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
-            , decimais = 2, precisao = 15
+            , decimais = 2, precisao = 15, valorDefault = "0"
             , descricao = NfeConsts.DSC_VFCP)
     private BigDecimal vfcp;
 
     @NfeCampo(tipo = BigDecimal.class, id = "W05", tag = "vBCST"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
-            , decimais = 2, precisao = 15
+            , decimais = 2, precisao = 15, valorDefault = "0"
             , descricao = NfeConsts.DSC_VBCST)
     private BigDecimal vbcst;
 
     @NfeCampo(tipo = BigDecimal.class, id = "W06", tag = "vST"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
-            , decimais = 2, precisao = 15
+            , decimais = 2, precisao = 15, valorDefault = "0"
             , descricao = NfeConsts.DSC_VST)
     private BigDecimal vst;
 
     @NfeCampo(tipo = BigDecimal.class, id = "W06a", tag = "vFCPST"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
-            , decimais = 2, precisao = 15
+            , decimais = 2, precisao = 15, valorDefault = "0"
             , descricao = NfeConsts.DSC_VFCPST)
     private BigDecimal vfcpst;
 
     @NfeCampo(tipo = BigDecimal.class, id = "W06b", tag = "vFCPSTRet"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
-            , decimais = 2, precisao = 15
+            , decimais = 2, precisao = 15, valorDefault = "0"
             , descricao = NfeConsts.DSC_VFCPSTRET)
     private BigDecimal vfcpstRet;
 
@@ -100,7 +100,7 @@ public class ICMSTot {
 
     @NfeCampo(tipo = BigDecimal.class, id = "W11", tag = "vII"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
-            , decimais = 2, precisao = 15
+            , decimais = 2, precisao = 15, valorDefault = "0"
             , descricao = NfeConsts.DSC_VII)
     private BigDecimal vii;
 
@@ -112,7 +112,7 @@ public class ICMSTot {
 
     @NfeCampo(tipo = BigDecimal.class, id = "W12a", tag = "vIPIDevol"
             , tamanhoMinimo = 1, tamanhoMaximo = 15, ocorrencias = 1
-            , decimais = 2, precisao = 15
+            , decimais = 2, precisao = 15, valorDefault = "0"
             , descricao = NfeConsts.DSC_VIPIDEVOL)
     private BigDecimal vipiDevol;
 

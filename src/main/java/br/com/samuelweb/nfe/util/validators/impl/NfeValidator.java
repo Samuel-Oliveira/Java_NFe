@@ -9,6 +9,8 @@ import br.com.samuelweb.nfe.util.enumeration.EnumNfeValue;
 import br.com.samuelweb.nfe.util.model.InfNFe;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
 import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.lang.reflect.Field;
@@ -47,18 +49,20 @@ public class NfeValidator {
         }
         Boolean result = TRUE;
         Class<?> persistentClass = obj.getClass();
-        for (Field field : persistentClass.getDeclaredFields()) {
-            result = result
-                    & validarCampo(obj, field, descricaoGrupo)
-                    & validarObjeto(obj, field, descricaoGrupo)
-                    & validarObjetoList(obj, field, descricaoGrupo);
-        }
+        do {
+            for (Field field : persistentClass.getDeclaredFields()) {
+                result = result
+                        & validarCampo(obj, field, descricaoGrupo)
+                        & validarObjeto(obj, field, descricaoGrupo)
+                        & validarObjetoList(obj, field, descricaoGrupo);
+            }
+            persistentClass = persistentClass.getSuperclass();
+        } while (!persistentClass.getName().equals(Object.class.getName()));
         return result;
     }
 
     private Boolean validarObjetoList(Object obj, Field field, String descricaoGrupo) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (field.isAnnotationPresent(NfeObjetoList.class)) {
-            Class<?> persistentClass = obj.getClass();
             NfeObjetoList nfeObjetoList = field.getAnnotation(NfeObjetoList.class);
             List<Object> objListRet = (List<Object>) executarMetodoGet(obj, field);
             Boolean result = TRUE;
@@ -90,7 +94,6 @@ public class NfeValidator {
 
     private Boolean validarObjeto(Object obj, Field field, String descricaoGrupo) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (field.isAnnotationPresent(NfeObjeto.class)) {
-            Class<?> persistentClass = obj.getClass();
             NfeObjeto nfeObjeto = field.getAnnotation(NfeObjeto.class);
             Object objRet = executarMetodoGet(obj, field);
             Boolean result = TRUE;
@@ -111,7 +114,6 @@ public class NfeValidator {
     private Boolean validarCampo(Object obj, Field field, String descricaoGrupo) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Boolean result = TRUE;
         if (field.isAnnotationPresent(NfeCampo.class)) {
-            Class<?> persistentClass = obj.getClass();
             NfeCampo nfeCampo = field.getAnnotation(NfeCampo.class);
             Object objRet = executarMetodoGet(obj, field);
 
@@ -132,25 +134,34 @@ public class NfeValidator {
         return result;
     }
 
+    private Method getMethod(Class<?> persistentClass, String prefixo, String fieldName, Class<?>... parameterTypes) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        try {
+            return persistentClass.getDeclaredMethod(prefixo+ WordUtils.capitalize(fieldName), parameterTypes);
+        } catch (NoSuchMethodException e) {
+            try {
+                return persistentClass.getDeclaredMethod(prefixo+ fieldName, parameterTypes);
+            } catch (NoSuchMethodException ex) {
+                return null;
+            }
+        }
+    }
     private Object executarMetodoGet(Object obj, Field field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Class<?> persistentClass = obj.getClass();
         Method method;
-        try {
-            method = persistentClass.getDeclaredMethod("get"+ WordUtils.capitalize(field.getName()), null);
-        } catch (NoSuchMethodException e) {
-            method = persistentClass.getDeclaredMethod("get"+ field.getName(), null);
-        }
+        do {
+            method = getMethod(persistentClass, "get", field.getName(), null);
+            persistentClass = persistentClass.getSuperclass();
+        } while (method == null && !persistentClass.getName().equals(Object.class.getName()));
         return method.invoke(obj, null);
     }
 
     private Object executarMetodoSet(Object obj, Field field, Object value) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Class<?> persistentClass = obj.getClass();
         Method method;
-        try {
-            method = persistentClass.getDeclaredMethod("set"+ WordUtils.capitalize(field.getName()), value.getClass());
-        } catch (NoSuchMethodException e) {
-            method = persistentClass.getDeclaredMethod("set"+ field.getName(), value.getClass());
-        }
+        do {
+            method = getMethod(persistentClass, "set", field.getName(), value.getClass());
+            persistentClass = persistentClass.getSuperclass();
+        } while (method == null && !persistentClass.getName().equals(Object.class.getName()));
         return method.invoke(obj, value);
     }
 
@@ -325,6 +336,12 @@ public class NfeValidator {
                             , DfeConsts.ERR_MSG_MAIOR
                             , descricaoGrupo));
         }
+
+        value = StringEscapeUtils.escapeHtml4(value);
+        if (value.length() > 0 && nfeCampo.tamanhoMaximo() > 0 && value.length() > nfeCampo.tamanhoMaximo())  {
+            value = value.substring(1, nfeCampo.tamanhoMaximo());
+        }
+        executarMetodoSet(obj, field, value);
         return result;
     }
 }

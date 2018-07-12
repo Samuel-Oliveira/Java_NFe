@@ -65,7 +65,9 @@ public class Entrega {
         }
         entrega.setXLgr(this.getxLgr());
         entrega.setNro(this.getNro());
-        entrega.setXCpl(this.getxCpl());
+        if (this.getxCpl() != null & !this.getxCpl().isEmpty()) {
+            entrega.setXCpl(this.getxCpl());
+        }
         entrega.setXBairro(this.getxBairro());
         if (this.getcMun() != null) {
             entrega.setCMun(this.getcMun().toString());

@@ -39,9 +39,8 @@ public class Prod {
             , descricao = DfeConsts.DSC_NCM)
     private String ncm;
 
-    @NfeCampo(tipo = String.class
-            , id = "I05a", tag = "NVE"
-            , tamanhoMinimo = 6, tamanhoMaximo = 6, ocorrencias = 0
+    @NfeObjetoList(id = "I05a", tag = "NVE"
+            , ocorrenciaMinima = 0, ocorrenciaMaxima = 8
             , descricao = NfeConsts.DSC_NVE)
     private List<String> nve;
 

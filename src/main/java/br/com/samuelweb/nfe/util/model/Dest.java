@@ -80,9 +80,15 @@ public class Dest {
         if (this.getIndIEDest() != null) {
             dest.setIndIEDest(this.getIndIEDest().toString());
         }
-        dest.setIE(this.getIe());
-        dest.setISUF(this.getIsuf());
-        dest.setIM(this.getIm());
+        if (this.getIe() != null && !this.getIe().isEmpty()) {
+            dest.setIE(this.getIe());
+        }
+        if (this.getIsuf() != null && !this.getIsuf().isEmpty()) {
+            dest.setISUF(this.getIsuf());
+        }
+        if (this.getIm() != null && !this.getIm().isEmpty()) {
+            dest.setIM(this.getIm());
+        }
         dest.setEmail(this.getEmail());
         return dest;
     }

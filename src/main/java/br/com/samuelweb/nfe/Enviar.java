@@ -53,6 +53,10 @@ class Enviar {
 			 */
 			xml = Assinar.assinaNfe(config, xml, "NFe");
 
+			if (config.isLog()) {
+				System.out.println("Xml Assinado: " + xml);
+			}
+
 			/**
 			 * Valida o Xml caso sejá selecionado True
 			 */
@@ -61,10 +65,6 @@ class Enviar {
 				if (!ObjetoUtil.isEmpty(erros)) {
 					throw new NfeValidacaoException("Erro Na Validação do Xml: " + erros);
 				}
-			}
-
-			if (config.isLog()) {
-				System.out.println("Xml Assinado: " + xml);
 			}
 
 			return XmlUtil.xmlToObject(xml, TEnviNFe.class);

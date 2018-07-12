@@ -81,8 +81,12 @@ public class Emit {
             this.setIe(this.getIe().replaceAll("\\D", ""));
         }
         emit.setIE(this.getIe());
-        emit.setIEST(this.getIest());
-        emit.setIM(this.getIm());
+        if (this.getIest() != null && !this.getIest().isEmpty()) {
+            emit.setIEST(this.getIest());
+        }
+        if (this.getIm() != null && !this.getIm().isEmpty()) {
+            emit.setIM(this.getIm());
+        }
         // NT 2013/005 versão 1.03
         // o CNAE passa ser opcional mesmo quando informado o IM, mas o CNAE s� pode
         // ser informado se o IM for informado.

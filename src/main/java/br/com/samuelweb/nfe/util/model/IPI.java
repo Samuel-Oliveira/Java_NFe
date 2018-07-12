@@ -72,10 +72,11 @@ public class IPI {
     private BigDecimal vIPI;
 
     public TIpi build() {
-        TIpi ipi = new TIpi();
-        if (this.getCst() != null) {
-            this.getCst().getMontaImposto().build(ipi, this);
+        if (this.getCst() == null) {
+            return null;
         }
+        TIpi ipi = new TIpi();
+        this.getCst().getMontaImposto().build(ipi, this);
         ipi.setCEnq(this.getcEnq());
         ipi.setCNPJProd(this.getCNPJProd());
         ipi.setCSelo(this.getcSelo());

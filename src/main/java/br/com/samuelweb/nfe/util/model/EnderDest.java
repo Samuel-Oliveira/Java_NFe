@@ -79,7 +79,9 @@ public class EnderDest {
         TEndereco endereco = new TEndereco();
         endereco.setXLgr(this.getxLgr());
         endereco.setNro(this.getNro());
-        endereco.setXCpl(this.getxCpl());
+        if (this.getxCpl() != null && !this.getxCpl().isEmpty()) {
+            endereco.setXCpl(this.getxCpl());
+        }
         endereco.setXBairro(this.getxBairro());
         if (this.getcMun() != null) {
             endereco.setCMun(this.getcMun().toString());

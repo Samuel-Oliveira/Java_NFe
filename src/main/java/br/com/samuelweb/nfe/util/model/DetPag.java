@@ -1,6 +1,7 @@
 package br.com.samuelweb.nfe.util.model;
 
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
+import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.TipoPagamento;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
@@ -25,7 +26,7 @@ public class DetPag {
             , descricao = NfeConsts.DSC_VPAG)
     private BigDecimal vPag;
 
-    @NfeCampo(tag = "card", id = "YA04", descricao = NfeConsts.DSC_CARD)
+    @NfeObjeto(tag = "card", id = "YA04", descricao = NfeConsts.DSC_CARD)
     private Card card;
 
     TNFe.InfNFe.Pag.DetPag build(){

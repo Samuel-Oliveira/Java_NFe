@@ -47,10 +47,11 @@ public class COFINS {
     private BigDecimal vAliqProd;
 
     public TNFe.InfNFe.Det.Imposto.COFINS build() {
-        TNFe.InfNFe.Det.Imposto.COFINS cofins = new TNFe.InfNFe.Det.Imposto.COFINS();
-        if (this.getCst() != null) {
-            this.getCst().getMontaImposto().build(cofins, this);
+        if (this.getCst() == null) {
+            return null;
         }
+        TNFe.InfNFe.Det.Imposto.COFINS cofins = new TNFe.InfNFe.Det.Imposto.COFINS();
+        this.getCst().getMontaImposto().build(cofins, this);
         return cofins;
     }
 

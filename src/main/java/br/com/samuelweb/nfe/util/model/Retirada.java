@@ -65,7 +65,9 @@ public class Retirada {
         }
         retirada.setXLgr(this.getxLgr());
         retirada.setNro(this.getNro());
-        retirada.setXCpl(this.getxCpl());
+        if (this.getxCpl() != null&& !this.getxCpl().isEmpty()) {
+            retirada.setXCpl(this.getxCpl());
+        }
         retirada.setXBairro(this.getxBairro());
         if (this.getcMun() != null) {
             retirada.setCMun(this.getcMun().toString());

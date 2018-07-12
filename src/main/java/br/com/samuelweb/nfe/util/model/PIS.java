@@ -47,10 +47,11 @@ public class PIS {
     private BigDecimal vAliqProd;
 
     public TNFe.InfNFe.Det.Imposto.PIS build() {
-        TNFe.InfNFe.Det.Imposto.PIS pis = new TNFe.InfNFe.Det.Imposto.PIS();
-        if (this.getCST() != null) {
-            this.getCST().getMontaImposto().build(pis, this);
+        if (this.getCST() == null) {
+            return null;
         }
+        TNFe.InfNFe.Det.Imposto.PIS pis = new TNFe.InfNFe.Det.Imposto.PIS();
+        this.getCST().getMontaImposto().build(pis, this);
         return pis;
     }
 
