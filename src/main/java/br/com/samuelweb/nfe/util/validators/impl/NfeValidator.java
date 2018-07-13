@@ -136,21 +136,25 @@ public class NfeValidator {
     }
 
     private Method getMethod(Class<?> persistentClass, String prefixo, String fieldName, Class<?>... parameterTypes) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        String methodName;
         try {
-            return persistentClass.getDeclaredMethod(prefixo+ WordUtils.capitalize(fieldName), parameterTypes);
+            methodName = prefixo+ WordUtils.capitalize(fieldName);
+            return persistentClass.getDeclaredMethod(methodName, parameterTypes);
         } catch (NoSuchMethodException e) {
-            try {
-                return persistentClass.getDeclaredMethod(prefixo+ fieldName, parameterTypes);
-            } catch (NoSuchMethodException ex) {
-                return null;
-            }
+            methodName = prefixo+ fieldName;
+            return persistentClass.getDeclaredMethod(methodName, parameterTypes);
         }
     }
+
     private Object executarMetodoGet(Object obj, Field field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Class<?> persistentClass = obj.getClass();
-        Method method;
+        Method method = null;
         do {
-            method = getMethod(persistentClass, "get", field.getName(), null);
+            try {
+                method = this.getMethod(persistentClass, "get", field.getName(), null);
+            } catch (NoSuchMethodException e) {
+
+            }
             persistentClass = persistentClass.getSuperclass();
         } while (method == null && !persistentClass.getName().equals(Object.class.getName()));
         return method.invoke(obj, null);
@@ -158,9 +162,17 @@ public class NfeValidator {
 
     private Object executarMetodoSet(Object obj, Field field, Object value) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Class<?> persistentClass = obj.getClass();
-        Method method;
+        Method method = null;
         do {
-            method = getMethod(persistentClass, "set", field.getName(), value.getClass());
+            try{
+                if (value != null) {
+                    method = this.getMethod(persistentClass, "set", field.getName(), value.getClass());
+                } else {
+                    method = this.getMethod(persistentClass, "set", field.getName(), null);
+                }
+            } catch (NoSuchMethodException e) {
+
+            }
             persistentClass = persistentClass.getSuperclass();
         } while (method == null && !persistentClass.getName().equals(Object.class.getName()));
         return method.invoke(obj, value);
@@ -174,7 +186,12 @@ public class NfeValidator {
         }
         if (value != null) {
             value = value.setScale(nfeCampo.decimais(), RoundingMode.HALF_UP);
-            executarMetodoSet(obj, field, value);
+            try {
+                executarMetodoSet(obj, field, value);
+            } catch (NullPointerException e) {
+                field.setAccessible(TRUE);
+                field.set(obj, value);
+            }
         }
         String valueStr = (value == null? BigDecimal.ZERO.toString(): value.toString());
         if (value == null && nfeCampo.ocorrencias() >= 1) {
@@ -205,6 +222,16 @@ public class NfeValidator {
                             , nfeCampo.descricao()
                             , DfeConsts.ERR_MSG_MAIOR
                             , descricaoGrupo));
+        }
+        //Se o valor do campo é zero e o mesmo não obrigatório envia null para não gerar,
+        //ocorria no campo vDesc do produto o problema.
+        if (value != null && value.compareTo(BigDecimal.ZERO) == 0 && nfeCampo.ocorrencias() == 0){
+            try {
+                executarMetodoSet(obj, field, null);
+            } catch (NullPointerException e) {
+                field.setAccessible(TRUE);
+                field.set(obj, null);
+            }
         }
         return result;
     }
@@ -262,7 +289,12 @@ public class NfeValidator {
         Boolean result = TRUE;
         if (!nfeCampo.valorDefault().isEmpty() && value == null) {
             value = Integer.parseInt(nfeCampo.valorDefault());
-            executarMetodoSet(obj, field, value);
+            try {
+                executarMetodoSet(obj, field, value);
+            } catch (NullPointerException e) {
+                field.setAccessible(TRUE);
+                field.set(obj, value);
+            }
         }
         String valueStr = String.valueOf(value == null? 0: value);
         if (value == null && nfeCampo.ocorrencias() >= 1) {
@@ -308,7 +340,12 @@ public class NfeValidator {
         }
         if (!nfeCampo.valorDefault().isEmpty() && value.isEmpty()) {
             value = nfeCampo.valorDefault();
-            executarMetodoSet(obj, field, value);
+            try {
+                executarMetodoSet(obj, field, value);
+            } catch (NullPointerException e) {
+                field.setAccessible(TRUE);
+                field.set(obj, value);
+            }
         }
         //(Existem tags obrigatórias que podem ser nulas ex. cEAN)  if (ocorrencias = 1) and (EstaVazio) then
         if (nfeCampo.ocorrencias() == 1 && value.length() ==0 && nfeCampo.tamanhoMinimo() > 0) {
@@ -345,7 +382,12 @@ public class NfeValidator {
         if (value.length() > 0 && nfeCampo.tamanhoMaximo() > 0 && value.length() > nfeCampo.tamanhoMaximo())  {
             value = value.substring(1, nfeCampo.tamanhoMaximo());
         }
-        executarMetodoSet(obj, field, value);
+        try {
+            executarMetodoSet(obj, field, value);
+        } catch (NullPointerException e) {
+            field.setAccessible(TRUE);
+            field.set(obj, value);
+        }
         return result;
     }
 }
