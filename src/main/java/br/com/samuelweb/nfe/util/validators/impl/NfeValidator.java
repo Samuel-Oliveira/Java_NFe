@@ -1,5 +1,6 @@
 package br.com.samuelweb.nfe.util.validators.impl;
 
+import br.com.samuelweb.nfe.util.XmlUtil;
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.annotation.NfeObjetoList;
@@ -378,6 +379,7 @@ public class NfeValidator {
                             , descricaoGrupo));
         }
 
+        value = XmlUtil.removeAcentos(value);
         value = StringEscapeUtils.escapeHtml4(value);
         if (value.length() > 0 && nfeCampo.tamanhoMaximo() > 0 && value.length() > nfeCampo.tamanhoMaximo())  {
             value = value.substring(1, nfeCampo.tamanhoMaximo());
