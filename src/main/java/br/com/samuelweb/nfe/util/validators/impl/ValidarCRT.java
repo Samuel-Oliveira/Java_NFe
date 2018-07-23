@@ -24,6 +24,6 @@ public class ValidarCRT implements ValidadorCampo<String> {
         if (crtMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }
-        return new RetornoValidarImpl(false, String.format("Valor inválido para o campo Código de Regime Tributário, informado %d", valor));
+        return new RetornoValidarImpl(false, String.format("Valor inválido para o campo Código de Regime Tributário, informado %s", valor));
     }
 }
