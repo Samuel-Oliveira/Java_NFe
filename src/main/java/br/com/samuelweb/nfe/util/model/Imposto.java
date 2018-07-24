@@ -49,7 +49,7 @@ public class Imposto {
         if (getIcms() != null && getIcms().isEmpty()) {
             setIcms(null);
         }
-        if (infNFe.getEmit().getEnderEmit().getcMun().equals(infNFe.getDest().getEnderDest().getcMun())) {
+        if (infNFe.getEmit().getEnderEmit().getUf().equals(infNFe.getDest().getEnderDest().getUf())) {
             this.setIcmsUfDest(null);
         }
         if (getIpi() != null && getIpi().isEmpty()) {

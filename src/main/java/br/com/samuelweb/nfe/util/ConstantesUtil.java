@@ -59,4 +59,8 @@ public interface ConstantesUtil {
         String EVENTO_EPEC = "1.00";
 	}
 
+	interface DEST{
+		String XNOME_HOMOLOGACAO = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+	}
+
 }

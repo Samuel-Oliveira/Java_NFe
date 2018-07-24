@@ -20,6 +20,6 @@ public class ValidarModeloDocumento implements ValidadorCampo<String> {
         if (modeloMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }
-        return new RetornoValidarImpl(false, String.format("Modelo do documento inválido, modelo informado %d", valor));
+        return new RetornoValidarImpl(false, String.format("Modelo do documento inválido, modelo informado %s", valor));
     }
 }

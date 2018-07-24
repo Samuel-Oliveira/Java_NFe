@@ -1,5 +1,6 @@
 package br.com.samuelweb.nfe.util.model;
 
+import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.annotation.NfeObjeto;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
@@ -178,6 +179,11 @@ public class Dest {
     }
 
     public void validarRegraNegocio(InfNFe infNFe) {
+        if (infNFe.getIde() != null
+                && infNFe.getIde().getTpAmb() != null
+                && infNFe.getIde().getTpAmb().toString().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO)) {
+            infNFe.getDest().setxNome(ConstantesUtil.DEST.XNOME_HOMOLOGACAO);
+        }
         getEnderDest().validarRegraNegocio(infNFe);
     }
 }

@@ -36,8 +36,8 @@ public class ICMS {
     private DeterminacaoBaseIcms modBC;
 
     @NfeCampo(tipo = BigDecimal.class
-            , id = "N14", tag = "pRedBC", decimais = 4, precisao = 5
-            , tamanhoMinimo = 1, tamanhoMaximo = 5, ocorrencias = 0
+            , id = "N14", tag = "pRedBC", decimais = 4, precisao = 7
+            , tamanhoMinimo = 1, tamanhoMaximo = 7, ocorrencias = 0
             , descricao = DfeConsts.DSC_PREDBC)
     private BigDecimal pRedBC;
 
@@ -96,7 +96,7 @@ public class ICMS {
     private BigDecimal vFCP;
 
     @NfeCampo(tipo = DeterminacaoBaseIcmsST.class
-            , id = "N18", tag = "modBCST", validadores = {ValidarDeterminacaoBaseIcmsST.class}
+            , id = "N18", tag = "modBCST"
             , tamanhoMinimo = 1, tamanhoMaximo = 1, ocorrencias = 0
             , descricao = NfeConsts.DSC_MODBCST)
     private DeterminacaoBaseIcmsST modBCST;
@@ -198,7 +198,7 @@ public class ICMS {
     private BigDecimal vFCPSTRet;
 
     @NfeCampo(tipo = MotivoDesoneracaoICMS.class
-            , id = "N28", tag = "motDesICMS", validadores = {ValidarMotivoDesoneracaoICMS.class}
+            , id = "N28", tag = "motDesICMS"
             , tamanhoMinimo = 1, tamanhoMaximo = 2, ocorrencias = 0
             , descricao = NfeConsts.DSC_MOTDESICMS)
     private MotivoDesoneracaoICMS motDesICMS;

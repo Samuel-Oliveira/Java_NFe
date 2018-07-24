@@ -87,5 +87,8 @@ public class DetPag {
         if (this.getCard() != null) {
             this.getCard().validarRegraNegocio(infNFe);
         }
+        if (this.tPag.equals(TipoPagamento.SEM_PAGAMENTO)) {
+            this.vPag = BigDecimal.ZERO;
+        }
     }
 }
