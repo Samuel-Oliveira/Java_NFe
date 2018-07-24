@@ -51,7 +51,9 @@ class Enviar {
 			/**
 			 * Assina o Xml
 			 */
-			xml = Assinar.assinaNfe(config, xml, "NFe");
+			if (!xml.contains("</Signature>")) {
+				xml = Assinar.assinaNfe(config, xml, "NFe");
+			}
 
 			if (config.isLog()) {
 				System.out.println("Xml Assinado: " + xml);

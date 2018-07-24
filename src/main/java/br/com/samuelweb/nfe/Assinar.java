@@ -39,7 +39,7 @@ import java.util.List;
  *
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
  */
-class Assinar {
+public class Assinar {
 
     static final String INFINUT = "infInut";
     static final String EVENTO = "evento";
@@ -57,7 +57,7 @@ class Assinar {
      * @return String do Xml Assinado
      * @throws NfeException
      */
-    static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
+    public static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
 
         stringXml = XmlUtil.removeAcentos(stringXml);
         stringXml = assinaDocNFe(config, stringXml, tipo);

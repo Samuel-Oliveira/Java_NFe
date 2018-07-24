@@ -3,12 +3,14 @@ package tests;
 import br.com.samuelweb.certificado.Certificado;
 import br.com.samuelweb.certificado.CertificadoService;
 import br.com.samuelweb.certificado.exception.CertificadoException;
+import br.com.samuelweb.nfe.Assinar;
 import br.com.samuelweb.nfe.Nfe;
 import br.com.samuelweb.nfe.NfeWeb;
 import br.com.samuelweb.nfe.dom.ConfiguracoesWebNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.Estados;
+import br.com.samuelweb.nfe.util.XmlUtil;
 import br.com.samuelweb.nfe.util.enumeration.*;
 import br.com.samuelweb.nfe.util.model.*;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
@@ -18,6 +20,7 @@ import br.com.samuelweb.nfe.util.validators.impl.ValidarMunicipio;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
+import javax.xml.bind.JAXBException;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -189,6 +192,15 @@ public class NfeApplicationTests {
                 }
             }
 
+            // Inicia As Certificado
+            Certificado certificado = CertificadoService.certificadoPfx("/home/dalbosco/certificado/certificado.pfx", "123");
+            //Esse Objeto Você pode guardar em uma Session.
+            ConfiguracoesWebNfe config = ConfiguracoesWebNfe.iniciaConfiguracoes(Estados.PR,
+                    ConstantesUtil.AMBIENTE.HOMOLOGACAO,
+                    certificado,
+                    MethodHandles.lookup().lookupClass().getResource("/schemas").getPath(), //PEGAR SCHEMAS EM AMBIENTE WEB ESTA PASTA ESTA DENTRO DE RESOURCES
+                    true);
+
             //Converte os dados para o objeto NFe
             TNFe nfe = new TNFe();
             nfe.setInfNFe(infNFe.build());
@@ -200,14 +212,19 @@ public class NfeApplicationTests {
             enviNFe.setIndSinc("1");
             enviNFe.getNFe().add(nfe);
 
-            // Inicia As Certificado
-            Certificado certificado = CertificadoService.certificadoPfx("/home/dalbosco/certificado/certificado.pfx", "1234");
-            //Esse Objeto Você pode guardar em uma Session.
-            ConfiguracoesWebNfe config = ConfiguracoesWebNfe.iniciaConfiguracoes(Estados.PR,
-                    ConstantesUtil.AMBIENTE.HOMOLOGACAO,
-                    certificado,
-                    MethodHandles.lookup().lookupClass().getResource("/schemas").getPath(), //PEGAR SCHEMAS EM AMBIENTE WEB ESTA PASTA ESTA DENTRO DE RESOURCES
-                    true);
+            try {
+                String xml = XmlUtil.objectToXml(enviNFe);
+                xml = Assinar.assinaNfe(config, xml, "NFe");
+                enviNFe = XmlUtil.xmlToObject(xml, TEnviNFe.class);
+                for (TNFe tnFe : enviNFe.getNFe()) {
+                    xml = XmlUtil.objectToXml(tnFe);
+                    System.out.println(xml);
+                }
+            } catch (JAXBException e) {
+                e.printStackTrace();
+            }
+
+
 
             // Monta e Assina o XML
             enviNFe = NfeWeb.montaNfe(config, enviNFe, true);

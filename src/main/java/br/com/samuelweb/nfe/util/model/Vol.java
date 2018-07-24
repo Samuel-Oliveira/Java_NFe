@@ -131,6 +131,8 @@ public class Vol {
     }
 
     public void validarRegraNegocio(InfNFe infNFe) {
-        getLacres().forEach(lacres1 -> lacres1.validarRegraNegocio(infNFe));
+        if (getLacres() != null) {
+            getLacres().forEach(lacres1 -> lacres1.validarRegraNegocio(infNFe));
+        }
     }
 }
