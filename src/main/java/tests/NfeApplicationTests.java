@@ -3,8 +3,6 @@ package tests;
 import br.com.samuelweb.certificado.Certificado;
 import br.com.samuelweb.certificado.CertificadoService;
 import br.com.samuelweb.certificado.exception.CertificadoException;
-import br.com.samuelweb.nfe.Assinar;
-import br.com.samuelweb.nfe.Nfe;
 import br.com.samuelweb.nfe.NfeWeb;
 import br.com.samuelweb.nfe.dom.ConfiguracoesWebNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
@@ -20,7 +18,6 @@ import br.com.samuelweb.nfe.util.validators.impl.ValidarMunicipio;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
-import javax.xml.bind.JAXBException;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -211,21 +208,9 @@ public class NfeApplicationTests {
             enviNFe.setIdLote("1");
             enviNFe.setIndSinc("1");
             enviNFe.getNFe().add(nfe);
-
-            try {
-                String xml = XmlUtil.objectToXml(enviNFe);
-                xml = Assinar.assinaNfe(config, xml, "NFe");
-                enviNFe = XmlUtil.xmlToObject(xml, TEnviNFe.class);
-                for (TNFe tnFe : enviNFe.getNFe()) {
-                    xml = XmlUtil.objectToXml(tnFe);
-                    System.out.println(xml);
-                }
-            } catch (JAXBException e) {
-                e.printStackTrace();
+            for (TNFe tnFe : enviNFe.getNFe()) {
+                System.out.println(XmlUtil.objectToXml(tnFe));
             }
-
-
-
             // Monta e Assina o XML
             enviNFe = NfeWeb.montaNfe(config, enviNFe, true);
 
@@ -238,6 +223,8 @@ public class NfeApplicationTests {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (CertificadoException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("--------------------------------------------------------------------------");
