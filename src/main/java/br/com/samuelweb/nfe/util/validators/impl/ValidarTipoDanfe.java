@@ -6,14 +6,14 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarTipoDanfe implements ValidadorCampo<Integer> {
+public class ValidarTipoDanfe implements ValidadorCampo<Integer, Object> {
     private static Map<Integer, String> tipoDanfeMap =  new HashMap<>();
     static {
         ValidarFinalidadeNfe.inicializarMap(tipoDanfeMap);
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (tipoDanfeMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

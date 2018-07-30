@@ -7,7 +7,7 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarModeloDocumento implements ValidadorCampo<String> {
+public class ValidarModeloDocumento implements ValidadorCampo<String, Object> {
 
     private static Map<String, ModeloDocumento> modeloMap =  new HashMap<>();
     static {
@@ -16,7 +16,7 @@ public class ValidarModeloDocumento implements ValidadorCampo<String> {
         modeloMap.put(ModeloDocumento.NFCE.getValue(), ModeloDocumento.NFCE);
     }
     @Override
-    public RetornoValidar validar(String valor) {
+    public RetornoValidar validar(String valor, Object parent) {
         if (modeloMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

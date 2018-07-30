@@ -1,13 +1,14 @@
 package br.com.samuelweb.nfe.util.validators.impl;
 
 import br.com.samuelweb.nfe.util.enumeration.OrigemMercadoria;
+import br.com.samuelweb.nfe.util.model.ICMS;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
 import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarOrigemMercadora implements ValidadorCampo<Integer> {
+public class ValidarOrigemMercadora implements ValidadorCampo<Integer, Object> {
     private static Map<Integer, OrigemMercadoria> origemMercadoriaMap =  new HashMap<>();
     static {
         origemMercadoriaMap.put(0, OrigemMercadoria.NACIONAL);
@@ -22,7 +23,7 @@ public class ValidarOrigemMercadora implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (origemMercadoriaMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

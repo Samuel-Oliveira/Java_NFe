@@ -6,7 +6,7 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarIndIeDestinatario implements ValidadorCampo<Integer> {
+public class ValidarIndIeDestinatario implements ValidadorCampo<Integer, Object> {
     private static Map<Integer, String> tipoDanfeMap =  new HashMap<>();
     static {
         tipoDanfeMap.put(1, "Contribuinte ICMS (informar a IE do destinatário)");
@@ -15,7 +15,7 @@ public class ValidarIndIeDestinatario implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (tipoDanfeMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

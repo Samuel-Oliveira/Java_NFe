@@ -1,12 +1,13 @@
 package br.com.samuelweb.nfe.util.validators.impl;
 
+import br.com.samuelweb.nfe.util.model.Prod;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
 import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidaIndTotal implements ValidadorCampo<Integer> {
+public class ValidaIndTotal implements ValidadorCampo<Integer, Prod> {
 
     private static Map<Integer, String> indicaTotal =  new HashMap<>();
     static {
@@ -15,11 +16,12 @@ public class ValidaIndTotal implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Prod prod) {
         if (indicaTotal.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }
         return new RetornoValidarImpl(false, String.format(
-                "Valor inválido para o campo Indica se valor do Item (vProd) entra no valor total da NF-e (vProd), informado %d", valor));
+                "Valor inválido para o campo Indica se valor do Item (vProd) entra no valor total da NF-e (vProd), " +
+                        "informado %d para o item %s - %s", valor, prod.getcProd(), prod.getxProd()));
     }
 }

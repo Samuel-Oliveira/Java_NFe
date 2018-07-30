@@ -6,7 +6,7 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarTipoEmissaoNfe implements ValidadorCampo<Integer> {
+public class ValidarTipoEmissaoNfe implements ValidadorCampo<Integer, Object> {
     private static Map<Integer, String> tipoEmissaoMap =  new HashMap<>();
     static {
         tipoEmissaoMap.put(1, "Emissão normal (não em contingência)");
@@ -20,7 +20,7 @@ public class ValidarTipoEmissaoNfe implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (tipoEmissaoMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

@@ -6,7 +6,7 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarTpRestricao implements ValidadorCampo<Integer> {
+public class ValidarTpRestricao implements ValidadorCampo<Integer, Object> {
     private static Map<Integer, String> tipoResticaoMap =  new HashMap<>();
     static {
         tipoResticaoMap.put(0, "Não há");
@@ -18,7 +18,7 @@ public class ValidarTpRestricao implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (tipoResticaoMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

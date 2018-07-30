@@ -7,7 +7,7 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarIndISS implements ValidadorCampo<Integer> {
+public class ValidarIndISS implements ValidadorCampo<Integer, Object> {
 
     private static Map<Integer, IndISS> indISSMap = new HashMap<>();
     static {
@@ -21,7 +21,7 @@ public class ValidarIndISS implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (indISSMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

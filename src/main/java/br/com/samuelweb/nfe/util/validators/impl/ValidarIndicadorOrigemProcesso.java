@@ -1,13 +1,14 @@
 package br.com.samuelweb.nfe.util.validators.impl;
 
 import br.com.samuelweb.nfe.util.enumeration.IndicadorOrigemProcesso;
+import br.com.samuelweb.nfe.util.model.ProcRef;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
 import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarIndicadorOrigemProcesso implements ValidadorCampo<Integer> {
+public class ValidarIndicadorOrigemProcesso implements ValidadorCampo<Integer, ProcRef> {
 
     private static Map<Integer, IndicadorOrigemProcesso> modBCMap =  new HashMap<>();
 
@@ -19,12 +20,12 @@ public class ValidarIndicadorOrigemProcesso implements ValidadorCampo<Integer> {
         modBCMap.put(9, IndicadorOrigemProcesso.OUTROS);
     }
 
-
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, ProcRef procRef) {
         if (modBCMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }
-        return new RetornoValidarImpl(false, String.format("Valor inválido para o campo Modalidade de determinação da BC do ICMS, informado %d", valor));
+        return new RetornoValidarImpl(false, String.format(
+                "Valor inválido para o campo Modalidade de determinação da BC do ICMS, informado %d", valor));
     }
 }

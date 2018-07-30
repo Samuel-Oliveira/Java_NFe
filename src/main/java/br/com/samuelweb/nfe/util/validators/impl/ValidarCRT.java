@@ -1,12 +1,13 @@
 package br.com.samuelweb.nfe.util.validators.impl;
 
+import br.com.samuelweb.nfe.util.model.Emit;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
 import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarCRT implements ValidadorCampo<String> {
+public class ValidarCRT implements ValidadorCampo<String, Emit> {
 
     private static Map<String, String> crtMap =  new HashMap<>();
     static {
@@ -20,10 +21,11 @@ public class ValidarCRT implements ValidadorCampo<String> {
     }
 
     @Override
-    public RetornoValidar validar(String valor) {
+    public RetornoValidar validar(String valor, Emit emit) {
         if (crtMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }
-        return new RetornoValidarImpl(false, String.format("Valor inválido para o campo Código de Regime Tributário, informado %s", valor));
+        return new RetornoValidarImpl(false, String.format(
+                "Valor inválido para o campo CRT (Código de Regime Tributário) do emitente da NFe, informado %s", valor));
     }
 }

@@ -3,14 +3,14 @@ package br.com.samuelweb.nfe.util.validators.impl;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
 import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 
-public class ValidarMunicipio implements ValidadorCampo<Integer> {
+public class ValidarMunicipio implements ValidadorCampo<Integer, Object> {
 
     private static final Integer TAMANHO = 7;
     private static final String PESO = "1212120";
     private static final String NAO_VALIDAR = "|2201919|2202251|2201988|2611533|3117836|3152131|4305871|5203939|5203962|";
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         String codigoStr = String.valueOf(valor == null ? "" : valor);
         if ((valor != null && valor == 9999999) || NAO_VALIDAR.indexOf("|" + codigoStr + "|") > 0) {
             return new RetornoValidarImpl(true);
@@ -19,7 +19,7 @@ public class ValidarMunicipio implements ValidadorCampo<Integer> {
             return new RetornoValidarImpl(false, String.format("Código do IBGE do município informado não é valido. Código informado %d", valor));
         }
         ValidarCodigoUf validarCodigoUf = new ValidarCodigoUf();
-        RetornoValidar retornoValidarUf = validarCodigoUf.validar(Integer.parseInt(codigoStr.substring(0, 2)));
+        RetornoValidar retornoValidarUf = validarCodigoUf.validar(Integer.parseInt(codigoStr.substring(0, 2)), parent);
         if (!retornoValidarUf.getValido()) {
             return retornoValidarUf;
         }

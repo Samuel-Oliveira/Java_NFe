@@ -3,7 +3,6 @@ package br.com.samuelweb.nfe.util.model;
 import br.com.samuelweb.nfe.util.annotation.NfeCampo;
 import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.enumeration.CSTPis;
-import br.com.samuelweb.nfe.util.validators.impl.ValidarCSTPis;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
 
 import java.math.BigDecimal;

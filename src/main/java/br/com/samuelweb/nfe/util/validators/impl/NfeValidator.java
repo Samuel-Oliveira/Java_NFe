@@ -131,7 +131,7 @@ public class NfeValidator {
                 result = validaCampoEnumNfeValue(nfeCampo, (EnumNfeValue) objRet, descricaoGrupo);
             }
 
-            result = executeValidadores(nfeCampo, objRet, descricaoGrupo) && result;
+            result = executeValidadores(nfeCampo, obj, objRet, descricaoGrupo) && result;
         }
         return result;
     }
@@ -237,11 +237,11 @@ public class NfeValidator {
         return result;
     }
 
-    private Boolean executeValidadores(NfeCampo nfeCampo, Object objRet, String descricaoGrupo) throws IllegalAccessException {
+    private Boolean executeValidadores(NfeCampo nfeCampo, Object obj, Object objRet, String descricaoGrupo) throws IllegalAccessException {
         try {
             for (Class<?> validador : nfeCampo.validadores()) {
-                ValidadorCampo<Object> val = (ValidadorCampo<Object>) validador.newInstance();
-                RetornoValidar retorno = val.validar(objRet);
+                ValidadorCampo<Object, Object> val = (ValidadorCampo<Object, Object>) validador.newInstance();
+                RetornoValidar retorno = val.validar(objRet, obj);
                 if (!retorno.getValido()) {
                     errosList.add(
                             new ErrosValidacao(nfeCampo.id()

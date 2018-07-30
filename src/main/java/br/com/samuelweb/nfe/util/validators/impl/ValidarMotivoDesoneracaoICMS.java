@@ -7,7 +7,7 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarMotivoDesoneracaoICMS implements ValidadorCampo<Integer> {
+public class ValidarMotivoDesoneracaoICMS implements ValidadorCampo<Integer, Object> {
     private static Map<Integer, MotivoDesoneracaoICMS> motDesonICMSMap =  new HashMap<>();
 
     static {
@@ -27,7 +27,7 @@ public class ValidarMotivoDesoneracaoICMS implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (motDesonICMSMap.get(valor) != null || valor == null) {
             return new RetornoValidarImpl(true);
         }

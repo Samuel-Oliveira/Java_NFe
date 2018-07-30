@@ -6,7 +6,7 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarProcEmi implements ValidadorCampo<Integer> {
+public class ValidarProcEmi implements ValidadorCampo<Integer, Object> {
     private static Map<Integer, String> procEmiMap =  new HashMap<>();
     static {
         procEmiMap.put(0, "Emissão de NF-e com aplicativo do contribuinte");
@@ -16,7 +16,7 @@ public class ValidarProcEmi implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (procEmiMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

@@ -6,7 +6,7 @@ import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarLocalOperacao implements ValidadorCampo<Integer> {
+public class ValidarLocalOperacao implements ValidadorCampo<Integer, Object> {
 
     private static Map<Integer, String> localOperacaoMap =  new HashMap<>();
     static {
@@ -16,7 +16,7 @@ public class ValidarLocalOperacao implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Object parent) {
         if (localOperacaoMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }

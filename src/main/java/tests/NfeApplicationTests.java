@@ -238,7 +238,7 @@ public class NfeApplicationTests {
         ValidarMunicipio validarMunicipio = new ValidarMunicipio();
         RetornoValidar retornoValidar;
 
-        retornoValidar = validarMunicipio.validar(9999999);
+        /*retornoValidar = validarMunicipio.validar(9999999);
         System.out.println(retornoValidar.getValido() ? "valido": "Inválido:"+retornoValidar.getMensagem());
 
         retornoValidar = validarMunicipio.validar(5203962);
@@ -257,7 +257,7 @@ public class NfeApplicationTests {
         System.out.println(retornoValidar.getValido() ? "valido": "Inválido:"+retornoValidar.getMensagem());
 
         retornoValidar = validarMunicipio.validar(4118501);
-        System.out.println(retornoValidar.getValido() ? "valido": "Inválido:"+retornoValidar.getMensagem());
+        System.out.println(retornoValidar.getValido() ? "valido": "Inválido:"+retornoValidar.getMensagem());*/
     }
 
 

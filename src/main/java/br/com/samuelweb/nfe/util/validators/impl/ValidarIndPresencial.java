@@ -1,12 +1,13 @@
 package br.com.samuelweb.nfe.util.validators.impl;
 
+import br.com.samuelweb.nfe.util.model.Ide;
 import br.com.samuelweb.nfe.util.validators.RetornoValidar;
 import br.com.samuelweb.nfe.util.validators.ValidadorCampo;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidarIndPresencial implements ValidadorCampo<Integer> {
+public class ValidarIndPresencial implements ValidadorCampo<Integer, Ide> {
 
     private static Map<Integer, String> indicadorPresencialMap =  new HashMap<>();
     static {
@@ -20,7 +21,7 @@ public class ValidarIndPresencial implements ValidadorCampo<Integer> {
     }
 
     @Override
-    public RetornoValidar validar(Integer valor) {
+    public RetornoValidar validar(Integer valor, Ide parent) {
         if (indicadorPresencialMap.get(valor) != null) {
             return new RetornoValidarImpl(true);
         }
