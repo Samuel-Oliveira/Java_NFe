@@ -17,7 +17,7 @@
 
 	<distributionManagement>
 		<repository>
-			<id>autocom</id>
+			<id>nexus</id>
 			<url>http://192.168.3.195:8081/nexus/content/repositories/releases/</url>
 		</repository>
 	</distributionManagement>
