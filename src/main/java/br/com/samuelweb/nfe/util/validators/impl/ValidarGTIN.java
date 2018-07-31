@@ -10,6 +10,9 @@ import java.util.Arrays;
 public class ValidarGTIN implements ValidadorCampo<String, Prod> {
     @Override
     public RetornoValidar validar(String valor, Prod prod) {
+        if (valor.equals("SEM GTIN")) {
+            return new RetornoValidarImpl(true);
+        }
         if (!StringUtils.isNumeric(valor)) {
             return new RetornoValidarImpl(false, String.format(
                     "Código GTIN inválido, para o produto %s - %s o código GTIN deve conter somente números, valor informado %s."

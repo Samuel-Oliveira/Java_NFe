@@ -18,7 +18,7 @@
 	<distributionManagement>
 		<repository>
 			<id>autocom</id>
-			<url>http://nexus.autocomsistemas.com.br/nexus/content/repositories/autocom/</url>
+			<url>http://192.168.3.195:8081/nexus/content/repositories/releases/</url>
 		</repository>
 	</distributionManagement>
 
@@ -70,7 +70,6 @@
 			<version>4.4.6</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>

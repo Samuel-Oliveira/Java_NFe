@@ -23,7 +23,7 @@ public class Prod {
 
     @NfeCampo(tipo = String.class
             , id = "I02", tag = "cEAN", validadores = {ValidarGTIN.class}
-            , tamanhoMinimo = 0, tamanhoMaximo = 14, ocorrencias = 1
+            , tamanhoMinimo = 0, tamanhoMaximo = 14, ocorrencias = 1, valorDefault = "SEM GTIN"
             , descricao = DfeConsts.DSC_CEAN)
     private String cean;
 
@@ -106,7 +106,7 @@ public class Prod {
 
     @NfeCampo(tipo = String.class
             , id = "I12", tag = "cEANTrib", validadores = {ValidarGTIN.class}
-            , tamanhoMinimo = 0, tamanhoMaximo = 14, ocorrencias = 1
+            , tamanhoMinimo = 0, tamanhoMaximo = 14, ocorrencias = 1, valorDefault = "SEM GTIN"
             , descricao = NfeConsts.DSC_CEANTRIB)
     private String ceanTrib;
 
