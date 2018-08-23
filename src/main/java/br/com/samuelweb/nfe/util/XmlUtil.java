@@ -3,10 +3,14 @@
  */
 package br.com.samuelweb.nfe.util;
 
+import br.com.samuelweb.nfe.Nfe;
+import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
+import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento;
+import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEvento;
 import br.inf.portalfiscal.nfe.schema_4.consReciNFe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
@@ -261,6 +265,21 @@ public class XmlUtil {
         nfeProc.setProtNFe(XmlUtil.xmlToObject(xml, TProtNFe.class));
 
         return XmlUtil.objectToXml(nfeProc);
+    }
+
+    public static String criaProcEventoCancelamento(ConfiguracoesIniciaisNfe config, TEnvEvento enviEvento, TRetEvento retorno) throws JAXBException, NfeException {
+
+        String xml = XmlUtil.objectToXml(enviEvento);
+        xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
+        xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
+
+        String assinado = Nfe.assinaCancelamento(config, xml);
+        TProcEvento procEvento = new TProcEvento();
+        procEvento.setVersao("1.00");
+        procEvento.setEvento(XmlUtil.xmlToObject(assinado, TEnvEvento.class).getEvento().get(0));
+        procEvento.setRetEvento(retorno);
+
+        return XmlUtil.objectToXml(procEvento);
     }
 
     public static String removeAcentos(String str) {

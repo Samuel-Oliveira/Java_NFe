@@ -3,6 +3,7 @@
  */
 package br.com.samuelweb.nfe;
 
+import br.com.samuelweb.nfe.dom.ConfiguracoesIniciaisNfe;
 import br.com.samuelweb.nfe.dom.Enum.TipoManifestacao;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
@@ -198,7 +199,18 @@ public class Nfe {
 		return Cancelar.eventoCancelamento(CertificadoUtil.iniciaConfiguracoes(), envEvento, valida, tipo);
 
 	}
-  
+
+    /**
+     * * Assina o Cancenlamento
+     *
+     * @param envEvento
+     * @return
+     * @throws NfeException
+     */
+    public static String assinaCancelamento(ConfiguracoesIniciaisNfe config, String xml) throws NfeException {
+        return Assinar.assinaNfe(config, xml, Assinar.EVENTO);
+    }
+
     /**
      * * Metodo para Enviar o EPEC.
      * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE

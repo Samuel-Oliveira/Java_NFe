@@ -33,6 +33,8 @@ ________________________________________________________________________________
 - Alterado URL MS
 - Adicionado URLS AM
 - Corrigido erro Consulta Cadastro SVRS
+- Agora são aceitos caracteres especiais no XML.
+- Criado Metódo para criação do ProcEvento do cancelamento.
 
 ## v4.00.6 - 03/07/2018
 - Alterado schemas para versão 1.50
