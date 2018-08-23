@@ -3,13 +3,12 @@
  */
 package br.com.samuelweb.nfe.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.ini4j.Wini;
-
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
+import org.ini4j.Wini;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Samuel Oliveira
@@ -83,8 +82,16 @@ public class WebServiceUtil {
 		String servico = ConstantesUtil.SERVICOS.CONSULTA_CADASTRO;
 		try {
 
-			String secao = tipo + "_" + uf.toUpperCase() + "_"
-					+ (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
+            String secao;
+            if (uf.toUpperCase().equals(Estados.AC.toString()) || uf.toUpperCase().equals(Estados.RN.toString())
+                    || uf.toUpperCase().equals(Estados.PB.toString()) || uf.toUpperCase().equals(Estados.SC.toString())) {
+                secao = tipo + "_SVRS_"
+                        + (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
+            } else {
+
+                secao = tipo + "_" + uf.toUpperCase() + "_"
+                        + (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
+            }
 
 			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
 
