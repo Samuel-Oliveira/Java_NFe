@@ -6,12 +6,13 @@ import br.com.samuelweb.nfe.util.consts.DfeConsts;
 import br.com.samuelweb.nfe.util.consts.NfeConsts;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarChaveAcesso;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
+import org.apache.commons.lang3.StringUtils;
 
 public class NfRef {
 
     @NfeCampo(tipo = String.class,
             id = "B13", tag = "refNFe",
-            tamanhoMinimo = 44, tamanhoMaximo = 44, ocorrencias = 1,
+            tamanhoMinimo = 44, tamanhoMaximo = 44, ocorrencias = 0,
             descricao = DfeConsts.DSC_REFNFE, validadores = {ValidarChaveAcesso.class})
     private String refNFe;
 
@@ -25,7 +26,7 @@ public class NfRef {
 
     @NfeCampo(tipo = String.class,
             id = "B20i", tag = "refCTe",
-            tamanhoMinimo = 44, tamanhoMaximo = 44, ocorrencias = 1,
+            tamanhoMinimo = 44, tamanhoMaximo = 44, ocorrencias = 0,
             descricao = DfeConsts.DSC_REFCTE, validadores = {ValidarChaveAcesso.class})
     private String refCTe;
 
@@ -90,8 +91,20 @@ public class NfRef {
     }
 
     public void validarRegraNegocio(InfNFe infNFe) {
-        this.getRefNF().validarRegraNegocio(infNFe);
-        this.getRefNFP().validarRegraNegocio(infNFe);
-        this.getRefECF().validarRegraNegocio(infNFe);
+        if (StringUtils.isNotBlank(this.getRefNFe())) {
+            this.setRefNF(null);
+            this.setRefNFP(null);
+            this.setRefECF(null);
+        } else if (this.getRefNF() != null) {
+            this.getRefNF().validarRegraNegocio(infNFe);
+            this.setRefNFP(null);
+            this.setRefECF(null);
+        } else if (this.getRefNFP() != null) {
+            this.getRefNFP().validarRegraNegocio(infNFe);
+            this.setRefECF(null);
+        }
+        if (this.getRefECF() != null) {
+            this.getRefECF().validarRegraNegocio(infNFe);
+        }
     }
 }

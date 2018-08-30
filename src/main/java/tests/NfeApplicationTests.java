@@ -40,7 +40,7 @@ public class NfeApplicationTests {
         System.out.println("--------------------------------------------------------------------------");
         System.out.println("Iniciando teste EnvioNFe");
         System.out.println("--------------------------------------------------------------------------");
-
+        try {
         InfNFe infNFe = new InfNFe();
         infNFe.getIde().setCuf(41);
         infNFe.getIde().setNatOp("Venda de mercadoria adquirida ou recebida de terceiros");
@@ -181,38 +181,38 @@ public class NfeApplicationTests {
         infNFe.getInfAdic().setInfAdFisco("-");
 
         NfeValidator validator = new NfeValidator();
-        try {
-            if (!validator.validarInfNfe(infNFe)) {
-                List<ErrosValidacao> errosValidacaos = validator.getErrosList();
-                for (ErrosValidacao errosValidacao : errosValidacaos) {
-                    System.out.println(errosValidacao.toString());
-                }
+
+        if (!validator.validarInfNfe(infNFe)) {
+            List<ErrosValidacao> errosValidacaos = validator.getErrosList();
+            for (ErrosValidacao errosValidacao : errosValidacaos) {
+                System.out.println(errosValidacao.toString());
             }
+        }
 
-            // Inicia As Certificado
-            Certificado certificado = CertificadoService.certificadoPfx("/home/dalbosco/certificado/certificado.pfx", "123");
-            //Esse Objeto Você pode guardar em uma Session.
-            ConfiguracoesWebNfe config = ConfiguracoesWebNfe.iniciaConfiguracoes(Estados.PR,
-                    ConstantesUtil.AMBIENTE.HOMOLOGACAO,
-                    certificado,
-                    MethodHandles.lookup().lookupClass().getResource("/schemas").getPath(), //PEGAR SCHEMAS EM AMBIENTE WEB ESTA PASTA ESTA DENTRO DE RESOURCES
-                    true);
+        // Inicia As Certificado
+        Certificado certificado = CertificadoService.certificadoPfx("/home/dalbosco/certificado/certificado.pfx", "123");
+        //Esse Objeto Você pode guardar em uma Session.
+        ConfiguracoesWebNfe config = ConfiguracoesWebNfe.iniciaConfiguracoes(Estados.PR,
+                ConstantesUtil.AMBIENTE.HOMOLOGACAO,
+                certificado,
+                MethodHandles.lookup().lookupClass().getResource("/schemas").getPath(), //PEGAR SCHEMAS EM AMBIENTE WEB ESTA PASTA ESTA DENTRO DE RESOURCES
+                true);
 
-            //Converte os dados para o objeto NFe
-            TNFe nfe = new TNFe();
-            nfe.setInfNFe(infNFe.build());
+        //Converte os dados para o objeto NFe
+        TNFe nfe = new TNFe();
+        nfe.setInfNFe(infNFe.build());
 
-            // Monta EnviNfe
-            TEnviNFe enviNFe = new TEnviNFe();
-            enviNFe.setVersao("4.00");
-            enviNFe.setIdLote("1");
-            enviNFe.setIndSinc("1");
-            enviNFe.getNFe().add(nfe);
-            for (TNFe tnFe : enviNFe.getNFe()) {
-                System.out.println(XmlUtil.objectToXml(tnFe));
-            }
-            // Monta e Assina o XML
-            enviNFe = NfeWeb.montaNfe(config, enviNFe, true);
+        // Monta EnviNfe
+        TEnviNFe enviNFe = new TEnviNFe();
+        enviNFe.setVersao("4.00");
+        enviNFe.setIdLote("1");
+        enviNFe.setIndSinc("1");
+        enviNFe.getNFe().add(nfe);
+        for (TNFe tnFe : enviNFe.getNFe()) {
+            System.out.println(XmlUtil.objectToXml(tnFe));
+        }
+        // Monta e Assina o XML
+        enviNFe = NfeWeb.montaNfe(config, enviNFe, true);
 
         } catch (NfeException e) {
             e.printStackTrace();
