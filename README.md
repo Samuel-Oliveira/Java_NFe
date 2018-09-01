@@ -4,7 +4,7 @@ Projeto Para implementação do Java-Nfe Utilizando JAXB.
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.7b.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.7b.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.7c.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.7c.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -17,7 +17,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>4.00.7b</version>
+			<version>4.00.7c</version>
 		</dependency>
 ```
 
@@ -33,6 +33,7 @@ ________________________________________________________________________________
 - Corrigido erro Consulta Cadastro SVRS
 - Agora são aceitos caracteres especiais no XML.
 - Criado Metódo para criação do ProcEvento do cancelamento.
+- Corrigido ProcInut
 - Alterado QrCode para versão 2
 ** Leia para mais informações https://gist.github.com/Samuel-Oliveira/72f88a91c72465e038dbecd065fe1e12 ** 
 
