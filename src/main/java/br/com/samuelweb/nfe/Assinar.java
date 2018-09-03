@@ -5,7 +5,6 @@ import br.com.samuelweb.certificado.CertificadoService;
 import br.com.samuelweb.certificado.exception.CertificadoException;
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
-import br.com.samuelweb.nfe.util.XmlUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -59,7 +58,6 @@ class Assinar {
      */
     static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
 
-        stringXml = XmlUtil.removeAcentos(stringXml);
         stringXml = assinaDocNFe(config, stringXml, tipo);
 
         return stringXml;

@@ -44,7 +44,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
         instance.setVersaoNfe();
         instance.setLog(log);
 		if (log) {
-            System.out.println("Api Java Nfe Versão 4.00.6 - Samuel Olivera - samuk.exe@hotmail.com");
+            System.out.println("Api Java Nfe Versão 4.00.7 - Samuel Olivera - samuk.exe@hotmail.com");
 			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
 					+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
 			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
