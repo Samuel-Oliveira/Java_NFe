@@ -226,7 +226,7 @@ public class NfeValidator {
         }
         //Se o valor do campo é zero e o mesmo não obrigatório envia null para não gerar,
         //ocorria no campo vDesc do produto o problema.
-        if (value != null && value.compareTo(BigDecimal.ZERO) == 0 && nfeCampo.ocorrencias() == 0){
+        if (value != null && value.compareTo(BigDecimal.ZERO) == 0 && nfeCampo.ocorrencias() == 0 && nfeCampo.valorDefault().isEmpty()){
             try {
                 executarMetodoSet(obj, field, null);
             } catch (NullPointerException e) {

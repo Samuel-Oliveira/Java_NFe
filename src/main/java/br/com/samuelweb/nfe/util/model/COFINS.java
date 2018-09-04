@@ -21,7 +21,7 @@ public class COFINS {
             , descricao = DfeConsts.DSC_VBC)
     private BigDecimal vBC;
 
-    @NfeCampo(tipo = BigDecimal.class
+    @NfeCampo(tipo = BigDecimal.class, valorDefault = "0.0"
             , id = "S08", tag = "pCOFINS", decimais = 4, precisao = 7
             , tamanhoMinimo = 1, tamanhoMaximo = 7, ocorrencias = 0
             , descricao = DfeConsts.DSC_PCOFINS)
