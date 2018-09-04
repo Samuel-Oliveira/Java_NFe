@@ -16,6 +16,7 @@ import br.com.samuelweb.nfe.util.validators.impl.NfeValidator;
 import br.com.samuelweb.nfe.util.validators.impl.ValidarMunicipio;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe;
+import org.junit.Test;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
@@ -27,15 +28,12 @@ import java.util.List;
 
 public class NfeApplicationTests {
 
+    @Test
     public void contextLoads() {
     }
 
-    public static void main(String[] args) {
-        enviarNfe();
-        testarCodigoMunicipio();
-    }
-
-    private static void enviarNfe() {
+    @Test
+    public void enviarNfe() {
         System.out.println("--------------------------------------------------------------------------");
         System.out.println("Iniciando teste EnvioNFe");
         System.out.println("--------------------------------------------------------------------------");
@@ -229,7 +227,8 @@ public class NfeApplicationTests {
         System.out.println("--------------------------------------------------------------------------");
     }
 
-    public static void testarCodigoMunicipio() {
+    @Test
+    public void testarCodigoMunicipio() {
         ValidarMunicipio validarMunicipio = new ValidarMunicipio();
         RetornoValidar retornoValidar;
 
