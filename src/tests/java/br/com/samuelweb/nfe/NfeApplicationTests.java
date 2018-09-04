@@ -62,12 +62,12 @@ public class NfeApplicationTests {
             infNFe.getIde().setVerProc("1.0.0.0");
             infNFe.getIde().setCnf("78501789");
 
-            infNFe.getEmit().setCnpjCpf("04686827000151");
-            infNFe.getEmit().setxNome("FADALEAL SUPERMERCADOS LTDA teste");
-            infNFe.getEmit().setxFant("CASA FIESTA XV DE NOVEMBRO");
-            infNFe.getEmit().getEnderEmit().setxLgr("XV DE NOVEMBRO");
-            infNFe.getEmit().getEnderEmit().setNro("2357");
-            infNFe.getEmit().getEnderEmit().setxBairro("ALTO DA RUA XV");
+            infNFe.getEmit().setCnpjCpf("00261729000111");
+            infNFe.getEmit().setxNome("Razão social da Empresa");
+            infNFe.getEmit().setxFant("Nome Fantasia da Empresa");
+            infNFe.getEmit().getEnderEmit().setxLgr("Logradouro da Empresa");
+            infNFe.getEmit().getEnderEmit().setNro("123");
+            infNFe.getEmit().getEnderEmit().setxBairro("Bairro da Empresa");
             infNFe.getEmit().getEnderEmit().setcMun(4106902);
             infNFe.getEmit().getEnderEmit().setxMun("Curitiba");
             infNFe.getEmit().getEnderEmit().setUf("PR");
@@ -75,25 +75,23 @@ public class NfeApplicationTests {
             infNFe.getEmit().getEnderEmit().setcPais(1058);
             infNFe.getEmit().getEnderEmit().setxPais("BRASIL");
             infNFe.getEmit().getEnderEmit().setFone(30877001);
-            infNFe.getEmit().setIe("9025008550");
+            infNFe.getEmit().setIe("1549227682");
             infNFe.getEmit().setCrt("3");
 
             infNFe.setDest(new Dest());
-            infNFe.getDest().setCnpjCpf("04686827000232");
+            infNFe.getDest().setCnpjCpf("68063620011");
             infNFe.getDest().setxNome("NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
-            infNFe.getDest().getEnderDest().setxLgr("IGUACU");
-            infNFe.getDest().getEnderDest().setNro("3534");
-            infNFe.getDest().getEnderDest().setxBairro("AGUA VERDE");
+            infNFe.getDest().getEnderDest().setxLgr("Logradouro");
+            infNFe.getDest().getEnderDest().setNro("4545");
+            infNFe.getDest().getEnderDest().setxBairro("Bairro");
             infNFe.getDest().getEnderDest().setcMun(4106902);
             infNFe.getDest().getEnderDest().setxMun("Curitiba");
             infNFe.getDest().getEnderDest().setUf("PR");
             infNFe.getDest().getEnderDest().setCep(80240031);
             infNFe.getDest().getEnderDest().setcPais(1058);
             infNFe.getDest().getEnderDest().setxPais("BRASIL");
-            infNFe.getDest().getEnderDest().setFone("30877001");
-            infNFe.getDest().setIndIEDest(1);
-            infNFe.getDest().setIe("9025143253");
-
+            infNFe.getDest().getEnderDest().setFone("99999999");
+            infNFe.getDest().setIndIEDest(9);
 
             Det det = new Det();
             det.getProd().setcProd("862875");
@@ -188,6 +186,10 @@ public class NfeApplicationTests {
                 }
             }
 
+            //Converte os dados para o objeto NFe do framework
+            TNFe nfe = new TNFe();
+            nfe.setInfNFe(infNFe.build());
+
             // Inicia As Certificado
             Certificado certificado = CertificadoService.certificadoPfx("/home/dalbosco/certificado/certificado.pfx", "123");
             //Esse Objeto Você pode guardar em uma Session.
@@ -196,10 +198,6 @@ public class NfeApplicationTests {
                     certificado,
                     MethodHandles.lookup().lookupClass().getResource("/schemas").getPath(), //PEGAR SCHEMAS EM AMBIENTE WEB ESTA PASTA ESTA DENTRO DE RESOURCES
                     true);
-
-            //Converte os dados para o objeto NFe
-            TNFe nfe = new TNFe();
-            nfe.setInfNFe(infNFe.build());
 
             // Monta EnviNfe
             TEnviNFe enviNFe = new TEnviNFe();
