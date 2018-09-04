@@ -8,11 +8,12 @@ import java.math.BigDecimal;
 public class MontaICMSCst60 implements MontaImposto<TNFe.InfNFe.Det.Imposto.ICMS, ICMS> {
     @Override
     public void build(TNFe.InfNFe.Det.Imposto.ICMS imposto, ICMS icms) {
-        if ((icms.getvBCSTDest().compareTo(BigDecimal.ZERO) != 0)
-                || (icms.getvICMSSTDest().compareTo(BigDecimal.ZERO) != 0)) {
-            buildIcmsSt(imposto, icms);
-        } else {
+        if (icms.getvBCSTDest() == null || icms.getvICMSSTDest() == null
+                || (icms.getvBCSTDest().compareTo(BigDecimal.ZERO) == 0
+                    && icms.getvICMSSTDest().compareTo(BigDecimal.ZERO) == 0)) {
             buildIcms(imposto, icms);
+        } else {
+            buildIcmsSt(imposto, icms);
         }
     }
 
