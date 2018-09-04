@@ -45,7 +45,7 @@ public enum Estados {
 	private final String codigoIbge;
 	private final String nome;
 
-	private Estados(String codigoIbge,String nome) {
+    Estados(String codigoIbge, String nome) {
 		this.codigoIbge = codigoIbge;
 		this.nome = nome;
 	}

@@ -3,7 +3,7 @@ package br.com.samuelweb.nfe.util;
 import org.apache.axis2.transport.http.HttpTransportProperties;
 
 public class ProxyUtil {
-	 HttpTransportProperties.ProxyProperties proxyProperties;
+    private HttpTransportProperties.ProxyProperties proxyProperties;
 
 	public ProxyUtil(String ip, int porta, String usuario,String senha) {
 		   
