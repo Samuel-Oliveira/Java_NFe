@@ -56,7 +56,7 @@ class Assinar {
      * @return String do Xml Assinado
      * @throws NfeException
      */
-    static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
+    public static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
 
         stringXml = assinaDocNFe(config, stringXml, tipo);
 
