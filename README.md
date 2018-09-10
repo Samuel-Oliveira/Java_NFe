@@ -28,7 +28,8 @@ ________________________________________________________________________________
 # Historico de Versões
 
 ## v4.00.8 - 
-
+ - Adicionado Melhorias
+ - Corrigo erros acentos
 
 ## v4.00.7 - 03/09/2018 
 - Alterado URL MS

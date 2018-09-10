@@ -223,12 +223,7 @@ public class XmlUtil {
 
         StringWriter sw = new StringWriter();
 
-        if (obj.getClass().getSimpleName().equals(ENVIO_NFE) || obj.getClass().getSimpleName().equals(NFEPROC)) {
-            CDATAContentHandler cdataHandler = new CDATAContentHandler(sw, "utf-8");
-            marshaller.marshal(element, cdataHandler);
-        } else {
-            marshaller.marshal(element, sw);
-        }
+        marshaller.marshal(element, sw);
         StringBuilder xml = new StringBuilder();
         xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(sw.toString());
 
