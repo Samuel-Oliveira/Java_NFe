@@ -5,6 +5,7 @@ import br.com.samuelweb.certificado.CertificadoService;
 import br.com.samuelweb.certificado.exception.CertificadoException;
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.XmlUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -73,7 +74,7 @@ class Assinar {
     private static String assinaDocNFe(ConfiguracoesNfe config, String xml, String tipo) throws NfeException {
 
         try {
-            Document document = documentFactory(xml);
+            Document document = documentFactory(config.removeAcentos() ? XmlUtil.removeAcentos(xml) : xml);
             XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
             ArrayList<Transform> transformList = signatureFactory(signatureFactory);
             loadCertificates(config, signatureFactory);
