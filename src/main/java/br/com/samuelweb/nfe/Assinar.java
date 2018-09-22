@@ -7,6 +7,7 @@ import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.crypto.MarshalException;
@@ -24,9 +25,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.security.*;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -153,7 +152,11 @@ class Assinar {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
-        return factory.newDocumentBuilder().parse(new ByteArrayInputStream(xml.getBytes()));
+        InputStream is = new ByteArrayInputStream(xml.getBytes());
+        Reader reader = new InputStreamReader(is, "UTF-8");
+        InputSource io = new InputSource(reader);
+        io.setEncoding("UTF-8");
+        return factory.newDocumentBuilder().parse(io);
     }
 
     private static void loadCertificates(ConfiguracoesNfe config, XMLSignatureFactory signatureFactory)
