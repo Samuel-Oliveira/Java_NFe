@@ -120,7 +120,14 @@ public class WebServiceUtilTest {
 								}
 								break;
 							case MG:
-								assertTrue(true);// UF não tem nfce
+								if ((s.equals(SERVICOS.URL_QRCODE)) || (s.equals(SERVICOS.URL_CONSULTANFCE))) {
+									// se o erro for deste dois serviços entao realmente e erro.
+									ok = false;
+									ex.printStackTrace();
+									assertTrue(false);
+								} else {
+									assertTrue(true);// UF não usa nfce, tem apenas dois serviços
+								}
 								break;
 							case SC:
 								// sc nao tem nfce, acho que deveria ser igual MG, inclusive propert
