@@ -31,6 +31,7 @@ ________________________________________________________________________________
  - Adicionado Melhorias
  - Corrigo erros acentos
  - Corrigido Urls MT NFe Homologação
+ - Corrigido Urls PE NFCe Homologação/Produção
 
 ## v4.00.7 - 03/09/2018 
 - Alterado URL MS
