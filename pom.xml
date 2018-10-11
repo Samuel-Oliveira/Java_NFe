@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-    <version>4.00.7</version>
+    <version>4.00.8</version>
 	<name>Java_NFe</name>
 
 	<!-- Repositorios SVN Autocom -->
@@ -17,8 +17,8 @@
 
 	<distributionManagement>
 		<repository>
-			<id>autocom</id>
-			<url>http://nexus.autocomsistemas.com.br/nexus/content/repositories/autocom/</url>
+            <id>autocom</id>
+            <url>http://nexus.autocomsistemas.com.br/nexus/content/repositories/autocom/</url>
 		</repository>
 	</distributionManagement>
 
@@ -71,8 +71,17 @@
 			<artifactId>httpcore</artifactId>
 			<version>4.4.6</version>
 		</dependency>
-
-    </dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

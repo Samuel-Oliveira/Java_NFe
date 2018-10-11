@@ -17,41 +17,43 @@ public interface ConfiguracoesNfe {
 	/**
 	 * @return the pastaSchemas
 	 */
-	public String getPastaSchemas();
+    String getPastaSchemas();
 
 	/**
 	 * @return the versaoNfe
 	 */
-	public String getVersaoNfe();
+    String getVersaoNfe();
 
 	/**
 	 * @return the ambiente
 	 */
-	public String getAmbiente();
+    String getAmbiente();
 
 	/**
 	 * @return the certificado
 	 */
-	public Certificado getCertificado();
+    Certificado getCertificado();
 
 	/**
 	 * @return configuracao do proxy
 	 */
-	public ProxyUtil getProxy();
+    ProxyUtil getProxy();
 
 	/**
 	 * @return the contigenciaSCAN
 	 */
-	public boolean isContigenciaSCAN();
+    boolean isContigenciaSCAN();
 
 	/**
 	 * @return the estado
 	 */
-	public Estados getEstado();
+    Estados getEstado();
 
-	public boolean isLog();
+    boolean isLog();
 
-	public ProxyUtil getProxyUtil();
+    ProxyUtil getProxyUtil();
 
-	public Integer getTimeout();
+    Integer getTimeout();
+
+    boolean removeAcentos();
 }

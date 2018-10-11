@@ -26,6 +26,7 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 	private Integer timeout;
 	private boolean contigenciaSCAN;
 	private boolean log = true;
+    private boolean removeAcentos = false;
 
 	// Construtor Singleton
 	private ConfiguracoesIniciaisNfe() {
@@ -54,7 +55,7 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 			String pastaSchemas, Boolean log) {
         new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas, log);
 		if (log) {
-            System.out.println("Api Java Nfe Versão 4.00.7 - Samuel Olivera - samuk.exe@hotmail.com");
+            System.out.println("Api Java Nfe Versão 4.00.8 - Samuel Olivera - samuk.exe@hotmail.com");
 			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
 					+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
 			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
@@ -193,4 +194,12 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 	public void setTimeout(Integer timeout) {
 		this.timeout = timeout;
 	}
+
+    public boolean removeAcentos() {
+        return removeAcentos;
+    }
+
+    public void setRemoveAcentos(boolean removeAcentos) {
+        this.removeAcentos = removeAcentos;
+    }
 }

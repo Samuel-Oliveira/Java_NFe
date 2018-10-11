@@ -14,10 +14,7 @@ import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEvento;
 import br.inf.portalfiscal.nfe.schema_4.consReciNFe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
-import br.inf.portalfiscal.nfe.schema_4.enviNFe.TEnviNFe;
-import br.inf.portalfiscal.nfe.schema_4.enviNFe.TNfeProc;
-import br.inf.portalfiscal.nfe.schema_4.enviNFe.TProtNFe;
-import br.inf.portalfiscal.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.inf.portalfiscal.nfe.schema_4.enviNFe.*;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TProcInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
@@ -28,6 +25,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.text.Normalizer;
@@ -49,6 +47,7 @@ public class XmlUtil {
     private static final String DIST_DFE = "DistDFeInt";
     private static final String INUTILIZACAO = "TInutNFe";
     private static final String NFEPROC = "TNfeProc";
+    private static final String NFE = "TNFe";
     private static final String EVENTO = "TEnvEvento";
     private static final String TPROCEVENTO = "TProcEvento";
     private static final String TCONSRECINFE = "TConsReciNFe";
@@ -169,6 +168,11 @@ public class XmlUtil {
                 element = XsdUtil.enviNfe.createTNfeProc((TNfeProc) obj);
                 break;
 
+            case NFE:
+                context = JAXBContext.newInstance(TNFe.class);
+                element = new JAXBElement<>(new QName("http://www.portalfiscal.inf.br/nfe", "NFe"), TNFe.class, null, (br.inf.portalfiscal.nfe.schema_4.enviNFe.TNFe) obj);
+                break;
+
             case TPROCINUT:
                 context = JAXBContext.newInstance(TProcInutNFe.class);
                 element = XsdUtil.inutNfe.createTProcInutNFe((TProcInutNFe) obj);
@@ -223,12 +227,7 @@ public class XmlUtil {
 
         StringWriter sw = new StringWriter();
 
-        if (obj.getClass().getSimpleName().equals(ENVIO_NFE) || obj.getClass().getSimpleName().equals(NFEPROC)) {
-            CDATAContentHandler cdataHandler = new CDATAContentHandler(sw, "utf-8");
-            marshaller.marshal(element, cdataHandler);
-        } else {
-            marshaller.marshal(element, sw);
-        }
+        marshaller.marshal(element, sw);
         StringBuilder xml = new StringBuilder();
         xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(sw.toString());
 

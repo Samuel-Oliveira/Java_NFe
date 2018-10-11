@@ -5,8 +5,10 @@ import br.com.samuelweb.certificado.CertificadoService;
 import br.com.samuelweb.certificado.exception.CertificadoException;
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
+import br.com.samuelweb.nfe.util.XmlUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.crypto.MarshalException;
@@ -24,9 +26,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.security.*;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ class Assinar {
      * @return String do Xml Assinado
      * @throws NfeException
      */
-    static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
+    public static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
 
         stringXml = assinaDocNFe(config, stringXml, tipo);
 
@@ -74,7 +74,7 @@ class Assinar {
     private static String assinaDocNFe(ConfiguracoesNfe config, String xml, String tipo) throws NfeException {
 
         try {
-            Document document = documentFactory(xml);
+            Document document = documentFactory(config.removeAcentos() ? XmlUtil.removeAcentos(xml) : xml);
             XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
             ArrayList<Transform> transformList = signatureFactory(signatureFactory);
             loadCertificates(config, signatureFactory);
@@ -153,7 +153,11 @@ class Assinar {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
-        return factory.newDocumentBuilder().parse(new ByteArrayInputStream(xml.getBytes()));
+        InputStream is = new ByteArrayInputStream(xml.getBytes());
+        Reader reader = new InputStreamReader(is, "UTF-8");
+        InputSource io = new InputSource(reader);
+        io.setEncoding("UTF-8");
+        return factory.newDocumentBuilder().parse(io);
     }
 
     private static void loadCertificates(ConfiguracoesNfe config, XMLSignatureFactory signatureFactory)
