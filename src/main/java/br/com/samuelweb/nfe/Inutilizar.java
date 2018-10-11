@@ -37,12 +37,12 @@ class Inutilizar {
 		infInut.setCUF(id.substring(2, 4));
 		infInut.setAno(id.substring(4, 6));
 
-		infInut.setCNPJ(id.substring(6, 20));
+		infInut.setCNPJ(id.substring(8, 22)); //20 > 22
 		infInut.setMod(tipo.equals(ConstantesUtil.NFE) ? "55" : "65");
-		infInut.setSerie(Integer.valueOf(id.substring(22, 25)).toString());
+		infInut.setSerie(Integer.valueOf(id.substring(24, 27)).toString()); // alt
 
-		infInut.setNNFIni(Integer.valueOf(id.substring(25, 34)).toString());
-		infInut.setNNFFin(Integer.valueOf(id.substring(34, 43)).toString());
+		infInut.setNNFIni(Integer.valueOf(id.substring(27, 36)).toString()); // alt
+		infInut.setNNFFin(Integer.valueOf(id.substring(36, 45)).toString()); // alt
 
 		infInut.setXJust(motivo);
 		inutNFe.setInfInut(infInut);
