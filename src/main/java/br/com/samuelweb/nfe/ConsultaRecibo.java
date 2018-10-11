@@ -54,10 +54,10 @@ class ConsultaRecibo {
 			OMElement ome = AXIOMUtil.stringToOM(xml);
 			NFeRetAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeRetAutorizacao4Stub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
-
-			NFeRetAutorizacao4Stub stub = new NFeRetAutorizacao4Stub(tipo.equals(ConstantesUtil.NFCE)
-					? WebServiceUtil.getUrl(config, ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.CONSULTA_RECIBO)
-					: WebServiceUtil.getUrl(config, ConstantesUtil.NFE, ConstantesUtil.SERVICOS.CONSULTA_RECIBO));
+			
+			NFeRetAutorizacao4Stub stub = new NFeRetAutorizacao4Stub(tipo.equals(ConstantesUtil.TipoDoc_e.NFCE.name())
+					? WebServiceUtil.getUrl(config, ConstantesUtil.TipoDoc_e.NFCE, ConstantesUtil.SERVICOS.CONSULTA_RECIBO)
+					: WebServiceUtil.getUrl(config, ConstantesUtil.TipoDoc_e.NFE, ConstantesUtil.SERVICOS.CONSULTA_RECIBO));
 			// Timeout
 			if (!ObjetoUtil.isEmpty(config.getTimeout())) {
 				stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());

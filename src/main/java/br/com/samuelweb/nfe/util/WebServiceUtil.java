@@ -5,10 +5,11 @@ package br.com.samuelweb.nfe.util;
 
 import br.com.samuelweb.nfe.dom.ConfiguracoesNfe;
 import br.com.samuelweb.nfe.exception.NfeException;
-import org.ini4j.Wini;
+import br.com.samuelweb.nfe.util.ConstantesUtil.TipoDoc_e;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * @author Samuel Oliveira
@@ -17,30 +18,35 @@ import java.io.InputStream;
 public class WebServiceUtil {
 
 	public static String getUrl(ConfiguracoesNfe config, String tipo, String servico) throws NfeException {
+		return getUrl(config, ConstantesUtil.TipoDoc_e.valueOf(tipo.toUpperCase()), ConstantesUtil.SERVICOS.valueOf(servico.toUpperCase()));
+	}
+	
+	public static String getUrl(ConfiguracoesNfe config, TipoDoc_e tipo, ConstantesUtil.SERVICOS servico) throws NfeException {
 
 		try {
 
-			String secao = tipo + "_" + config.getEstado() + "_"
+			String secao = tipo.getTipo() + "." + config.getEstado() + "."
 					+ (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
 
-			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
-
-			Wini ini = new Wini();
-			ini.getConfig().setLowerCaseOption(true);
-			ini.load(is);
-			String url = ini.get(secao, "usar");
+			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.properties");
+			Properties prop = new Properties();			
+			prop.load(is);
+			
+			String url = prop.getProperty(secao+".Usar");
 
 			if (servico.equals(ConstantesUtil.SERVICOS.DISTRIBUICAO_DFE)
 					|| servico.equals(ConstantesUtil.SERVICOS.MANIFESTACAO)) {
-				secao = config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "NFe_AN_H" : "NFe_AN_P";
+				secao = config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "NFe.AN.H" : "NFe.AN.P";
 
 				if (servico.equals(ConstantesUtil.SERVICOS.MANIFESTACAO)) {
 					servico = ConstantesUtil.SERVICOS.EVENTO;
 				}
-
-			} else if (!servico.equals(ConstantesUtil.SERVICOS.URL_CONSULTANFCE)
-					&& !servico.equals(ConstantesUtil.SERVICOS.URL_QRCODE) && ObjetoUtil.differentNull(url)) {
-				secao = url;
+				
+			// codigo abaixo foi comentado pq quando for buscar a url preciso da secao original, ver comentario mais abaixo	
+			//} else if (!servico.equals(ConstantesUtil.SERVICOS.URL_CONSULTANFCE)
+			//		&& !servico.equals(ConstantesUtil.SERVICOS.URL_QRCODE) && ObjetoUtil.differentNull(url)) {
+			//	secao = url;
+				
 			} else if (config.isContigenciaSCAN()) {
 				// SVC-RS
 				if (config.getEstado().equals(Estados.GO) || config.getEstado().equals(Estados.AM)
@@ -49,20 +55,33 @@ public class WebServiceUtil {
 						|| config.getEstado().equals(Estados.MT) || config.getEstado().equals(Estados.PA)
 						|| config.getEstado().equals(Estados.PE) || config.getEstado().equals(Estados.PI)
 						|| config.getEstado().equals(Estados.PR)) {
-					secao = tipo + "_SVRS_"
+					secao = tipo + ".SVRS."
 							+ (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
 					// SVC-AN
 				} else {
-					secao = tipo + "_SVAN_"
+					secao = tipo + ".SVAN."
 							+ (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
 				}
 			}
-
-			url = ini.get(secao, servico.toLowerCase());
+			//primeiro procuro o serviço na secao da UF se nao existir, verifico se na "Usar" contem o serviço
+			url = prop.getProperty(secao+"."+servico.getServico());
+			if (ObjetoUtil.isEmpty(url)) {
+				if(prop.getProperty(secao+".Usar") != null) {
+					secao = prop.getProperty(secao+".Usar");
+					if(secao!=null) {						
+						url = prop.getProperty(secao+"."+servico.getServico());
+					}
+				}	
+			}
 
 			if (ObjetoUtil.isEmpty(url)) {
-				throw new NfeException(
+				if(config.isLog()) {
+					throw new NfeException(
+							"WebService de " + servico + " não encontrado para " + config.getEstado().getNome() + " chave procurada:"+ secao+"."+servico.getServico());
+				}else {
+					throw new NfeException(
 						"WebService de " + servico + " não encontrado para " + config.getEstado().getNome());
+				}
 			}
 
 			if (config.isLog()) {
@@ -78,41 +97,10 @@ public class WebServiceUtil {
 
 	public static String getUrlConsultaCadastro(ConfiguracoesNfe config, String uf) throws NfeException {
 
-		String tipo = ConstantesUtil.NFE;
-		String servico = ConstantesUtil.SERVICOS.CONSULTA_CADASTRO;
-		try {
-
-            String secao;
-            if (uf.toUpperCase().equals(Estados.AC.toString()) || uf.toUpperCase().equals(Estados.RN.toString())
-                    || uf.toUpperCase().equals(Estados.PB.toString()) || uf.toUpperCase().equals(Estados.SC.toString())) {
-                secao = tipo + "_SVRS_"
-                        + (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
-            } else {
-
-                secao = tipo + "_" + uf.toUpperCase() + "_"
-                        + (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
-            }
-
-			InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
-
-			Wini ini = new Wini();
-			ini.getConfig().setLowerCaseOption(true);
-			ini.load(is);
-			String url = ini.get(secao, servico.toLowerCase());
-
-			if (ObjetoUtil.isEmpty(url)) {
-				throw new NfeException("WebService de " + servico + " não encontrado para " + uf);
-			}
-
-			if (config.isLog()) {
-				System.out.println("WebService - " + url);
-			}
-			return url;
-
-		} catch (IOException e) {
-			throw new NfeException(e.getMessage());
-		}
-
+		ConstantesUtil.TipoDoc_e tipo = ConstantesUtil.TipoDoc_e.NFE;
+		ConstantesUtil.SERVICOS servico = ConstantesUtil.SERVICOS.CONSULTA_CADASTRO;
+		
+		return getUrl(config, tipo, servico);
 	}
 
 }

@@ -9,23 +9,47 @@ package br.com.samuelweb.nfe.util;
  */
 public interface ConstantesUtil {
 	
-	String NFE = "NFe";
-	String NFCE = "NFCe";
+	public enum TipoDoc_e{
+		NFE ("NFe"), NFCE ("NFCe");
+		private final String tipo;
+		private TipoDoc_e(String tipo) {
+			this.tipo = tipo;
+		}
+		public String getTipo(){
+			return tipo;
+		}
+	}
 	
-	interface SERVICOS {
+	public enum SERVICOS {
+		/*
+		 * o enum deve ser mantido conforme ex: AQUI_MAIUSCULO ("AquiConformeColocadoNaPropert")
+		 */
 		
-		String STATUS_SERVICO = "NfeStatusServico_4.00";
-		String ENVIO = "NfeAutorizacao_4.00";
-		String CONSULTA_RECIBO = "NfeRetAutorizacao_4.00";
-		String CONSULTA_CADASTRO = "NfeConsultaCadastro_4.00";
-		String URL_QRCODE = "URL-QRCode";
-		String URL_CONSULTANFCE = "URL-ConsultaNFCe";
-		String EVENTO = "RecepcaoEvento_4.00";
-		String INUTILIZACAO = "NfeInutilizacao_4.00";
-		String CONSULTA_XML = "NfeConsultaProtocolo_4.00";
-		String DISTRIBUICAO_DFE = "NfeDistribuicaoDFe_1.01";
-		String MANIFESTACAO = "MANIFESTACAO";
-		String CSC = "AdministrarCSCNFCe_1.00";
+		//nfe
+		ENVIO ("NfeAutorizacao_4_00"), 
+		CONSULTA_RECIBO ("NfeRetAutorizacao_4_00"), 
+		INUTILIZACAO ("NfeInutilizacao_4_00"),
+		CONSULTA_XML ("NfeConsultaProtocolo_4_00"),	
+		STATUS_SERVICO ("NfeStatusServico_4_00"),
+		EVENTO ("RecepcaoEvento_4_00"),
+		CONSULTA_CADASTRO ("NfeConsultaCadastro_4_00"),
+		DISTRIBUICAO_DFE ("NfeDistribuicaoDFe_1_01"),
+		MANIFESTACAO ("MANIFESTACAO"),
+		
+		//nfce
+		URL_QRCODE ("URL-QRCode"),
+		URL_CONSULTANFCE ("URL-ConsultaNFCe"),
+		CSC ("AdministrarCSCNFCe_1_00");
+		
+		private final String servico;
+		
+		private SERVICOS(String servico) {
+			this.servico = servico;
+		}
+
+		public String getServico(){
+			return servico;
+		}
 		
 	}
 
