@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-    <version>4.00.8b</version>
+    <version>4.00.8c</version>
 	<name>Java_NFe</name>
 
 	<!-- Repositorios SVN Autocom -->
