@@ -85,7 +85,7 @@ class Enviar {
 	 */
 	static TRetEnviNFe enviaNfe(ConfiguracoesNfe config, TEnviNFe enviNFe, String tipo) throws NfeException {
 
-		boolean nfce = tipo.equals(ConstantesUtil.NFCE);
+		boolean nfce = tipo.equals(ConstantesUtil.TipoDoc_e.NFCE.name());
 		String qrCode = "";
 
 		try {
@@ -144,8 +144,8 @@ class Enviar {
 			dadosMsg.setExtraElement(ome);
 
 			NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(
-					nfce ? WebServiceUtil.getUrl(config, ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.ENVIO)
-							: WebServiceUtil.getUrl(config, ConstantesUtil.NFE, ConstantesUtil.SERVICOS.ENVIO));
+					nfce ? WebServiceUtil.getUrl(config, ConstantesUtil.TipoDoc_e.NFCE, ConstantesUtil.SERVICOS.ENVIO)
+							: WebServiceUtil.getUrl(config, ConstantesUtil.TipoDoc_e.NFE, ConstantesUtil.SERVICOS.ENVIO));
 			// Timeout
 			if (!ObjetoUtil.isEmpty(config.getTimeout())) {
 				stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());

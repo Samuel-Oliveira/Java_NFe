@@ -38,7 +38,7 @@ class Inutilizar {
 		infInut.setAno(id.substring(4, 6));
 
 		infInut.setCNPJ(id.substring(6, 20));
-		infInut.setMod(tipo.equals(ConstantesUtil.NFE) ? "55" : "65");
+		infInut.setMod(tipo.equals(ConstantesUtil.TipoDoc_e.NFE.name()) ? "55" : "65");
 		infInut.setSerie(Integer.valueOf(id.substring(22, 25)).toString());
 
 		infInut.setNNFIni(Integer.valueOf(id.substring(25, 34)).toString());
@@ -77,8 +77,9 @@ class Inutilizar {
 			NFeInutilizacao4Stub.NfeDadosMsg dadosMsg = new NFeInutilizacao4Stub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
 
+			ConstantesUtil.TipoDoc_e doc_e = ConstantesUtil.TipoDoc_e.valueOf(tipo.toUpperCase()); 
 			NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(
-					WebServiceUtil.getUrl(config, tipo, ConstantesUtil.SERVICOS.INUTILIZACAO));
+					WebServiceUtil.getUrl(config, doc_e, ConstantesUtil.SERVICOS.INUTILIZACAO));
 
 			// Timeout
 			if (!ObjetoUtil.isEmpty(config.getTimeout())) {

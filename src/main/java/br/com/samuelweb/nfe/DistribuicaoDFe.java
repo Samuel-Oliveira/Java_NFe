@@ -74,7 +74,7 @@ class DistribuicaoDFe {
 			distDFeInteresse.setNfeDadosMsg(dadosMsgType0);
 
 			NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub(
-					WebServiceUtil.getUrl(config, ConstantesUtil.NFE, ConstantesUtil.SERVICOS.DISTRIBUICAO_DFE));
+					WebServiceUtil.getUrl(config, ConstantesUtil.TipoDoc_e.NFE, ConstantesUtil.SERVICOS.DISTRIBUICAO_DFE));
 			// Timeout
 			if (!ObjetoUtil.isEmpty(config.getTimeout())) {
 				stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());

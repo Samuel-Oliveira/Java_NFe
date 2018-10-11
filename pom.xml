@@ -59,13 +59,6 @@
 			<version>20110809</version>
 		</dependency>
 
-		<!-- Ini4J -->
-		<dependency>
-			<groupId>org.ini4j</groupId>
-			<artifactId>ini4j</artifactId>
-			<version>0.5.4</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>

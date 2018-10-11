@@ -55,9 +55,9 @@ class ConsultaXml {
 			NFeConsultaProtocolo4Stub.NfeDadosMsg dadosMsg = new NFeConsultaProtocolo4Stub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
 
-			NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(tipo.equals(ConstantesUtil.NFCE)
-					? WebServiceUtil.getUrl(config, ConstantesUtil.NFCE, ConstantesUtil.SERVICOS.CONSULTA_XML)
-					: WebServiceUtil.getUrl(config, ConstantesUtil.NFE, ConstantesUtil.SERVICOS.CONSULTA_XML));
+			NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(tipo.equals(ConstantesUtil.TipoDoc_e.NFCE.name())
+					? WebServiceUtil.getUrl(config, ConstantesUtil.TipoDoc_e.NFCE, ConstantesUtil.SERVICOS.CONSULTA_XML)
+					: WebServiceUtil.getUrl(config, ConstantesUtil.TipoDoc_e.NFE, ConstantesUtil.SERVICOS.CONSULTA_XML));
 			// Timeout
 			if (!ObjetoUtil.isEmpty(config.getTimeout())) {
 				stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
