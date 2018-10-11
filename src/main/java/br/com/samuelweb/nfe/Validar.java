@@ -138,10 +138,10 @@ class Validar implements ErrorHandler {
         message = message.replaceAll("cvc-complex-type.2.4.b:", "-");
         message = message.replaceAll("The value", "O valor");
         message = message.replaceAll("of element", "do campo");
-        message = message.replaceAll("is not valid", "nao é valido");
+        message = message.replaceAll("is not valid", "não é válido");
         message = message.replaceAll("Invalid content was found starting with element", "Encontrado o campo");
         message = message.replaceAll("One of", "Campo(s)");
-        message = message.replaceAll("is expected", "é obrigatorio");
+        message = message.replaceAll("is expected", "é obrigatório");
         message = message.replaceAll("\\{", "");
         message = message.replaceAll("\\}", "");
         message = message.replaceAll("\"", "");
