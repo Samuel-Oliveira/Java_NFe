@@ -55,5 +55,4 @@ public interface ConfiguracoesNfe {
 
     Integer getTimeout();
 
-    boolean removeAcentos();
 }

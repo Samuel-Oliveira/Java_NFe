@@ -24,7 +24,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 	private Integer timeout;
 	private boolean contigenciaSCAN;
 	private boolean log = true;
-    private boolean removeAcentos = false;
+    private boolean removeAcentos = true;
 
 	// Construtor Singleton
 	private ConfiguracoesWebNfe() {
@@ -45,7 +45,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
         instance.setVersaoNfe();
         instance.setLog(log);
 		if (log) {
-            System.out.println("Api Java Nfe Versão 4.00.9a - Samuel Olivera - samuk.exe@hotmail.com");
+            System.out.println("Api Java Nfe Versão 4.00.9b - Samuel Olivera - samuk.exe@hotmail.com");
 			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
 					+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
 			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "

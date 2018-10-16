@@ -82,7 +82,7 @@ public class XmlUtil {
         JAXBContext context = JAXBContext.newInstance(classe);
         Unmarshaller unmarshaller = context.createUnmarshaller();
 
-        return unmarshaller.unmarshal(new StreamSource(new StringReader(xml)), classe).getValue();
+        return unmarshaller.unmarshal(new StreamSource(new StringReader(removeAcentos(xml))), classe).getValue();
     }
 
     /**
