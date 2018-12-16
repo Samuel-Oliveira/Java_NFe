@@ -74,7 +74,7 @@ class Assinar {
     private static String assinaDocNFe(ConfiguracoesNfe config, String xml, String tipo) throws NfeException {
 
         try {
-            Document document = documentFactory(config.removeAcentos() ? XmlUtil.removeAcentos(xml) : xml);
+            Document document = documentFactory(XmlUtil.removeAcentos(xml));
             XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
             ArrayList<Transform> transformList = signatureFactory(signatureFactory);
             loadCertificates(config, signatureFactory);

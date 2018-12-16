@@ -82,7 +82,7 @@ public class XmlUtil {
         JAXBContext context = JAXBContext.newInstance(classe);
         Unmarshaller unmarshaller = context.createUnmarshaller();
 
-        return unmarshaller.unmarshal(new StreamSource(new StringReader(xml)), classe).getValue();
+        return unmarshaller.unmarshal(new StreamSource(new StringReader(removeAcentos(xml))), classe).getValue();
     }
 
     /**
@@ -288,8 +288,7 @@ public class XmlUtil {
         str = str.replaceAll("\n", "");
         str = str.replaceAll("&", "E");
         str = str.replaceAll(">\\s+<", "><");
-        CharSequence cs = new StringBuilder(str == null ? "" : str);
-        return Normalizer.normalize(cs, Normalizer.Form.NFKD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        return Normalizer.normalize(str, Normalizer.Form.NFKD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "").replaceAll("[^\\p{ASCII}]", "");
 
     }
 
