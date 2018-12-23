@@ -28,7 +28,7 @@ ________________________________________________________________________________
 # Historico de Versões
 
 ## v4.00.10 - 
- 
+ - Adicionado Compatibilidade para Java 11
  
 ## v4.00.9 - 16/12/2018
  - Corrigido URLs PE
