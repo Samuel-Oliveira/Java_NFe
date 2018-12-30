@@ -23,6 +23,7 @@ public class CertificadoUtil {
      * @return ConfiguracoesIniciaisNfe
      * @throws NfeException 
      * @see CertificadoException
+     * @see ConfiguracoesIniciaisNfe
      */
     public static ConfiguracoesIniciaisNfe iniciaConfiguracoes() throws NfeException {
 
@@ -39,6 +40,18 @@ public class CertificadoUtil {
         return ConfiguracoesIniciaisNfe.getInstance();
     }
 
+    /**
+     * Recebe como parâmetro um objeto ConfiguracoesWebNfe e retorna um objeto 
+     * ConfiguracoesWebNfe.<p>
+     * Semelhante ao método iniciaConfiguracoes(), o Certificado Digital será 
+     * validado e inicializado.Caso ocorrá algum prolema será disparado um 
+     * NfeException
+     * @param config
+     * @return ConfiguracoesWebNfe
+     * @throws NfeException 
+     * @see CertificadoException
+     * @see ConfiguracoesWebNfe
+     */
     public static ConfiguracoesWebNfe iniciaConfiguracoes(ConfiguracoesWebNfe config) throws NfeException {
 
         try {
