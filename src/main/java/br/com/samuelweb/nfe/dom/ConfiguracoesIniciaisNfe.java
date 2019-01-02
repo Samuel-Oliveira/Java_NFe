@@ -48,10 +48,10 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
      * Este método recebe como parâmetro os daddos necessários para iniciar a 
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
      * mesma.
-     * @param estado - enumeration Estados, UF do emitente.
-     * @param ambiente - Produção = 1 ou Homologação = 2
-     * @param certificado - objeto Certificado
-     * @param pastaSchemas - local dos arquivo de schemas da NF-e.
+     * @param estado enumeration Estados, UF do emitente.
+     * @param ambiente Produção = 1 ou Homologação = 2
+     * @param certificado objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
      * @return ConfiguracoesIniciaisNfe
      * @see Certificado
      * @see Estados
@@ -66,11 +66,11 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
      * Este método recebe como parâmetro os daddos necessários para iniciar a 
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
      * mesma.
-     * @param estado - enumeration Estados, UF do emitente.
-     * @param ambiente - Produção = "1" ou Homologação = "2"
-     * @param certificado - objeto Certificado
-     * @param pastaSchemas - local dos arquivo de schemas da NF-e.
-     * @param log - true ou false
+     * @param estado enumeration Estados, UF do emitente.
+     * @param ambiente Produção = "1" ou Homologação = "2"
+     * @param certificado objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
+     * @param log true ou false
      * @return ConfiguracoesIniciaisNfe
      * @see Certificado
      * @see Estados
@@ -92,7 +92,7 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
      * Retorna uma instância privada de ConfiguracoesIniciaisNfe.
      * Verifica instância private ConfiguracoesIniciaisNfe é nula. 
      * Caso sim, dispara um NfeException
-     * @return instance - ConfiguracoesIniciaisNfe
+     * @return instance ConfiguracoesIniciaisNfe
      * @throws NfeException 
      */
     public static ConfiguracoesIniciaisNfe getInstance() throws NfeException {

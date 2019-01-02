@@ -40,10 +40,10 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
      * inicializado com os parâmetros inidicados.<p>
      * Se o parâmetro log for verdadeiro, será exibido as informações passadas 
      * for parâmetro no cosole.
-     * @param estado - enumeration Estados, UF do emitente.
-     * @param ambiente - Produção = "1" ou Homologação = "2"
-     * @param certificado - objeto Certificado
-     * @param pastaSchemas - local dos arquivo de schemas da NF-e.
+     * @param estado enumeration Estados, UF do emitente.
+     * @param ambiente Produção = "1" ou Homologação = "2"
+     * @param certificado objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
      * @param log
      * @return ConfiguracoesWebNfe
      * @see Certificado
