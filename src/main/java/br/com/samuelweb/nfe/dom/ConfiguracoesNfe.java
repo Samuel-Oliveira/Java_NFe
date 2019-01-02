@@ -9,8 +9,8 @@ import br.com.samuelweb.nfe.util.ProxyUtil;
 
 /**
  * @author Samuel Oliveira
- *         <p>
- *         Inicia Configurações Nfe.
+ * <p>
+ * Inicia Configurações Nfe.
  */
 public interface ConfiguracoesNfe {
 

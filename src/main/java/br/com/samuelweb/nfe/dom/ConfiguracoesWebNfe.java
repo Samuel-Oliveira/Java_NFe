@@ -10,8 +10,8 @@ import br.com.samuelweb.nfe.util.ProxyUtil;
 
 /**
  * @author Samuel Oliveira
- *         <p>
- *         Inicia Configurações Nfe.
+ * <p>
+ * Inicia Configurações Nfe.
  */
 public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 
@@ -26,32 +26,42 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 	private boolean log = true;
     private boolean removeAcentos = true;
 
-	// Construtor Singleton
-	private ConfiguracoesWebNfe() {
-	}
-
-	public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-			String pastaSchemas) {
-		return iniciaConfiguracoes(estado, ambiente, certificado, pastaSchemas, true);
-	}
+    // Construtor Singleton
+    private ConfiguracoesWebNfe() {
+    }
 
     public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-                                                          String pastaSchemas, Boolean log) {
-		ConfiguracoesWebNfe instance = new ConfiguracoesWebNfe();
-		instance.setEstado(estado);
-		instance.setAmbiente(ambiente);
-		instance.setCertificado(certificado);
-		instance.setPastaSchemas(pastaSchemas);
+            String pastaSchemas) {
+        return iniciaConfiguracoes(estado, ambiente, certificado, pastaSchemas, true);
+    }
+
+    /**
+     * Métoque estático que retorn uma instância do objeto ConfiguracoesWebNfe
+     * inicializado com os parâmetros inidicados.
+     * @param estado - enumeration Estados, UF do emitente.
+     * @param ambiente - Produção = "1" ou Homologação = "2"
+     * @param certificado - objeto Certificado
+     * @param pastaSchemas - local dos arquivo de schemas da NF-e.
+     * @param log
+     * @return 
+     */
+    public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
+            String pastaSchemas, Boolean log) {
+        ConfiguracoesWebNfe instance = new ConfiguracoesWebNfe();
+        instance.setEstado(estado);
+        instance.setAmbiente(ambiente);
+        instance.setCertificado(certificado);
+        instance.setPastaSchemas(pastaSchemas);
         instance.setVersaoNfe();
         instance.setLog(log);
-		if (log) {
+        if (log) {
             System.out.println("Api Java Nfe Versão 4.00.9 - Samuel Olivera - samuk.exe@hotmail.com");
-			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
-					+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
-			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
+            System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
+                    + certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
+            System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
                     + estado.getNome() + " - Modo Web");
-		}
-		return instance;
+        }
+        return instance;
 	}
 
 	public void setProxy(String ip, int porta, String usuario, String senha) {
