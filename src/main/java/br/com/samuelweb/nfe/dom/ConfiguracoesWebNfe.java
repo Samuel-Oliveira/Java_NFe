@@ -37,13 +37,17 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 
     /**
      * Métoque estático que retorn uma instância do objeto ConfiguracoesWebNfe
-     * inicializado com os parâmetros inidicados.
+     * inicializado com os parâmetros inidicados.<p>
+     * Se o parâmetro log for verdadeiro, será exibido as informações passadas 
+     * for parâmetro no cosole.
      * @param estado - enumeration Estados, UF do emitente.
      * @param ambiente - Produção = "1" ou Homologação = "2"
      * @param certificado - objeto Certificado
      * @param pastaSchemas - local dos arquivo de schemas da NF-e.
      * @param log
-     * @return 
+     * @return ConfiguracoesWebNfe
+     * @see Certificado
+     * @see Estados
      */
     public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
             String pastaSchemas, Boolean log) {
