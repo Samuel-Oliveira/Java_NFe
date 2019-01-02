@@ -103,12 +103,20 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
         return instance;
     }
 
+    /**
+     * Cria e atribui valores necessários para o objeto ProxyUtil.
+     * @param ip
+     * @param porta
+     * @param usuario
+     * @param senha 
+     * @see ProxyUtil
+     */
     public void setProxy(String ip, int porta, String usuario, String senha) {
         proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
     }
 
     /**
-     * @return the pastaSchemas
+     * @return pastaSchemas
      */
     public String getPastaSchemas() {
         return pastaSchemas;
