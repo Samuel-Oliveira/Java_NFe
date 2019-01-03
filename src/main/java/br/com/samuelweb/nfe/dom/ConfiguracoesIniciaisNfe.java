@@ -53,7 +53,7 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
      * @param certificado objeto Certificado
      * @param pastaSchemas local dos arquivo de schemas da NF-e.
      * @return ConfiguracoesIniciaisNfe
-     * @see Certificado
+     * @see br.com.samuelweb.certificado.Certificado
      * @see Estados
      */
     public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,

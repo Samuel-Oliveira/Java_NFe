@@ -15,15 +15,15 @@ import br.com.samuelweb.nfe.util.ProxyUtil;
  */
 public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 
-	private Estados estado;
-	private String ambiente;
-	private Certificado certificado;
-	private String pastaSchemas;
-	private String versaoNfe;
-	private ProxyUtil proxyUtil;
-	private Integer timeout;
-	private boolean contigenciaSCAN;
-	private boolean log = true;
+    private Estados estado;
+    private String ambiente;
+    private Certificado certificado;
+    private String pastaSchemas;
+    private String versaoNfe;
+    private ProxyUtil proxyUtil;
+    private Integer timeout;
+    private boolean contigenciaSCAN;
+    private boolean log = true;
     private boolean removeAcentos = true;
 
     // Construtor Singleton
@@ -46,7 +46,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
      * @param pastaSchemas local dos arquivo de schemas da NF-e.
      * @param log
      * @return ConfiguracoesWebNfe
-     * @see Certificado
+     * @see br.com.samuelweb.certificado.Certificado
      * @see Estados
      */
     public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
