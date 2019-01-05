@@ -10,53 +10,86 @@ import br.com.samuelweb.nfe.util.ProxyUtil;
 
 /**
  * @author Samuel Oliveira
- *         <p>
- *         Inicia Configurações Nfe.
+ * <p>
+ * Inicia Configurações Nfe.
  */
 public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 
-	private Estados estado;
-	private String ambiente;
-	private Certificado certificado;
-	private String pastaSchemas;
-	private String versaoNfe;
-	private ProxyUtil proxyUtil;
-	private Integer timeout;
-	private boolean contigenciaSCAN;
-	private boolean log = true;
+    private Estados estado;
+    private String ambiente;
+    private Certificado certificado;
+    private String pastaSchemas;
+    private String versaoNfe;
+    private ProxyUtil proxyUtil;
+    private Integer timeout;
+    private boolean contigenciaSCAN;
+    private boolean log = true;
     private boolean removeAcentos = true;
 
-	// Construtor Singleton
-	private ConfiguracoesWebNfe() {
-	}
+    // Construtor Singleton
+    private ConfiguracoesWebNfe() {
+    }
 
-	public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-			String pastaSchemas) {
-		return iniciaConfiguracoes(estado, ambiente, certificado, pastaSchemas, true);
-	}
-
+    /**
+     * Este método recebe como parâmetro os dados necessários para iniciar a 
+     * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
+     * mesma. Neste caso, o log será setado para True.
+     * @param estado enumeration Estados, UF do emitente.
+     * @param ambiente Produção = "1" ou Homologação = "2"
+     * @param certificado objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
+     * @return ConfiguracoesWebNfe
+     * @see br.com.samuelweb.certificado.
+     * @see Estados
+     */
     public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-                                                          String pastaSchemas, Boolean log) {
-		ConfiguracoesWebNfe instance = new ConfiguracoesWebNfe();
-		instance.setEstado(estado);
-		instance.setAmbiente(ambiente);
-		instance.setCertificado(certificado);
-		instance.setPastaSchemas(pastaSchemas);
+            String pastaSchemas) {
+        return iniciaConfiguracoes(estado, ambiente, certificado, pastaSchemas, true);
+    }
+
+     /**
+     * Este método recebe como parâmetro os dados necessários para iniciar a 
+     * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
+     * mesma.
+     * @param estado enumeration Estados, UF do emitente.
+     * @param ambiente Produção = "1" ou Homologação = "2"
+     * @param certificado objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
+     * @param log se True, imprimi informações no cosole.
+     * @return ConfiguracoesWebNfe
+     * @see br.com.samuelweb.certificado.Certificado
+     * @see Estados
+     */
+    public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
+            String pastaSchemas, Boolean log) {
+        ConfiguracoesWebNfe instance = new ConfiguracoesWebNfe();
+        instance.setEstado(estado);
+        instance.setAmbiente(ambiente);
+        instance.setCertificado(certificado);
+        instance.setPastaSchemas(pastaSchemas);
         instance.setVersaoNfe();
         instance.setLog(log);
-		if (log) {
+        if (log) {
             System.out.println("Api Java Nfe Versão 4.00.10a - Samuel Olivera - samuk.exe@hotmail.com");
-			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
-					+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
-			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
+            System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
+                    + certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
+            System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
                     + estado.getNome() + " - Modo Web");
-		}
-		return instance;
-	}
+        }
+        return instance;
+    }
 
-	public void setProxy(String ip, int porta, String usuario, String senha) {
-		proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
-	}
+     /**
+     * Cria e atribui valores necessários para o objeto ProxyUtil.
+     * @param ip
+     * @param porta
+     * @param usuario
+     * @param senha 
+     * @see ProxyUtil
+     */
+    public void setProxy(String ip, int porta, String usuario, String senha) {
+        proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
+    }
 
 	/**
 	 * @return the pastaSchemas

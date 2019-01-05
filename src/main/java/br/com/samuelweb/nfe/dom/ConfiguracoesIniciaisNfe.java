@@ -44,10 +44,10 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 
     }
 
-      /**
-     * Este método recebe como parâmetro os daddos necessários para iniciar a 
+     /**
+     * Este método recebe como parâmetro os dados necessários para iniciar a 
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
-     * mesma.
+     * mesma. Neste caso, o log será setado para True.
      * @param estado enumeration Estados, UF do emitente.
      * @param ambiente Produção = 1 ou Homologação = 2
      * @param certificado objeto Certificado
@@ -63,16 +63,16 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
     }
 
      /**
-     * Este método recebe como parâmetro os daddos necessários para iniciar a 
+     * Este método recebe como parâmetro os dados necessários para iniciar a 
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
      * mesma.
      * @param estado enumeration Estados, UF do emitente.
      * @param ambiente Produção = "1" ou Homologação = "2"
      * @param certificado objeto Certificado
      * @param pastaSchemas local dos arquivo de schemas da NF-e.
-     * @param log true ou false
+     * @param log true ou false, imprime informações da inicialização.
      * @return ConfiguracoesIniciaisNfe
-     * @see Certificado
+     * @see br.com.samuelweb.certificado.Certificado
      * @see Estados
      */
     public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
