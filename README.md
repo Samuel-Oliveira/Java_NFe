@@ -187,4 +187,4 @@ ________________________________________________________________________________
 ## v3.10.0 - 26-09-2016
 - Versão Inicial Do Sistema
 
-Outras Duvidas Entrar em Contato samuk.exe@hotmail.com
+Outras Duvidas Entre no Discord da Biblioteca: https://discord.gg/ZXpqnaV
