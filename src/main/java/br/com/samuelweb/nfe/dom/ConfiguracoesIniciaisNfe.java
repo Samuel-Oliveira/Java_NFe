@@ -11,8 +11,8 @@ import br.com.samuelweb.nfe.util.ProxyUtil;
 
 /**
  * @author Samuel Oliveira
- *         <p>
- *         Inicia Configurações Nfe.
+ * <p>
+ * Inicia Configurações Nfe.
  */
 public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 	private static ConfiguracoesIniciaisNfe instance;
@@ -31,49 +31,89 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
 	private ConfiguracoesIniciaisNfe() {
 	}
 
-	// Construtor Privado
+    // Construtor Privado
     private ConfiguracoesIniciaisNfe(Estados estado, String ambiente, Certificado certificado, String pastaSchemas, Boolean log) {
 
-		instance = new ConfiguracoesIniciaisNfe();
-		instance.setEstado(estado);
-		instance.setAmbiente(ambiente);
-		instance.setCertificado(certificado);
-		instance.setPastaSchemas(pastaSchemas);
+        instance = new ConfiguracoesIniciaisNfe();
+        instance.setEstado(estado);
+        instance.setAmbiente(ambiente);
+        instance.setCertificado(certificado);
+        instance.setPastaSchemas(pastaSchemas);
         instance.setVersaoNfe();
         instance.setLog(log);
 
-	}
+    }
 
-	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-			String pastaSchemas) {
+     /**
+     * Este método recebe como parâmetro os dados necessários para iniciar a 
+     * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
+     * mesma. Neste caso, o log será setado para True.
+     * @param estado enumeration Estados, UF do emitente.
+     * @param ambiente Produção = 1 ou Homologação = 2
+     * @param certificado objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
+     * @return ConfiguracoesIniciaisNfe
+     * @see br.com.samuelweb.certificado.Certificado
+     * @see Estados
+     */
+    public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
+            String pastaSchemas) {
         return iniciaConfiguracoes(estado, ambiente, certificado, pastaSchemas, true);
 
-	}
+    }
 
-	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
-			String pastaSchemas, Boolean log) {
+     /**
+     * Este método recebe como parâmetro os dados necessários para iniciar a 
+     * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
+     * mesma.
+     * @param estado enumeration Estados, UF do emitente.
+     * @param ambiente Produção = "1" ou Homologação = "2"
+     * @param certificado objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
+     * @param log true ou false, imprime informações da inicialização.
+     * @return ConfiguracoesIniciaisNfe
+     * @see br.com.samuelweb.certificado.Certificado
+     * @see Estados
+     */
+    public static ConfiguracoesIniciaisNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
+            String pastaSchemas, Boolean log) {
         new ConfiguracoesIniciaisNfe(estado, ambiente, certificado, pastaSchemas, log);
-		if (log) {
+        if (log) {
             System.out.println("Api Java Nfe Versão 4.00.10a - Samuel Olivera - samuk.exe@hotmail.com");
-			System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
-					+ certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
-			System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
-					+ estado.getNome());
-		}
-		return instance;
-	}
+            System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
+                    + certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
+            System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "
+                    + estado.getNome());
+        }
+        return instance;
+    }
 
-	public static ConfiguracoesIniciaisNfe getInstance() throws NfeException {
-		if (instance == null) {
-			throw new NfeException("Configurações Não Foram Inicializadas.");
-		}
+    /**
+     * Retorna uma instância privada de ConfiguracoesIniciaisNfe. Verifica
+     * instância private ConfiguracoesIniciaisNfe é nula. Caso sim, dispara um
+     * NfeException.
+     * @return instance ConfiguracoesIniciaisNfe
+     * @throws NfeException
+     */
+    public static ConfiguracoesIniciaisNfe getInstance() throws NfeException {
+        if (instance == null) {
+            throw new NfeException("Configurações Não Foram Inicializadas.");
+        }
 
-		return instance;
-	}
+        return instance;
+    }
 
-	public void setProxy(String ip, int porta, String usuario, String senha) {
-		proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
-	}
+     /**
+     * Cria e atribui valores necessários para o objeto ProxyUtil.
+     * @param ip
+     * @param porta
+     * @param usuario
+     * @param senha 
+     * @see ProxyUtil
+     */
+    public void setProxy(String ip, int porta, String usuario, String senha) {
+        proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
+    }
 
 	/**
 	 * @return the pastaSchemas
