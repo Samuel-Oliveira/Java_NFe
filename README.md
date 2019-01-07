@@ -1,6 +1,9 @@
 # Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe)
 Projeto Para implementação do Java-Nfe Utilizando JAXB.
 
+## Dúvidas, Sugestões ou Consultoria
+Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
+
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
@@ -190,5 +193,3 @@ ________________________________________________________________________________
 
 ## v3.10.0 - 26-09-2016
 - Versão Inicial Do Sistema
-
-Outras Duvidas Entrar em Contato samuk.exe@hotmail.com
