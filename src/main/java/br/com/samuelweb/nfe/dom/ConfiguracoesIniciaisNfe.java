@@ -141,7 +141,9 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
     }
 
     /**
-     * Atribui uma string que representa a versão da NF-e.
+     * Atributo que epresenta a versão da NF-e. Por padrão, será o valor
+     * ConstantesUtil.VERSAO.NFE;
+     * @see ConstantesUtil
      */
     private void setVersaoNfe() {
         this.versaoNfe = ConstantesUtil.VERSAO.NFE;
