@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-    <version>4.00.10a</version>
+    <version>4.00.10b</version>
 	<name>Java_NFe</name>
 
 	<!-- Repositorios SVN Autocom -->
@@ -130,6 +130,14 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>4.3.0</version>
+                <configuration>
+                    <repoToken>paGe4qkZvPNJtvxqY8NaJN5ImZO56RqB6</repoToken>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 </project>
