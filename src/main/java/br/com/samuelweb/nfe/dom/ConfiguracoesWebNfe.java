@@ -91,126 +91,182 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
         proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
     }
 
-	/**
-	 * @return the pastaSchemas
-	 */
-	public String getPastaSchemas() {
-		return pastaSchemas;
-	}
+    /**
+     * Retorna o local da pasta dos schemas da NF-e(.xsd)
+     * @return pastaSchemas
+     */
+    public String getPastaSchemas() {
+        return pastaSchemas;
+    }
 
-	/**
-	 * @param pastaSchemas
-	 *            the pastaSchemas to set
-	 */
-	private void setPastaSchemas(String pastaSchemas) {
-		this.pastaSchemas = pastaSchemas;
-	}
+    /**Atribui uma string que representa o local da pasta dos schemas da NF-e
+     * (.xsd)
+     * @param pastaSchemas
+     */
+    private void setPastaSchemas(String pastaSchemas) {
+        this.pastaSchemas = pastaSchemas;
+    }
 
-	/**
-	 * @return the versaoNfe
-	 */
-	public String getVersaoNfe() {
-		return versaoNfe;
-	}
+    /**
+     * Retorna a versão da NF-e.
+     * @return versaoNfe
+     */
+    public String getVersaoNfe() {
+        return versaoNfe;
+    }
 
-	/**
+    /**
+     * Atributo que epresenta a versão da NF-e. Por padrão, será o valor
+     * ConstantesUtil.VERSAO.NFE;
+     * @see ConstantesUtil
      */
     private void setVersaoNfe() {
         this.versaoNfe = ConstantesUtil.VERSAO.NFE;
-	}
+    }
 
-	/**
-	 * @return the ambiente
-	 */
-	public String getAmbiente() {
-		return ambiente;
-	}
+    /**
+     * Retorna uma String que representa o ambiente de operações da NF-e.<p>
+     * Ex.: PRODUÇÃO = "1" | HOMOLOGAÇÃO = "2"
+     * @return ambiente
+     */
+    public String getAmbiente() {
+        return ambiente;
+    }
 
-	/**
-	 * @param ambiente
-	 *            the ambiente to set
-	 */
-	public void setAmbiente(String ambiente) {
-		this.ambiente = ambiente;
-	}
+    /**
+     * Atribui uma String que representa o ambiente de operação da NF-e.<p>
+     * Ex.:<p>
+     * {@code
+     * ConfiguracoesWebNfe.iniciaConfiguracoes(
+                    estado,
+                    ConstantesUtil.AMBIENTE.HOMOLOGACAO,
+                    certificado, 
+                    schemas);
+     * }
+     * @param ambiente
+     * @see ConstantesUtil
+     */
+    public void setAmbiente(String ambiente) {
+        this.ambiente = ambiente;
+    }
 
-	/**
-	 * @return the certificado
-	 */
-	public Certificado getCertificado() {
-		return certificado;
-	}
+    /**
+     * Retorna o objeto Certificado.
+     * @return certificado
+     * @see br.com.samuelweb.certificado
+     */
+    public Certificado getCertificado() {
+        return certificado;
+    }
 
-	/**
-	 * @param certificado
-	 *            the certificado to set
-	 */
-	public void setCertificado(Certificado certificado) {
-		this.certificado = certificado;
-	}
+    /**
+     * Atribui um objeto Certificado.
+     * @param certificado
+     */
+    public void setCertificado(Certificado certificado) {
+        this.certificado = certificado;
+    }
 
-	/**
-	 * @return configuracao do proxy
-	 */
-	public ProxyUtil getProxy() {
-		return proxyUtil;
-	}
+    /**
+     * Retorna o objeto responsável pelas configurações do proxy.
+     * @return proxyUtil
+     * @see ProxyUtil
+     */
+    public ProxyUtil getProxy() {
+        return proxyUtil;
+    }
 
-	/**
-	 * @return the contigenciaSCAN
-	 */
-	public boolean isContigenciaSCAN() {
-		return contigenciaSCAN;
-	}
+    /**
+     * Retorna um valor booleano que representa se as operações de NF-e estão,
+     * ou, não operando no modo de Contingência.
+     * @return contigenciaSCAN
+     */
+    public boolean isContigenciaSCAN() {
+        return contigenciaSCAN;
+    }
 
-	/**
-	 * @param contigenciaSCAN
-	 *            the contigencia to set
-	 */
-	public void setContigenciaSCAN(boolean contigenciaSCAN) {
-		this.contigenciaSCAN = contigenciaSCAN;
-	}
+    /**
+     * Atribui um valor para contigenciaSCAN. Caso True, as 
+     * operações da NF-e funcionarão no modo de Contingência.<p>
+     * Usar para situações em que não for possível estabelecer conexão com o 
+     * WebService SEFAZ Origem.
+     * @param contigenciaSCAN
+     */
+    public void setContigenciaSCAN(boolean contigenciaSCAN) {
+        this.contigenciaSCAN = contigenciaSCAN;
+    }
 
-	/**
-	 * @return the estado
-	 */
-	public Estados getEstado() {
-		return estado;
-	}
+    /**
+     * Retorna um objeto Estado que representa o UF do emissor da NF-e.
+     * @return estado
+     * @see Estados
+     */
+    public Estados getEstado() {
+        return estado;
+    }
 
-	/**
-	 * @param estado
-	 *            the estado to set
-	 */
-	private void setEstado(Estados estado) {
-		this.estado = estado;
-	}
+    /**
+     * Atribui um valor para o atribuito Estado.
+     * @param estado estado
+     * @see Estados
+     */
+    private void setEstado(Estados estado) {
+        this.estado = estado;
+    }
 
-	public boolean isLog() {
-		return log;
-	}
+    /**
+     * Retorna o valor do atributo log. Usada para exibir algumas informações
+     * ao inicializar as configurações iniciais da NF-e.
+     * @return log
+     */
+    public boolean isLog() {
+        return log;
+    }
 
-	public void setLog(boolean log) {
-		this.log = log;
-	}
+     /**
+     * Atribui valor para o atributo log.
+     * @param log 
+     */
+    public void setLog(boolean log) {
+        this.log = log;
+    }
 
-	public ProxyUtil getProxyUtil() {
-		return proxyUtil;
-	}
+    /**
+     * Retorna o valor do atributo proxyUtil.
+     * @return proxyUtil
+     * @see ProxyUtil
+     */
+    public ProxyUtil getProxyUtil() {
+        return proxyUtil;
+    }
 
-	public void setProxyUtil(ProxyUtil proxyUtil) {
-		this.proxyUtil = proxyUtil;
-	}
+    /**
+     * Atribui um valor para o proxuUtil.
+     * @param proxyUtil 
+     */
+    public void setProxyUtil(ProxyUtil proxyUtil) {
+        this.proxyUtil = proxyUtil;
+    }
 
-	public Integer getTimeout() {
-		return timeout;
-	}
+    /**
+     * Retorna o valor do atributo timeout.
+     * @return timeout
+     */
+    public Integer getTimeout() {
+        return timeout;
+    }
 
-	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
-	}
+    /**
+     * Atribui o valor de timeout.<p>
+     * O timeout é o limite de tempo(em milisegundos) de comunicação com 
+     * WebServie. Sugerido pelo manual do contribuinte: 30000.
+     * @param timeout 
+     */
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
+    }
 
-
+    
     public boolean removeAcentos() {
         return removeAcentos;
     }
