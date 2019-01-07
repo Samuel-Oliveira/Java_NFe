@@ -7,7 +7,7 @@ Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.10a.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.10a.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.10.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.10.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
@@ -20,7 +20,7 @@ Para Iniciar :
 		<dependency>
 			<groupId>br.com.samuelweb</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>4.00.10a</version>
+			<version>4.00.10b</version>
 		</dependency>
 ```
 
@@ -33,6 +33,11 @@ ________________________________________________________________________________
 ## v4.00.10 - 
  - Adicionado Compatibilidade para Java 11
  - Adicionado URL NFCe MG Produção e Homologação
+ - Adicionado Conversao para TRetConsReciNFe
+ - Adicionado Conversao para TRetEnvEvento para todos os eventos
+ - Adicionado Conversao para TRetInut
+ - Retirado XsdUtil do Nfe-Xsd e adicionado ao projeto principal
+ - Adicionado JavaDoc Em algumas classes(Agradecimento ao Cristofer)
  
 ## v4.00.9 - 16/12/2018
  - Corrigido URLs PE

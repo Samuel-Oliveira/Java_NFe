@@ -10,6 +10,7 @@ import br.inf.portalfiscal.nfe.schema.consCad.TConsCad;
 import br.inf.portalfiscal.nfe.schema.distdfeint.DistDFeInt;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento;
+import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEvento;
 import br.inf.portalfiscal.nfe.schema_4.consReciNFe.TConsReciNFe;
 import br.inf.portalfiscal.nfe.schema_4.consSitNFe.TConsSitNFe;
@@ -17,8 +18,8 @@ import br.inf.portalfiscal.nfe.schema_4.consStatServ.TConsStatServ;
 import br.inf.portalfiscal.nfe.schema_4.enviNFe.*;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.inutNFe.TProcInutNFe;
+import br.inf.portalfiscal.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
-import br.inf.portalfiscal.nfe.schema_4.util.XsdUtil;
 
 import javax.xml.bind.*;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -55,6 +56,11 @@ public class XmlUtil {
     private static final String TPROCINUT = "TProcInutNFe";
     private static final String RETORNO_ENVIO = "TRetEnviNFe";
     private static final String SITUACAO_NFE_RET = "TRetConsSitNFe";
+    private static final String RET_RECIBO_NFE = "TRetConsReciNFe";
+
+    private static final String RET_ENV_EVENTO = "TRetEnvEvento";
+
+    private static final String RET_INUT_NFE = "TRetInutNFe";
 
     private static final String TPROCCANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TProcEvento";
     private static final String TPROCCCE = "br.inf.portalfiscal.nfe.schema.envcce.TProcEvento";
@@ -69,6 +75,11 @@ public class XmlUtil {
     private static final String CCE = "br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento";
     private static final String EPEC = "br.inf.portalfiscal.nfe.schema.envEpec.TEnvEvento";
     private static final String MANIFESTAR = "br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento";
+
+    private static final String RET_CANCELAR = "br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento";
+    private static final String RET_CCE = "br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento";
+    private static final String RET_EPEC = "br.inf.portalfiscal.nfe.schema.envEpec.TRetEnvEvento";
+    private static final String RET_MANIFESTAR = "br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento";
 
     /**
      * Transforma o String do XML em Objeto
@@ -140,9 +151,19 @@ public class XmlUtil {
                 element = new br.inf.portalfiscal.nfe.schema_4.inutNFe.ObjectFactory().createInutNFe((TInutNFe) obj);
                 break;
 
+            case RET_INUT_NFE:
+                context = JAXBContext.newInstance(TRetInutNFe.class);
+                element = XsdUtil.inutNfe.createTRetInutNfe((TRetInutNFe) obj);
+                break;
+
             case SITUACAO_NFE_RET:
                 context = JAXBContext.newInstance(TRetConsSitNFe.class);
                 element = new br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.ObjectFactory().createRetConsSitNFe((TRetConsSitNFe) obj);
+                break;
+
+            case RET_RECIBO_NFE:
+                context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TRetConsReciNFe.class);
+                element = new br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.ObjectFactory().createRetConsReciNFe((br.inf.portalfiscal.nfe.schema_4.retConsReciNFe.TRetConsReciNFe) obj);
                 break;
 
             case TPROCEVENTO:
@@ -195,6 +216,27 @@ public class XmlUtil {
                     case MANIFESTAR:
                         context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento.class);
                         element = new br.inf.portalfiscal.nfe.schema.envConfRecebto.ObjectFactory().createEnvEvento((br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento) obj);
+                        break;
+                }
+                break;
+
+            case RET_ENV_EVENTO:
+                switch (obj.getClass().getName()) {
+                    case RET_CANCELAR:
+                        context = JAXBContext.newInstance(TRetEnvEvento.class);
+                        element = XsdUtil.retEnvEvento.createTRetEnvEvento((TRetEnvEvento) obj);
+                        break;
+                    case RET_CCE:
+                        context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento.class);
+                        element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento) obj);
+                        break;
+                    case RET_EPEC:
+                        context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envEpec.TRetEnvEvento.class);
+                        element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.inf.portalfiscal.nfe.schema.envEpec.TRetEnvEvento) obj);
+                        break;
+                    case RET_MANIFESTAR:
+                        context = JAXBContext.newInstance(br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento.class);
+                        element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento) obj);
                         break;
                 }
                 break;
