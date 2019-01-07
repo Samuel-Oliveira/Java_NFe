@@ -115,48 +115,63 @@ public class ConfiguracoesIniciaisNfe implements ConfiguracoesNfe {
         proxyUtil = new ProxyUtil(ip, porta, usuario, senha);
     }
 
-	/**
-	 * @return the pastaSchemas
-	 */
-	public String getPastaSchemas() {
-		return pastaSchemas;
-	}
 
-	/**
-	 * @param pastaSchemas
-	 *            the pastaSchemas to set
-	 */
-	private void setPastaSchemas(String pastaSchemas) {
-		this.pastaSchemas = pastaSchemas;
-	}
+    /**
+     * Retorna o local da pasta dos schemas da NF-e(.xsd)
+     * @return pastaSchemas
+     */
+    public String getPastaSchemas() {
+        return pastaSchemas;
+    }
 
-	/**
-	 * @return the versaoNfe
-	 */
-	public String getVersaoNfe() {
-		return versaoNfe;
-	}
+    /**Atribui uma string que representa o local da pasta dos schemas da NF-e
+     * (.xsd)
+     * @param pastaSchemas
+     */
+    private void setPastaSchemas(String pastaSchemas) {
+        this.pastaSchemas = pastaSchemas;
+    }
 
-	/**
+    /**
+     * Retorna a versão da NF-e.
+     * @return versaoNfe
+     */
+    public String getVersaoNfe() {
+        return versaoNfe;
+    }
+
+    /**
+     * Atribui uma string que representa a versão da NF-e
      */
     private void setVersaoNfe() {
         this.versaoNfe = ConstantesUtil.VERSAO.NFE;
-	}
+    }
 
-	/**
-	 * @return the ambiente
-	 */
-	public String getAmbiente() {
-		return ambiente;
-	}
+    /**
+     * Retorna uma String que representa o ambiente de operações da NF-e.<p>
+     * Ex.: PRODUÇÃO = "1" | HOMOLOGAÇÃO = "2"
+     * @return ambiente
+     */
+    public String getAmbiente() {
+        return ambiente;
+    }
 
-	/**
-	 * @param ambiente
-	 *            the ambiente to set
-	 */
-	public void setAmbiente(String ambiente) {
-		this.ambiente = ambiente;
-	}
+    /**
+     * Atribui uma String que representa o ambiente de operação da NF-e.<p>
+     * Ex.:<p>
+     * {@code
+     * ConfiguracoesIniciaisNfe.iniciaConfiguracoes(
+                    estado,
+                    ConstantesUtil.AMBIENTE.HOMOLOGACAO,
+                    certificado, 
+                    schemas);
+     * }
+     * @param ambiente
+     * @see ConstantesUtil
+     */
+    public void setAmbiente(String ambiente) {
+        this.ambiente = ambiente;
+    }
 
 	/**
 	 * @return the certificado
