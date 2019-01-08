@@ -12,7 +12,7 @@ import br.com.samuelweb.nfe.util.ProxyUtil;
 /**
  * @author Samuel Oliveira
  * <p>
- * Rreponsável por iniciar as configurações das operações NF-e.<p>
+ * Responsável por iniciar as configurações das operações NF-e.<p>
  * Implementa a interface ConfiguracoesNfe e é permitido criar apenas uma 
  * instância dessa classe. Caso necessite operar em ambiente Web, use a classe
  * ConfiguracoesIniciaisNfe<p>
