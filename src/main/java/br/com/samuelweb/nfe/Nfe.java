@@ -38,10 +38,10 @@ public class Nfe {
 	 * Classe Reponsavel Por Consultar a Distribuiçao da NFE na SEFAZ
 	 *
 	 * @param tipoCliente
-	 *            Informar DistribuicaoDFe.CPF ou DistribuicaoDFe.CNPJ
+	 * Informar DistribuicaoDFe.CPF ou DistribuicaoDFe.CNPJ
 	 * @param cpfCnpj
 	 * @param tipoConsulta
-	 *            Informar DistribuicaoDFe.NSU ou DistribuicaoDFe.CHAVE
+	 * Informar DistribuicaoDFe.NSU ou DistribuicaoDFe.CHAVE
 	 * @param nsuChave
 	 * @return
 	 * @throws NfeException
@@ -87,7 +87,7 @@ public class Nfe {
 	 * Classe Reponsavel Por Consultar o cadastro do Cnpj/CPF na SEFAZ
 	 *
 	 * @param tipo
-	 *            Usar ConsultaCadastro.CNPJ ou ConsultaCadastro.CPF
+	 * Usar ConsultaCadastro.CNPJ ou ConsultaCadastro.CPF
 	 * @param cnpjCpf
 	 * @param estado
 	 * @return TRetConsCad
