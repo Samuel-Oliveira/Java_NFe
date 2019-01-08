@@ -34,7 +34,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
     private Integer timeout;
     private boolean contigenciaSCAN;
     private boolean log = true;
-    private boolean removeAcentos = true;
+    /**@deprecated */private boolean removeAcentos = true;
 
     // Construtor Singleton
     private ConfiguracoesWebNfe() {
@@ -276,11 +276,17 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
         this.timeout = timeout;
     }
 
-    
+    /**
+     * @deprecated 
+     * @return 
+     */
     public boolean removeAcentos() {
         return removeAcentos;
     }
 
+     /**
+     * @deprecated 
+     */
     public void setRemoveAcentos(boolean removeAcentos) {
         this.removeAcentos = removeAcentos;
     }
