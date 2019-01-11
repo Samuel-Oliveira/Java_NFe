@@ -18,7 +18,7 @@ import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 import br.inf.portalfiscal.www.nfe_400.wsdl.NFeStatusServico4.NFeStatusServico4Stub;
 
 /**
- * Classe responsavel por fazer a Verificacao do Status Do Webservice
+ * Classe responsável por fazer a Verificacao do Status Do Webservice
  * 
  * @author Samuel Oliveira
  *
@@ -28,10 +28,14 @@ class Status {
 	/**
 	 * Metodo para Consulta de Status de Serviço
 	 *
-	 * @param tipo
-	 *            ConstantesUtil.NFE e ConstantesUtil.NFCE
-	 * @return
+         * @param confi ConfiguracoesNfe
+	 * @param tipo ConstantesUtil.NFE ou ConstantesUtil.NFCE
+	 * @return TRetConsStatServ - objeto que contém o resultado
+         * da transmissão do XML.
 	 * @throws NfeException
+         * 
+         * @see ConfiguracoesNfe
+         * @see ConstantesUtil
 	 */
 	static TRetConsStatServ statusServico(ConfiguracoesNfe config, String tipo) throws NfeException {
 
@@ -62,7 +66,6 @@ class Status {
 		} catch (RemoteException | XMLStreamException | JAXBException e) {
 			throw new NfeException(e.getMessage());
 		}
-
 	}
 
 }
