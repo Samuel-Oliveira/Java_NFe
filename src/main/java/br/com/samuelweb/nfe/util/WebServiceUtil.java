@@ -30,7 +30,7 @@ public class WebServiceUtil {
      * @param servico é a operação que se deseja fazer.<p> 
      * Ex.: para consultas status deserviço no ambiente de produção
      * use NfeStatusServico_4.00
-     * @return
+     * @return url String que representa a URL do serviço.
      * @throws NfeException 
      * 
      * @see ConfiguracoesNfe
