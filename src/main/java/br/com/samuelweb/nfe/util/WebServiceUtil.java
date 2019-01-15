@@ -23,7 +23,7 @@ public class WebServiceUtil {
      * O método carrega o arquivo <b>WebServicesNfe.ini</b> que contêm as 
      * URL's de operações do SEFAZ, busca pela seção no arquivo .ini que 
      * corresponda com os argumentos <b>tipo</b>, <b>config</b>, <b>servico</b> 
-     * e retorna essa URL.
+     * e retorna essa URL.<p>
      * 
      * @param config interface que contêm os dados necessários para a comunicação.
      * @param tipo ConstantesUtil.NFE e ConstantesUtil.NFCE
