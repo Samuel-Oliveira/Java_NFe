@@ -18,18 +18,21 @@ import java.io.InputStream;
 public class WebServiceUtil {
 
     /**
-     * Retorna a URL para consulta de operações do SEFAZ.<p>
+     * Retorna a URL para consulta de operações do SEFAZ.<br>
      * 
+     * <p>
      * O método carrega o arquivo <b>WebServicesNfe.ini</b> que contêm as 
      * URL's de operações do SEFAZ, busca pela seção no arquivo .ini que 
      * corresponda com os argumentos <b>tipo</b>, <b>config</b>, <b>servico</b> 
-     * e retorna essa URL.<p>
+     * e retorna essa URL.
+     * </p>
      * 
      * @param config interface que contêm os dados necessários para a comunicação.
      * @param tipo ConstantesUtil.NFE e ConstantesUtil.NFCE
-     * @param servico é a operação que se deseja fazer.<p> 
+     * @param servico é a operação que se deseja fazer.<br> 
      * Ex.: para consultas status deserviço no ambiente de produção
      * use NfeStatusServico_4.00
+     * 
      * @return url String que representa a URL do serviço.
      * @throws NfeException 
      * 
@@ -97,14 +100,15 @@ public class WebServiceUtil {
     }
 
      /**
-     * Método que retorna a URL para consulta de cadastro de contribuinte ICMS<p>
-     * 
+     * Método que retorna a URL para consulta de cadastro de contribuinte ICMS<br>
+     * <p>
      * O método primeiramente montará a String <b>secao</b>, que representa o 
      * grupo de onde se localiza a URL desejada no arquivo <b>WebServicesNfe.ini.</b>
      * Após, irá carregar o arquivo .ini e buscar efetivamente a URL nessa seção
      * e no caso deste método, buscará pelo valor da chave
      * ConstantesUtil.SERVICOS.CONSULTA_CADASTRO. Então retornará esse valor,
-     * que é a URL de consulta.<p>
+     * que é a URL de consulta.
+     * </p>
      * 
      * Caso a URL não seja encontrada ou se ocorrer algum problema na leitura
      * do arquivo .ini, será disparado um NfeException.

@@ -27,20 +27,25 @@ class Status {
 
 	/**
 	 * Metodo para Consulta de Status de Serviço
-         *
+         *<p>
 	 * Cria um objeto do tipo TConsStatServ usando as propriedades passadas
          *  pelo argumento <b>config</b>. Após, este objeto é convertido em um obejto
          * OMElement manipulável onde é passado para o atributo extraElement da
-         * classe NFeStatusServico4Stub.NfeDadosMsg.<p>
+         * classe NFeStatusServico4Stub.NfeDadosMsg.
+         * </p>
          * 
+         * <p>
          * O método statusServico então cria uma instância de NFeStatusServico4Stub
          * passando o argumento <b>tipo</b> e <b>config</b> em seu construtor, onde será montada a URL
          * de consulta do status do serviço dependendo das configuções
-         * (ambiente, Estado, NF-e ou NFC-e)<p>
+         * (ambiente, Estado, NF-e ou NFC-e)
+         * </p>
          * 
+         * <p>
          * Então o método nfeStatusServicoNF efetuará a consulta e retornará o 
          * resultado que será convertido em um objeto e enfim retornado por este
-         * método.<p>
+         * método.
+         * </p>
          * 
          * @param confi ConfiguracoesNfe, interface de configuração da NF-e ou NFC-e.
 	 * @param tipo ConstantesUtil.NFE ou ConstantesUtil.NFCE
