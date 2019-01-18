@@ -55,11 +55,11 @@ public class Nfe {
 	}
 
 	/**
-	 * Metodo Responsavel Buscar o Status de Serviço do Servidor da Sefaz No tipo
-	 * Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+	 * Metodo Responsavel Buscar o Status de Serviço do Servidor da Sefaz
 	 *
-	 * @param tipo
-	 * @return
+	 * @param tipo informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+	 * @return TRetConsStatServ - objeto a mensagem de retorno da 
+         * transmissão.
 	 * @throws NfeException
 	 */
 	public static TRetConsStatServ statusServico(String tipo) throws NfeException {

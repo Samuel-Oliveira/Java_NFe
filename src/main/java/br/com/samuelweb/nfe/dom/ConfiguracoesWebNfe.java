@@ -10,12 +10,16 @@ import br.com.samuelweb.nfe.util.ProxyUtil;
 
 /**
  * @author Samuel Oliveira
+ * <br>
+ * Responsável por iniciar as configurações Web NF-e.<br>
+ * 
  * <p>
- * Responsável por iniciar as configurações Web NF-e.<p>
  * Implementa a interface ConfiguracaoNfe e é permitido apenas uma instância
  * dessa classe. Caso não esteja operando em ambiente Web, use a classe
- * ConfiguracoesIniciaisNfe.<p>
- * Para iniciar as configurações use o método estático iniciaConfiguracoes:<p>
+ * ConfiguracoesIniciaisNfe.
+ * </p>
+ * 
+ * Para iniciar as configurações use o método estático iniciaConfiguracoes:<br>
  * {@code 
  * ConfiguracoesWebNfe.iniciaConfiguracoes(estado, ambiente, certificado, schemas);
  * }
@@ -135,7 +139,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
     }
 
     /**
-     * Retorna uma String que representa o ambiente de operações da NF-e.<p>
+     * Retorna uma String que representa o ambiente de operações da NF-e.<br>
      * Ex.: PRODUÇÃO = "1" | HOMOLOGAÇÃO = "2"
      * @return ambiente
      */
@@ -144,8 +148,8 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
     }
 
     /**
-     * Atribui uma String que representa o ambiente de operação da NF-e.<p>
-     * Ex.:<p>
+     * Atribui uma String que representa o ambiente de operação da NF-e.<br>
+     * Ex.:<br>
      * {@code
      * ConfiguracoesWebNfe.iniciaConfiguracoes(
                     estado,
@@ -197,7 +201,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
 
     /**
      * Atribui um valor para contigenciaSCAN. Caso True, as 
-     * operações da NF-e funcionarão no modo de Contingência.<p>
+     * operações da NF-e funcionarão no modo de Contingência.<br>
      * Usar para situações em que não for possível estabelecer conexão com o 
      * WebService SEFAZ Origem.
      * @param contigenciaSCAN
@@ -267,7 +271,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
     }
 
     /**
-     * Atribui o valor de timeout.<p>
+     * Atribui o valor de timeout.<br>
      * O timeout é o limite de tempo(em milisegundos) de comunicação com 
      * WebServie. Sugerido pelo manual do contribuinte: 30000.
      * @param timeout 

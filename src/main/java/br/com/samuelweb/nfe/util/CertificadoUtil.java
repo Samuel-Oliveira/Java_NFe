@@ -16,10 +16,14 @@ import br.com.samuelweb.nfe.exception.NfeException;
 public class CertificadoUtil {
     
     /**
-     * Retorna uma instância do objeto ConfiguracoesIniciaisNfe.<p>
+     * Retorna uma instância do objeto ConfiguracoesIniciaisNfe.<br>
+     * 
+     * <p>
      * O método faz a leitura dos dados do Certificado Digital, se ocorrer
-     * algum problema, disparará um NfeException. Se o Certificado Digital for<p> 
+     * algum problema, disparará um NfeException. Se o Certificado Digital for 
      * inválido disparará um CertificadoException
+     * </p>
+     * 
      * @return ConfiguracoesIniciaisNfe
      * @throws NfeException 
      * @see CertificadoException
@@ -42,10 +46,14 @@ public class CertificadoUtil {
 
      /**
      * Recebe como parâmetro um objeto ConfiguracoesWebNfe e retorna um objeto 
-     * ConfiguracoesWebNfe.<p>
+     * ConfiguracoesWebNfe.
+     * 
+     * <p>
      * Semelhante ao método iniciaConfiguracoes(), o Certificado Digital será 
      * validado e inicializado.Caso ocorrá algum prolema será disparado um 
      * NfeException
+     * </p>
+     * 
      * @param config
      * @return ConfiguracoesWebNfe
      * @throws NfeException 
