@@ -1,26 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.samuelweb</groupId>
+    <groupId>br.com.swconsultoria</groupId>
 	<artifactId>java-nfe</artifactId>
-    <version>4.00.10b</version>
+    <version>4.00.10-SNAPSHOT</version>
 	<name>Java_NFe</name>
+    <description>Api java para consumo do webService de nota fiscal eletronica</description>
+    <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
 
-	<!-- Repositorios SVN Autocom -->
-	<repositories>
-		<repository>
-			<name>Repositorio Autocom</name>
-			<id>Release</id>
-			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
-		</repository>
-	</repositories>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-	<distributionManagement>
-		<repository>
-            <id>autocom</id>
-            <url>http://nexus.autocomsistemas.com.br/nexus/content/repositories/autocom/</url>
-		</repository>
-	</distributionManagement>
+    <scm>
+        <url>git@github.com:Samuel-Oliveira/Java_NFe.git</url>
+        <connection>scm:git:git@github.com:Samuel-Oliveira/Java_NFe.git</connection>
+        <developerConnection>scm:git:git@github.com:Samuel-Oliveira/Java_NFe.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,6 +29,33 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
     </properties>
+
+    <developers>
+        <developer>
+            <id>Samuel-Oliveira</id>
+            <name>Samuel Borges de Oliveira</name>
+            <url>https://github.com/Samuel-Oliveira</url>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <name>Repositorio Autocom</name>
+            <id>Release</id>
+            <url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
 
@@ -99,7 +127,14 @@
             <version>2.3.0.1</version>
         </dependency>
 
-	</dependencies>
+        <!--Maven Release-->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -112,6 +147,14 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <pushChanges>false</pushChanges>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -123,21 +166,13 @@
 				</configuration>
 				<executions>
 					<execution>
-						<phase>package</phase>
+                        <phase>none</phase>
 						<goals>
 							<goal>attached</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <configuration>
-                    <repoToken>paGe4qkZvPNJtvxqY8NaJN5ImZO56RqB6</repoToken>
-                </configuration>
-            </plugin>
 		</plugins>
 	</build>
 </project>

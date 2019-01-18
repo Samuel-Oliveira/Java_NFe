@@ -19,23 +19,23 @@ public class WebServiceUtil {
 
     /**
      * Retorna a URL para consulta de operações do SEFAZ.<br>
-     * 
+     *
      * <p>
-     * O método carrega o arquivo <b>WebServicesNfe.ini</b> que contêm as 
-     * URL's de operações do SEFAZ, busca pela seção no arquivo .ini que 
-     * corresponda com os argumentos <b>tipo</b>, <b>config</b>, <b>servico</b> 
+     * O método carrega o arquivo <b>WebServicesNfe.ini</b> que contêm as
+     * URL's de operações do SEFAZ, busca pela seção no arquivo .ini que
+     * corresponda com os argumentos <b>tipo</b>, <b>config</b>, <b>servico</b>
      * e retorna essa URL.
      * </p>
-     * 
+     *
      * @param config interface que contêm os dados necessários para a comunicação.
      * @param tipo ConstantesUtil.NFE e ConstantesUtil.NFCE
-     * @param servico é a operação que se deseja fazer.<br> 
+     * @param servico é a operação que se deseja fazer.<br>
      * Ex.: para consultas status deserviço no ambiente de produção
      * use NfeStatusServico_4.00
-     * 
+     *
      * @return url String que representa a URL do serviço.
-     * @throws NfeException 
-     * 
+     * @throws NfeException
+     *
      * @see ConfiguracoesNfe
      * @see ConstantesUtil
      **/
@@ -76,7 +76,7 @@ public class WebServiceUtil {
                             + (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
                     // SVC-AN
                 } else {
-                    secao = tipo + "_SVAN_"
+                    secao = tipo + "_SVC-AN_"
                             + (config.getAmbiente().equals(ConstantesUtil.AMBIENTE.HOMOLOGACAO) ? "H" : "P");
                 }
             }
@@ -102,25 +102,25 @@ public class WebServiceUtil {
      /**
      * Método que retorna a URL para consulta de cadastro de contribuinte ICMS<br>
      * <p>
-     * O método primeiramente montará a String <b>secao</b>, que representa o 
+      * O método primeiramente montará a String <b>secao</b>, que representa o
      * grupo de onde se localiza a URL desejada no arquivo <b>WebServicesNfe.ini.</b>
      * Após, irá carregar o arquivo .ini e buscar efetivamente a URL nessa seção
      * e no caso deste método, buscará pelo valor da chave
      * ConstantesUtil.SERVICOS.CONSULTA_CADASTRO. Então retornará esse valor,
      * que é a URL de consulta.
      * </p>
-     * 
+      *
      * Caso a URL não seja encontrada ou se ocorrer algum problema na leitura
      * do arquivo .ini, será disparado um NfeException.
-     * 
-     * Esse método é chamado por outro método chamado <b>consultaCadastro</b> 
+      *
+      * Esse método é chamado por outro método chamado <b>consultaCadastro</b>
      * na classe <b>ConsultaCadastro</b>
-     * 
+      *
      * @param config interface que contêm os dados necessários para a comunicação.
      * @param uf Estado do CNPJ que será consultado.
      * @return url String que representa a URL a ser consultada.
      * @throws NfeException
-     * 
+      *
      * @see ConstantesUtil
      * @see br.com.samuelweb.nfe.Nfe
      * @see br.com.samuelweb.nfe.ConsultaCadastro#consultaCadastro
