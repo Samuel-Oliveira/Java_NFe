@@ -252,7 +252,7 @@ public class NfeWeb {
 	 * @return TRetEnvEvento
 	 * @throws NfeException
 	 */
-	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(ConfiguracoesWebNfe config,
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(ConfiguracoesWebNfe config,
 																									   List<Manifesto> manifestos, String cnpj) throws NfeException {
 		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(config), manifestos, cnpj);
 	}
@@ -269,7 +269,7 @@ public class NfeWeb {
 	 * @return TRetEnvEvento
 	 * @throws NfeException
 	 */
-	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(ConfiguracoesWebNfe config,
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(ConfiguracoesWebNfe config,
 																									   List<Manifesto> manifestos, String cnpj,
 																									   LocalDateTime data, ZoneId zoneId) throws NfeException {
 		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(config), manifestos, cnpj, data, zoneId);
@@ -285,7 +285,7 @@ public class NfeWeb {
 	 * @return TRetEnvEvento
 	 * @throws NfeException
 	 */
-	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(ConfiguracoesWebNfe config,
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(ConfiguracoesWebNfe config,
 																									   List<Manifesto> manifestos, String cnpj,
 																									   ZonedDateTime zonedDateTime) throws NfeException {
 		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(config), manifestos, cnpj, zonedDateTime);

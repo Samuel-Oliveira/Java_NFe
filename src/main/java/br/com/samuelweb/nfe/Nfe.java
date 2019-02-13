@@ -274,7 +274,7 @@ public class Nfe {
 	 * @return TRetEnvEvento
 	 * @throws NfeException
 	 */
-	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(List<Manifesto> manifestos, String cnpj) throws NfeException {
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(List<Manifesto> manifestos, String cnpj) throws NfeException {
 		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(), manifestos, cnpj);
 	}
 
@@ -289,7 +289,7 @@ public class Nfe {
 	 * @return TRetEnvEvento
 	 * @throws NfeException
 	 */
-	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(List<Manifesto> manifestos, String cnpj,
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(List<Manifesto> manifestos, String cnpj,
 																									   LocalDateTime data, ZoneId zoneId) throws NfeException {
 		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(), manifestos, cnpj, data, zoneId);
 	}
@@ -303,7 +303,7 @@ public class Nfe {
 	 * @return TRetEnvEvento
 	 * @throws NfeException
 	 */
-	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(List<Manifesto> manifestos, String cnpj,
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(List<Manifesto> manifestos, String cnpj,
 																									   ZonedDateTime zonedDateTime) throws NfeException {
 		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(), manifestos, cnpj, zonedDateTime);
 	}
