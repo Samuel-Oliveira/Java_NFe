@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package br.com.samuelweb.nfe;
 
@@ -9,6 +9,7 @@ import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.Estados;
 import br.com.samuelweb.nfe.util.XmlUtil;
+import br.com.samuelweb.nfe.util.to.Manifesto;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
@@ -22,6 +23,10 @@ import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 
 import javax.xml.bind.JAXBException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
@@ -47,9 +52,9 @@ public class NfeWeb {
 	 * @throws NfeException
 	 */
 	public static RetDistDFeInt distribuicaoDfe(ConfiguracoesWebNfe config, String tipoCliente, String cpfCnpj,
-			String tipoConsulta, String nsuChave) throws NfeException {
+												String tipoConsulta, String nsuChave) throws NfeException {
 
-        return DistribuicaoDFe.consultaNfe(CertificadoUtil.iniciaConfiguracoes(config), tipoCliente, cpfCnpj, tipoConsulta, nsuChave);
+		return DistribuicaoDFe.consultaNfe(CertificadoUtil.iniciaConfiguracoes(config), tipoCliente, cpfCnpj, tipoConsulta, nsuChave);
 
 	}
 
@@ -63,7 +68,7 @@ public class NfeWeb {
 	 */
 	public static TRetConsStatServ statusServico(ConfiguracoesWebNfe config, String tipo) throws NfeException {
 
-        return Status.statusServico(CertificadoUtil.iniciaConfiguracoes(config), tipo);
+		return Status.statusServico(CertificadoUtil.iniciaConfiguracoes(config), tipo);
 
 	}
 
@@ -79,7 +84,7 @@ public class NfeWeb {
 	public static TRetConsSitNFe consultaXml(ConfiguracoesWebNfe config, String chave, String tipo)
 			throws NfeException {
 
-        return ConsultaXml.consultaXml(CertificadoUtil.iniciaConfiguracoes(config), chave, tipo);
+		return ConsultaXml.consultaXml(CertificadoUtil.iniciaConfiguracoes(config), chave, tipo);
 
 	}
 
@@ -96,7 +101,7 @@ public class NfeWeb {
 	public static TRetConsCad consultaCadastro(ConfiguracoesWebNfe config, String tipo, String cnpjCpf, Estados estado)
 			throws NfeException {
 
-        return ConsultaCadastro.consultaCadastro(CertificadoUtil.iniciaConfiguracoes(config), tipo, cnpjCpf, estado);
+		return ConsultaCadastro.consultaCadastro(CertificadoUtil.iniciaConfiguracoes(config), tipo, cnpjCpf, estado);
 
 	}
 
@@ -112,7 +117,7 @@ public class NfeWeb {
 	public static TRetConsReciNFe consultaRecibo(ConfiguracoesWebNfe config, String recibo, String tipo)
 			throws NfeException {
 
-        return ConsultaRecibo.reciboNfe(CertificadoUtil.iniciaConfiguracoes(config), recibo, tipo);
+		return ConsultaRecibo.reciboNfe(CertificadoUtil.iniciaConfiguracoes(config), recibo, tipo);
 
 	}
 
@@ -129,9 +134,9 @@ public class NfeWeb {
 	 * @throws NfeException
 	 */
 	public static TRetInutNFe inutilizacao(ConfiguracoesWebNfe config, String id, String motivo, String tipo,
-			boolean validar) throws NfeException {
+										   boolean validar) throws NfeException {
 
-        return Inutilizar.inutiliza(CertificadoUtil.iniciaConfiguracoes(config), id, motivo, tipo, validar);
+		return Inutilizar.inutiliza(CertificadoUtil.iniciaConfiguracoes(config), id, motivo, tipo, validar);
 
 	}
 
@@ -150,12 +155,12 @@ public class NfeWeb {
 	public static TInutNFe criaObjetoInutilizacao(ConfiguracoesWebNfe config, String id, String motivo, String tipo)
 			throws NfeException, JAXBException {
 
-        TInutNFe inutNFe = Inutilizar.criaObjetoInutiliza(CertificadoUtil.iniciaConfiguracoes(config), id, motivo, tipo);
+		TInutNFe inutNFe = Inutilizar.criaObjetoInutiliza(CertificadoUtil.iniciaConfiguracoes(config), id, motivo, tipo);
 
 		String xml = XmlUtil.objectToXml(inutNFe);
 		xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 
-        return XmlUtil.xmlToObject(Assinar.assinaNfe(CertificadoUtil.iniciaConfiguracoes(config), xml, Assinar.INFINUT), TInutNFe.class);
+		return XmlUtil.xmlToObject(Assinar.assinaNfe(CertificadoUtil.iniciaConfiguracoes(config), xml, Assinar.INFINUT), TInutNFe.class);
 
 	}
 
@@ -169,7 +174,7 @@ public class NfeWeb {
 	 */
 	public static TEnviNFe montaNfe(ConfiguracoesWebNfe config, TEnviNFe enviNFe, boolean valida) throws NfeException {
 
-        return Enviar.montaNfe(CertificadoUtil.iniciaConfiguracoes(config), enviNFe, valida);
+		return Enviar.montaNfe(CertificadoUtil.iniciaConfiguracoes(config), enviNFe, valida);
 
 	}
 
@@ -184,7 +189,7 @@ public class NfeWeb {
 	 */
 	public static TRetEnviNFe enviarNfe(ConfiguracoesWebNfe config, TEnviNFe enviNFe, String tipo) throws NfeException {
 
-        return Enviar.enviaNfe(CertificadoUtil.iniciaConfiguracoes(config), enviNFe, tipo);
+		return Enviar.enviaNfe(CertificadoUtil.iniciaConfiguracoes(config), enviNFe, tipo);
 
 	}
 
@@ -197,9 +202,9 @@ public class NfeWeb {
 	 * @throws NfeException
 	 */
 	public static TRetEnvEvento cancelarNfe(ConfiguracoesWebNfe config, TEnvEvento envEvento, boolean valida,
-			String tipo) throws NfeException {
+											String tipo) throws NfeException {
 
-        return Cancelar.eventoCancelamento(CertificadoUtil.iniciaConfiguracoes(config), envEvento, valida, tipo);
+		return Cancelar.eventoCancelamento(CertificadoUtil.iniciaConfiguracoes(config), envEvento, valida, tipo);
 
 	}
 
@@ -214,39 +219,90 @@ public class NfeWeb {
 	 * @throws NfeException
 	 */
 	public static br.inf.portalfiscal.nfe.schema.envcce.TRetEnvEvento cce(ConfiguracoesWebNfe config,
-			br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida, String tipo) throws NfeException {
+																		  br.inf.portalfiscal.nfe.schema.envcce.TEnvEvento evento, boolean valida, String tipo) throws NfeException {
 
-        return CartaCorrecao.eventoCCe(CertificadoUtil.iniciaConfiguracoes(config), evento, valida, tipo);
+		return CartaCorrecao.eventoCCe(CertificadoUtil.iniciaConfiguracoes(config), evento, valida, tipo);
 
 	}
 
 	/**
 	 * Metodo para Manifestação da NFE.
 	 *
-	 * @param envEvento
-	 * @param valida
-	 * @return
+	 * @param config
+	 * @param chave
+	 * @param manifestacao
+	 * @param cnpj
+	 * @param motivo
+	 * @param data
+	 * @return TRetEnvEvento
 	 * @throws NfeException
 	 */
 	public static br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(ConfiguracoesWebNfe config,
-			String chave, TipoManifestacao manifestacao, String cnpj, String motivo, String data) throws NfeException {
-
-        return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(config), chave, manifestacao, cnpj, data, motivo);
+																						   String chave, TipoManifestacao manifestacao, String cnpj, String motivo, String data) throws NfeException {
+		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(config), chave, manifestacao, cnpj, data, motivo);
 
 	}
 
-    /**
-     * * Metodo para Enviar o EPEC.
-     * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-     *
-     * @param envEvento
-     * @return
-     * @throws NfeException
-     */
-    public static br.inf.portalfiscal.nfe.schema.envEpec.TRetEnvEvento enviarEpec(ConfiguracoesWebNfe config, br.inf.portalfiscal.nfe.schema.envEpec.TEnvEvento envEvento, boolean valida, String tipo) throws NfeException {
+	/**
+	 * Metodo para Manifestação da NFE.
+	 *
+	 * @param config
+	 * @param manifestos
+	 * @param cnpj
+	 * @return TRetEnvEvento
+	 * @throws NfeException
+	 */
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(ConfiguracoesWebNfe config,
+																									   List<Manifesto> manifestos, String cnpj) throws NfeException {
+		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(config), manifestos, cnpj);
+	}
 
-        return Epec.eventoEpec(CertificadoUtil.iniciaConfiguracoes(config), envEvento, valida, tipo);
 
-    }
+	/**
+	 * Metodo para Manifestação da NFE.
+	 *
+	 * @param config
+	 * @param manifestos
+	 * @param cnpj
+	 * @param data
+	 * @param zoneId
+	 * @return TRetEnvEvento
+	 * @throws NfeException
+	 */
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(ConfiguracoesWebNfe config,
+																									   List<Manifesto> manifestos, String cnpj,
+																									   LocalDateTime data, ZoneId zoneId) throws NfeException {
+		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(config), manifestos, cnpj, data, zoneId);
+	}
+
+	/**
+	 * Metodo para Manifestação da NFE.
+	 *
+	 * @param config
+	 * @param manifestos
+	 * @param cnpj
+	 * @param zonedDateTime
+	 * @return TRetEnvEvento
+	 * @throws NfeException
+	 */
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> eventoManifestacao(ConfiguracoesWebNfe config,
+																									   List<Manifesto> manifestos, String cnpj,
+																									   ZonedDateTime zonedDateTime) throws NfeException {
+		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(config), manifestos, cnpj, zonedDateTime);
+	}
+
+	/**
+	 * * Metodo para Enviar o EPEC.
+	 * No tipo Informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
+	 *
+	 * @param envEvento
+	 * @return
+	 * @throws NfeException
+	 */
+	public static br.inf.portalfiscal.nfe.schema.envEpec.TRetEnvEvento enviarEpec(ConfiguracoesWebNfe config, br.inf.portalfiscal.nfe.schema.envEpec.TEnvEvento envEvento, boolean valida, String tipo) throws NfeException {
+
+		return Epec.eventoEpec(CertificadoUtil.iniciaConfiguracoes(config), envEvento, valida, tipo);
+
+	}
 
 }

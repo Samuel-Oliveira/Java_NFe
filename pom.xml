@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.samuelweb</groupId>
 	<artifactId>java-nfe</artifactId>
-    <version>4.00.9</version>
+    <version>4.00.10</version>
 	<name>Java_NFe</name>
 
 	<!-- Repositorios SVN Autocom -->
@@ -76,6 +76,13 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.0.1-jre</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
