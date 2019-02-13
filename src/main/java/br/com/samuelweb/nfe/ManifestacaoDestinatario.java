@@ -100,6 +100,7 @@ class ManifestacaoDestinatario {
 		try {
 			List<TRetEnvEvento> tRetEnvEventoList = new ArrayList<>();
 			List<List<Manifesto>> manifestosPartition = Lists.partition(manifestos, 20);
+			//Particiona a lista em sublistas de 20 elementos(HP04 evento G HP01 xml 1-20 - Evento, um lote pode conter até 20 eventos) e envia para ws
 			for (List<Manifesto> manifestoList : manifestosPartition) {
 				TEnvEvento envEvento = new TEnvEvento();
 				envEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
