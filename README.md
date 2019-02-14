@@ -12,10 +12,15 @@ Para Iniciar :
 
 - Maven :
 ```
+	    <repository>
+			<name>Repositorio Autocom</name>
+			<id>Release</id>
+			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
+		</repository>
 <dependency>
-    <groupId>br.com.swconsultoria</groupId>
+			<groupId>br.com.samuelweb</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.10-SNAPSHOT</version>
+			<version>4.00.10c</version>
 </dependency>
 ```
 
