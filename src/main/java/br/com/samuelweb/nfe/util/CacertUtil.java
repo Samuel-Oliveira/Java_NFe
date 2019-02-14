@@ -19,7 +19,7 @@ public class CacertUtil {
 
     private static final int TIMEOUT_WS = 30;
     private static final int PORTA = 443;
-    private static final String CACERT = "d:/java/util/Cacert/Cacert-16-12-2018";
+    private static final String CACERT = "d:/java/util/Cacert/Cacert-23-01-2019";
     private static String cacert;
 
     public static void main(String[] args) {
@@ -95,7 +95,7 @@ public class CacertUtil {
                  * cacert nao esta gerado.
                  */
             } catch (SSLException e) {
-                error("| " + e.toString());
+                error(host + "| " + e.toString());
             }
 
             X509Certificate[] chain = tm.chain;
