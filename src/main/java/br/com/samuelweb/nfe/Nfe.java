@@ -9,6 +9,7 @@ import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.CertificadoUtil;
 import br.com.samuelweb.nfe.util.Estados;
 import br.com.samuelweb.nfe.util.XmlUtil;
+import br.com.samuelweb.nfe.util.to.Manifesto;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
 import br.inf.portalfiscal.nfe.schema.retConsCad.TRetConsCad;
@@ -22,6 +23,10 @@ import br.inf.portalfiscal.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.inf.portalfiscal.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 
 import javax.xml.bind.JAXBException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com - www.samuelweb.com.br
@@ -58,7 +63,7 @@ public class Nfe {
 	 * Metodo Responsavel Buscar o Status de Serviço do Servidor da Sefaz
 	 *
 	 * @param tipo informar ConstantesUtil.NFE ou ConstantesUtil.NFCE
-	 * @return TRetConsStatServ - objeto a mensagem de retorno da 
+	 * @return TRetConsStatServ - objeto a mensagem de retorno da
          * transmissão.
 	 * @throws NfeException
 	 */
@@ -245,17 +250,62 @@ public class Nfe {
 	/**
 	 * Metodo para Manifestação da NFE.
 	 *
-	 * @param envEvento
-	 * @param valida
-	 * @return
+	 * @param chave
+	 * @param manifestacao
+	 * @param cnpj
+	 * @param motivo
+	 * @param data
+	 * @return TRetEnvEvento
 	 * @throws NfeException
 	 */
-	public static br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(String chave,
-			TipoManifestacao manifestacao, String cnpj, String motivo, String data) throws NfeException {
+	public static br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(String chave, TipoManifestacao manifestacao,
+																						   String cnpj, String motivo, String data) throws NfeException {
 
 		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(), chave, manifestacao,
 				cnpj, data, motivo);
 
+	}
+
+	/**
+	 * Metodo para Manifestação da NFE.
+	 *
+	 * @param manifestos
+	 * @param cnpj
+	 * @return TRetEnvEvento
+	 * @throws NfeException
+	 */
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(List<Manifesto> manifestos, String cnpj) throws NfeException {
+		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(), manifestos, cnpj);
+	}
+
+
+	/**
+	 * Metodo para Manifestação da NFE.
+	 *
+	 * @param manifestos
+	 * @param cnpj
+	 * @param data
+	 * @param zoneId
+	 * @return TRetEnvEvento
+	 * @throws NfeException
+	 */
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(List<Manifesto> manifestos, String cnpj,
+																								 LocalDateTime data, ZoneId zoneId) throws NfeException {
+		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(), manifestos, cnpj, data, zoneId);
+	}
+
+	/**
+	 * Metodo para Manifestação da NFE.
+	 *
+	 * @param manifestos
+	 * @param cnpj
+	 * @param zonedDateTime
+	 * @return TRetEnvEvento
+	 * @throws NfeException
+	 */
+	public static List<br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento> manifestacao(List<Manifesto> manifestos, String cnpj,
+																								 ZonedDateTime zonedDateTime) throws NfeException {
+		return ManifestacaoDestinatario.eventoManifestacao(CertificadoUtil.iniciaConfiguracoes(), manifestos, cnpj, zonedDateTime);
 	}
 
 }
