@@ -53,7 +53,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
      * @param certificado objeto Certificado
      * @param pastaSchemas local dos arquivo de schemas da NF-e.
      * @return ConfiguracoesWebNfe
-     * @see br.com.samuelweb.certificado.
+     * @see br.com.samuelweb.certificado
      * @see Estados
      */
     public static ConfiguracoesWebNfe iniciaConfiguracoes(Estados estado, String ambiente, Certificado certificado,
@@ -84,7 +84,7 @@ public class ConfiguracoesWebNfe implements ConfiguracoesNfe {
         instance.setVersaoNfe();
         instance.setLog(log);
         if (log) {
-            System.out.println("Api Java Nfe Versão 4.00.10a - Samuel Olivera - samuk.exe@hotmail.com");
+            System.out.println("Api Java Nfe Versão 4.00.10-SNAPSHOT - Samuel Olivera - samuel@swconsultoria.com.br");
             System.out.println("Certificado: " + certificado.getTipo().toUpperCase() + " - "
                     + certificado.getNome().toUpperCase() + " - Vencimento: " + certificado.getVencimento());
             System.out.println("Ambiente: " + (ambiente.equals("1") ? "Produção" : "Homologação") + " - Estado: "

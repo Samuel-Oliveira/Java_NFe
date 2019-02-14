@@ -7,21 +7,16 @@ Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.10.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.10.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.10-SNAPSHOT.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.10-SNAPSHOT.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
 ```
-	    <repository>
-			<name>Repositorio Autocom</name>
-			<id>Release</id>
-			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
-		</repository>
-		<dependency>
-			<groupId>br.com.samuelweb</groupId>
-			<artifactId>java-nfe</artifactId>
-			<version>4.00.10b</version>
-		</dependency>
+<dependency>
+    <groupId>br.com.swconsultoria</groupId>
+    <artifactId>java-nfe</artifactId>
+    <version>4.00.10-SNAPSHOT</version>
+</dependency>
 ```
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
@@ -30,7 +25,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.10 - 
+## v4.00.10 - SNAPSHOT
  - Adicionado Compatibilidade para Java 11
  - Adicionado URL NFCe MG Produção e Homologação
  - Adicionado Conversao para TRetConsReciNFe
@@ -39,6 +34,7 @@ ________________________________________________________________________________
  - Retirado XsdUtil do Nfe-Xsd e adicionado ao projeto principal
  - Adicionado JavaDoc Em algumas classes(Agradecimento ao Cristofer)
  - Corrigido erro SVC-AN
+ - Corrigido URL consulta QrCode MG
  
 ## v4.00.9 - 16/12/2018
  - Corrigido URLs PE
