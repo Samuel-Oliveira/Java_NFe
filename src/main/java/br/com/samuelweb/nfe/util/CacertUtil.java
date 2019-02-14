@@ -172,6 +172,7 @@ public class CacertUtil {
         listaWebServices.add("homnfce.sefaz.am.gov.br");
         listaWebServices.add("nfceh.sefaz.ce.gov.br");
         listaWebServices.add("hom.nfce.sefaz.ms.gov.br");
+        listaWebServices.add("hnfce.fazenda.mg.gov.br");
         listaWebServices.add("nfcehomolog.sefaz.pe.gov.br");
         listaWebServices.add("homologacao.nfce.sefa.pr.gov.br");
         listaWebServices.add("nfce-homologacao.sefazrs.rs.gov.br");
@@ -181,6 +182,7 @@ public class CacertUtil {
         // NFCE PRODUCAO
         listaWebServices.add("nfce.sefaz.am.gov.br");
         listaWebServices.add("nfce.sefaz.ms.gov.br");
+        listaWebServices.add("nfce.fazenda.mg.gov.br");
         listaWebServices.add("nfce.sefaz.mt.gov.br");
         listaWebServices.add("nfce.sefaz.pe.gov.br");
         listaWebServices.add("nfce.sefa.pr.gov.br");

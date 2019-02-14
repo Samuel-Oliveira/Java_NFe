@@ -59,6 +59,7 @@ class Assinar {
     public static String assinaNfe(ConfiguracoesNfe config, String stringXml, String tipo) throws NfeException {
 
         stringXml = assinaDocNFe(config, stringXml, tipo);
+        stringXml = stringXml.replaceAll("&#13;", ""); // Java 11
 
         return stringXml;
     }

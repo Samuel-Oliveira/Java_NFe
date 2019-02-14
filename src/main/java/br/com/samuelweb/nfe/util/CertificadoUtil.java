@@ -14,22 +14,52 @@ import br.com.samuelweb.nfe.exception.NfeException;
  * 
  */
 public class CertificadoUtil {
+    
+    /**
+     * Retorna uma instância do objeto ConfiguracoesIniciaisNfe.<br>
+     * 
+     * <p>
+     * O método faz a leitura dos dados do Certificado Digital, se ocorrer
+     * algum problema, disparará um NfeException. Se o Certificado Digital for 
+     * inválido disparará um CertificadoException
+     * </p>
+     * 
+     * @return ConfiguracoesIniciaisNfe
+     * @throws NfeException 
+     * @see CertificadoException
+     * @see ConfiguracoesIniciaisNfe
+     */
+    public static ConfiguracoesIniciaisNfe iniciaConfiguracoes() throws NfeException {
 
-	public static ConfiguracoesIniciaisNfe iniciaConfiguracoes() throws NfeException {
+        try {
+            Certificado certificado = ConfiguracoesIniciaisNfe.getInstance().getCertificado();
+            if (!certificado.isValido()) {
+                throw new CertificadoException("Certificado vencido.");
+            }
+            CertificadoService.inicializaCertificado(certificado, CertificadoUtil.class.getResourceAsStream("/Cacert"));
+        } catch (CertificadoException e) {
+            throw new NfeException(e.getMessage());
+        }
 
-		try {
-			Certificado certificado = ConfiguracoesIniciaisNfe.getInstance().getCertificado();
-			if (!certificado.isValido()) {
-				throw new CertificadoException("Certificado vencido.");
-			}
-			CertificadoService.inicializaCertificado(certificado, CertificadoUtil.class.getResourceAsStream("/Cacert"));
-		} catch (CertificadoException e) {
-			throw new NfeException(e.getMessage());
-		}
+        return ConfiguracoesIniciaisNfe.getInstance();
+    }
 
-		return ConfiguracoesIniciaisNfe.getInstance();
-	}
-
+     /**
+     * Recebe como parâmetro um objeto ConfiguracoesWebNfe e retorna um objeto 
+     * ConfiguracoesWebNfe.
+     * 
+     * <p>
+     * Semelhante ao método iniciaConfiguracoes(), o Certificado Digital será 
+     * validado e inicializado.Caso ocorrá algum prolema será disparado um 
+     * NfeException
+     * </p>
+     * 
+     * @param config
+     * @return ConfiguracoesWebNfe
+     * @throws NfeException 
+     * @see CertificadoException
+     * @see ConfiguracoesWebNfe
+     */
     public static ConfiguracoesWebNfe iniciaConfiguracoes(ConfiguracoesWebNfe config) throws NfeException {
 
         try {
