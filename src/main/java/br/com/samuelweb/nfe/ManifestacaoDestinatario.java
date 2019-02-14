@@ -5,20 +5,20 @@ import br.com.samuelweb.nfe.dom.Enum.TipoManifestacao;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.ConstantesUtil;
 import br.com.samuelweb.nfe.util.DateUtil;
+import br.com.samuelweb.nfe.util.ListsUtil;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.com.samuelweb.nfe.util.to.Manifesto;
 import br.inf.portalfiscal.nfe.schema.envConfRecebto.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envConfRecebto.TEvento;
 import br.inf.portalfiscal.nfe.schema.envConfRecebto.TRetEnvEvento;
-import com.google.common.collect.Lists;
 
 import javax.xml.bind.JAXBException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com Data: 28/09/2017 - 11:11
@@ -99,7 +99,8 @@ class ManifestacaoDestinatario {
 		}
 		try {
 			List<TRetEnvEvento> tRetEnvEventoList = new ArrayList<>();
-			List<List<Manifesto>> manifestosPartition = Lists.partition(manifestos, 20);
+			List<List<Manifesto>> manifestosPartition = ListsUtil.partition(manifestos, 20);
+
 			//Particiona a lista em sublistas de 20 elementos(HP04 evento G HP01 xml 1-20 - Evento, um lote pode conter até 20 eventos) e envia para ws
 			for (List<Manifesto> manifestoList : manifestosPartition) {
 				TEnvEvento envEvento = new TEnvEvento();
