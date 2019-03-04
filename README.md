@@ -7,20 +7,15 @@ Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.10-SNAPSHOT.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.10-SNAPSHOT.jar) e o adicione às bibliotecas de Seu Projeto.
+- Baixe o java-nfe-4.00.10.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.10-SNAPSHOT.jar) e o adicione às bibliotecas de Seu Projeto.
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
 ```
-	    <repository>
-			<name>Repositorio Autocom</name>
-			<id>Release</id>
-			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
-		</repository>
 <dependency>
-			<groupId>br.com.samuelweb</groupId>
+    <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-			<version>4.00.10c</version>
+    <version>4.00.10</version>
 </dependency>
 ```
 
@@ -40,6 +35,9 @@ ________________________________________________________________________________
  - Adicionado JavaDoc Em algumas classes(Agradecimento ao Cristofer)
  - Corrigido erro SVC-AN
  - Corrigido URL consulta QrCode MG
+ - AGora aceita Acentos na Emissão
+ - Verificação de Certificado Vencido
+ - Removido as Contanstes e Substituidos por Enums
  
 ## v4.00.9 - 16/12/2018
  - Corrigido URLs PE
