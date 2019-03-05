@@ -23,4 +23,20 @@ public enum  DocumentoEnum {
     public String getModelo() {
         return modelo;
     }
+
+    public static DocumentoEnum getByTipo(String tipo) {
+        for (DocumentoEnum e : values()) {
+            if (e.tipo.equals(tipo)) return e;
+        }
+        throw new IllegalArgumentException();
+    }
+
+    public static DocumentoEnum getByModelo(String modelo) {
+        for (DocumentoEnum e : values()) {
+            if (e.modelo.equals(modelo)) return e;
+        }
+        throw new IllegalArgumentException();
+    }
+
+
 }

@@ -19,4 +19,10 @@ public enum AmbienteEnum {
         return codigo;
     }
 
+    public static AmbienteEnum getByCodigo(String codigo) {
+        for (AmbienteEnum e : values()) {
+            if (e.codigo.equals(codigo)) return e;
+        }
+        throw new IllegalArgumentException();
+    }
 }

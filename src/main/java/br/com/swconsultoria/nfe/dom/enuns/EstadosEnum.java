@@ -57,4 +57,11 @@ public enum EstadosEnum {
 	public String getCodigoIbge(){
 		return codigoIbge;
 	}
+
+    public static EstadosEnum getByCodigoIbge(String codigo) {
+        for (EstadosEnum e : values()) {
+            if (e.codigoIbge.equals(codigo)) return e;
+        }
+        throw new IllegalArgumentException();
+    }
 }

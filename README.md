@@ -27,7 +27,7 @@ ________________________________________________________________________________
 # Historico de Versões
 
 ## v4.00.10 - 05/03/2019
-   ## GUIA MIGRAÇÂO https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d
+   **Guia de Migração: https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d**
  - Adicionado Compatibilidade para Java 11
  - Adicionado URL NFCe MG Produção e Homologação
  - Adicionado Conversao para TRetConsReciNFe
