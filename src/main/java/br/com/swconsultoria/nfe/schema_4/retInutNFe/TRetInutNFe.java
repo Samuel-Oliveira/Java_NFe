@@ -13,11 +13,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * Tipo retorno do Pedido de Inutiliza��o de Numera��o da Nota Fiscal Eletr�nica
+ * Tipo retorno do Pedido de Inutilizao de Numerao da Nota Fiscal Eletrnica
  * 
  * <p>Classe Java de TRetInutNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TRetInutNFe">
@@ -74,7 +74,7 @@ public class TRetInutNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade infInut.
+     * Obtm o valor da propriedade infInut.
      * 
      * @return
      *     possible object is
@@ -98,7 +98,7 @@ public class TRetInutNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade signature.
+     * Obtm o valor da propriedade signature.
      * 
      * @return
      *     possible object is
@@ -122,7 +122,7 @@ public class TRetInutNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -149,7 +149,7 @@ public class TRetInutNFe {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -229,7 +229,7 @@ public class TRetInutNFe {
         protected String id;
 
         /**
-         * Obt�m o valor da propriedade tpAmb.
+         * Obtm o valor da propriedade tpAmb.
          * 
          * @return
          *     possible object is
@@ -253,7 +253,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade verAplic.
+         * Obtm o valor da propriedade verAplic.
          * 
          * @return
          *     possible object is
@@ -277,7 +277,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade cStat.
+         * Obtm o valor da propriedade cStat.
          * 
          * @return
          *     possible object is
@@ -301,7 +301,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade xMotivo.
+         * Obtm o valor da propriedade xMotivo.
          * 
          * @return
          *     possible object is
@@ -325,7 +325,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade cuf.
+         * Obtm o valor da propriedade cuf.
          * 
          * @return
          *     possible object is
@@ -349,7 +349,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade ano.
+         * Obtm o valor da propriedade ano.
          * 
          * @return
          *     possible object is
@@ -373,7 +373,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade cnpj.
+         * Obtm o valor da propriedade cnpj.
          * 
          * @return
          *     possible object is
@@ -397,7 +397,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade mod.
+         * Obtm o valor da propriedade mod.
          * 
          * @return
          *     possible object is
@@ -421,7 +421,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade serie.
+         * Obtm o valor da propriedade serie.
          * 
          * @return
          *     possible object is
@@ -445,7 +445,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade nnfIni.
+         * Obtm o valor da propriedade nnfIni.
          * 
          * @return
          *     possible object is
@@ -469,7 +469,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade nnfFin.
+         * Obtm o valor da propriedade nnfFin.
          * 
          * @return
          *     possible object is
@@ -493,7 +493,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade dhRecbto.
+         * Obtm o valor da propriedade dhRecbto.
          * 
          * @return
          *     possible object is
@@ -517,7 +517,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade nProt.
+         * Obtm o valor da propriedade nProt.
          * 
          * @return
          *     possible object is
@@ -541,7 +541,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade id.
+         * Obtm o valor da propriedade id.
          * 
          * @return
          *     possible object is

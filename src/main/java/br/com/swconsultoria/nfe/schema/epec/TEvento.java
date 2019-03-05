@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *
  * <p>Classe Java de TEvento complex type.
  *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  *
  * <pre>
  * &lt;complexType name="TEvento">
@@ -81,7 +81,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                           &lt;simpleType>
  *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *                                               &lt;whiteSpace value="preserve"/>
- *                                               &lt;pattern value="([!-�]{0}|[!-�]{5,20})?"/>
+ *                                               &lt;pattern value="([!-]{0}|[!-]{5,20})?"/>
  *                                             &lt;/restriction>
  *                                           &lt;/simpleType>
  *                                         &lt;/element>
@@ -143,7 +143,7 @@ public class TEvento {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade infEvento.
+     * Obtm o valor da propriedade infEvento.
      *
      * @return possible object is
      * {@link TEvento.InfEvento }
@@ -163,7 +163,7 @@ public class TEvento {
     }
 
     /**
-     * Obt�m o valor da propriedade signature.
+     * Obtm o valor da propriedade signature.
      *
      * @return possible object is
      * {@link SignatureType }
@@ -183,7 +183,7 @@ public class TEvento {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      *
      * @return possible object is
      * {@link String }
@@ -206,7 +206,7 @@ public class TEvento {
     /**
      * <p>Classe Java de anonymous complex type.
      *
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      *
      * <pre>
      * &lt;complexType>
@@ -271,7 +271,7 @@ public class TEvento {
      *                                 &lt;simpleType>
      *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
      *                                     &lt;whiteSpace value="preserve"/>
-     *                                     &lt;pattern value="([!-�]{0}|[!-�]{5,20})?"/>
+     *                                     &lt;pattern value="([!-]{0}|[!-]{5,20})?"/>
      *                                   &lt;/restriction>
      *                                 &lt;/simpleType>
      *                               &lt;/element>
@@ -352,7 +352,7 @@ public class TEvento {
         protected String id;
 
         /**
-         * Obt�m o valor da propriedade cOrgao.
+         * Obtm o valor da propriedade cOrgao.
          *
          * @return possible object is
          * {@link String }
@@ -372,7 +372,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade tpAmb.
+         * Obtm o valor da propriedade tpAmb.
          *
          * @return possible object is
          * {@link String }
@@ -392,7 +392,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade cnpj.
+         * Obtm o valor da propriedade cnpj.
          *
          * @return possible object is
          * {@link String }
@@ -412,7 +412,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade cpf.
+         * Obtm o valor da propriedade cpf.
          *
          * @return possible object is
          * {@link String }
@@ -432,7 +432,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade chNFe.
+         * Obtm o valor da propriedade chNFe.
          *
          * @return possible object is
          * {@link String }
@@ -452,7 +452,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade dhEvento.
+         * Obtm o valor da propriedade dhEvento.
          *
          * @return possible object is
          * {@link String }
@@ -472,7 +472,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade tpEvento.
+         * Obtm o valor da propriedade tpEvento.
          *
          * @return possible object is
          * {@link String }
@@ -492,7 +492,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade nSeqEvento.
+         * Obtm o valor da propriedade nSeqEvento.
          *
          * @return possible object is
          * {@link String }
@@ -512,7 +512,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade verEvento.
+         * Obtm o valor da propriedade verEvento.
          *
          * @return possible object is
          * {@link String }
@@ -532,7 +532,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade detEvento.
+         * Obtm o valor da propriedade detEvento.
          *
          * @return possible object is
          * {@link TEvento.InfEvento.DetEvento }
@@ -552,7 +552,7 @@ public class TEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade id.
+         * Obtm o valor da propriedade id.
          *
          * @return possible object is
          * {@link String }
@@ -575,7 +575,7 @@ public class TEvento {
         /**
          * <p>Classe Java de anonymous complex type.
          *
-         * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+         * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
          *
          * <pre>
          * &lt;complexType>
@@ -602,7 +602,7 @@ public class TEvento {
          *                       &lt;simpleType>
          *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
          *                           &lt;whiteSpace value="preserve"/>
-         *                           &lt;pattern value="([!-�]{0}|[!-�]{5,20})?"/>
+         *                           &lt;pattern value="([!-]{0}|[!-]{5,20})?"/>
          *                         &lt;/restriction>
          *                       &lt;/simpleType>
          *                     &lt;/element>
@@ -663,7 +663,7 @@ public class TEvento {
             protected String versao;
 
             /**
-             * Obt�m o valor da propriedade descEvento.
+             * Obtm o valor da propriedade descEvento.
              *
              * @return possible object is
              * {@link String }
@@ -683,7 +683,7 @@ public class TEvento {
             }
 
             /**
-             * Obt�m o valor da propriedade cOrgaoAutor.
+             * Obtm o valor da propriedade cOrgaoAutor.
              *
              * @return possible object is
              * {@link String }
@@ -703,7 +703,7 @@ public class TEvento {
             }
 
             /**
-             * Obt�m o valor da propriedade tpAutor.
+             * Obtm o valor da propriedade tpAutor.
              *
              * @return possible object is
              * {@link String }
@@ -723,7 +723,7 @@ public class TEvento {
             }
 
             /**
-             * Obt�m o valor da propriedade verAplic.
+             * Obtm o valor da propriedade verAplic.
              *
              * @return possible object is
              * {@link String }
@@ -743,7 +743,7 @@ public class TEvento {
             }
 
             /**
-             * Obt�m o valor da propriedade dhEmi.
+             * Obtm o valor da propriedade dhEmi.
              *
              * @return possible object is
              * {@link String }
@@ -763,7 +763,7 @@ public class TEvento {
             }
 
             /**
-             * Obt�m o valor da propriedade tpNF.
+             * Obtm o valor da propriedade tpNF.
              *
              * @return possible object is
              * {@link String }
@@ -783,7 +783,7 @@ public class TEvento {
             }
 
             /**
-             * Obt�m o valor da propriedade ie.
+             * Obtm o valor da propriedade ie.
              *
              * @return possible object is
              * {@link String }
@@ -803,7 +803,7 @@ public class TEvento {
             }
 
             /**
-             * Obt�m o valor da propriedade dest.
+             * Obtm o valor da propriedade dest.
              *
              * @return possible object is
              * {@link TEvento.InfEvento.DetEvento.Dest }
@@ -823,7 +823,7 @@ public class TEvento {
             }
 
             /**
-             * Obt�m o valor da propriedade versao.
+             * Obtm o valor da propriedade versao.
              *
              * @return possible object is
              * {@link String }
@@ -846,7 +846,7 @@ public class TEvento {
             /**
              * <p>Classe Java de anonymous complex type.
              *
-             * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+             * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
              *
              * <pre>
              * &lt;complexType>
@@ -861,7 +861,7 @@ public class TEvento {
              *             &lt;simpleType>
              *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
              *                 &lt;whiteSpace value="preserve"/>
-             *                 &lt;pattern value="([!-�]{0}|[!-�]{5,20})?"/>
+             *                 &lt;pattern value="([!-]{0}|[!-]{5,20})?"/>
              *               &lt;/restriction>
              *             &lt;/simpleType>
              *           &lt;/element>
@@ -908,7 +908,7 @@ public class TEvento {
                 protected String vst;
 
                 /**
-                 * Obt�m o valor da propriedade uf.
+                 * Obtm o valor da propriedade uf.
                  *
                  * @return possible object is
                  * {@link TUf }
@@ -928,7 +928,7 @@ public class TEvento {
                 }
 
                 /**
-                 * Obt�m o valor da propriedade cnpj.
+                 * Obtm o valor da propriedade cnpj.
                  *
                  * @return possible object is
                  * {@link String }
@@ -948,7 +948,7 @@ public class TEvento {
                 }
 
                 /**
-                 * Obt�m o valor da propriedade cpf.
+                 * Obtm o valor da propriedade cpf.
                  *
                  * @return possible object is
                  * {@link String }
@@ -968,7 +968,7 @@ public class TEvento {
                 }
 
                 /**
-                 * Obt�m o valor da propriedade idEstrangeiro.
+                 * Obtm o valor da propriedade idEstrangeiro.
                  *
                  * @return possible object is
                  * {@link String }
@@ -988,7 +988,7 @@ public class TEvento {
                 }
 
                 /**
-                 * Obt�m o valor da propriedade ie.
+                 * Obtm o valor da propriedade ie.
                  *
                  * @return possible object is
                  * {@link String }
@@ -1008,7 +1008,7 @@ public class TEvento {
                 }
 
                 /**
-                 * Obt�m o valor da propriedade vnf.
+                 * Obtm o valor da propriedade vnf.
                  *
                  * @return possible object is
                  * {@link String }
@@ -1028,7 +1028,7 @@ public class TEvento {
                 }
 
                 /**
-                 * Obt�m o valor da propriedade vicms.
+                 * Obtm o valor da propriedade vicms.
                  *
                  * @return possible object is
                  * {@link String }
@@ -1048,7 +1048,7 @@ public class TEvento {
                 }
 
                 /**
-                 * Obt�m o valor da propriedade vst.
+                 * Obtm o valor da propriedade vst.
                  *
                  * @return possible object is
                  * {@link String }

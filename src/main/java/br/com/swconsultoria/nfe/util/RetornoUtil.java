@@ -36,6 +36,29 @@ public class RetornoUtil {
     }
 
     /**
+     * Valida o Retorno Do Cancelamento Substituicao
+     *
+     * @param retorno
+     * @throws NfeException
+     */
+    public static void validaCancelamentoSubstituicao(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento retorno) throws NfeException {
+        if (!StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo().equals(retorno.getCStat())) {
+            throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
+        }
+
+        final String[] erro = {""};
+        retorno.getRetEvento().forEach( retEvento -> {
+            if (!StatusEnum.EVENTO_VINCULADO.getCodigo().equals(retEvento.getInfEvento().getCStat())) {
+                erro[0] += retEvento.getInfEvento().getChNFe() + " - " +retEvento.getInfEvento().getCStat() + " - " + retEvento.getInfEvento().getXMotivo() + System.lineSeparator();
+            }
+        });
+
+        if(ObjetoUtil.verifica(erro[0]).isPresent()){
+            throw new NfeException(erro[0]);
+        }
+    }
+
+    /**
      * Valida o Retorno Da Manifestação
      *
      * @param retorno

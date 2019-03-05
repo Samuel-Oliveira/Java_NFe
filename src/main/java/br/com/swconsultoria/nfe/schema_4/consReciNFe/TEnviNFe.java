@@ -1,18 +1,22 @@
 
 package br.com.swconsultoria.nfe.schema_4.consReciNFe;
 
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Pedido de Concess�o de Autoriza��o da Nota Fiscal Eletr�nica
- *
+ *  Tipo Pedido de Concesso de Autorizao da Nota Fiscal Eletrnica
+ * 
  * <p>Classe Java de TEnviNFe complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="TEnviNFe">
  *   &lt;complexContent>
@@ -35,12 +39,14 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TEnviNFe", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "idLote",
-        "indSinc",
-        "nFe"
+    "idLote",
+    "indSinc",
+    "nFe"
 })
 public class TEnviNFe {
 
@@ -54,10 +60,12 @@ public class TEnviNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade idLote.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade idLote.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getIdLote() {
         return idLote;
@@ -65,19 +73,23 @@ public class TEnviNFe {
 
     /**
      * Define o valor da propriedade idLote.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setIdLote(String value) {
         this.idLote = value;
     }
 
     /**
-     * Obt�m o valor da propriedade indSinc.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade indSinc.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getIndSinc() {
         return indSinc;
@@ -85,9 +97,11 @@ public class TEnviNFe {
 
     /**
      * Define o valor da propriedade indSinc.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setIndSinc(String value) {
         this.indSinc = value;
@@ -95,23 +109,25 @@ public class TEnviNFe {
 
     /**
      * Gets the value of the nFe property.
-     *
+     * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the nFe property.
-     *
+     * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getNFe().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link TNFe }
+     * 
+     * 
      */
     public List<TNFe> getNFe() {
         if (nFe == null) {
@@ -121,10 +137,12 @@ public class TEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade versao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVersao() {
         return versao;
@@ -132,9 +150,11 @@ public class TEnviNFe {
 
     /**
      * Define o valor da propriedade versao.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;

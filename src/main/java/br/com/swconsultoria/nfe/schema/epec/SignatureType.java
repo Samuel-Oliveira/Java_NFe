@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * <p>Classe Java de SignatureType complex type.
  *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  *
  * <pre>
  * &lt;complexType name="SignatureType">
@@ -47,7 +47,7 @@ public class SignatureType {
     protected String id;
 
     /**
-     * Obt�m o valor da propriedade signedInfo.
+     * Obtm o valor da propriedade signedInfo.
      *
      * @return possible object is
      * {@link SignedInfoType }
@@ -67,7 +67,7 @@ public class SignatureType {
     }
 
     /**
-     * Obt�m o valor da propriedade signatureValue.
+     * Obtm o valor da propriedade signatureValue.
      *
      * @return possible object is
      * {@link SignatureValueType }
@@ -87,7 +87,7 @@ public class SignatureType {
     }
 
     /**
-     * Obt�m o valor da propriedade keyInfo.
+     * Obtm o valor da propriedade keyInfo.
      *
      * @return possible object is
      * {@link KeyInfoType }
@@ -107,7 +107,7 @@ public class SignatureType {
     }
 
     /**
-     * Obt�m o valor da propriedade id.
+     * Obtm o valor da propriedade id.
      *
      * @return possible object is
      * {@link String }

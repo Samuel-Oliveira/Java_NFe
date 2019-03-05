@@ -7,8 +7,8 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Classe Java de TUf.
- *
- * <p>O seguinte fragmento do esquema especifica o conteedo esperado contido dentro desta classe.
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * <p>
  * <pre>
  * &lt;simpleType name="TUf">
@@ -45,6 +45,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
+ * 
  */
 @XmlType(name = "TUf", namespace = "http://www.portalfiscal.inf.br/nfe")
 @XmlEnum
@@ -79,12 +80,12 @@ public enum TUf {
     TO,
     EX;
 
-    public static TUf fromValue(String v) {
-        return valueOf(v);
-    }
-
     public String value() {
         return name();
+    }
+
+    public static TUf fromValue(String v) {
+        return valueOf(v);
     }
 
 }

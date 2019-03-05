@@ -19,7 +19,7 @@ public class CacertUtil {
 
     private static final int TIMEOUT_WS = 30;
     private static final int PORTA = 443;
-    private static final String CACERT = "d:/java/util/Cacert/Cacert-23-01-2019";
+    private static final String CACERT = "d:/java/util/Cacert/Cacert";
 
     public static void main(String[] args) {
         List<String> lista = new ArrayList<>();
@@ -113,7 +113,7 @@ public class CacertUtil {
                 }
             }
         } catch (NoSuchAlgorithmException | KeyStoreException | CertificateEncodingException | KeyManagementException | IOException e) {
-            error("| " + e.toString());
+            error(host + "| " + e.toString());
         }
     }
 

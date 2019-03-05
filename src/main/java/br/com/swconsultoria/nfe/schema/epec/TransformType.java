@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * <p>Classe Java de TransformType complex type.
  *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  *
  * <pre>
  * &lt;complexType name="TransformType">
@@ -63,7 +63,7 @@ public class TransformType {
     }
 
     /**
-     * Obt�m o valor da propriedade algorithm.
+     * Obtm o valor da propriedade algorithm.
      *
      * @return possible object is
      * {@link String }

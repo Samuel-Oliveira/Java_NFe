@@ -12,11 +12,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * Tipo Pedido de Inutiliza��o de Numera��o da Nota Fiscal Eletr�nica
+ * Tipo Pedido de Inutilizao de Numerao da Nota Fiscal Eletrnica
  * 
  * <p>Classe Java de TInutNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TInutNFe">
@@ -82,7 +82,7 @@ public class TInutNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade infInut.
+     * Obtm o valor da propriedade infInut.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class TInutNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade signature.
+     * Obtm o valor da propriedade signature.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class TInutNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class TInutNFe {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -236,7 +236,7 @@ public class TInutNFe {
         protected String id;
 
         /**
-         * Obt�m o valor da propriedade tpAmb.
+         * Obtm o valor da propriedade tpAmb.
          * 
          * @return
          *     possible object is
@@ -260,7 +260,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade xServ.
+         * Obtm o valor da propriedade xServ.
          * 
          * @return
          *     possible object is
@@ -284,7 +284,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade cuf.
+         * Obtm o valor da propriedade cuf.
          * 
          * @return
          *     possible object is
@@ -308,7 +308,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade ano.
+         * Obtm o valor da propriedade ano.
          * 
          * @return
          *     possible object is
@@ -332,7 +332,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade cnpj.
+         * Obtm o valor da propriedade cnpj.
          * 
          * @return
          *     possible object is
@@ -356,7 +356,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade mod.
+         * Obtm o valor da propriedade mod.
          * 
          * @return
          *     possible object is
@@ -380,7 +380,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade serie.
+         * Obtm o valor da propriedade serie.
          * 
          * @return
          *     possible object is
@@ -404,7 +404,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade nnfIni.
+         * Obtm o valor da propriedade nnfIni.
          * 
          * @return
          *     possible object is
@@ -428,7 +428,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade nnfFin.
+         * Obtm o valor da propriedade nnfFin.
          * 
          * @return
          *     possible object is
@@ -452,7 +452,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade xJust.
+         * Obtm o valor da propriedade xJust.
          * 
          * @return
          *     possible object is
@@ -476,7 +476,7 @@ public class TInutNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade id.
+         * Obtm o valor da propriedade id.
          * 
          * @return
          *     possible object is

@@ -15,6 +15,7 @@ public interface ConstantesUtil {
         String CONSULTA_CADASTRO = "2.00";
         String DIST_DFE = "1.01";
         String EVENTO_CANCELAMENTO = "1.00";
+        String EVENTO_CANCELAMENTO_SUBSTIUICAO = "1.00";
         String EVENTO_CCE = "1.00";
         String EVENTO_MANIFESTAR = "1.00";
         String EVENTO_EPEC = "1.00";

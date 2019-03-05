@@ -11,7 +11,7 @@ import java.util.List;
  *
  * <p>Classe Java de TEnvEvento complex type.
  *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  *
  * <pre>
  * &lt;complexType name="TEnvEvento">
@@ -49,7 +49,7 @@ public class TEnvEvento {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade idLote.
+     * Obtm o valor da propriedade idLote.
      *
      * @return possible object is
      * {@link String }
@@ -96,7 +96,7 @@ public class TEnvEvento {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      *
      * @return possible object is
      * {@link String }

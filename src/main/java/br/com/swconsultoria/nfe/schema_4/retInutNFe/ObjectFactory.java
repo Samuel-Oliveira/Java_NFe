@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the br.inf.portalfiscal.nfe.schema_4.retInutNFe package. 
+ * generated in the br.com.swconsultoria.nfe.schema_4.retInutNFe package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -28,7 +28,7 @@ public class ObjectFactory {
     private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.inf.portalfiscal.nfe.schema_4.retInutNFe
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema_4.retInutNFe
      * 
      */
     public ObjectFactory() {

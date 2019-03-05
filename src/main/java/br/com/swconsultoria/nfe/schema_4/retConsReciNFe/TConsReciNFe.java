@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Pedido de Consulta do Recido do Lote de Notas Fiscais Eletr�nicas
+ * Tipo Pedido de Consulta do Recido do Lote de Notas Fiscais Eletrnicas
  * 
  * <p>Classe Java de TConsReciNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TConsReciNFe">
@@ -46,7 +46,7 @@ public class TConsReciNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade tpAmb.
+     * Obtm o valor da propriedade tpAmb.
      * 
      * @return
      *     possible object is
@@ -70,7 +70,7 @@ public class TConsReciNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade nRec.
+     * Obtm o valor da propriedade nRec.
      * 
      * @return
      *     possible object is
@@ -94,7 +94,7 @@ public class TConsReciNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is

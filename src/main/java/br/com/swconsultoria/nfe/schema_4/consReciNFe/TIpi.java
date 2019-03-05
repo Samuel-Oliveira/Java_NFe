@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Tipo: Dados do IPI
- *
+ * 
  * <p>Classe Java de TIpi complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="TIpi">
  *   &lt;complexContent>
@@ -110,15 +110,17 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TIpi", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "cnpjProd",
-        "cSelo",
-        "qSelo",
-        "cEnq",
-        "ipiTrib",
-        "ipint"
+    "cnpjProd",
+    "cSelo",
+    "qSelo",
+    "cEnq",
+    "ipiTrib",
+    "ipint"
 })
 public class TIpi {
 
@@ -136,10 +138,12 @@ public class TIpi {
     protected TIpi.IPINT ipint;
 
     /**
-     * Obt�m o valor da propriedade cnpjProd.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade cnpjProd.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCNPJProd() {
         return cnpjProd;
@@ -147,19 +151,23 @@ public class TIpi {
 
     /**
      * Define o valor da propriedade cnpjProd.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCNPJProd(String value) {
         this.cnpjProd = value;
     }
 
     /**
-     * Obt�m o valor da propriedade cSelo.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade cSelo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCSelo() {
         return cSelo;
@@ -167,19 +175,23 @@ public class TIpi {
 
     /**
      * Define o valor da propriedade cSelo.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCSelo(String value) {
         this.cSelo = value;
     }
 
     /**
-     * Obt�m o valor da propriedade qSelo.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade qSelo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getQSelo() {
         return qSelo;
@@ -187,19 +199,23 @@ public class TIpi {
 
     /**
      * Define o valor da propriedade qSelo.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setQSelo(String value) {
         this.qSelo = value;
     }
 
     /**
-     * Obt�m o valor da propriedade cEnq.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade cEnq.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCEnq() {
         return cEnq;
@@ -207,19 +223,23 @@ public class TIpi {
 
     /**
      * Define o valor da propriedade cEnq.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCEnq(String value) {
         this.cEnq = value;
     }
 
     /**
-     * Obt�m o valor da propriedade ipiTrib.
-     *
-     * @return possible object is
-     * {@link TIpi.IPITrib }
+     * Obtm o valor da propriedade ipiTrib.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TIpi.IPITrib }
+     *     
      */
     public TIpi.IPITrib getIPITrib() {
         return ipiTrib;
@@ -227,19 +247,23 @@ public class TIpi {
 
     /**
      * Define o valor da propriedade ipiTrib.
-     *
-     * @param value allowed object is
-     *              {@link TIpi.IPITrib }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TIpi.IPITrib }
+     *     
      */
     public void setIPITrib(TIpi.IPITrib value) {
         this.ipiTrib = value;
     }
 
     /**
-     * Obt�m o valor da propriedade ipint.
-     *
-     * @return possible object is
-     * {@link TIpi.IPINT }
+     * Obtm o valor da propriedade ipint.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TIpi.IPINT }
+     *     
      */
     public TIpi.IPINT getIPINT() {
         return ipint;
@@ -247,9 +271,11 @@ public class TIpi {
 
     /**
      * Define o valor da propriedade ipint.
-     *
-     * @param value allowed object is
-     *              {@link TIpi.IPINT }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TIpi.IPINT }
+     *     
      */
     public void setIPINT(TIpi.IPINT value) {
         this.ipint = value;
@@ -258,9 +284,9 @@ public class TIpi {
 
     /**
      * <p>Classe Java de anonymous complex type.
-     *
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
-     *
+     * 
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * 
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -288,10 +314,12 @@ public class TIpi {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "cst"
+        "cst"
     })
     public static class IPINT {
 
@@ -299,10 +327,12 @@ public class TIpi {
         protected String cst;
 
         /**
-         * Obt�m o valor da propriedade cst.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade cst.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getCST() {
             return cst;
@@ -310,9 +340,11 @@ public class TIpi {
 
         /**
          * Define o valor da propriedade cst.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setCST(String value) {
             this.cst = value;
@@ -323,9 +355,9 @@ public class TIpi {
 
     /**
      * <p>Classe Java de anonymous complex type.
-     *
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
-     *
+     * 
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * 
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -358,15 +390,17 @@ public class TIpi {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "cst",
-            "vbc",
-            "pipi",
-            "qUnid",
-            "vUnid",
-            "vipi"
+        "cst",
+        "vbc",
+        "pipi",
+        "qUnid",
+        "vUnid",
+        "vipi"
     })
     public static class IPITrib {
 
@@ -384,10 +418,12 @@ public class TIpi {
         protected String vipi;
 
         /**
-         * Obt�m o valor da propriedade cst.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade cst.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getCST() {
             return cst;
@@ -395,19 +431,23 @@ public class TIpi {
 
         /**
          * Define o valor da propriedade cst.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setCST(String value) {
             this.cst = value;
         }
 
         /**
-         * Obt�m o valor da propriedade vbc.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade vbc.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getVBC() {
             return vbc;
@@ -415,19 +455,23 @@ public class TIpi {
 
         /**
          * Define o valor da propriedade vbc.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setVBC(String value) {
             this.vbc = value;
         }
 
         /**
-         * Obt�m o valor da propriedade pipi.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade pipi.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getPIPI() {
             return pipi;
@@ -435,19 +479,23 @@ public class TIpi {
 
         /**
          * Define o valor da propriedade pipi.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setPIPI(String value) {
             this.pipi = value;
         }
 
         /**
-         * Obt�m o valor da propriedade qUnid.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade qUnid.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getQUnid() {
             return qUnid;
@@ -455,19 +503,23 @@ public class TIpi {
 
         /**
          * Define o valor da propriedade qUnid.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setQUnid(String value) {
             this.qUnid = value;
         }
 
         /**
-         * Obt�m o valor da propriedade vUnid.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade vUnid.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getVUnid() {
             return vUnid;
@@ -475,19 +527,23 @@ public class TIpi {
 
         /**
          * Define o valor da propriedade vUnid.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setVUnid(String value) {
             this.vUnid = value;
         }
 
         /**
-         * Obt�m o valor da propriedade vipi.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade vipi.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getVIPI() {
             return vipi;
@@ -495,9 +551,11 @@ public class TIpi {
 
         /**
          * Define o valor da propriedade vipi.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setVIPI(String value) {
             this.vipi = value;

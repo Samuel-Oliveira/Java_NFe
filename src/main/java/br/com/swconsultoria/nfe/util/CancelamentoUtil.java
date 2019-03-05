@@ -10,7 +10,6 @@ import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEvento;
-import com.sun.istack.internal.NotNull;
 
 import javax.xml.bind.JAXBException;
 import java.util.Collections;
@@ -40,7 +39,7 @@ public class CancelamentoUtil {
      * @return
      * @throws NfeException
      */
-    public static TEnvEvento montaCancelamento(@NotNull List<Evento> listaCancela, ConfiguracoesNfe configuracao) throws NfeException {
+    public static TEnvEvento montaCancelamento(List<Evento> listaCancela, ConfiguracoesNfe configuracao) throws NfeException {
 
         if(listaCancela.size() > 20){
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");

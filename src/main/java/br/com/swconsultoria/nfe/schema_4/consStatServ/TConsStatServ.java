@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * Tipo Pedido de Consulta do Status do Servi�o
+ * Tipo Pedido de Consulta do Status do Servio
  * 
  * <p>Classe Java de TConsStatServ complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TConsStatServ">
@@ -59,7 +59,7 @@ public class TConsStatServ {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade tpAmb.
+     * Obtm o valor da propriedade tpAmb.
      * 
      * @return
      *     possible object is
@@ -83,7 +83,7 @@ public class TConsStatServ {
     }
 
     /**
-     * Obt�m o valor da propriedade cuf.
+     * Obtm o valor da propriedade cuf.
      * 
      * @return
      *     possible object is
@@ -107,7 +107,7 @@ public class TConsStatServ {
     }
 
     /**
-     * Obt�m o valor da propriedade xServ.
+     * Obtm o valor da propriedade xServ.
      * 
      * @return
      *     possible object is
@@ -131,7 +131,7 @@ public class TConsStatServ {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is

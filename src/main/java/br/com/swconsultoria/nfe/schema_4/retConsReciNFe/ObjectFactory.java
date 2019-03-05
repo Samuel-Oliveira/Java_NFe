@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the br.inf.portalfiscal.nfe.schema_4.retConsReciNFe package. 
+ * generated in the br.com.swconsultoria.nfe.schema_4.retConsReciNFe package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -38,7 +38,7 @@ public class ObjectFactory {
     private final static QName _TNFeInfNFeDetImpostoPIS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PIS");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.inf.portalfiscal.nfe.schema_4.retConsReciNFe
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema_4.retConsReciNFe
      * 
      */
     public ObjectFactory() {
@@ -306,6 +306,14 @@ public class ObjectFactory {
      */
     public TEnviNFe createTEnviNFe() {
         return new TEnviNFe();
+    }
+
+    /**
+     * Create an instance of {@link TInfRespTec }
+     * 
+     */
+    public TInfRespTec createTInfRespTec() {
+        return new TInfRespTec();
     }
 
     /**

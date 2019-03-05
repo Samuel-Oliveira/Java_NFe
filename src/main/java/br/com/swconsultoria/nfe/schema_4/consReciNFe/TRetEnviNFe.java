@@ -1,16 +1,20 @@
 
 package br.com.swconsultoria.nfe.schema_4.consReciNFe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Retorno do Pedido de Autoriza��o da Nota Fiscal Eletr�nica
- *
+ * Tipo Retorno do Pedido de Autorizao da Nota Fiscal Eletrnica
+ * 
  * <p>Classe Java de TRetEnviNFe complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="TRetEnviNFe">
  *   &lt;complexContent>
@@ -43,17 +47,19 @@ import javax.xml.bind.annotation.*;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TRetEnviNFe", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "tpAmb",
-        "verAplic",
-        "cStat",
-        "xMotivo",
-        "cuf",
-        "dhRecbto",
-        "infRec",
-        "protNFe"
+    "tpAmb",
+    "verAplic",
+    "cStat",
+    "xMotivo",
+    "cuf",
+    "dhRecbto",
+    "infRec",
+    "protNFe"
 })
 public class TRetEnviNFe {
 
@@ -77,10 +83,12 @@ public class TRetEnviNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade tpAmb.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade tpAmb.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getTpAmb() {
         return tpAmb;
@@ -88,19 +96,23 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade tpAmb.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setTpAmb(String value) {
         this.tpAmb = value;
     }
 
     /**
-     * Obt�m o valor da propriedade verAplic.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade verAplic.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVerAplic() {
         return verAplic;
@@ -108,19 +120,23 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade verAplic.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVerAplic(String value) {
         this.verAplic = value;
     }
 
     /**
-     * Obt�m o valor da propriedade cStat.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade cStat.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCStat() {
         return cStat;
@@ -128,19 +144,23 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade cStat.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCStat(String value) {
         this.cStat = value;
     }
 
     /**
-     * Obt�m o valor da propriedade xMotivo.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade xMotivo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getXMotivo() {
         return xMotivo;
@@ -148,19 +168,23 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade xMotivo.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setXMotivo(String value) {
         this.xMotivo = value;
     }
 
     /**
-     * Obt�m o valor da propriedade cuf.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade cuf.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCUF() {
         return cuf;
@@ -168,19 +192,23 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade cuf.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCUF(String value) {
         this.cuf = value;
     }
 
     /**
-     * Obt�m o valor da propriedade dhRecbto.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade dhRecbto.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getDhRecbto() {
         return dhRecbto;
@@ -188,19 +216,23 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade dhRecbto.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setDhRecbto(String value) {
         this.dhRecbto = value;
     }
 
     /**
-     * Obt�m o valor da propriedade infRec.
-     *
-     * @return possible object is
-     * {@link TRetEnviNFe.InfRec }
+     * Obtm o valor da propriedade infRec.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TRetEnviNFe.InfRec }
+     *     
      */
     public TRetEnviNFe.InfRec getInfRec() {
         return infRec;
@@ -208,19 +240,23 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade infRec.
-     *
-     * @param value allowed object is
-     *              {@link TRetEnviNFe.InfRec }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TRetEnviNFe.InfRec }
+     *     
      */
     public void setInfRec(TRetEnviNFe.InfRec value) {
         this.infRec = value;
     }
 
     /**
-     * Obt�m o valor da propriedade protNFe.
-     *
-     * @return possible object is
-     * {@link TProtNFe }
+     * Obtm o valor da propriedade protNFe.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TProtNFe }
+     *     
      */
     public TProtNFe getProtNFe() {
         return protNFe;
@@ -228,19 +264,23 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade protNFe.
-     *
-     * @param value allowed object is
-     *              {@link TProtNFe }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TProtNFe }
+     *     
      */
     public void setProtNFe(TProtNFe value) {
         this.protNFe = value;
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade versao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVersao() {
         return versao;
@@ -248,9 +288,11 @@ public class TRetEnviNFe {
 
     /**
      * Define o valor da propriedade versao.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;
@@ -259,9 +301,9 @@ public class TRetEnviNFe {
 
     /**
      * <p>Classe Java de anonymous complex type.
-     *
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
-     *
+     * 
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * 
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -274,11 +316,13 @@ public class TRetEnviNFe {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "nRec",
-            "tMed"
+        "nRec",
+        "tMed"
     })
     public static class InfRec {
 
@@ -288,10 +332,12 @@ public class TRetEnviNFe {
         protected String tMed;
 
         /**
-         * Obt�m o valor da propriedade nRec.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade nRec.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getNRec() {
             return nRec;
@@ -299,19 +345,23 @@ public class TRetEnviNFe {
 
         /**
          * Define o valor da propriedade nRec.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setNRec(String value) {
             this.nRec = value;
         }
 
         /**
-         * Obt�m o valor da propriedade tMed.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade tMed.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getTMed() {
             return tMed;
@@ -319,9 +369,11 @@ public class TRetEnviNFe {
 
         /**
          * Define o valor da propriedade tMed.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setTMed(String value) {
             this.tMed = value;

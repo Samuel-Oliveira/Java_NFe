@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de X509DataType complex type.
  *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  *
  * <pre>
  * &lt;complexType name="X509DataType">
@@ -34,7 +34,7 @@ public class X509DataType {
     protected byte[] x509Certificate;
 
     /**
-     * Obt�m o valor da propriedade x509Certificate.
+     * Obtm o valor da propriedade x509Certificate.
      *
      * @return possible object is
      * byte[]

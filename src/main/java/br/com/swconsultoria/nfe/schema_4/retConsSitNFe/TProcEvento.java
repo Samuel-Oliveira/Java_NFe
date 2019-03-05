@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * <p>Classe Java de TProcEvento complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TProcEvento">
@@ -46,7 +46,7 @@ public class TProcEvento {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade evento.
+     * Obtm o valor da propriedade evento.
      * 
      * @return
      *     possible object is
@@ -70,7 +70,7 @@ public class TProcEvento {
     }
 
     /**
-     * Obt�m o valor da propriedade retEvento.
+     * Obtm o valor da propriedade retEvento.
      * 
      * @return
      *     possible object is
@@ -94,7 +94,7 @@ public class TProcEvento {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * <p>Classe Java de TIpi complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TIpi">
@@ -138,7 +138,7 @@ public class TIpi {
     protected TIpi.IPINT ipint;
 
     /**
-     * Obt�m o valor da propriedade cnpjProd.
+     * Obtm o valor da propriedade cnpjProd.
      * 
      * @return
      *     possible object is
@@ -162,7 +162,7 @@ public class TIpi {
     }
 
     /**
-     * Obt�m o valor da propriedade cSelo.
+     * Obtm o valor da propriedade cSelo.
      * 
      * @return
      *     possible object is
@@ -186,7 +186,7 @@ public class TIpi {
     }
 
     /**
-     * Obt�m o valor da propriedade qSelo.
+     * Obtm o valor da propriedade qSelo.
      * 
      * @return
      *     possible object is
@@ -210,7 +210,7 @@ public class TIpi {
     }
 
     /**
-     * Obt�m o valor da propriedade cEnq.
+     * Obtm o valor da propriedade cEnq.
      * 
      * @return
      *     possible object is
@@ -234,7 +234,7 @@ public class TIpi {
     }
 
     /**
-     * Obt�m o valor da propriedade ipiTrib.
+     * Obtm o valor da propriedade ipiTrib.
      * 
      * @return
      *     possible object is
@@ -258,7 +258,7 @@ public class TIpi {
     }
 
     /**
-     * Obt�m o valor da propriedade ipint.
+     * Obtm o valor da propriedade ipint.
      * 
      * @return
      *     possible object is
@@ -285,7 +285,7 @@ public class TIpi {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -327,7 +327,7 @@ public class TIpi {
         protected String cst;
 
         /**
-         * Obt�m o valor da propriedade cst.
+         * Obtm o valor da propriedade cst.
          * 
          * @return
          *     possible object is
@@ -356,7 +356,7 @@ public class TIpi {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -418,7 +418,7 @@ public class TIpi {
         protected String vipi;
 
         /**
-         * Obt�m o valor da propriedade cst.
+         * Obtm o valor da propriedade cst.
          * 
          * @return
          *     possible object is
@@ -442,7 +442,7 @@ public class TIpi {
         }
 
         /**
-         * Obt�m o valor da propriedade vbc.
+         * Obtm o valor da propriedade vbc.
          * 
          * @return
          *     possible object is
@@ -466,7 +466,7 @@ public class TIpi {
         }
 
         /**
-         * Obt�m o valor da propriedade pipi.
+         * Obtm o valor da propriedade pipi.
          * 
          * @return
          *     possible object is
@@ -490,7 +490,7 @@ public class TIpi {
         }
 
         /**
-         * Obt�m o valor da propriedade qUnid.
+         * Obtm o valor da propriedade qUnid.
          * 
          * @return
          *     possible object is
@@ -514,7 +514,7 @@ public class TIpi {
         }
 
         /**
-         * Obt�m o valor da propriedade vUnid.
+         * Obtm o valor da propriedade vUnid.
          * 
          * @return
          *     possible object is
@@ -538,7 +538,7 @@ public class TIpi {
         }
 
         /**
-         * Obt�m o valor da propriedade vipi.
+         * Obtm o valor da propriedade vipi.
          * 
          * @return
          *     possible object is

@@ -13,7 +13,7 @@ import java.util.List;
  *
  * <p>Classe Java de TRetEvento complex type.
  *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  *
  * <pre>
  * &lt;complexType name="TRetEvento">
@@ -101,7 +101,7 @@ public class TRetEvento {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade infEvento.
+     * Obtm o valor da propriedade infEvento.
      *
      * @return possible object is
      * {@link TRetEvento.InfEvento }
@@ -121,7 +121,7 @@ public class TRetEvento {
     }
 
     /**
-     * Obt�m o valor da propriedade signature.
+     * Obtm o valor da propriedade signature.
      *
      * @return possible object is
      * {@link SignatureType }
@@ -141,7 +141,7 @@ public class TRetEvento {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      *
      * @return possible object is
      * {@link String }
@@ -164,7 +164,7 @@ public class TRetEvento {
     /**
      * <p>Classe Java de anonymous complex type.
      *
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      *
      * <pre>
      * &lt;complexType>
@@ -275,7 +275,7 @@ public class TRetEvento {
         protected String id;
 
         /**
-         * Obt�m o valor da propriedade tpAmb.
+         * Obtm o valor da propriedade tpAmb.
          *
          * @return possible object is
          * {@link String }
@@ -295,7 +295,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade verAplic.
+         * Obtm o valor da propriedade verAplic.
          *
          * @return possible object is
          * {@link String }
@@ -315,7 +315,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade cOrgao.
+         * Obtm o valor da propriedade cOrgao.
          *
          * @return possible object is
          * {@link String }
@@ -335,7 +335,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade cStat.
+         * Obtm o valor da propriedade cStat.
          *
          * @return possible object is
          * {@link String }
@@ -355,7 +355,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade xMotivo.
+         * Obtm o valor da propriedade xMotivo.
          *
          * @return possible object is
          * {@link String }
@@ -375,7 +375,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade chNFe.
+         * Obtm o valor da propriedade chNFe.
          *
          * @return possible object is
          * {@link String }
@@ -395,7 +395,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade tpEvento.
+         * Obtm o valor da propriedade tpEvento.
          *
          * @return possible object is
          * {@link String }
@@ -415,7 +415,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade xEvento.
+         * Obtm o valor da propriedade xEvento.
          *
          * @return possible object is
          * {@link String }
@@ -435,7 +435,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade nSeqEvento.
+         * Obtm o valor da propriedade nSeqEvento.
          *
          * @return possible object is
          * {@link String }
@@ -455,7 +455,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade cOrgaoAutor.
+         * Obtm o valor da propriedade cOrgaoAutor.
          *
          * @return possible object is
          * {@link String }
@@ -475,7 +475,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade dhRegEvento.
+         * Obtm o valor da propriedade dhRegEvento.
          *
          * @return possible object is
          * {@link String }
@@ -495,7 +495,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade nProt.
+         * Obtm o valor da propriedade nProt.
          *
          * @return possible object is
          * {@link String }
@@ -542,7 +542,7 @@ public class TRetEvento {
         }
 
         /**
-         * Obt�m o valor da propriedade id.
+         * Obtm o valor da propriedade id.
          *
          * @return possible object is
          * {@link String }

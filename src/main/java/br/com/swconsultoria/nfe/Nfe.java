@@ -162,6 +162,20 @@ public class Nfe {
     }
 
     /**
+     * Metodo para Cancelar a NFCE em Substituicao
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento cancelarSubstituicaoNfe(ConfiguracoesNfe configuracoesNfe, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento envEvento, boolean valida) throws NfeException {
+
+        return Cancelar.eventoCancelamentoSubstituicao(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe), envEvento, valida);
+
+    }
+
+    /**
      * Metodo para Enviar o EPEC
      *
      * @param envEvento

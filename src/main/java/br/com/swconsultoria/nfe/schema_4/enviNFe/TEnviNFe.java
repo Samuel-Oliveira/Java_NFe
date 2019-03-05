@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- *  Tipo Pedido de Concess�o de Autoriza��o da Nota Fiscal Eletr�nica
+ *  Tipo Pedido de Concesso de Autorizao da Nota Fiscal Eletrnica
  * 
  * <p>Classe Java de TEnviNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TEnviNFe">
@@ -60,7 +60,7 @@ public class TEnviNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade idLote.
+     * Obtm o valor da propriedade idLote.
      * 
      * @return
      *     possible object is
@@ -84,7 +84,7 @@ public class TEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade indSinc.
+     * Obtm o valor da propriedade indSinc.
      * 
      * @return
      *     possible object is
@@ -137,7 +137,7 @@ public class TEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is

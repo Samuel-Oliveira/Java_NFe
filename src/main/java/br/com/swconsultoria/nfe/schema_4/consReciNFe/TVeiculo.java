@@ -1,16 +1,20 @@
 
 package br.com.swconsultoria.nfe.schema_4.consReciNFe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Dados do Ve�culo
- *
+ * Tipo Dados do Veculo
+ * 
  * <p>Classe Java de TVeiculo complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="TVeiculo">
  *   &lt;complexContent>
@@ -38,12 +42,14 @@ import javax.xml.bind.annotation.*;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TVeiculo", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "placa",
-        "uf",
-        "rntc"
+    "placa",
+    "uf",
+    "rntc"
 })
 public class TVeiculo {
 
@@ -56,10 +62,12 @@ public class TVeiculo {
     protected String rntc;
 
     /**
-     * Obt�m o valor da propriedade placa.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade placa.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getPlaca() {
         return placa;
@@ -67,19 +75,23 @@ public class TVeiculo {
 
     /**
      * Define o valor da propriedade placa.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setPlaca(String value) {
         this.placa = value;
     }
 
     /**
-     * Obt�m o valor da propriedade uf.
-     *
-     * @return possible object is
-     * {@link TUf }
+     * Obtm o valor da propriedade uf.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TUf }
+     *     
      */
     public TUf getUF() {
         return uf;
@@ -87,19 +99,23 @@ public class TVeiculo {
 
     /**
      * Define o valor da propriedade uf.
-     *
-     * @param value allowed object is
-     *              {@link TUf }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TUf }
+     *     
      */
     public void setUF(TUf value) {
         this.uf = value;
     }
 
     /**
-     * Obt�m o valor da propriedade rntc.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade rntc.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getRNTC() {
         return rntc;
@@ -107,9 +123,11 @@ public class TVeiculo {
 
     /**
      * Define o valor da propriedade rntc.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setRNTC(String value) {
         this.rntc = value;

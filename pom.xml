@@ -58,13 +58,6 @@
             <version>2.0</version>
 		</dependency>
 
-		<!-- MArsheller Cdata -->
-		<dependency>
-			<groupId>com.sun.xml.txw2</groupId>
-			<artifactId>txw2</artifactId>
-			<version>20110809</version>
-		</dependency>
-
 		<!-- Ini4J -->
 		<dependency>
 			<groupId>org.ini4j</groupId>
@@ -76,18 +69,6 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
 			<version>4.4.6</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
 		</dependency>
 
         <!--Java 11-->

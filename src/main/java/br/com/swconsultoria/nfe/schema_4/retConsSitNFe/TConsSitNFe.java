@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Pedido de Consulta da Situa��o Atual da Nota Fiscal Eletr�nica
+ * Tipo Pedido de Consulta da Situao Atual da Nota Fiscal Eletrnica
  * 
  * <p>Classe Java de TConsSitNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TConsSitNFe">
@@ -56,7 +56,7 @@ public class TConsSitNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade tpAmb.
+     * Obtm o valor da propriedade tpAmb.
      * 
      * @return
      *     possible object is
@@ -80,7 +80,7 @@ public class TConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade xServ.
+     * Obtm o valor da propriedade xServ.
      * 
      * @return
      *     possible object is
@@ -104,7 +104,7 @@ public class TConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade chNFe.
+     * Obtm o valor da propriedade chNFe.
      * 
      * @return
      *     possible object is
@@ -128,7 +128,7 @@ public class TConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is

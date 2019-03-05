@@ -47,7 +47,7 @@ public class XmlNfeUtil {
     private static final String EVENTO = "TEnvEvento";
     private static final String TPROCEVENTO = "TProcEvento";
     private static final String TCONSRECINFE = "TConsReciNFe";
-    private static final String TConsCad = "TConsCad";
+    private static final String TCONS_CAD = "TConsCad";
     private static final String TPROCINUT = "TProcInutNFe";
     private static final String RETORNO_ENVIO = "TRetEnviNFe";
     private static final String SITUACAO_NFE_RET = "TRetConsSitNFe";
@@ -58,6 +58,7 @@ public class XmlNfeUtil {
     private static final String RET_INUT_NFE = "TRetInutNFe";
 
     private static final String TPROCCANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento";
+    private static final String TPROCCANCELARSUBST = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento";
     private static final String TPROCCCE = "br.com.swconsultoria.nfe.schema.envcce.TProcEvento";
     private static final String TPROCEPEC = "br.com.swconsultoria.nfe.schema.envEpec.TProcEvento";
 
@@ -67,11 +68,13 @@ public class XmlNfeUtil {
     private static final String TProtReci = "br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe";
 
     private static final String CANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento";
+    private static final String CANCELAR_SUBSTITUICAO = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento";
     private static final String CCE = "br.com.swconsultoria.nfe.schema.envcce.TEnvEvento";
     private static final String EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento";
     private static final String MANIFESTAR = "br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento";
 
     private static final String RET_CANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento";
+    private static final String RET_CANCELAR_SUBSTITUICAO = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento";
     private static final String RET_CCE = "br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento";
     private static final String RET_EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento";
     private static final String RET_MANIFESTAR = "br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento";
@@ -136,7 +139,7 @@ public class XmlNfeUtil {
                 element = new br.com.swconsultoria.nfe.schema_4.consReciNFe.ObjectFactory().createConsReciNFe((TConsReciNFe) obj);
                 break;
 
-            case TConsCad:
+            case TCONS_CAD:
                 context = JAXBContext.newInstance(TConsCad.class);
                 element = new br.com.swconsultoria.nfe.schema.consCad.ObjectFactory().createConsCad((TConsCad) obj);
                 break;
@@ -166,6 +169,10 @@ public class XmlNfeUtil {
                     case TPROCCANCELAR:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento.class);
                         element = new br.com.swconsultoria.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento) obj);
+                        break;
+                    case TPROCCANCELARSUBST:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class);
+                        element = new br.com.swconsultoria.nfe.schema.envEventoCancSubst.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento) obj);
                         break;
                     case TPROCCCE:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envcce.TProcEvento.class);
@@ -200,6 +207,10 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(TEnvEvento.class);
                         element = new br.com.swconsultoria.nfe.schema.envEventoCancNFe.ObjectFactory().createEnvEvento((TEnvEvento) obj);
                         break;
+                    case CANCELAR_SUBSTITUICAO:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento.class);
+                        element = new br.com.swconsultoria.nfe.schema.envEventoCancSubst.ObjectFactory().createEnvEvento((br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento) obj);
+                        break;
                     case CCE:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envcce.TEnvEvento.class);
                         element = new br.com.swconsultoria.nfe.schema.envcce.ObjectFactory().createEnvEvento((br.com.swconsultoria.nfe.schema.envcce.TEnvEvento) obj);
@@ -220,6 +231,10 @@ public class XmlNfeUtil {
                     case RET_CANCELAR:
                         context = JAXBContext.newInstance(TRetEnvEvento.class);
                         element = XsdUtil.retEnvEvento.createTRetEnvEvento((TRetEnvEvento) obj);
+                        break;
+                    case RET_CANCELAR_SUBSTITUICAO:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class);
+                        element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento) obj);
                         break;
                     case RET_CCE:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento.class);

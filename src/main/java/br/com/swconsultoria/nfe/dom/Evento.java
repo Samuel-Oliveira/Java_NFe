@@ -14,6 +14,7 @@ public class Evento {
     private String protocolo;
     private String motivo;
     private String cnpj;
+    private String chaveSusbstituta;
     private LocalDateTime dataEvento;
     private int sequencia;
     private ManifestacaoEnum tipoManifestacao;
@@ -81,5 +82,13 @@ public class Evento {
 
     public void setEventoEpec(EventoEpec eventoEpec) {
         this.eventoEpec = eventoEpec;
+    }
+
+    public String getChaveSusbstituta() {
+        return chaveSusbstituta;
+    }
+
+    public void setChaveSusbstituta(String chaveSusbstituta) {
+        this.chaveSusbstituta = chaveSusbstituta;
     }
 }

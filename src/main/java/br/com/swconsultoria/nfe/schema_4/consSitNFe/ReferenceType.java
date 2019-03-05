@@ -1,16 +1,22 @@
 
 package br.com.swconsultoria.nfe.schema_4.consSitNFe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
  * <p>Classe Java de ReferenceType complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conteedo esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="ReferenceType">
  *   &lt;complexContent>
@@ -41,12 +47,14 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ReferenceType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
-        "transforms",
-        "digestMethod",
-        "digestValue"
+    "transforms",
+    "digestMethod",
+    "digestValue"
 })
 public class ReferenceType {
 
@@ -68,10 +76,12 @@ public class ReferenceType {
     protected String type;
 
     /**
-     * Obtem o valor da propriedade transforms.
-     *
-     * @return possible object is
-     * {@link TransformsType }
+     * Obtm o valor da propriedade transforms.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TransformsType }
+     *     
      */
     public TransformsType getTransforms() {
         return transforms;
@@ -79,19 +89,23 @@ public class ReferenceType {
 
     /**
      * Define o valor da propriedade transforms.
-     *
-     * @param value allowed object is
-     *              {@link TransformsType }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TransformsType }
+     *     
      */
     public void setTransforms(TransformsType value) {
         this.transforms = value;
     }
 
     /**
-     * Obtem o valor da propriedade digestMethod.
-     *
-     * @return possible object is
-     * {@link ReferenceType.DigestMethod }
+     * Obtm o valor da propriedade digestMethod.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ReferenceType.DigestMethod }
+     *     
      */
     public ReferenceType.DigestMethod getDigestMethod() {
         return digestMethod;
@@ -99,19 +113,22 @@ public class ReferenceType {
 
     /**
      * Define o valor da propriedade digestMethod.
-     *
-     * @param value allowed object is
-     *              {@link ReferenceType.DigestMethod }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ReferenceType.DigestMethod }
+     *     
      */
     public void setDigestMethod(ReferenceType.DigestMethod value) {
         this.digestMethod = value;
     }
 
     /**
-     * Obt�m o valor da propriedade digestValue.
-     *
-     * @return possible object is
-     * byte[]
+     * Obtm o valor da propriedade digestValue.
+     * 
+     * @return
+     *     possible object is
+     *     byte[]
      */
     public byte[] getDigestValue() {
         return digestValue;
@@ -119,19 +136,22 @@ public class ReferenceType {
 
     /**
      * Define o valor da propriedade digestValue.
-     *
-     * @param value allowed object is
-     *              byte[]
+     * 
+     * @param value
+     *     allowed object is
+     *     byte[]
      */
     public void setDigestValue(byte[] value) {
         this.digestValue = value;
     }
 
     /**
-     * Obt�m o valor da propriedade id.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade id.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getId() {
         return id;
@@ -139,19 +159,23 @@ public class ReferenceType {
 
     /**
      * Define o valor da propriedade id.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setId(String value) {
         this.id = value;
     }
 
     /**
-     * Obt�m o valor da propriedade uri.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade uri.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getURI() {
         return uri;
@@ -159,19 +183,23 @@ public class ReferenceType {
 
     /**
      * Define o valor da propriedade uri.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setURI(String value) {
         this.uri = value;
     }
 
     /**
-     * Obt�m o valor da propriedade type.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade type.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getType() {
         return type;
@@ -179,9 +207,11 @@ public class ReferenceType {
 
     /**
      * Define o valor da propriedade type.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setType(String value) {
         this.type = value;
@@ -190,9 +220,9 @@ public class ReferenceType {
 
     /**
      * <p>Classe Java de anonymous complex type.
-     *
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
-     *
+     * 
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * 
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -202,6 +232,8 @@ public class ReferenceType {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
@@ -212,10 +244,12 @@ public class ReferenceType {
         protected String algorithm;
 
         /**
-         * Obt�m o valor da propriedade algorithm.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtm o valor da propriedade algorithm.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getAlgorithm() {
             if (algorithm == null) {
@@ -227,9 +261,11 @@ public class ReferenceType {
 
         /**
          * Define o valor da propriedade algorithm.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setAlgorithm(String value) {
             this.algorithm = value;

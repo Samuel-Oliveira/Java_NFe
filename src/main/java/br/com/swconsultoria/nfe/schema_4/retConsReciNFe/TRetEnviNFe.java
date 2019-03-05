@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Retorno do Pedido de Autoriza��o da Nota Fiscal Eletr�nica
+ * Tipo Retorno do Pedido de Autorizao da Nota Fiscal Eletrnica
  * 
  * <p>Classe Java de TRetEnviNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TRetEnviNFe">
@@ -83,7 +83,7 @@ public class TRetEnviNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade tpAmb.
+     * Obtm o valor da propriedade tpAmb.
      * 
      * @return
      *     possible object is
@@ -107,7 +107,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade verAplic.
+     * Obtm o valor da propriedade verAplic.
      * 
      * @return
      *     possible object is
@@ -131,7 +131,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade cStat.
+     * Obtm o valor da propriedade cStat.
      * 
      * @return
      *     possible object is
@@ -155,7 +155,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade xMotivo.
+     * Obtm o valor da propriedade xMotivo.
      * 
      * @return
      *     possible object is
@@ -179,7 +179,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade cuf.
+     * Obtm o valor da propriedade cuf.
      * 
      * @return
      *     possible object is
@@ -203,7 +203,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade dhRecbto.
+     * Obtm o valor da propriedade dhRecbto.
      * 
      * @return
      *     possible object is
@@ -227,7 +227,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade infRec.
+     * Obtm o valor da propriedade infRec.
      * 
      * @return
      *     possible object is
@@ -251,7 +251,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade protNFe.
+     * Obtm o valor da propriedade protNFe.
      * 
      * @return
      *     possible object is
@@ -275,7 +275,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -302,7 +302,7 @@ public class TRetEnviNFe {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -332,7 +332,7 @@ public class TRetEnviNFe {
         protected String tMed;
 
         /**
-         * Obt�m o valor da propriedade nRec.
+         * Obtm o valor da propriedade nRec.
          * 
          * @return
          *     possible object is
@@ -356,7 +356,7 @@ public class TRetEnviNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade tMed.
+         * Obtm o valor da propriedade tMed.
          * 
          * @return
          *     possible object is

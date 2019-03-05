@@ -7,6 +7,7 @@ package br.com.swconsultoria.nfe.dom.enuns;
 public enum EventosEnum {
 
     CANCELAMENTO("110111"),
+    CANCELAMENTO_SUBSTITUICAO("110112"),
     CCE("110110"),
     MANIFESTACAO("000000"),
     EPEC("110140");

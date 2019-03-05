@@ -1,18 +1,22 @@
 
 package br.com.swconsultoria.nfe.schema_4.consReciNFe;
 
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Retorno do Pedido de  Consulta do Recido do Lote de Notas Fiscais Eletr�nicas
- *
+ * Tipo Retorno do Pedido de  Consulta do Recido do Lote de Notas Fiscais Eletrnicas
+ * 
  * <p>Classe Java de TRetConsReciNFe complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="TRetConsReciNFe">
  *   &lt;complexContent>
@@ -50,19 +54,21 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TRetConsReciNFe", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "tpAmb",
-        "verAplic",
-        "nRec",
-        "cStat",
-        "xMotivo",
-        "cuf",
-        "dhRecbto",
-        "cMsg",
-        "xMsg",
-        "protNFe"
+    "tpAmb",
+    "verAplic",
+    "nRec",
+    "cStat",
+    "xMotivo",
+    "cuf",
+    "dhRecbto",
+    "cMsg",
+    "xMsg",
+    "protNFe"
 })
 public class TRetConsReciNFe {
 
@@ -90,10 +96,12 @@ public class TRetConsReciNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade tpAmb.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade tpAmb.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getTpAmb() {
         return tpAmb;
@@ -101,19 +109,23 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade tpAmb.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setTpAmb(String value) {
         this.tpAmb = value;
     }
 
     /**
-     * Obt�m o valor da propriedade verAplic.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade verAplic.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVerAplic() {
         return verAplic;
@@ -121,19 +133,23 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade verAplic.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVerAplic(String value) {
         this.verAplic = value;
     }
 
     /**
-     * Obt�m o valor da propriedade nRec.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade nRec.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getNRec() {
         return nRec;
@@ -141,19 +157,23 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade nRec.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setNRec(String value) {
         this.nRec = value;
     }
 
     /**
-     * Obt�m o valor da propriedade cStat.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade cStat.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCStat() {
         return cStat;
@@ -161,19 +181,23 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade cStat.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCStat(String value) {
         this.cStat = value;
     }
 
     /**
-     * Obt�m o valor da propriedade xMotivo.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade xMotivo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getXMotivo() {
         return xMotivo;
@@ -181,19 +205,23 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade xMotivo.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setXMotivo(String value) {
         this.xMotivo = value;
     }
 
     /**
-     * Obt�m o valor da propriedade cuf.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade cuf.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCUF() {
         return cuf;
@@ -201,19 +229,23 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade cuf.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCUF(String value) {
         this.cuf = value;
     }
 
     /**
-     * Obt�m o valor da propriedade dhRecbto.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade dhRecbto.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getDhRecbto() {
         return dhRecbto;
@@ -221,19 +253,23 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade dhRecbto.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setDhRecbto(String value) {
         this.dhRecbto = value;
     }
 
     /**
-     * Obt�m o valor da propriedade cMsg.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade cMsg.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCMsg() {
         return cMsg;
@@ -241,19 +277,23 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade cMsg.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCMsg(String value) {
         this.cMsg = value;
     }
 
     /**
-     * Obt�m o valor da propriedade xMsg.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade xMsg.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getXMsg() {
         return xMsg;
@@ -261,9 +301,11 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade xMsg.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setXMsg(String value) {
         this.xMsg = value;
@@ -271,23 +313,25 @@ public class TRetConsReciNFe {
 
     /**
      * Gets the value of the protNFe property.
-     *
+     * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the protNFe property.
-     *
+     * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getProtNFe().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link TProtNFe }
+     * 
+     * 
      */
     public List<TProtNFe> getProtNFe() {
         if (protNFe == null) {
@@ -297,10 +341,12 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade versao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVersao() {
         return versao;
@@ -308,9 +354,11 @@ public class TRetConsReciNFe {
 
     /**
      * Define o valor da propriedade versao.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;

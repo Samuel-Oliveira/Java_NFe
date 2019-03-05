@@ -1,16 +1,22 @@
 
 package br.com.swconsultoria.nfe.schema_4.consSitNFe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
  * <p>Classe Java de SignatureValueType complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="SignatureValueType">
  *   &lt;simpleContent>
@@ -20,10 +26,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SignatureValueType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
-        "value"
+    "value"
 })
 public class SignatureValueType {
 
@@ -36,10 +44,11 @@ public class SignatureValueType {
     protected String id;
 
     /**
-     * Obt�m o valor da propriedade value.
-     *
-     * @return possible object is
-     * byte[]
+     * Obtm o valor da propriedade value.
+     * 
+     * @return
+     *     possible object is
+     *     byte[]
      */
     public byte[] getValue() {
         return value;
@@ -47,19 +56,22 @@ public class SignatureValueType {
 
     /**
      * Define o valor da propriedade value.
-     *
-     * @param value allowed object is
-     *              byte[]
+     * 
+     * @param value
+     *     allowed object is
+     *     byte[]
      */
     public void setValue(byte[] value) {
         this.value = value;
     }
 
     /**
-     * Obt�m o valor da propriedade id.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade id.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getId() {
         return id;
@@ -67,9 +79,11 @@ public class SignatureValueType {
 
     /**
      * Define o valor da propriedade id.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setId(String value) {
         this.id = value;

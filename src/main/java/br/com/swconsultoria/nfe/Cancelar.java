@@ -34,4 +34,23 @@ class Cancelar {
 
 	}
 
+	static br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento eventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento enviEvento, boolean valida)
+			throws NfeException {
+
+		try {
+
+			String xml = XmlNfeUtil.objectToXml(enviEvento);
+			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
+			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
+
+			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO_SUBSTITUICAO, valida, DocumentoEnum.NFCE);
+
+			return XmlNfeUtil.xmlToObject(xml, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class);
+
+		} catch (JAXBException e) {
+			throw new NfeException(e.getMessage());
+		}
+
+	}
+
 }

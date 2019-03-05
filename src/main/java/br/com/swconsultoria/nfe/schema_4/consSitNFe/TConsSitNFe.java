@@ -1,16 +1,20 @@
 
 package br.com.swconsultoria.nfe.schema_4.consSitNFe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Pedido de Consulta da Situa��o Atual da Nota Fiscal Eletr�nica
- *
+ * Tipo Pedido de Consulta da Situao Atual da Nota Fiscal Eletrnica
+ * 
  * <p>Classe Java de TConsSitNFe complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="TConsSitNFe">
  *   &lt;complexContent>
@@ -31,12 +35,14 @@ import javax.xml.bind.annotation.*;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TConsSitNFe", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "tpAmb",
-        "xServ",
-        "chNFe"
+    "tpAmb",
+    "xServ",
+    "chNFe"
 })
 public class TConsSitNFe {
 
@@ -50,10 +56,12 @@ public class TConsSitNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade tpAmb.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade tpAmb.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getTpAmb() {
         return tpAmb;
@@ -61,19 +69,23 @@ public class TConsSitNFe {
 
     /**
      * Define o valor da propriedade tpAmb.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setTpAmb(String value) {
         this.tpAmb = value;
     }
 
     /**
-     * Obt�m o valor da propriedade xServ.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade xServ.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getXServ() {
         return xServ;
@@ -81,19 +93,23 @@ public class TConsSitNFe {
 
     /**
      * Define o valor da propriedade xServ.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setXServ(String value) {
         this.xServ = value;
     }
 
     /**
-     * Obt�m o valor da propriedade chNFe.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade chNFe.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getChNFe() {
         return chNFe;
@@ -101,19 +117,23 @@ public class TConsSitNFe {
 
     /**
      * Define o valor da propriedade chNFe.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setChNFe(String value) {
         this.chNFe = value;
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade versao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVersao() {
         return versao;
@@ -121,9 +141,11 @@ public class TConsSitNFe {
 
     /**
      * Define o valor da propriedade versao.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;

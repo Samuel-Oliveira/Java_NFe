@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * <p>Classe Java de SignedInfoType complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="SignedInfoType">
@@ -71,7 +71,7 @@ public class SignedInfoType {
     protected String id;
 
     /**
-     * Obt�m o valor da propriedade canonicalizationMethod.
+     * Obtm o valor da propriedade canonicalizationMethod.
      * 
      * @return
      *     possible object is
@@ -95,7 +95,7 @@ public class SignedInfoType {
     }
 
     /**
-     * Obt�m o valor da propriedade signatureMethod.
+     * Obtm o valor da propriedade signatureMethod.
      * 
      * @return
      *     possible object is
@@ -119,7 +119,7 @@ public class SignedInfoType {
     }
 
     /**
-     * Obt�m o valor da propriedade reference.
+     * Obtm o valor da propriedade reference.
      * 
      * @return
      *     possible object is
@@ -143,7 +143,7 @@ public class SignedInfoType {
     }
 
     /**
-     * Obt�m o valor da propriedade id.
+     * Obtm o valor da propriedade id.
      * 
      * @return
      *     possible object is
@@ -170,7 +170,7 @@ public class SignedInfoType {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -193,7 +193,7 @@ public class SignedInfoType {
         protected String algorithm;
 
         /**
-         * Obt�m o valor da propriedade algorithm.
+         * Obtm o valor da propriedade algorithm.
          * 
          * @return
          *     possible object is
@@ -226,7 +226,7 @@ public class SignedInfoType {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -249,7 +249,7 @@ public class SignedInfoType {
         protected String algorithm;
 
         /**
-         * Obt�m o valor da propriedade algorithm.
+         * Obtm o valor da propriedade algorithm.
          * 
          * @return
          *     possible object is

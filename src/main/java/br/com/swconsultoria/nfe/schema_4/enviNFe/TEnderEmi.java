@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Dados do Endere�o do Emitente  // 24/10/08 - desmembrado / tamanho m�nimo
+ * Tipo Dados do Endereo do Emitente  // 24/10/08 - desmembrado / tamanho mnimo
  * 
  * <p>Classe Java de TEnderEmi complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TEnderEmi">
@@ -142,7 +142,7 @@ public class TEnderEmi {
     protected String fone;
 
     /**
-     * Obt�m o valor da propriedade xLgr.
+     * Obtm o valor da propriedade xLgr.
      * 
      * @return
      *     possible object is
@@ -166,7 +166,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade nro.
+     * Obtm o valor da propriedade nro.
      * 
      * @return
      *     possible object is
@@ -190,7 +190,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade xCpl.
+     * Obtm o valor da propriedade xCpl.
      * 
      * @return
      *     possible object is
@@ -214,7 +214,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade xBairro.
+     * Obtm o valor da propriedade xBairro.
      * 
      * @return
      *     possible object is
@@ -238,7 +238,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade cMun.
+     * Obtm o valor da propriedade cMun.
      * 
      * @return
      *     possible object is
@@ -262,7 +262,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade xMun.
+     * Obtm o valor da propriedade xMun.
      * 
      * @return
      *     possible object is
@@ -286,7 +286,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade uf.
+     * Obtm o valor da propriedade uf.
      * 
      * @return
      *     possible object is
@@ -310,7 +310,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade cep.
+     * Obtm o valor da propriedade cep.
      * 
      * @return
      *     possible object is
@@ -334,7 +334,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade cPais.
+     * Obtm o valor da propriedade cPais.
      * 
      * @return
      *     possible object is
@@ -358,7 +358,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade xPais.
+     * Obtm o valor da propriedade xPais.
      * 
      * @return
      *     possible object is
@@ -382,7 +382,7 @@ public class TEnderEmi {
     }
 
     /**
-     * Obt�m o valor da propriedade fone.
+     * Obtm o valor da propriedade fone.
      * 
      * @return
      *     possible object is

@@ -85,6 +85,11 @@ public class XsdUtil {
             return new JAXBElement<br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento.class, value);
         }
 
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnvEvento", scope = br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento value) {
+            return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class, value);
+        }
+
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnvEvento", scope = br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento value) {
             return new JAXBElement<br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento.class, value);

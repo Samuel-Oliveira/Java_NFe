@@ -3,7 +3,7 @@
 	<xs:include schemaLocation="leiauteConfRecebto_v1.00.xsd"/>
 	<xs:element name="retEnvEvento" type="TRetEnvEvento">
 		<xs:annotation>
-			<xs:documentation>Schema XML de Retorno da envio do Evento Confirmação de Recebimento</xs:documentation>
+			<xs:documentation>Schema XML de Retorno da envio do Evento Confirmao de Recebimento</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 </xs:schema>

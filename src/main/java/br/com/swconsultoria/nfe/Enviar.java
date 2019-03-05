@@ -3,6 +3,7 @@ package br.com.swconsultoria.nfe;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
+import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
@@ -54,6 +55,8 @@ class Enviar {
              */
             xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.NFE);
 
+            LoggerUtil.log(Enviar.class,"[XML-ASSINADO]: " +xml);
+
             /**
              * Valida o Xml caso sejá selecionado True
              */
@@ -104,6 +107,12 @@ class Enviar {
                 stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT,
                         config.getTimeout());
             }
+
+            //Erro 411 MG
+            if(tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)){
+                stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
+            }
+
             NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
 
             LoggerUtil.log(Enviar.class,"[XML-RETORNO]: " +result.getExtraElement().toString());

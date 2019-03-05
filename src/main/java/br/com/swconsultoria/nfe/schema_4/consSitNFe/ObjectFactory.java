@@ -8,17 +8,18 @@ import javax.xml.namespace.QName;
 
 
 /**
- * This object contains factory methods for each
- * Java content interface and Java element interface
- * generated in the br.inf.portalfiscal.nfe.schema_4.consSitNFe package.
- * <p>An ObjectFactory allows you to programatically
- * construct new instances of the Java representation
- * for XML content. The Java representation of XML
- * content can consist of schema derived interfaces
- * and classes representing the binding of schema
- * type definitions, element declarations and model
- * groups.  Factory methods for each of these are
+ * This object contains factory methods for each 
+ * Java content interface and Java element interface 
+ * generated in the br.com.swconsultoria.nfe.schema_4.consSitNFe package. 
+ * <p>An ObjectFactory allows you to programatically 
+ * construct new instances of the Java representation 
+ * for XML content. The Java representation of XML 
+ * content can consist of schema derived interfaces 
+ * and classes representing the binding of schema 
+ * type definitions, element declarations and model 
+ * groups.  Factory methods for each of these are 
  * provided in this class.
+ * 
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -27,13 +28,15 @@ public class ObjectFactory {
     private final static QName _ConsSitNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "consSitNFe");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.inf.portalfiscal.nfe.schema_4.consSitNFe
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema_4.consSitNFe
+     * 
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link ReferenceType }
+     * 
      */
     public ReferenceType createReferenceType() {
         return new ReferenceType();
@@ -41,6 +44,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SignedInfoType }
+     * 
      */
     public SignedInfoType createSignedInfoType() {
         return new SignedInfoType();
@@ -48,6 +52,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TEvento }
+     * 
      */
     public TEvento createTEvento() {
         return new TEvento();
@@ -55,6 +60,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TEvento.InfEvento }
+     * 
      */
     public TEvento.InfEvento createTEventoInfEvento() {
         return new TEvento.InfEvento();
@@ -62,6 +68,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TProtNFe }
+     * 
      */
     public TProtNFe createTProtNFe() {
         return new TProtNFe();
@@ -69,6 +76,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TRetCancNFe }
+     * 
      */
     public TRetCancNFe createTRetCancNFe() {
         return new TRetCancNFe();
@@ -76,6 +84,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TRetEvento }
+     * 
      */
     public TRetEvento createTRetEvento() {
         return new TRetEvento();
@@ -83,6 +92,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TConsSitNFe }
+     * 
      */
     public TConsSitNFe createTConsSitNFe() {
         return new TConsSitNFe();
@@ -90,6 +100,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TRetConsSitNFe }
+     * 
      */
     public TRetConsSitNFe createTRetConsSitNFe() {
         return new TRetConsSitNFe();
@@ -97,6 +108,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TProcEvento }
+     * 
      */
     public TProcEvento createTProcEvento() {
         return new TProcEvento();
@@ -104,6 +116,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SignatureType }
+     * 
      */
     public SignatureType createSignatureType() {
         return new SignatureType();
@@ -111,6 +124,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link X509DataType }
+     * 
      */
     public X509DataType createX509DataType() {
         return new X509DataType();
@@ -118,6 +132,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SignatureValueType }
+     * 
      */
     public SignatureValueType createSignatureValueType() {
         return new SignatureValueType();
@@ -125,6 +140,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TransformsType }
+     * 
      */
     public TransformsType createTransformsType() {
         return new TransformsType();
@@ -132,6 +148,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TransformType }
+     * 
      */
     public TransformType createTransformType() {
         return new TransformType();
@@ -139,6 +156,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link KeyInfoType }
+     * 
      */
     public KeyInfoType createKeyInfoType() {
         return new KeyInfoType();
@@ -146,6 +164,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ReferenceType.DigestMethod }
+     * 
      */
     public ReferenceType.DigestMethod createReferenceTypeDigestMethod() {
         return new ReferenceType.DigestMethod();
@@ -153,6 +172,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SignedInfoType.CanonicalizationMethod }
+     * 
      */
     public SignedInfoType.CanonicalizationMethod createSignedInfoTypeCanonicalizationMethod() {
         return new SignedInfoType.CanonicalizationMethod();
@@ -160,6 +180,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SignedInfoType.SignatureMethod }
+     * 
      */
     public SignedInfoType.SignatureMethod createSignedInfoTypeSignatureMethod() {
         return new SignedInfoType.SignatureMethod();
@@ -167,6 +188,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TEvento.InfEvento.DetEvento }
+     * 
      */
     public TEvento.InfEvento.DetEvento createTEventoInfEventoDetEvento() {
         return new TEvento.InfEvento.DetEvento();
@@ -174,6 +196,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TProtNFe.InfProt }
+     * 
      */
     public TProtNFe.InfProt createTProtNFeInfProt() {
         return new TProtNFe.InfProt();
@@ -181,6 +204,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TRetCancNFe.InfCanc }
+     * 
      */
     public TRetCancNFe.InfCanc createTRetCancNFeInfCanc() {
         return new TRetCancNFe.InfCanc();
@@ -188,6 +212,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TRetEvento.InfEvento }
+     * 
      */
     public TRetEvento.InfEvento createTRetEventoInfEvento() {
         return new TRetEvento.InfEvento();
@@ -195,6 +220,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2000/09/xmldsig#", name = "Signature")
     public JAXBElement<SignatureType> createSignature(SignatureType value) {
@@ -203,6 +229,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TConsSitNFe }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "consSitNFe")
     public JAXBElement<TConsSitNFe> createConsSitNFe(TConsSitNFe value) {

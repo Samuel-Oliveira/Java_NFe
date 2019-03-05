@@ -14,11 +14,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * Tipo retorno Pedido de Cancelamento da Nota Fiscal Eletr�nica
+ * Tipo retorno Pedido de Cancelamento da Nota Fiscal Eletrnica
  * 
  * <p>Classe Java de TRetCancNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TRetCancNFe">
@@ -69,7 +69,7 @@ public class TRetCancNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade infCanc.
+     * Obtm o valor da propriedade infCanc.
      * 
      * @return
      *     possible object is
@@ -93,7 +93,7 @@ public class TRetCancNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade signature.
+     * Obtm o valor da propriedade signature.
      * 
      * @return
      *     possible object is
@@ -117,7 +117,7 @@ public class TRetCancNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -144,7 +144,7 @@ public class TRetCancNFe {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -205,7 +205,7 @@ public class TRetCancNFe {
         protected String id;
 
         /**
-         * Obt�m o valor da propriedade tpAmb.
+         * Obtm o valor da propriedade tpAmb.
          * 
          * @return
          *     possible object is
@@ -229,7 +229,7 @@ public class TRetCancNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade verAplic.
+         * Obtm o valor da propriedade verAplic.
          * 
          * @return
          *     possible object is
@@ -253,7 +253,7 @@ public class TRetCancNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade cStat.
+         * Obtm o valor da propriedade cStat.
          * 
          * @return
          *     possible object is
@@ -277,7 +277,7 @@ public class TRetCancNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade xMotivo.
+         * Obtm o valor da propriedade xMotivo.
          * 
          * @return
          *     possible object is
@@ -301,7 +301,7 @@ public class TRetCancNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade cuf.
+         * Obtm o valor da propriedade cuf.
          * 
          * @return
          *     possible object is
@@ -325,7 +325,7 @@ public class TRetCancNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade chNFe.
+         * Obtm o valor da propriedade chNFe.
          * 
          * @return
          *     possible object is
@@ -349,7 +349,7 @@ public class TRetCancNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade dhRecbto.
+         * Obtm o valor da propriedade dhRecbto.
          * 
          * @return
          *     possible object is
@@ -373,7 +373,7 @@ public class TRetCancNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade nProt.
+         * Obtm o valor da propriedade nProt.
          * 
          * @return
          *     possible object is
@@ -397,7 +397,7 @@ public class TRetCancNFe {
         }
 
         /**
-         * Obt�m o valor da propriedade id.
+         * Obtm o valor da propriedade id.
          * 
          * @return
          *     possible object is

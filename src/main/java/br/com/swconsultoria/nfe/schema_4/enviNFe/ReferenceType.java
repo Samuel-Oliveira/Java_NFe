@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * <p>Classe Java de ReferenceType complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="ReferenceType">
@@ -76,7 +76,7 @@ public class ReferenceType {
     protected String type;
 
     /**
-     * Obt�m o valor da propriedade transforms.
+     * Obtm o valor da propriedade transforms.
      * 
      * @return
      *     possible object is
@@ -100,7 +100,7 @@ public class ReferenceType {
     }
 
     /**
-     * Obt�m o valor da propriedade digestMethod.
+     * Obtm o valor da propriedade digestMethod.
      * 
      * @return
      *     possible object is
@@ -124,7 +124,7 @@ public class ReferenceType {
     }
 
     /**
-     * Obt�m o valor da propriedade digestValue.
+     * Obtm o valor da propriedade digestValue.
      * 
      * @return
      *     possible object is
@@ -146,7 +146,7 @@ public class ReferenceType {
     }
 
     /**
-     * Obt�m o valor da propriedade id.
+     * Obtm o valor da propriedade id.
      * 
      * @return
      *     possible object is
@@ -170,7 +170,7 @@ public class ReferenceType {
     }
 
     /**
-     * Obt�m o valor da propriedade uri.
+     * Obtm o valor da propriedade uri.
      * 
      * @return
      *     possible object is
@@ -194,7 +194,7 @@ public class ReferenceType {
     }
 
     /**
-     * Obt�m o valor da propriedade type.
+     * Obtm o valor da propriedade type.
      * 
      * @return
      *     possible object is
@@ -221,7 +221,7 @@ public class ReferenceType {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -244,7 +244,7 @@ public class ReferenceType {
         protected String algorithm;
 
         /**
-         * Obt�m o valor da propriedade algorithm.
+         * Obtm o valor da propriedade algorithm.
          * 
          * @return
          *     possible object is

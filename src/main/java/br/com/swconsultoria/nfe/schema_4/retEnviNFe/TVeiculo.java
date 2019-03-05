@@ -1,15 +1,19 @@
 
 package br.com.swconsultoria.nfe.schema_4.retEnviNFe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Dados do Ve�culo
+ * Tipo Dados do Veculo
  * 
  * <p>Classe Java de TVeiculo complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TVeiculo">
@@ -58,7 +62,7 @@ public class TVeiculo {
     protected String rntc;
 
     /**
-     * Obt�m o valor da propriedade placa.
+     * Obtm o valor da propriedade placa.
      * 
      * @return
      *     possible object is
@@ -82,7 +86,7 @@ public class TVeiculo {
     }
 
     /**
-     * Obt�m o valor da propriedade uf.
+     * Obtm o valor da propriedade uf.
      * 
      * @return
      *     possible object is
@@ -106,7 +110,7 @@ public class TVeiculo {
     }
 
     /**
-     * Obt�m o valor da propriedade rntc.
+     * Obtm o valor da propriedade rntc.
      * 
      * @return
      *     possible object is

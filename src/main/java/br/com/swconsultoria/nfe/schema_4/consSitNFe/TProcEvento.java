@@ -1,16 +1,20 @@
 
 package br.com.swconsultoria.nfe.schema_4.consSitNFe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
  * Tipo procEvento
- *
+ * 
  * <p>Classe Java de TProcEvento complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * 
  * <pre>
  * &lt;complexType name="TProcEvento">
  *   &lt;complexContent>
@@ -24,11 +28,13 @@ import javax.xml.bind.annotation.*;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TProcEvento", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "evento",
-        "retEvento"
+    "evento",
+    "retEvento"
 })
 public class TProcEvento {
 
@@ -40,10 +46,12 @@ public class TProcEvento {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade evento.
-     *
-     * @return possible object is
-     * {@link TEvento }
+     * Obtm o valor da propriedade evento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TEvento }
+     *     
      */
     public TEvento getEvento() {
         return evento;
@@ -51,19 +59,23 @@ public class TProcEvento {
 
     /**
      * Define o valor da propriedade evento.
-     *
-     * @param value allowed object is
-     *              {@link TEvento }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TEvento }
+     *     
      */
     public void setEvento(TEvento value) {
         this.evento = value;
     }
 
     /**
-     * Obt�m o valor da propriedade retEvento.
-     *
-     * @return possible object is
-     * {@link TRetEvento }
+     * Obtm o valor da propriedade retEvento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TRetEvento }
+     *     
      */
     public TRetEvento getRetEvento() {
         return retEvento;
@@ -71,19 +83,23 @@ public class TProcEvento {
 
     /**
      * Define o valor da propriedade retEvento.
-     *
-     * @param value allowed object is
-     *              {@link TRetEvento }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TRetEvento }
+     *     
      */
     public void setRetEvento(TRetEvento value) {
         this.retEvento = value;
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtm o valor da propriedade versao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVersao() {
         return versao;
@@ -91,9 +107,11 @@ public class TProcEvento {
 
     /**
      * Define o valor da propriedade versao.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;

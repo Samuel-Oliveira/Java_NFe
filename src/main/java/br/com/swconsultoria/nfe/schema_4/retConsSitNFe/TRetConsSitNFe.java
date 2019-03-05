@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Retorno de Pedido de Consulta da Situa��o Atual da Nota Fiscal Eletr�nica 
+ * Tipo Retorno de Pedido de Consulta da Situao Atual da Nota Fiscal Eletrnica
  * 
  * <p>Classe Java de TRetConsSitNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conte�do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TRetConsSitNFe">
@@ -80,7 +80,7 @@ public class TRetConsSitNFe {
     protected String versao;
 
     /**
-     * Obt�m o valor da propriedade tpAmb.
+     * Obtm o valor da propriedade tpAmb.
      * 
      * @return
      *     possible object is
@@ -104,7 +104,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade verAplic.
+     * Obtm o valor da propriedade verAplic.
      * 
      * @return
      *     possible object is
@@ -128,7 +128,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade cStat.
+     * Obtm o valor da propriedade cStat.
      * 
      * @return
      *     possible object is
@@ -152,7 +152,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade xMotivo.
+     * Obtm o valor da propriedade xMotivo.
      * 
      * @return
      *     possible object is
@@ -176,7 +176,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade cuf.
+     * Obtm o valor da propriedade cuf.
      * 
      * @return
      *     possible object is
@@ -200,7 +200,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade dhRecbto.
+     * Obtm o valor da propriedade dhRecbto.
      * 
      * @return
      *     possible object is
@@ -224,7 +224,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade chNFe.
+     * Obtm o valor da propriedade chNFe.
      * 
      * @return
      *     possible object is
@@ -248,7 +248,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade protNFe.
+     * Obtm o valor da propriedade protNFe.
      * 
      * @return
      *     possible object is
@@ -272,7 +272,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade retCancNFe.
+     * Obtm o valor da propriedade retCancNFe.
      * 
      * @return
      *     possible object is
@@ -325,7 +325,7 @@ public class TRetConsSitNFe {
     }
 
     /**
-     * Obt�m o valor da propriedade versao.
+     * Obtm o valor da propriedade versao.
      * 
      * @return
      *     possible object is

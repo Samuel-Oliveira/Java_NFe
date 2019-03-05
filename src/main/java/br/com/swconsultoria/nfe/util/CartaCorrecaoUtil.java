@@ -10,7 +10,6 @@ import br.com.swconsultoria.nfe.schema.envcce.TEnvEvento;
 import br.com.swconsultoria.nfe.schema.envcce.TEvento;
 import br.com.swconsultoria.nfe.schema.envcce.TProcEvento;
 import br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento;
-import com.sun.istack.internal.NotNull;
 
 import javax.xml.bind.JAXBException;
 import java.util.Collections;
@@ -40,7 +39,7 @@ public class CartaCorrecaoUtil {
      * @return
      * @throws NfeException
      */
-    public static TEnvEvento montaCCe(@NotNull List<Evento> listaCCe, ConfiguracoesNfe configuracao) throws NfeException {
+    public static TEnvEvento montaCCe(List<Evento> listaCCe, ConfiguracoesNfe configuracao) throws NfeException {
 
         if (listaCCe.size() > 20) {
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
