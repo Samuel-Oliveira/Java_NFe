@@ -34,7 +34,7 @@ public class InutilizacaoUtil {
     public static TInutNFe montaInutilizacao(DocumentoEnum tipoDocumento, String cnpj, int serie, int numeroInicial, int numeroFinal, String justificativa, LocalDateTime dataInutilizacao, ConfiguracoesNfe configuracao){
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy");
-        String cUf = configuracao.getEstado().getCodigoIbge();
+        String cUf = configuracao.getEstado().getCodigoUF();
         String ano = dataInutilizacao.format(formatter);
         String serieCompleta = ChaveUtil.completarComZerosAEsquerda(String.valueOf(serie), 3);
         String nInicial = ChaveUtil.completarComZerosAEsquerda(String.valueOf(numeroInicial), 9);

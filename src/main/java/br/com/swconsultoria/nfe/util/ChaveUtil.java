@@ -23,7 +23,7 @@ public class ChaveUtil {
      */
     public ChaveUtil(EstadosEnum estado, String cnpj, String modelo, int serie, int numeroNf, String tipoEmissao, String codigoNf, LocalDateTime dataEmissao) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMM");
-        String cUf = estado.getCodigoIbge();
+        String cUf = estado.getCodigoUF();
         String aamm = dataEmissao.format(formatter);
         String serie1 = completarComZerosAEsquerda(String.valueOf(serie), 3);
         String nNf = completarComZerosAEsquerda(String.valueOf(numeroNf), 9);

@@ -40,7 +40,7 @@ class DistribuicaoDFe {
 			DistDFeInt distDFeInt = new DistDFeInt();
 			distDFeInt.setVersao(ConstantesUtil.VERSAO.DIST_DFE);
 			distDFeInt.setTpAmb(config.getAmbiente().getCodigo());
-			distDFeInt.setCUFAutor(config.getEstado().getCodigoIbge());
+            distDFeInt.setCUFAutor(config.getEstado().getCodigoUF());
 
 			if (PessoaEnum.JURIDICA.equals(tipoPessoa)) {
 				distDFeInt.setCNPJ(cpfCnpj);

@@ -67,7 +67,7 @@ class Status {
 
                 TConsStatServ consStatServ = new TConsStatServ();
                 consStatServ.setTpAmb(config.getAmbiente().getCodigo());
-                consStatServ.setCUF(config.getEstado().getCodigoIbge());
+                consStatServ.setCUF(config.getEstado().getCodigoUF());
                 consStatServ.setVersao(ConstantesUtil.VERSAO.NFE);
                 consStatServ.setXServ("STATUS");
                 String xml = XmlNfeUtil.objectToXml(consStatServ);

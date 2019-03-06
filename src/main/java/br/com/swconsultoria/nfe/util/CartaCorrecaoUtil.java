@@ -58,7 +58,7 @@ public class CartaCorrecaoUtil {
 
             TEvento.InfEvento infEvento = new TEvento.InfEvento();
             infEvento.setId(id);
-            infEvento.setCOrgao(configuracao.getEstado().getCodigoIbge());
+            infEvento.setCOrgao(configuracao.getEstado().getCodigoUF());
             infEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
 
             infEvento.setCNPJ(cce.getCnpj());

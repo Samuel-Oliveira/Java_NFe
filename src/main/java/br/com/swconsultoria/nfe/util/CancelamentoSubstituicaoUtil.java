@@ -57,7 +57,7 @@ public class CancelamentoSubstituicaoUtil {
 
             TEvento.InfEvento infoEvento = new TEvento.InfEvento();
             infoEvento.setId(id);
-            infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoIbge()));
+            infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoUF()));
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
             infoEvento.setCNPJ(evento.getCnpj());
             infoEvento.setChNFe(evento.getChave());
@@ -70,7 +70,7 @@ public class CancelamentoSubstituicaoUtil {
             TEvento.InfEvento.DetEvento detEvento = new TEvento.InfEvento.DetEvento();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO_SUBSTIUICAO);
             detEvento.setDescEvento("Cancelamento por substituicao");
-            detEvento.setCOrgaoAutor(String.valueOf(configuracao.getEstado().getCodigoIbge()));
+            detEvento.setCOrgaoAutor(String.valueOf(configuracao.getEstado().getCodigoUF()));
             detEvento.setTpAutor("1");
             detEvento.setVerAplic(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO_SUBSTIUICAO);
             detEvento.setNProt(evento.getProtocolo());

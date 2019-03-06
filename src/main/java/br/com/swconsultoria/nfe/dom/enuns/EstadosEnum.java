@@ -5,11 +5,7 @@ package br.com.swconsultoria.nfe.dom.enuns;
 
 /**
  * @author Samuel Oliveira
- *
- */
-/**
  * enuns que contém todos os estados brasileiros.
- * @author Jerônimo Nunes Rocha
  *
  */
 public enum EstadosEnum {
@@ -42,11 +38,11 @@ public enum EstadosEnum {
 	GO("52","Goiás"),
 	DF("53","Distrito Federal");
 
-	private final String codigoIbge;
+    private final String codigoUF;
 	private final String nome;
 
-    EstadosEnum(String codigoIbge, String nome) {
-		this.codigoIbge = codigoIbge;
+    EstadosEnum(String codigoUF, String nome) {
+        this.codigoUF = codigoUF;
 		this.nome = nome;
 	}
 	
@@ -54,14 +50,14 @@ public enum EstadosEnum {
 		return nome;
 	}
 	
-	public String getCodigoIbge(){
-		return codigoIbge;
-	}
-
     public static EstadosEnum getByCodigoIbge(String codigo) {
         for (EstadosEnum e : values()) {
-            if (e.codigoIbge.equals(codigo)) return e;
+            if (e.codigoUF.equals(codigo)) return e;
         }
         throw new IllegalArgumentException();
+    }
+
+    public String getCodigoUF() {
+        return codigoUF;
     }
 }

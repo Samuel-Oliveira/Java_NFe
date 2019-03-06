@@ -57,7 +57,7 @@ public class EpecUtil {
 
             TEvento.InfEvento infoEvento = new TEvento.InfEvento();
             infoEvento.setId(id);
-            infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoIbge()));
+            infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoUF()));
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
             infoEvento.setCNPJ(epec.getCnpj());
             infoEvento.setChNFe(epec.getChave());
@@ -69,7 +69,7 @@ public class EpecUtil {
             TEvento.InfEvento.DetEvento detEvento = new TEvento.InfEvento.DetEvento();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_EPEC);
             detEvento.setDescEvento("EPEC");
-            detEvento.setCOrgaoAutor(configuracao.getEstado().getCodigoIbge());
+            detEvento.setCOrgaoAutor(configuracao.getEstado().getCodigoUF());
             detEvento.setTpAutor("1");
             detEvento.setVerAplic("1.0.0");
             detEvento.setDhEmi(XmlNfeUtil.dataNfe(epec.getDataEvento()));
