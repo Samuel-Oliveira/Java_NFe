@@ -60,19 +60,23 @@ public class WebServiceUtil {
             ini.load(is);
             String url = ini.get(secao, "usar");
 
-            // URLS CONSULTA CADASTO
-            if (tipoServico.equals(ServicosEnum.CONSULTA_CADASTRO)) {
-                if (config.getEstado().equals(EstadosEnum.AC) || config.getEstado().equals(EstadosEnum.RN)
-                        || config.getEstado().equals(EstadosEnum.PB) || config.getEstado().equals(EstadosEnum.SC)) {
-                    secao = DocumentoEnum.NFE.getTipo() + "_SVRS_"
-                            + (config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "H" : "P");
-                } else {
-
-                    secao = DocumentoEnum.NFE.getTipo() + "_" + config.getEstado() + "_"
-                            + (config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "H" : "P");
-                }
-            // URLS de ambiente nacional
-            }else if (tipoServico.equals(ServicosEnum.DISTRIBUICAO_DFE)
+            //URLS CONSULTA CADASTO
+            if (tipoServico.equals(ServicosEnum.CONSULTA_CADASTRO) && (
+                    config.getEstado().equals(EstadosEnum.PA) ||
+                            config.getEstado().equals(EstadosEnum.MA) ||
+                            config.getEstado().equals(EstadosEnum.AM) ||
+                            config.getEstado().equals(EstadosEnum.AL) ||
+                            config.getEstado().equals(EstadosEnum.AP) ||
+                            config.getEstado().equals(EstadosEnum.DF) ||
+                            config.getEstado().equals(EstadosEnum.PI) ||
+                            config.getEstado().equals(EstadosEnum.ES) ||
+                            config.getEstado().equals(EstadosEnum.RJ) ||
+                            config.getEstado().equals(EstadosEnum.RO) ||
+                            config.getEstado().equals(EstadosEnum.SE) ||
+                            config.getEstado().equals(EstadosEnum.TO))) {
+                throw new NfeException("Estado não possui Consulta Cadastro.");
+                // URLS de ambiente nacional
+            } else if (tipoServico.equals(ServicosEnum.DISTRIBUICAO_DFE)
                     || tipoServico.equals(ServicosEnum.MANIFESTACAO)) {
                 secao = config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "NFe_AN_H" : "NFe_AN_P";
 
@@ -101,7 +105,7 @@ public class WebServiceUtil {
             ObjetoUtil.verifica(url).orElseThrow(() -> new NfeException(
                     "WebService de " + tipoServico + " não encontrado para " + config.getEstado().getNome()));
 
-            LoggerUtil.log(WebServiceUtil.class,"[URL]: " +tipoServico+": " + url);
+            LoggerUtil.log(WebServiceUtil.class, "[URL]: " + tipoServico + ": " + url);
 
             return url;
 

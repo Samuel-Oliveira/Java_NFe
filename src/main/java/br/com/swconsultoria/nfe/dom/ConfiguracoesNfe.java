@@ -37,10 +37,6 @@ public class ConfiguracoesNfe {
     private Integer timeout;
     private boolean contigenciaSCAN;
 
-    // Construtor Singleton
-    private ConfiguracoesNfe() {
-    }
-
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a 
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
@@ -126,7 +122,7 @@ public class ConfiguracoesNfe {
      * @param ambiente
      * @see ConstantesUtil
      */
-    private void setAmbiente(AmbienteEnum ambiente) {
+    public void setAmbiente(AmbienteEnum ambiente) {
         this.ambiente = ambiente;
     }
 
@@ -182,7 +178,7 @@ public class ConfiguracoesNfe {
      * @param estado estado
      * @see EstadosEnum
      */
-    private void setEstado(EstadosEnum estado) {
+    public void setEstado(EstadosEnum estado) {
         this.estado = estado;
     }
 

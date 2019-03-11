@@ -88,13 +88,6 @@
             <version>2.3.0.1</version>
         </dependency>
 
-        <!--Maven Release-->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>2.5.3</version>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-kernel</artifactId>
