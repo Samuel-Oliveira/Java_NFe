@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
     <groupId>br.com.swconsultoria</groupId>
 	<artifactId>java-nfe</artifactId>
-    <version>4.00.10-SNAPSHOT</version>
+    <version>4.00.10</version>
 	<name>Java_NFe</name>
     <description>Api java para consumo do webService de nota fiscal eletronica</description>
     <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
@@ -20,7 +19,7 @@
         <url>git@github.com:Samuel-Oliveira/Java_NFe.git</url>
         <connection>scm:git:git@github.com:Samuel-Oliveira/Java_NFe.git</connection>
         <developerConnection>scm:git:git@github.com:Samuel-Oliveira/Java_NFe.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>java-nfe-4.00.10</tag>
     </scm>
 
     <properties>
