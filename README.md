@@ -26,7 +26,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.10 - 05/03/2019
+## v4.00.10 - 19/03/2019
    **Guia de Migração: https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d**
  - Adicionado Compatibilidade para Java 11
  - Adicionado URL NFCe MG Produção e Homologação
@@ -43,8 +43,8 @@ ________________________________________________________________________________
  - Adicionado Envio de Eventos por Lote
  - Corrigigido erro 411 MG
  - Adicionado Cancelamento por Substituição (NFCe)
- - Atualizado Schemas com as Notas tecnicas 2018.005 v1.00 e v1.10
- 
+ - Atualizado Schemas com as Notas tecnicas 2018.005 v1.00, v1.10 e v1.20
+  
 ## v4.00.9 - 16/12/2018
  - Corrigido URLs PE
  - Adicionado metodo Que remove Acentos Automaticamente.

@@ -10,8 +10,12 @@
 <!-- PL_009-v4a.1  correções de esquema decorrentes da - NT2016.002 v1.60 - 06/2018 -->
 <!-- PL_009-v4a.2  adequação do campo placa para novo padrão do Mercosul - 06/2018 -->
 <!-- PL_009-v4a.3  adequação da lista TCListServ - 10/2018 -->
+<!-- PL_009-v4a.4  implementado alterações da NT 2018.005 -->
 
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.portalfiscal.inf.br/nfe" xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:editix="http://www.portalfiscal.inf.br/nfe" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://www.portalfiscal.inf.br/nfe"
+           xmlns="http://www.portalfiscal.inf.br/nfe">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposBasico_v4.00.xsd"/>
 	<xs:complexType name="TNFe">
@@ -2515,7 +2519,9 @@ A exigência do preenchimento das informações do ICMS diferido fica à critér
 																							<xs:documentation>Aliquota suportada pelo consumidor final.</xs:documentation>
 																						</xs:annotation>
 																					</xs:element>
-																					<xs:element name="vICMSSubstituto" type="TDec_1302">
+                                                                                    <xs:element minOccurs="0"
+                                                                                                name="vICMSSubstituto"
+                                                                                                type="TDec_1302">
 																						<xs:annotation>
 																							<xs:documentation>Valor do ICMS Próprio do Substituto cobrado em operação anterior</xs:documentation>
 																						</xs:annotation>
@@ -3072,12 +3078,15 @@ Operação interestadual para consumidor final com partilha do ICMS  devido na o
 																						<xs:documentation>Informar o valor da BC do ICMS ST retido na UF remetente</xs:documentation>
 																					</xs:annotation>
 																				</xs:element>
-																				<xs:element name="pST" type="TDec_0302a04Opc">
+                                                                                <xs:element minOccurs="0" name="pST"
+                                                                                            type="TDec_0302a04Opc">
 																					<xs:annotation>
 																						<xs:documentation>Aliquota suportada pelo consumidor final.</xs:documentation>
 																					</xs:annotation>
 																				</xs:element>
-																				<xs:element name="vICMSSubstituto" type="TDec_1302">
+                                                                                <xs:element minOccurs="0"
+                                                                                            name="vICMSSubstituto"
+                                                                                            type="TDec_1302">
 																					<xs:annotation>
 																						<xs:documentation>Valor do ICMS Próprio do Substituto cobrado em operação anterior</xs:documentation>
 																					</xs:annotation>
@@ -3443,7 +3452,9 @@ Operação interestadual para consumidor final com partilha do ICMS  devido na o
 																							<xs:documentation>Aliquota suportada pelo consumidor final.</xs:documentation>
 																						</xs:annotation>
 																					</xs:element>
-																					<xs:element name="vICMSSubstituto" type="TDec_1302">
+                                                                                    <xs:element minOccurs="0"
+                                                                                                name="vICMSSubstituto"
+                                                                                                type="TDec_1302">
 																						<xs:annotation>
 																							<xs:documentation>Valor do ICMS próprio do substituto</xs:documentation>
 																						</xs:annotation>
@@ -6262,7 +6273,7 @@ alterado para tamanho variavel 1-4. (NT2011/004)</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:base64Binary">
-							<xs:length value="28"/>
+                            <xs:length value="20"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
