@@ -19,7 +19,7 @@
         <url>git@github.com:Samuel-Oliveira/Java_NFe.git</url>
         <connection>scm:git:git@github.com:Samuel-Oliveira/Java_NFe.git</connection>
         <developerConnection>scm:git:git@github.com:Samuel-Oliveira/Java_NFe.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>java-nfe-4.00.10</tag>
     </scm>
 
     <properties>

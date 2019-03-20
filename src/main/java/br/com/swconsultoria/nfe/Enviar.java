@@ -55,6 +55,9 @@ class Enviar {
              */
             xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.NFE);
 
+            //Retira Quebra de Linha
+            xml = xml.replaceAll(System.lineSeparator(), "");
+
             LoggerUtil.log(Enviar.class,"[XML-ASSINADO]: " +xml);
 
             /**
@@ -93,6 +96,7 @@ class Enviar {
                 OMFactory factory = OMAbstractFactory.getOMFactory();
                 ome = factory.getMetaFactory().createOMBuilder(factory, StAXParserConfiguration.NON_COALESCING, new InputSource(new StringReader(xml))).getDocumentElement();
             }
+
 
             LoggerUtil.log(Enviar.class,"[XML-ENVIO]: " +xml);
 

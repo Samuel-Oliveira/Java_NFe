@@ -199,6 +199,10 @@ public class RetornoUtil {
      */
     public static void validaSincrono(TRetEnviNFe retornoSincrono) throws NfeException {
 
+        if (!retornoSincrono.getCStat().equals(StatusEnum.LOTE_RECEBIDO.getCodigo()) && !retornoSincrono.getCStat().equals(StatusEnum.LOTE_PROCESSADO.getCodigo())) {
+            throw new NfeException(retornoSincrono.getCStat() + " - " + retornoSincrono.getXMotivo());
+        }
+
         if (!retornoSincrono.getProtNFe().getInfProt().getCStat().equals(StatusEnum.AUTORIZADO.getCodigo())) {
             throw new NfeException(retornoSincrono.getProtNFe().getInfProt().getCStat() + " - " + retornoSincrono.getProtNFe().getInfProt().getXMotivo());
         }
