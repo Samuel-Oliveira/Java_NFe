@@ -26,7 +26,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.10 - 19/03/2019
+## v4.00.10 - 20/03/2019
    **Guia de Migração: https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d**
  - Adicionado Compatibilidade para Java 11
  - Adicionado URL NFCe MG Produção e Homologação
