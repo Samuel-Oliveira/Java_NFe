@@ -26,6 +26,27 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
+## v4.00.11 - SNAPSHOT 
+Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
+Para usar, adicione o repositorio de Snapshot ao Maven:
+```
+<repositories>
+    <repository>
+        <id>sonatype-nexus-snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+</repositories>
+<dependency>
+    <groupId>br.com.swconsultoria</groupId>
+    <artifactId>java-nfe</artifactId>
+    <version>4.00.11-SNAPSHOT</version>
+</dependency>
+```
+Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.11-SNAPSHOT.jar
+
+- Retirado Exception Genérica
+- Retirado Schemas da Compilação para diminuir tamanho da biblioteca
+
 ## v4.00.10 - 20/03/2019
    **Guia de Migração: https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d**
  - Adicionado Compatibilidade para Java 11

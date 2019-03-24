@@ -50,7 +50,7 @@ public class ConfiguracoesNfe {
      * @see EstadosEnum
      */
     public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado,
-                                                String pastaSchemas) throws Exception {
+                                                      String pastaSchemas) throws CertificadoException {
 
         ConfiguracoesNfe configuracoesNfe = new ConfiguracoesNfe();
         configuracoesNfe.setEstado(estado);
@@ -58,16 +58,20 @@ public class ConfiguracoesNfe {
         configuracoesNfe.setCertificado(certificado);
         configuracoesNfe.setPastaSchemas(pastaSchemas);
 
-        //Setando Encoding.
-        System.setProperty("file.encoding", "UTF-8");
-        Field charset = Charset.class.getDeclaredField("defaultCharset");
-        charset.setAccessible(true);
-        charset.set(null, null);
+        try {
+            //Setando Encoding.
+            System.setProperty("file.encoding", "UTF-8");
+            Field charset = Charset.class.getDeclaredField("defaultCharset");
+            charset.setAccessible(true);
+            charset.set(null, null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new CertificadoException("Erro ao setar Encoding.");
+        }
 
         if(Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println();
             System.err.println("#########################################################");
-            System.err.println("    Api Java Nfe - Versão 4.00.10    ");
+            System.err.println("    Api Java Nfe - Versão 4.00.11 - SNAPSHOT (A)    ");
             if(Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
