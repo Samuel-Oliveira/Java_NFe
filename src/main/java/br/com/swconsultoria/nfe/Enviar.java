@@ -25,6 +25,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.StringReader;
 import java.rmi.RemoteException;
+import java.util.Iterator;
 
 /**
  * Classe Responsavel por Enviar o XML.
@@ -58,7 +59,7 @@ class Enviar {
             //Retira Quebra de Linha
             xml = xml.replaceAll(System.lineSeparator(), "");
 
-            LoggerUtil.log(Enviar.class,"[XML-ASSINADO]: " +xml);
+            LoggerUtil.log(Enviar.class, "[XML-ASSINADO]: " + xml);
 
             /**
              * Valida o Xml caso sejá selecionado True
@@ -97,8 +98,15 @@ class Enviar {
                 ome = factory.getMetaFactory().createOMBuilder(factory, StAXParserConfiguration.NON_COALESCING, new InputSource(new StringReader(xml))).getDocumentElement();
             }
 
+            Iterator<?> children = ome.getChildrenWithLocalName("NFe");
+            while (children.hasNext()) {
+                OMElement omElementNFe = (OMElement) children.next();
+                if ((omElementNFe != null) && ("NFe".equals(omElementNFe.getLocalName()))) {
+                    omElementNFe.addAttribute("xmlns", "http://www.portalfiscal.inf.br/nfe", null);
+                }
+            }
 
-            LoggerUtil.log(Enviar.class,"[XML-ENVIO]: " +xml);
+            LoggerUtil.log(Enviar.class, "[XML-ENVIO]: " + xml);
 
             NFeAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeAutorizacao4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
@@ -113,13 +121,13 @@ class Enviar {
             }
 
             //Erro 411 MG
-            if(tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)){
+            if (tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)) {
                 stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
             }
 
             NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
 
-            LoggerUtil.log(Enviar.class,"[XML-RETORNO]: " +result.getExtraElement().toString());
+            LoggerUtil.log(Enviar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {
