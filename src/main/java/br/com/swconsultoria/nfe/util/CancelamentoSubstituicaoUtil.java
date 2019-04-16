@@ -12,6 +12,7 @@ import br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEvento;
 
 import javax.xml.bind.JAXBException;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,6 +22,16 @@ import java.util.List;
  */
 public class CancelamentoSubstituicaoUtil {
 
+    /**
+     * MOnta o Evento de cancelamento unico
+     * @param cancela
+     * @param configuracao
+     * @return
+     * @throws NfeException
+     */
+    public static TEnvEvento montaCancelamento(Evento cancela, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
+        return montaCancelamento(Collections.singletonList(cancela), configuracao, zoneId);
+    }
     /**
      * MOnta o Evento de cancelamento unico
      * @param cancela
@@ -40,6 +51,17 @@ public class CancelamentoSubstituicaoUtil {
      * @throws NfeException
      */
     public static TEnvEvento montaCancelamento(List<Evento> listaCancela, ConfiguracoesNfe configuracao) throws NfeException {
+        return montaCancelamento(listaCancela,configuracao,null);
+    }
+    /**
+     * MOnta o Evento de cancelamento Lote Com ZoneId
+     * @param listaCancela
+     * @param configuracao
+     * @param zoneId
+     * @return
+     * @throws NfeException
+     */
+    public static TEnvEvento montaCancelamento(List<Evento> listaCancela, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
 
         if(listaCancela.size() > 20){
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
@@ -62,7 +84,7 @@ public class CancelamentoSubstituicaoUtil {
             infoEvento.setCNPJ(evento.getCnpj());
             infoEvento.setChNFe(evento.getChave());
 
-            infoEvento.setDhEvento(XmlNfeUtil.dataNfe(evento.getDataEvento()));
+            infoEvento.setDhEvento(XmlNfeUtil.dataNfe(evento.getDataEvento(), zoneId));
             infoEvento.setTpEvento(EventosEnum.CANCELAMENTO_SUBSTITUICAO.getCodigo());
             infoEvento.setNSeqEvento("1");
             infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO_SUBSTIUICAO);

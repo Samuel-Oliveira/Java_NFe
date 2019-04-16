@@ -361,9 +361,9 @@ public class XmlNfeUtil {
         return xml.toString();
     }
 
-    public static String dataNfe(LocalDateTime dataASerFormatada) {
+    public static String dataNfe(LocalDateTime dataASerFormatada, ZoneId zoneId) {
         try {
-            GregorianCalendar calendar = GregorianCalendar.from(dataASerFormatada.atZone(ZoneId.of("Brazil/East")));
+            GregorianCalendar calendar = GregorianCalendar.from(dataASerFormatada.atZone(ObjetoUtil.verifica(zoneId).orElse(ZoneId.of("Brazil/East"))));
 
             XMLGregorianCalendar xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
             xmlCalendar.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);

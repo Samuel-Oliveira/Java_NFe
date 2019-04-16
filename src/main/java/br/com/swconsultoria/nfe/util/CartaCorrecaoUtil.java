@@ -12,6 +12,7 @@ import br.com.swconsultoria.nfe.schema.envcce.TProcEvento;
 import br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento;
 
 import javax.xml.bind.JAXBException;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,6 +22,16 @@ import java.util.List;
  */
 public class CartaCorrecaoUtil {
 
+    /**
+     * MOnta o Evento de CCe unico
+     * @param cce
+     * @param configuracao
+     * @return
+     * @throws NfeException
+     */
+    public static TEnvEvento montaCCe(Evento cce, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
+        return montaCCe(Collections.singletonList(cce), configuracao,zoneId);
+    }
     /**
      * MOnta o Evento de CCe unico
      * @param cce
@@ -40,6 +51,16 @@ public class CartaCorrecaoUtil {
      * @throws NfeException
      */
     public static TEnvEvento montaCCe(List<Evento> listaCCe, ConfiguracoesNfe configuracao) throws NfeException {
+        return montaCCe(listaCCe,configuracao,null);
+    }
+    /**
+     * MOnta o Evento de CCe em Lote
+     * @param listaCCe
+     * @param configuracao
+     * @return
+     * @throws NfeException
+     */
+    public static TEnvEvento montaCCe(List<Evento> listaCCe, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
 
         if (listaCCe.size() > 20) {
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
@@ -65,7 +86,7 @@ public class CartaCorrecaoUtil {
             infEvento.setChNFe(cce.getChave());
 
             // Altere a Data
-            infEvento.setDhEvento(XmlNfeUtil.dataNfe(cce.getDataEvento()));
+            infEvento.setDhEvento(XmlNfeUtil.dataNfe(cce.getDataEvento(),zoneId));
             infEvento.setTpEvento(EventosEnum.CCE.getCodigo());
             infEvento.setNSeqEvento(String.valueOf(cce.getSequencia()));
             infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CCE);

@@ -9,6 +9,7 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.envEpec.*;
 
 import javax.xml.bind.JAXBException;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,6 +19,17 @@ import java.util.List;
  */
 public class EpecUtil {
 
+    /**
+     * MOnta o Evento de epec Lote
+     *
+     * @param epec
+     * @param configuracao
+     * @return
+     * @throws NfeException
+     */
+    public static TEnvEvento montaEpec(Evento epec, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
+        return montaEpec(Collections.singletonList(epec),configuracao,zoneId);
+    }
     /**
      * MOnta o Evento de epec Lote
      *
@@ -38,6 +50,17 @@ public class EpecUtil {
      * @throws NfeException
      */
     public static TEnvEvento montaEpec(List<Evento> listaEpec, ConfiguracoesNfe configuracao) throws NfeException {
+        return montaEpec(listaEpec,configuracao,null);
+    }
+    /**
+     * MOnta o Evento de epec Lote
+     *
+     * @param listaEpec
+     * @param configuracao
+     * @return
+     * @throws NfeException
+     */
+    public static TEnvEvento montaEpec(List<Evento> listaEpec, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
 
 
         if (listaEpec.size() > 20) {
@@ -61,7 +84,7 @@ public class EpecUtil {
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
             infoEvento.setCNPJ(epec.getCnpj());
             infoEvento.setChNFe(epec.getChave());
-            infoEvento.setDhEvento(XmlNfeUtil.dataNfe(epec.getDataEvento()));
+            infoEvento.setDhEvento(XmlNfeUtil.dataNfe(epec.getDataEvento(),zoneId));
             infoEvento.setTpEvento(EventosEnum.EPEC.getCodigo());
             infoEvento.setNSeqEvento("1");
             infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_EPEC);
@@ -72,7 +95,7 @@ public class EpecUtil {
             detEvento.setCOrgaoAutor(configuracao.getEstado().getCodigoUF());
             detEvento.setTpAutor("1");
             detEvento.setVerAplic("1.0.0");
-            detEvento.setDhEmi(XmlNfeUtil.dataNfe(epec.getDataEvento()));
+            detEvento.setDhEmi(XmlNfeUtil.dataNfe(epec.getDataEvento(),zoneId));
             detEvento.setTpNF(epec.getEventoEpec().getTipoNF());
             detEvento.setIE(epec.getEventoEpec().getIeEmitente());
 

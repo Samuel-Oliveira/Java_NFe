@@ -28,6 +28,7 @@ public class ChaveUtil {
         String serie1 = completarComZerosAEsquerda(String.valueOf(serie), 3);
         String nNf = completarComZerosAEsquerda(String.valueOf(numeroNf), 9);
         String cNf = completarComZerosAEsquerda(codigoNf, 8);
+        cnpj = cnpj.length() < 14 ? "000"+cnpj : cnpj;
         this.chave = cUf + aamm + cnpj + modelo + serie1 + nNf + tipoEmissao + cNf;
         this.cDv = String.valueOf(modulo11(chave));
 

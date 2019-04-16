@@ -12,6 +12,7 @@ import br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento;
 import br.com.swconsultoria.nfe.schema.envConfRecebto.TretEvento;
 
 import javax.xml.bind.JAXBException;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +33,19 @@ public class ManifestacaoUtil {
     public static TEnvEvento montaManifestacao(Evento manifesta, ConfiguracoesNfe configuracao) throws NfeException {
         return montaManifestacao(Collections.singletonList(manifesta), configuracao);
     }
+
+    /**
+     * MOnta o Evento de Manifestacao Unico
+     *
+     * @param manifesta
+     * @param configuracao
+     * @return
+     * @throws NfeException
+     */
+    public static TEnvEvento montaManifestacao(Evento manifesta, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
+        return montaManifestacao(Collections.singletonList(manifesta), configuracao, zoneId);
+    }
+
     /**
      * MOnta o Evento de Manifestacao Lote
      *
@@ -41,8 +55,20 @@ public class ManifestacaoUtil {
      * @throws NfeException
      */
     public static TEnvEvento montaManifestacao(List<Evento> listaManifestacao, ConfiguracoesNfe configuracao) throws NfeException {
+        return montaManifestacao(listaManifestacao, configuracao, null);
+    }
 
-        if(listaManifestacao.size() > 20){
+    /**
+     * MOnta o Evento de Manifestacao Lote
+     *
+     * @param listaManifestacao
+     * @param configuracao
+     * @return
+     * @throws NfeException
+     */
+    public static TEnvEvento montaManifestacao(List<Evento> listaManifestacao, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
+
+        if (listaManifestacao.size() > 20) {
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
         }
 
@@ -50,7 +76,7 @@ public class ManifestacaoUtil {
         enviEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO);
         enviEvento.setIdLote("1");
 
-        listaManifestacao.forEach( manifestacao -> {
+        listaManifestacao.forEach(manifestacao -> {
 
             String id = "ID" + manifestacao.getTipoManifestacao().getCodigo() + manifestacao.getChave() + "01";
 
@@ -63,7 +89,7 @@ public class ManifestacaoUtil {
             infEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
             infEvento.setCNPJ(manifestacao.getCnpj());
             infEvento.setChNFe(manifestacao.getChave());
-            infEvento.setDhEvento(XmlNfeUtil.dataNfe(manifestacao.getDataEvento()));
+            infEvento.setDhEvento(XmlNfeUtil.dataNfe(manifestacao.getDataEvento(), zoneId));
             infEvento.setTpEvento(manifestacao.getTipoManifestacao().getCodigo());
             infEvento.setNSeqEvento("1");
             infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
@@ -85,6 +111,7 @@ public class ManifestacaoUtil {
 
     /**
      * Cria o ProcEvento de Cancelamento
+     *
      * @param config
      * @param enviEvento
      * @param retorno

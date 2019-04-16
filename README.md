@@ -47,6 +47,9 @@ Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java
 - Retirado Exception Genérica
 - Retirado Schemas da Compilação para diminuir tamanho da biblioteca
 - Corrigido erro de NFe sem namespace PR
+- Adicionado regra de Produtor rural para Chave Da Nfe
+- Atualizado Cacert
+- Adicionado Opção de Informar o ZoneID na montagem dos Eventos
 
 ## v4.00.10 - 20/03/2019
    **Guia de Migração: https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d**
