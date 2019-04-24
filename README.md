@@ -50,6 +50,8 @@ Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java
 - Adicionado regra de Produtor rural para Chave Da Nfe
 - Atualizado Cacert
 - Adicionado Opção de Informar o ZoneID na montagem dos Eventos
+- Adicionado validação de certificado com documento correto.
+- Corrigido Consulta Cadastro MT
 
 ## v4.00.10 - 20/03/2019
    **Guia de Migração: https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d**

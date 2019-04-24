@@ -361,6 +361,10 @@ public class XmlNfeUtil {
         return xml.toString();
     }
 
+    public static String dataNfe(LocalDateTime dataASerFormatada) {
+        return dataNfe(dataASerFormatada, ZoneId.systemDefault());
+    }
+
     public static String dataNfe(LocalDateTime dataASerFormatada, ZoneId zoneId) {
         try {
             GregorianCalendar calendar = GregorianCalendar.from(dataASerFormatada.atZone(ObjetoUtil.verifica(zoneId).orElse(ZoneId.of("Brazil/East"))));
@@ -373,7 +377,5 @@ public class XmlNfeUtil {
             LoggerUtil.log(XmlNfeUtil.class, e.getMessage());
         }
         return null;
-
     }
-
 }

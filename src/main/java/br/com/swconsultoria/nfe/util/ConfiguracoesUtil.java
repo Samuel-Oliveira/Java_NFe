@@ -31,10 +31,37 @@ public class ConfiguracoesUtil {
      */
     public static ConfiguracoesNfe iniciaConfiguracoes(ConfiguracoesNfe configuracoesNfe) throws NfeException {
 
+
+        return iniciaConfiguracoes(configuracoesNfe, null);
+    }
+
+     /**
+     * Recebe como parâmetro um objeto ConfiguracoesNfe e Inicializa as COnfigurações e retorna um objeto
+     * ConfiguracoesNfe.
+     *
+     * <p>
+     * Semelhante ao método iniciaConfiguracoes(), o Certificado Digital será
+     * validado e inicializado.Caso ocorrá algum prolema será disparado um
+     * NfeException
+     * </p>
+     *
+     * @param configuracoesNfe
+     * @param cpfCnpj
+     * @return ConfiguracoesWebNfe
+     * @throws NfeException
+     * @see CertificadoException
+     * @see ConfiguracoesWebNfe
+     */
+    public static ConfiguracoesNfe iniciaConfiguracoes(ConfiguracoesNfe configuracoesNfe, String cpfCnpj) throws NfeException {
+
         ObjetoUtil.verifica(configuracoesNfe).orElseThrow( () -> new NfeException("Configurações não foram criadas"));
         try {
             if (!configuracoesNfe.getCertificado().isValido()) {
                 throw new CertificadoException("Certificado vencido.");
+            }
+
+            if (ObjetoUtil.verifica(cpfCnpj).isPresent() && !configuracoesNfe.getCertificado().getCnpjCpf().equals(cpfCnpj)) {
+                throw new CertificadoException("Documento do Certificado("+configuracoesNfe.getCertificado().getCnpjCpf()+") não equivale ao Documento do Emissor("+cpfCnpj+")");
             }
             CertificadoService.inicializaCertificado(configuracoesNfe.getCertificado(), ConfiguracoesUtil.class.getResourceAsStream("/Cacert"));
         } catch (CertificadoException e) {
@@ -43,7 +70,5 @@ public class ConfiguracoesUtil {
 
         return configuracoesNfe;
     }
-
-
 
 }
