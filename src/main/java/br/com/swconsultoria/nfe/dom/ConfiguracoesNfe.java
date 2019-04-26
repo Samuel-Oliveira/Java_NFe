@@ -36,6 +36,7 @@ public class ConfiguracoesNfe {
     private Proxy proxy;
     private Integer timeout;
     private boolean contigenciaSCAN;
+    private boolean validacaoDocumento = true;
 
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a 
@@ -71,13 +72,14 @@ public class ConfiguracoesNfe {
         if(Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println();
             System.err.println("#########################################################");
-            System.err.println("    Api Java Nfe - Versão 4.00.11 - SNAPSHOT (D)    ");
+            System.err.println("    Api Java Nfe - Versão 4.00.11 - SNAPSHOT (E)    ");
             if(Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
             System.err.println("            Tipo Certificado: " + certificado.getTipo().toUpperCase());
             System.err.println(" Alias Certificado: " + certificado.getNome().toUpperCase());
             System.err.println(" Vencimento Certificado: " + certificado.getVencimento());
+            System.err.println(" Cnpj/Cpf Certificado: " + certificado.getCnpjCpf());
             System.err.println(" Ambiente: " + (ambiente.equals(AmbienteEnum.PRODUCAO) ? "Produção" : "Homologação") + " - Estado: "
                     + estado.getNome());
             System.err.println("#########################################################");
@@ -221,4 +223,21 @@ public class ConfiguracoesNfe {
         this.timeout = timeout;
     }
 
+    /**
+     * Retorna o valor da validacaoDocumento.
+     * @return validacaoDocumento
+     */
+    public boolean isValidacaoDocumento() {
+        return validacaoDocumento;
+    }
+
+    /**
+     * Atribui um valor para validacaoDocumento. Caso True, irá
+     * validar o documento do emitente com o documento do certificado.
+     * <br>
+     * @param validacaoDocumento
+     */
+    public void setValidacaoDocumento(boolean validacaoDocumento) {
+        this.validacaoDocumento = validacaoDocumento;
+    }
 }
