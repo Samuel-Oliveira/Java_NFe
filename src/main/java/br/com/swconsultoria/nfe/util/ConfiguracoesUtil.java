@@ -60,7 +60,7 @@ public class ConfiguracoesUtil {
                 throw new CertificadoException("Certificado vencido.");
             }
 
-            if (configuracoesNfe.isValidacaoDocumento() && ObjetoUtil.verifica(cpfCnpj).isPresent() && !configuracoesNfe.getCertificado().getCnpjCpf().equals(cpfCnpj)) {
+            if (configuracoesNfe.isValidacaoDocumento() && ObjetoUtil.verifica(cpfCnpj).isPresent() && !configuracoesNfe.getCertificado().getCnpjCpf().substring(0,8).equals(cpfCnpj.substring(0,8))) {
                 throw new CertificadoException("Documento do Certificado("+configuracoesNfe.getCertificado().getCnpjCpf()+") não equivale ao Documento do Emissor("+cpfCnpj+")");
             }
             CertificadoService.inicializaCertificado(configuracoesNfe.getCertificado(), ConfiguracoesUtil.class.getResourceAsStream("/Cacert"));

@@ -18,7 +18,7 @@ public class LoggerUtil {
     }
 
     public static void log(Class classe, String msg){
-        LOGGER.logp(Level.INFO, classe.getSimpleName(), null, msg);
+        LOGGER.logp(Level.INFO, classe.getName(), null, msg);
     }
 
 

@@ -72,7 +72,7 @@ public class ConfiguracoesNfe {
         if(Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println();
             System.err.println("#########################################################");
-            System.err.println("    Api Java Nfe - Versão 4.00.11 - SNAPSHOT (E)    ");
+            System.err.println("    Api Java Nfe - Versão 4.00.11 - SNAPSHOT (F)    ");
             if(Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }

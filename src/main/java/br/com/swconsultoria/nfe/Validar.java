@@ -30,7 +30,7 @@ class Validar implements ErrorHandler {
 
         errosValidacao = validateXml(xml, xsd);
         if(ObjetoUtil.verifica(errosValidacao).isPresent())
-            throw  new NfeValidacaoException("Erro Na Validação do Xml: " + errosValidacao);
+            throw  new NfeValidacaoException("Erro na validação: " + errosValidacao);
 
     }
 
@@ -86,11 +86,15 @@ class Validar implements ErrorHandler {
         message = message.replaceAll("cvc-complex-type.2.4.d:", "-");
         message = message.replaceAll("cvc-complex-type.4:", "-");
         message = message.replaceAll("The value", "O valor");
+        message = message.replaceAll("The content", "O conteúdo");
         message = message.replaceAll("of element", "do campo");
+        message = message.replaceAll("is not complete", "não está completo");
         message = message.replaceAll("is not valid", "não é válido");
-        message = message.replaceAll("Invalid content was found starting with element", "Encontrado o campo");
-        message = message.replaceAll("One of", "Campo(s)");
-        message = message.replaceAll("is expected", "é obrigatório");
+        message = message.replaceAll("Attribute", "Campo");
+        message = message.replaceAll("must appear on element", "precisa estar em");
+        message = message.replaceAll("Invalid content was found starting with element", "Conteúdo inválido encontrado iniciando com o campo");
+        message = message.replaceAll("One of", "Um dos Campos");
+        message = message.replaceAll("is expected", "é esperado");
         message = message.replaceAll("\\{", "");
         message = message.replaceAll("\\}", "");
         message = message.replaceAll("\"", "");

@@ -53,6 +53,7 @@ Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java
 - Adicionado validação de certificado com documento correto.
 - Corrigido Consulta Cadastro MT
 - Corrigido URL Consulta NFCe: AC, AL, AP, DF, ES, MA, PA, PB, PE, PI, RJ, RN, RO, RS, RR, SE, TO.
+- Alterado Validação de CNPJ com certificado, apenas para o CNPj Raiz (8 primeiras posições)
 
 ## v4.00.10 - 20/03/2019
    **Guia de Migração: https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d**
