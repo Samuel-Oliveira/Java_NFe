@@ -85,7 +85,12 @@ class Validar implements ErrorHandler {
         message = message.replaceAll("cvc-complex-type.2.4.c:", "-");
         message = message.replaceAll("cvc-complex-type.2.4.d:", "-");
         message = message.replaceAll("cvc-complex-type.4:", "-");
+        message = message.replaceAll("cvc-minLength-valid:", "-");
         message = message.replaceAll("The value", "O valor");
+        message = message.replaceAll("Value", "Valor");
+        message = message.replaceAll("with length", "com tamanho");
+        message = message.replaceAll("is not facet-valid with respect to minLength", "não equivale ao tamanho mínimo");
+        message = message.replaceAll("for type", "para o tipo");
         message = message.replaceAll("The content", "O conteúdo");
         message = message.replaceAll("of element", "do campo");
         message = message.replaceAll("is not complete", "não está completo");
