@@ -1,24 +1,23 @@
-# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe)
-Projeto Para implementação do Java-Nfe Utilizando JAXB.
+# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.10/jar)
+Biblioteca Java para consumo do WebService de NFe/NFCe
+
+## Dúvidas, Sugestões ou Consultoria
+Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Baixe o java-nfe-4.00.8.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.8.jar) e o adicione às bibliotecas de Seu Projeto.
+- Caso use Libs baixe o java-nfe-4.00.10.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.10.jar) e o adicione às bibliotecas de Seu Projeto.
+
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
 ```
-	    <repository>
-			<name>Repositorio Autocom</name>
-			<id>Release</id>
-			<url>http://www.autocomsistemas.com.br:8081/nexus/content/repositories/autocom/</url>
-		</repository>
-		<dependency>
-			<groupId>br.com.samuelweb</groupId>
-			<artifactId>java-nfe</artifactId>
-			<version>4.00.8</version>
-		</dependency>
+<dependency>
+    <groupId>br.com.swconsultoria</groupId>
+    <artifactId>java-nfe</artifactId>
+    <version>4.00.10</version>
+</dependency>
 ```
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
@@ -27,6 +26,61 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
+## v4.00.11 - SNAPSHOT 
+Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
+Para usar, adicione o repositorio de Snapshot ao Maven:
+```
+<repositories>
+    <repository>
+        <id>sonatype-nexus-snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+</repositories>
+<dependency>
+    <groupId>br.com.swconsultoria</groupId>
+    <artifactId>java-nfe</artifactId>
+    <version>4.00.11-SNAPSHOT</version>
+</dependency>
+```
+Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.11-SNAPSHOT.jar
+
+- Retirado Exception Genérica
+- Retirado Schemas da Compilação para diminuir tamanho da biblioteca
+- Corrigido erro de NFe sem namespace PR
+- Adicionado regra de Produtor rural para Chave Da Nfe
+- Atualizado Cacert
+- Adicionado Opção de Informar o ZoneID na montagem dos Eventos
+- Adicionado validação de certificado com documento correto.
+- Corrigido Consulta Cadastro MT
+- Corrigido URL Consulta NFCe: AC, AL, AP, DF, ES, MA, PA, PB, PE, PI, RJ, RN, RO, RS, RR, SE, TO.
+- Alterado Validação de CNPJ com certificado, apenas para o CNPj Raiz (8 primeiras posições)
+
+## v4.00.10 - 20/03/2019
+   **Guia de Migração: https://gist.github.com/Samuel-Oliveira/c547decad469f21ff99de1c766bdc75d**
+ - Adicionado Compatibilidade para Java 11
+ - Adicionado URL NFCe MG Produção e Homologação
+ - Adicionado Conversao para TRetConsReciNFe
+ - Adicionado Conversao para TRetEnvEvento para todos os eventos
+ - Adicionado Conversao para TRetInut
+ - Retirado XsdUtil do Nfe-Xsd e adicionado ao projeto principal
+ - Adicionado JavaDoc Em algumas classes(Agradecimento ao Cristofer)
+ - Corrigido erro SVC-AN
+ - Corrigido URL consulta QrCode MG
+ - Agora aceita Acentos na Emissão
+ - Verificação de Certificado Vencido
+ - Removido as Contanstes e Substituidos por Enums
+ - Adicionado Envio de Eventos por Lote
+ - Corrigigido erro 411 MG
+ - Adicionado Cancelamento por Substituição (NFCe)
+ - Atualizado Schemas com as Notas tecnicas 2018.005 v1.00, v1.10 e v1.20
+  
+## v4.00.9 - 16/12/2018
+ - Corrigido URLs PE
+ - Adicionado metodo Que remove Acentos Automaticamente.
+ - Corrigido URL Consulta Csdastro MG
+ - Corrigido URL Qrcode TO
+ - Atualizado Cacert
+ 
 ## v4.00.8 - 11/10/2018
  - Adicionado Melhorias
  - Corrigo erros acentos
@@ -179,5 +233,3 @@ ________________________________________________________________________________
 
 ## v3.10.0 - 26-09-2016
 - Versão Inicial Do Sistema
-
-Outras Duvidas Entrar em Contato samuk.exe@hotmail.com

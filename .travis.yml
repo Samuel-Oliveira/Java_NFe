@@ -3,4 +3,4 @@ jdk: oraclejdk8
 
 sudo: false
 
-script: mvn clean install
+install: mvn clean install -Dgpg.skip
