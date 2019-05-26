@@ -37,6 +37,7 @@ public class ConfiguracoesNfe {
     private Integer timeout;
     private boolean contigenciaSCAN;
     private boolean validacaoDocumento = true;
+    private String arquivoWebService;
 
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a 
@@ -239,5 +240,13 @@ public class ConfiguracoesNfe {
      */
     public void setValidacaoDocumento(boolean validacaoDocumento) {
         this.validacaoDocumento = validacaoDocumento;
+    }
+
+    public String getArquivoWebService() {
+        return arquivoWebService;
+    }
+
+    public void setArquivoWebService(String arquivoWebService) {
+        this.arquivoWebService = arquivoWebService;
     }
 }

@@ -25,9 +25,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.StringJoiner;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -342,23 +346,17 @@ public class XmlNfeUtil {
      * @return String
      * @throws NfeException
      */
-    public static String leXml(String arquivo) throws NfeException {
+    public static String leXml(String arquivo) throws IOException {
 
-        StringBuilder xml = new StringBuilder();
-        BufferedReader in;
-        try {
-            in = new BufferedReader(new InputStreamReader(new FileInputStream(arquivo), "UTF-8"));
-            String linha;
-
-            while ((linha = in.readLine()) != null) {
-                xml.append(linha);
-
-            }
-            in.close();
-        } catch (IOException e) {
-            throw new NfeException("Ler Xml: " + e.getMessage());
+        ObjetoUtil.verifica(arquivo).orElseThrow( () -> new IllegalArgumentException("Arquivo xml não pode ser nulo/vazio."));
+        if(!Files.exists(Paths.get(arquivo))){
+            throw new FileNotFoundException("Arquivo "+arquivo+" não encontrado.");
         }
-        return xml.toString();
+        List<String> list = Files.readAllLines(Paths.get(arquivo));
+        StringJoiner joiner = new StringJoiner("\n");
+        list.forEach(joiner::add);
+
+        return joiner.toString();
     }
 
     public static String dataNfe(LocalDateTime dataASerFormatada) {
