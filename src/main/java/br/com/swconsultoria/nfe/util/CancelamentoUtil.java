@@ -78,6 +78,7 @@ public class CancelamentoUtil {
 
             TEvento.InfEvento infoEvento = new TEvento.InfEvento();
             infoEvento.setId(id);
+            //MOdificao
             infoEvento.setChNFe(evento.getChave());
             infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoUF()));
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());

@@ -26,7 +26,7 @@ public class InutilizacaoUtil {
      * @param serie
      * @param numeroInicial
      * @param numeroFinal
-     * @param justificativaLocalDateTime
+     * @param justificativa
      * @param configuracao
      * @return
      * @throws NfeException
@@ -68,10 +68,9 @@ public class InutilizacaoUtil {
 
     /**
      * Cria o ProcEvento da Inutilização
-     * @param tipoDocumento
      * @param inutNFe
      * @param retorno
-     * @param configuracao
+     * @param configuracoesNfe
      * @return
      * @throws JAXBException
      * @throws NfeException

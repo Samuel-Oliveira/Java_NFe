@@ -105,11 +105,7 @@ public class Nfe {
     /**
      * Classe Reponsavel Por Inutilizar a NFE na SEFAZ
      * No tipo Informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
-     * Id = Código da UF + Ano (2 posições) + CNPJ + modelo + série + número inicial e número final precedida
-     * do literal “ID”
      *
-     * @param id
-     * @param motivoInutilizacao
      * @param tipoDocumento
      * @return
      * @throws NfeException

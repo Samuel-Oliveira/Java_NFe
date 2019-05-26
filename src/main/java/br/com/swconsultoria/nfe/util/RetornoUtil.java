@@ -172,14 +172,14 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaAssincrono(TRetConsReciNFe retornoConsultaRecibo) throws NfeException {
+    public static void validaAssincrono(TRetConsReciNFe retorno) throws NfeException {
 
-        if (!retornoConsultaRecibo.getCStat().equals(StatusEnum.LOTE_PROCESSADO.getCodigo())) {
-            throw new NfeException(retornoConsultaRecibo.getCStat() + " - " + retornoConsultaRecibo.getXMotivo());
+        if (!retorno.getCStat().equals(StatusEnum.LOTE_PROCESSADO.getCodigo())) {
+            throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
         }
 
         final String[] erro = {""};
-        retornoConsultaRecibo.getProtNFe().forEach( protNFe -> {
+        retorno.getProtNFe().forEach( protNFe -> {
             if (!StatusEnum.AUTORIZADO.getCodigo().equals(protNFe.getInfProt().getCStat())) {
                 erro[0] += protNFe.getInfProt().getChNFe() + " - " +protNFe.getInfProt().getCStat() + " - " + protNFe.getInfProt().getXMotivo() + System.lineSeparator();
             }
@@ -197,14 +197,14 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaSincrono(TRetEnviNFe retornoSincrono) throws NfeException {
+    public static void validaSincrono(TRetEnviNFe retorno) throws NfeException {
 
-        if (!retornoSincrono.getCStat().equals(StatusEnum.LOTE_RECEBIDO.getCodigo()) && !retornoSincrono.getCStat().equals(StatusEnum.LOTE_PROCESSADO.getCodigo())) {
-            throw new NfeException(retornoSincrono.getCStat() + " - " + retornoSincrono.getXMotivo());
+        if (!retorno.getCStat().equals(StatusEnum.LOTE_RECEBIDO.getCodigo()) && !retorno.getCStat().equals(StatusEnum.LOTE_PROCESSADO.getCodigo())) {
+            throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
         }
 
-        if (!retornoSincrono.getProtNFe().getInfProt().getCStat().equals(StatusEnum.AUTORIZADO.getCodigo())) {
-            throw new NfeException(retornoSincrono.getProtNFe().getInfProt().getCStat() + " - " + retornoSincrono.getProtNFe().getInfProt().getXMotivo());
+        if (!retorno.getProtNFe().getInfProt().getCStat().equals(StatusEnum.AUTORIZADO.getCodigo())) {
+            throw new NfeException(retorno.getProtNFe().getInfProt().getCStat() + " - " + retorno.getProtNFe().getInfProt().getXMotivo());
         }
     }
 
