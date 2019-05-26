@@ -73,11 +73,11 @@ public class ConfiguracoesNfe {
         if(Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println();
             System.err.println("#########################################################");
-            System.err.println("    Api Java Nfe - Versão 4.00.11 - SNAPSHOT (G)    ");
+            System.err.println("    Api Java Nfe - Versão 4.00.11    ");
             if(Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
-            System.err.println("            Tipo Certificado: " + certificado.getTipo().toUpperCase());
+            System.err.println("            Tipo Certificado: " + certificado.getTipoCertificado().toString());
             System.err.println(" Alias Certificado: " + certificado.getNome().toUpperCase());
             System.err.println(" Vencimento Certificado: " + certificado.getVencimento());
             System.err.println(" Cnpj/Cpf Certificado: " + certificado.getCnpjCpf());
