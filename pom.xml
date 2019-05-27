@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.swconsultoria</groupId>
-	<artifactId>java-nfe</artifactId>
+    <artifactId>java-nfe</artifactId>
     <version>4.00.12-SNAPSHOT</version>
-	<name>Java_NFe</name>
+    <name>Java_NFe</name>
     <description>Api java para consumo do webService de nota fiscal eletronica</description>
     <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
 
@@ -50,24 +51,24 @@
     </developers>
 
     <dependencies>
-		<!-- Certificado Utils -->
-		<dependency>
-			<groupId>br.com.swconsultoria</groupId>
-			<artifactId>java_certificado</artifactId>
+        <!-- Certificado Utils -->
+        <dependency>
+            <groupId>br.com.swconsultoria</groupId>
+            <artifactId>java_certificado</artifactId>
             <version>2.2</version>
-		</dependency>
-		<!-- Ini4J -->
-		<dependency>
-			<groupId>org.ini4j</groupId>
-			<artifactId>ini4j</artifactId>
-			<version>0.5.4</version>
-		</dependency>
+        </dependency>
+        <!-- Ini4J -->
+        <dependency>
+            <groupId>org.ini4j</groupId>
+            <artifactId>ini4j</artifactId>
+            <version>0.5.4</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-			<version>4.4.6</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.6</version>
+        </dependency>
 
         <!--Java 11-->
         <dependency>
@@ -199,6 +200,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
             </plugin>
         </plugins>
     </build>
