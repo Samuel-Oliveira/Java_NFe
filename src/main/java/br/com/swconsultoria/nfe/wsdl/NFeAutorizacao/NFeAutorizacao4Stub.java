@@ -178,6 +178,8 @@ public class NFeAutorizacao4Stub extends org.apache.axis2.client.Stub {
             org.apache.axis2.context.MessageContext _returnMessageContext = _operationClient.getMessageContext(org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
             org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
 
+            System.out.println(_returnEnv.getBody());
+            
             Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
                     NFeAutorizacao4Stub.NfeResultMsg.class);
