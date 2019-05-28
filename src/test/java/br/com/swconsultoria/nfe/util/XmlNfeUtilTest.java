@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,4 +42,37 @@ class XmlNfeUtilTest {
         });
         assertEquals(exception.getMessage(), "Arquivo xml não pode ser nulo/vazio.");
     }
+
+    @Test
+    void geraHashCSRTSucesso() throws NoSuchAlgorithmException {
+        String chave = "41180678393592000146558900000006041028190697";
+        String csrt = "G8063VRTNDMO886SFNK5LDUDEI24XJ22YIPO";
+
+        assertEquals("aWv6LeEM4X6u4+qBI2OYZ8grigw=".getBytes(),XmlNfeUtil.geraHashCSRT(chave,csrt));
+    }
+
+    @Test
+    void geraHashCSRTParametrosInvalidos() {
+        String chave = "41180678393592000146558900000006041028190697";
+        String csrt = "G8063VRTNDMO886SFNK5LDUDEI24XJ22YIPO";
+
+        //Chave Nula
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+            XmlNfeUtil.geraHashCSRT(null,csrt)
+        );
+        assertEquals(exception.getMessage(), "Chave não deve ser nula ou vazia");
+
+        //Chave Com menos Caracteres
+        exception = assertThrows(IllegalArgumentException.class, () ->
+            XmlNfeUtil.geraHashCSRT("123",csrt)
+        );
+        assertEquals(exception.getMessage(), "Chave deve conter 44 caracteres.");
+
+        //CSRC Vazio
+        exception = assertThrows(IllegalArgumentException.class, () ->
+            XmlNfeUtil.geraHashCSRT(chave,"")
+        );
+        assertEquals(exception.getMessage(), "CSRT não deve ser nulo ou vazio");
+    }
+
 }

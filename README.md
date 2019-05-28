@@ -25,8 +25,10 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
-<!-- 
-## v4.00.X - SNAPSHOT
+
+## v4.00.12 - SNAPSHOT
+- Adicionado Calculo de HashCSRT ao XmlNfeUtil -> XmlNfeUtil.geraHashCSRT(chave,csrt)
+
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
 ```
@@ -39,11 +41,10 @@ Para usar, adicione o repositorio de Snapshot ao Maven:
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.X-SNAPSHOT</version>
+    <version>4.00.12-SNAPSHOT</version>
 </dependency>
 ```
-Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.11-SNAPSHOT.jar
--->
+Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.12-SNAPSHOT.jar
 
 ## v4.00.11 - 26/05/2019
 - Retirado Exception Genérica

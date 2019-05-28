@@ -64,6 +64,7 @@ public class NFCeUtil {
      * @return 
      */  
     private static byte[] getHash(String valor) throws NoSuchAlgorithmException {
+
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             md.update(valor.getBytes());  
             return md.digest();  
