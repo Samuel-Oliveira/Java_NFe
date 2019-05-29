@@ -29,11 +29,6 @@ class ConsultaCadastro {
 
     /**
      * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
-     *
-     * @param consCad
-     * @param valida
-     * @return
-     * @throws NfeException
      */
 
     static TRetConsCad consultaCadastro(ConfiguracoesNfe config, PessoaEnum tipoPessoa, String cnpjCpf, EstadosEnum estado)

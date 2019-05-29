@@ -37,6 +37,7 @@ public class ConfiguracoesNfe {
     private Integer timeout;
     private boolean contigenciaSCAN;
     private boolean validacaoDocumento = true;
+    private String arquivoWebService;
 
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a 
@@ -72,11 +73,11 @@ public class ConfiguracoesNfe {
         if(Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println();
             System.err.println("#########################################################");
-            System.err.println("    Api Java Nfe - Versão 4.00.11 - SNAPSHOT (G)    ");
+            System.err.println("    Api Java Nfe - Versão 4.00.11    ");
             if(Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
-            System.err.println("            Tipo Certificado: " + certificado.getTipo().toUpperCase());
+            System.err.println("            Tipo Certificado: " + certificado.getTipoCertificado().toString());
             System.err.println(" Alias Certificado: " + certificado.getNome().toUpperCase());
             System.err.println(" Vencimento Certificado: " + certificado.getVencimento());
             System.err.println(" Cnpj/Cpf Certificado: " + certificado.getCnpjCpf());
@@ -239,5 +240,13 @@ public class ConfiguracoesNfe {
      */
     public void setValidacaoDocumento(boolean validacaoDocumento) {
         this.validacaoDocumento = validacaoDocumento;
+    }
+
+    public String getArquivoWebService() {
+        return arquivoWebService;
+    }
+
+    public void setArquivoWebService(String arquivoWebService) {
+        this.arquivoWebService = arquivoWebService;
     }
 }

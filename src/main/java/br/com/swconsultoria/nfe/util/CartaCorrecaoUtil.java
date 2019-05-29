@@ -109,7 +109,7 @@ public class CartaCorrecaoUtil {
     /**
      * Cria o ProcEvento de CCe
      *
-     * @param config
+     * @param configuracoesNfe
      * @param enviEvento
      * @param retorno
      * @return

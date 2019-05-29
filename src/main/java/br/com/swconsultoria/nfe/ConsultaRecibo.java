@@ -26,13 +26,12 @@ class ConsultaRecibo {
 	/**
 	 * Metodo Responsavel Por Pegar o Xml De Retorno.
 	 *
-	 * @param tConsReciNFe
-	 * @param valida
-	 * @param tipoDocumento
+ 	 * @param config Configuracoes
+	 * @param recibo Número Do Recibo para Consulta
+	 * @param tipoDocumento Informe {@link DocumentoEnum}
 	 * @return
 	 * @throws NfeException
 	 */
-
 	static TRetConsReciNFe reciboNfe(ConfiguracoesNfe config, String recibo, DocumentoEnum tipoDocumento) throws NfeException {
 
 		try {

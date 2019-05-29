@@ -61,7 +61,6 @@ public class NFCeUtil {
  
     /** 
      * @param valor 
-     * @param algoritmo "SHA-256", "SHA-1", "MD5" 
      * @return 
      */  
     private static byte[] getHash(String valor) throws NoSuchAlgorithmException {

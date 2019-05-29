@@ -62,14 +62,6 @@ public class Assinar {
         return stringXml;
     }
 
-    /**
-     * Assinatura do XML de Envio de Lote da NF-e utilizando Certificado Digital.
-     *
-     * @param Conteudo do Xml
-     * @param Nome     do Certificado Digital
-     * @return String do XMl Assinado
-     * @throws Exception
-     */
     private static String assinaDocNFe(ConfiguracoesNfe config, String xml, AssinaturaEnum tipoAssinatura) throws NfeException {
 
         try {

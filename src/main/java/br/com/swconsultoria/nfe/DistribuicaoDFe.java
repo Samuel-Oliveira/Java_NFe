@@ -25,10 +25,14 @@ import java.rmi.RemoteException;
 class DistribuicaoDFe {
 
 	/**
+	 *
 	 * Classe Reponsavel Por Consultar as NFE na SEFAZ
-	 * 
-	 * @param distDFeInt
-	 * @param valida
+	 *
+	 * @param config Configuração
+	 * @param tipoPessoa Informe {@link PessoaEnum}
+	 * @param cpfCnpj Informe o Cpf ou Cnpj
+	 * @param tipoConsulta Informe {@link ConsultaDFeEnum}
+	 * @param nsuChave Informe a Chave ou o Nsu
 	 * @return
 	 * @throws NfeException
 	 */

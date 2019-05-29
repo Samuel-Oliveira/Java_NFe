@@ -47,6 +47,14 @@ public class Nfe {
 
     }
 
+    /**
+     * Metodo Responsavel Buscar o Status de Serviço do Servidor da Sefaz
+     *
+     * @param tipoDocumento informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
+     * @return TRetConsStatServ - objeto a mensagem de retorno da
+     * transmissão.
+     * @throws NfeException
+     */
     public static TRetConsStatServ statusServico(ConfiguracoesNfe configuracoesNfe, DocumentoEnum tipoDocumento) throws NfeException {
     	return statusServico(configuracoesNfe, tipoDocumento, null);
     }
@@ -108,11 +116,7 @@ public class Nfe {
     /**
      * Classe Reponsavel Por Inutilizar a NFE na SEFAZ
      * No tipo Informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
-     * Id = Código da UF + Ano (2 posições) + CNPJ + modelo + série + número inicial e número final precedida
-     * do literal “ID”
      *
-     * @param id
-     * @param motivoInutilizacao
      * @param tipoDocumento
      * @return
      * @throws NfeException
@@ -148,7 +152,15 @@ public class Nfe {
         return Enviar.enviaNfe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, enviNFe.getNFe().get(0).getInfNFe().getEmit().getCNPJ()), enviNFe, tipoDocumento, xmlMock);
 
     }
-    
+
+    /**
+     * Metodo para Enviar a NFE
+     *
+     * @param enviNFe
+     * @param tipoDocumento No tipo Informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
+     * @return
+     * @throws NfeException
+     */    
     public static TRetEnviNFe enviarNfe(ConfiguracoesNfe configuracoesNfe, TEnviNFe enviNFe, DocumentoEnum tipoDocumento) throws NfeException {
     	return Enviar.enviaNfe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, enviNFe.getNFe().get(0).getInfNFe().getEmit().getCNPJ()), enviNFe, tipoDocumento, null);
     }

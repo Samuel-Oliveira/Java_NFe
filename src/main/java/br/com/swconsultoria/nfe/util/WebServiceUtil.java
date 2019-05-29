@@ -11,8 +11,7 @@ import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import org.ini4j.Wini;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.logging.Logger;
 
 /**
@@ -53,7 +52,15 @@ public class WebServiceUtil {
             String secao = tipoDocumento.getTipo() + "_" + config.getEstado() + "_"
                     + (config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "H" : "P");
 
-            InputStream is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
+            InputStream is;
+            if(ObjetoUtil.verifica(config.getArquivoWebService()).isPresent()){
+                File arquivo = new File(config.getArquivoWebService());
+                if(!arquivo.exists())
+                    throw new FileNotFoundException("Arquivo WebService"+config.getArquivoWebService()+" não encontrado");
+                is = new FileInputStream(arquivo);
+            }else{
+                is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
+            }
 
             Wini ini = new Wini();
             ini.getConfig().setLowerCaseOption(true);
