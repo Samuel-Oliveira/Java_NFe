@@ -58,7 +58,7 @@ class Status {
      * @see WebServiceUtil
      * @see XmlNfeUtil
      */
-    static TRetConsStatServ statusServico(ConfiguracoesNfe config, DocumentoEnum tipoDocumento) throws NfeException {
+    static TRetConsStatServ statusServico(ConfiguracoesNfe config, DocumentoEnum tipoDocumento, String xmlMock) throws NfeException {
 
         try {
 
