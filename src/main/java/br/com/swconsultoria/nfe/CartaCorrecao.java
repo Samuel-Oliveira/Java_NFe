@@ -15,7 +15,7 @@ import javax.xml.bind.JAXBException;
  */
 class CartaCorrecao {
 
-	static TRetEnvEvento eventoCCe(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida)
+	static TRetEnvEvento eventoCCe(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida, String xmlMock)
 			throws NfeException {
 
 		try {
@@ -24,7 +24,7 @@ class CartaCorrecao {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CCE, valida, DocumentoEnum.NFE);
+			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CCE, valida, DocumentoEnum.NFE, xmlMock);
 
 			return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
 

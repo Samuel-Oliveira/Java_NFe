@@ -15,7 +15,7 @@ import javax.xml.bind.JAXBException;
  */
 class Cancelar {
 
-	static TRetEnvEvento eventoCancelamento(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida, DocumentoEnum tipoDocumento)
+	static TRetEnvEvento eventoCancelamento(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida, DocumentoEnum tipoDocumento, String xmlMock)
 			throws NfeException {
 
 		try {
@@ -24,7 +24,7 @@ class Cancelar {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO, valida, tipoDocumento);
+			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO, valida, tipoDocumento, xmlMock);
 
 			return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
 
@@ -34,7 +34,7 @@ class Cancelar {
 
 	}
 
-	static br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento eventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento enviEvento, boolean valida)
+	static br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento eventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento enviEvento, boolean valida, String xmlMock)
 			throws NfeException {
 
 		try {
@@ -43,7 +43,7 @@ class Cancelar {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO_SUBSTITUICAO, valida, DocumentoEnum.NFCE);
+			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO_SUBSTITUICAO, valida, DocumentoEnum.NFCE,  xmlMock);
 
 			return XmlNfeUtil.xmlToObject(xml, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class);
 

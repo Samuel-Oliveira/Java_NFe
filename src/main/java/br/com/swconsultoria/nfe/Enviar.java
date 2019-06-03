@@ -1,21 +1,11 @@
 package br.com.swconsultoria.nfe;
 
-import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
-import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
-import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
-import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
-import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
-import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.mock.MockEnvio;
-import br.com.swconsultoria.nfe.mock.MockStatus;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
-import br.com.swconsultoria.nfe.util.LoggerUtil;
-import br.com.swconsultoria.nfe.util.ObjetoUtil;
-import br.com.swconsultoria.nfe.util.WebServiceUtil;
-import br.com.swconsultoria.nfe.util.XmlNfeUtil;
-import br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub;
-import br.com.swconsultoria.nfe.wsdl.NFeStatusServico4.NFeStatusServico4Stub;
+import java.io.StringReader;
+import java.rmi.RemoteException;
+import java.util.Iterator;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
@@ -26,11 +16,20 @@ import org.apache.axis2.transport.http.HTTPConstants;
 import org.powermock.api.mockito.PowerMockito;
 import org.xml.sax.InputSource;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLStreamException;
-import java.io.StringReader;
-import java.rmi.RemoteException;
-import java.util.Iterator;
+import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
+import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
+import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
+import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
+import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
+import br.com.swconsultoria.nfe.exception.NfeException;
+import br.com.swconsultoria.nfe.mock.MockEnvio;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.com.swconsultoria.nfe.util.LoggerUtil;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
+import br.com.swconsultoria.nfe.util.WebServiceUtil;
+import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub;
 
 /**
  * Classe Responsavel por Enviar o XML.

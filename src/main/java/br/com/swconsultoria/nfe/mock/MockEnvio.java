@@ -22,6 +22,10 @@ public class MockEnvio {
 		StringBuilder b = new StringBuilder();
 		Random random = new Random();
 		String protocolo = Instant.now().toEpochMilli()+ String.format("%04d", random.nextInt(1000));
+		if((codStatus==null||codStatus.isEmpty())||(xMotivo==null||xMotivo.isEmpty())) {
+			codStatus = "100";
+			xMotivo = "Autorizado";
+		}
 		b.append("<nfeResultMsg xmlns=\"http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4\">");
         b.append("    <retEnviNFe xmlns=\"http://www.portalfiscal.inf.br/nfe\" xmlns:ns0=\"http://www.w3.org/2000/09/xmldsig#\" versao=\"4.00\">");
         b.append("        <tpAmb>").append(ambiente.getCodigo()).append("</tpAmb>");
@@ -31,7 +35,7 @@ public class MockEnvio {
         b.append("        <cUF>").append(estado.getCodigoUF()).append("</cUF>");
         b.append("        <dhRecbto>").append(dh).append("</dhRecbto>");
         b.append("        <protNFe versao=\"4.00\">");
-        b.append("            <infProt>");
+        b.append("            <infProt ").append("Id=\"ID131190017042866\">");
         b.append("                <tpAmb>").append(ambiente.getCodigo()).append("</tpAmb>");
         b.append("                <verAplic>").append(verAplic).append("</verAplic>");
         b.append("                <chNFe>").append(chaveNFe).append("</chNFe>");

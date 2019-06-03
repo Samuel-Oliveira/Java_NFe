@@ -15,14 +15,13 @@ import br.com.swconsultoria.nfe.wsdl.NFeStatusServico4.NFeStatusServico4Stub;
 
 public class MockStatus {
 	
-	//107, Serviço em Operação
-	public static String getXmlStatus(AmbienteEnum ambiente, EstadosEnum estado, String verAplic) {
-		return getXmlStatus(ambiente, estado, verAplic, "107", "Serviço em Operação");
-	}
-	
 	public static String getXmlStatus(AmbienteEnum ambiente, EstadosEnum estado, String verAplic, String codStatus, String xMotivo) {
 		String dh = XmlNfeUtil.dataNfe(LocalDateTime.now());
 		StringBuilder b = new StringBuilder();
+		if((codStatus==null||codStatus.isEmpty())||(xMotivo==null||xMotivo.isEmpty())) {
+			codStatus = "107";
+			xMotivo = "Serviço em Operação";
+		}
         b.append("<nfeResultMsg>")
           .append("		<retConsStatServ xmlns=\"http://www.portalfiscal.inf.br/nfe\" versao=\"4.00\">")
           .append("				<tpAmb>").append(ambiente.getCodigo()).append("</tpAmb>")
