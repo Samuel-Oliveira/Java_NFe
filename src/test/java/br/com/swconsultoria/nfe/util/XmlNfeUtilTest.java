@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com
@@ -48,7 +48,7 @@ class XmlNfeUtilTest {
         String chave = "41180678393592000146558900000006041028190697";
         String csrt = "G8063VRTNDMO886SFNK5LDUDEI24XJ22YIPO";
 
-        assertEquals("aWv6LeEM4X6u4+qBI2OYZ8grigw=".getBytes(),XmlNfeUtil.geraHashCSRT(chave,csrt));
+        assertArrayEquals("aWv6LeEM4X6u4+qBI2OYZ8grigw=".getBytes(StandardCharsets.UTF_8),XmlNfeUtil.geraHashCSRT(chave,csrt));
     }
 
     @Test

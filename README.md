@@ -28,6 +28,7 @@ ________________________________________________________________________________
 
 ## v4.00.12 - SNAPSHOT
 - Adicionado Calculo de HashCSRT ao XmlNfeUtil -> XmlNfeUtil.geraHashCSRT(chave,csrt)
+- Corrigido Erro de Assinatura inválida quando existe quebra de linha no XML.
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
