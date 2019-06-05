@@ -65,6 +65,7 @@ public class WebServiceUtil {
             Wini ini = new Wini();
             ini.getConfig().setLowerCaseOption(true);
             ini.load(is);
+            is.close();
             String url = ini.get(secao, "usar");
 
             //URLS CONSULTA CADASTO
