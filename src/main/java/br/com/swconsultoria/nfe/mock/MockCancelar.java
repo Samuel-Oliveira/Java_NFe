@@ -22,7 +22,7 @@ public class MockCancelar {
 		String dh = XmlNfeUtil.dataNfe(LocalDateTime.now());
 		StringBuilder b = new StringBuilder();
 		Random random = new Random();
-		String protocolo = Instant.now().toEpochMilli()+ String.format("%04d", random.nextInt(1000));
+		String protocolo = Instant.now().toEpochMilli()+ String.format("%02d", random.nextInt(99));
 		if((codStatus==null||codStatus.isEmpty())||(xMotivo==null||xMotivo.isEmpty())) {
 			codStatus = "135";
 			xMotivo = "Evento registrado e vinculado a NF-e";
