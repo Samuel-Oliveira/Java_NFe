@@ -125,7 +125,8 @@
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
-            <version>1.47</version>
+            <version>1.46</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
