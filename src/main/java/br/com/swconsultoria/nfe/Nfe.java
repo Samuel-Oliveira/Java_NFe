@@ -56,8 +56,19 @@ public class Nfe {
      * @throws NfeException
      */
     public static TRetConsStatServ statusServico(ConfiguracoesNfe configuracoesNfe, DocumentoEnum tipoDocumento) throws NfeException {
+    	return statusServico(configuracoesNfe, tipoDocumento, null);
+    }
+    /**
+     * Metodo Responsavel Buscar o Status de Serviço do Servidor da Sefaz
+     *
+     * @param tipoDocumento informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
+     * @return TRetConsStatServ - objeto a mensagem de retorno da
+     * transmissão.
+     * @throws NfeException
+     */
+    public static TRetConsStatServ statusServico(ConfiguracoesNfe configuracoesNfe, DocumentoEnum tipoDocumento, String xmlMock) throws NfeException {
 
-        return Status.statusServico(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe), tipoDocumento);
+        return Status.statusServico(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe), tipoDocumento, xmlMock);
 
     }
 
@@ -111,7 +122,19 @@ public class Nfe {
      * @throws NfeException
      */
     public static TRetInutNFe inutilizacao(ConfiguracoesNfe configuracoesNfe, TInutNFe inutNFe, DocumentoEnum tipoDocumento, boolean validar) throws NfeException {
-        return Inutilizar.inutiliza(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe,inutNFe.getInfInut().getCNPJ()), inutNFe, tipoDocumento, validar);
+    	return inutilizacao(configuracoesNfe, inutNFe, tipoDocumento, validar, null);
+    }
+    /**
+     * Classe Reponsavel Por Inutilizar a NFE na SEFAZ
+     * No tipo Informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
+     *
+     * @param tipoDocumento
+     * @param xmlMock
+     * @return
+     * @throws NfeException
+     */
+    public static TRetInutNFe inutilizacao(ConfiguracoesNfe configuracoesNfe, TInutNFe inutNFe, DocumentoEnum tipoDocumento, boolean validar, String xmlMock) throws NfeException {
+        return Inutilizar.inutiliza(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe,inutNFe.getInfInut().getCNPJ()), inutNFe, tipoDocumento, validar, xmlMock);
     }
 
     /**
@@ -136,11 +159,25 @@ public class Nfe {
      * @return
      * @throws NfeException
      */
-    public static TRetEnviNFe enviarNfe(ConfiguracoesNfe configuracoesNfe, TEnviNFe enviNFe, DocumentoEnum tipoDocumento) throws NfeException {
+    public static TRetEnviNFe enviarNfe(ConfiguracoesNfe configuracoesNfe, TEnviNFe enviNFe, DocumentoEnum tipoDocumento, String xmlMock) throws NfeException {
 
-        return Enviar.enviaNfe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, enviNFe.getNFe().get(0).getInfNFe().getEmit().getCNPJ()), enviNFe, tipoDocumento);
+        return Enviar.enviaNfe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, enviNFe.getNFe().get(0).getInfNFe().getEmit().getCNPJ()), enviNFe, tipoDocumento, xmlMock);
 
     }
+
+    /**
+     * Metodo para Enviar a NFE
+     *
+     * @param enviNFe
+     * @param tipoDocumento No tipo Informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
+     * @return
+     * @throws NfeException
+     */    
+    public static TRetEnviNFe enviarNfe(ConfiguracoesNfe configuracoesNfe, TEnviNFe enviNFe, DocumentoEnum tipoDocumento) throws NfeException {
+    	return Enviar.enviaNfe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, enviNFe.getNFe().get(0).getInfNFe().getEmit().getCNPJ()), enviNFe, tipoDocumento, null);
+    }
+    
+    
 
     /**
      * Metodo para Cancelar a NFE
@@ -152,8 +189,21 @@ public class Nfe {
      * @throws NfeException
      */
     public static TRetEnvEvento cancelarNfe(ConfiguracoesNfe configuracoesNfe, TEnvEvento envEvento, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
+    	return cancelarNfe(configuracoesNfe, envEvento, valida, tipoDocumento, null);
+    }
+    /**
+     * Metodo para Cancelar a NFE
+     * No tipo Informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
+     *
+     * @param envEvento
+     * @param valida
+     * @param xmlMock informar xml esperado como retorno de cancelamento
+     * @return
+     * @throws NfeException
+     */
+    public static TRetEnvEvento cancelarNfe(ConfiguracoesNfe configuracoesNfe, TEnvEvento envEvento, boolean valida, DocumentoEnum tipoDocumento, String xmlMock) throws NfeException {
 
-        return Cancelar.eventoCancelamento(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida, tipoDocumento);
+        return Cancelar.eventoCancelamento(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida, tipoDocumento, xmlMock);
 
     }
 
@@ -166,8 +216,20 @@ public class Nfe {
      * @throws NfeException
      */
     public static br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento cancelarSubstituicaoNfe(ConfiguracoesNfe configuracoesNfe, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento envEvento, boolean valida) throws NfeException {
+    	return cancelarSubstituicaoNfe(configuracoesNfe,  envEvento, valida, null);
+    }
+    /**
+     * Metodo para Cancelar a NFCE em Substituicao
+     *
+     * @param envEvento
+     * @param valida
+     * @param xmlMock
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento cancelarSubstituicaoNfe(ConfiguracoesNfe configuracoesNfe, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento envEvento, boolean valida, String xmlMock) throws NfeException {
 
-        return Cancelar.eventoCancelamentoSubstituicao(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida);
+        return Cancelar.eventoCancelamentoSubstituicao(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida, xmlMock);
 
     }
 
@@ -179,8 +241,20 @@ public class Nfe {
      * @throws NfeException
      */
     public static br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento enviarEpec(ConfiguracoesNfe configuracoesNfe, br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento envEvento, boolean valida) throws NfeException {
+    	return enviarEpec(configuracoesNfe, envEvento, valida, null);
+    }
+    
+    /**
+     * Metodo para Enviar o EPEC
+     *
+     * @param envEvento
+     * @param xmlMock
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento enviarEpec(ConfiguracoesNfe configuracoesNfe, br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento envEvento, boolean valida, String xmlMock) throws NfeException {
 
-        return Epec.eventoEpec(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida);
+        return Epec.eventoEpec(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida, xmlMock);
 
     }
 
@@ -194,9 +268,20 @@ public class Nfe {
      */
     public static br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento cce(ConfiguracoesNfe configuracoesNfe,
                                                                            br.com.swconsultoria.nfe.schema.envcce.TEnvEvento evento, boolean valida) throws NfeException {
-
-        return CartaCorrecao.eventoCCe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, evento.getEvento().get(0).getInfEvento().getCNPJ()), evento, valida);
-
+    	return cce(configuracoesNfe, evento, valida, null);
+    }
+    /**
+     * Metodo para Envio da Carta De Correção da NFE.
+     *
+     * @param evento
+     * @param valida
+     * @param xmlMock
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento cce(ConfiguracoesNfe configuracoesNfe,
+                                                                           br.com.swconsultoria.nfe.schema.envcce.TEnvEvento evento, boolean valida, String xmlMock) throws NfeException {
+        return CartaCorrecao.eventoCCe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, evento.getEvento().get(0).getInfEvento().getCNPJ()), evento, valida, xmlMock);
     }
 
     /**
@@ -209,7 +294,20 @@ public class Nfe {
      */
     public static br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(ConfiguracoesNfe configuracoesNfe,
                                                                                             br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento evento, boolean valida) throws NfeException {
-        return ManifestacaoDestinatario.eventoManifestacao(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, evento.getEvento().get(0).getInfEvento().getCNPJ()), evento, valida);
+    	return manifestacao(configuracoesNfe, evento, valida, null);
+    }
+    /**
+     * Metodo para Manifestação da NFE.
+     * @param configuracoesNfe
+     * @param evento
+     * @param valida
+     * @param xmlMock
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(ConfiguracoesNfe configuracoesNfe,
+                                                                                            br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento evento, boolean valida, String xmlMock) throws NfeException {
+        return ManifestacaoDestinatario.eventoManifestacao(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, evento.getEvento().get(0).getInfEvento().getCNPJ()), evento, valida, xmlMock);
 
     }
 

@@ -5,6 +5,7 @@ import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
+import br.com.swconsultoria.nfe.mock.MockCancelar;
 import br.com.swconsultoria.nfe.util.LoggerUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
@@ -12,46 +13,56 @@ import br.com.swconsultoria.nfe.wsdl.NFeRecepcaoEvento.NFeRecepcaoEvento4Stub;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 import org.apache.axis2.transport.http.HTTPConstants;
+import org.powermock.api.mockito.PowerMockito;
 
 import javax.xml.stream.XMLStreamException;
 import java.rmi.RemoteException;
 
 class Eventos {
 
-    static String enviarEvento(ConfiguracoesNfe config, String xml, ServicosEnum tipoEvento, boolean valida, DocumentoEnum tipoDocumento)
-            throws NfeException {
+	static String enviarEvento(ConfiguracoesNfe config, String xml, ServicosEnum tipoEvento, boolean valida, DocumentoEnum tipoDocumento, String xmlMock) throws NfeException {
 
-        try {
+		try {
 
-            xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.EVENTO);
+			xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.EVENTO);
 
-            LoggerUtil.log(Eventos.class,"[XML-ENVIO-"+tipoEvento+"]: " +xml);
+			LoggerUtil.log(Eventos.class, "[XML-ENVIO-" + tipoEvento + "]: " + xml);
 
-            if (valida) {
-                new Validar().validaXml(config, xml, tipoEvento);
-            }
+			if (valida) {
+				new Validar().validaXml(config, xml, tipoEvento);
+			}
 
-            OMElement ome = AXIOMUtil.stringToOM(xml);
+			OMElement ome = AXIOMUtil.stringToOM(xml);
 
-            NFeRecepcaoEvento4Stub.NfeDadosMsg dadosMsg = new NFeRecepcaoEvento4Stub.NfeDadosMsg();
-            dadosMsg.setExtraElement(ome);
+			NFeRecepcaoEvento4Stub.NfeDadosMsg dadosMsg = new NFeRecepcaoEvento4Stub.NfeDadosMsg();
+			dadosMsg.setExtraElement(ome);
 
-            String url = WebServiceUtil.getUrl(config, tipoDocumento, tipoEvento);
+			String url = WebServiceUtil.getUrl(config, tipoDocumento, tipoEvento);
 
-            NFeRecepcaoEvento4Stub stub = new NFeRecepcaoEvento4Stub(url);
-            // Timeout
-            if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
-                stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
-                stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT,
-                        config.getTimeout());
-            }
-            NFeRecepcaoEvento4Stub.NfeResultMsg result = stub.nfeRecepcaoEvento(dadosMsg);
+			NFeRecepcaoEvento4Stub stub = null;
+			if (xmlMock != null) {
+				try {
+					stub = PowerMockito.mock(NFeRecepcaoEvento4Stub.class);
+					NFeRecepcaoEvento4Stub.NfeResultMsg nfeResult = MockCancelar.getNfeResultMsg(xmlMock);
+					PowerMockito.when(stub.nfeRecepcaoEvento(dadosMsg)).thenReturn(nfeResult);
+				} catch (Exception e) {
+					new NfeException(e.getMessage());
+				}
+			} else {
+				stub = new NFeRecepcaoEvento4Stub(url);
+				// Timeout
+				if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
+					stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
+					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+				}
+			}
+			NFeRecepcaoEvento4Stub.NfeResultMsg result = stub.nfeRecepcaoEvento(dadosMsg);
 
-            LoggerUtil.log(Eventos.class,"[XML-RETORNO-"+tipoEvento+"]: " +result.getExtraElement().toString());
-            return result.getExtraElement().toString();
-        } catch (RemoteException | XMLStreamException e) {
-            throw new NfeException(e.getMessage());
-        }
+			LoggerUtil.log(Eventos.class, "[XML-RETORNO-" + tipoEvento + "]: " + result.getExtraElement().toString());
+			return result.getExtraElement().toString();
+		} catch (RemoteException | XMLStreamException e) {
+			throw new NfeException(e.getMessage());
+		}
 
-    }
+	}
 }
