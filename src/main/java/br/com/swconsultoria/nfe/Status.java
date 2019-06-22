@@ -4,7 +4,6 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.mock.MockStatus;
 import br.com.swconsultoria.nfe.schema_4.consStatServ.TConsStatServ;
 import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
@@ -14,7 +13,6 @@ import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeStatusServico4.NFeStatusServico4Stub;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
-import org.powermock.api.mockito.PowerMockito;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -58,7 +56,7 @@ class Status {
      * @see WebServiceUtil
      * @see XmlNfeUtil
      */
-    static TRetConsStatServ statusServico(ConfiguracoesNfe config, DocumentoEnum tipoDocumento, String xmlMock) throws NfeException {
+    static TRetConsStatServ statusServico(ConfiguracoesNfe config, DocumentoEnum tipoDocumento) throws NfeException {
 
         try {
 
@@ -76,18 +74,9 @@ class Status {
             NFeStatusServico4Stub.NfeDadosMsg dadosMsg = new NFeStatusServico4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
 
-			NFeStatusServico4Stub stub = null;
-			if (xmlMock != null) {
-				try {
-					stub = PowerMockito.mock(NFeStatusServico4Stub.class);
-					NFeStatusServico4Stub.NfeResultMsg nfeResult = MockStatus.getNfeResultMsg(xmlMock);
-					PowerMockito.when(stub.nfeStatusServicoNF(dadosMsg)).thenReturn(nfeResult);
-				} catch (Exception e) {
-					new NfeException(e.getMessage());
-				}
-			}else {
-				stub = new NFeStatusServico4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
-			}
+            NFeStatusServico4Stub stub = new NFeStatusServico4Stub(
+                    WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
+
             NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
 
             LoggerUtil.log(Status.class, "[XML-RETORNO]: " + result.getExtraElement().toString());

@@ -1,91 +1,84 @@
 package br.com.swconsultoria.nfe;
 
-import static org.junit.Assert.assertTrue;
+import br.com.swconsultoria.certificado.Certificado;
+import br.com.swconsultoria.certificado.CertificadoService;
+import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
+import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
+import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
+import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
+import br.com.swconsultoria.nfe.dom.enuns.StatusEnum;
+import br.com.swconsultoria.nfe.mock.MockCancelar;
+import br.com.swconsultoria.nfe.mock.MockStatus;
+import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ;
+import br.com.swconsultoria.nfe.util.ConstantesUtil;
+import br.com.swconsultoria.nfe.util.RetornoUtil;
+import br.com.swconsultoria.nfe.wsdl.NFeRecepcaoEvento.NFeRecepcaoEvento4Stub;
+import br.com.swconsultoria.nfe.wsdl.NFeStatusServico4.NFeStatusServico4Stub;
+import mockit.Delegate;
+import mockit.Expectations;
+import mockit.Mocked;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.nio.file.Paths;
+import java.util.Objects;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import br.com.swconsultoria.certificado.Certificado;
-import br.com.swconsultoria.certificado.CertificadoService;
+final class NfeTest {
 
-public class NfeTest {
-	static String pathCertificado;
-	static Certificado certificado;
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		URI uri = NfeTest.class.getClassLoader().getResource("CertificadoTesteCNPJ.pfx").toURI();
-		pathCertificado = Paths.get(uri).toString();
-		certificado = CertificadoService.certificadoPfx(pathCertificado, "123456");
-	}
+    private static ConfiguracoesNfe configuracoesNfe;
 
-	@Test
-	public final void testDistribuicaoDfe() {
-		//TODO fail("Not yet implemented");
-	}
+    @BeforeAll
+    static void setUpBeforeClass() throws Exception {
+        URI uri = Objects.requireNonNull(NfeTest.class.getClassLoader().getResource("CertificadoTesteCNPJ.pfx")).toURI();
+        Certificado certificado = CertificadoService.certificadoPfx(
+                Paths.get(uri).toString(), "123456");
+        configuracoesNfe = ConfiguracoesNfe.criarConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO, certificado, "");
+    }
 
-	@Test
-	public final void testStatusServicoConfiguracoesNfeDocumentoEnumString() {
-		assertTrue("Certificado não foi carregado",certificado.getCnpjCpf().equals("99999999999999"));
-		//TODO fail("Not yet implemented");
-	}
+    @Test
+    void testeStatusServico(@Mocked NFeStatusServico4Stub stub) throws Exception {
 
-	@Test
-	public final void testConsultaXml() {
-		//TODO fail("Not yet implemented");
-	}
+        new Expectations() {{
+            stub.nfeStatusServicoNF((NFeStatusServico4Stub.NfeDadosMsg) any);
+            result = new Delegate() {
+                NFeStatusServico4Stub.NfeResultMsg aDelegateMethod(NFeStatusServico4Stub.NfeDadosMsg dados) throws Exception {
+                    return MockStatus.getNfeResultMsg(dados);
+                }
+            };
+        }};
 
-	@Test
-	public final void testConsultaCadastro() {
-		//TODO fail("Not yet implemented");
-	}
+        TRetConsStatServ retorno = Nfe.statusServico(configuracoesNfe, DocumentoEnum.NFE);
 
-	@Test
-	public final void testConsultaRecibo() {
-		//TODO fail("Not yet implemented");
-	}
+        assertEquals(StatusEnum.SERVICO_EM_OPERACAO.getCodigo(), retorno.getCStat());
+        assertEquals(ConstantesUtil.VERSAO.NFE, retorno.getVersao());
+        assertEquals(configuracoesNfe.getEstado().getCodigoUF(), retorno.getCUF());
+        assertEquals(AmbienteEnum.HOMOLOGACAO.getCodigo(), retorno.getTpAmb());
+    }
 
-	@Test
-	public final void testInutilizacaoConfiguracoesNfeTInutNFeDocumentoEnumBooleanString() {
-		//TODO fail("Not yet implemented");
-	}
+    @Test
+    void testeCancelamento(@Mocked NFeRecepcaoEvento4Stub stub) throws Exception {
 
-	@Test
-	public final void testMontaNfe() {
-		//TODO fail("Not yet implemented");
-	}
+        new Expectations() {{
+            stub.nfeRecepcaoEvento((NFeRecepcaoEvento4Stub.NfeDadosMsg) any);
+            result = new Delegate() {
+                NFeRecepcaoEvento4Stub.NfeResultMsg aDelegateMethod(NFeRecepcaoEvento4Stub.NfeDadosMsg dados) throws Exception {
+                    return MockCancelar.getNfeResultMsg(dados);
+                }
+            };
+        }};
 
-	@Test
-	public final void testEnviarNfeConfiguracoesNfeTEnviNFeDocumentoEnumString() {
-		//TODO fail("Not yet implemented");
-	}
+        TRetEnvEvento retorno = Nfe.cancelarNfe(configuracoesNfe, MockCancelar.criaEventoCancelamento(configuracoesNfe), false, DocumentoEnum.NFE);
 
-	@Test
-	public final void testCancelarNfeConfiguracoesNfeTEnvEventoBooleanDocumentoEnumString() {
-		//TODO fail("Not yet implemented");
-	}
-
-	@Test
-	public final void testCancelarSubstituicaoNfeConfiguracoesNfeTEnvEventoBooleanString() {
-		//TODO fail("Not yet implemented");
-	}
-
-	@Test
-	public final void testEnviarEpecConfiguracoesNfeTEnvEventoBooleanString() {
-		//TODO fail("Not yet implemented");
-	}
-
-	@Test
-	public final void testCceConfiguracoesNfeTEnvEventoBooleanString() {
-		//TODO fail("Not yet implemented");
-	}
-
-	@Test
-	public final void testManifestacaoConfiguracoesNfeTEnvEventoBooleanString() {
-		//TODO fail("Not yet implemented");
-	}
+        RetornoUtil.validaCancelamento(retorno);
+        assertEquals(StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo(), retorno.getCStat());
+        assertEquals(configuracoesNfe.getEstado().getCodigoUF(), retorno.getCOrgao());
+        assertEquals(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO, retorno.getVersao());
+        assertEquals(AmbienteEnum.HOMOLOGACAO.getCodigo(), retorno.getTpAmb());
+        assertEquals(StatusEnum.EVENTO_VINCULADO.getCodigo(), retorno.getRetEvento().get(0).getInfEvento().getCStat());
+    }
 
 }

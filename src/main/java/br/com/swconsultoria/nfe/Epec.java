@@ -16,7 +16,7 @@ import javax.xml.bind.JAXBException;
  */
 class Epec {
 
-    static TRetEnvEvento eventoEpec(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida, String xmlMock) throws NfeException {
+    static TRetEnvEvento eventoEpec(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida) throws NfeException {
 
         try {
 
@@ -24,7 +24,7 @@ class Epec {
             xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
             xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-            xml = Eventos.enviarEvento(config, xml, ServicosEnum.EPEC, valida, DocumentoEnum.NFE, xmlMock);
+            xml = Eventos.enviarEvento(config, xml, ServicosEnum.EPEC, valida, DocumentoEnum.NFE);
 
             return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
 

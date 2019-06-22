@@ -32,7 +32,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.Base64;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.StringJoiner;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -57,6 +60,7 @@ public class XmlNfeUtil {
     private static final String RETORNO_ENVIO = "TRetEnviNFe";
     private static final String SITUACAO_NFE_RET = "TRetConsSitNFe";
     private static final String RET_RECIBO_NFE = "TRetConsReciNFe";
+    private static final String RET_STATUS_SERVICO = "TRetConsStatServ";
 
     private static final String RET_ENV_EVENTO = "TRetEnvEvento";
 
@@ -167,6 +171,11 @@ public class XmlNfeUtil {
             case RET_RECIBO_NFE:
                 context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe.class);
                 element = new br.com.swconsultoria.nfe.schema_4.retConsReciNFe.ObjectFactory().createRetConsReciNFe((br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe) obj);
+                break;
+
+            case RET_STATUS_SERVICO:
+                context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ.class);
+                element = new br.com.swconsultoria.nfe.schema_4.retConsStatServ.ObjectFactory().createRetConsStatServ((br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ) obj);
                 break;
 
             case TPROCEVENTO:
@@ -380,9 +389,9 @@ public class XmlNfeUtil {
 
     public static byte[] geraHashCSRT(String chave, String csrt) throws NoSuchAlgorithmException {
 
-        ObjetoUtil.verifica(chave).orElseThrow( () -> new InvalidParameterException("Chave não deve ser nula ou vazia"));
-        ObjetoUtil.verifica(csrt).orElseThrow( () -> new InvalidParameterException("CSRT não deve ser nulo ou vazio"));
-        if(chave.length() != 44){
+        ObjetoUtil.verifica(chave).orElseThrow(() -> new InvalidParameterException("Chave não deve ser nula ou vazia"));
+        ObjetoUtil.verifica(csrt).orElseThrow(() -> new InvalidParameterException("CSRT não deve ser nulo ou vazio"));
+        if (chave.length() != 44) {
             throw new InvalidParameterException("Chave deve conter 44 caracteres.");
         }
         MessageDigest md = MessageDigest.getInstance("SHA-1");

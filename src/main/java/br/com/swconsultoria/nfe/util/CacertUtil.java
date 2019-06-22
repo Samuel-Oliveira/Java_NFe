@@ -49,7 +49,7 @@ public class CacertUtil {
             }
 
             if (!arquivoCacert.isFile()) {
-                File dir = new File("C:\\Program Files (x86)\\Java\\jre1.8.0_201" + File.separatorChar + "lib" + File.separatorChar + "security");
+                File dir = new File("C:\\Program Files\\Java\\jre1.8.0_211" + File.separatorChar + "lib" + File.separatorChar + "security");
                 arquivoCacert = new File(dir, "cacerts");
             }
 

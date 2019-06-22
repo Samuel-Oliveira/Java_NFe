@@ -1,21 +1,10 @@
 package br.com.swconsultoria.nfe;
 
-import java.rmi.RemoteException;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLStreamException;
-
-import org.apache.axiom.om.OMElement;
-import org.apache.axiom.om.util.AXIOMUtil;
-import org.apache.axis2.transport.http.HTTPConstants;
-import org.powermock.api.mockito.PowerMockito;
-
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.mock.MockInutilizar;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.com.swconsultoria.nfe.util.LoggerUtil;
@@ -23,6 +12,13 @@ import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.NFeInutilizacao4Stub;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.axis2.transport.http.HTTPConstants;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
+import java.rmi.RemoteException;
 
 /**
  * Classe Responsavel por inutilizar uma Faixa de numeracao da Nfe.
@@ -31,7 +27,8 @@ import br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.NFeInutilizacao4Stub;
  */
 class Inutilizar {
 
-	static TRetInutNFe inutiliza(ConfiguracoesNfe config, TInutNFe inutNFe, DocumentoEnum tipoDocumento, boolean validar, String xmlMock) throws NfeException {
+    static TRetInutNFe inutiliza(ConfiguracoesNfe config, TInutNFe inutNFe, DocumentoEnum tipoDocumento, boolean validar)
+            throws NfeException {
 
 		try {
 
@@ -50,24 +47,14 @@ class Inutilizar {
 			NFeInutilizacao4Stub.NfeDadosMsg dadosMsg = new NFeInutilizacao4Stub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
 
-			NFeInutilizacao4Stub stub = null;
-			if (xmlMock != null) {
-				try {
-					stub = PowerMockito.mock(NFeInutilizacao4Stub.class);
-					NFeInutilizacao4Stub.NfeResultMsg nfeResult = MockInutilizar.getNfeResultMsg(xmlMock);
-					PowerMockito.when(stub.nfeInutilizacaoNF(dadosMsg)).thenReturn(nfeResult);
-				} catch (Exception e) {
-					new NfeException(e.getMessage());
-				}
-			} else {
-				stub = new NFeInutilizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.INUTILIZACAO));
+            NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(
+                    WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.INUTILIZACAO));
 
 				// Timeout
 				if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
 				}
-			}
 			NFeInutilizacao4Stub.NfeResultMsg result = stub.nfeInutilizacaoNF(dadosMsg);
 
 			LoggerUtil.log(Inutilizar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());

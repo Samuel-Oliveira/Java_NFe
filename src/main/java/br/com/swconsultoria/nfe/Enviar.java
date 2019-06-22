@@ -1,28 +1,11 @@
 package br.com.swconsultoria.nfe;
 
-import java.io.StringReader;
-import java.rmi.RemoteException;
-import java.util.Iterator;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLStreamException;
-
-import org.apache.axiom.om.OMAbstractFactory;
-import org.apache.axiom.om.OMElement;
-import org.apache.axiom.om.OMFactory;
-import org.apache.axiom.om.util.AXIOMUtil;
-import org.apache.axiom.om.util.StAXParserConfiguration;
-import org.apache.axis2.transport.http.HTTPConstants;
-import org.powermock.api.mockito.PowerMockito;
-import org.xml.sax.InputSource;
-
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.mock.MockEnvio;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
 import br.com.swconsultoria.nfe.util.LoggerUtil;
@@ -30,6 +13,19 @@ import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub;
+import org.apache.axiom.om.OMAbstractFactory;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.OMFactory;
+import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.axiom.om.util.StAXParserConfiguration;
+import org.apache.axis2.transport.http.HTTPConstants;
+import org.xml.sax.InputSource;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
+import java.io.StringReader;
+import java.rmi.RemoteException;
+import java.util.Iterator;
 
 /**
  * Classe Responsavel por Enviar o XML.
@@ -88,7 +84,7 @@ class Enviar {
 	 * @return
 	 * @throws NfeException
 	 */
-	static TRetEnviNFe enviaNfe(ConfiguracoesNfe config, TEnviNFe enviNFe, DocumentoEnum tipoDocumento, String xmlMock) throws NfeException {
+    static TRetEnviNFe enviaNfe(ConfiguracoesNfe config, TEnviNFe enviNFe, DocumentoEnum tipoDocumento) throws NfeException {
 
 		try {
 
@@ -114,18 +110,8 @@ class Enviar {
 
 			NFeAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeAutorizacao4Stub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
-			NFeAutorizacao4Stub stub = null;
 
-			if (xmlMock != null) {
-				try {
-					stub = PowerMockito.mock(NFeAutorizacao4Stub.class);
-					NFeAutorizacao4Stub.NfeResultMsg nfeResult = MockEnvio.getNfeResultMsg(xmlMock);
-					PowerMockito.when(stub.nfeAutorizacaoLote(dadosMsg)).thenReturn(nfeResult);
-				} catch (Exception e) {
-					new NfeException(e.getMessage());
-				}
-			} else {
-				stub = new NFeAutorizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.ENVIO));
+            NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.ENVIO));
 
 				// Timeout
 				if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -137,7 +123,6 @@ class Enviar {
 				if (tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)) {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 				}
-			}
 			NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
 			LoggerUtil.log(Enviar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
 			return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);

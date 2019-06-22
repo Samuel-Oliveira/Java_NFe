@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.12-RC2</version>
+    <version>4.00.12-SNAPSHOT</version>
     <name>Java_NFe</name>
     <description>Api java para consumo do webService de nota fiscal eletronica</description>
     <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
@@ -29,13 +29,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
-		<!-- define install mvn -->
-		<createChecksum>true</createChecksum>
-		<performRelease>true</performRelease>
-		<packaging>jar</packaging>
-		<localRepositoryPath>${basedir}/../mvn-repositorio</localRepositoryPath>
-		<file>${project.build.directory}${file.separator}${project.build.finalName}.jar</file>
-	</properties>
+    </properties>
 
     <distributionManagement>
         <snapshotRepository>
@@ -57,18 +51,7 @@
     </developers>
 
     <dependencies>
-    <dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>1.6.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito</artifactId>
-			<version>1.6.4</version>
-		</dependency>
-		
-		<!-- Certificado Utils -->
+        <!-- Certificado Utils -->
         <dependency>
             <groupId>br.com.swconsultoria</groupId>
             <artifactId>java_certificado</artifactId>
@@ -139,13 +122,18 @@
             <artifactId>axiom-api</artifactId>
             <version>1.2.20</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.jmockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>1.47</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.3.1</version>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -153,7 +141,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -212,23 +200,13 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
-            </plugin>
-            <plugin>
-				<!-- resposavel por manter mvn-repositorio atualizado -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>3.0.0-M1</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <version>2.22.2</version> <!-- or some other version -->
+                <configuration>
+                    <argLine>
+                        -javaagent:src/test/resources/agent.jar
+                    </argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
