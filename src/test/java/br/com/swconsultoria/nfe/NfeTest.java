@@ -46,7 +46,7 @@ final class NfeTest {
             stub.nfeStatusServicoNF((NFeStatusServico4Stub.NfeDadosMsg) any);
             result = new Delegate() {
                 NFeStatusServico4Stub.NfeResultMsg aDelegateMethod(NFeStatusServico4Stub.NfeDadosMsg dados) throws Exception {
-                    return MockStatus.getNfeResultMsg(dados);
+                    return MockStatus.getNfeResultMsg(dados, StatusEnum.SERVICO_EM_OPERACAO.getCodigo(), "Serviço em Operação");
                 }
             };
         }};
@@ -66,7 +66,7 @@ final class NfeTest {
             stub.nfeRecepcaoEvento((NFeRecepcaoEvento4Stub.NfeDadosMsg) any);
             result = new Delegate() {
                 NFeRecepcaoEvento4Stub.NfeResultMsg aDelegateMethod(NFeRecepcaoEvento4Stub.NfeDadosMsg dados) throws Exception {
-                    return MockCancelar.getNfeResultMsg(dados);
+                    return MockCancelar.getNfeResultMsg(dados , StatusEnum.EVENTO_VINCULADO.getCodigo(), "Evento registrado e vinculado a NF-e");
                 }
             };
         }};

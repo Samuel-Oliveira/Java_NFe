@@ -21,7 +21,7 @@ import java.util.Random;
 
 public class MockCancelar {
 
-    public static NFeRecepcaoEvento4Stub.NfeResultMsg getNfeResultMsg(NFeRecepcaoEvento4Stub.NfeDadosMsg dadosMsg) throws Exception {
+    public static NFeRecepcaoEvento4Stub.NfeResultMsg getNfeResultMsg(NFeRecepcaoEvento4Stub.NfeDadosMsg dadosMsg, String cStat, String xMotivo) throws Exception {
 
         TEnvEvento envEvento = XmlNfeUtil.xmlToObject(dadosMsg.getExtraElement().toString(), TEnvEvento.class);
 
@@ -42,8 +42,8 @@ public class MockCancelar {
         infEvento.setTpAmb(envEvento.getEvento().get(0).getInfEvento().getTpAmb());
         infEvento.setVerAplic("GO4.0");
         infEvento.setCOrgao(envEvento.getEvento().get(0).getInfEvento().getCOrgao());
-        infEvento.setCStat(StatusEnum.EVENTO_VINCULADO.getCodigo());
-        infEvento.setXMotivo("Evento registrado e vinculado a NF-e");
+        infEvento.setCStat(cStat);
+        infEvento.setXMotivo(xMotivo);
         infEvento.setChNFe(envEvento.getEvento().get(0).getInfEvento().getChNFe());
         infEvento.setTpEvento(envEvento.getEvento().get(0).getInfEvento().getTpEvento());
         infEvento.setXEvento(envEvento.getEvento().get(0).getInfEvento().getDetEvento().getDescEvento());

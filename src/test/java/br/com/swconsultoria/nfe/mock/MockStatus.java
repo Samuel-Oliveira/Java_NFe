@@ -1,6 +1,5 @@
 package br.com.swconsultoria.nfe.mock;
 
-import br.com.swconsultoria.nfe.dom.enuns.StatusEnum;
 import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TConsStatServ;
 import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 
 public class MockStatus {
 
-    public static NFeStatusServico4Stub.NfeResultMsg getNfeResultMsg(NFeStatusServico4Stub.NfeDadosMsg dadosMsg) throws Exception {
+    public static NFeStatusServico4Stub.NfeResultMsg getNfeResultMsg(NFeStatusServico4Stub.NfeDadosMsg dadosMsg, String cStat, String xMotivo) throws Exception {
 
         TConsStatServ consStatServ = XmlNfeUtil.xmlToObject(dadosMsg.getExtraElement().toString(), TConsStatServ.class);
         String dh = XmlNfeUtil.dataNfe(LocalDateTime.of(2019, 1, 1, 0, 0));
@@ -22,8 +21,8 @@ public class MockStatus {
         retorno.setVersao(ConstantesUtil.VERSAO.NFE);
         retorno.setTpAmb(consStatServ.getTpAmb());
         retorno.setVerAplic("GO4.0");
-        retorno.setCStat(StatusEnum.SERVICO_EM_OPERACAO.getCodigo());
-        retorno.setXMotivo("Serviço em Operação");
+        retorno.setCStat(cStat);
+        retorno.setXMotivo(xMotivo);
         retorno.setCUF(consStatServ.getCUF());
         retorno.setDhRecbto(dh);
         retorno.setTMed("1");
