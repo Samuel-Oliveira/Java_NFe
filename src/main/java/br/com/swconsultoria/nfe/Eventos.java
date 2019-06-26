@@ -37,17 +37,17 @@ class Eventos {
 			dadosMsg.setExtraElement(ome);
 			NFeRecepcaoEvento4Stub.NfeResultMsg result;
 			if(config.isMocked()) {
-			String url = WebServiceUtil.getUrl(config, tipoDocumento, tipoEvento);
-
-            NFeRecepcaoEvento4Stub stub = new NFeRecepcaoEvento4Stub(url);
-				// Timeout
-				if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
-					stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
-					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
-				}
-			result = stub.nfeRecepcaoEvento(dadosMsg);
+				result = config.getMockStubs().nfeRecepcaoEvento(dadosMsg);			
 			}else {
-				result = config.getMockStubs().nfeRecepcaoEvento(dadosMsg);
+				String url = WebServiceUtil.getUrl(config, tipoDocumento, tipoEvento);
+
+	            NFeRecepcaoEvento4Stub stub = new NFeRecepcaoEvento4Stub(url);
+					// Timeout
+					if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
+						stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
+						stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+					}
+				result = stub.nfeRecepcaoEvento(dadosMsg);	
 			}
 			LoggerUtil.log(Eventos.class, "[XML-RETORNO-" + tipoEvento + "]: " + result.getExtraElement().toString());
 			return result.getExtraElement().toString();

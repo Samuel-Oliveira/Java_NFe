@@ -76,11 +76,11 @@ class Status {
             
             NFeStatusServico4Stub.NfeResultMsg result;
             if(config.isMocked()) {
+            	result = config.getMockStubs().nfeStatusServicoNF(dadosMsg);
+            }else {
             	NFeStatusServico4Stub stub = new NFeStatusServico4Stub(
                         WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
             	result = stub.nfeStatusServicoNF(dadosMsg);
-            }else {
-            	result = config.getMockStubs().nfeStatusServicoNF(dadosMsg);
             }
             
             LoggerUtil.log(Status.class, "[XML-RETORNO]: " + result.getExtraElement().toString());

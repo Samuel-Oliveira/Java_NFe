@@ -42,6 +42,7 @@ final class NfeTest {
         configuracoesNfe = ConfiguracoesNfe.criarConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO, certificado, "");
         
         configuracoesNfe.setMockStubs(mock);
+        configuracoesNfe.setMocked(true);
     }
 
     @Test
