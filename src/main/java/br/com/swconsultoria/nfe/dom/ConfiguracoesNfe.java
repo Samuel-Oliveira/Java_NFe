@@ -5,6 +5,7 @@ package br.com.swconsultoria.nfe.dom;
 
 import br.com.swconsultoria.certificado.Certificado;
 import br.com.swconsultoria.certificado.exception.CertificadoException;
+import br.com.swconsultoria.nfe.Mock;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
@@ -38,7 +39,8 @@ public class ConfiguracoesNfe {
     private boolean contigenciaSCAN;
     private boolean validacaoDocumento = true;
     private String arquivoWebService;
-
+    private Mock mockStubs;
+    private boolean mockedResult;
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a 
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
@@ -249,4 +251,19 @@ public class ConfiguracoesNfe {
     public void setArquivoWebService(String arquivoWebService) {
         this.arquivoWebService = arquivoWebService;
     }
+
+    public boolean isMocked() {
+    	return mockStubs != null && mockedResult;
+    }
+	public Mock getMockStubs() {
+		return mockStubs;
+	}
+
+	public void setMockStubs(Mock mockStubs) {
+		this.mockStubs = mockStubs;
+	}
+
+	public void setMocked(boolean mocked) {
+		this.mockedResult = mocked;
+	}
 }

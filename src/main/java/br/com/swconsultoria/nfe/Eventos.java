@@ -35,7 +35,8 @@ class Eventos {
 
 			NFeRecepcaoEvento4Stub.NfeDadosMsg dadosMsg = new NFeRecepcaoEvento4Stub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
-
+			NFeRecepcaoEvento4Stub.NfeResultMsg result;
+			if(config.isMocked()) {
 			String url = WebServiceUtil.getUrl(config, tipoDocumento, tipoEvento);
 
             NFeRecepcaoEvento4Stub stub = new NFeRecepcaoEvento4Stub(url);
@@ -44,8 +45,10 @@ class Eventos {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
 				}
-			NFeRecepcaoEvento4Stub.NfeResultMsg result = stub.nfeRecepcaoEvento(dadosMsg);
-
+			result = stub.nfeRecepcaoEvento(dadosMsg);
+			}else {
+				result = config.getMockStubs().nfeRecepcaoEvento(dadosMsg);
+			}
 			LoggerUtil.log(Eventos.class, "[XML-RETORNO-" + tipoEvento + "]: " + result.getExtraElement().toString());
 			return result.getExtraElement().toString();
 		} catch (RemoteException | XMLStreamException e) {

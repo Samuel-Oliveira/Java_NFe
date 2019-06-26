@@ -73,12 +73,16 @@ class Status {
 
             NFeStatusServico4Stub.NfeDadosMsg dadosMsg = new NFeStatusServico4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
-
-            NFeStatusServico4Stub stub = new NFeStatusServico4Stub(
-                    WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
-
-            NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
-
+            
+            NFeStatusServico4Stub.NfeResultMsg result;
+            if(config.isMocked()) {
+            	NFeStatusServico4Stub stub = new NFeStatusServico4Stub(
+                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
+            	result = stub.nfeStatusServicoNF(dadosMsg);
+            }else {
+            	result = config.getMockStubs().nfeStatusServicoNF(dadosMsg);
+            }
+            
             LoggerUtil.log(Status.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsStatServ.class);
 

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.12-SNAPSHOT</version>
+    <version>4.00.12-TS1</version>
     <name>Java_NFe</name>
     <description>Api java para consumo do webService de nota fiscal eletronica</description>
     <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
@@ -123,12 +123,6 @@
             <version>1.2.20</version>
         </dependency>
         <dependency>
-            <groupId>org.jmockit</groupId>
-            <artifactId>jmockit</artifactId>
-            <version>1.46</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.4.0</version>
@@ -204,9 +198,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version> <!-- or some other version -->
                 <configuration>
-                    <argLine>
+                   <!-- <argLine>
                         -javaagent:src/test/resources/agent.jar
-                    </argLine>
+                    </argLine>-->
                 </configuration>
             </plugin>
         </plugins>
