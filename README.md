@@ -243,3 +243,5 @@ Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java
 
 ## v3.10.0 - 26-09-2016
 - Versão Inicial Do Sistema
+
+![](https://raw.github.com/Samuel-Oliveira/Java_NFe/blob/master/jetbrains.png) Thanks to JetBrains for supporting this project! https://www.jetbrains.com/?from=Java_NFe
