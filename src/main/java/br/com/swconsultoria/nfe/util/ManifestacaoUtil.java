@@ -87,7 +87,10 @@ public class ManifestacaoUtil {
             infEvento.setId(id);
             infEvento.setCOrgao("91");
             infEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
+
+            infEvento.setCPF(manifestacao.getCpf());
             infEvento.setCNPJ(manifestacao.getCnpj());
+
             infEvento.setChNFe(manifestacao.getChave());
             infEvento.setDhEvento(XmlNfeUtil.dataNfe(manifestacao.getDataEvento(), zoneId));
             infEvento.setTpEvento(manifestacao.getTipoManifestacao().getCodigo());

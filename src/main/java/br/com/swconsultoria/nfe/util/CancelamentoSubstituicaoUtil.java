@@ -81,7 +81,10 @@ public class CancelamentoSubstituicaoUtil {
             infoEvento.setId(id);
             infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoUF()));
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
+
+            infoEvento.setCPF(evento.getCpf());
             infoEvento.setCNPJ(evento.getCnpj());
+
             infoEvento.setChNFe(evento.getChave());
 
             infoEvento.setDhEvento(XmlNfeUtil.dataNfe(evento.getDataEvento(), zoneId));
