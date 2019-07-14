@@ -82,6 +82,8 @@ public class CancelamentoUtil {
             infoEvento.setChNFe(evento.getChave());
             infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoUF()));
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
+
+            infoEvento.setCPF(evento.getCpf());
             infoEvento.setCNPJ(evento.getCnpj());
 
             infoEvento.setDhEvento(XmlNfeUtil.dataNfe(evento.getDataEvento(),zoneId));

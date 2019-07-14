@@ -82,7 +82,10 @@ public class EpecUtil {
             infoEvento.setId(id);
             infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoUF()));
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
+
+            infoEvento.setCPF(epec.getCpf());
             infoEvento.setCNPJ(epec.getCnpj());
+            
             infoEvento.setChNFe(epec.getChave());
             infoEvento.setDhEvento(XmlNfeUtil.dataNfe(epec.getDataEvento(),zoneId));
             infoEvento.setTpEvento(EventosEnum.EPEC.getCodigo());
