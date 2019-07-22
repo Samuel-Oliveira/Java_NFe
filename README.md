@@ -34,6 +34,7 @@ ________________________________________________________________________________
 - Corrigido Erro unknown Certificate PR
 - Adicionado CPF ao eventos
 - Corrigido URL HOmologação NFCe AM
+- Adicionado Conversão de Proc Manifestação 
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:

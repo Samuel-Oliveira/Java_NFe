@@ -55,7 +55,7 @@
         <dependency>
             <groupId>br.com.swconsultoria</groupId>
             <artifactId>java_certificado</artifactId>
-            <version>2.3-SNAPSHOT</version>
+            <version>2.3</version>
         </dependency>
         <!-- Ini4J -->
         <dependency>

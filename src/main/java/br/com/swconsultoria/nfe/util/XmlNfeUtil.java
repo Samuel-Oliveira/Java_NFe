@@ -70,6 +70,7 @@ public class XmlNfeUtil {
     private static final String TPROCCANCELARSUBST = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento";
     private static final String TPROCCCE = "br.com.swconsultoria.nfe.schema.envcce.TProcEvento";
     private static final String TPROCEPEC = "br.com.swconsultoria.nfe.schema.envEpec.TProcEvento";
+    private static final String TPROCMAN = "br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento";
 
     private static final String TProtNFe = "TProtNFe";
     private static final String TProtEnvi = "br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe";
@@ -113,8 +114,8 @@ public class XmlNfeUtil {
      */
     public static <T> String objectToXml(Object obj) throws JAXBException, NfeException {
 
-        JAXBContext context = null;
-        JAXBElement<?> element = null;
+        JAXBContext context;
+        JAXBElement<?> element;
 
         switch (obj.getClass().getSimpleName()) {
 
@@ -196,6 +197,12 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class);
                         element = XsdUtil.epec.createTProcEvento((br.com.swconsultoria.nfe.schema.envEpec.TProcEvento) obj);
                         break;
+                    case TPROCMAN:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class);
+                        element = XsdUtil.epec.createTProcEvento((br.com.swconsultoria.nfe.schema.envEpec.TProcEvento) obj);
+                        break;
+                    default:
+                        throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
                 }
 
                 break;
@@ -237,6 +244,8 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento.class);
                         element = new br.com.swconsultoria.nfe.schema.envConfRecebto.ObjectFactory().createEnvEvento((br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento) obj);
                         break;
+                    default:
+                        throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
                 }
                 break;
 
@@ -262,6 +271,8 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento.class);
                         element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento) obj);
                         break;
+                    default:
+                        throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
                 }
                 break;
 
@@ -279,6 +290,8 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe.class);
                         element = XsdUtil.retConsReciNfe.createTProtNFe((br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe) obj);
                         break;
+                    default:
+                        throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
                 }
                 break;
 
