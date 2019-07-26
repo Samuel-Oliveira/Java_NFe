@@ -31,6 +31,7 @@ public enum StatusEnum {
     CONSUMO_INDEVIDO("656"),
 	AUTORIZADO_FORA_PRAZO("150"),
 	CANCELADO_FORA_PRAZO("151"),
+	CANCELAMENTO_FORA_PRAZO("155"),
 	DUPLICIDADE("204");
 
 	private final String codigo;
