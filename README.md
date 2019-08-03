@@ -36,6 +36,7 @@ ________________________________________________________________________________
 - Corrigido URL HOmologação NFCe AM
 - Adicionado Conversão de Proc Manifestação
 - Adicionado Novo código a StatusEnum 
+- Adicionado cstat - 136 como retorno Válido na Manifestação
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
