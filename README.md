@@ -1,4 +1,4 @@
-# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.11/jar) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/context:java) [![Total alerts](https://img.shields.io/lgtm/alerts/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/alerts/)
+# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.12/jar) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/context:java) [![Total alerts](https://img.shields.io/lgtm/alerts/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/alerts/)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ## Dúvidas, Sugestões ou Consultoria
@@ -7,7 +7,7 @@ Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Caso use Libs baixe o java-nfe-4.00.11.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.11.jar) e o adicione às bibliotecas de Seu Projeto.
+- Caso use Libs baixe o java-nfe-4.00.12.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.12.jar) e o adicione às bibliotecas de Seu Projeto.
 
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
@@ -16,7 +16,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.11</version>
+    <version>4.00.12</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.12 - SNAPSHOT
+## v4.00.12 - 03/08/2019
 - Adicionado Calculo de HashCSRT ao XmlNfeUtil -> XmlNfeUtil.geraHashCSRT(chave,csrt)
 - Corrigido Erro de Assinatura inválida quando existe quebra de linha no XML.
 - Corrigido URL QRCode PI
@@ -38,23 +38,6 @@ ________________________________________________________________________________
 - Adicionado Novo código a StatusEnum 
 - Adicionado cstat - 136 como retorno Válido na Manifestação
 - Corrigido Erro de Assinatura inválida quando existe espaço em branco no final da Tag.
-
-Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
-Para usar, adicione o repositorio de Snapshot ao Maven:
-```
-<repositories>
-    <repository>
-        <id>sonatype-nexus-snapshots</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-</repositories>
-<dependency>
-    <groupId>br.com.swconsultoria</groupId>
-    <artifactId>java-nfe</artifactId>
-    <version>4.00.12-SNAPSHOT</version>
-</dependency>
-```
-Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.12-SNAPSHOT.jar
 
 ## v4.00.11 - 26/05/2019
 - Retirado Exception Genérica
