@@ -30,6 +30,7 @@ ________________________________________________________________________________
 - Corrigido Conflito de dependencia com Spring (servlet-api)
 - Atualizado Cacert
 - Atualizado WebService do Para para SVRS
+- Adicionado Consulta Unica do NSU
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
