@@ -25,8 +25,11 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
 ## v4.00.13 - SNAPSHOT
 - Corrigido Conflito de dependencia com Spring (servlet-api)
+- Atualizado Cacert
+- Atualizado WebService do Para para SVRS
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
