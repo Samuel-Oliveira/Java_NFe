@@ -12,12 +12,24 @@ Para Iniciar :
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
-```
+```xml
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
     <version>4.00.12</version>
 </dependency>
+```
+
+- Gradle :
+```groovy
+repositories {
+    maven { 
+        url = "https://oss.sonatype.org/content/repositories/snapshots" 
+    }
+}
+dependencies {
+    implementation "br.com.swconsultoria:java-nfe:4.00.12"
+}
 ```
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
