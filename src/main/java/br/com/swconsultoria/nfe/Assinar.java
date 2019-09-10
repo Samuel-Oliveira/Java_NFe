@@ -57,6 +57,7 @@ public class Assinar {
     public static String assinaNfe(ConfiguracoesNfe config, String stringXml, AssinaturaEnum tipoAssinatura) throws NfeException {
 
         stringXml = stringXml.replaceAll("\r\n", "").replaceAll("\n", "").replaceAll(System.lineSeparator(), ""); // Erro quando tem salto de linha.
+        stringXml = stringXml.replaceAll("\\s+<", "<"); // Erro Espaço antes do final da Tag.
         stringXml = assinaDocNFe(config, stringXml, tipoAssinatura);
         stringXml = stringXml.replaceAll("&#13;", ""); // Java 11
 

@@ -13,6 +13,7 @@ public class Evento {
     private String chave;
     private String protocolo;
     private String motivo;
+    private String cpf;
     private String cnpj;
     private String chaveSusbstituta;
     private LocalDateTime dataEvento;
@@ -42,6 +43,14 @@ public class Evento {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getCnpj() {

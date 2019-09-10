@@ -6,5 +6,6 @@ package br.com.swconsultoria.nfe.dom.enuns;
  */
 public enum ConsultaDFeEnum {
     NSU,
+    NSU_UNICO,
     CHAVE
 }

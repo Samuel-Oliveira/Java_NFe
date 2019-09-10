@@ -21,7 +21,7 @@ class Validar implements ErrorHandler {
 
     void validaXml(ConfiguracoesNfe config, String xml, ServicosEnum servico) throws NfeException {
 
-        System.setProperty("jdk.xml.maxOccurLimit", "9999");
+        System.setProperty("jdk.xml.maxOccurLimit", "99999");
         String errosValidacao;
         String xsd = config.getPastaSchemas() + "/" + servico.getXsd();
         if (!new File(xsd).exists()) {

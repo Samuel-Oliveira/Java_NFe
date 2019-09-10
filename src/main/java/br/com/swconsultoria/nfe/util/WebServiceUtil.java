@@ -71,13 +71,11 @@ public class WebServiceUtil {
             //URLS CONSULTA CADASTO
             if (tipoServico.equals(ServicosEnum.CONSULTA_CADASTRO) && (
                     config.getEstado().equals(EstadosEnum.PA) ||
-                            config.getEstado().equals(EstadosEnum.MA) ||
                             config.getEstado().equals(EstadosEnum.AM) ||
                             config.getEstado().equals(EstadosEnum.AL) ||
                             config.getEstado().equals(EstadosEnum.AP) ||
                             config.getEstado().equals(EstadosEnum.DF) ||
                             config.getEstado().equals(EstadosEnum.PI) ||
-                            config.getEstado().equals(EstadosEnum.ES) ||
                             config.getEstado().equals(EstadosEnum.RJ) ||
                             config.getEstado().equals(EstadosEnum.RO) ||
                             config.getEstado().equals(EstadosEnum.SE) ||

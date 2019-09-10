@@ -82,7 +82,9 @@ public class CartaCorrecaoUtil {
             infEvento.setCOrgao(configuracao.getEstado().getCodigoUF());
             infEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
 
+            infEvento.setCPF(cce.getCpf());
             infEvento.setCNPJ(cce.getCnpj());
+
             infEvento.setChNFe(cce.getChave());
 
             // Altere a Data
