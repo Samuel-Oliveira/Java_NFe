@@ -27,8 +27,7 @@ import java.rmi.RemoteException;
  */
 class Inutilizar {
 
-    static TRetInutNFe inutiliza(ConfiguracoesNfe config, TInutNFe inutNFe, DocumentoEnum tipoDocumento, boolean validar)
-            throws NfeException {
+	static TRetInutNFe inutiliza(ConfiguracoesNfe config, TInutNFe inutNFe, DocumentoEnum tipoDocumento, boolean validar) throws NfeException {
 
 		try {
 
@@ -46,17 +45,19 @@ class Inutilizar {
 
 			NFeInutilizacao4Stub.NfeDadosMsg dadosMsg = new NFeInutilizacao4Stub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
-
-            NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(
-                    WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.INUTILIZACAO));
+			NFeInutilizacao4Stub.NfeResultMsg result;
+			if (config.isMocked()) {
+				result = config.getMockStubs().nfeInutilizacaoNF(dadosMsg);
+			} else {
+				NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.INUTILIZACAO));
 
 				// Timeout
 				if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
 				}
-			NFeInutilizacao4Stub.NfeResultMsg result = stub.nfeInutilizacaoNF(dadosMsg);
-
+				result = stub.nfeInutilizacaoNF(dadosMsg);
+			}
 			LoggerUtil.log(Inutilizar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
 			return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetInutNFe.class);
 		} catch (RemoteException | XMLStreamException | JAXBException e) {

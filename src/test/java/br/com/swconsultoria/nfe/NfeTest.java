@@ -79,4 +79,10 @@ final class NfeTest {
         assertEquals(AmbienteEnum.HOMOLOGACAO.getCodigo(), retorno.getTpAmb());
         assertEquals(StatusEnum.EVENTO_VINCULADO.getCodigo(), retorno.getRetEvento().get(0).getInfEvento().getCStat());
     }
+    
+    @Test
+    void testeInutilizacao() throws Exception {
+    	inutNFe
+    	Nfe.inutilizacao(configuracoesNfe, inutNFe, DocumentoEnum.NFE, true);
+    }
 }

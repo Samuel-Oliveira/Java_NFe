@@ -37,7 +37,7 @@ class Eventos {
 			dadosMsg.setExtraElement(ome);
 			NFeRecepcaoEvento4Stub.NfeResultMsg result;
 			if(config.isMocked()) {
-				result = config.getMockStubs().nfeRecepcaoEvento(dadosMsg);			
+				result = config.getMockStubs().nfeRecepcaoEvento(dadosMsg, tipoEvento);			
 			}else {
 				String url = WebServiceUtil.getUrl(config, tipoDocumento, tipoEvento);
 
