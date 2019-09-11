@@ -8,14 +8,25 @@ import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 
 import br.com.swconsultoria.nfe.Mock;
+import br.com.swconsultoria.nfe.Nfe;
+import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.StatusEnum;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEvento;
+import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe.InfInut;
+import br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe.InfProt;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
+import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TConsStatServ;
 import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
+import br.com.swconsultoria.nfe.util.RetornoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.NFeInutilizacao4Stub;
 import br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.NFeInutilizacao4Stub.NfeDadosMsg;
@@ -29,7 +40,7 @@ public class MockImp implements Mock {
 	public NFeStatusServico4Stub.NfeResultMsg nfeStatusServicoNF(NFeStatusServico4Stub.NfeDadosMsg dadosMsg) {
 		try {
 			TConsStatServ consStatServ = XmlNfeUtil.xmlToObject(dadosMsg.getExtraElement().toString(), TConsStatServ.class);
-			String dh = XmlNfeUtil.dataNfe(LocalDateTime.of(2019, 1, 1, 0, 0));
+			String dh = XmlNfeUtil.dataNfe(LocalDateTime.now());
 
 			TRetConsStatServ retorno = new TRetConsStatServ();
 			retorno.setVersao(ConstantesUtil.VERSAO.NFE);
@@ -55,7 +66,7 @@ public class MockImp implements Mock {
 			TEnvEvento envEvento = XmlNfeUtil.xmlToObject(dadosMsg.getExtraElement().toString(), TEnvEvento.class);
 
 			String protocolo = Instant.now().toEpochMilli() + String.format("%02d", new Random().nextInt(99));
-			String dh = XmlNfeUtil.dataNfe(LocalDateTime.of(2019, 1, 1, 0, 0));
+			String dh = XmlNfeUtil.dataNfe(LocalDateTime.now());
 
 			TRetEnvEvento retorno = new TRetEnvEvento();
 			retorno.setVersao(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO);
@@ -97,23 +108,77 @@ public class MockImp implements Mock {
 	@Override
 	public NfeResultMsg nfeInutilizacaoNF(NfeDadosMsg dadosMsg) {
 		try {
-			TConsStatServ consStatServ = XmlNfeUtil.xmlToObject(dadosMsg.getExtraElement().toString(), TConsStatServ.class);
+			String protocolo = Instant.now().toEpochMilli() + String.format("%02d", new Random().nextInt(99));
+
+			TInutNFe inutNFe = XmlNfeUtil.xmlToObject(dadosMsg.getExtraElement().toString(), TInutNFe.class);
 			String dh = XmlNfeUtil.dataNfe(LocalDateTime.now());
 
-			TRetConsStatServ retorno = new TRetConsStatServ();
-			retorno.setVersao(ConstantesUtil.VERSAO.NFE);
-			retorno.setTpAmb(consStatServ.getTpAmb());
-			retorno.setVerAplic("GO4.0");
-			retorno.setCStat( "102" );
-			retorno.setXMotivo("Inutilização de número homologado");
-			retorno.setCUF(consStatServ.getCUF());
-			retorno.setDhRecbto(dh);
-			retorno.setTMed("1");
-			retorno.setDhRetorno(dh);
-			String retornoStr = XmlNfeUtil.objectToXml(retorno).replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>", "");
+			TRetInutNFe ret = new TRetInutNFe();
+			TRetInutNFe.InfInut infInut = new TRetInutNFe.InfInut();
+			infInut.setId("ID" + protocolo);
+			infInut.setTpAmb(inutNFe.getInfInut().getTpAmb());
+			infInut.setVerAplic("GO4.0");
+			infInut.setCStat("102");
+			infInut.setXMotivo("Inutilização de número homologado");
+			infInut.setCUF(inutNFe.getInfInut().getCUF());
+
+			infInut.setAno(inutNFe.getInfInut().getAno());
+			infInut.setCNPJ(inutNFe.getInfInut().getCNPJ());
+			infInut.setSerie(inutNFe.getInfInut().getSerie());
+			infInut.setMod(inutNFe.getInfInut().getMod());
+			infInut.setNNFIni(inutNFe.getInfInut().getNNFIni());
+			infInut.setNNFFin(inutNFe.getInfInut().getNNFFin());
+			if (infInut.getCStat().equals("102")) {
+				infInut.setDhRecbto(dh);
+				infInut.setNProt(protocolo);
+			}
+
+			ret.setInfInut(infInut);
+
+			String retornoStr = XmlNfeUtil.objectToXml(ret).replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>", "");
 
 			OMElement om = AXIOMUtil.stringToOM("<nfeResultMsg>" + retornoStr + "</nfeResultMsg>");
 			return NFeInutilizacao4Stub.NfeResultMsg.Factory.parse(om.getXMLStreamReaderWithoutCaching());
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	@Override
+	public br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub.NfeResultMsg nfeAutorizacaoLote(br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub.NfeDadosMsg dadosMsg) {
+		try {
+			TEnviNFe enviNFe = XmlNfeUtil.xmlToObject(dadosMsg.getExtraElement().toString(), TEnviNFe.class);
+
+			Random random = new Random();
+			String protocolo = Instant.now().toEpochMilli() + String.format("%02d", new Object[] { Integer.valueOf(random.nextInt(99)) });
+			String dh = XmlNfeUtil.dataNfe(LocalDateTime.now());
+
+			TRetEnviNFe retEnviNFe = new TRetEnviNFe();
+			retEnviNFe.setTpAmb(enviNFe.getNFe().get(0).getInfNFe().getIde().getTpAmb());
+			retEnviNFe.setCStat("104");
+			retEnviNFe.setXMotivo("Lote processado");
+			retEnviNFe.setCUF(enviNFe.getNFe().get(0).getInfNFe().getIde().getCUF());
+			retEnviNFe.setDhRecbto(dh);
+			retEnviNFe.setVersao(enviNFe.getNFe().get(0).getInfNFe().getVersao());
+			retEnviNFe.setVerAplic("GO4.0");
+			TProtNFe prot = new TProtNFe();
+			prot.setVersao("4.00");
+			InfProt inf = new InfProt();
+			inf.setTpAmb(enviNFe.getNFe().get(0).getInfNFe().getIde().getTpAmb());
+			inf.setVerAplic("GO4.0");
+			inf.setChNFe(enviNFe.getNFe().get(0).getInfNFe().getId().substring(3));
+			inf.setDhRecbto(dh);
+			inf.setNProt(protocolo);
+			inf.setDigVal("Mockado".getBytes());
+			inf.setCStat("100");
+			inf.setXMotivo("Autorizado");
+			prot.setInfProt(inf);
+			retEnviNFe.setProtNFe(prot);
+
+			String retornoStr = XmlNfeUtil.objectToXml(retEnviNFe).replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>", "");
+
+			OMElement om = AXIOMUtil.stringToOM("<nfeResultMsg>" + retornoStr + "</nfeResultMsg>");
+			return br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub.NfeResultMsg.Factory.parse(om.getXMLStreamReaderWithoutCaching());
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}

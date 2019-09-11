@@ -110,8 +110,12 @@ class Enviar {
 
 			NFeAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeAutorizacao4Stub.NfeDadosMsg();
 			dadosMsg.setExtraElement(ome);
-
-            NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.ENVIO));
+			NFeAutorizacao4Stub.NfeResultMsg result;
+			
+			if(config.isMocked()) {
+				result = config.getMockStubs().nfeAutorizacaoLote(dadosMsg);
+			} else {
+				NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.ENVIO));
 
 				// Timeout
 				if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -123,7 +127,8 @@ class Enviar {
 				if (tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)) {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 				}
-			NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
+				result = stub.nfeAutorizacaoLote(dadosMsg);
+			}
 			LoggerUtil.log(Enviar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
 			return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
 

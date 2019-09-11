@@ -23,9 +23,14 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.mock.MockImp;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
+import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
+import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 import br.com.swconsultoria.nfe.util.CancelamentoUtil;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
+import br.com.swconsultoria.nfe.util.InutilizacaoUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 
 final class NfeTest {
@@ -82,7 +87,18 @@ final class NfeTest {
     
     @Test
     void testeInutilizacao() throws Exception {
-    	inutNFe
-    	Nfe.inutilizacao(configuracoesNfe, inutNFe, DocumentoEnum.NFE, true);
+    	TInutNFe inutNFe = InutilizacaoUtil.montaInutilizacao(DocumentoEnum.NFE, configuracoesNfe.getCertificado().getCnpjCpf(), 1, 100, 100, "motivo teste", LocalDateTime.now(), configuracoesNfe);
+    	TRetInutNFe retorno = Nfe.inutilizacao(configuracoesNfe, inutNFe, DocumentoEnum.NFE, false);
+    	assertEquals(StatusEnum.INUTILIZADO.getCodigo(), retorno.getInfInut().getCStat());
+    }
+    
+    @Test
+    void testeEnvio() throws Exception {
+    	//monta enviNFe conforme exemplo wiki: https://github.com/Samuel-Oliveira/Java_NFe/wiki/04-:-Envio-Nfe
+    	TEnviNFe enviNFe = EnvioNfeTeste.getEnviNFe(configuracoesNfe); 
+    	
+    	TRetEnviNFe retorno = Nfe.enviarNfe(configuracoesNfe, enviNFe, DocumentoEnum.NFE);
+    	assertEquals(StatusEnum.LOTE_PROCESSADO.getCodigo(), retorno.getCStat());
+    	assertEquals(StatusEnum.AUTORIZADO.getCodigo(), retorno.getProtNFe().getInfProt().getCStat());
     }
 }
