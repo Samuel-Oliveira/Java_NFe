@@ -127,12 +127,14 @@
             <artifactId>axiom-api</artifactId>
             <version>1.2.20</version>
         </dependency>
+        <!-- nao uso jmockit, uso interface no lugar ai quem quiser passa a classe que implementa o mock quando quiser
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
             <version>1.46</version>
             <scope>test</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -209,9 +211,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version> <!-- or some other version -->
                 <configuration>
-                    <argLine>
+                    <!--<argLine>
                         -javaagent:src/test/resources/agent.jar
-                    </argLine>
+                    </argLine>-->
                 </configuration>
             </plugin>
         </plugins>
