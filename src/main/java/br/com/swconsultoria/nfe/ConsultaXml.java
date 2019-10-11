@@ -50,18 +50,19 @@ class ConsultaXml {
 
             NFeConsultaProtocolo4Stub.NfeDadosMsg dadosMsg = new NFeConsultaProtocolo4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
+            NFeConsultaProtocolo4Stub.NfeResultMsg result;
+			if (config.isMocked()) {
+				result = config.getMockStubs().nfeConsultaNF(dadosMsg);
+			} else {
+				NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.CONSULTA_XML));
 
-            NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(
-                    WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.CONSULTA_XML));
-
-            // Timeout
-            if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
-                stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
-                stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT,
-                        config.getTimeout());
-            }
-            NFeConsultaProtocolo4Stub.NfeResultMsg result = stub.nfeConsultaNF(dadosMsg);
-
+				// Timeout
+				if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
+					stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
+					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+				}
+				result = stub.nfeConsultaNF(dadosMsg);
+			}
             LoggerUtil.log(ConsultaXml.class,"[XML-RETORNO]: " +result.getExtraElement().toString());
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsSitNFe.class);
 

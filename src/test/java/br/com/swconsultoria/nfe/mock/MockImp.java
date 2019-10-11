@@ -35,7 +35,62 @@ import br.com.swconsultoria.nfe.wsdl.NFeRecepcaoEvento.NFeRecepcaoEvento4Stub;
 import br.com.swconsultoria.nfe.wsdl.NFeStatusServico4.NFeStatusServico4Stub;
 
 public class MockImp implements Mock {
+	private static String	CAN_COD_RET		= "135";
+	private static String	CAN_MOT_RET		= "Evento registrado e vinculado a NF-e";
+	private static String	ENV_COD_RET		= "100";
+	private static String	ENV_MOT_RET		= "Autorizado o uso da NF-e";
+	private static String	INUT_COD_RET		= "102";
+	private static String	INUT_MOT_RET		= "Inutilização de número homologado";
+	private static String	STATUS_COD_RET	= "107";
+	private static String	STATUS_MOT_RET	= "Serviço em Operação";
+	private static String	CONS_COD_RET		= "100";
+	private static String	CONS_MOT_RET		= "Autorizado o uso da NF-e";
+	
+	public static void setRetEnvio(String codigo, String motivo) {
+		ENV_COD_RET = codigo;
+		ENV_MOT_RET = motivo;
+	}
 
+	public static void setRetCancelamento(String codigo, String motivo) {
+		CAN_COD_RET = codigo;
+		CAN_MOT_RET = motivo;
+	}
+
+	public static String getInutCodRet() {
+		return INUT_COD_RET;
+	}
+
+	public static void setRetInutilizacao(String codigo, String motivo) {
+		INUT_COD_RET = codigo;
+		INUT_MOT_RET = motivo;
+	}
+
+	public static void setRetStatus(String codigo, String motivo) {
+		STATUS_COD_RET = codigo;
+		STATUS_MOT_RET = motivo;
+	}
+
+	public static void setRetConsulta(String codigo, String motivo) {
+		CONS_COD_RET = codigo;
+		CONS_MOT_RET = motivo;
+	}
+	
+	public static String getConsultaCodRet() {
+		return CONS_COD_RET;
+	}
+	
+	public static String getStatusCodRet() {
+		return STATUS_COD_RET;
+	}
+
+	public static String getCancelamentoCodRet() {
+		return CAN_COD_RET;
+	}
+	
+	public static String getEnvioCodRet() {
+		return ENV_COD_RET;
+	}
+	
 	@Override
 	public NFeStatusServico4Stub.NfeResultMsg nfeStatusServicoNF(NFeStatusServico4Stub.NfeDadosMsg dadosMsg) {
 		try {
@@ -170,8 +225,8 @@ public class MockImp implements Mock {
 			inf.setDhRecbto(dh);
 			inf.setNProt(protocolo);
 			inf.setDigVal("Mockado".getBytes());
-			inf.setCStat("100");
-			inf.setXMotivo("Autorizado");
+			inf.setCStat(ENV_COD_RET);
+			inf.setXMotivo(ENV_MOT_RET);
 			prot.setInfProt(inf);
 			retEnviNFe.setProtNFe(prot);
 
@@ -182,6 +237,11 @@ public class MockImp implements Mock {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	@Override
+	public br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocolo.NFeConsultaProtocolo4Stub.NfeResultMsg nfeConsultaNF(br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocolo.NFeConsultaProtocolo4Stub.NfeDadosMsg dadosMsg) {
+		return MockConsulta.nfeConsultaNF(dadosMsg, CONS_COD_RET, CONS_MOT_RET);
 	}
 
 }
