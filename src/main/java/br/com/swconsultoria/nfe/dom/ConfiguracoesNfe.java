@@ -38,6 +38,7 @@ public class ConfiguracoesNfe {
     private boolean contigenciaSCAN;
     private boolean validacaoDocumento = true;
     private String arquivoWebService;
+    private Integer retry;
 
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a 
@@ -249,4 +250,13 @@ public class ConfiguracoesNfe {
     public void setArquivoWebService(String arquivoWebService) {
         this.arquivoWebService = arquivoWebService;
     }
+
+    public Integer getRetry() {
+        return retry;
+    }
+
+    public void setRetry(Integer retry) {
+        this.retry = retry;
+    }
+    
 }
