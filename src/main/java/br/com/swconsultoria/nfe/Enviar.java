@@ -125,7 +125,10 @@ class Enviar {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 				}
 				
-				RetryParameter.populateRetry(stub, config.getRetry());
+				if (ObjetoUtil.verifica(config.getRetry()).isPresent()) {
+				    RetryParameter.populateRetry(stub, config.getRetry());
+				}
+				
 				
 			NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
 			LoggerUtil.log(Enviar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());

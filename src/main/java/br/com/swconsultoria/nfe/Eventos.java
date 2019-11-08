@@ -48,7 +48,7 @@ class Eventos {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
 				}
 				
-				if (ServicosEnum.CANCELAMENTO.equals(tipoEvento) && ObjetoUtil.verifica(config.getRetry()).isPresent()) {
+				if (ObjetoUtil.verifica(config.getRetry()).isPresent()) {
 			            RetryParameter.populateRetry(stub, config.getRetry());
 			        }
 				
