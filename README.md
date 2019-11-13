@@ -45,6 +45,7 @@ ________________________________________________________________________________
 - Adicionado Consulta Unica do NSU
 - Liberado consulta cadastro para ES e MA
 - Adicionado URL NFCe PARA CE
+- Adicionado Parametro para configurar numero de Retry (Agradecimentos ao LeonardoWiest (https://github.com/LeonardoWiest))
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:

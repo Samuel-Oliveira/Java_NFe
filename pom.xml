@@ -207,7 +207,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version> <!-- or some other version -->
+                <version>2.22.2</version>
                 <configuration>
                     <argLine>
                         -javaagent:src/test/resources/agent.jar
