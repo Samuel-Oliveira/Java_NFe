@@ -47,6 +47,7 @@ ________________________________________________________________________________
 - Adicionado URL NFCe PARA CE
 - Adicionado Parametro para configurar numero de Retry (Agradecimentos ao LeonardoWiest (https://github.com/LeonardoWiest))
 - Adicionado mais codigos ao StatusEnum 
+- Adicionado conversão do Objeto TRetConsCad
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
