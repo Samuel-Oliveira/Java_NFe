@@ -79,6 +79,13 @@ public class XsdUtil {
         }
     }
 
+    public interface manifestacao {
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope = br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento value) {
+            return new JAXBElement<br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento.class, br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento.class, value);
+        }
+    }
+
     public interface retEnvEvento {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnvEvento", scope = br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento value) {

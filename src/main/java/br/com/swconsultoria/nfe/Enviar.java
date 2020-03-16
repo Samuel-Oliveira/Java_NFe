@@ -12,6 +12,7 @@ import br.com.swconsultoria.nfe.util.LoggerUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import br.com.swconsultoria.nfe.ws.RetryParameter;
 import br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub;
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
@@ -126,6 +127,9 @@ class Enviar {
 				//Erro 411 MG
 				if (tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)) {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
+				}
+				if (ObjetoUtil.verifica(config.getRetry()).isPresent()) {
+				    RetryParameter.populateRetry(stub, config.getRetry());
 				}
 				result = stub.nfeAutorizacaoLote(dadosMsg);
 			}
