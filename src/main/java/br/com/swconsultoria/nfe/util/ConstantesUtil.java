@@ -19,6 +19,5 @@ public interface ConstantesUtil {
         String EVENTO_CCE = "1.00";
         String EVENTO_MANIFESTAR = "1.00";
         String EVENTO_EPEC = "1.00";
-        String BIBLIOTECA = "4.00.10-SNAPSHOT";
     }
 }
