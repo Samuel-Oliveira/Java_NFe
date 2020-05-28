@@ -41,6 +41,7 @@ ________________________________________________________________________________
 ## v4.00.14 - SNAPSHOT
 
 - Adicionado 150 - Autorizado Fora do prazo como sucesso na verificação de retorno.
+- Atualizado Cacert
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
@@ -54,7 +55,7 @@ Para usar, adicione o repositorio de Snapshot ao Maven:
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.13-SNAPSHOT</version>
+    <version>4.00.14-SNAPSHOT</version>
 </dependency>
 ```
 Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.13-SNAPSHOT.jar
