@@ -1,4 +1,4 @@
-# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.13/jar) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/context:java) [![Total alerts](https://img.shields.io/lgtm/alerts/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/alerts/)
+# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.12/jar) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/context:java) [![Total alerts](https://img.shields.io/lgtm/alerts/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/alerts/)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ## Dúvidas, Sugestões ou Consultoria
@@ -7,29 +7,17 @@ Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 ## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
 
 Para Iniciar : 
-- Caso use Libs baixe o java-nfe-4.00.13.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.13.jar) e o adicione às bibliotecas de Seu Projeto.
+- Caso use Libs baixe o java-nfe-4.00.12.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.12.jar) e o adicione às bibliotecas de Seu Projeto.
 
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
 
 - Maven :
-```xml
+```
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.13</version>
+    <version>4.00.12</version>
 </dependency>
-```
-
-- Gradle :
-```groovy
-repositories {
-    maven { 
-        url = "https://oss.sonatype.org/content/repositories/snapshots" 
-    }
-}
-dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.13"
-}
 ```
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
@@ -37,41 +25,6 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
-
-## v4.00.14 - SNAPSHOT
-
-- Adicionado 150 - Autorizado Fora do prazo como sucesso na verificação de retorno.
-- Atualizado Cacert
-
-Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
-Para usar, adicione o repositorio de Snapshot ao Maven:
-```
-<repositories>
-    <repository>
-        <id>sonatype-nexus-snapshots</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-</repositories>
-<dependency>
-    <groupId>br.com.swconsultoria</groupId>
-    <artifactId>java-nfe</artifactId>
-    <version>4.00.14-SNAPSHOT</version>
-</dependency>
-```
-Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.13-SNAPSHOT.jar
-
-## v4.00.13 - 09/02/2020
-- Corrigido Conflito de dependencia com Spring (servlet-api)
-- Atualizado Cacert
-- Atualizado WebService do Para para SVRS
-- Adicionado Consulta Unica do NSU
-- Liberado consulta cadastro para ES e MA
-- Adicionado URL NFCe PARA CE
-- Adicionado Parametro para configurar numero de Retry (Agradecimentos ao LeonardoWiest (https://github.com/LeonardoWiest))
-- Adicionado mais codigos ao StatusEnum 
-- Adicionado conversão do Objeto TRetConsCad
-- Corrigido Erro de Conversão de procEvento Manifestacao
-- Corrigido URL QR-COde homologação AC
 
 ## v4.00.12 - 03/08/2019
 - Adicionado Calculo de HashCSRT ao XmlNfeUtil -> XmlNfeUtil.geraHashCSRT(chave,csrt)

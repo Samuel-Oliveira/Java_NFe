@@ -52,22 +52,14 @@ class DistribuicaoDFe {
 				distDFeInt.setCPF(cpfCnpj);
 			}
 
-			switch (tipoConsulta) {
-				case NSU:
-					DistDFeInt.DistNSU distNSU = new DistDFeInt.DistNSU();
-					distNSU.setUltNSU(nsuChave);
-					distDFeInt.setDistNSU(distNSU);
-					break;
-				case NSU_UNICO:
-					DistDFeInt.ConsNSU consNSU = new DistDFeInt.ConsNSU();
-					consNSU.setNSU(nsuChave);
-					distDFeInt.setConsNSU(consNSU);
-					break;
-				case CHAVE:
-					DistDFeInt.ConsChNFe chNFe = new DistDFeInt.ConsChNFe();
-					chNFe.setChNFe(nsuChave);
-					distDFeInt.setConsChNFe(chNFe);
-					break;
+			if (ConsultaDFeEnum.NSU.equals(tipoConsulta)) {
+				DistDFeInt.DistNSU distNSU = new DistDFeInt.DistNSU();
+				distNSU.setUltNSU(nsuChave);
+				distDFeInt.setDistNSU(distNSU);
+			} else {
+				DistDFeInt.ConsChNFe chNFe = new DistDFeInt.ConsChNFe();
+				chNFe.setChNFe(nsuChave);
+				distDFeInt.setConsChNFe(chNFe);
 			}
 
 			String xml = XmlNfeUtil.objectToXml(distDFeInt);
