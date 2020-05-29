@@ -180,7 +180,7 @@ public class RetornoUtil {
 
         final String[] erro = {""};
         retorno.getProtNFe().forEach( protNFe -> {
-            if (!StatusEnum.AUTORIZADO.getCodigo().equals(protNFe.getInfProt().getCStat())) {
+            if (!StatusEnum.AUTORIZADO.getCodigo().equals(protNFe.getInfProt().getCStat()) && !StatusEnum.AUTORIZADO_FORA_PRAZO.getCodigo().equals(protNFe.getInfProt().getCStat())) {
                 erro[0] += protNFe.getInfProt().getChNFe() + " - " +protNFe.getInfProt().getCStat() + " - " + protNFe.getInfProt().getXMotivo() + System.lineSeparator();
             }
         });
@@ -203,7 +203,8 @@ public class RetornoUtil {
             throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
         }
 
-        if (!retorno.getProtNFe().getInfProt().getCStat().equals(StatusEnum.AUTORIZADO.getCodigo())) {
+        if (!retorno.getProtNFe().getInfProt().getCStat().equals(StatusEnum.AUTORIZADO.getCodigo()) &&
+                !retorno.getProtNFe().getInfProt().getCStat().equals(StatusEnum.AUTORIZADO_FORA_PRAZO.getCodigo())) {
             throw new NfeException(retorno.getProtNFe().getInfProt().getCStat() + " - " + retorno.getProtNFe().getInfProt().getXMotivo());
         }
     }
