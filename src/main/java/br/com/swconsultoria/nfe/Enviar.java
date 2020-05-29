@@ -12,6 +12,7 @@ import br.com.swconsultoria.nfe.util.LoggerUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import br.com.swconsultoria.nfe.ws.RetryParameter;
 import br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub;
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
@@ -123,6 +124,12 @@ class Enviar {
 				if (tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)) {
 					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 				}
+				
+				if (ObjetoUtil.verifica(config.getRetry()).isPresent()) {
+				    RetryParameter.populateRetry(stub, config.getRetry());
+				}
+				
+				
 			NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
 			LoggerUtil.log(Enviar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
 			return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);

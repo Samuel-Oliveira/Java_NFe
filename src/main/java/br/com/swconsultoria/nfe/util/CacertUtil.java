@@ -19,7 +19,7 @@ public class CacertUtil {
 
     private static final int TIMEOUT_WS = 30;
     private static final int PORTA = 443;
-    private static final String CACERT = "d:/java/util/Cacert/Cacert";
+    private static final String CACERT = "/home/samuel/Cacert";
 
     public static void main(String[] args) {
         List<String> lista = new ArrayList<>();
@@ -49,7 +49,8 @@ public class CacertUtil {
             }
 
             if (!arquivoCacert.isFile()) {
-                File dir = new File("C:\\Program Files\\Java\\jre1.8.0_211" + File.separatorChar + "lib" + File.separatorChar + "security");
+                File dir =
+                        new File("/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security");
                 arquivoCacert = new File(dir, "cacerts");
             }
 
@@ -58,9 +59,7 @@ public class CacertUtil {
             ks.load(in, senha);
             in.close();
 
-            listaEnderecos.forEach(endereco -> {
-                get(endereco, ks);
-            });
+            listaEnderecos.forEach(endereco -> get(endereco, ks));
 
             OutputStream out = new FileOutputStream(cacert);
             ks.store(out, senha);
