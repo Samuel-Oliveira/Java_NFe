@@ -35,7 +35,7 @@
 		<repository>
 			<id>up.nexus.baseerp.com.br</id>
 			<name>up.nexus.baseerp.com.br</name>
-			<url>http://nexus.baseerp.com.br/repository/baseerp.release/</url>
+			<url>https://nexuskube.baseerp.com.br/repository/baseerp.release/</url>
 		</repository>
 	</distributionManagement>
 
