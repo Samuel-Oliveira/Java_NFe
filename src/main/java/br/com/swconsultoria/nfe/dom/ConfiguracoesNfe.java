@@ -8,6 +8,7 @@ import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -63,6 +64,10 @@ public class ConfiguracoesNfe {
     public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado, String pastaSchemas)
             throws CertificadoException {
 
+        ObjetoUtil.verifica(estado).orElseThrow( () -> new IllegalArgumentException("Estado não pode ser Nulo."));
+        ObjetoUtil.verifica(ambiente).orElseThrow( () -> new IllegalArgumentException("Ambiente não pode ser Nulo."));
+        ObjetoUtil.verifica(certificado).orElseThrow( () -> new IllegalArgumentException("Certificado não pode ser Nulo."));
+
         ConfiguracoesNfe configuracoesNfe = new ConfiguracoesNfe();
         configuracoesNfe.setEstado(estado);
         configuracoesNfe.setAmbiente(ambiente);
@@ -82,7 +87,7 @@ public class ConfiguracoesNfe {
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println();
             System.err.println("#########################################################");
-            System.err.println("    Api Java Nfe - Versão 4.00.14-SNAPSHOT (C)           ");
+            System.err.println("    Api Java Nfe - Versão 4.00.14-SNAPSHOT (D)           ");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }

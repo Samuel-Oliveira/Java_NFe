@@ -17,7 +17,7 @@ public interface ConstantesUtil {
         String EVENTO_CANCELAMENTO = "1.00";
         String EVENTO_CANCELAMENTO_SUBSTIUICAO = "1.00";
         String EVENTO_CCE = "1.00";
-        String EVENTO_MANIFESTAR = "1.00";
+        String EVENTO_MANIFESTAR = "4.00";
         String EVENTO_EPEC = "1.00";
     }
 }
