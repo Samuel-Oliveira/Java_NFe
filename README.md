@@ -43,7 +43,7 @@ ________________________________________________________________________________
 - Adicionado 150 - Autorizado Fora do prazo como sucesso na verificação de retorno.
 - Atualizado Cacert (Erro NFe Minas)
 - Adicionado verificações para evitar configuração nula
-- Alterado versão Manifestação para 4.00
+- Removido URL Manifestação 1.00
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:

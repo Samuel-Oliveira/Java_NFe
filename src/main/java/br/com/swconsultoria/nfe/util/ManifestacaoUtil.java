@@ -73,7 +73,7 @@ public class ManifestacaoUtil {
         }
 
         TEnvEvento enviEvento = new TEnvEvento();
-        enviEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO);
+        enviEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
         enviEvento.setIdLote("1");
 
         listaManifestacao.forEach(manifestacao -> {
