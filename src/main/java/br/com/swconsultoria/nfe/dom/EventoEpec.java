@@ -13,6 +13,7 @@ public class EventoEpec {
     private String ieDestinatario;
     private EstadosEnum estadoDestinatario;
     private String cnpjDestinatario;
+    private String cpfDestinatario;
     private String vNF;
     private String vICMS;
     private String vST;
@@ -79,5 +80,13 @@ public class EventoEpec {
 
     public void setvST(String vST) {
         this.vST = vST;
+    }
+
+    public String getCpfDestinatario() {
+        return cpfDestinatario;
+    }
+
+    public void setCpfDestinatario(String cpfDestinatario) {
+        this.cpfDestinatario = cpfDestinatario;
     }
 }

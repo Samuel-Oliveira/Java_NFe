@@ -105,6 +105,7 @@ public class EpecUtil {
             TEvento.InfEvento.DetEvento.Dest dest = new TEvento.InfEvento.DetEvento.Dest();
             dest.setUF(TUf.valueOf(epec.getEventoEpec().getEstadoDestinatario().toString()));
             dest.setCNPJ(epec.getEventoEpec().getCnpjDestinatario());
+            dest.setCPF(epec.getEventoEpec().getCpfDestinatario());
             dest.setIE(epec.getEventoEpec().getIeDestinatario());
             dest.setVNF(epec.getEventoEpec().getvNF());
             dest.setVICMS(epec.getEventoEpec().getvICMS());

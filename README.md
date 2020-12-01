@@ -44,6 +44,7 @@ ________________________________________________________________________________
 - Atualizado Cacert (Erro NFe Minas)
 - Adicionado verificações para evitar configuração nula
 - Removido URL Manifestação 1.00
+- Adiciona Cpf do Destinatario ao EPEC
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
