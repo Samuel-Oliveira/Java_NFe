@@ -1,4 +1,7 @@
 /target/
+<<<<<<< HEAD
 /.classpath
 /.project
 /bin/
+=======
+>>>>>>> refs/heads/master
