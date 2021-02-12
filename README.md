@@ -58,7 +58,7 @@ ________________________________________________________________________________
 [comment]: <> (```)
 [comment]: <> (Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.15-SNAPSHOT.jar)
 
-## v4.00.14 - 12/02/2020
+## v4.00.14 - 12/02/2021
 - Adicionado 150 - Autorizado Fora do prazo como sucesso na verificação de retorno.
 - Atualizado Cacert (Erro NFe Minas)
 - Adicionado verificações para evitar configuração nula
