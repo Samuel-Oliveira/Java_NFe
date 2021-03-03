@@ -9,7 +9,7 @@ Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 Para Iniciar : 
 - Caso use Libs baixe o java-nfe-4.00.14.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.14.jar) e o adicione às bibliotecas de Seu Projeto.
 
-- Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas.rar) e extraia na sua Máquina.
+- Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/schemas.zip) e extraia na sua Máquina.
 
 - Maven :
 ```xml
