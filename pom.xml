@@ -77,11 +77,6 @@
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-xjc</artifactId>
-            <version>2.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-core</artifactId>
             <version>2.3.0.1</version>
         </dependency>
@@ -95,6 +90,18 @@
                     <artifactId>servlet-api</artifactId>
                     <groupId>javax.servlet</groupId>
                 </exclusion>
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-jta_1.1_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -102,12 +109,48 @@
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-adb</artifactId>
             <version>1.7.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-activation_1.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-jaxws</artifactId>
             <version>1.7.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-annotation_1.0_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-jaxws_2.2_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.xml.ws</groupId>
+                    <artifactId>jaxws-tools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-saaj_1.3_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-xjc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-impl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -126,6 +169,16 @@
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-api</artifactId>
             <version>1.2.20</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-stax-api_1.0_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-activation_1.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jmockit</groupId>
