@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de TUf.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * <p>
  * <pre>
  * &lt;simpleType name="TUf">

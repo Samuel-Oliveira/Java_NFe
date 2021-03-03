@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * <p>Classe Java de ReferenceType complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="ReferenceType">
@@ -61,7 +61,7 @@ public class ReferenceType {
     @XmlElement(name = "Transforms", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected TransformsType transforms;
     @XmlElement(name = "DigestMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
-    protected ReferenceType.DigestMethod digestMethod;
+    protected DigestMethod digestMethod;
     @XmlElement(name = "DigestValue", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected byte[] digestValue;
     @XmlAttribute(name = "Id")
@@ -76,7 +76,7 @@ public class ReferenceType {
     protected String type;
 
     /**
-     * Obtm o valor da propriedade transforms.
+     * Obtém o valor da propriedade transforms.
      * 
      * @return
      *     possible object is
@@ -100,14 +100,14 @@ public class ReferenceType {
     }
 
     /**
-     * Obtm o valor da propriedade digestMethod.
+     * Obtém o valor da propriedade digestMethod.
      * 
      * @return
      *     possible object is
-     *     {@link ReferenceType.DigestMethod }
+     *     {@link DigestMethod }
      *     
      */
-    public ReferenceType.DigestMethod getDigestMethod() {
+    public DigestMethod getDigestMethod() {
         return digestMethod;
     }
 
@@ -116,15 +116,15 @@ public class ReferenceType {
      * 
      * @param value
      *     allowed object is
-     *     {@link ReferenceType.DigestMethod }
+     *     {@link DigestMethod }
      *     
      */
-    public void setDigestMethod(ReferenceType.DigestMethod value) {
+    public void setDigestMethod(DigestMethod value) {
         this.digestMethod = value;
     }
 
     /**
-     * Obtm o valor da propriedade digestValue.
+     * Obtém o valor da propriedade digestValue.
      * 
      * @return
      *     possible object is
@@ -146,7 +146,7 @@ public class ReferenceType {
     }
 
     /**
-     * Obtm o valor da propriedade id.
+     * Obtém o valor da propriedade id.
      * 
      * @return
      *     possible object is
@@ -170,7 +170,7 @@ public class ReferenceType {
     }
 
     /**
-     * Obtm o valor da propriedade uri.
+     * Obtém o valor da propriedade uri.
      * 
      * @return
      *     possible object is
@@ -194,7 +194,7 @@ public class ReferenceType {
     }
 
     /**
-     * Obtm o valor da propriedade type.
+     * Obtém o valor da propriedade type.
      * 
      * @return
      *     possible object is
@@ -221,7 +221,7 @@ public class ReferenceType {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -244,7 +244,7 @@ public class ReferenceType {
         protected String algorithm;
 
         /**
-         * Obtm o valor da propriedade algorithm.
+         * Obtém o valor da propriedade algorithm.
          * 
          * @return
          *     possible object is

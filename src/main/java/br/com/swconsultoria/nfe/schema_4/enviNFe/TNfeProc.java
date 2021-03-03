@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * <p>Classe Java de TNfeProc complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TNfeProc">
@@ -46,7 +46,7 @@ public class TNfeProc {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade nFe.
+     * Obtém o valor da propriedade nFe.
      * 
      * @return
      *     possible object is
@@ -70,7 +70,7 @@ public class TNfeProc {
     }
 
     /**
-     * Obtm o valor da propriedade protNFe.
+     * Obtém o valor da propriedade protNFe.
      * 
      * @return
      *     possible object is
@@ -94,7 +94,7 @@ public class TNfeProc {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is

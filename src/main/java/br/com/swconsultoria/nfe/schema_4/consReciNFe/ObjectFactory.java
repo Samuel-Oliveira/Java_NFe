@@ -445,6 +445,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.InfIntermed }
+     * 
+     */
+    public TNFe.InfNFe.InfIntermed createTNFeInfNFeInfIntermed() {
+        return new TNFe.InfNFe.InfIntermed();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Exporta }
      * 
      */

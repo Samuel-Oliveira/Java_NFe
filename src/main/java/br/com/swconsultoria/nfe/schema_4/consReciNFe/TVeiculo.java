@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Dados do Veculo
+ * Tipo Dados do Veículo
  * 
  * <p>Classe Java de TVeiculo complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TVeiculo">
@@ -62,7 +62,7 @@ public class TVeiculo {
     protected String rntc;
 
     /**
-     * Obtm o valor da propriedade placa.
+     * Obtém o valor da propriedade placa.
      * 
      * @return
      *     possible object is
@@ -86,7 +86,7 @@ public class TVeiculo {
     }
 
     /**
-     * Obtm o valor da propriedade uf.
+     * Obtém o valor da propriedade uf.
      * 
      * @return
      *     possible object is
@@ -110,7 +110,7 @@ public class TVeiculo {
     }
 
     /**
-     * Obtm o valor da propriedade rntc.
+     * Obtém o valor da propriedade rntc.
      * 
      * @return
      *     possible object is

@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Dados do Local de Retirada ou Entrega // 24/10/08 - tamanho mnimo // v2.0
+ * Tipo Dados do Local de Retirada ou Entrega // 24/10/08 - tamanho mínimo // v2.0
  * 
  * <p>Classe Java de TLocal complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TLocal">
@@ -180,7 +180,7 @@ public class TLocal {
     protected String ie;
 
     /**
-     * Obtm o valor da propriedade cnpj.
+     * Obtém o valor da propriedade cnpj.
      * 
      * @return
      *     possible object is
@@ -204,7 +204,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade cpf.
+     * Obtém o valor da propriedade cpf.
      * 
      * @return
      *     possible object is
@@ -228,7 +228,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade xNome.
+     * Obtém o valor da propriedade xNome.
      * 
      * @return
      *     possible object is
@@ -252,7 +252,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade xLgr.
+     * Obtém o valor da propriedade xLgr.
      * 
      * @return
      *     possible object is
@@ -276,7 +276,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade nro.
+     * Obtém o valor da propriedade nro.
      * 
      * @return
      *     possible object is
@@ -300,7 +300,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade xCpl.
+     * Obtém o valor da propriedade xCpl.
      * 
      * @return
      *     possible object is
@@ -324,7 +324,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade xBairro.
+     * Obtém o valor da propriedade xBairro.
      * 
      * @return
      *     possible object is
@@ -348,7 +348,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade cMun.
+     * Obtém o valor da propriedade cMun.
      * 
      * @return
      *     possible object is
@@ -372,7 +372,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade xMun.
+     * Obtém o valor da propriedade xMun.
      * 
      * @return
      *     possible object is
@@ -396,7 +396,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade uf.
+     * Obtém o valor da propriedade uf.
      * 
      * @return
      *     possible object is
@@ -420,7 +420,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade cep.
+     * Obtém o valor da propriedade cep.
      * 
      * @return
      *     possible object is
@@ -444,7 +444,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade cPais.
+     * Obtém o valor da propriedade cPais.
      * 
      * @return
      *     possible object is
@@ -468,7 +468,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade xPais.
+     * Obtém o valor da propriedade xPais.
      * 
      * @return
      *     possible object is
@@ -492,7 +492,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade fone.
+     * Obtém o valor da propriedade fone.
      * 
      * @return
      *     possible object is
@@ -516,7 +516,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade email.
+     * Obtém o valor da propriedade email.
      * 
      * @return
      *     possible object is
@@ -540,7 +540,7 @@ public class TLocal {
     }
 
     /**
-     * Obtm o valor da propriedade ie.
+     * Obtém o valor da propriedade ie.
      * 
      * @return
      *     possible object is

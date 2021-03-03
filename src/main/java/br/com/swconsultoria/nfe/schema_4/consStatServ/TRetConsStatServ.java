@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * Tipo Resultado da Consulta do Status do Servio
+ * Tipo Resultado da Consulta do Status do Serviço
  * 
  * <p>Classe Java de TRetConsStatServ complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TRetConsStatServ">
@@ -77,7 +77,7 @@ public class TRetConsStatServ {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade tpAmb.
+     * Obtém o valor da propriedade tpAmb.
      * 
      * @return
      *     possible object is
@@ -101,7 +101,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade verAplic.
+     * Obtém o valor da propriedade verAplic.
      * 
      * @return
      *     possible object is
@@ -125,7 +125,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade cStat.
+     * Obtém o valor da propriedade cStat.
      * 
      * @return
      *     possible object is
@@ -149,7 +149,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade xMotivo.
+     * Obtém o valor da propriedade xMotivo.
      * 
      * @return
      *     possible object is
@@ -173,7 +173,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade cuf.
+     * Obtém o valor da propriedade cuf.
      * 
      * @return
      *     possible object is
@@ -197,7 +197,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade dhRecbto.
+     * Obtém o valor da propriedade dhRecbto.
      * 
      * @return
      *     possible object is
@@ -221,7 +221,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade tMed.
+     * Obtém o valor da propriedade tMed.
      * 
      * @return
      *     possible object is
@@ -245,7 +245,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade dhRetorno.
+     * Obtém o valor da propriedade dhRetorno.
      * 
      * @return
      *     possible object is
@@ -269,7 +269,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade xObs.
+     * Obtém o valor da propriedade xObs.
      * 
      * @return
      *     possible object is
@@ -293,7 +293,7 @@ public class TRetConsStatServ {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is

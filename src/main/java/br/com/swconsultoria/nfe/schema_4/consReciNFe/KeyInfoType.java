@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * <p>Classe Java de KeyInfoType complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="KeyInfoType">
@@ -47,7 +47,7 @@ public class KeyInfoType {
     protected String id;
 
     /**
-     * Obtm o valor da propriedade x509Data.
+     * Obtém o valor da propriedade x509Data.
      * 
      * @return
      *     possible object is
@@ -71,7 +71,7 @@ public class KeyInfoType {
     }
 
     /**
-     * Obtm o valor da propriedade id.
+     * Obtém o valor da propriedade id.
      * 
      * @return
      *     possible object is

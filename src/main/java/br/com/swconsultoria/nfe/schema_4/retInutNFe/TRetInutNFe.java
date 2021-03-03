@@ -13,11 +13,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * Tipo retorno do Pedido de Inutilizao de Numerao da Nota Fiscal Eletrnica
+ * Tipo retorno do Pedido de Inutilização de Numeração da Nota Fiscal Eletrônica
  * 
  * <p>Classe Java de TRetInutNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TRetInutNFe">
@@ -66,7 +66,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class TRetInutNFe {
 
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-    protected TRetInutNFe.InfInut infInut;
+    protected InfInut infInut;
     @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#")
     protected SignatureType signature;
     @XmlAttribute(name = "versao", required = true)
@@ -74,14 +74,14 @@ public class TRetInutNFe {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade infInut.
+     * Obtém o valor da propriedade infInut.
      * 
      * @return
      *     possible object is
-     *     {@link TRetInutNFe.InfInut }
+     *     {@link InfInut }
      *     
      */
-    public TRetInutNFe.InfInut getInfInut() {
+    public InfInut getInfInut() {
         return infInut;
     }
 
@@ -90,15 +90,15 @@ public class TRetInutNFe {
      * 
      * @param value
      *     allowed object is
-     *     {@link TRetInutNFe.InfInut }
+     *     {@link InfInut }
      *     
      */
-    public void setInfInut(TRetInutNFe.InfInut value) {
+    public void setInfInut(InfInut value) {
         this.infInut = value;
     }
 
     /**
-     * Obtm o valor da propriedade signature.
+     * Obtém o valor da propriedade signature.
      * 
      * @return
      *     possible object is
@@ -122,7 +122,7 @@ public class TRetInutNFe {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -149,7 +149,7 @@ public class TRetInutNFe {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -229,7 +229,7 @@ public class TRetInutNFe {
         protected String id;
 
         /**
-         * Obtm o valor da propriedade tpAmb.
+         * Obtém o valor da propriedade tpAmb.
          * 
          * @return
          *     possible object is
@@ -253,7 +253,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade verAplic.
+         * Obtém o valor da propriedade verAplic.
          * 
          * @return
          *     possible object is
@@ -277,7 +277,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade cStat.
+         * Obtém o valor da propriedade cStat.
          * 
          * @return
          *     possible object is
@@ -301,7 +301,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade xMotivo.
+         * Obtém o valor da propriedade xMotivo.
          * 
          * @return
          *     possible object is
@@ -325,7 +325,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade cuf.
+         * Obtém o valor da propriedade cuf.
          * 
          * @return
          *     possible object is
@@ -349,7 +349,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade ano.
+         * Obtém o valor da propriedade ano.
          * 
          * @return
          *     possible object is
@@ -373,7 +373,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade cnpj.
+         * Obtém o valor da propriedade cnpj.
          * 
          * @return
          *     possible object is
@@ -397,7 +397,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade mod.
+         * Obtém o valor da propriedade mod.
          * 
          * @return
          *     possible object is
@@ -421,7 +421,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade serie.
+         * Obtém o valor da propriedade serie.
          * 
          * @return
          *     possible object is
@@ -445,7 +445,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade nnfIni.
+         * Obtém o valor da propriedade nnfIni.
          * 
          * @return
          *     possible object is
@@ -469,7 +469,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade nnfFin.
+         * Obtém o valor da propriedade nnfFin.
          * 
          * @return
          *     possible object is
@@ -493,7 +493,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade dhRecbto.
+         * Obtém o valor da propriedade dhRecbto.
          * 
          * @return
          *     possible object is
@@ -517,7 +517,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade nProt.
+         * Obtém o valor da propriedade nProt.
          * 
          * @return
          *     possible object is
@@ -541,7 +541,7 @@ public class TRetInutNFe {
         }
 
         /**
-         * Obtm o valor da propriedade id.
+         * Obtém o valor da propriedade id.
          * 
          * @return
          *     possible object is

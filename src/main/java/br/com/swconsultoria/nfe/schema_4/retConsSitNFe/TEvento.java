@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
  * 
  * <p>Classe Java de TEvento complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TEvento">
@@ -116,7 +116,7 @@ public class TEvento {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade infEvento.
+     * Obtém o valor da propriedade infEvento.
      * 
      * @return
      *     possible object is
@@ -140,7 +140,7 @@ public class TEvento {
     }
 
     /**
-     * Obtm o valor da propriedade signature.
+     * Obtém o valor da propriedade signature.
      * 
      * @return
      *     possible object is
@@ -164,7 +164,7 @@ public class TEvento {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -191,7 +191,7 @@ public class TEvento {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -297,7 +297,7 @@ public class TEvento {
         protected String id;
 
         /**
-         * Obtm o valor da propriedade cOrgao.
+         * Obtém o valor da propriedade cOrgao.
          * 
          * @return
          *     possible object is
@@ -321,7 +321,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade tpAmb.
+         * Obtém o valor da propriedade tpAmb.
          * 
          * @return
          *     possible object is
@@ -345,7 +345,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade cnpj.
+         * Obtém o valor da propriedade cnpj.
          * 
          * @return
          *     possible object is
@@ -369,7 +369,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade cpf.
+         * Obtém o valor da propriedade cpf.
          * 
          * @return
          *     possible object is
@@ -393,7 +393,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade chNFe.
+         * Obtém o valor da propriedade chNFe.
          * 
          * @return
          *     possible object is
@@ -417,7 +417,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade dhEvento.
+         * Obtém o valor da propriedade dhEvento.
          * 
          * @return
          *     possible object is
@@ -441,7 +441,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade tpEvento.
+         * Obtém o valor da propriedade tpEvento.
          * 
          * @return
          *     possible object is
@@ -465,7 +465,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade nSeqEvento.
+         * Obtém o valor da propriedade nSeqEvento.
          * 
          * @return
          *     possible object is
@@ -489,7 +489,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade verEvento.
+         * Obtém o valor da propriedade verEvento.
          * 
          * @return
          *     possible object is
@@ -513,7 +513,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade detEvento.
+         * Obtém o valor da propriedade detEvento.
          * 
          * @return
          *     possible object is
@@ -537,7 +537,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade id.
+         * Obtém o valor da propriedade id.
          * 
          * @return
          *     possible object is
@@ -564,7 +564,7 @@ public class TEvento {
         /**
          * <p>Classe Java de anonymous complex type.
          * 
-         * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+         * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
          * 
          * <pre>
          * &lt;complexType>

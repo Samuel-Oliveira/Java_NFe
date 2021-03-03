@@ -18,7 +18,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  * <p>Classe Java de TProtNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TProtNFe">
@@ -69,7 +69,7 @@ public class TProtNFe {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade infProt.
+     * Obtém o valor da propriedade infProt.
      * 
      * @return
      *     possible object is
@@ -93,7 +93,7 @@ public class TProtNFe {
     }
 
     /**
-     * Obtm o valor da propriedade signature.
+     * Obtém o valor da propriedade signature.
      * 
      * @return
      *     possible object is
@@ -117,7 +117,7 @@ public class TProtNFe {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -144,7 +144,7 @@ public class TProtNFe {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -205,7 +205,7 @@ public class TProtNFe {
         protected String id;
 
         /**
-         * Obtm o valor da propriedade tpAmb.
+         * Obtém o valor da propriedade tpAmb.
          * 
          * @return
          *     possible object is
@@ -229,7 +229,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade verAplic.
+         * Obtém o valor da propriedade verAplic.
          * 
          * @return
          *     possible object is
@@ -253,7 +253,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade chNFe.
+         * Obtém o valor da propriedade chNFe.
          * 
          * @return
          *     possible object is
@@ -277,7 +277,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade dhRecbto.
+         * Obtém o valor da propriedade dhRecbto.
          * 
          * @return
          *     possible object is
@@ -301,7 +301,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade nProt.
+         * Obtém o valor da propriedade nProt.
          * 
          * @return
          *     possible object is
@@ -325,7 +325,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade digVal.
+         * Obtém o valor da propriedade digVal.
          * 
          * @return
          *     possible object is
@@ -347,7 +347,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade cStat.
+         * Obtém o valor da propriedade cStat.
          * 
          * @return
          *     possible object is
@@ -371,7 +371,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade xMotivo.
+         * Obtém o valor da propriedade xMotivo.
          * 
          * @return
          *     possible object is
@@ -395,7 +395,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade id.
+         * Obtém o valor da propriedade id.
          * 
          * @return
          *     possible object is

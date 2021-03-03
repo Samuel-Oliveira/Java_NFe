@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * Tipo Pedido de inutilzao de nmerao de  NF-e processado
+ * Tipo Pedido de inutilzação de númeração de  NF-e processado
  * 
  * <p>Classe Java de TProcInutNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TProcInutNFe">
@@ -49,7 +49,7 @@ public class TProcInutNFe {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade inutNFe.
+     * Obtém o valor da propriedade inutNFe.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class TProcInutNFe {
     }
 
     /**
-     * Obtm o valor da propriedade retInutNFe.
+     * Obtém o valor da propriedade retInutNFe.
      * 
      * @return
      *     possible object is
@@ -97,7 +97,7 @@ public class TProcInutNFe {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is

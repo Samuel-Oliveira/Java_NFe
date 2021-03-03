@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Retorno do Pedido de  Consulta do Recido do Lote de Notas Fiscais Eletrnicas
+ * Tipo Retorno do Pedido de  Consulta do Recido do Lote de Notas Fiscais Eletrônicas
  * 
  * <p>Classe Java de TRetConsReciNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TRetConsReciNFe">
@@ -96,7 +96,7 @@ public class TRetConsReciNFe {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade tpAmb.
+     * Obtém o valor da propriedade tpAmb.
      * 
      * @return
      *     possible object is
@@ -120,7 +120,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade verAplic.
+     * Obtém o valor da propriedade verAplic.
      * 
      * @return
      *     possible object is
@@ -144,7 +144,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade nRec.
+     * Obtém o valor da propriedade nRec.
      * 
      * @return
      *     possible object is
@@ -168,7 +168,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade cStat.
+     * Obtém o valor da propriedade cStat.
      * 
      * @return
      *     possible object is
@@ -192,7 +192,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade xMotivo.
+     * Obtém o valor da propriedade xMotivo.
      * 
      * @return
      *     possible object is
@@ -216,7 +216,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade cuf.
+     * Obtém o valor da propriedade cuf.
      * 
      * @return
      *     possible object is
@@ -240,7 +240,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade dhRecbto.
+     * Obtém o valor da propriedade dhRecbto.
      * 
      * @return
      *     possible object is
@@ -264,7 +264,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade cMsg.
+     * Obtém o valor da propriedade cMsg.
      * 
      * @return
      *     possible object is
@@ -288,7 +288,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade xMsg.
+     * Obtém o valor da propriedade xMsg.
      * 
      * @return
      *     possible object is
@@ -341,7 +341,7 @@ public class TRetConsReciNFe {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is

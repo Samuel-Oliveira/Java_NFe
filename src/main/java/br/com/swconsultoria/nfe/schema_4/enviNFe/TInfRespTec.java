@@ -8,11 +8,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Grupo de informaes do responsvel tcnico pelo sistema de emisso de DF-e
+ * Grupo de informações do responsável técnico pelo sistema de emissão de DF-e
  * 
  * <p>Classe Java de TInfRespTec complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TInfRespTec">
@@ -57,7 +57,7 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;element name="hashCSRT">
  *             &lt;simpleType>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}base64Binary">
- *                 &lt;length value="28"/>
+ *                 &lt;length value="20"/>
  *               &lt;/restriction>
  *             &lt;/simpleType>
  *           &lt;/element>
@@ -95,7 +95,7 @@ public class TInfRespTec {
     protected byte[] hashCSRT;
 
     /**
-     * Obtm o valor da propriedade cnpj.
+     * Obtém o valor da propriedade cnpj.
      * 
      * @return
      *     possible object is
@@ -119,7 +119,7 @@ public class TInfRespTec {
     }
 
     /**
-     * Obtm o valor da propriedade xContato.
+     * Obtém o valor da propriedade xContato.
      * 
      * @return
      *     possible object is
@@ -143,7 +143,7 @@ public class TInfRespTec {
     }
 
     /**
-     * Obtm o valor da propriedade email.
+     * Obtém o valor da propriedade email.
      * 
      * @return
      *     possible object is
@@ -167,7 +167,7 @@ public class TInfRespTec {
     }
 
     /**
-     * Obtm o valor da propriedade fone.
+     * Obtém o valor da propriedade fone.
      * 
      * @return
      *     possible object is
@@ -191,7 +191,7 @@ public class TInfRespTec {
     }
 
     /**
-     * Obtm o valor da propriedade idCSRT.
+     * Obtém o valor da propriedade idCSRT.
      * 
      * @return
      *     possible object is
@@ -215,7 +215,7 @@ public class TInfRespTec {
     }
 
     /**
-     * Obtm o valor da propriedade hashCSRT.
+     * Obtém o valor da propriedade hashCSRT.
      * 
      * @return
      *     possible object is

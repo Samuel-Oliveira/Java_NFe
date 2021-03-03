@@ -1,22 +1,16 @@
 
 package br.com.swconsultoria.nfe.schema_4.consSitNFe;
 
+import org.w3c.dom.Element;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.namespace.QName;
-import org.w3c.dom.Element;
 
 
 /**
@@ -24,7 +18,7 @@ import org.w3c.dom.Element;
  * 
  * <p>Classe Java de TEvento complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TEvento">
@@ -109,21 +103,21 @@ import org.w3c.dom.Element;
 public class TEvento {
 
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-    protected TEvento.InfEvento infEvento;
+    protected InfEvento infEvento;
     @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected SignatureType signature;
     @XmlAttribute(name = "versao", required = true)
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade infEvento.
+     * Obtém o valor da propriedade infEvento.
      * 
      * @return
      *     possible object is
-     *     {@link TEvento.InfEvento }
+     *     {@link InfEvento }
      *     
      */
-    public TEvento.InfEvento getInfEvento() {
+    public InfEvento getInfEvento() {
         return infEvento;
     }
 
@@ -132,15 +126,15 @@ public class TEvento {
      * 
      * @param value
      *     allowed object is
-     *     {@link TEvento.InfEvento }
+     *     {@link InfEvento }
      *     
      */
-    public void setInfEvento(TEvento.InfEvento value) {
+    public void setInfEvento(InfEvento value) {
         this.infEvento = value;
     }
 
     /**
-     * Obtm o valor da propriedade signature.
+     * Obtém o valor da propriedade signature.
      * 
      * @return
      *     possible object is
@@ -164,7 +158,7 @@ public class TEvento {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -191,7 +185,7 @@ public class TEvento {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -290,14 +284,14 @@ public class TEvento {
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-        protected TEvento.InfEvento.DetEvento detEvento;
+        protected DetEvento detEvento;
         @XmlAttribute(name = "Id", required = true)
         @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
         @XmlID
         protected String id;
 
         /**
-         * Obtm o valor da propriedade cOrgao.
+         * Obtém o valor da propriedade cOrgao.
          * 
          * @return
          *     possible object is
@@ -321,7 +315,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade tpAmb.
+         * Obtém o valor da propriedade tpAmb.
          * 
          * @return
          *     possible object is
@@ -345,7 +339,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade cnpj.
+         * Obtém o valor da propriedade cnpj.
          * 
          * @return
          *     possible object is
@@ -369,7 +363,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade cpf.
+         * Obtém o valor da propriedade cpf.
          * 
          * @return
          *     possible object is
@@ -393,7 +387,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade chNFe.
+         * Obtém o valor da propriedade chNFe.
          * 
          * @return
          *     possible object is
@@ -417,7 +411,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade dhEvento.
+         * Obtém o valor da propriedade dhEvento.
          * 
          * @return
          *     possible object is
@@ -441,7 +435,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade tpEvento.
+         * Obtém o valor da propriedade tpEvento.
          * 
          * @return
          *     possible object is
@@ -465,7 +459,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade nSeqEvento.
+         * Obtém o valor da propriedade nSeqEvento.
          * 
          * @return
          *     possible object is
@@ -489,7 +483,7 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade verEvento.
+         * Obtém o valor da propriedade verEvento.
          * 
          * @return
          *     possible object is
@@ -513,14 +507,14 @@ public class TEvento {
         }
 
         /**
-         * Obtm o valor da propriedade detEvento.
+         * Obtém o valor da propriedade detEvento.
          * 
          * @return
          *     possible object is
-         *     {@link TEvento.InfEvento.DetEvento }
+         *     {@link DetEvento }
          *     
          */
-        public TEvento.InfEvento.DetEvento getDetEvento() {
+        public DetEvento getDetEvento() {
             return detEvento;
         }
 
@@ -529,15 +523,15 @@ public class TEvento {
          * 
          * @param value
          *     allowed object is
-         *     {@link TEvento.InfEvento.DetEvento }
+         *     {@link DetEvento }
          *     
          */
-        public void setDetEvento(TEvento.InfEvento.DetEvento value) {
+        public void setDetEvento(DetEvento value) {
             this.detEvento = value;
         }
 
         /**
-         * Obtm o valor da propriedade id.
+         * Obtém o valor da propriedade id.
          * 
          * @return
          *     possible object is
@@ -564,7 +558,7 @@ public class TEvento {
         /**
          * <p>Classe Java de anonymous complex type.
          * 
-         * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+         * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
          * 
          * <pre>
          * &lt;complexType>

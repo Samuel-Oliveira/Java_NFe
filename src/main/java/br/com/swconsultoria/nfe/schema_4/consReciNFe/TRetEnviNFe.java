@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Retorno do Pedido de Autorizao da Nota Fiscal Eletrnica
+ * Tipo Retorno do Pedido de Autorização da Nota Fiscal Eletrônica
  * 
  * <p>Classe Java de TRetEnviNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TRetEnviNFe">
@@ -76,14 +76,14 @@ public class TRetEnviNFe {
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String dhRecbto;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
-    protected TRetEnviNFe.InfRec infRec;
+    protected InfRec infRec;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TProtNFe protNFe;
     @XmlAttribute(name = "versao", required = true)
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade tpAmb.
+     * Obtém o valor da propriedade tpAmb.
      * 
      * @return
      *     possible object is
@@ -107,7 +107,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obtm o valor da propriedade verAplic.
+     * Obtém o valor da propriedade verAplic.
      * 
      * @return
      *     possible object is
@@ -131,7 +131,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obtm o valor da propriedade cStat.
+     * Obtém o valor da propriedade cStat.
      * 
      * @return
      *     possible object is
@@ -155,7 +155,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obtm o valor da propriedade xMotivo.
+     * Obtém o valor da propriedade xMotivo.
      * 
      * @return
      *     possible object is
@@ -179,7 +179,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obtm o valor da propriedade cuf.
+     * Obtém o valor da propriedade cuf.
      * 
      * @return
      *     possible object is
@@ -203,7 +203,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obtm o valor da propriedade dhRecbto.
+     * Obtém o valor da propriedade dhRecbto.
      * 
      * @return
      *     possible object is
@@ -227,14 +227,14 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obtm o valor da propriedade infRec.
+     * Obtém o valor da propriedade infRec.
      * 
      * @return
      *     possible object is
-     *     {@link TRetEnviNFe.InfRec }
+     *     {@link InfRec }
      *     
      */
-    public TRetEnviNFe.InfRec getInfRec() {
+    public InfRec getInfRec() {
         return infRec;
     }
 
@@ -243,15 +243,15 @@ public class TRetEnviNFe {
      * 
      * @param value
      *     allowed object is
-     *     {@link TRetEnviNFe.InfRec }
+     *     {@link InfRec }
      *     
      */
-    public void setInfRec(TRetEnviNFe.InfRec value) {
+    public void setInfRec(InfRec value) {
         this.infRec = value;
     }
 
     /**
-     * Obtm o valor da propriedade protNFe.
+     * Obtém o valor da propriedade protNFe.
      * 
      * @return
      *     possible object is
@@ -275,7 +275,7 @@ public class TRetEnviNFe {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -302,7 +302,7 @@ public class TRetEnviNFe {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -332,7 +332,7 @@ public class TRetEnviNFe {
         protected String tMed;
 
         /**
-         * Obtm o valor da propriedade nRec.
+         * Obtém o valor da propriedade nRec.
          * 
          * @return
          *     possible object is
@@ -356,7 +356,7 @@ public class TRetEnviNFe {
         }
 
         /**
-         * Obtm o valor da propriedade tMed.
+         * Obtém o valor da propriedade tMed.
          * 
          * @return
          *     possible object is

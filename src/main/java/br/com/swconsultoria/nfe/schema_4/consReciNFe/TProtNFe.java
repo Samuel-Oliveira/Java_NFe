@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  * <p>Classe Java de TProtNFe complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="TProtNFe">
@@ -79,21 +79,21 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class TProtNFe {
 
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-    protected TProtNFe.InfProt infProt;
+    protected InfProt infProt;
     @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#")
     protected SignatureType signature;
     @XmlAttribute(name = "versao", required = true)
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade infProt.
+     * Obtém o valor da propriedade infProt.
      * 
      * @return
      *     possible object is
-     *     {@link TProtNFe.InfProt }
+     *     {@link InfProt }
      *     
      */
-    public TProtNFe.InfProt getInfProt() {
+    public InfProt getInfProt() {
         return infProt;
     }
 
@@ -102,15 +102,15 @@ public class TProtNFe {
      * 
      * @param value
      *     allowed object is
-     *     {@link TProtNFe.InfProt }
+     *     {@link InfProt }
      *     
      */
-    public void setInfProt(TProtNFe.InfProt value) {
+    public void setInfProt(InfProt value) {
         this.infProt = value;
     }
 
     /**
-     * Obtm o valor da propriedade signature.
+     * Obtém o valor da propriedade signature.
      * 
      * @return
      *     possible object is
@@ -134,7 +134,7 @@ public class TProtNFe {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
+     * Obtém o valor da propriedade versao.
      * 
      * @return
      *     possible object is
@@ -161,7 +161,7 @@ public class TProtNFe {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -245,7 +245,7 @@ public class TProtNFe {
         protected String id;
 
         /**
-         * Obtm o valor da propriedade tpAmb.
+         * Obtém o valor da propriedade tpAmb.
          * 
          * @return
          *     possible object is
@@ -269,7 +269,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade verAplic.
+         * Obtém o valor da propriedade verAplic.
          * 
          * @return
          *     possible object is
@@ -293,7 +293,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade chNFe.
+         * Obtém o valor da propriedade chNFe.
          * 
          * @return
          *     possible object is
@@ -317,7 +317,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade dhRecbto.
+         * Obtém o valor da propriedade dhRecbto.
          * 
          * @return
          *     possible object is
@@ -341,7 +341,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade nProt.
+         * Obtém o valor da propriedade nProt.
          * 
          * @return
          *     possible object is
@@ -365,7 +365,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade digVal.
+         * Obtém o valor da propriedade digVal.
          * 
          * @return
          *     possible object is
@@ -387,7 +387,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade cStat.
+         * Obtém o valor da propriedade cStat.
          * 
          * @return
          *     possible object is
@@ -411,7 +411,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade xMotivo.
+         * Obtém o valor da propriedade xMotivo.
          * 
          * @return
          *     possible object is
@@ -435,7 +435,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade cMsg.
+         * Obtém o valor da propriedade cMsg.
          * 
          * @return
          *     possible object is
@@ -459,7 +459,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade xMsg.
+         * Obtém o valor da propriedade xMsg.
          * 
          * @return
          *     possible object is
@@ -483,7 +483,7 @@ public class TProtNFe {
         }
 
         /**
-         * Obtm o valor da propriedade id.
+         * Obtém o valor da propriedade id.
          * 
          * @return
          *     possible object is

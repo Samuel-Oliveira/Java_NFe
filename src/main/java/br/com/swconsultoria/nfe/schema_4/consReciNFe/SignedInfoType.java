@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * <p>Classe Java de SignedInfoType complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="SignedInfoType">
@@ -59,9 +59,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class SignedInfoType {
 
     @XmlElement(name = "CanonicalizationMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
-    protected SignedInfoType.CanonicalizationMethod canonicalizationMethod;
+    protected CanonicalizationMethod canonicalizationMethod;
     @XmlElement(name = "SignatureMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
-    protected SignedInfoType.SignatureMethod signatureMethod;
+    protected SignatureMethod signatureMethod;
     @XmlElement(name = "Reference", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected ReferenceType reference;
     @XmlAttribute(name = "Id")
@@ -71,14 +71,14 @@ public class SignedInfoType {
     protected String id;
 
     /**
-     * Obtm o valor da propriedade canonicalizationMethod.
+     * Obtém o valor da propriedade canonicalizationMethod.
      * 
      * @return
      *     possible object is
-     *     {@link SignedInfoType.CanonicalizationMethod }
+     *     {@link CanonicalizationMethod }
      *     
      */
-    public SignedInfoType.CanonicalizationMethod getCanonicalizationMethod() {
+    public CanonicalizationMethod getCanonicalizationMethod() {
         return canonicalizationMethod;
     }
 
@@ -87,22 +87,22 @@ public class SignedInfoType {
      * 
      * @param value
      *     allowed object is
-     *     {@link SignedInfoType.CanonicalizationMethod }
+     *     {@link CanonicalizationMethod }
      *     
      */
-    public void setCanonicalizationMethod(SignedInfoType.CanonicalizationMethod value) {
+    public void setCanonicalizationMethod(CanonicalizationMethod value) {
         this.canonicalizationMethod = value;
     }
 
     /**
-     * Obtm o valor da propriedade signatureMethod.
+     * Obtém o valor da propriedade signatureMethod.
      * 
      * @return
      *     possible object is
-     *     {@link SignedInfoType.SignatureMethod }
+     *     {@link SignatureMethod }
      *     
      */
-    public SignedInfoType.SignatureMethod getSignatureMethod() {
+    public SignatureMethod getSignatureMethod() {
         return signatureMethod;
     }
 
@@ -111,15 +111,15 @@ public class SignedInfoType {
      * 
      * @param value
      *     allowed object is
-     *     {@link SignedInfoType.SignatureMethod }
+     *     {@link SignatureMethod }
      *     
      */
-    public void setSignatureMethod(SignedInfoType.SignatureMethod value) {
+    public void setSignatureMethod(SignatureMethod value) {
         this.signatureMethod = value;
     }
 
     /**
-     * Obtm o valor da propriedade reference.
+     * Obtém o valor da propriedade reference.
      * 
      * @return
      *     possible object is
@@ -143,7 +143,7 @@ public class SignedInfoType {
     }
 
     /**
-     * Obtm o valor da propriedade id.
+     * Obtém o valor da propriedade id.
      * 
      * @return
      *     possible object is
@@ -170,7 +170,7 @@ public class SignedInfoType {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -193,7 +193,7 @@ public class SignedInfoType {
         protected String algorithm;
 
         /**
-         * Obtm o valor da propriedade algorithm.
+         * Obtém o valor da propriedade algorithm.
          * 
          * @return
          *     possible object is
@@ -226,7 +226,7 @@ public class SignedInfoType {
     /**
      * <p>Classe Java de anonymous complex type.
      * 
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
      * &lt;complexType>
@@ -249,7 +249,7 @@ public class SignedInfoType {
         protected String algorithm;
 
         /**
-         * Obtm o valor da propriedade algorithm.
+         * Obtém o valor da propriedade algorithm.
          * 
          * @return
          *     possible object is
