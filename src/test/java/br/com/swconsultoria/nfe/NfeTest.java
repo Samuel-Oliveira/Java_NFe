@@ -33,7 +33,7 @@ final class NfeTest {
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
-        URI uri = Objects.requireNonNull(NfeTest.class.getClassLoader().getResource("CertificadoTesteCNPJ.pfx")).toURI();
+        URI uri = Objects.requireNonNull(NfeTest.class.getClassLoader().getResource("NAO_UTILIZE.pfx")).toURI();
         Certificado certificado = CertificadoService.certificadoPfx(
                 Paths.get(uri).toString(), "123456");
         configuracoesNfe = ConfiguracoesNfe.criarConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO, certificado, "");
