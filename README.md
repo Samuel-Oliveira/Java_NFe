@@ -40,6 +40,9 @@ ________________________________________________________________________________
 
 ## v4.00.15 - SNAPSHOT
 - Atualizado Cacert
+- Atualizado Objetos Schema para NT 2020.006
+
+(Atualizar os Schemas: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas_2020.006.zip)
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
