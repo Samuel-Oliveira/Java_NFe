@@ -38,7 +38,7 @@ public class ConfiguracoesNfe {
     private String pastaSchemas;
     private Proxy proxy;
     private Integer timeout;
-    private boolean contigenciaSCAN;
+    private boolean contigenciaSVC;
     private boolean validacaoDocumento = true;
     private String arquivoWebService;
     private Integer retry;
@@ -85,20 +85,14 @@ public class ConfiguracoesNfe {
         }
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
-            System.err.println();
-            System.err.println("#########################################################");
-            System.err.println("    Api Java Nfe - Versão 4.00.15-SNAPSHOT (A)           ");
+            System.err.println("####################################################################");
+            System.err.println("       Api Java Nfe - Versão 4.00.15-SNAPSHOT(B) - 01/04/2021       ");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
-            System.err.println("            Tipo Certificado: " + certificado.getTipoCertificado().toString());
-            System.err.println(" Alias Certificado: " + certificado.getNome().toUpperCase());
-            System.err.println(" Vencimento Certificado: " + certificado.getVencimento());
-            System.err.println(" Cnpj/Cpf Certificado: " + certificado.getCnpjCpf());
-            System.err.println(
-                    " Ambiente: " + (ambiente.equals(AmbienteEnum.PRODUCAO) ? "Produção" : "Homologação") + " - Estado: " + estado.getNome());
-            System.err.println("#########################################################");
-            System.err.println();
+            System.err.println(" Pasta Schemas: " + pastaSchemas);
+            System.err.println(" Ambiente: " + (ambiente.equals(AmbienteEnum.PRODUCAO) ? "Produção" : "Homologação") + " - Estado: " + estado.getNome());
+            System.err.println("####################################################################");
         }
         if (!certificado.isValido()) {
             throw new CertificadoException("Certificado Vencido!");
@@ -177,8 +171,8 @@ public class ConfiguracoesNfe {
      * 
      * @return contigenciaSCAN
      */
-    public boolean isContigenciaSCAN() {
-        return contigenciaSCAN;
+    public boolean isContigenciaSVC() {
+        return contigenciaSVC;
     }
 
     /**
@@ -187,10 +181,10 @@ public class ConfiguracoesNfe {
      * Usar para situações em que não for possível estabelecer conexão com o
      * WebService SEFAZ Origem.
      * 
-     * @param contigenciaSCAN
+     * @param contigenciaSVC
      */
-    public void setContigenciaSCAN(boolean contigenciaSCAN) {
-        this.contigenciaSCAN = contigenciaSCAN;
+    public void setContigenciaSVC(boolean contigenciaSVC) {
+        this.contigenciaSVC = contigenciaSVC;
     }
 
     /**

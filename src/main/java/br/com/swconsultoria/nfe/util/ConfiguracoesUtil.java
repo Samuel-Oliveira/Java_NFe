@@ -65,9 +65,11 @@ public class ConfiguracoesUtil {
                 throw new CertificadoException("Documento do Certificado("+configuracoesNfe.getCertificado().getCnpjCpf()+") não equivale ao Documento do Emissor("+cpfCnpj+")");
             }
 
-            CertificadoService.inicializaCertificado(configuracoesNfe.getCertificado(),
-                    ObjetoUtil.verifica(configuracoesNfe.getCacert()).orElse(ConfiguracoesUtil.class.getResourceAsStream(
-                    "/Cacert")));
+            if( ObjetoUtil.verifica(configuracoesNfe.getCacert()).isPresent()){
+                CertificadoService.inicializaCertificado(configuracoesNfe.getCertificado(),configuracoesNfe.getCacert());
+            }else{
+                CertificadoService.inicializaCertificado(configuracoesNfe.getCertificado());
+            }
         } catch (CertificadoException e) {
             throw new NfeException(e.getMessage());
         }
