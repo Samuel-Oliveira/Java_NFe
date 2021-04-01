@@ -4,7 +4,7 @@ Biblioteca Java para consumo do WebService de NFe/NFCe
 ## Dúvidas, Sugestões ou Consultoria
 Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 
-## Gostou do Projeto? Dê sua colaboração: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TX9K693QQYA6W)
+## Gostou do Projeto? Dê sua colaboração pelo Pix: 01713390108 <img src="https://swconsultoria.com.br/pix.png" width="200">
 
 Para Iniciar : 
 - Caso use Libs baixe o java-nfe-4.00.14.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.14.jar) e o adicione às bibliotecas de Seu Projeto.
@@ -38,9 +38,12 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.15 - SNAPSHOT
-- Atualizado Cacert
+## v4.00.15 - SNAPSHOT - 01/04/2021
+- Removido Cacert do Projeto, agora o projeto Java Certificados irá gerenciar os Cacerts.
 - Atualizado Objetos Schema para NT 2020.006
+- Alterado nome da propriedade contigenciaSCAN para contigenciaSVC
+- Melhoria nos Logs
+- Atualizado Dependencia Java-Certificado
 
 (Atualizar os Schemas: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas_2020.006.zip)
 
