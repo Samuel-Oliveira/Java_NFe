@@ -35,109 +35,108 @@ import java.util.Iterator;
  */
 class Enviar {
 
-	/**
-	 * Metodo para Montar a NFE
-	 *
-	 * @param enviNFe
-	 * @param valida
-	 * @return
-	 * @throws NfeException
-	 */
-	static TEnviNFe montaNfe(ConfiguracoesNfe config, TEnviNFe enviNFe, boolean valida) throws NfeException {
+    /**
+     * Metodo para Montar a NFE
+     *
+     * @param enviNFe
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    static TEnviNFe montaNfe(ConfiguracoesNfe config, TEnviNFe enviNFe, boolean valida) throws NfeException {
 
-		try {
+        try {
 
-			/**
-			 * Cria o xml
-			 */
-			String xml = XmlNfeUtil.objectToXml(enviNFe);
+            /**
+             * Cria o xml
+             */
+            String xml = XmlNfeUtil.objectToXml(enviNFe);
 
-			/**
-			 * Assina o Xml
-			 */
-			xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.NFE);
+            /**
+             * Assina o Xml
+             */
+            xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.NFE);
 
-			//Retira Quebra de Linha
-			xml = xml.replaceAll(System.lineSeparator(), "");
+            //Retira Quebra de Linha
+            xml = xml.replaceAll(System.lineSeparator(), "");
 
-			LoggerUtil.log(Enviar.class, "[XML-ASSINADO]: " + xml);
+            LoggerUtil.log(Enviar.class, "[XML-ASSINADO]: " + xml);
 
-			/**
-			 * Valida o Xml caso sejá selecionado True
-			 */
-			if (valida) {
-				new Validar().validaXml(config, xml, ServicosEnum.ENVIO);
-			}
+            /**
+             * Valida o Xml caso sejá selecionado True
+             */
+            if (valida) {
+                new Validar().validaXml(config, xml, ServicosEnum.ENVIO);
+            }
 
-			return XmlNfeUtil.xmlToObject(xml, TEnviNFe.class);
+            return XmlNfeUtil.xmlToObject(xml, TEnviNFe.class);
 
-		} catch (Exception e) {
-			throw new NfeException(e.getMessage());
-		}
+        } catch (Exception e) {
+            throw new NfeException(e.getMessage());
+        }
 
-	}
+    }
 
-	/**
-	 * Metodo para Enviar a NFE.
-	 *
-	 * @param enviNFe
-	 * @param tipoDocumento
-	 * @return
-	 * @throws NfeException
-	 */
+    /**
+     * Metodo para Enviar a NFE.
+     *
+     * @param enviNFe
+     * @param tipoDocumento
+     * @return
+     * @throws NfeException
+     */
     static TRetEnviNFe enviaNfe(ConfiguracoesNfe config, TEnviNFe enviNFe, DocumentoEnum tipoDocumento) throws NfeException {
 
-		try {
+        try {
 
-			String xml = XmlNfeUtil.objectToXml(enviNFe);
+            String xml = XmlNfeUtil.objectToXml(enviNFe);
 
-			OMElement ome;
-			if (tipoDocumento.equals(DocumentoEnum.NFE)) {
-				ome = AXIOMUtil.stringToOM(xml);
-			} else {
-				OMFactory factory = OMAbstractFactory.getOMFactory();
-				ome = factory.getMetaFactory().createOMBuilder(factory, StAXParserConfiguration.NON_COALESCING, new InputSource(new StringReader(xml))).getDocumentElement();
-			}
+            OMElement ome;
+            if (tipoDocumento.equals(DocumentoEnum.NFE)) {
+                ome = AXIOMUtil.stringToOM(xml);
+            } else {
+                OMFactory factory = OMAbstractFactory.getOMFactory();
+                ome = factory.getMetaFactory().createOMBuilder(factory, StAXParserConfiguration.NON_COALESCING, new InputSource(new StringReader(xml))).getDocumentElement();
+            }
 
-			Iterator<?> children = ome.getChildrenWithLocalName("NFe");
-			while (children.hasNext()) {
-				OMElement omElementNFe = (OMElement) children.next();
-				if ((omElementNFe != null) && ("NFe".equals(omElementNFe.getLocalName()))) {
-					omElementNFe.addAttribute("xmlns", "http://www.portalfiscal.inf.br/nfe", null);
-				}
-			}
+            Iterator<?> children = ome.getChildrenWithLocalName("NFe");
+            while (children.hasNext()) {
+                OMElement omElementNFe = (OMElement) children.next();
+                if ((omElementNFe != null) && ("NFe".equals(omElementNFe.getLocalName()))) {
+                    omElementNFe.addAttribute("xmlns", "http://www.portalfiscal.inf.br/nfe", null);
+                }
+            }
 
-			LoggerUtil.log(Enviar.class, "[XML-ENVIO]: " + xml);
+            LoggerUtil.log(Enviar.class, "[XML-ENVIO]: " + xml);
 
-			NFeAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeAutorizacao4Stub.NfeDadosMsg();
-			dadosMsg.setExtraElement(ome);
+            NFeAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeAutorizacao4Stub.NfeDadosMsg();
+            dadosMsg.setExtraElement(ome);
 
             NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.ENVIO));
 
-				// Timeout
-				if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
-					stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
-					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
-				}
+            // Timeout
+            if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
+                stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
+                stub._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, config.getTimeout());
+            }
 
-				//Erro 411 MG
-				if (tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)) {
-					stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
-				}
-				
-				if (ObjetoUtil.verifica(config.getRetry()).isPresent()) {
-				    RetryParameter.populateRetry(stub, config.getRetry());
-				}
-				
-				
-			NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
-			LoggerUtil.log(Enviar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
-			return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
+            //Erro 411 MG
+            if (tipoDocumento.equals(DocumentoEnum.NFCE) && config.getEstado().equals(EstadosEnum.MG)) {
+                stub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
+            }
 
-		} catch (RemoteException | XMLStreamException | JAXBException e) {
-			throw new NfeException(e.getMessage());
-		}
+            if (ObjetoUtil.verifica(config.getRetry()).isPresent()) {
+                RetryParameter.populateRetry(stub, config.getRetry());
+            }
 
-	}
+            NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
+            LoggerUtil.log(Enviar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+            return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
+
+        } catch (RemoteException | XMLStreamException | JAXBException e) {
+            throw new NfeException(e.getMessage());
+        }
+
+    }
 
 }

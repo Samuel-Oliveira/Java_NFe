@@ -89,7 +89,7 @@ public class WebServiceUtil {
             } else if (!tipoServico.equals(ServicosEnum.URL_CONSULTANFCE)
                     && !tipoServico.equals(ServicosEnum.URL_QRCODE) && ObjetoUtil.verifica(url).isPresent()) {
                 secao = url;
-            } else if (config.isContigenciaSCAN()) {
+            } else if (config.isContigenciaSVC()) {
                 // SVC-RS
                 if (config.getEstado().equals(EstadosEnum.GO) || config.getEstado().equals(EstadosEnum.AM)
                         || config.getEstado().equals(EstadosEnum.BA) || config.getEstado().equals(EstadosEnum.CE)

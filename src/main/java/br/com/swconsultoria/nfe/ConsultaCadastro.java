@@ -57,7 +57,7 @@ class ConsultaCadastro {
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
             ConfiguracoesNfe configConsulta = new ConfiguracoesNfe();
-            configConsulta.setContigenciaSCAN(config.isContigenciaSCAN());
+            configConsulta.setContigenciaSVC(config.isContigenciaSVC());
             configConsulta.setEstado(estado);
             configConsulta.setAmbiente(config.getAmbiente());
 
