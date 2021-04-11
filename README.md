@@ -44,6 +44,7 @@ ________________________________________________________________________________
 - Alterado nome da propriedade contigenciaSCAN para contigenciaSVC
 - Melhoria nos Logs
 - Atualizado Dependencia Java-Certificado
+- Corrigido erros de Assinatura com repositorio Windows
 
 (Atualizar os Schemas: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas_2020.006.zip)
 

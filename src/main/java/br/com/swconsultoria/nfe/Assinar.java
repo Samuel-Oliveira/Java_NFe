@@ -6,6 +6,7 @@ import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -143,7 +144,7 @@ public class Assinar {
         KeyStore keyStore = CertificadoService.getKeyStore(certificado);
 
         KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(certificado.getNome(),
-                new KeyStore.PasswordProtection(certificado.getSenha().toCharArray()));
+                new KeyStore.PasswordProtection(ObjetoUtil.verifica(certificado.getSenha()).orElse("").toCharArray()));
         privateKey = pkEntry.getPrivateKey();
 
         KeyInfoFactory keyInfoFactory = signatureFactory.getKeyInfoFactory();

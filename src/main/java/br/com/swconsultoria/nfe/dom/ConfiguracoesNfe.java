@@ -86,7 +86,7 @@ public class ConfiguracoesNfe {
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
-            System.err.println("       Api Java Nfe - Versão 4.00.15-SNAPSHOT(B) - 01/04/2021       ");
+            System.err.println("       Api Java Nfe - Versão 4.00.15-SNAPSHOT(C) - 11/04/2021       ");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
@@ -95,7 +95,7 @@ public class ConfiguracoesNfe {
             System.err.println("####################################################################");
         }
         if (!certificado.isValido()) {
-            throw new CertificadoException("Certificado Vencido!");
+            throw new CertificadoException("Certificado Vencido/Inválido");
         }
         return configuracoesNfe;
     }
