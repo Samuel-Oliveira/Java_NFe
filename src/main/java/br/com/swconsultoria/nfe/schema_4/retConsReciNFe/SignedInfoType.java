@@ -59,9 +59,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class SignedInfoType {
 
     @XmlElement(name = "CanonicalizationMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
-    protected CanonicalizationMethod canonicalizationMethod;
+    protected SignedInfoType.CanonicalizationMethod canonicalizationMethod;
     @XmlElement(name = "SignatureMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
-    protected SignatureMethod signatureMethod;
+    protected SignedInfoType.SignatureMethod signatureMethod;
     @XmlElement(name = "Reference", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected ReferenceType reference;
     @XmlAttribute(name = "Id")
@@ -75,10 +75,10 @@ public class SignedInfoType {
      * 
      * @return
      *     possible object is
-     *     {@link CanonicalizationMethod }
+     *     {@link SignedInfoType.CanonicalizationMethod }
      *     
      */
-    public CanonicalizationMethod getCanonicalizationMethod() {
+    public SignedInfoType.CanonicalizationMethod getCanonicalizationMethod() {
         return canonicalizationMethod;
     }
 
@@ -87,10 +87,10 @@ public class SignedInfoType {
      * 
      * @param value
      *     allowed object is
-     *     {@link CanonicalizationMethod }
+     *     {@link SignedInfoType.CanonicalizationMethod }
      *     
      */
-    public void setCanonicalizationMethod(CanonicalizationMethod value) {
+    public void setCanonicalizationMethod(SignedInfoType.CanonicalizationMethod value) {
         this.canonicalizationMethod = value;
     }
 
@@ -99,10 +99,10 @@ public class SignedInfoType {
      * 
      * @return
      *     possible object is
-     *     {@link SignatureMethod }
+     *     {@link SignedInfoType.SignatureMethod }
      *     
      */
-    public SignatureMethod getSignatureMethod() {
+    public SignedInfoType.SignatureMethod getSignatureMethod() {
         return signatureMethod;
     }
 
@@ -111,10 +111,10 @@ public class SignedInfoType {
      * 
      * @param value
      *     allowed object is
-     *     {@link SignatureMethod }
+     *     {@link SignedInfoType.SignatureMethod }
      *     
      */
-    public void setSignatureMethod(SignatureMethod value) {
+    public void setSignatureMethod(SignedInfoType.SignatureMethod value) {
         this.signatureMethod = value;
     }
 

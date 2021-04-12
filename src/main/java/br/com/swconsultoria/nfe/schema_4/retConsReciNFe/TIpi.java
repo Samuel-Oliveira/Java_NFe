@@ -133,9 +133,9 @@ public class TIpi {
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String cEnq;
     @XmlElement(name = "IPITrib", namespace = "http://www.portalfiscal.inf.br/nfe")
-    protected IPITrib ipiTrib;
+    protected TIpi.IPITrib ipiTrib;
     @XmlElement(name = "IPINT", namespace = "http://www.portalfiscal.inf.br/nfe")
-    protected IPINT ipint;
+    protected TIpi.IPINT ipint;
 
     /**
      * Obtém o valor da propriedade cnpjProd.
@@ -238,10 +238,10 @@ public class TIpi {
      * 
      * @return
      *     possible object is
-     *     {@link IPITrib }
+     *     {@link TIpi.IPITrib }
      *     
      */
-    public IPITrib getIPITrib() {
+    public TIpi.IPITrib getIPITrib() {
         return ipiTrib;
     }
 
@@ -250,10 +250,10 @@ public class TIpi {
      * 
      * @param value
      *     allowed object is
-     *     {@link IPITrib }
+     *     {@link TIpi.IPITrib }
      *     
      */
-    public void setIPITrib(IPITrib value) {
+    public void setIPITrib(TIpi.IPITrib value) {
         this.ipiTrib = value;
     }
 
@@ -262,10 +262,10 @@ public class TIpi {
      * 
      * @return
      *     possible object is
-     *     {@link IPINT }
+     *     {@link TIpi.IPINT }
      *     
      */
-    public IPINT getIPINT() {
+    public TIpi.IPINT getIPINT() {
         return ipint;
     }
 
@@ -274,10 +274,10 @@ public class TIpi {
      * 
      * @param value
      *     allowed object is
-     *     {@link IPINT }
+     *     {@link TIpi.IPINT }
      *     
      */
-    public void setIPINT(IPINT value) {
+    public void setIPINT(TIpi.IPINT value) {
         this.ipint = value;
     }
 

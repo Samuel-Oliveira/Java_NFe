@@ -76,7 +76,7 @@ public class TRetEnviNFe {
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String dhRecbto;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
-    protected InfRec infRec;
+    protected TRetEnviNFe.InfRec infRec;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TProtNFe protNFe;
     @XmlAttribute(name = "versao", required = true)
@@ -231,10 +231,10 @@ public class TRetEnviNFe {
      * 
      * @return
      *     possible object is
-     *     {@link InfRec }
+     *     {@link TRetEnviNFe.InfRec }
      *     
      */
-    public InfRec getInfRec() {
+    public TRetEnviNFe.InfRec getInfRec() {
         return infRec;
     }
 
@@ -243,10 +243,10 @@ public class TRetEnviNFe {
      * 
      * @param value
      *     allowed object is
-     *     {@link InfRec }
+     *     {@link TRetEnviNFe.InfRec }
      *     
      */
-    public void setInfRec(InfRec value) {
+    public void setInfRec(TRetEnviNFe.InfRec value) {
         this.infRec = value;
     }
 

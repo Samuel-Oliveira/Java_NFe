@@ -79,7 +79,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class TProtNFe {
 
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-    protected InfProt infProt;
+    protected TProtNFe.InfProt infProt;
     @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#")
     protected SignatureType signature;
     @XmlAttribute(name = "versao", required = true)
@@ -90,10 +90,10 @@ public class TProtNFe {
      * 
      * @return
      *     possible object is
-     *     {@link InfProt }
+     *     {@link TProtNFe.InfProt }
      *     
      */
-    public InfProt getInfProt() {
+    public TProtNFe.InfProt getInfProt() {
         return infProt;
     }
 
@@ -102,10 +102,10 @@ public class TProtNFe {
      * 
      * @param value
      *     allowed object is
-     *     {@link InfProt }
+     *     {@link TProtNFe.InfProt }
      *     
      */
-    public void setInfProt(InfProt value) {
+    public void setInfProt(TProtNFe.InfProt value) {
         this.infProt = value;
     }
 

@@ -61,7 +61,7 @@ public class ReferenceType {
     @XmlElement(name = "Transforms", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected TransformsType transforms;
     @XmlElement(name = "DigestMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
-    protected DigestMethod digestMethod;
+    protected ReferenceType.DigestMethod digestMethod;
     @XmlElement(name = "DigestValue", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected byte[] digestValue;
     @XmlAttribute(name = "Id")
@@ -104,10 +104,10 @@ public class ReferenceType {
      * 
      * @return
      *     possible object is
-     *     {@link DigestMethod }
+     *     {@link ReferenceType.DigestMethod }
      *     
      */
-    public DigestMethod getDigestMethod() {
+    public ReferenceType.DigestMethod getDigestMethod() {
         return digestMethod;
     }
 
@@ -116,10 +116,10 @@ public class ReferenceType {
      * 
      * @param value
      *     allowed object is
-     *     {@link DigestMethod }
+     *     {@link ReferenceType.DigestMethod }
      *     
      */
-    public void setDigestMethod(DigestMethod value) {
+    public void setDigestMethod(ReferenceType.DigestMethod value) {
         this.digestMethod = value;
     }
 
