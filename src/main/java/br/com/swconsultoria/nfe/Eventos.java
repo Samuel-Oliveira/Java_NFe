@@ -19,12 +19,14 @@ import java.rmi.RemoteException;
 
 class Eventos {
 
-    static String enviarEvento(ConfiguracoesNfe config, String xml, ServicosEnum tipoEvento, boolean valida, DocumentoEnum tipoDocumento)
+    static String enviarEvento(ConfiguracoesNfe config, String xml, ServicosEnum tipoEvento, boolean valida, boolean assina, DocumentoEnum tipoDocumento)
             throws NfeException {
 
         try {
 
-            xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.EVENTO);
+            if(assina){
+                xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.EVENTO);
+            }
 
             LoggerUtil.log(Eventos.class, "[XML-ENVIO-" + tipoEvento + "]: " + xml);
 

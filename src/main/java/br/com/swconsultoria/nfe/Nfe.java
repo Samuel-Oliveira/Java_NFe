@@ -1,10 +1,7 @@
 package br.com.swconsultoria.nfe;
 
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
-import br.com.swconsultoria.nfe.dom.enuns.ConsultaDFeEnum;
-import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
-import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
-import br.com.swconsultoria.nfe.dom.enuns.PessoaEnum;
+import br.com.swconsultoria.nfe.dom.enuns.*;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
@@ -155,6 +152,26 @@ public class Nfe {
     public static TRetEnvEvento cancelarNfe(ConfiguracoesNfe configuracoesNfe, TEnvEvento envEvento, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
 
         return Cancelar.eventoCancelamento(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida, tipoDocumento);
+
+    }
+
+    /**
+     * Metodo para Enviar Evento Manual
+     *
+     * @param configuracoesNfe
+     * @param xmlEvento
+     * @param tipoEvento
+     * @param valida
+     * @param assina
+     * @param tipoDocumento
+     * @return
+     * @throws NfeException
+     */
+    public static String enviarEnventoManual(ConfiguracoesNfe configuracoesNfe, String xmlEvento, ServicosEnum tipoEvento,
+                                             boolean valida, boolean assina,
+                                             DocumentoEnum tipoDocumento) throws NfeException {
+
+        return Eventos.enviarEvento(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe), xmlEvento, tipoEvento, valida, assina, tipoDocumento);
 
     }
 

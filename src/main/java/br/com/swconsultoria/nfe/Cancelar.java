@@ -24,7 +24,7 @@ class Cancelar {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO, valida, tipoDocumento);
+			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO, valida, true, tipoDocumento);
 
 			return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
 
@@ -43,7 +43,7 @@ class Cancelar {
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO_SUBSTITUICAO, valida, DocumentoEnum.NFCE);
+			xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANCELAMENTO_SUBSTITUICAO, valida,true, DocumentoEnum.NFCE);
 
 			return XmlNfeUtil.xmlToObject(xml, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class);
 
