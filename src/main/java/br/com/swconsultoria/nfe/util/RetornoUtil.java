@@ -25,7 +25,8 @@ public class RetornoUtil {
 
         final String[] erro = {""};
         retorno.getRetEvento().forEach( retEvento -> {
-            if (!StatusEnum.EVENTO_VINCULADO.getCodigo().equals(retEvento.getInfEvento().getCStat())) {
+            if (!StatusEnum.EVENTO_VINCULADO.getCodigo().equals(retEvento.getInfEvento().getCStat()) &&
+                    !StatusEnum.CANCELAMENTO_FORA_PRAZO.getCodigo().equals(retEvento.getInfEvento().getCStat())) {
                 erro[0] += retEvento.getInfEvento().getChNFe() + " - " +retEvento.getInfEvento().getCStat() + " - " + retEvento.getInfEvento().getXMotivo() + System.lineSeparator();
             }
         });
