@@ -48,6 +48,7 @@ ________________________________________________________________________________
 - Atualizado Objetos Schema para NT 2020.006 v1.20
 - Adicionado a validação de cancelamento fora do prazo. 
 - Adicinado possibilidade de enviar Evento Manual sem assinatura.
+- Adicionado URLS NFCe de Santa Catarina
 
 (Atualizar os Schemas: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas_2020.006.zip)
 
