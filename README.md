@@ -38,7 +38,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.15 - SNAPSHOT - 28/05/2021
+## v4.00.15 - SNAPSHOT - 14/06/2021 (G)
 - Removido Cacert do Projeto, agora o projeto Java Certificados irá gerenciar os Cacerts.
 - Atualizado Objetos Schema para NT 2020.006 v1.10
 - Alterado nome da propriedade contigenciaSCAN para contigenciaSVC
@@ -49,6 +49,7 @@ ________________________________________________________________________________
 - Adicionado a validação de cancelamento fora do prazo. 
 - Adicinado possibilidade de enviar Evento Manual sem assinatura.
 - Adicionado URLS NFCe de Santa Catarina
+- Correção de Status Serviço MS.
 
 (Atualizar os Schemas: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/Schemas_2020.006.zip)
 

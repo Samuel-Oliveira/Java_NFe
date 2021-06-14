@@ -2,6 +2,7 @@ package br.com.swconsultoria.nfe;
 
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
+import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.consStatServ.TConsStatServ;
@@ -71,16 +72,31 @@ class Status {
 
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
-            NFeStatusServico4Stub.NfeDadosMsg dadosMsg = new NFeStatusServico4Stub.NfeDadosMsg();
-            dadosMsg.setExtraElement(ome);
+            if(EstadosEnum.MS.equals(config.getEstado())) {
+                br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeDadosMsg dadosMsg =
+                        new br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeDadosMsg();
+                dadosMsg.setExtraElement(ome);
 
-            NFeStatusServico4Stub stub = new NFeStatusServico4Stub(
-                    WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
+                br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub stub =
+                        new br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub(
+                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
 
-            NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
+                br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
 
-            LoggerUtil.log(Status.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
-            return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsStatServ.class);
+                LoggerUtil.log(Status.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+                return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsStatServ.class);
+            }else{
+                NFeStatusServico4Stub.NfeDadosMsg dadosMsg = new NFeStatusServico4Stub.NfeDadosMsg();
+                dadosMsg.setExtraElement(ome);
+
+                NFeStatusServico4Stub stub = new NFeStatusServico4Stub(
+                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
+
+                NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
+
+                LoggerUtil.log(Status.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+                return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsStatServ.class);
+            }
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {
             throw new NfeException(e.getMessage());
