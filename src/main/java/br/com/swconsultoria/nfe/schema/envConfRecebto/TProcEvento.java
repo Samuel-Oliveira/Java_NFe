@@ -1,7 +1,11 @@
 
 package br.com.swconsultoria.nfe.schema.envConfRecebto;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -34,9 +38,9 @@ import javax.xml.bind.annotation.*;
 })
 public class TProcEvento {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TEvento evento;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TretEvento retEvento;
     @XmlAttribute(name = "versao", required = true)
     protected String versao;

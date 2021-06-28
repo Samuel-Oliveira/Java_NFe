@@ -43,9 +43,9 @@ import java.util.List;
 })
 public class TEnvEvento {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String idLote;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected List<TEvento> evento;
     @XmlAttribute(name = "versao", required = true)
     protected String versao;

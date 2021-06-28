@@ -90,7 +90,7 @@
 					<xs:documentation>Protocolo de homologação de cancelamento de uso da NF-e</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="procEventoNFe" type="TProcEvento" minOccurs="0" maxOccurs="2999">
+			<xs:element name="procEventoNFe" type="TProcEvento" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Protocolo de registro de evento da NF-e</xs:documentation>
 				</xs:annotation>
@@ -303,7 +303,7 @@
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:any processContents="skip" maxOccurs="2999"/>
+									<xs:any processContents="skip" maxOccurs="unbounded"/>
 								</xs:sequence>
 								<xs:anyAttribute processContents="skip"/>
 							</xs:complexType>

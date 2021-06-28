@@ -469,6 +469,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.InfSolicNFF }
+     * 
+     */
+    public TNFe.InfNFe.InfSolicNFF createTNFeInfNFeInfSolicNFF() {
+        return new TNFe.InfNFe.InfSolicNFF();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Cana.ForDia }
      * 
      */
@@ -834,6 +842,22 @@ public class ObjectFactory {
      */
     public TNFe.InfNFe.Det.Prod.Rastro createTNFeInfNFeDetProdRastro() {
         return new TNFe.InfNFe.Det.Prod.Rastro();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Prod.InfProdNFF }
+     * 
+     */
+    public TNFe.InfNFe.Det.Prod.InfProdNFF createTNFeInfNFeDetProdInfProdNFF() {
+        return new TNFe.InfNFe.Det.Prod.InfProdNFF();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Prod.InfProdEmb }
+     * 
+     */
+    public TNFe.InfNFe.Det.Prod.InfProdEmb createTNFeInfNFeDetProdInfProdEmb() {
+        return new TNFe.InfNFe.Det.Prod.InfProdEmb();
     }
 
     /**

@@ -1,7 +1,13 @@
 
 package br.com.swconsultoria.nfe.schema.cce;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -45,18 +51,18 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ReferenceType", propOrder = {
+@XmlType(name = "ReferenceType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
     "transforms",
     "digestMethod",
     "digestValue"
 })
 public class ReferenceType {
 
-    @XmlElement(name = "Transforms", required = true)
+    @XmlElement(name = "Transforms", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected TransformsType transforms;
-    @XmlElement(name = "DigestMethod", required = true)
+    @XmlElement(name = "DigestMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected ReferenceType.DigestMethod digestMethod;
-    @XmlElement(name = "DigestValue", required = true)
+    @XmlElement(name = "DigestValue", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected byte[] digestValue;
     @XmlAttribute(name = "Id")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -71,11 +77,11 @@ public class ReferenceType {
 
     /**
      * Obtém o valor da propriedade transforms.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link TransformsType }
-     *
+     *     
      */
     public TransformsType getTransforms() {
         return transforms;
@@ -83,11 +89,11 @@ public class ReferenceType {
 
     /**
      * Define o valor da propriedade transforms.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link TransformsType }
-     *
+     *     
      */
     public void setTransforms(TransformsType value) {
         this.transforms = value;
@@ -95,11 +101,11 @@ public class ReferenceType {
 
     /**
      * Obtém o valor da propriedade digestMethod.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link ReferenceType.DigestMethod }
-     *
+     *     
      */
     public ReferenceType.DigestMethod getDigestMethod() {
         return digestMethod;
@@ -107,11 +113,11 @@ public class ReferenceType {
 
     /**
      * Define o valor da propriedade digestMethod.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link ReferenceType.DigestMethod }
-     *
+     *     
      */
     public void setDigestMethod(ReferenceType.DigestMethod value) {
         this.digestMethod = value;

@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the br.inf.portalfiscal.nfe.schema.cce package. 
+ * generated in the br.com.swconsultoria.nfe.schema.cce package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -28,18 +28,10 @@ public class ObjectFactory {
     private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.inf.portalfiscal.nfe.schema.cce
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema.cce
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link SignedInfoType }
-     * 
-     */
-    public SignedInfoType createSignedInfoType() {
-        return new SignedInfoType();
     }
 
     /**
@@ -48,6 +40,14 @@ public class ObjectFactory {
      */
     public ReferenceType createReferenceType() {
         return new ReferenceType();
+    }
+
+    /**
+     * Create an instance of {@link SignedInfoType }
+     * 
+     */
+    public SignedInfoType createSignedInfoType() {
+        return new SignedInfoType();
     }
 
     /**
@@ -75,19 +75,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TEnvEvento }
-     * 
-     */
-    public TEnvEvento createTEnvEvento() {
-        return new TEnvEvento();
-    }
-
-    /**
      * Create an instance of {@link TRetEnvEvento }
      * 
      */
     public TRetEnvEvento createTRetEnvEvento() {
         return new TRetEnvEvento();
+    }
+
+    /**
+     * Create an instance of {@link TEnvEvento }
+     * 
+     */
+    public TEnvEvento createTEnvEvento() {
+        return new TEnvEvento();
     }
 
     /**
@@ -107,11 +107,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link KeyInfoType }
+     * Create an instance of {@link X509DataType }
      * 
      */
-    public KeyInfoType createKeyInfoType() {
-        return new KeyInfoType();
+    public X509DataType createX509DataType() {
+        return new X509DataType();
     }
 
     /**
@@ -123,14 +123,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TransformType }
-     * 
-     */
-    public TransformType createTransformType() {
-        return new TransformType();
-    }
-
-    /**
      * Create an instance of {@link TransformsType }
      * 
      */
@@ -139,11 +131,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link X509DataType }
+     * Create an instance of {@link TransformType }
      * 
      */
-    public X509DataType createX509DataType() {
-        return new X509DataType();
+    public TransformType createTransformType() {
+        return new TransformType();
+    }
+
+    /**
+     * Create an instance of {@link KeyInfoType }
+     * 
+     */
+    public KeyInfoType createKeyInfoType() {
+        return new KeyInfoType();
+    }
+
+    /**
+     * Create an instance of {@link ReferenceType.DigestMethod }
+     * 
+     */
+    public ReferenceType.DigestMethod createReferenceTypeDigestMethod() {
+        return new ReferenceType.DigestMethod();
     }
 
     /**
@@ -160,14 +168,6 @@ public class ObjectFactory {
      */
     public SignedInfoType.SignatureMethod createSignedInfoTypeSignatureMethod() {
         return new SignedInfoType.SignatureMethod();
-    }
-
-    /**
-     * Create an instance of {@link ReferenceType.DigestMethod }
-     * 
-     */
-    public ReferenceType.DigestMethod createReferenceTypeDigestMethod() {
-        return new ReferenceType.DigestMethod();
     }
 
     /**

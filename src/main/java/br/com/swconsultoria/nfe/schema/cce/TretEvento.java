@@ -1,7 +1,12 @@
 
 package br.com.swconsultoria.nfe.schema.cce;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -103,7 +108,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class TretEvento {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TretEvento.InfEvento infEvento;
     @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#")
     protected SignatureType signature;
@@ -112,11 +117,11 @@ public class TretEvento {
 
     /**
      * Obtém o valor da propriedade infEvento.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link TretEvento.InfEvento }
-     *
+     *     
      */
     public TretEvento.InfEvento getInfEvento() {
         return infEvento;
@@ -124,11 +129,11 @@ public class TretEvento {
 
     /**
      * Define o valor da propriedade infEvento.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link TretEvento.InfEvento }
-     *
+     *     
      */
     public void setInfEvento(TretEvento.InfEvento value) {
         this.infEvento = value;

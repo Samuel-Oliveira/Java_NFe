@@ -1,7 +1,12 @@
 
 package br.com.swconsultoria.nfe.schema.cce;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -131,7 +136,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class TEvento {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TEvento.InfEvento infEvento;
     @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected SignatureType signature;
@@ -140,11 +145,11 @@ public class TEvento {
 
     /**
      * Obtém o valor da propriedade infEvento.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link TEvento.InfEvento }
-     *
+     *     
      */
     public TEvento.InfEvento getInfEvento() {
         return infEvento;
@@ -152,11 +157,11 @@ public class TEvento {
 
     /**
      * Define o valor da propriedade infEvento.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link TEvento.InfEvento }
-     *
+     *     
      */
     public void setInfEvento(TEvento.InfEvento value) {
         this.infEvento = value;
@@ -164,11 +169,11 @@ public class TEvento {
 
     /**
      * Obtém o valor da propriedade signature.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link SignatureType }
-     *
+     *     
      */
     public SignatureType getSignature() {
         return signature;
@@ -176,11 +181,11 @@ public class TEvento {
 
     /**
      * Define o valor da propriedade signature.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link SignatureType }
-     *
+     *     
      */
     public void setSignature(SignatureType value) {
         this.signature = value;
@@ -188,11 +193,11 @@ public class TEvento {
 
     /**
      * Obtém o valor da propriedade versao.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getVersao() {
         return versao;
@@ -200,11 +205,11 @@ public class TEvento {
 
     /**
      * Define o valor da propriedade versao.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;
@@ -213,9 +218,9 @@ public class TEvento {
 
     /**
      * <p>Classe Java de anonymous complex type.
-     *
+     * 
      * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
-     *
+     * 
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -312,8 +317,8 @@ public class TEvento {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     *
-     *
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -357,11 +362,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade cOrgao.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCOrgao() {
             return cOrgao;
@@ -369,11 +374,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade cOrgao.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCOrgao(String value) {
             this.cOrgao = value;
@@ -381,11 +386,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade tpAmb.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getTpAmb() {
             return tpAmb;
@@ -393,11 +398,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade tpAmb.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setTpAmb(String value) {
             this.tpAmb = value;
@@ -405,11 +410,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade cnpj.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCNPJ() {
             return cnpj;
@@ -417,11 +422,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade cnpj.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCNPJ(String value) {
             this.cnpj = value;
@@ -429,11 +434,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade cpf.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCPF() {
             return cpf;
@@ -441,11 +446,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade cpf.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCPF(String value) {
             this.cpf = value;
@@ -453,11 +458,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade chNFe.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getChNFe() {
             return chNFe;
@@ -465,11 +470,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade chNFe.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setChNFe(String value) {
             this.chNFe = value;
@@ -477,11 +482,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade dhEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getDhEvento() {
             return dhEvento;
@@ -489,11 +494,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade dhEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setDhEvento(String value) {
             this.dhEvento = value;
@@ -501,11 +506,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade tpEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getTpEvento() {
             return tpEvento;
@@ -513,11 +518,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade tpEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setTpEvento(String value) {
             this.tpEvento = value;
@@ -525,11 +530,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade nSeqEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getNSeqEvento() {
             return nSeqEvento;
@@ -537,11 +542,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade nSeqEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setNSeqEvento(String value) {
             this.nSeqEvento = value;
@@ -549,11 +554,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade verEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getVerEvento() {
             return verEvento;
@@ -561,11 +566,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade verEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setVerEvento(String value) {
             this.verEvento = value;
@@ -573,11 +578,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade detEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link TEvento.InfEvento.DetEvento }
-         *
+         *     
          */
         public TEvento.InfEvento.DetEvento getDetEvento() {
             return detEvento;
@@ -585,11 +590,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade detEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link TEvento.InfEvento.DetEvento }
-         *
+         *     
          */
         public void setDetEvento(TEvento.InfEvento.DetEvento value) {
             this.detEvento = value;

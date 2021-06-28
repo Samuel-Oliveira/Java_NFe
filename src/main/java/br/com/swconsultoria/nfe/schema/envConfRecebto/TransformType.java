@@ -1,9 +1,13 @@
 
 package br.com.swconsultoria.nfe.schema.envConfRecebto;
 
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -27,12 +31,12 @@ import java.util.List;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TransformType", propOrder = {
+@XmlType(name = "TransformType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
     "xPath"
 })
 public class TransformType {
 
-    @XmlElement(name = "XPath")
+    @XmlElement(name = "XPath", namespace = "http://www.w3.org/2000/09/xmldsig#")
     protected List<String> xPath;
     @XmlAttribute(name = "Algorithm", required = true)
     protected String algorithm;

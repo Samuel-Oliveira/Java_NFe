@@ -27,12 +27,12 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "X509DataType", propOrder = {
+@XmlType(name = "X509DataType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
     "x509Certificate"
 })
 public class X509DataType {
 
-    @XmlElement(name = "X509Certificate", required = true)
+    @XmlElement(name = "X509Certificate", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected byte[] x509Certificate;
 
     /**

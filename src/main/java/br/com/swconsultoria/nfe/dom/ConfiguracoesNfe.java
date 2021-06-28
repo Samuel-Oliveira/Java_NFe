@@ -11,8 +11,6 @@ import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
 
 import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,7 +46,7 @@ public class ConfiguracoesNfe {
      * Este método recebe como parâmetro os dados necessários para iniciar a
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
      * mesma.
-     * 
+     *
      * @param estado
      *            enumeration Estados, UF do emitente.
      * @param ambiente
@@ -64,9 +62,9 @@ public class ConfiguracoesNfe {
     public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado, String pastaSchemas)
             throws CertificadoException {
 
-        ObjetoUtil.verifica(estado).orElseThrow( () -> new IllegalArgumentException("Estado não pode ser Nulo."));
-        ObjetoUtil.verifica(ambiente).orElseThrow( () -> new IllegalArgumentException("Ambiente não pode ser Nulo."));
-        ObjetoUtil.verifica(certificado).orElseThrow( () -> new IllegalArgumentException("Certificado não pode ser Nulo."));
+        ObjetoUtil.verifica(estado).orElseThrow(() -> new IllegalArgumentException("Estado não pode ser Nulo."));
+        ObjetoUtil.verifica(ambiente).orElseThrow(() -> new IllegalArgumentException("Ambiente não pode ser Nulo."));
+        ObjetoUtil.verifica(certificado).orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo."));
 
         ConfiguracoesNfe configuracoesNfe = new ConfiguracoesNfe();
         configuracoesNfe.setEstado(estado);
@@ -74,19 +72,11 @@ public class ConfiguracoesNfe {
         configuracoesNfe.setCertificado(certificado);
         configuracoesNfe.setPastaSchemas(pastaSchemas);
 
-        try {
-            //Setando Encoding.
-            System.setProperty("file.encoding", "UTF-8");
-            Field charset = Charset.class.getDeclaredField("defaultCharset");
-            charset.setAccessible(true);
-            charset.set(null, null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new CertificadoException("Erro ao setar Encoding.");
-        }
+        System.setProperty("file.encoding", "UTF-8");
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
-            System.err.println("       Api Java Nfe - Versão 4.00.15-SNAPSHOT(G) - 14/06/2021       ");
+            System.err.println("       Api Java Nfe - Versão 4.00.15 - 28/06/2021                   ");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
@@ -102,7 +92,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Retorna o local da pasta dos schemas da NF-e(.xsd)
-     * 
+     *
      * @return pastaSchemas
      */
     public String getPastaSchemas() {
@@ -112,7 +102,7 @@ public class ConfiguracoesNfe {
     /**
      * Atribui uma string que representa o local da pasta dos schemas da NF-e
      * (.xsd)
-     * 
+     *
      * @param pastaSchemas
      */
     private void setPastaSchemas(String pastaSchemas) {
@@ -121,7 +111,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Retorna um enuns que representa o ambiente de operações da NF-e.<br>
-     * 
+     *
      * @return ambiente
      */
     public AmbienteEnum getAmbiente() {
@@ -138,7 +128,7 @@ public class ConfiguracoesNfe {
     certificado,
     schemas);
      * }
-     * 
+     *
      * @param ambiente
      * @see ConstantesUtil
      */
@@ -148,7 +138,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Retorna o objeto Certificado.
-     * 
+     *
      * @return certificado
      * @see br.com.swconsultoria.certificado
      */
@@ -158,7 +148,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Atribui um objeto Certificado.
-     * 
+     *
      * @param certificado
      */
     private void setCertificado(Certificado certificado) {
@@ -168,7 +158,7 @@ public class ConfiguracoesNfe {
     /**
      * Retorna um valor booleano que representa se as operações de NF-e estão,
      * ou, não operando no modo de Contingência.
-     * 
+     *
      * @return contigenciaSCAN
      */
     public boolean isContigenciaSVC() {
@@ -180,7 +170,7 @@ public class ConfiguracoesNfe {
      * funcionarão no modo de Contingência. <br>
      * Usar para situações em que não for possível estabelecer conexão com o
      * WebService SEFAZ Origem.
-     * 
+     *
      * @param contigenciaSVC
      */
     public void setContigenciaSVC(boolean contigenciaSVC) {
@@ -189,7 +179,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Retorna um objeto Estado que representa o UF do emissor da NF-e.
-     * 
+     *
      * @return estado
      * @see EstadosEnum
      */
@@ -199,7 +189,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Atribui um valor para o atribuito Estado.
-     * 
+     *
      * @param estado
      *            estado
      * @see EstadosEnum
@@ -210,7 +200,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Retorna o valor do atributo proxyUtil.
-     * 
+     *
      * @return proxyUtil
      * @see Proxy
      */
@@ -220,7 +210,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Atribui um valor para o proxuUtil.
-     * 
+     *
      * @param proxy
      */
     public void setProxy(Proxy proxy) {
@@ -229,7 +219,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Retorna o valor do atributo timeout.
-     * 
+     *
      * @return timeout
      */
     public Integer getTimeout() {
@@ -240,7 +230,7 @@ public class ConfiguracoesNfe {
      * Atribui o valor de timeout.<br>
      * O timeout é o limite de tempo(em milisegundos) de comunicação com
      * WebService. Sugerido pelo manual do contribuinte: 30000.
-     * 
+     *
      * @param timeout
      */
     public void setTimeout(Integer timeout) {
@@ -249,7 +239,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Retorna o valor da validacaoDocumento.
-     * 
+     *
      * @return validacaoDocumento
      */
     public boolean isValidacaoDocumento() {
@@ -259,7 +249,7 @@ public class ConfiguracoesNfe {
     /**
      * Atribui um valor para validacaoDocumento. Caso True, irá validar o
      * documento do emitente com o documento do certificado. <br>
-     * 
+     *
      * @param validacaoDocumento
      */
     public void setValidacaoDocumento(boolean validacaoDocumento) {
@@ -276,7 +266,7 @@ public class ConfiguracoesNfe {
 
     /**
      * Retorna o valor do atributo retry.
-     * 
+     *
      * @return
      */
     public Integer getRetry() {
@@ -287,7 +277,7 @@ public class ConfiguracoesNfe {
      * Permite informar um retry. O padrão é de 3.<br>
      * Ao definir um retry indicamos o valor a ser usado como um número de
      * tentativas para a conexão com WebService.
-     * 
+     *
      * @param retry
      */
     public void setRetry(Integer retry) {

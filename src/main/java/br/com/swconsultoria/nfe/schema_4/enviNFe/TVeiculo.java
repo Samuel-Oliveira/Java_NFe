@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
+ *         &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUf" minOccurs="0"/>
  *         &lt;element name="RNTC" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
@@ -55,7 +55,7 @@ public class TVeiculo {
 
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String placa;
-    @XmlElement(name = "UF", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+    @XmlElement(name = "UF", namespace = "http://www.portalfiscal.inf.br/nfe")
     @XmlSchemaType(name = "string")
     protected TUf uf;
     @XmlElement(name = "RNTC", namespace = "http://www.portalfiscal.inf.br/nfe")

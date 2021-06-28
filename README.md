@@ -70,6 +70,8 @@ ________________________________________________________________________________
 - Correção de Status Serviço MS.
 - Atualizado URL consulta NFCe Goias
 - Atualizado Schemas/Objetos PL.009f
+- Adicionado Compatibilidade com Java 16
+- Atualizado biblioteca Certificado versão 2.6
 
 ## v4.00.14 - 12/02/2021
 - Adicionado 150 - Autorizado Fora do prazo como sucesso na verificação de retorno.

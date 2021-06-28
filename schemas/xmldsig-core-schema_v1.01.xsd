@@ -70,7 +70,7 @@
 		</sequence>
 	</complexType>
 	<complexType name="TransformType">
-		<sequence minOccurs="0" maxOccurs="2999">
+		<sequence minOccurs="0" maxOccurs="unbounded">
 			<element name="XPath" type="string"/>
 		</sequence>
 		<attribute name="Algorithm" type="ds:TTransformURI" use="required"/>

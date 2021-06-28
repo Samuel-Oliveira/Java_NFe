@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/nfe"
-           targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified"
-           attributeFormDefault="unqualified">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="leiauteNFe_v4.00.xsd"/>
 	<xs:element name="retConsReciNFe" type="TRetConsReciNFe">
 		<xs:annotation>

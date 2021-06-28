@@ -1,7 +1,13 @@
 
 package br.com.swconsultoria.nfe.schema.cce;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -45,18 +51,18 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SignedInfoType", propOrder = {
+@XmlType(name = "SignedInfoType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
     "canonicalizationMethod",
     "signatureMethod",
     "reference"
 })
 public class SignedInfoType {
 
-    @XmlElement(name = "CanonicalizationMethod", required = true)
+    @XmlElement(name = "CanonicalizationMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected SignedInfoType.CanonicalizationMethod canonicalizationMethod;
-    @XmlElement(name = "SignatureMethod", required = true)
+    @XmlElement(name = "SignatureMethod", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected SignedInfoType.SignatureMethod signatureMethod;
-    @XmlElement(name = "Reference", required = true)
+    @XmlElement(name = "Reference", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected ReferenceType reference;
     @XmlAttribute(name = "Id")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -66,11 +72,11 @@ public class SignedInfoType {
 
     /**
      * Obtém o valor da propriedade canonicalizationMethod.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link SignedInfoType.CanonicalizationMethod }
-     *
+     *     
      */
     public SignedInfoType.CanonicalizationMethod getCanonicalizationMethod() {
         return canonicalizationMethod;
@@ -78,11 +84,11 @@ public class SignedInfoType {
 
     /**
      * Define o valor da propriedade canonicalizationMethod.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link SignedInfoType.CanonicalizationMethod }
-     *
+     *     
      */
     public void setCanonicalizationMethod(SignedInfoType.CanonicalizationMethod value) {
         this.canonicalizationMethod = value;
@@ -90,11 +96,11 @@ public class SignedInfoType {
 
     /**
      * Obtém o valor da propriedade signatureMethod.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link SignedInfoType.SignatureMethod }
-     *
+     *     
      */
     public SignedInfoType.SignatureMethod getSignatureMethod() {
         return signatureMethod;
@@ -102,11 +108,11 @@ public class SignedInfoType {
 
     /**
      * Define o valor da propriedade signatureMethod.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link SignedInfoType.SignatureMethod }
-     *
+     *     
      */
     public void setSignatureMethod(SignedInfoType.SignatureMethod value) {
         this.signatureMethod = value;
