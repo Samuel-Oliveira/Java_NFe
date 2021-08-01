@@ -11,6 +11,8 @@ import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
 
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,11 +74,19 @@ public class ConfiguracoesNfe {
         configuracoesNfe.setCertificado(certificado);
         configuracoesNfe.setPastaSchemas(pastaSchemas);
 
-        System.setProperty("file.encoding", "UTF-8");
+        try {
+            //Setando Encoding.
+            System.setProperty("file.encoding", "UTF-8");
+            Field charset = Charset.class.getDeclaredField("defaultCharset");
+            charset.setAccessible(true);
+            charset.set(null, null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new CertificadoException("Erro ao setar Encoding.");
+        }
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
-            System.err.println("       Api Java Nfe - Versão 4.00.15 - 28/06/2021                   ");
+            System.err.println("       Api Java Nfe - Versão 4.00.16 - 01/08/2021                   ");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
