@@ -7,7 +7,7 @@ Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 ## Gostou do Projeto? Dê sua colaboração pelo Pix: 01713390108 <img src="https://swconsultoria.com.br/pix.png" width="200">
 
 Para Iniciar : 
-- Caso use Libs baixe o java-nfe-4.00.16.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.15.jar) e o adicione às bibliotecas de Seu Projeto.
+- Caso use Libs baixe o java-nfe-4.00.16.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.16.jar) e o adicione às bibliotecas de Seu Projeto.
 
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/schemas.zip) e extraia na sua Máquina.
 
