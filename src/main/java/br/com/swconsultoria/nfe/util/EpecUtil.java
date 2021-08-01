@@ -80,7 +80,7 @@ public class EpecUtil {
 
             TEvento.InfEvento infoEvento = new TEvento.InfEvento();
             infoEvento.setId(id);
-            infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoUF()));
+            infoEvento.setCOrgao("91");
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
 
             infoEvento.setCPF(epec.getCpf());

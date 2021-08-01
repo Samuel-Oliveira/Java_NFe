@@ -83,7 +83,8 @@ public class WebServiceUtil {
                 throw new NfeException("Estado não possui Consulta Cadastro.");
                 // URLS de ambiente nacional
             } else if (tipoServico.equals(ServicosEnum.DISTRIBUICAO_DFE)
-                    || tipoServico.equals(ServicosEnum.MANIFESTACAO)) {
+                    || tipoServico.equals(ServicosEnum.MANIFESTACAO)
+                    || tipoServico.equals(ServicosEnum.EPEC)) {
                 secao = config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "NFe_AN_H" : "NFe_AN_P";
 
             } else if (!tipoServico.equals(ServicosEnum.URL_CONSULTANFCE)
