@@ -1,4 +1,4 @@
-# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.16/jar) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/context:java) [![Total alerts](https://img.shields.io/lgtm/alerts/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/alerts/)
+# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.17/jar) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/context:java) [![Total alerts](https://img.shields.io/lgtm/alerts/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/alerts/)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ## Dúvidas, Sugestões ou Consultoria
@@ -7,7 +7,7 @@ Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
 ## Gostou do Projeto? Dê sua colaboração pelo Pix: 01713390108 <img src="https://swconsultoria.com.br/pix.png" width="200">
 
 Para Iniciar : 
-- Caso use Libs baixe o java-nfe-4.00.16.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.16.jar) e o adicione às bibliotecas de Seu Projeto.
+- Caso use Libs baixe o java-nfe-4.00.17.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.17.jar) e o adicione às bibliotecas de Seu Projeto.
 
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/schemas.zip) e extraia na sua Máquina.
 
@@ -16,7 +16,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.16</version>
+    <version>4.00.17</version>
 </dependency>
 ```
 
@@ -28,7 +28,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.16"
+    implementation "br.com.swconsultoria:java-nfe:4.00.17"
 }
 ```
 
@@ -37,26 +37,30 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+[comment]: <> (## v4.00.17 - SNAPSHOT - 02/08/2021 - Schemas PL.009f)
+[comment]: <> (- Correção de SOAP)
+[comment]: <> (Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.)
+[comment]: <> (Para usar, adicione o repositorio de Snapshot ao Maven:)
+[comment]: <> (```)
+[comment]: <> (<repositories>)
+[comment]: <> (    <repository>)
+[comment]: <> (        <id>sonatype-nexus-snapshots</id>)
+[comment]: <> (        <url>https://oss.sonatype.org/content/repositories/snapshots</url>)
+[comment]: <> (    </repository>)
+[comment]: <> (</repositories>)
+[comment]: <> (<dependency>)
+[comment]: <> (    <groupId>br.com.swconsultoria</groupId>)
+[comment]: <> (    <artifactId>java-nfe</artifactId>)
+[comment]: <> (    <version>4.00.17-SNAPSHOT</version>)
+[comment]: <> (</dependency>)
+[comment]: <> (```)
+[comment]: <> (Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.17-SNAPSHOT.jar)
 
-## v4.00.17 - SNAPSHOT - 02/08/2021 - Schemas PL.009f
+## v4.00.17 - 09/08/2021 - Schemas PL.009f
+- Correção de Schemas
+- Atualizado Cacert
+- Rollback das modificações Maven (Deu Ruim)
 - Correção de SOAP
-
-Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
-Para usar, adicione o repositorio de Snapshot ao Maven:
-```
-<repositories>
-    <repository>
-        <id>sonatype-nexus-snapshots</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-</repositories>
-<dependency>
-    <groupId>br.com.swconsultoria</groupId>
-    <artifactId>java-nfe</artifactId>
-    <version>4.00.17-SNAPSHOT</version>
-</dependency>
-```
-Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.17-SNAPSHOT.jar
 
 ## v4.00.16 - 01/08/2021 - Schemas PL.009f
 - Correção de vunerabilidades Maven

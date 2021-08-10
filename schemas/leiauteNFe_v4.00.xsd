@@ -276,7 +276,7 @@ para tpEmis diferente de 1</xs:documentation>
 											</xs:simpleType>
 										</xs:element>
 									</xs:sequence>
-									<xs:element name="NFref" minOccurs="0" maxOccurs="500">
+									<xs:element name="NFref" minOccurs="0" maxOccurs="unbounded">
 										<xs:annotation>
 											<xs:documentation>Grupo de infromações da NF referenciada</xs:documentation>
 										</xs:annotation>
@@ -1202,7 +1202,7 @@ Formato ”CFOP9999”.</xs:documentation>
 														</xs:sequence>
 													</xs:complexType>
 												</xs:element>
-												<xs:element name="detExport" minOccurs="0" maxOccurs="500">
+												<xs:element name="detExport" minOccurs="0" maxOccurs="unbounded">
 													<xs:annotation>
 														<xs:documentation>Detalhe da exportação</xs:documentation>
 													</xs:annotation>
@@ -1279,7 +1279,7 @@ Formato ”CFOP9999”.</xs:documentation>
 														<xs:documentation>Número de controle da FCI - Ficha de Conteúdo de Importação.</xs:documentation>
 													</xs:annotation>
 												</xs:element>
-												<xs:element name="rastro" minOccurs="0" maxOccurs="500">
+												<xs:element name="rastro" minOccurs="0" maxOccurs="unbounded">
 													<xs:complexType>
 														<xs:sequence>
 															<xs:element name="nLote">
@@ -1721,7 +1721,7 @@ N-NormalVIN</xs:documentation>
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
-													<xs:element name="arma" maxOccurs="500">
+													<xs:element name="arma" maxOccurs="unbounded">
 														<xs:annotation>
 															<xs:documentation>Armamentos</xs:documentation>
 														</xs:annotation>
@@ -2603,12 +2603,12 @@ A exigência do preenchimento das informações do ICMS diferido fica à critér
 																					</xs:element>
 																				</xs:sequence>
 																				<xs:sequence minOccurs="0">
-																					<xs:element name="pFCPDif" type="TDec_0302a04Opc" minOccurs="0">
+																					<xs:element name="pFCPDif" type="TDec_0302a04Opc">
 																						<xs:annotation>
 																							<xs:documentation>Percentual do diferimento do ICMS relativo ao Fundo de Combate à Pobreza (FCP).</xs:documentation>
 																						</xs:annotation>
 																					</xs:element>
-																					<xs:element name="vFCPDif" type="TDec_1302" minOccurs="0">
+																					<xs:element name="vFCPDif" type="TDec_1302">
 																						<xs:annotation>
 																							<xs:documentation>Valor do ICMS relativo ao Fundo de Combate à Pobreza (FCP) diferido.</xs:documentation>
 																						</xs:annotation>
@@ -5097,7 +5097,7 @@ Substituição Tributaria;</xs:documentation>
 											</xs:simpleType>
 										</xs:element>
 									</xs:choice>
-									<xs:element name="vol" minOccurs="0" maxOccurs="5000">
+									<xs:element name="vol" minOccurs="0" maxOccurs="unbounded">
 										<xs:annotation>
 											<xs:documentation>Dados dos volumes</xs:documentation>
 										</xs:annotation>
@@ -5157,7 +5157,7 @@ Substituição Tributaria;</xs:documentation>
 														<xs:documentation>Peso bruto (em kg)</xs:documentation>
 													</xs:annotation>
 												</xs:element>
-												<xs:element name="lacres" minOccurs="0" maxOccurs="5000">
+												<xs:element name="lacres" minOccurs="0" maxOccurs="unbounded">
 													<xs:complexType>
 														<xs:sequence>
 															<xs:element name="nLacre">
@@ -5280,31 +5280,12 @@ Substituição Tributaria;</xs:documentation>
 												</xs:element>
 												<xs:element name="tPag">
 													<xs:annotation>
-														<xs:documentation>Forma de Pagamento: 01-Dinheiro; 02-Cheque; 03-Cartão de Crédito; 04-Cartão de Débito; 05-Crédito Loja;
-														10-Vale Alimentação; 11-Vale Refeição; 12-Vale Presente; 13-Vale Combustível; 14-Duplicata Mercantil; 15-Boleto Bancario; 16-Depósito Bancário;
-														17-Pagamento Instantâneo (PIX); 18-Transferência bancária, Carteira Digital; 19-Programa de fidelidade, Cashback, Crédito Virtual; 90-Sem Pagamento; 99-Outros.
-														</xs:documentation>
+														<xs:documentation>Forma de Pagamento:</xs:documentation>
 													</xs:annotation>
 													<xs:simpleType>
 														<xs:restriction base="xs:string">
 															<xs:whiteSpace value="preserve"/>
-															<xs:enumeration value="01"/>
-															<xs:enumeration value="02"/>
-															<xs:enumeration value="03"/>
-															<xs:enumeration value="04"/>
-															<xs:enumeration value="05"/>
-															<xs:enumeration value="10"/>
-															<xs:enumeration value="11"/>
-															<xs:enumeration value="12"/>
-															<xs:enumeration value="13"/>
-															<xs:enumeration value="14"/>
-															<xs:enumeration value="15"/>
-															<xs:enumeration value="16"/>
-															<xs:enumeration value="17"/>
-															<xs:enumeration value="18"/>
-															<xs:enumeration value="19"/>
-															<xs:enumeration value="90"/>
-															<xs:enumeration value="99"/>
+															<xs:pattern value="[0-9]{2}"/>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:element>
@@ -5351,41 +5332,12 @@ Substituição Tributaria;</xs:documentation>
 															</xs:element>
 															<xs:element name="tBand" minOccurs="0">
 																<xs:annotation>
-																	<xs:documentation>Bandeira da operadora de cartão de crédito/débito:01–Visa; 02–Mastercard; 03–American Express; 04–Sorocred;05-Diners Club;06-Elo;07-Hipercard;08-Aura;09-Cabal
-																	10-Alelo; 11-Banes Card; 12-CalCard; 13-Credz; 14-Discover; 15-GoodCard; 16-GreenCard; 17-Hiper; 18-JcB; 19-Mais;20-MaxVan; 21-Policard;22-RedeCompras
-																	23-Sodexo; 24-ValeCard; 25-Verocheque; 26-VR; 27-Ticket;99–Outros</xs:documentation>
+																	<xs:documentation>Bandeira da operadora de cartão</xs:documentation>
 																</xs:annotation>
 																<xs:simpleType>
 																	<xs:restriction base="xs:string">
 																		<xs:whiteSpace value="preserve"/>
-																		<xs:enumeration value="01"/>
-																		<xs:enumeration value="02"/>
-																		<xs:enumeration value="03"/>
-																		<xs:enumeration value="04"/>
-																		<xs:enumeration value="05"/>
-																		<xs:enumeration value="06"/>
-																		<xs:enumeration value="07"/>
-																		<xs:enumeration value="08"/>
-																		<xs:enumeration value="09"/>
-																		<xs:enumeration value="10"/>
-																		<xs:enumeration value="11"/>
-																		<xs:enumeration value="12"/>
-																		<xs:enumeration value="13"/>
-																		<xs:enumeration value="14"/>
-																		<xs:enumeration value="15"/>
-																		<xs:enumeration value="16"/>
-																		<xs:enumeration value="17"/>
-																		<xs:enumeration value="18"/>
-																		<xs:enumeration value="19"/>
-																		<xs:enumeration value="20"/>
-																		<xs:enumeration value="21"/>
-																		<xs:enumeration value="22"/>
-																		<xs:enumeration value="23"/>
-																		<xs:enumeration value="24"/>
-																		<xs:enumeration value="25"/>
-																		<xs:enumeration value="26"/>
-																		<xs:enumeration value="27"/>
-																		<xs:enumeration value="99"/>
+																		<xs:pattern value="[0-9]{2}"/>
 																	</xs:restriction>
 																</xs:simpleType>
 															</xs:element>
