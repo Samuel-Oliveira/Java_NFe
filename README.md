@@ -37,24 +37,27 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
-[comment]: <> (## v4.00.17 - SNAPSHOT - 02/08/2021 - Schemas PL.009f)
-[comment]: <> (- Correção de SOAP)
-[comment]: <> (Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.)
-[comment]: <> (Para usar, adicione o repositorio de Snapshot ao Maven:)
-[comment]: <> (```)
-[comment]: <> (<repositories>)
-[comment]: <> (    <repository>)
-[comment]: <> (        <id>sonatype-nexus-snapshots</id>)
-[comment]: <> (        <url>https://oss.sonatype.org/content/repositories/snapshots</url>)
-[comment]: <> (    </repository>)
-[comment]: <> (</repositories>)
-[comment]: <> (<dependency>)
-[comment]: <> (    <groupId>br.com.swconsultoria</groupId>)
-[comment]: <> (    <artifactId>java-nfe</artifactId>)
-[comment]: <> (    <version>4.00.17-SNAPSHOT</version>)
-[comment]: <> (</dependency>)
-[comment]: <> (```)
-[comment]: <> (Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.17-SNAPSHOT.jar)
+
+## v4.00.18 - SNAPSHOT - 09/01/2022 - Schemas PL.009f
+- Atualizado Cacert
+- Alteração WebService CE
+
+Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
+Para usar, adicione o repositorio de Snapshot ao Maven:
+```
+<repositories>
+    <repository>
+        <id>sonatype-nexus-snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+</repositories>
+<dependency>
+    <groupId>br.com.swconsultoria</groupId>
+    <artifactId>java-nfe</artifactId>
+    <version>4.00.18-SNAPSHOT</version>
+</dependency>
+```
+Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.18-SNAPSHOT.jar
 
 ## v4.00.17 - 09/08/2021 - Schemas PL.009f
 - Correção de Schemas
