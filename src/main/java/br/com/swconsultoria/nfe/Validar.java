@@ -23,7 +23,7 @@ class Validar implements ErrorHandler {
 
         System.setProperty("jdk.xml.maxOccurLimit", "99999");
         String errosValidacao;
-        String xsd = config.getPastaSchemas() + "/" + servico.getXsd();
+        String xsd = config.getPastaSchemas() + System.getProperty("file.separator") + servico.getXsd();
         if (!new File(xsd).exists()) {
             throw new NfeException("Schema Nfe não Localizado: " + xsd);
         }

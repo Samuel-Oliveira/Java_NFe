@@ -41,6 +41,7 @@ ________________________________________________________________________________
 ## v4.00.18 - SNAPSHOT - 09/01/2022 - Schemas PL.009f
 - Atualizado Cacert
 - Alteração WebService CE
+- Adicionado System.getProperty("file.separator") como separado de arquivos
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
