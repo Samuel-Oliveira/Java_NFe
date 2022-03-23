@@ -64,14 +64,13 @@ public class ConfiguracoesNfe {
     public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado, String pastaSchemas)
             throws CertificadoException {
 
-        ObjetoUtil.verifica(estado).orElseThrow(() -> new IllegalArgumentException("Estado não pode ser Nulo."));
-        ObjetoUtil.verifica(ambiente).orElseThrow(() -> new IllegalArgumentException("Ambiente não pode ser Nulo."));
-        ObjetoUtil.verifica(certificado).orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo."));
-
         ConfiguracoesNfe configuracoesNfe = new ConfiguracoesNfe();
-        configuracoesNfe.setEstado(estado);
-        configuracoesNfe.setAmbiente(ambiente);
-        configuracoesNfe.setCertificado(certificado);
+        configuracoesNfe.setEstado(
+                ObjetoUtil.verifica(estado).orElseThrow(() -> new IllegalArgumentException("Estado não pode ser Nulo.")));
+        configuracoesNfe.setAmbiente(
+                ObjetoUtil.verifica(ambiente).orElseThrow(() -> new IllegalArgumentException("Ambiente não pode ser Nulo.")));
+        configuracoesNfe.setCertificado(
+                ObjetoUtil.verifica(certificado).orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo.")));
         configuracoesNfe.setPastaSchemas(pastaSchemas);
 
         try {
@@ -86,7 +85,7 @@ public class ConfiguracoesNfe {
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
-            System.err.println("       Api Java Nfe - Versão 4.00.17 - 09/08/2021");
+            System.err.println("       Api Java Nfe - Versão 4.00.18C-SNAPSHOT - 23/08/2021");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }

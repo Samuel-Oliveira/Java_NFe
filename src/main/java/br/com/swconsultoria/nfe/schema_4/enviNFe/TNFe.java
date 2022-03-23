@@ -1600,8 +1600,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                                                 &lt;element name="vFCP" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
  *                                                               &lt;/sequence>
  *                                                               &lt;sequence minOccurs="0">
- *                                                                 &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc" minOccurs="0"/>
- *                                                                 &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
+ *                                                                 &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+ *                                                                 &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
  *                                                                 &lt;element name="vFCPEfet" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
  *                                                               &lt;/sequence>
  *                                                             &lt;/sequence>
@@ -1876,6 +1876,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                                               &lt;element name="vBCST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
  *                                                               &lt;element name="pICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/>
  *                                                               &lt;element name="vICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+ *                                                               &lt;sequence minOccurs="0">
+ *                                                                 &lt;element name="vBCFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+ *                                                                 &lt;element name="pFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+ *                                                                 &lt;element name="vFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+ *                                                               &lt;/sequence>
  *                                                               &lt;element name="pBCOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
  *                                                               &lt;element name="UFST" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
  *                                                             &lt;/sequence>
@@ -2627,6 +2632,68 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
  *                             &lt;/element>
+ *                             &lt;element name="obsItem" minOccurs="0">
+ *                               &lt;complexType>
+ *                                 &lt;complexContent>
+ *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                                     &lt;sequence>
+ *                                       &lt;element name="obsCont" minOccurs="0">
+ *                                         &lt;complexType>
+ *                                           &lt;complexContent>
+ *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                                               &lt;sequence>
+ *                                                 &lt;element name="xTexto">
+ *                                                   &lt;simpleType>
+ *                                                     &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+ *                                                       &lt;minLength value="1"/>
+ *                                                       &lt;maxLength value="60"/>
+ *                                                     &lt;/restriction>
+ *                                                   &lt;/simpleType>
+ *                                                 &lt;/element>
+ *                                               &lt;/sequence>
+ *                                               &lt;attribute name="xCampo" use="required">
+ *                                                 &lt;simpleType>
+ *                                                   &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+ *                                                     &lt;minLength value="1"/>
+ *                                                     &lt;maxLength value="20"/>
+ *                                                   &lt;/restriction>
+ *                                                 &lt;/simpleType>
+ *                                               &lt;/attribute>
+ *                                             &lt;/restriction>
+ *                                           &lt;/complexContent>
+ *                                         &lt;/complexType>
+ *                                       &lt;/element>
+ *                                       &lt;element name="obsFisco" minOccurs="0">
+ *                                         &lt;complexType>
+ *                                           &lt;complexContent>
+ *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                                               &lt;sequence>
+ *                                                 &lt;element name="xTexto">
+ *                                                   &lt;simpleType>
+ *                                                     &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+ *                                                       &lt;minLength value="1"/>
+ *                                                       &lt;maxLength value="60"/>
+ *                                                     &lt;/restriction>
+ *                                                   &lt;/simpleType>
+ *                                                 &lt;/element>
+ *                                               &lt;/sequence>
+ *                                               &lt;attribute name="xCampo" use="required">
+ *                                                 &lt;simpleType>
+ *                                                   &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+ *                                                     &lt;minLength value="1"/>
+ *                                                     &lt;maxLength value="20"/>
+ *                                                   &lt;/restriction>
+ *                                                 &lt;/simpleType>
+ *                                               &lt;/attribute>
+ *                                             &lt;/restriction>
+ *                                           &lt;/complexContent>
+ *                                         &lt;/complexType>
+ *                                       &lt;/element>
+ *                                     &lt;/sequence>
+ *                                   &lt;/restriction>
+ *                                 &lt;/complexContent>
+ *                               &lt;/complexType>
+ *                             &lt;/element>
  *                           &lt;/sequence>
  *                           &lt;attribute name="nItem" use="required">
  *                             &lt;simpleType>
@@ -2837,7 +2904,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                 &lt;/simpleType>
  *                               &lt;/element>
  *                             &lt;/choice>
- *                             &lt;element name="vol" maxOccurs="5000" minOccurs="0">
+ *                             &lt;element name="vol" maxOccurs="unbounded" minOccurs="0">
  *                               &lt;complexType>
  *                                 &lt;complexContent>
  *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -2876,7 +2943,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                       &lt;/element>
  *                                       &lt;element name="pesoL" type="{http://www.portalfiscal.inf.br/nfe}TDec_1203" minOccurs="0"/>
  *                                       &lt;element name="pesoB" type="{http://www.portalfiscal.inf.br/nfe}TDec_1203" minOccurs="0"/>
- *                                       &lt;element name="lacres" maxOccurs="5000" minOccurs="0">
+ *                                       &lt;element name="lacres" maxOccurs="unbounded" minOccurs="0">
  *                                         &lt;complexType>
  *                                           &lt;complexContent>
  *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -2978,23 +3045,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                         &lt;simpleType>
  *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *                                             &lt;whiteSpace value="preserve"/>
- *                                             &lt;enumeration value="01"/>
- *                                             &lt;enumeration value="02"/>
- *                                             &lt;enumeration value="03"/>
- *                                             &lt;enumeration value="04"/>
- *                                             &lt;enumeration value="05"/>
- *                                             &lt;enumeration value="10"/>
- *                                             &lt;enumeration value="11"/>
- *                                             &lt;enumeration value="12"/>
- *                                             &lt;enumeration value="13"/>
- *                                             &lt;enumeration value="14"/>
- *                                             &lt;enumeration value="15"/>
- *                                             &lt;enumeration value="16"/>
- *                                             &lt;enumeration value="17"/>
- *                                             &lt;enumeration value="18"/>
- *                                             &lt;enumeration value="19"/>
- *                                             &lt;enumeration value="90"/>
- *                                             &lt;enumeration value="99"/>
+ *                                             &lt;pattern value="[0-9]{2}"/>
  *                                           &lt;/restriction>
  *                                         &lt;/simpleType>
  *                                       &lt;/element>
@@ -3026,34 +3077,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                                   &lt;simpleType>
  *                                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *                                                       &lt;whiteSpace value="preserve"/>
- *                                                       &lt;enumeration value="01"/>
- *                                                       &lt;enumeration value="02"/>
- *                                                       &lt;enumeration value="03"/>
- *                                                       &lt;enumeration value="04"/>
- *                                                       &lt;enumeration value="05"/>
- *                                                       &lt;enumeration value="06"/>
- *                                                       &lt;enumeration value="07"/>
- *                                                       &lt;enumeration value="08"/>
- *                                                       &lt;enumeration value="09"/>
- *                                                       &lt;enumeration value="10"/>
- *                                                       &lt;enumeration value="11"/>
- *                                                       &lt;enumeration value="12"/>
- *                                                       &lt;enumeration value="13"/>
- *                                                       &lt;enumeration value="14"/>
- *                                                       &lt;enumeration value="15"/>
- *                                                       &lt;enumeration value="16"/>
- *                                                       &lt;enumeration value="17"/>
- *                                                       &lt;enumeration value="18"/>
- *                                                       &lt;enumeration value="19"/>
- *                                                       &lt;enumeration value="20"/>
- *                                                       &lt;enumeration value="21"/>
- *                                                       &lt;enumeration value="22"/>
- *                                                       &lt;enumeration value="23"/>
- *                                                       &lt;enumeration value="24"/>
- *                                                       &lt;enumeration value="25"/>
- *                                                       &lt;enumeration value="26"/>
- *                                                       &lt;enumeration value="27"/>
- *                                                       &lt;enumeration value="99"/>
+ *                                                       &lt;pattern value="[0-9]{2}"/>
  *                                                     &lt;/restriction>
  *                                                   &lt;/simpleType>
  *                                                 &lt;/element>
@@ -3195,6 +3219,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                             &lt;enumeration value="2"/>
  *                                             &lt;enumeration value="3"/>
  *                                             &lt;enumeration value="9"/>
+ *                                           &lt;/restriction>
+ *                                         &lt;/simpleType>
+ *                                       &lt;/element>
+ *                                       &lt;element name="tpAto" minOccurs="0">
+ *                                         &lt;simpleType>
+ *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                                             &lt;whiteSpace value="preserve"/>
+ *                                             &lt;enumeration value="08"/>
+ *                                             &lt;enumeration value="10"/>
+ *                                             &lt;enumeration value="12"/>
  *                                           &lt;/restriction>
  *                                         &lt;/simpleType>
  *                                       &lt;/element>
@@ -3382,7 +3416,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                         &lt;whiteSpace value="preserve"/>
  *                         &lt;minLength value="100"/>
  *                         &lt;maxLength value="600"/>
- *                         &lt;pattern value="(((HTTPS?|https?)://.*\?chNFe=[0-9]{44}&amp;nVersao=100&amp;tpAmb=[1-2](&amp;cDest=([A-Za-z0-9.:+-/)(]{0}|[A-Za-z0-9.:+-/)(]{5,20})?)?&amp;dhEmi=[A-Fa-f0-9]{50}&amp;vNF=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;vICMS=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;digVal=[A-Fa-f0-9]{56}&amp;cIdToken=[0-9]{6}&amp;cHashQRCode=[A-Fa-f0-9]{40})|((HTTPS?|https?)://.*\?p=([0-9]{34}(1|4)[0-9]{9})\|[2]\|[1-2]\|(0|[1-9]{1}([0-9]{1,5})?)\|[A-Fa-f0-9]{40})|((HTTPS?|https?)://.*\?p=([0-9]{34}9[0-9]{9})\|[2]\|[1-2]\|([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-1]{1})\|(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)\|[A-Fa-f0-9]{56}\|(0|[1-9]{1}([0-9]{1,5})?)\|[A-Fa-f0-9]{40}))"/>
+ *                         &lt;pattern value="(((HTTPS?|https?)://.*\?chNFe=[0-9]{44}&amp;nVersao=100&amp;tpAmb=[1-2](&amp;cDest=([A-Za-z0-9.:+-/)(]{0}|[A-Za-z0-9.:+-/)(]{5,20})?)?&amp;dhEmi=[A-Fa-f0-9]{50}&amp;vNF=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;vICMS=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;digVal=[A-Fa-f0-9]{56}&amp;cIdToken=[0-9]{6}&amp;cHashQRCode=[A-Fa-f0-9]{40})|((HTTPS?|https?)://.*\?p=([0-9]{34}(1|3|4)[0-9]{9})\|[2]\|[1-2]\|(0|[1-9]{1}([0-9]{1,5})?)\|[A-Fa-f0-9]{40})|((HTTPS?|https?)://.*\?p=([0-9]{34}9[0-9]{9})\|[2]\|[1-2]\|([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-1]{1})\|(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)\|[A-Fa-f0-9]{56}\|(0|[1-9]{1}([0-9]{1,5})?)\|[A-Fa-f0-9]{40}))"/>
  *                       &lt;/restriction>
  *                     &lt;/simpleType>
  *                   &lt;/element>
@@ -5072,8 +5106,8 @@ public class TNFe {
      *                                                       &lt;element name="vFCP" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
      *                                                     &lt;/sequence>
      *                                                     &lt;sequence minOccurs="0">
-     *                                                       &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc" minOccurs="0"/>
-     *                                                       &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
+     *                                                       &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+     *                                                       &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
      *                                                       &lt;element name="vFCPEfet" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
      *                                                     &lt;/sequence>
      *                                                   &lt;/sequence>
@@ -5348,6 +5382,11 @@ public class TNFe {
      *                                                     &lt;element name="vBCST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
      *                                                     &lt;element name="pICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/>
      *                                                     &lt;element name="vICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+     *                                                     &lt;sequence minOccurs="0">
+     *                                                       &lt;element name="vBCFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+     *                                                       &lt;element name="pFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+     *                                                       &lt;element name="vFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+     *                                                     &lt;/sequence>
      *                                                     &lt;element name="pBCOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
      *                                                     &lt;element name="UFST" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
      *                                                   &lt;/sequence>
@@ -6099,6 +6138,68 @@ public class TNFe {
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
      *                   &lt;/element>
+     *                   &lt;element name="obsItem" minOccurs="0">
+     *                     &lt;complexType>
+     *                       &lt;complexContent>
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *                           &lt;sequence>
+     *                             &lt;element name="obsCont" minOccurs="0">
+     *                               &lt;complexType>
+     *                                 &lt;complexContent>
+     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *                                     &lt;sequence>
+     *                                       &lt;element name="xTexto">
+     *                                         &lt;simpleType>
+     *                                           &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+     *                                             &lt;minLength value="1"/>
+     *                                             &lt;maxLength value="60"/>
+     *                                           &lt;/restriction>
+     *                                         &lt;/simpleType>
+     *                                       &lt;/element>
+     *                                     &lt;/sequence>
+     *                                     &lt;attribute name="xCampo" use="required">
+     *                                       &lt;simpleType>
+     *                                         &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+     *                                           &lt;minLength value="1"/>
+     *                                           &lt;maxLength value="20"/>
+     *                                         &lt;/restriction>
+     *                                       &lt;/simpleType>
+     *                                     &lt;/attribute>
+     *                                   &lt;/restriction>
+     *                                 &lt;/complexContent>
+     *                               &lt;/complexType>
+     *                             &lt;/element>
+     *                             &lt;element name="obsFisco" minOccurs="0">
+     *                               &lt;complexType>
+     *                                 &lt;complexContent>
+     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *                                     &lt;sequence>
+     *                                       &lt;element name="xTexto">
+     *                                         &lt;simpleType>
+     *                                           &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+     *                                             &lt;minLength value="1"/>
+     *                                             &lt;maxLength value="60"/>
+     *                                           &lt;/restriction>
+     *                                         &lt;/simpleType>
+     *                                       &lt;/element>
+     *                                     &lt;/sequence>
+     *                                     &lt;attribute name="xCampo" use="required">
+     *                                       &lt;simpleType>
+     *                                         &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+     *                                           &lt;minLength value="1"/>
+     *                                           &lt;maxLength value="20"/>
+     *                                         &lt;/restriction>
+     *                                       &lt;/simpleType>
+     *                                     &lt;/attribute>
+     *                                   &lt;/restriction>
+     *                                 &lt;/complexContent>
+     *                               &lt;/complexType>
+     *                             &lt;/element>
+     *                           &lt;/sequence>
+     *                         &lt;/restriction>
+     *                       &lt;/complexContent>
+     *                     &lt;/complexType>
+     *                   &lt;/element>
      *                 &lt;/sequence>
      *                 &lt;attribute name="nItem" use="required">
      *                   &lt;simpleType>
@@ -6309,7 +6410,7 @@ public class TNFe {
      *                       &lt;/simpleType>
      *                     &lt;/element>
      *                   &lt;/choice>
-     *                   &lt;element name="vol" maxOccurs="5000" minOccurs="0">
+     *                   &lt;element name="vol" maxOccurs="unbounded" minOccurs="0">
      *                     &lt;complexType>
      *                       &lt;complexContent>
      *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -6348,7 +6449,7 @@ public class TNFe {
      *                             &lt;/element>
      *                             &lt;element name="pesoL" type="{http://www.portalfiscal.inf.br/nfe}TDec_1203" minOccurs="0"/>
      *                             &lt;element name="pesoB" type="{http://www.portalfiscal.inf.br/nfe}TDec_1203" minOccurs="0"/>
-     *                             &lt;element name="lacres" maxOccurs="5000" minOccurs="0">
+     *                             &lt;element name="lacres" maxOccurs="unbounded" minOccurs="0">
      *                               &lt;complexType>
      *                                 &lt;complexContent>
      *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -6450,23 +6551,7 @@ public class TNFe {
      *                               &lt;simpleType>
      *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
      *                                   &lt;whiteSpace value="preserve"/>
-     *                                   &lt;enumeration value="01"/>
-     *                                   &lt;enumeration value="02"/>
-     *                                   &lt;enumeration value="03"/>
-     *                                   &lt;enumeration value="04"/>
-     *                                   &lt;enumeration value="05"/>
-     *                                   &lt;enumeration value="10"/>
-     *                                   &lt;enumeration value="11"/>
-     *                                   &lt;enumeration value="12"/>
-     *                                   &lt;enumeration value="13"/>
-     *                                   &lt;enumeration value="14"/>
-     *                                   &lt;enumeration value="15"/>
-     *                                   &lt;enumeration value="16"/>
-     *                                   &lt;enumeration value="17"/>
-     *                                   &lt;enumeration value="18"/>
-     *                                   &lt;enumeration value="19"/>
-     *                                   &lt;enumeration value="90"/>
-     *                                   &lt;enumeration value="99"/>
+     *                                   &lt;pattern value="[0-9]{2}"/>
      *                                 &lt;/restriction>
      *                               &lt;/simpleType>
      *                             &lt;/element>
@@ -6498,34 +6583,7 @@ public class TNFe {
      *                                         &lt;simpleType>
      *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
      *                                             &lt;whiteSpace value="preserve"/>
-     *                                             &lt;enumeration value="01"/>
-     *                                             &lt;enumeration value="02"/>
-     *                                             &lt;enumeration value="03"/>
-     *                                             &lt;enumeration value="04"/>
-     *                                             &lt;enumeration value="05"/>
-     *                                             &lt;enumeration value="06"/>
-     *                                             &lt;enumeration value="07"/>
-     *                                             &lt;enumeration value="08"/>
-     *                                             &lt;enumeration value="09"/>
-     *                                             &lt;enumeration value="10"/>
-     *                                             &lt;enumeration value="11"/>
-     *                                             &lt;enumeration value="12"/>
-     *                                             &lt;enumeration value="13"/>
-     *                                             &lt;enumeration value="14"/>
-     *                                             &lt;enumeration value="15"/>
-     *                                             &lt;enumeration value="16"/>
-     *                                             &lt;enumeration value="17"/>
-     *                                             &lt;enumeration value="18"/>
-     *                                             &lt;enumeration value="19"/>
-     *                                             &lt;enumeration value="20"/>
-     *                                             &lt;enumeration value="21"/>
-     *                                             &lt;enumeration value="22"/>
-     *                                             &lt;enumeration value="23"/>
-     *                                             &lt;enumeration value="24"/>
-     *                                             &lt;enumeration value="25"/>
-     *                                             &lt;enumeration value="26"/>
-     *                                             &lt;enumeration value="27"/>
-     *                                             &lt;enumeration value="99"/>
+     *                                             &lt;pattern value="[0-9]{2}"/>
      *                                           &lt;/restriction>
      *                                         &lt;/simpleType>
      *                                       &lt;/element>
@@ -6667,6 +6725,16 @@ public class TNFe {
      *                                   &lt;enumeration value="2"/>
      *                                   &lt;enumeration value="3"/>
      *                                   &lt;enumeration value="9"/>
+     *                                 &lt;/restriction>
+     *                               &lt;/simpleType>
+     *                             &lt;/element>
+     *                             &lt;element name="tpAto" minOccurs="0">
+     *                               &lt;simpleType>
+     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *                                   &lt;whiteSpace value="preserve"/>
+     *                                   &lt;enumeration value="08"/>
+     *                                   &lt;enumeration value="10"/>
+     *                                   &lt;enumeration value="12"/>
      *                                 &lt;/restriction>
      *                               &lt;/simpleType>
      *                             &lt;/element>
@@ -10424,8 +10492,8 @@ public class TNFe {
          *                                             &lt;element name="vFCP" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
          *                                           &lt;/sequence>
          *                                           &lt;sequence minOccurs="0">
-         *                                             &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc" minOccurs="0"/>
-         *                                             &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
+         *                                             &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+         *                                             &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
          *                                             &lt;element name="vFCPEfet" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
          *                                           &lt;/sequence>
          *                                         &lt;/sequence>
@@ -10700,6 +10768,11 @@ public class TNFe {
          *                                           &lt;element name="vBCST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
          *                                           &lt;element name="pICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/>
          *                                           &lt;element name="vICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+         *                                           &lt;sequence minOccurs="0">
+         *                                             &lt;element name="vBCFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+         *                                             &lt;element name="pFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+         *                                             &lt;element name="vFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+         *                                           &lt;/sequence>
          *                                           &lt;element name="pBCOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
          *                                           &lt;element name="UFST" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
          *                                         &lt;/sequence>
@@ -11451,6 +11524,68 @@ public class TNFe {
          *             &lt;/restriction>
          *           &lt;/simpleType>
          *         &lt;/element>
+         *         &lt;element name="obsItem" minOccurs="0">
+         *           &lt;complexType>
+         *             &lt;complexContent>
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *                 &lt;sequence>
+         *                   &lt;element name="obsCont" minOccurs="0">
+         *                     &lt;complexType>
+         *                       &lt;complexContent>
+         *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *                           &lt;sequence>
+         *                             &lt;element name="xTexto">
+         *                               &lt;simpleType>
+         *                                 &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+         *                                   &lt;minLength value="1"/>
+         *                                   &lt;maxLength value="60"/>
+         *                                 &lt;/restriction>
+         *                               &lt;/simpleType>
+         *                             &lt;/element>
+         *                           &lt;/sequence>
+         *                           &lt;attribute name="xCampo" use="required">
+         *                             &lt;simpleType>
+         *                               &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+         *                                 &lt;minLength value="1"/>
+         *                                 &lt;maxLength value="20"/>
+         *                               &lt;/restriction>
+         *                             &lt;/simpleType>
+         *                           &lt;/attribute>
+         *                         &lt;/restriction>
+         *                       &lt;/complexContent>
+         *                     &lt;/complexType>
+         *                   &lt;/element>
+         *                   &lt;element name="obsFisco" minOccurs="0">
+         *                     &lt;complexType>
+         *                       &lt;complexContent>
+         *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *                           &lt;sequence>
+         *                             &lt;element name="xTexto">
+         *                               &lt;simpleType>
+         *                                 &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+         *                                   &lt;minLength value="1"/>
+         *                                   &lt;maxLength value="60"/>
+         *                                 &lt;/restriction>
+         *                               &lt;/simpleType>
+         *                             &lt;/element>
+         *                           &lt;/sequence>
+         *                           &lt;attribute name="xCampo" use="required">
+         *                             &lt;simpleType>
+         *                               &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+         *                                 &lt;minLength value="1"/>
+         *                                 &lt;maxLength value="20"/>
+         *                               &lt;/restriction>
+         *                             &lt;/simpleType>
+         *                           &lt;/attribute>
+         *                         &lt;/restriction>
+         *                       &lt;/complexContent>
+         *                     &lt;/complexType>
+         *                   &lt;/element>
+         *                 &lt;/sequence>
+         *               &lt;/restriction>
+         *             &lt;/complexContent>
+         *           &lt;/complexType>
+         *         &lt;/element>
          *       &lt;/sequence>
          *       &lt;attribute name="nItem" use="required">
          *         &lt;simpleType>
@@ -11472,7 +11607,8 @@ public class TNFe {
             "prod",
             "imposto",
             "impostoDevol",
-            "infAdProd"
+            "infAdProd",
+            "obsItem"
         })
         public static class Det {
 
@@ -11484,6 +11620,8 @@ public class TNFe {
             protected TNFe.InfNFe.Det.ImpostoDevol impostoDevol;
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
             protected String infAdProd;
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+            protected TNFe.InfNFe.Det.ObsItem obsItem;
             @XmlAttribute(name = "nItem", required = true)
             protected String nItem;
 
@@ -11581,6 +11719,30 @@ public class TNFe {
              */
             public void setInfAdProd(String value) {
                 this.infAdProd = value;
+            }
+
+            /**
+             * Obtém o valor da propriedade obsItem.
+             * 
+             * @return
+             *     possible object is
+             *     {@link TNFe.InfNFe.Det.ObsItem }
+             *     
+             */
+            public TNFe.InfNFe.Det.ObsItem getObsItem() {
+                return obsItem;
+            }
+
+            /**
+             * Define o valor da propriedade obsItem.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link TNFe.InfNFe.Det.ObsItem }
+             *     
+             */
+            public void setObsItem(TNFe.InfNFe.Det.ObsItem value) {
+                this.obsItem = value;
             }
 
             /**
@@ -11927,8 +12089,8 @@ public class TNFe {
              *                                   &lt;element name="vFCP" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
              *                                 &lt;/sequence>
              *                                 &lt;sequence minOccurs="0">
-             *                                   &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc" minOccurs="0"/>
-             *                                   &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
+             *                                   &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+             *                                   &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
              *                                   &lt;element name="vFCPEfet" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
              *                                 &lt;/sequence>
              *                               &lt;/sequence>
@@ -12203,6 +12365,11 @@ public class TNFe {
              *                                 &lt;element name="vBCST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
              *                                 &lt;element name="pICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/>
              *                                 &lt;element name="vICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+             *                                 &lt;sequence minOccurs="0">
+             *                                   &lt;element name="vBCFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+             *                                   &lt;element name="pFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+             *                                   &lt;element name="vFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+             *                                 &lt;/sequence>
              *                                 &lt;element name="pBCOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
              *                                 &lt;element name="UFST" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
              *                               &lt;/sequence>
@@ -12935,14 +13102,14 @@ public class TNFe {
 
                 @XmlElementRefs({
                     @XmlElementRef(name = "ICMSUFDest", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "II", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "vTotTrib", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "ICMS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "IPI", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "PISST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "II", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "PIS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "ISSQN", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "COFINSST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "vTotTrib", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "ISSQN", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "PISST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "COFINS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false)
                 })
                 protected List<JAXBElement<?>> content;
@@ -12953,8 +13120,8 @@ public class TNFe {
                  * <p>
                  * Você está obtendo esta propriedade "catch-all" pelo seguinte motivo: 
                  * O nome do campo "IPI" é usado por duas partes diferentes de um esquema. Consulte: 
-                 * linha 3878 de file:/home/samuel/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
-                 * linha 3846 de file:/home/samuel/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
+                 * linha 3895 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
+                 * linha 3863 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
                  * <p>
                  * Para eliminar esta propriedade, aplique uma personalização de propriedade a uma 
                  * das seguintes declarações, a fim de alterar seus nomes: 
@@ -12976,14 +13143,14 @@ public class TNFe {
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMSUFDest }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}
-                 * {@link JAXBElement }{@code <}{@link String }{@code >}
                  * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}
                  * {@link JAXBElement }{@code <}{@link TIpi }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}
                  * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PIS }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}
                  * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINSST }{@code >}
+                 * {@link JAXBElement }{@code <}{@link String }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}
                  * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINS }{@code >}
                  * 
                  * 
@@ -14358,8 +14525,8 @@ public class TNFe {
                  *                     &lt;element name="vFCP" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
                  *                   &lt;/sequence>
                  *                   &lt;sequence minOccurs="0">
-                 *                     &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc" minOccurs="0"/>
-                 *                     &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
+                 *                     &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+                 *                     &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
                  *                     &lt;element name="vFCPEfet" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
                  *                   &lt;/sequence>
                  *                 &lt;/sequence>
@@ -14634,6 +14801,11 @@ public class TNFe {
                  *                   &lt;element name="vBCST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
                  *                   &lt;element name="pICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/>
                  *                   &lt;element name="vICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+                 *                   &lt;sequence minOccurs="0">
+                 *                     &lt;element name="vBCFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+                 *                     &lt;element name="pFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+                 *                     &lt;element name="vFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+                 *                   &lt;/sequence>
                  *                   &lt;element name="pBCOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
                  *                   &lt;element name="UFST" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
                  *                 &lt;/sequence>
@@ -17316,8 +17488,8 @@ public class TNFe {
                      *           &lt;element name="vFCP" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
                      *         &lt;/sequence>
                      *         &lt;sequence minOccurs="0">
-                     *           &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc" minOccurs="0"/>
-                     *           &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
+                     *           &lt;element name="pFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+                     *           &lt;element name="vFCPDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
                      *           &lt;element name="vFCPEfet" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
                      *         &lt;/sequence>
                      *       &lt;/sequence>
@@ -19685,6 +19857,11 @@ public class TNFe {
                      *         &lt;element name="vBCST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
                      *         &lt;element name="pICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/>
                      *         &lt;element name="vICMSST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+                     *         &lt;sequence minOccurs="0">
+                     *           &lt;element name="vBCFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+                     *           &lt;element name="pFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
+                     *           &lt;element name="vFCPST" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+                     *         &lt;/sequence>
                      *         &lt;element name="pBCOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Opc"/>
                      *         &lt;element name="UFST" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
                      *       &lt;/sequence>
@@ -19710,6 +19887,9 @@ public class TNFe {
                         "vbcst",
                         "picmsst",
                         "vicmsst",
+                        "vbcfcpst",
+                        "pfcpst",
+                        "vfcpst",
                         "pbcOp",
                         "ufst"
                     })
@@ -19741,6 +19921,12 @@ public class TNFe {
                         protected String picmsst;
                         @XmlElement(name = "vICMSST", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
                         protected String vicmsst;
+                        @XmlElement(name = "vBCFCPST", namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String vbcfcpst;
+                        @XmlElement(name = "pFCPST", namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String pfcpst;
+                        @XmlElement(name = "vFCPST", namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String vfcpst;
                         @XmlElement(name = "pBCOp", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
                         protected String pbcOp;
                         @XmlElement(name = "UFST", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
@@ -20057,6 +20243,78 @@ public class TNFe {
                          */
                         public void setVICMSST(String value) {
                             this.vicmsst = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade vbcfcpst.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getVBCFCPST() {
+                            return vbcfcpst;
+                        }
+
+                        /**
+                         * Define o valor da propriedade vbcfcpst.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setVBCFCPST(String value) {
+                            this.vbcfcpst = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade pfcpst.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getPFCPST() {
+                            return pfcpst;
+                        }
+
+                        /**
+                         * Define o valor da propriedade pfcpst.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setPFCPST(String value) {
+                            this.pfcpst = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade vfcpst.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getVFCPST() {
+                            return vfcpst;
+                        }
+
+                        /**
+                         * Define o valor da propriedade vfcpst.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setVFCPST(String value) {
+                            this.vfcpst = value;
                         }
 
                         /**
@@ -24713,6 +24971,331 @@ public class TNFe {
              *   &lt;complexContent>
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
+             *         &lt;element name="obsCont" minOccurs="0">
+             *           &lt;complexType>
+             *             &lt;complexContent>
+             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+             *                 &lt;sequence>
+             *                   &lt;element name="xTexto">
+             *                     &lt;simpleType>
+             *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+             *                         &lt;minLength value="1"/>
+             *                         &lt;maxLength value="60"/>
+             *                       &lt;/restriction>
+             *                     &lt;/simpleType>
+             *                   &lt;/element>
+             *                 &lt;/sequence>
+             *                 &lt;attribute name="xCampo" use="required">
+             *                   &lt;simpleType>
+             *                     &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+             *                       &lt;minLength value="1"/>
+             *                       &lt;maxLength value="20"/>
+             *                     &lt;/restriction>
+             *                   &lt;/simpleType>
+             *                 &lt;/attribute>
+             *               &lt;/restriction>
+             *             &lt;/complexContent>
+             *           &lt;/complexType>
+             *         &lt;/element>
+             *         &lt;element name="obsFisco" minOccurs="0">
+             *           &lt;complexType>
+             *             &lt;complexContent>
+             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+             *                 &lt;sequence>
+             *                   &lt;element name="xTexto">
+             *                     &lt;simpleType>
+             *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+             *                         &lt;minLength value="1"/>
+             *                         &lt;maxLength value="60"/>
+             *                       &lt;/restriction>
+             *                     &lt;/simpleType>
+             *                   &lt;/element>
+             *                 &lt;/sequence>
+             *                 &lt;attribute name="xCampo" use="required">
+             *                   &lt;simpleType>
+             *                     &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+             *                       &lt;minLength value="1"/>
+             *                       &lt;maxLength value="20"/>
+             *                     &lt;/restriction>
+             *                   &lt;/simpleType>
+             *                 &lt;/attribute>
+             *               &lt;/restriction>
+             *             &lt;/complexContent>
+             *           &lt;/complexType>
+             *         &lt;/element>
+             *       &lt;/sequence>
+             *     &lt;/restriction>
+             *   &lt;/complexContent>
+             * &lt;/complexType>
+             * </pre>
+             * 
+             * 
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "obsCont",
+                "obsFisco"
+            })
+            public static class ObsItem {
+
+                @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                protected TNFe.InfNFe.Det.ObsItem.ObsCont obsCont;
+                @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                protected TNFe.InfNFe.Det.ObsItem.ObsFisco obsFisco;
+
+                /**
+                 * Obtém o valor da propriedade obsCont.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link TNFe.InfNFe.Det.ObsItem.ObsCont }
+                 *     
+                 */
+                public TNFe.InfNFe.Det.ObsItem.ObsCont getObsCont() {
+                    return obsCont;
+                }
+
+                /**
+                 * Define o valor da propriedade obsCont.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link TNFe.InfNFe.Det.ObsItem.ObsCont }
+                 *     
+                 */
+                public void setObsCont(TNFe.InfNFe.Det.ObsItem.ObsCont value) {
+                    this.obsCont = value;
+                }
+
+                /**
+                 * Obtém o valor da propriedade obsFisco.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link TNFe.InfNFe.Det.ObsItem.ObsFisco }
+                 *     
+                 */
+                public TNFe.InfNFe.Det.ObsItem.ObsFisco getObsFisco() {
+                    return obsFisco;
+                }
+
+                /**
+                 * Define o valor da propriedade obsFisco.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link TNFe.InfNFe.Det.ObsItem.ObsFisco }
+                 *     
+                 */
+                public void setObsFisco(TNFe.InfNFe.Det.ObsItem.ObsFisco value) {
+                    this.obsFisco = value;
+                }
+
+
+                /**
+                 * <p>Classe Java de anonymous complex type.
+                 * 
+                 * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+                 * 
+                 * <pre>
+                 * &lt;complexType>
+                 *   &lt;complexContent>
+                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+                 *       &lt;sequence>
+                 *         &lt;element name="xTexto">
+                 *           &lt;simpleType>
+                 *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+                 *               &lt;minLength value="1"/>
+                 *               &lt;maxLength value="60"/>
+                 *             &lt;/restriction>
+                 *           &lt;/simpleType>
+                 *         &lt;/element>
+                 *       &lt;/sequence>
+                 *       &lt;attribute name="xCampo" use="required">
+                 *         &lt;simpleType>
+                 *           &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+                 *             &lt;minLength value="1"/>
+                 *             &lt;maxLength value="20"/>
+                 *           &lt;/restriction>
+                 *         &lt;/simpleType>
+                 *       &lt;/attribute>
+                 *     &lt;/restriction>
+                 *   &lt;/complexContent>
+                 * &lt;/complexType>
+                 * </pre>
+                 * 
+                 * 
+                 */
+                @XmlAccessorType(XmlAccessType.FIELD)
+                @XmlType(name = "", propOrder = {
+                    "xTexto"
+                })
+                public static class ObsCont {
+
+                    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+                    protected String xTexto;
+                    @XmlAttribute(name = "xCampo", required = true)
+                    protected String xCampo;
+
+                    /**
+                     * Obtém o valor da propriedade xTexto.
+                     * 
+                     * @return
+                     *     possible object is
+                     *     {@link String }
+                     *     
+                     */
+                    public String getXTexto() {
+                        return xTexto;
+                    }
+
+                    /**
+                     * Define o valor da propriedade xTexto.
+                     * 
+                     * @param value
+                     *     allowed object is
+                     *     {@link String }
+                     *     
+                     */
+                    public void setXTexto(String value) {
+                        this.xTexto = value;
+                    }
+
+                    /**
+                     * Obtém o valor da propriedade xCampo.
+                     * 
+                     * @return
+                     *     possible object is
+                     *     {@link String }
+                     *     
+                     */
+                    public String getXCampo() {
+                        return xCampo;
+                    }
+
+                    /**
+                     * Define o valor da propriedade xCampo.
+                     * 
+                     * @param value
+                     *     allowed object is
+                     *     {@link String }
+                     *     
+                     */
+                    public void setXCampo(String value) {
+                        this.xCampo = value;
+                    }
+
+                }
+
+
+                /**
+                 * <p>Classe Java de anonymous complex type.
+                 * 
+                 * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+                 * 
+                 * <pre>
+                 * &lt;complexType>
+                 *   &lt;complexContent>
+                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+                 *       &lt;sequence>
+                 *         &lt;element name="xTexto">
+                 *           &lt;simpleType>
+                 *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+                 *               &lt;minLength value="1"/>
+                 *               &lt;maxLength value="60"/>
+                 *             &lt;/restriction>
+                 *           &lt;/simpleType>
+                 *         &lt;/element>
+                 *       &lt;/sequence>
+                 *       &lt;attribute name="xCampo" use="required">
+                 *         &lt;simpleType>
+                 *           &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+                 *             &lt;minLength value="1"/>
+                 *             &lt;maxLength value="20"/>
+                 *           &lt;/restriction>
+                 *         &lt;/simpleType>
+                 *       &lt;/attribute>
+                 *     &lt;/restriction>
+                 *   &lt;/complexContent>
+                 * &lt;/complexType>
+                 * </pre>
+                 * 
+                 * 
+                 */
+                @XmlAccessorType(XmlAccessType.FIELD)
+                @XmlType(name = "", propOrder = {
+                    "xTexto"
+                })
+                public static class ObsFisco {
+
+                    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+                    protected String xTexto;
+                    @XmlAttribute(name = "xCampo", required = true)
+                    protected String xCampo;
+
+                    /**
+                     * Obtém o valor da propriedade xTexto.
+                     * 
+                     * @return
+                     *     possible object is
+                     *     {@link String }
+                     *     
+                     */
+                    public String getXTexto() {
+                        return xTexto;
+                    }
+
+                    /**
+                     * Define o valor da propriedade xTexto.
+                     * 
+                     * @param value
+                     *     allowed object is
+                     *     {@link String }
+                     *     
+                     */
+                    public void setXTexto(String value) {
+                        this.xTexto = value;
+                    }
+
+                    /**
+                     * Obtém o valor da propriedade xCampo.
+                     * 
+                     * @return
+                     *     possible object is
+                     *     {@link String }
+                     *     
+                     */
+                    public String getXCampo() {
+                        return xCampo;
+                    }
+
+                    /**
+                     * Define o valor da propriedade xCampo.
+                     * 
+                     * @param value
+                     *     allowed object is
+                     *     {@link String }
+                     *     
+                     */
+                    public void setXCampo(String value) {
+                        this.xCampo = value;
+                    }
+
+                }
+
+            }
+
+
+            /**
+             * <p>Classe Java de anonymous complex type.
+             * 
+             * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+             * 
+             * <pre>
+             * &lt;complexType>
+             *   &lt;complexContent>
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+             *       &lt;sequence>
              *         &lt;element name="cProd">
              *           &lt;simpleType>
              *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
@@ -27463,233 +28046,6 @@ public class TNFe {
                  *   &lt;complexContent>
                  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
                  *       &lt;sequence>
-                 *         &lt;element name="nDraw" minOccurs="0">
-                 *           &lt;simpleType>
-                 *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
-                 *               &lt;minLength value="1"/>
-                 *               &lt;maxLength value="20"/>
-                 *             &lt;/restriction>
-                 *           &lt;/simpleType>
-                 *         &lt;/element>
-                 *         &lt;element name="exportInd" minOccurs="0">
-                 *           &lt;complexType>
-                 *             &lt;complexContent>
-                 *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                 *                 &lt;sequence>
-                 *                   &lt;element name="nRE">
-                 *                     &lt;simpleType>
-                 *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-                 *                         &lt;whiteSpace value="preserve"/>
-                 *                         &lt;pattern value="[0-9]{0,12}"/>
-                 *                       &lt;/restriction>
-                 *                     &lt;/simpleType>
-                 *                   &lt;/element>
-                 *                   &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe"/>
-                 *                   &lt;element name="qExport" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v"/>
-                 *                 &lt;/sequence>
-                 *               &lt;/restriction>
-                 *             &lt;/complexContent>
-                 *           &lt;/complexType>
-                 *         &lt;/element>
-                 *       &lt;/sequence>
-                 *     &lt;/restriction>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
-                 * </pre>
-                 * 
-                 * 
-                 */
-                @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                    "nDraw",
-                    "exportInd"
-                })
-                public static class DetExport {
-
-                    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
-                    protected String nDraw;
-                    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
-                    protected TNFe.InfNFe.Det.Prod.DetExport.ExportInd exportInd;
-
-                    /**
-                     * Obtém o valor da propriedade nDraw.
-                     * 
-                     * @return
-                     *     possible object is
-                     *     {@link String }
-                     *     
-                     */
-                    public String getNDraw() {
-                        return nDraw;
-                    }
-
-                    /**
-                     * Define o valor da propriedade nDraw.
-                     * 
-                     * @param value
-                     *     allowed object is
-                     *     {@link String }
-                     *     
-                     */
-                    public void setNDraw(String value) {
-                        this.nDraw = value;
-                    }
-
-                    /**
-                     * Obtém o valor da propriedade exportInd.
-                     * 
-                     * @return
-                     *     possible object is
-                     *     {@link TNFe.InfNFe.Det.Prod.DetExport.ExportInd }
-                     *     
-                     */
-                    public TNFe.InfNFe.Det.Prod.DetExport.ExportInd getExportInd() {
-                        return exportInd;
-                    }
-
-                    /**
-                     * Define o valor da propriedade exportInd.
-                     * 
-                     * @param value
-                     *     allowed object is
-                     *     {@link TNFe.InfNFe.Det.Prod.DetExport.ExportInd }
-                     *     
-                     */
-                    public void setExportInd(TNFe.InfNFe.Det.Prod.DetExport.ExportInd value) {
-                        this.exportInd = value;
-                    }
-
-
-                    /**
-                     * <p>Classe Java de anonymous complex type.
-                     * 
-                     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
-                     * 
-                     * <pre>
-                     * &lt;complexType>
-                     *   &lt;complexContent>
-                     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                     *       &lt;sequence>
-                     *         &lt;element name="nRE">
-                     *           &lt;simpleType>
-                     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-                     *               &lt;whiteSpace value="preserve"/>
-                     *               &lt;pattern value="[0-9]{0,12}"/>
-                     *             &lt;/restriction>
-                     *           &lt;/simpleType>
-                     *         &lt;/element>
-                     *         &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe"/>
-                     *         &lt;element name="qExport" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v"/>
-                     *       &lt;/sequence>
-                     *     &lt;/restriction>
-                     *   &lt;/complexContent>
-                     * &lt;/complexType>
-                     * </pre>
-                     * 
-                     * 
-                     */
-                    @XmlAccessorType(XmlAccessType.FIELD)
-                    @XmlType(name = "", propOrder = {
-                        "nre",
-                        "chNFe",
-                        "qExport"
-                    })
-                    public static class ExportInd {
-
-                        @XmlElement(name = "nRE", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-                        protected String nre;
-                        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-                        protected String chNFe;
-                        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-                        protected String qExport;
-
-                        /**
-                         * Obtém o valor da propriedade nre.
-                         * 
-                         * @return
-                         *     possible object is
-                         *     {@link String }
-                         *     
-                         */
-                        public String getNRE() {
-                            return nre;
-                        }
-
-                        /**
-                         * Define o valor da propriedade nre.
-                         * 
-                         * @param value
-                         *     allowed object is
-                         *     {@link String }
-                         *     
-                         */
-                        public void setNRE(String value) {
-                            this.nre = value;
-                        }
-
-                        /**
-                         * Obtém o valor da propriedade chNFe.
-                         * 
-                         * @return
-                         *     possible object is
-                         *     {@link String }
-                         *     
-                         */
-                        public String getChNFe() {
-                            return chNFe;
-                        }
-
-                        /**
-                         * Define o valor da propriedade chNFe.
-                         * 
-                         * @param value
-                         *     allowed object is
-                         *     {@link String }
-                         *     
-                         */
-                        public void setChNFe(String value) {
-                            this.chNFe = value;
-                        }
-
-                        /**
-                         * Obtém o valor da propriedade qExport.
-                         * 
-                         * @return
-                         *     possible object is
-                         *     {@link String }
-                         *     
-                         */
-                        public String getQExport() {
-                            return qExport;
-                        }
-
-                        /**
-                         * Define o valor da propriedade qExport.
-                         * 
-                         * @param value
-                         *     allowed object is
-                         *     {@link String }
-                         *     
-                         */
-                        public void setQExport(String value) {
-                            this.qExport = value;
-                        }
-
-                    }
-
-                }
-
-
-                /**
-                 * <p>Classe Java de anonymous complex type.
-                 * 
-                 * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
-                 * 
-                 * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                 *       &lt;sequence>
                  *         &lt;element name="nDI">
                  *           &lt;simpleType>
                  *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
@@ -28329,6 +28685,233 @@ public class TNFe {
                          */
                         public void setNDraw(String value) {
                             this.nDraw = value;
+                        }
+
+                    }
+
+                }
+
+
+                /**
+                 * <p>Classe Java de anonymous complex type.
+                 * 
+                 * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+                 * 
+                 * <pre>
+                 * &lt;complexType>
+                 *   &lt;complexContent>
+                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+                 *       &lt;sequence>
+                 *         &lt;element name="nDraw" minOccurs="0">
+                 *           &lt;simpleType>
+                 *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+                 *               &lt;minLength value="1"/>
+                 *               &lt;maxLength value="20"/>
+                 *             &lt;/restriction>
+                 *           &lt;/simpleType>
+                 *         &lt;/element>
+                 *         &lt;element name="exportInd" minOccurs="0">
+                 *           &lt;complexType>
+                 *             &lt;complexContent>
+                 *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+                 *                 &lt;sequence>
+                 *                   &lt;element name="nRE">
+                 *                     &lt;simpleType>
+                 *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+                 *                         &lt;whiteSpace value="preserve"/>
+                 *                         &lt;pattern value="[0-9]{0,12}"/>
+                 *                       &lt;/restriction>
+                 *                     &lt;/simpleType>
+                 *                   &lt;/element>
+                 *                   &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe"/>
+                 *                   &lt;element name="qExport" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v"/>
+                 *                 &lt;/sequence>
+                 *               &lt;/restriction>
+                 *             &lt;/complexContent>
+                 *           &lt;/complexType>
+                 *         &lt;/element>
+                 *       &lt;/sequence>
+                 *     &lt;/restriction>
+                 *   &lt;/complexContent>
+                 * &lt;/complexType>
+                 * </pre>
+                 * 
+                 * 
+                 */
+                @XmlAccessorType(XmlAccessType.FIELD)
+                @XmlType(name = "", propOrder = {
+                    "nDraw",
+                    "exportInd"
+                })
+                public static class DetExport {
+
+                    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                    protected String nDraw;
+                    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                    protected TNFe.InfNFe.Det.Prod.DetExport.ExportInd exportInd;
+
+                    /**
+                     * Obtém o valor da propriedade nDraw.
+                     * 
+                     * @return
+                     *     possible object is
+                     *     {@link String }
+                     *     
+                     */
+                    public String getNDraw() {
+                        return nDraw;
+                    }
+
+                    /**
+                     * Define o valor da propriedade nDraw.
+                     * 
+                     * @param value
+                     *     allowed object is
+                     *     {@link String }
+                     *     
+                     */
+                    public void setNDraw(String value) {
+                        this.nDraw = value;
+                    }
+
+                    /**
+                     * Obtém o valor da propriedade exportInd.
+                     * 
+                     * @return
+                     *     possible object is
+                     *     {@link TNFe.InfNFe.Det.Prod.DetExport.ExportInd }
+                     *     
+                     */
+                    public TNFe.InfNFe.Det.Prod.DetExport.ExportInd getExportInd() {
+                        return exportInd;
+                    }
+
+                    /**
+                     * Define o valor da propriedade exportInd.
+                     * 
+                     * @param value
+                     *     allowed object is
+                     *     {@link TNFe.InfNFe.Det.Prod.DetExport.ExportInd }
+                     *     
+                     */
+                    public void setExportInd(TNFe.InfNFe.Det.Prod.DetExport.ExportInd value) {
+                        this.exportInd = value;
+                    }
+
+
+                    /**
+                     * <p>Classe Java de anonymous complex type.
+                     * 
+                     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+                     * 
+                     * <pre>
+                     * &lt;complexType>
+                     *   &lt;complexContent>
+                     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+                     *       &lt;sequence>
+                     *         &lt;element name="nRE">
+                     *           &lt;simpleType>
+                     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+                     *               &lt;whiteSpace value="preserve"/>
+                     *               &lt;pattern value="[0-9]{0,12}"/>
+                     *             &lt;/restriction>
+                     *           &lt;/simpleType>
+                     *         &lt;/element>
+                     *         &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe"/>
+                     *         &lt;element name="qExport" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v"/>
+                     *       &lt;/sequence>
+                     *     &lt;/restriction>
+                     *   &lt;/complexContent>
+                     * &lt;/complexType>
+                     * </pre>
+                     * 
+                     * 
+                     */
+                    @XmlAccessorType(XmlAccessType.FIELD)
+                    @XmlType(name = "", propOrder = {
+                        "nre",
+                        "chNFe",
+                        "qExport"
+                    })
+                    public static class ExportInd {
+
+                        @XmlElement(name = "nRE", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+                        protected String nre;
+                        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+                        protected String chNFe;
+                        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+                        protected String qExport;
+
+                        /**
+                         * Obtém o valor da propriedade nre.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getNRE() {
+                            return nre;
+                        }
+
+                        /**
+                         * Define o valor da propriedade nre.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setNRE(String value) {
+                            this.nre = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade chNFe.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getChNFe() {
+                            return chNFe;
+                        }
+
+                        /**
+                         * Define o valor da propriedade chNFe.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setChNFe(String value) {
+                            this.chNFe = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade qExport.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getQExport() {
+                            return qExport;
+                        }
+
+                        /**
+                         * Define o valor da propriedade qExport.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setQExport(String value) {
+                            this.qExport = value;
                         }
 
                     }
@@ -32129,6 +32712,16 @@ public class TNFe {
          *                       &lt;/restriction>
          *                     &lt;/simpleType>
          *                   &lt;/element>
+         *                   &lt;element name="tpAto" minOccurs="0">
+         *                     &lt;simpleType>
+         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+         *                         &lt;whiteSpace value="preserve"/>
+         *                         &lt;enumeration value="08"/>
+         *                         &lt;enumeration value="10"/>
+         *                         &lt;enumeration value="12"/>
+         *                       &lt;/restriction>
+         *                     &lt;/simpleType>
+         *                   &lt;/element>
          *                 &lt;/sequence>
          *               &lt;/restriction>
          *             &lt;/complexContent>
@@ -32521,6 +33114,16 @@ public class TNFe {
              *             &lt;/restriction>
              *           &lt;/simpleType>
              *         &lt;/element>
+             *         &lt;element name="tpAto" minOccurs="0">
+             *           &lt;simpleType>
+             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+             *               &lt;whiteSpace value="preserve"/>
+             *               &lt;enumeration value="08"/>
+             *               &lt;enumeration value="10"/>
+             *               &lt;enumeration value="12"/>
+             *             &lt;/restriction>
+             *           &lt;/simpleType>
+             *         &lt;/element>
              *       &lt;/sequence>
              *     &lt;/restriction>
              *   &lt;/complexContent>
@@ -32532,7 +33135,8 @@ public class TNFe {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "nProc",
-                "indProc"
+                "indProc",
+                "tpAto"
             })
             public static class ProcRef {
 
@@ -32540,6 +33144,8 @@ public class TNFe {
                 protected String nProc;
                 @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
                 protected String indProc;
+                @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                protected String tpAto;
 
                 /**
                  * Obtém o valor da propriedade nProc.
@@ -32587,6 +33193,30 @@ public class TNFe {
                  */
                 public void setIndProc(String value) {
                     this.indProc = value;
+                }
+
+                /**
+                 * Obtém o valor da propriedade tpAto.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getTpAto() {
+                    return tpAto;
+                }
+
+                /**
+                 * Define o valor da propriedade tpAto.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setTpAto(String value) {
+                    this.tpAto = value;
                 }
 
             }
@@ -32774,23 +33404,7 @@ public class TNFe {
          *                     &lt;simpleType>
          *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
          *                         &lt;whiteSpace value="preserve"/>
-         *                         &lt;enumeration value="01"/>
-         *                         &lt;enumeration value="02"/>
-         *                         &lt;enumeration value="03"/>
-         *                         &lt;enumeration value="04"/>
-         *                         &lt;enumeration value="05"/>
-         *                         &lt;enumeration value="10"/>
-         *                         &lt;enumeration value="11"/>
-         *                         &lt;enumeration value="12"/>
-         *                         &lt;enumeration value="13"/>
-         *                         &lt;enumeration value="14"/>
-         *                         &lt;enumeration value="15"/>
-         *                         &lt;enumeration value="16"/>
-         *                         &lt;enumeration value="17"/>
-         *                         &lt;enumeration value="18"/>
-         *                         &lt;enumeration value="19"/>
-         *                         &lt;enumeration value="90"/>
-         *                         &lt;enumeration value="99"/>
+         *                         &lt;pattern value="[0-9]{2}"/>
          *                       &lt;/restriction>
          *                     &lt;/simpleType>
          *                   &lt;/element>
@@ -32822,34 +33436,7 @@ public class TNFe {
          *                               &lt;simpleType>
          *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
          *                                   &lt;whiteSpace value="preserve"/>
-         *                                   &lt;enumeration value="01"/>
-         *                                   &lt;enumeration value="02"/>
-         *                                   &lt;enumeration value="03"/>
-         *                                   &lt;enumeration value="04"/>
-         *                                   &lt;enumeration value="05"/>
-         *                                   &lt;enumeration value="06"/>
-         *                                   &lt;enumeration value="07"/>
-         *                                   &lt;enumeration value="08"/>
-         *                                   &lt;enumeration value="09"/>
-         *                                   &lt;enumeration value="10"/>
-         *                                   &lt;enumeration value="11"/>
-         *                                   &lt;enumeration value="12"/>
-         *                                   &lt;enumeration value="13"/>
-         *                                   &lt;enumeration value="14"/>
-         *                                   &lt;enumeration value="15"/>
-         *                                   &lt;enumeration value="16"/>
-         *                                   &lt;enumeration value="17"/>
-         *                                   &lt;enumeration value="18"/>
-         *                                   &lt;enumeration value="19"/>
-         *                                   &lt;enumeration value="20"/>
-         *                                   &lt;enumeration value="21"/>
-         *                                   &lt;enumeration value="22"/>
-         *                                   &lt;enumeration value="23"/>
-         *                                   &lt;enumeration value="24"/>
-         *                                   &lt;enumeration value="25"/>
-         *                                   &lt;enumeration value="26"/>
-         *                                   &lt;enumeration value="27"/>
-         *                                   &lt;enumeration value="99"/>
+         *                                   &lt;pattern value="[0-9]{2}"/>
          *                                 &lt;/restriction>
          *                               &lt;/simpleType>
          *                             &lt;/element>
@@ -32969,23 +33556,7 @@ public class TNFe {
              *           &lt;simpleType>
              *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
              *               &lt;whiteSpace value="preserve"/>
-             *               &lt;enumeration value="01"/>
-             *               &lt;enumeration value="02"/>
-             *               &lt;enumeration value="03"/>
-             *               &lt;enumeration value="04"/>
-             *               &lt;enumeration value="05"/>
-             *               &lt;enumeration value="10"/>
-             *               &lt;enumeration value="11"/>
-             *               &lt;enumeration value="12"/>
-             *               &lt;enumeration value="13"/>
-             *               &lt;enumeration value="14"/>
-             *               &lt;enumeration value="15"/>
-             *               &lt;enumeration value="16"/>
-             *               &lt;enumeration value="17"/>
-             *               &lt;enumeration value="18"/>
-             *               &lt;enumeration value="19"/>
-             *               &lt;enumeration value="90"/>
-             *               &lt;enumeration value="99"/>
+             *               &lt;pattern value="[0-9]{2}"/>
              *             &lt;/restriction>
              *           &lt;/simpleType>
              *         &lt;/element>
@@ -33017,34 +33588,7 @@ public class TNFe {
              *                     &lt;simpleType>
              *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
              *                         &lt;whiteSpace value="preserve"/>
-             *                         &lt;enumeration value="01"/>
-             *                         &lt;enumeration value="02"/>
-             *                         &lt;enumeration value="03"/>
-             *                         &lt;enumeration value="04"/>
-             *                         &lt;enumeration value="05"/>
-             *                         &lt;enumeration value="06"/>
-             *                         &lt;enumeration value="07"/>
-             *                         &lt;enumeration value="08"/>
-             *                         &lt;enumeration value="09"/>
-             *                         &lt;enumeration value="10"/>
-             *                         &lt;enumeration value="11"/>
-             *                         &lt;enumeration value="12"/>
-             *                         &lt;enumeration value="13"/>
-             *                         &lt;enumeration value="14"/>
-             *                         &lt;enumeration value="15"/>
-             *                         &lt;enumeration value="16"/>
-             *                         &lt;enumeration value="17"/>
-             *                         &lt;enumeration value="18"/>
-             *                         &lt;enumeration value="19"/>
-             *                         &lt;enumeration value="20"/>
-             *                         &lt;enumeration value="21"/>
-             *                         &lt;enumeration value="22"/>
-             *                         &lt;enumeration value="23"/>
-             *                         &lt;enumeration value="24"/>
-             *                         &lt;enumeration value="25"/>
-             *                         &lt;enumeration value="26"/>
-             *                         &lt;enumeration value="27"/>
-             *                         &lt;enumeration value="99"/>
+             *                         &lt;pattern value="[0-9]{2}"/>
              *                       &lt;/restriction>
              *                     &lt;/simpleType>
              *                   &lt;/element>
@@ -33235,34 +33779,7 @@ public class TNFe {
                  *           &lt;simpleType>
                  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
                  *               &lt;whiteSpace value="preserve"/>
-                 *               &lt;enumeration value="01"/>
-                 *               &lt;enumeration value="02"/>
-                 *               &lt;enumeration value="03"/>
-                 *               &lt;enumeration value="04"/>
-                 *               &lt;enumeration value="05"/>
-                 *               &lt;enumeration value="06"/>
-                 *               &lt;enumeration value="07"/>
-                 *               &lt;enumeration value="08"/>
-                 *               &lt;enumeration value="09"/>
-                 *               &lt;enumeration value="10"/>
-                 *               &lt;enumeration value="11"/>
-                 *               &lt;enumeration value="12"/>
-                 *               &lt;enumeration value="13"/>
-                 *               &lt;enumeration value="14"/>
-                 *               &lt;enumeration value="15"/>
-                 *               &lt;enumeration value="16"/>
-                 *               &lt;enumeration value="17"/>
-                 *               &lt;enumeration value="18"/>
-                 *               &lt;enumeration value="19"/>
-                 *               &lt;enumeration value="20"/>
-                 *               &lt;enumeration value="21"/>
-                 *               &lt;enumeration value="22"/>
-                 *               &lt;enumeration value="23"/>
-                 *               &lt;enumeration value="24"/>
-                 *               &lt;enumeration value="25"/>
-                 *               &lt;enumeration value="26"/>
-                 *               &lt;enumeration value="27"/>
-                 *               &lt;enumeration value="99"/>
+                 *               &lt;pattern value="[0-9]{2}"/>
                  *             &lt;/restriction>
                  *           &lt;/simpleType>
                  *         &lt;/element>
@@ -34972,7 +35489,7 @@ public class TNFe {
          *             &lt;/simpleType>
          *           &lt;/element>
          *         &lt;/choice>
-         *         &lt;element name="vol" maxOccurs="5000" minOccurs="0">
+         *         &lt;element name="vol" maxOccurs="unbounded" minOccurs="0">
          *           &lt;complexType>
          *             &lt;complexContent>
          *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -35011,7 +35528,7 @@ public class TNFe {
          *                   &lt;/element>
          *                   &lt;element name="pesoL" type="{http://www.portalfiscal.inf.br/nfe}TDec_1203" minOccurs="0"/>
          *                   &lt;element name="pesoB" type="{http://www.portalfiscal.inf.br/nfe}TDec_1203" minOccurs="0"/>
-         *                   &lt;element name="lacres" maxOccurs="5000" minOccurs="0">
+         *                   &lt;element name="lacres" maxOccurs="unbounded" minOccurs="0">
          *                     &lt;complexType>
          *                       &lt;complexContent>
          *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -35768,7 +36285,7 @@ public class TNFe {
              *         &lt;/element>
              *         &lt;element name="pesoL" type="{http://www.portalfiscal.inf.br/nfe}TDec_1203" minOccurs="0"/>
              *         &lt;element name="pesoB" type="{http://www.portalfiscal.inf.br/nfe}TDec_1203" minOccurs="0"/>
-             *         &lt;element name="lacres" maxOccurs="5000" minOccurs="0">
+             *         &lt;element name="lacres" maxOccurs="unbounded" minOccurs="0">
              *           &lt;complexType>
              *             &lt;complexContent>
              *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -36079,7 +36596,7 @@ public class TNFe {
      *               &lt;whiteSpace value="preserve"/>
      *               &lt;minLength value="100"/>
      *               &lt;maxLength value="600"/>
-     *               &lt;pattern value="(((HTTPS?|https?)://.*\?chNFe=[0-9]{44}&amp;nVersao=100&amp;tpAmb=[1-2](&amp;cDest=([A-Za-z0-9.:+-/)(]{0}|[A-Za-z0-9.:+-/)(]{5,20})?)?&amp;dhEmi=[A-Fa-f0-9]{50}&amp;vNF=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;vICMS=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;digVal=[A-Fa-f0-9]{56}&amp;cIdToken=[0-9]{6}&amp;cHashQRCode=[A-Fa-f0-9]{40})|((HTTPS?|https?)://.*\?p=([0-9]{34}(1|4)[0-9]{9})\|[2]\|[1-2]\|(0|[1-9]{1}([0-9]{1,5})?)\|[A-Fa-f0-9]{40})|((HTTPS?|https?)://.*\?p=([0-9]{34}9[0-9]{9})\|[2]\|[1-2]\|([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-1]{1})\|(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)\|[A-Fa-f0-9]{56}\|(0|[1-9]{1}([0-9]{1,5})?)\|[A-Fa-f0-9]{40}))"/>
+     *               &lt;pattern value="(((HTTPS?|https?)://.*\?chNFe=[0-9]{44}&amp;nVersao=100&amp;tpAmb=[1-2](&amp;cDest=([A-Za-z0-9.:+-/)(]{0}|[A-Za-z0-9.:+-/)(]{5,20})?)?&amp;dhEmi=[A-Fa-f0-9]{50}&amp;vNF=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;vICMS=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;digVal=[A-Fa-f0-9]{56}&amp;cIdToken=[0-9]{6}&amp;cHashQRCode=[A-Fa-f0-9]{40})|((HTTPS?|https?)://.*\?p=([0-9]{34}(1|3|4)[0-9]{9})\|[2]\|[1-2]\|(0|[1-9]{1}([0-9]{1,5})?)\|[A-Fa-f0-9]{40})|((HTTPS?|https?)://.*\?p=([0-9]{34}9[0-9]{9})\|[2]\|[1-2]\|([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-1]{1})\|(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)\|[A-Fa-f0-9]{56}\|(0|[1-9]{1}([0-9]{1,5})?)\|[A-Fa-f0-9]{40}))"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
      *         &lt;/element>

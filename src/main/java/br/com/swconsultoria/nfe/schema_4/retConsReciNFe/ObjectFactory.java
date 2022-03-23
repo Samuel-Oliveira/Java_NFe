@@ -149,6 +149,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.Det.ObsItem }
+     * 
+     */
+    public TNFe.InfNFe.Det.ObsItem createTNFeInfNFeDetObsItem() {
+        return new TNFe.InfNFe.Det.ObsItem();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Det.ImpostoDevol }
      * 
      */
@@ -469,6 +477,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.InfSolicNFF }
+     * 
+     */
+    public TNFe.InfNFe.InfSolicNFF createTNFeInfNFeInfSolicNFF() {
+        return new TNFe.InfNFe.InfSolicNFF();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Cana.ForDia }
      * 
      */
@@ -578,6 +594,22 @@ public class ObjectFactory {
      */
     public TNFe.InfNFe.Total.RetTrib createTNFeInfNFeTotalRetTrib() {
         return new TNFe.InfNFe.Total.RetTrib();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.ObsItem.ObsCont }
+     * 
+     */
+    public TNFe.InfNFe.Det.ObsItem.ObsCont createTNFeInfNFeDetObsItemObsCont() {
+        return new TNFe.InfNFe.Det.ObsItem.ObsCont();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.ObsItem.ObsFisco }
+     * 
+     */
+    public TNFe.InfNFe.Det.ObsItem.ObsFisco createTNFeInfNFeDetObsItemObsFisco() {
+        return new TNFe.InfNFe.Det.ObsItem.ObsFisco();
     }
 
     /**
@@ -834,6 +866,22 @@ public class ObjectFactory {
      */
     public TNFe.InfNFe.Det.Prod.Rastro createTNFeInfNFeDetProdRastro() {
         return new TNFe.InfNFe.Det.Prod.Rastro();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Prod.InfProdNFF }
+     * 
+     */
+    public TNFe.InfNFe.Det.Prod.InfProdNFF createTNFeInfNFeDetProdInfProdNFF() {
+        return new TNFe.InfNFe.Det.Prod.InfProdNFF();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Prod.InfProdEmb }
+     * 
+     */
+    public TNFe.InfNFe.Det.Prod.InfProdEmb createTNFeInfNFeDetProdInfProdEmb() {
+        return new TNFe.InfNFe.Det.Prod.InfProdEmb();
     }
 
     /**

@@ -149,6 +149,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.Det.ObsItem }
+     * 
+     */
+    public TNFe.InfNFe.Det.ObsItem createTNFeInfNFeDetObsItem() {
+        return new TNFe.InfNFe.Det.ObsItem();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Det.ImpostoDevol }
      * 
      */
@@ -586,6 +594,22 @@ public class ObjectFactory {
      */
     public TNFe.InfNFe.Total.RetTrib createTNFeInfNFeTotalRetTrib() {
         return new TNFe.InfNFe.Total.RetTrib();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.ObsItem.ObsCont }
+     * 
+     */
+    public TNFe.InfNFe.Det.ObsItem.ObsCont createTNFeInfNFeDetObsItemObsCont() {
+        return new TNFe.InfNFe.Det.ObsItem.ObsCont();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.ObsItem.ObsFisco }
+     * 
+     */
+    public TNFe.InfNFe.Det.ObsItem.ObsFisco createTNFeInfNFeDetObsItemObsFisco() {
+        return new TNFe.InfNFe.Det.ObsItem.ObsFisco();
     }
 
     /**
