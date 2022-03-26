@@ -38,11 +38,12 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.18C - SNAPSHOT - 23/03/2022 - Schemas PL.009i
+## v4.00.18D - SNAPSHOT - 25/03/2022 - Schemas PL.009i
 - Atualizado Cacert
 - Alteração WebService CE
 - Adicionado System.getProperty("file.separator") como separado de arquivos
 - Implementado NT 2021.004 1.20
+- Corrigido Consulta Cadastro MS
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:
