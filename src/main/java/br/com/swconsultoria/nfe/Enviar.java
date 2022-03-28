@@ -134,7 +134,7 @@ class Enviar {
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(), e);
         }
 
     }
