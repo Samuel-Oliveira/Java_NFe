@@ -31,6 +31,9 @@ import java.util.logging.Logger;
  * @see ConfiguracoesWebNfe
  */
 public class ConfiguracoesNfe {
+    static {
+        System.setProperty("file.encoding", "UTF-8");
+    }
 
     private EstadosEnum estado;
     private AmbienteEnum ambiente;
@@ -72,16 +75,6 @@ public class ConfiguracoesNfe {
         configuracoesNfe.setCertificado(
                 ObjetoUtil.verifica(certificado).orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo.")));
         configuracoesNfe.setPastaSchemas(pastaSchemas);
-
-        try {
-            //Setando Encoding.
-            System.setProperty("file.encoding", "UTF-8");
-            Field charset = Charset.class.getDeclaredField("defaultCharset");
-            charset.setAccessible(true);
-            charset.set(null, null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new CertificadoException("Erro ao setar Encoding.");
-        }
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
