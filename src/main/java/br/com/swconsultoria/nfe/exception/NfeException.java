@@ -32,6 +32,17 @@ public class NfeException extends Exception {
 	}
 
 	/**
+	 * Construtor da classe.
+	 *
+	 * @param message
+	 * @param cause
+	 */
+	public NfeException(String message, Throwable cause) {
+		this(cause);
+		this.message = message;
+	}
+
+	/**
 	 * @return the message
 	 */
 	public String getMessage() {
