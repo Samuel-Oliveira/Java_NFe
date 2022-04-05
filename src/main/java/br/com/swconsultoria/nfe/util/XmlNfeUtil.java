@@ -16,9 +16,7 @@ import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TProcInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
-import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
-import com.sun.xml.bind.marshaller.MinimumEscapeHandler;
-import com.sun.xml.bind.marshaller.NoEscapeHandler;
+import com.sun.xml.bind.marshaller.DumbEscapeHandler;
 
 import javax.xml.bind.*;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -313,7 +311,9 @@ public class XmlNfeUtil {
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-        marshaller.setProperty("com.sun.xml.bind.characterEscapeHandler", MinimumEscapeHandler.theInstance);
+
+        //Escape everything above the US-ASCII code range. A fallback position. Works with any JDK, any encoding.
+        marshaller.setProperty("com.sun.xml.bind.characterEscapeHandler", DumbEscapeHandler.theInstance);
 
         StringWriter sw = new StringWriter();
 
