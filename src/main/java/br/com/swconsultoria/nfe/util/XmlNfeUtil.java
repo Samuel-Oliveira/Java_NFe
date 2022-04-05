@@ -16,6 +16,9 @@ import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TProcInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
+import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
+import com.sun.xml.bind.marshaller.MinimumEscapeHandler;
+import com.sun.xml.bind.marshaller.NoEscapeHandler;
 
 import javax.xml.bind.*;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -307,20 +310,22 @@ public class XmlNfeUtil {
         assert context != null;
         Marshaller marshaller = context.createMarshaller();
 
-        marshaller.setProperty("jaxb.encoding", "Unicode");
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+        marshaller.setProperty("com.sun.xml.bind.characterEscapeHandler", MinimumEscapeHandler.theInstance);
 
         StringWriter sw = new StringWriter();
 
+        sw.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         marshaller.marshal(element, sw);
-        StringBuilder xml = new StringBuilder();
-        xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(sw.toString());
+
+        String xml = sw.toString();
 
         if ((obj.getClass().getSimpleName().equals(TPROCEVENTO))) {
-            return replacesNfe(xml.toString().replaceAll("procEvento", "procEventoNFe"));
+            return replacesNfe(xml.replace("procEvento", "procEventoNFe"));
         } else {
-            return replacesNfe(xml.toString());
+            return replacesNfe(xml);
         }
 
     }

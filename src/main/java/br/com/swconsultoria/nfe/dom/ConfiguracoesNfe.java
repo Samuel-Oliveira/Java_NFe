@@ -31,9 +31,6 @@ import java.util.logging.Logger;
  * @see ConfiguracoesWebNfe
  */
 public class ConfiguracoesNfe {
-    static {
-        System.setProperty("file.encoding", "UTF-8");
-    }
 
     private EstadosEnum estado;
     private AmbienteEnum ambiente;
