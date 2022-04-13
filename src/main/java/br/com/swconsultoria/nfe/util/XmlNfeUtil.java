@@ -311,16 +311,15 @@ public class XmlNfeUtil {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
-        StringWriter sw = new StringWriter();
+        StringWriter sw = new StringWriter(4096);
+        sw.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
         marshaller.marshal(element, sw);
-        StringBuilder xml = new StringBuilder();
-        xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(sw.toString());
 
         if ((obj.getClass().getSimpleName().equals(TPROCEVENTO))) {
-            return replacesNfe(xml.toString().replaceAll("procEvento", "procEventoNFe"));
+            return replacesNfe(sw.toString().replace("procEvento", "procEventoNFe"));
         } else {
-            return replacesNfe(xml.toString());
+            return replacesNfe(sw.toString());
         }
 
     }
