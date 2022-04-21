@@ -111,6 +111,11 @@ public class XsdUtil {
         static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento value) {
             return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento.class, value);
         }
+
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnvEvento", scope = br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento value) {
+            return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento.class, value);
+        }
     }
 
 }

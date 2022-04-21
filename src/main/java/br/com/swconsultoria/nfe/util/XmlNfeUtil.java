@@ -68,6 +68,7 @@ public class XmlNfeUtil {
     private static final String RET_INUT_NFE = "TRetInutNFe";
 
     private static final String TPROCCANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento";
+    private static final String TPROCATORINTERESSADO = "br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento";
     private static final String TPROCCANCELARSUBST = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento";
     private static final String TPROCCCE = "br.com.swconsultoria.nfe.schema.envcce.TProcEvento";
     private static final String TPROCEPEC = "br.com.swconsultoria.nfe.schema.envEpec.TProcEvento";
@@ -79,12 +80,14 @@ public class XmlNfeUtil {
     private static final String TProtReci = "br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe";
 
     private static final String CANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento";
+    private static final String ATOR_INTERESSADO = "br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TEnvEvento";
     private static final String CANCELAR_SUBSTITUICAO = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento";
     private static final String CCE = "br.com.swconsultoria.nfe.schema.envcce.TEnvEvento";
     private static final String EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento";
     private static final String MANIFESTAR = "br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento";
 
     private static final String RET_CANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento";
+    private static final String RET_ATOR_INTERESSADO = "br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento";
     private static final String RET_CANCELAR_SUBSTITUICAO = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento";
     private static final String RET_CCE = "br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento";
     private static final String RET_EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento";
@@ -191,6 +194,10 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento.class);
                         element = new br.com.swconsultoria.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento) obj);
                         break;
+                    case TPROCATORINTERESSADO:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento.class);
+                        element = new br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento) obj);
+                        break;
                     case TPROCCANCELARSUBST:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class);
                         element = new br.com.swconsultoria.nfe.schema.envEventoCancSubst.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento) obj);
@@ -250,6 +257,10 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento.class);
                         element = new br.com.swconsultoria.nfe.schema.envConfRecebto.ObjectFactory().createEnvEvento((br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento) obj);
                         break;
+                    case ATOR_INTERESSADO:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TEnvEvento.class);
+                        element = new br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.ObjectFactory().createEnvEvento((br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TEnvEvento) obj);
+                        break;
                     default:
                         throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
                 }
@@ -276,6 +287,10 @@ public class XmlNfeUtil {
                     case RET_MANIFESTAR:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento.class);
                         element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento) obj);
+                        break;
+                    case RET_ATOR_INTERESSADO:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento.class);
+                        element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento) obj);
                         break;
                     default:
                         throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
@@ -318,9 +333,9 @@ public class XmlNfeUtil {
 
         if ((obj.getClass().getSimpleName().equals(TPROCEVENTO))) {
             return replacesNfe(sw.toString().replace("procEvento", "procEventoNFe"));
-        } else {
-            return replacesNfe(sw.toString());
         }
+
+        return replacesNfe(sw.toString());
 
     }
 
@@ -353,18 +368,16 @@ public class XmlNfeUtil {
 
     private static String replacesNfe(String xml) {
 
-        xml = xml.replaceAll("<!\\[CDATA\\[<!\\[CDATA\\[", "<!\\[CDATA\\[");
-        xml = xml.replaceAll("\\]\\]>\\]\\]>", "\\]\\]>");
-        xml = xml.replaceAll("ns2:", "");
-        xml = xml.replaceAll("ns3:", "");
-        xml = xml.replaceAll("&lt;", "<");
-        xml = xml.replaceAll("&gt;", ">");
-        xml = xml.replaceAll("<Signature>", "<Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">");
-        xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
-        xml = xml.replaceAll(" xmlns=\"\" xmlns:ns3=\"http://www.portalfiscal.inf.br/nfe\"", "");
-        xml = xml.replaceAll("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
-
-        return xml;
+        return xml.replace("<!\\[CDATA\\[<!\\[CDATA\\[", "<!\\[CDATA\\[")
+                .replace("\\]\\]>\\]\\]>", "\\]\\]>")
+                .replace("ns2:", "")
+                .replace("ns3:", "")
+                .replace("&lt;", "<")
+                .replace("&gt;", ">")
+                .replace("<Signature>", "<Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">")
+                .replace(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "")
+                .replace(" xmlns=\"\" xmlns:ns3=\"http://www.portalfiscal.inf.br/nfe\"", "")
+                .replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
     }
 

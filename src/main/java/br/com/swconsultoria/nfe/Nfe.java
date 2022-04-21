@@ -108,7 +108,7 @@ public class Nfe {
      * @throws NfeException
      */
     public static TRetInutNFe inutilizacao(ConfiguracoesNfe configuracoesNfe, TInutNFe inutNFe, DocumentoEnum tipoDocumento, boolean validar) throws NfeException {
-        return Inutilizar.inutiliza(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe,inutNFe.getInfInut().getCNPJ()), inutNFe, tipoDocumento, validar);
+        return Inutilizar.inutiliza(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, inutNFe.getInfInut().getCNPJ()), inutNFe, tipoDocumento, validar);
     }
 
     /**
@@ -133,9 +133,9 @@ public class Nfe {
      * @param tipoDocumento No tipo Informar DocumentoEnum.NFE ou DocumentoEnum.NFCE
      * @return
      * @throws NfeException
-     */    
+     */
     public static TRetEnviNFe enviarNfe(ConfiguracoesNfe configuracoesNfe, TEnviNFe enviNFe, DocumentoEnum tipoDocumento) throws NfeException {
-    
+
         return Enviar.enviaNfe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, enviNFe.getNFe().get(0).getInfNFe().getEmit().getCNPJ()), enviNFe, tipoDocumento);
 
     }
@@ -152,6 +152,21 @@ public class Nfe {
     public static TRetEnvEvento cancelarNfe(ConfiguracoesNfe configuracoesNfe, TEnvEvento envEvento, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
 
         return Cancelar.eventoCancelamento(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida, tipoDocumento);
+
+    }
+
+    /**
+     * Metodo para AtorInteressado da NFE
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.retEnvEventoAtorInteressado.TRetEnvEvento atorInteressadoNFe(ConfiguracoesNfe configuracoesNfe, br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TEnvEvento envEvento, boolean valida) throws NfeException {
+
+        return AtorInteressado.eventoAtorInteressado(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento
+                , valida);
 
     }
 
@@ -197,7 +212,7 @@ public class Nfe {
      * @throws NfeException
      */
     public static br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento enviarEpec(ConfiguracoesNfe configuracoesNfe, br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento envEvento, boolean valida) throws NfeException {
-    
+
         return Epec.eventoEpec(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()), envEvento, valida);
 
     }
@@ -217,6 +232,7 @@ public class Nfe {
 
     /**
      * Metodo para Manifestação da NFE.
+     *
      * @param configuracoesNfe
      * @param evento
      * @param valida
@@ -228,6 +244,5 @@ public class Nfe {
         return ManifestacaoDestinatario.eventoManifestacao(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, evento.getEvento().get(0).getInfEvento().getCNPJ()), evento, valida);
 
     }
-
 
 }
