@@ -38,7 +38,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.18E - SNAPSHOT - 05/04/2022 - Schemas PL.009i
+## v4.00.18F - SNAPSHOT - 21/04/2022 - Schemas PL.009i
 - Atualizado Cacert
 - Alteração WebService CE
 - Adicionado System.getProperty("file.separator") como separado de arquivos
@@ -46,6 +46,8 @@ ________________________________________________________________________________
 - Corrigido Consulta Cadastro MS
 - Alterado URL QrCode NFCe MG
 - Atualizado Servidro DFe Homologação
+- Adicionado Compatibilidade com Java 14+
+- Adicionado Envento Ator Interessado
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:

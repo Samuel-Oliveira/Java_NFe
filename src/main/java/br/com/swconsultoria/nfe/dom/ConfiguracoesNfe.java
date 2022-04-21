@@ -73,19 +73,28 @@ public class ConfiguracoesNfe {
                 ObjetoUtil.verifica(certificado).orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo.")));
         configuracoesNfe.setPastaSchemas(pastaSchemas);
 
-        try {
-            //Setando Encoding.
-            System.setProperty("file.encoding", "UTF-8");
-            Field charset = Charset.class.getDeclaredField("defaultCharset");
-            charset.setAccessible(true);
-            charset.set(null, null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new CertificadoException("Erro ao setar Encoding.");
+        /**
+         * Para as versões Java até 11, Eu ainda ceto o Encoding por que é permitido.
+         * Para quem trabalha com Java 12+, Aconselhasse setar o Encoding :
+         * -Dfile.encoding="UTF-8"
+         * -Dsun.jnu.encoding="UTF-8"
+         *
+         */
+        if(Integer.parseInt(System.getProperty("java.class.version").substring(0,2)) < 56){
+            try {
+                //Setando Encoding.
+                System.setProperty("file.encoding", "UTF-8");
+                Field charset = Charset.class.getDeclaredField("defaultCharset");
+                charset.setAccessible(true);
+                charset.set(null, null);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                throw new CertificadoException("Erro ao setar Encoding.");
+            }
         }
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
-            System.err.println("       Api Java Nfe - Versão 4.00.18E-SNAPSHOT - 05/04/2022");
+            System.err.println("       Api Java Nfe - Versão 4.00.18F-SNAPSHOT - 21/04/2022");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
