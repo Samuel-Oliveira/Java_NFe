@@ -27,6 +27,8 @@ public class ObjectFactory {
     private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
     private final static QName _EnvEvento_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "envEvento");
 
+    private final static QName _TProcEvento_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "procEvento");
+
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema.envEventoAtorInteressado
      * 
@@ -210,6 +212,11 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "envEvento")
     public JAXBElement<TEnvEvento> createEnvEvento(TEnvEvento value) {
         return new JAXBElement<TEnvEvento>(_EnvEvento_QNAME, TEnvEvento.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "procEvento")
+    public JAXBElement<TProcEvento> createTProcEvento(TProcEvento value) {
+        return new JAXBElement<TProcEvento>(_TProcEvento_QNAME,TProcEvento.class, null, value);
     }
 
 }
