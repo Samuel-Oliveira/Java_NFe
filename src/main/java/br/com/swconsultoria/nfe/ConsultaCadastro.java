@@ -9,8 +9,12 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.consCad.TConsCad;
 import br.com.swconsultoria.nfe.schema.consCad.TUfCons;
 import br.com.swconsultoria.nfe.schema.retConsCad.TRetConsCad;
-import br.com.swconsultoria.nfe.util.*;
+import br.com.swconsultoria.nfe.util.ConstantesUtil;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
+import br.com.swconsultoria.nfe.util.WebServiceUtil;
+import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.CadConsultaCadastro4Stub;
+import lombok.extern.java.Log;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 import org.apache.axis2.transport.http.HTTPConstants;
@@ -24,7 +28,7 @@ import java.rmi.RemoteException;
  *
  * @author Samuel Oliveira - samuel@swconsultoria.com.br - www.swconsultoria.com.br
  */
-
+@Log
 class ConsultaCadastro {
 
     private ConsultaCadastro() {}
@@ -54,7 +58,7 @@ class ConsultaCadastro {
 
             String xml = XmlNfeUtil.objectToXml(consCad);
 
-            LoggerUtil.log(ConsultaCadastro.class, "[XML-ENVIO]: " + xml);
+            log.info("[XML-ENVIO]: " + xml);
 
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
@@ -80,7 +84,7 @@ class ConsultaCadastro {
 
                 br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.ms.CadConsultaCadastro4Stub.NfeResultMsg result = stub.consultaCadastro(dadosMsg);
 
-                LoggerUtil.log(ConsultaCadastro.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+                log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsCad.class);
             } else if (EstadosEnum.MT.equals(estado)) {
                 br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.rs.CadConsultaCadastro4Stub.ConsultaCadastro consultaCadastro =
@@ -101,7 +105,7 @@ class ConsultaCadastro {
 
                 br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.rs.CadConsultaCadastro4Stub.NfeResultMsg result = stub.consultaCadastro(consultaCadastro);
 
-                LoggerUtil.log(ConsultaCadastro.class, "[XML-RETORNO]: " + result.getConsultaCadastroResult().getExtraElement().toString());
+                log.info("[XML-RETORNO]: " + result.getConsultaCadastroResult().getExtraElement().toString());
                 return XmlNfeUtil.xmlToObject(result.getConsultaCadastroResult().getExtraElement().toString(), TRetConsCad.class);
             } else {
                 CadConsultaCadastro4Stub.NfeDadosMsg dadosMsg = new CadConsultaCadastro4Stub.NfeDadosMsg();
@@ -119,7 +123,7 @@ class ConsultaCadastro {
 
                 CadConsultaCadastro4Stub.NfeResultMsg result = stub.consultaCadastro(dadosMsg);
 
-                LoggerUtil.log(ConsultaCadastro.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+                log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsCad.class);
             }
 

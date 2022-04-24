@@ -9,6 +9,7 @@ import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
+import lombok.extern.java.Log;
 import org.ini4j.Wini;
 
 import java.io.*;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
  *
  * Classe responsávelem montar as URL's de consulta de serviços do SEFAZ.
  */
+@Log
 public class WebServiceUtil {
 
     private final static Logger logger = Logger.getLogger(WebServiceUtil.class.getName());
@@ -53,12 +55,12 @@ public class WebServiceUtil {
                     + (config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "H" : "P");
 
             InputStream is;
-            if(ObjetoUtil.verifica(config.getArquivoWebService()).isPresent()){
+            if (ObjetoUtil.verifica(config.getArquivoWebService()).isPresent()) {
                 File arquivo = new File(config.getArquivoWebService());
-                if(!arquivo.exists())
-                    throw new FileNotFoundException("Arquivo WebService"+config.getArquivoWebService()+" não encontrado");
+                if (!arquivo.exists())
+                    throw new FileNotFoundException("Arquivo WebService" + config.getArquivoWebService() + " não encontrado");
                 is = new FileInputStream(arquivo);
-            }else{
+            } else {
                 is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
             }
 
@@ -112,7 +114,7 @@ public class WebServiceUtil {
             ObjetoUtil.verifica(url).orElseThrow(() -> new NfeException(
                     "WebService de " + tipoServico + " não encontrado para " + config.getEstado().getNome()));
 
-            LoggerUtil.log(WebServiceUtil.class, "[URL]: " + tipoServico + ": " + url);
+            log.info("[URL]: " + tipoServico + ": " + url);
 
             return url;
 

@@ -8,12 +8,12 @@ import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
-import br.com.swconsultoria.nfe.util.LoggerUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.ws.RetryParameter;
 import br.com.swconsultoria.nfe.wsdl.NFeAutorizacao.NFeAutorizacao4Stub;
+import lombok.extern.java.Log;
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
@@ -33,6 +33,7 @@ import java.util.Iterator;
  *
  * @author Samuel Oliveira - samuel@swconsultoria.com.br - www.swconsultoria.com.br
  */
+@Log
 class Enviar {
 
     /**
@@ -60,7 +61,7 @@ class Enviar {
             //Retira Quebra de Linha
             xml = xml.replaceAll(System.lineSeparator(), "");
 
-            LoggerUtil.log(Enviar.class, "[XML-ASSINADO]: " + xml);
+            log.info("[XML-ASSINADO]: " + xml);
 
             /**
              * Valida o Xml caso sejá selecionado True
@@ -107,7 +108,7 @@ class Enviar {
                 }
             }
 
-            LoggerUtil.log(Enviar.class, "[XML-ENVIO]: " + xml);
+            log.info("[XML-ENVIO]: " + xml);
 
             NFeAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeAutorizacao4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
@@ -130,7 +131,7 @@ class Enviar {
             }
 
             NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
-            LoggerUtil.log(Enviar.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+            log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {

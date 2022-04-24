@@ -9,6 +9,7 @@ import br.com.swconsultoria.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import br.com.swconsultoria.nfe.util.*;
 import br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocolo.NFeConsultaProtocolo4Stub;
+import lombok.extern.java.Log;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 import org.apache.axis2.transport.http.HTTPConstants;
@@ -22,7 +23,7 @@ import java.rmi.RemoteException;
  *
  * @author Samuel Oliveira - samuel@swconsultoria.com.br - www.swconsultoria.com.br
  */
-
+@Log
 class ConsultaXml {
 
     /**
@@ -45,7 +46,7 @@ class ConsultaXml {
 
             String xml = XmlNfeUtil.objectToXml(consSitNFe);
 
-            LoggerUtil.log(ConsultaXml.class,"[XML-ENVIO]: " +xml);
+            log.info("[XML-ENVIO]: " +xml);
 
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
@@ -64,7 +65,7 @@ class ConsultaXml {
                 }
                 br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocoloMS.NFeConsultaProtocolo4Stub.NfeResultMsg result = stub.nfeConsultaNF(dadosMsg);
 
-                LoggerUtil.log(ConsultaXml.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+                log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsSitNFe.class);
             } else {
                 NFeConsultaProtocolo4Stub.NfeDadosMsg dadosMsg = new NFeConsultaProtocolo4Stub.NfeDadosMsg();
@@ -81,7 +82,7 @@ class ConsultaXml {
                 }
                 NFeConsultaProtocolo4Stub.NfeResultMsg result = stub.nfeConsultaNF(dadosMsg);
 
-                LoggerUtil.log(ConsultaXml.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+                log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsSitNFe.class);
             }
 

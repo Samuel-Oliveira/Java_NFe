@@ -16,6 +16,7 @@ import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TProcInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
+import lombok.extern.java.Log;
 
 import javax.xml.bind.*;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -43,6 +44,7 @@ import java.util.zip.GZIPInputStream;
  *
  * @author Samuel Oliveira
  */
+@Log
 public class XmlNfeUtil {
 
     private static final String STATUS = "TConsStatServ";
@@ -413,7 +415,7 @@ public class XmlNfeUtil {
             return xmlCalendar.toString();
 
         } catch (DatatypeConfigurationException e) {
-            LoggerUtil.log(XmlNfeUtil.class, e.getMessage());
+            log.warning(e.getMessage());
         }
         return null;
     }

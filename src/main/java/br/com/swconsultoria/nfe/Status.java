@@ -8,10 +8,10 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.consStatServ.TConsStatServ;
 import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
-import br.com.swconsultoria.nfe.util.LoggerUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeStatusServico4.NFeStatusServico4Stub;
+import lombok.extern.java.Log;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 
@@ -24,6 +24,7 @@ import java.rmi.RemoteException;
  *
  * @author Samuel Oliveira
  */
+@Log
 class Status {
 
     /**
@@ -68,24 +69,24 @@ class Status {
             consStatServ.setXServ("STATUS");
             String xml = XmlNfeUtil.objectToXml(consStatServ);
 
-            LoggerUtil.log(Status.class, "[XML-ENVIO]: " + xml);
+            log.info("[XML-ENVIO]: " + xml);
 
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
-            if(EstadosEnum.MS.equals(config.getEstado())) {
+            if (EstadosEnum.MS.equals(config.getEstado())) {
                 br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeDadosMsg dadosMsg =
                         new br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeDadosMsg();
                 dadosMsg.setExtraElement(ome);
 
                 br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub stub =
                         new br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub(
-                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
+                                WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
 
                 br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
 
-                LoggerUtil.log(Status.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+                log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsStatServ.class);
-            }else{
+            } else {
                 NFeStatusServico4Stub.NfeDadosMsg dadosMsg = new NFeStatusServico4Stub.NfeDadosMsg();
                 dadosMsg.setExtraElement(ome);
 
@@ -94,7 +95,7 @@ class Status {
 
                 NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
 
-                LoggerUtil.log(Status.class, "[XML-RETORNO]: " + result.getExtraElement().toString());
+                log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsStatServ.class);
             }
 
