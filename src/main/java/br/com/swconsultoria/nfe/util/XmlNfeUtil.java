@@ -103,11 +103,7 @@ public class XmlNfeUtil {
      * @return T
      */
     public static <T> T xmlToObject(String xml, Class<T> classe) throws JAXBException {
-
-        JAXBContext context = JAXBContext.newInstance(classe);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-
-        return unmarshaller.unmarshal(new StreamSource(new StringReader(xml)), classe).getValue();
+        return JAXB.unmarshal(new StreamSource(new StringReader(xml)), classe);
     }
 
     /**

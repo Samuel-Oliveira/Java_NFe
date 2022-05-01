@@ -48,6 +48,8 @@ ________________________________________________________________________________
 - Atualizado Servidro DFe Homologação
 - Adicionado Compatibilidade com Java 14+
 - Adicionado Envento Ator Interessado
+- Corrigido erro de Logs
+- Adicionado Melhorias JaxB
 
 Snapshot é a versão que se encontra em teste, só use em caso de extrema necessidade.
 Para usar, adicione o repositorio de Snapshot ao Maven:

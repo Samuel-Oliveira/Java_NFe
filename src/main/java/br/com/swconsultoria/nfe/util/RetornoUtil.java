@@ -13,6 +13,23 @@ import br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
 public class RetornoUtil {
 
     /**
+     * Valida Retorno Assincrono Trasmissão de Contingencia!
+     *
+     * @param retorno
+     * @throws NfeException
+     */
+    public static void validaSincronoTrasmissaoContingencia(TRetEnviNFe retorno) throws NfeException {
+
+        if (!retorno.getCStat().equals(StatusEnum.LOTE_RECEBIDO.getCodigo()) && !retorno.getCStat().equals(StatusEnum.LOTE_PROCESSADO.getCodigo())) {
+            throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
+        }
+
+        if (!retorno.getProtNFe().getInfProt().getCStat().equals(StatusEnum.AUTORIZADO.getCodigo()) && !retorno.getProtNFe().getInfProt().getCStat().equals(StatusEnum.AUTORIZADO_FORA_PRAZO.getCodigo())) {
+            throw new NfeException(retorno.getProtNFe().getInfProt().getCStat() + " - " + retorno.getProtNFe().getInfProt().getXMotivo());
+        }
+    }
+
+    /**
      * Valida o Retorno Do Cancelamento
      *
      * @param retorno
