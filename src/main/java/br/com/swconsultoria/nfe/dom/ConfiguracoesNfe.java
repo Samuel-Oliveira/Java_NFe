@@ -74,7 +74,7 @@ public class ConfiguracoesNfe {
         configuracoesNfe.setPastaSchemas(pastaSchemas);
 
         /**
-         * Para as versões Java até 11, Eu ainda ceto o Encoding por que é permitido.
+         * Para as versões Java até 11, Eu ainda seto o Encoding por que é permitido.
          * Para quem trabalha com Java 12+, Aconselhasse setar o Encoding :
          * -Dfile.encoding="UTF-8"
          * -Dsun.jnu.encoding="UTF-8"
@@ -94,7 +94,7 @@ public class ConfiguracoesNfe {
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
-            System.err.println("       Api Java Nfe - Versão 4.00.18F-SNAPSHOT - 21/04/2022");
+            System.err.println("       Api Java Nfe - Versão 4.00.18 - 13/05/2022");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
