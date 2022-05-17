@@ -102,9 +102,9 @@ ________________________________________________________________________________
 - Implementado NT 2021.004 1.20
 - Corrigido Consulta Cadastro MS
 - Alterado URL QrCode NFCe MG
-- Atualizado Servidro DFe Homologação
+- Atualizado Servidor DFe Homologação
 - Adicionado Compatibilidade com Java 14+
-- Adicionado Envento Ator Interessado
+- Adicionado Evento Ator Interessado
 - Corrigido erro de Logs
 - Adicionado Melhorias JaxB
 
