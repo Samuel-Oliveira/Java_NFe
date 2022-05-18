@@ -1698,7 +1698,7 @@ N-NormalVIN</xs:documentation>
 																	</xs:annotation>
 																	<xs:simpleType>
 																		<xs:restriction base="TString">
-																			<xs:pattern value="[0-9]{13}|ISENTO"/>
+																			<xs:pattern value="[0-9]{11}|[0-9]{13}|ISENTO"/>
 																		</xs:restriction>
 																	</xs:simpleType>
 																</xs:element>
