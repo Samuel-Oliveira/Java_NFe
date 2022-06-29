@@ -1,0 +1,53 @@
+### Site metadata ###
+ 
+site_name: Java NFe
+site_description: Biblioteca Java para consumo do WebService de NFe/NFCe
+site_url: https://Samuel-Oliveira.github.io/Java_NFe/
+
+repo_url: https://github.com/Samuel-Oliveira/Java_NFe
+edit_uri: edit/master/docs/docs
+
+### Build settings ###
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.tracking
+    - navigation.expand
+    - content.code.annotate
+
+  palette: 
+
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Inicio: index.md
+  - Exemplos:
+      - Configurações (Certificado): tutorial/configuracoes.md
+      - Status Serviço Sefaz: tutorial/status-servico.md
+      - Consulta Situação: tutorial/consulta-situacao.md
+      - Envio: tutorial/envio.md
+      - Cancelamento: tutorial/cancelamento.md
+      - Carta de Correção Eletrônica: tutorial/cce.md
+      - Inutilização: tutorial/inutilizacao.md
+      - Manifestação: tutorial/manifestacao.md
+      - Baixar Documento (DistDfe): tutorial/baixar-documento.md
+      - Consulta Cadastro: tutorial/consulta-cadastro.md
+      - Envio Epec: tutorial/envio-epec.md
