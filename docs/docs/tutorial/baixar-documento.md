@@ -22,7 +22,9 @@ public class DistribuicaoDFeTeste {
     public static void main(String[] args) {
         try {
             // Inicia As Configurações (1)
-            ConfiguracoesNfe config = Config.iniciaConfiguracoes();
+            URI uri = Objects.requireNonNull(DistribuicaoDFeTeste.class.getClassLoader().getResource("arquivo-certificado.pfx")).toURI();            
+            Certificado certificado = CertificadoService.certificadoPfx(Paths.get(file.toURI()).toString(), "senha-do-seu-certificado");
+            ConfiguracoesNfe configuracoesNfe = ConfiguracoesNfe.criarConfiguracoes(EstadosEnum.PR, AmbienteEnum.HOMOLOGACAO, certificado, "");
 
             // Informe o CNPJ Do Destinatario (Deve ser o Mesmo do Certificado)
             String cnpj = "XXX";
@@ -31,7 +33,7 @@ public class DistribuicaoDFeTeste {
 
             // Para Consulta Via CHAVE
             // String chave = "35170843283811001202550010046314601229130549";
-            // retorno = Nfe.distribuicaoDfe(PessoaEnum.JURIDICA, cnpj, ConsultaDFeEnum.CHAVE, chave);
+            // retorno = Nfe.distribuicaoDfe(configuracoesNfe, PessoaEnum.JURIDICA, cnpj, ConsultaDFeEnum.CHAVE, chave);
 
             // Para Consulta Via NSU
             String nsu = "000000000000000";
