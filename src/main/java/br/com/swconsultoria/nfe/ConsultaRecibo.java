@@ -50,7 +50,7 @@ class ConsultaRecibo {
             consReciNFe.setTpAmb(config.getAmbiente().getCodigo());
             consReciNFe.setNRec(recibo);
 
-            String xml = XmlNfeUtil.objectToXml(consReciNFe);
+            String xml = XmlNfeUtil.objectToXml(consReciNFe, config.getEncode());
 
             log.info("[XML-ENVIO]: " + xml);
 

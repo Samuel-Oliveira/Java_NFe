@@ -51,7 +51,7 @@ class Enviar {
             /**
              * Cria o xml
              */
-            String xml = XmlNfeUtil.objectToXml(enviNFe);
+            String xml = XmlNfeUtil.objectToXml(enviNFe, config.getEncode());
 
             /**
              * Assina o Xml
@@ -90,7 +90,7 @@ class Enviar {
 
         try {
 
-            String xml = XmlNfeUtil.objectToXml(enviNFe);
+            String xml = XmlNfeUtil.objectToXml(enviNFe, config.getEncode());
 
             OMElement ome;
             if (tipoDocumento.equals(DocumentoEnum.NFE)) {

@@ -22,6 +22,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.Objects;
 
@@ -33,10 +34,13 @@ final class NfeTest {
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
-        URI uri = Objects.requireNonNull(NfeTest.class.getClassLoader().getResource("NAO_UTILIZE.pfx")).toURI();
+        URI uri = Paths.get("D:\\Teste\\DILMAR IRGANG.pfx").toUri();
         Certificado certificado = CertificadoService.certificadoPfx(
-                Paths.get(uri).toString(), "123456");
+                Paths.get(uri).toString(), "1234");
+
         configuracoesNfe = ConfiguracoesNfe.criarConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO, certificado, "");
+
+        configuracoesNfe.setEncode("UTF-8");
     }
 
     @Test

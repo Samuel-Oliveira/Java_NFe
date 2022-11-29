@@ -20,7 +20,7 @@ class Cancelar {
 
 		try {
 
-			String xml = XmlNfeUtil.objectToXml(enviEvento);
+			String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
@@ -39,7 +39,7 @@ class Cancelar {
 
 		try {
 
-			String xml = XmlNfeUtil.objectToXml(enviEvento);
+			String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
 			xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
 			xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 

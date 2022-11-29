@@ -78,7 +78,7 @@ public class InutilizacaoUtil {
     public static String criaProcInutilizacao(ConfiguracoesNfe configuracoesNfe, TInutNFe inutNFe, TRetInutNFe retorno) throws JAXBException, NfeException {
 
 
-        String xml = XmlNfeUtil.objectToXml(inutNFe);
+        String xml = XmlNfeUtil.objectToXml(inutNFe, configuracoesNfe.getEncode());
         xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
         xml = Assinar.assinaNfe(configuracoesNfe, xml, AssinaturaEnum.INUTILIZACAO);
 
@@ -90,7 +90,7 @@ public class InutilizacaoUtil {
         procInutNFe.setRetInutNFe(retorno);
         procInutNFe.setVersao(ConstantesUtil.VERSAO.INUTILIZACAO);
 
-        return XmlNfeUtil.objectToXml(procInutNFe);
+        return XmlNfeUtil.objectToXml(procInutNFe, configuracoesNfe.getEncode());
     }
 
 }
