@@ -67,7 +67,7 @@ class Status {
             consStatServ.setCUF(config.getEstado().getCodigoUF());
             consStatServ.setVersao(ConstantesUtil.VERSAO.NFE);
             consStatServ.setXServ("STATUS");
-            String xml = XmlNfeUtil.objectToXml(consStatServ);
+            String xml = XmlNfeUtil.objectToXml(consStatServ, config.getEncode());
 
             log.info("[XML-ENVIO]: " + xml);
 

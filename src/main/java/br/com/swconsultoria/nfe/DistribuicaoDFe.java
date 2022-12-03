@@ -73,7 +73,7 @@ class DistribuicaoDFe {
                     break;
             }
 
-            String xml = XmlNfeUtil.objectToXml(distDFeInt);
+            String xml = XmlNfeUtil.objectToXml(distDFeInt, config.getEncode());
 
             log.info("[XML-ENVIO]: " + xml);
 
