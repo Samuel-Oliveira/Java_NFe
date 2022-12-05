@@ -33,7 +33,7 @@ class Inutilizar {
 
         try {
 
-            String xml = XmlNfeUtil.objectToXml(inutNFe);
+            String xml = XmlNfeUtil.objectToXml(inutNFe, config.getEncode());
             xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
             xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.INUTILIZACAO);
 

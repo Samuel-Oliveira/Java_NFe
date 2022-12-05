@@ -120,7 +120,7 @@ public class CancelamentoSubstituicaoUtil {
      */
     public static String criaProcEventoCancelamento(ConfiguracoesNfe config, TEnvEvento enviEvento, TRetEvento retorno) throws JAXBException, NfeException {
 
-        String xml = XmlNfeUtil.objectToXml(enviEvento);
+        String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
         xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
         xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
@@ -131,7 +131,7 @@ public class CancelamentoSubstituicaoUtil {
         procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEvento.class).getEvento().get(0));
         procEvento.setRetEvento(retorno);
 
-        return XmlNfeUtil.objectToXml(procEvento);
+        return XmlNfeUtil.objectToXml(procEvento, config.getEncode());
     }
 
 }

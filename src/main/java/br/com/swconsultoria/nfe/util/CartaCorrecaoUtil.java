@@ -118,19 +118,19 @@ public class CartaCorrecaoUtil {
      * @throws JAXBException
      * @throws NfeException
      */
-    public static String criaProcEventoCCe(ConfiguracoesNfe configuracoesNfe, TEnvEvento enviEvento, TRetEnvEvento retorno) throws JAXBException, NfeException {
+    public static String criaProcEventoCCe(ConfiguracoesNfe config, TEnvEvento enviEvento, TRetEnvEvento retorno) throws JAXBException, NfeException {
 
-        String xml = XmlNfeUtil.objectToXml(enviEvento);
+        String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
         xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
         xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-        String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe), xml, AssinaturaEnum.EVENTO);
+        String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), xml, AssinaturaEnum.EVENTO);
 
         TProcEvento procEvento = new TProcEvento();
         procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEvento.class).getEvento().get(0));
         procEvento.setRetEvento(retorno.getRetEvento().get(0));
         procEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CCE);
 
-        return XmlNfeUtil.objectToXml(procEvento);
+        return XmlNfeUtil.objectToXml(procEvento, config.getEncode());
     }
 }

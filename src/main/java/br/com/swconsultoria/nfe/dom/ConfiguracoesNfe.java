@@ -44,6 +44,8 @@ public class ConfiguracoesNfe {
     private Integer retry;
     private InputStream cacert;
 
+    private Charset encode;
+
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
@@ -308,5 +310,35 @@ public class ConfiguracoesNfe {
 
     public void setCacert(InputStream cacert) {
         this.cacert = cacert;
+    }
+
+    /**
+     * Recupera encode que será utilizado na geração do arquivo XML.
+     *
+     * @return
+     */
+    public Charset getEncode() { return encode;}
+
+    /**
+     * Altera o encode utilizado para criar o arquivo xml.<br>
+     * Por padrão é utilizado o UTF-8 em caso de erro ou não ser
+     * informado nada.
+     * @param encode
+     */
+    public void setEncode(Charset encode) { this.encode = encode; }
+
+    /**
+     * Passar encode via String para o xml.
+     *
+     * @param nomeEncode
+     */
+    public void setEncode(String nomeEncode) {
+        if (nomeEncode != null && !nomeEncode.equals("")) {
+             try {
+                 this.encode = Charset.forName(nomeEncode);
+             } catch (Exception ex) {
+                 this.encode = Charset.forName("UTF-8");
+             }
+        }
     }
 }

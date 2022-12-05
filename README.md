@@ -2,7 +2,7 @@
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ## Dúvidas, Sugestões ou Consultoria
-Entre no Discord do Projeto: https://discord.gg/ZXpqnaV
+[![Java Brasil](https://discordapp.com/api/guilds/519583346066587676/widget.png?style=banner2)](https://discord.gg/ZXpqnaV)
 
 ## Gostou do Projeto? Dê sua colaboração pelo Pix: 01713390108 <img src="https://swconsultoria.com.br/pix.png" width="200">
 
@@ -52,11 +52,11 @@ ________________________________________________________________________________
 
 [//]: # (- Alterado URL QrCode NFCe MG)
 
-[//]: # (- Atualizado Servidro DFe Homologação)
+[//]: # (- Atualizado Servidor DFe Homologação)
 
 [//]: # (- Adicionado Compatibilidade com Java 14+)
 
-[//]: # (- Adicionado Envento Ator Interessado)
+[//]: # (- Adicionado Evento Ator Interessado)
 
 [//]: # (- Corrigido erro de Logs)
 
@@ -102,9 +102,9 @@ ________________________________________________________________________________
 - Implementado NT 2021.004 1.20
 - Corrigido Consulta Cadastro MS
 - Alterado URL QrCode NFCe MG
-- Atualizado Servidro DFe Homologação
+- Atualizado Servidor DFe Homologação
 - Adicionado Compatibilidade com Java 14+
-- Adicionado Envento Ator Interessado
+- Adicionado Evento Ator Interessado
 - Corrigido erro de Logs
 - Adicionado Melhorias JaxB
 
