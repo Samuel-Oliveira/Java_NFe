@@ -157,8 +157,7 @@ public class Assinar {
 
     private static String outputXML(Document doc) throws NfeException {
 
-        try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream()){
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer trans = tf.newTransformer();
             trans.transform(new DOMSource(doc), new StreamResult(os));
@@ -166,10 +165,8 @@ public class Assinar {
             xml = xml.replaceAll("\\r\\n", "");
             xml = xml.replaceAll(" standalone=\"no\"", "");
             return xml;
-        } catch (TransformerException e) {
-            throw new NfeException("Erro ao Transformar Documento:" + e.getMessage());
+        } catch (TransformerException | IOException e) {
+            throw new NfeException("Erro ao Transformar Documento:" + e.getMessage(),e);
         }
-
     }
-
 }
