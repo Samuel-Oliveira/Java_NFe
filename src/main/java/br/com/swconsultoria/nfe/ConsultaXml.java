@@ -44,7 +44,7 @@ class ConsultaXml {
             consSitNFe.setXServ("CONSULTAR");
             consSitNFe.setChNFe(chave);
 
-            String xml = XmlNfeUtil.objectToXml(consSitNFe);
+            String xml = XmlNfeUtil.objectToXml(consSitNFe, config.getEncode());
 
             log.info("[XML-ENVIO]: " +xml);
 

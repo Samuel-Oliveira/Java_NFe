@@ -56,7 +56,7 @@ class ConsultaCadastro {
 
             consCad.setInfCons(infCons);
 
-            String xml = XmlNfeUtil.objectToXml(consCad);
+            String xml = XmlNfeUtil.objectToXml(consCad, config.getEncode());
 
             log.info("[XML-ENVIO]: " + xml);
 

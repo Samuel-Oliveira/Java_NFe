@@ -26,6 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.InvalidParameterException;
@@ -115,6 +116,10 @@ public class XmlNfeUtil {
      * @throws NfeException
      */
     public static <T> String objectToXml(Object obj) throws JAXBException, NfeException {
+        return objectToXml(obj, Charset.forName("UTF-8"));
+    }
+
+    public static <T> String objectToXml(Object obj, Charset encode) throws JAXBException, NfeException {
 
         JAXBContext context;
         JAXBElement<?> element;
@@ -325,7 +330,10 @@ public class XmlNfeUtil {
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
         StringWriter sw = new StringWriter(4096);
-        sw.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+
+        String encodeXml = encode == null || !Charset.isSupported(encode.displayName()) ? "UTF-8" : encode.displayName();
+
+        sw.append("<?xml version=\"1.0\" encoding=\""+ encodeXml + "\"?>");
 
         marshaller.marshal(element, sw);
 
