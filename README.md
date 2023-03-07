@@ -1,4 +1,4 @@
-# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.19/jar)
+# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.20/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ## Dúvidas, Sugestões ou Consultoria
@@ -7,7 +7,7 @@ Biblioteca Java para consumo do WebService de NFe/NFCe
 ## Gostou do Projeto? Dê sua colaboração pelo Pix: 01713390108 <img src="https://swconsultoria.com.br/pix.png" width="200">
 
 Para Iniciar : 
-- Caso use Libs baixe o java-nfe-4.00.19.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.19.jar) e o adicione às bibliotecas de Seu Projeto.
+- Caso use Libs baixe o java-nfe-4.00.20.jar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.20.jar) e o adicione às bibliotecas de Seu Projeto.
 
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/schemas.zip) e extraia na sua Máquina.
 
@@ -16,7 +16,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.19</version>
+    <version>4.00.20</version>
 </dependency>
 ```
 
@@ -28,7 +28,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.19"
+    implementation "br.com.swconsultoria:java-nfe:4.00.20"
 }
 ```
 
@@ -95,11 +95,14 @@ ________________________________________________________________________________
 
 [//]: # (Ou baixe o Jar aqui: https://github.com/Samuel-Oliveira/Java_NFe/raw/master/java-nfe-4.00.19-SNAPSHOT.jar)
 
+## v4.00.20 - 07/03/2023 - Schemas PL.009i
+- Correção URL MG
+
 ## v4.00.19 - 22/01/2023 - Schemas PL.009i
 - Atualizado Cacert
 - Atualizado Lib Certificado
 - Correção de URL QrCode NFCe MG Homologação 
-- 
+
 
 ## v4.00.18 - 13/05/2022 - Schemas PL.009i
 - Atualizado Cacert
