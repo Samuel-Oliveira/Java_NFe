@@ -35,7 +35,7 @@ jobs:
       - name: Criando executavel
         run: mvn -B package --file pom.xml
       - name: Criando pasta para Zip
-        run: mkdir java-nfe && cp target/*.jar java-nfe && cp schemas.zip
+        run: mkdir java-nfe && cp target/*.jar java-nfe && cp schemas.zip java-nfe
       - uses: montudor/action-zip@v1
         with:
           args: zip -qq -r java-nfe.zip java-nfe
@@ -49,11 +49,11 @@ jobs:
           tag_name: ${{ github.ref }}
           body_path: CHANGELOG.md
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ GITHUB_TOKEN }}
       - name: Subir executavel (zip) para release
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./java-nfe.zip
