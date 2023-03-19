@@ -10,7 +10,7 @@ Para Iniciar :
 - Baixe o Schemas.rar (https://github.com/Samuel-Oliveira/Java_NFe/raw/master/schemas.zip) e extraia na sua Máquina.
 
 - External Jar: Baixe e adicione às bibliotecas de seu Projeto.
-  - https://github.com/Java-Brasil/Java-Boletos/releases
+  - https://github.com/Samuel-Oliveira/Java_NFe/releases
 
 - Maven :
 ```xml
