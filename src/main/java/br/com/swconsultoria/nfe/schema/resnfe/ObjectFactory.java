@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the br.inf.portalfiscal.nfe.schema.resnfe package. 
+ * generated in the br.com.swconsultoria.nfe.schema.resnfe package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -27,18 +27,10 @@ public class ObjectFactory {
     private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.inf.portalfiscal.nfe.schema.resnfe
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema.resnfe
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link SignedInfoType }
-     * 
-     */
-    public SignedInfoType createSignedInfoType() {
-        return new SignedInfoType();
     }
 
     /**
@@ -47,6 +39,14 @@ public class ObjectFactory {
      */
     public ReferenceType createReferenceType() {
         return new ReferenceType();
+    }
+
+    /**
+     * Create an instance of {@link SignedInfoType }
+     * 
+     */
+    public SignedInfoType createSignedInfoType() {
+        return new SignedInfoType();
     }
 
     /**
@@ -66,27 +66,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link KeyInfoType }
-     * 
-     */
-    public KeyInfoType createKeyInfoType() {
-        return new KeyInfoType();
-    }
-
-    /**
      * Create an instance of {@link SignatureValueType }
      * 
      */
     public SignatureValueType createSignatureValueType() {
         return new SignatureValueType();
-    }
-
-    /**
-     * Create an instance of {@link TransformType }
-     * 
-     */
-    public TransformType createTransformType() {
-        return new TransformType();
     }
 
     /**
@@ -98,11 +82,35 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TransformType }
+     * 
+     */
+    public TransformType createTransformType() {
+        return new TransformType();
+    }
+
+    /**
+     * Create an instance of {@link KeyInfoType }
+     * 
+     */
+    public KeyInfoType createKeyInfoType() {
+        return new KeyInfoType();
+    }
+
+    /**
      * Create an instance of {@link X509DataType }
      * 
      */
     public X509DataType createX509DataType() {
         return new X509DataType();
+    }
+
+    /**
+     * Create an instance of {@link ReferenceType.DigestMethod }
+     * 
+     */
+    public ReferenceType.DigestMethod createReferenceTypeDigestMethod() {
+        return new ReferenceType.DigestMethod();
     }
 
     /**
@@ -122,16 +130,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ReferenceType.DigestMethod }
+     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
      * 
-     */
-    public ReferenceType.DigestMethod createReferenceTypeDigestMethod() {
-        return new ReferenceType.DigestMethod();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2000/09/xmldsig#", name = "Signature")
     public JAXBElement<SignatureType> createSignature(SignatureType value) {

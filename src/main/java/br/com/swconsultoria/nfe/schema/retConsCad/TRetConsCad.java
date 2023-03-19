@@ -1,12 +1,17 @@
 
 package br.com.swconsultoria.nfe.schema.retConsCad;
 
-import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -17,132 +22,132 @@ import java.util.List;
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="TRetConsCad">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="infCons">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
- *                   &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
- *                   &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
- *                   &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUfCons"/>
- *                   &lt;choice>
- *                     &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
- *                     &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/>
- *                     &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/>
- *                   &lt;/choice>
- *                   &lt;element name="dhCons" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                   &lt;element name="cUF" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/>
- *                   &lt;element name="infCad" maxOccurs="unbounded" minOccurs="0">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
- *                             &lt;choice>
- *                               &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/>
- *                               &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/>
- *                             &lt;/choice>
- *                             &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
- *                             &lt;element name="cSit">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
- *                                   &lt;enumeration value="0"/>
- *                                   &lt;enumeration value="1"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="indCredNFe">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                   &lt;whiteSpace value="preserve"/>
- *                                   &lt;enumeration value="0"/>
- *                                   &lt;enumeration value="1"/>
- *                                   &lt;enumeration value="2"/>
- *                                   &lt;enumeration value="3"/>
- *                                   &lt;enumeration value="4"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="indCredCTe">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                   &lt;whiteSpace value="preserve"/>
- *                                   &lt;enumeration value="0"/>
- *                                   &lt;enumeration value="1"/>
- *                                   &lt;enumeration value="2"/>
- *                                   &lt;enumeration value="3"/>
- *                                   &lt;enumeration value="4"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="xNome">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
- *                                   &lt;minLength value="1"/>
- *                                   &lt;maxLength value="60"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="xFant" minOccurs="0">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
- *                                   &lt;minLength value="1"/>
- *                                   &lt;maxLength value="60"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="xRegApur" minOccurs="0">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
- *                                   &lt;minLength value="1"/>
- *                                   &lt;maxLength value="60"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="CNAE" minOccurs="0">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
- *                                   &lt;pattern value="[0-9]{6,7}"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="dIniAtiv" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *                             &lt;element name="dUltSit" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *                             &lt;element name="dBaixa" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *                             &lt;element name="IEUnica" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
- *                             &lt;element name="IEAtual" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
- *                             &lt;element name="ender" type="{http://www.portalfiscal.inf.br/nfe}TEndereco" minOccurs="0"/>
- *                           &lt;/sequence>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerConsCad" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TRetConsCad"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="infCons"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/&gt;
+ *                   &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/&gt;
+ *                   &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/&gt;
+ *                   &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUfCons"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/&gt;
+ *                     &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/&gt;
+ *                     &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/&gt;
+ *                   &lt;/choice&gt;
+ *                   &lt;element name="dhCons" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                   &lt;element name="cUF" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
+ *                   &lt;element name="infCad" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/&gt;
+ *                             &lt;choice&gt;
+ *                               &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/&gt;
+ *                               &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/&gt;
+ *                             &lt;/choice&gt;
+ *                             &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUf"/&gt;
+ *                             &lt;element name="cSit"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+ *                                   &lt;enumeration value="0"/&gt;
+ *                                   &lt;enumeration value="1"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="indCredNFe"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                   &lt;whiteSpace value="preserve"/&gt;
+ *                                   &lt;enumeration value="0"/&gt;
+ *                                   &lt;enumeration value="1"/&gt;
+ *                                   &lt;enumeration value="2"/&gt;
+ *                                   &lt;enumeration value="3"/&gt;
+ *                                   &lt;enumeration value="4"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="indCredCTe"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                   &lt;whiteSpace value="preserve"/&gt;
+ *                                   &lt;enumeration value="0"/&gt;
+ *                                   &lt;enumeration value="1"/&gt;
+ *                                   &lt;enumeration value="2"/&gt;
+ *                                   &lt;enumeration value="3"/&gt;
+ *                                   &lt;enumeration value="4"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="xNome"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
+ *                                   &lt;minLength value="1"/&gt;
+ *                                   &lt;maxLength value="60"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="xFant" minOccurs="0"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
+ *                                   &lt;minLength value="1"/&gt;
+ *                                   &lt;maxLength value="60"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="xRegApur" minOccurs="0"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+ *                                   &lt;minLength value="1"/&gt;
+ *                                   &lt;maxLength value="60"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="CNAE" minOccurs="0"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+ *                                   &lt;pattern value="[0-9]{6,7}"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="dIniAtiv" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *                             &lt;element name="dUltSit" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *                             &lt;element name="dBaixa" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *                             &lt;element name="IEUnica" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/&gt;
+ *                             &lt;element name="IEAtual" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/&gt;
+ *                             &lt;element name="ender" type="{http://www.portalfiscal.inf.br/nfe}TEndereco" minOccurs="0"/&gt;
+ *                           &lt;/sequence&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerConsCad" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TRetConsCad", propOrder = {
+@XmlType(name = "TRetConsCad", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
     "infCons"
 })
 public class TRetConsCad {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TRetConsCad.InfCons infCons;
     @XmlAttribute(name = "versao", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -150,11 +155,11 @@ public class TRetConsCad {
 
     /**
      * Obtém o valor da propriedade infCons.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link TRetConsCad.InfCons }
-     *
+     *     
      */
     public TRetConsCad.InfCons getInfCons() {
         return infCons;
@@ -162,11 +167,11 @@ public class TRetConsCad {
 
     /**
      * Define o valor da propriedade infCons.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link TRetConsCad.InfCons }
-     *
+     *     
      */
     public void setInfCons(TRetConsCad.InfCons value) {
         this.infCons = value;
@@ -174,11 +179,11 @@ public class TRetConsCad {
 
     /**
      * Obtém o valor da propriedade versao.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getVersao() {
         return versao;
@@ -186,11 +191,11 @@ public class TRetConsCad {
 
     /**
      * Define o valor da propriedade versao.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;
@@ -199,117 +204,117 @@ public class TRetConsCad {
 
     /**
      * <p>Classe Java de anonymous complex type.
-     *
+     * 
      * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
-     *
+     * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
-     *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
-     *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
-     *         &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUfCons"/>
-     *         &lt;choice>
-     *           &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
-     *           &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/>
-     *           &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/>
-     *         &lt;/choice>
-     *         &lt;element name="dhCons" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *         &lt;element name="cUF" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/>
-     *         &lt;element name="infCad" maxOccurs="unbounded" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
-     *                   &lt;choice>
-     *                     &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/>
-     *                     &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/>
-     *                   &lt;/choice>
-     *                   &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
-     *                   &lt;element name="cSit">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
-     *                         &lt;enumeration value="0"/>
-     *                         &lt;enumeration value="1"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="indCredNFe">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                         &lt;whiteSpace value="preserve"/>
-     *                         &lt;enumeration value="0"/>
-     *                         &lt;enumeration value="1"/>
-     *                         &lt;enumeration value="2"/>
-     *                         &lt;enumeration value="3"/>
-     *                         &lt;enumeration value="4"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="indCredCTe">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                         &lt;whiteSpace value="preserve"/>
-     *                         &lt;enumeration value="0"/>
-     *                         &lt;enumeration value="1"/>
-     *                         &lt;enumeration value="2"/>
-     *                         &lt;enumeration value="3"/>
-     *                         &lt;enumeration value="4"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="xNome">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
-     *                         &lt;minLength value="1"/>
-     *                         &lt;maxLength value="60"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="xFant" minOccurs="0">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
-     *                         &lt;minLength value="1"/>
-     *                         &lt;maxLength value="60"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="xRegApur" minOccurs="0">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
-     *                         &lt;minLength value="1"/>
-     *                         &lt;maxLength value="60"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="CNAE" minOccurs="0">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
-     *                         &lt;pattern value="[0-9]{6,7}"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="dIniAtiv" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-     *                   &lt;element name="dUltSit" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-     *                   &lt;element name="dBaixa" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-     *                   &lt;element name="IEUnica" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
-     *                   &lt;element name="IEAtual" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
-     *                   &lt;element name="ender" type="{http://www.portalfiscal.inf.br/nfe}TEndereco" minOccurs="0"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/&gt;
+     *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/&gt;
+     *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/&gt;
+     *         &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUfCons"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/&gt;
+     *           &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/&gt;
+     *           &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/&gt;
+     *         &lt;/choice&gt;
+     *         &lt;element name="dhCons" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *         &lt;element name="cUF" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
+     *         &lt;element name="infCad" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/&gt;
+     *                   &lt;choice&gt;
+     *                     &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/&gt;
+     *                     &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/&gt;
+     *                   &lt;/choice&gt;
+     *                   &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUf"/&gt;
+     *                   &lt;element name="cSit"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+     *                         &lt;enumeration value="0"/&gt;
+     *                         &lt;enumeration value="1"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="indCredNFe"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                         &lt;whiteSpace value="preserve"/&gt;
+     *                         &lt;enumeration value="0"/&gt;
+     *                         &lt;enumeration value="1"/&gt;
+     *                         &lt;enumeration value="2"/&gt;
+     *                         &lt;enumeration value="3"/&gt;
+     *                         &lt;enumeration value="4"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="indCredCTe"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                         &lt;whiteSpace value="preserve"/&gt;
+     *                         &lt;enumeration value="0"/&gt;
+     *                         &lt;enumeration value="1"/&gt;
+     *                         &lt;enumeration value="2"/&gt;
+     *                         &lt;enumeration value="3"/&gt;
+     *                         &lt;enumeration value="4"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="xNome"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
+     *                         &lt;minLength value="1"/&gt;
+     *                         &lt;maxLength value="60"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="xFant" minOccurs="0"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
+     *                         &lt;minLength value="1"/&gt;
+     *                         &lt;maxLength value="60"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="xRegApur" minOccurs="0"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+     *                         &lt;minLength value="1"/&gt;
+     *                         &lt;maxLength value="60"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="CNAE" minOccurs="0"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+     *                         &lt;pattern value="[0-9]{6,7}"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="dIniAtiv" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+     *                   &lt;element name="dUltSit" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+     *                   &lt;element name="dBaixa" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+     *                   &lt;element name="IEUnica" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/&gt;
+     *                   &lt;element name="IEAtual" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/&gt;
+     *                   &lt;element name="ender" type="{http://www.portalfiscal.inf.br/nfe}TEndereco" minOccurs="0"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
-     *
-     *
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -326,34 +331,36 @@ public class TRetConsCad {
     })
     public static class InfCons {
 
-        @XmlElement(required = true)
+        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verAplic;
-        @XmlElement(required = true)
+        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String cStat;
-        @XmlElement(required = true)
+        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String xMotivo;
-        @XmlElement(name = "UF", required = true)
+        @XmlElement(name = "UF", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+        @XmlSchemaType(name = "token")
         protected TUfCons uf;
-        @XmlElement(name = "IE")
+        @XmlElement(name = "IE", namespace = "http://www.portalfiscal.inf.br/nfe")
         protected String ie;
-        @XmlElement(name = "CNPJ")
+        @XmlElement(name = "CNPJ", namespace = "http://www.portalfiscal.inf.br/nfe")
         protected String cnpj;
-        @XmlElement(name = "CPF")
+        @XmlElement(name = "CPF", namespace = "http://www.portalfiscal.inf.br/nfe")
         protected String cpf;
-        @XmlElement(required = true)
+        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         @XmlSchemaType(name = "dateTime")
         protected XMLGregorianCalendar dhCons;
-        @XmlElement(name = "cUF", required = true)
+        @XmlElement(name = "cUF", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String cuf;
-        protected List<InfCad> infCad;
+        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+        protected List<TRetConsCad.InfCons.InfCad> infCad;
 
         /**
          * Obtém o valor da propriedade verAplic.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getVerAplic() {
             return verAplic;
@@ -361,11 +368,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade verAplic.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setVerAplic(String value) {
             this.verAplic = value;
@@ -373,11 +380,11 @@ public class TRetConsCad {
 
         /**
          * Obtém o valor da propriedade cStat.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCStat() {
             return cStat;
@@ -385,11 +392,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade cStat.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCStat(String value) {
             this.cStat = value;
@@ -397,11 +404,11 @@ public class TRetConsCad {
 
         /**
          * Obtém o valor da propriedade xMotivo.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getXMotivo() {
             return xMotivo;
@@ -409,11 +416,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade xMotivo.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setXMotivo(String value) {
             this.xMotivo = value;
@@ -421,11 +428,11 @@ public class TRetConsCad {
 
         /**
          * Obtém o valor da propriedade uf.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link TUfCons }
-         *
+         *     
          */
         public TUfCons getUF() {
             return uf;
@@ -433,11 +440,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade uf.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link TUfCons }
-         *
+         *     
          */
         public void setUF(TUfCons value) {
             this.uf = value;
@@ -445,11 +452,11 @@ public class TRetConsCad {
 
         /**
          * Obtém o valor da propriedade ie.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getIE() {
             return ie;
@@ -457,11 +464,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade ie.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setIE(String value) {
             this.ie = value;
@@ -469,11 +476,11 @@ public class TRetConsCad {
 
         /**
          * Obtém o valor da propriedade cnpj.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCNPJ() {
             return cnpj;
@@ -481,11 +488,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade cnpj.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCNPJ(String value) {
             this.cnpj = value;
@@ -493,11 +500,11 @@ public class TRetConsCad {
 
         /**
          * Obtém o valor da propriedade cpf.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCPF() {
             return cpf;
@@ -505,11 +512,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade cpf.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCPF(String value) {
             this.cpf = value;
@@ -517,11 +524,11 @@ public class TRetConsCad {
 
         /**
          * Obtém o valor da propriedade dhCons.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link XMLGregorianCalendar }
-         *
+         *     
          */
         public XMLGregorianCalendar getDhCons() {
             return dhCons;
@@ -529,11 +536,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade dhCons.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link XMLGregorianCalendar }
-         *
+         *     
          */
         public void setDhCons(XMLGregorianCalendar value) {
             this.dhCons = value;
@@ -541,11 +548,11 @@ public class TRetConsCad {
 
         /**
          * Obtém o valor da propriedade cuf.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCUF() {
             return cuf;
@@ -553,11 +560,11 @@ public class TRetConsCad {
 
         /**
          * Define o valor da propriedade cuf.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCUF(String value) {
             this.cuf = value;
@@ -565,29 +572,29 @@ public class TRetConsCad {
 
         /**
          * Gets the value of the infCad property.
-         *
+         * 
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the infCad property.
-         *
+         * 
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getInfCad().add(newItem);
          * </pre>
-         *
-         *
+         * 
+         * 
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link TRetConsCad.InfCons.InfCad }
-         *
-         *
+         * 
+         * 
          */
-        public List<InfCad> getInfCad() {
+        public List<TRetConsCad.InfCons.InfCad> getInfCad() {
             if (infCad == null) {
-                infCad = new ArrayList<InfCad>();
+                infCad = new ArrayList<TRetConsCad.InfCons.InfCad>();
             }
             return this.infCad;
         }
@@ -599,89 +606,89 @@ public class TRetConsCad {
          * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
-         *         &lt;choice>
-         *           &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/>
-         *           &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/>
-         *         &lt;/choice>
-         *         &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUf"/>
-         *         &lt;element name="cSit">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
-         *               &lt;enumeration value="0"/>
-         *               &lt;enumeration value="1"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="indCredNFe">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *               &lt;whiteSpace value="preserve"/>
-         *               &lt;enumeration value="0"/>
-         *               &lt;enumeration value="1"/>
-         *               &lt;enumeration value="2"/>
-         *               &lt;enumeration value="3"/>
-         *               &lt;enumeration value="4"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="indCredCTe">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *               &lt;whiteSpace value="preserve"/>
-         *               &lt;enumeration value="0"/>
-         *               &lt;enumeration value="1"/>
-         *               &lt;enumeration value="2"/>
-         *               &lt;enumeration value="3"/>
-         *               &lt;enumeration value="4"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="xNome">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
-         *               &lt;minLength value="1"/>
-         *               &lt;maxLength value="60"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="xFant" minOccurs="0">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
-         *               &lt;minLength value="1"/>
-         *               &lt;maxLength value="60"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="xRegApur" minOccurs="0">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
-         *               &lt;minLength value="1"/>
-         *               &lt;maxLength value="60"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="CNAE" minOccurs="0">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
-         *               &lt;pattern value="[0-9]{6,7}"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="dIniAtiv" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-         *         &lt;element name="dUltSit" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-         *         &lt;element name="dBaixa" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-         *         &lt;element name="IEUnica" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
-         *         &lt;element name="IEAtual" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
-         *         &lt;element name="ender" type="{http://www.portalfiscal.inf.br/nfe}TEndereco" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/&gt;
+         *           &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/&gt;
+         *         &lt;/choice&gt;
+         *         &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUf"/&gt;
+         *         &lt;element name="cSit"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+         *               &lt;enumeration value="0"/&gt;
+         *               &lt;enumeration value="1"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="indCredNFe"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *               &lt;whiteSpace value="preserve"/&gt;
+         *               &lt;enumeration value="0"/&gt;
+         *               &lt;enumeration value="1"/&gt;
+         *               &lt;enumeration value="2"/&gt;
+         *               &lt;enumeration value="3"/&gt;
+         *               &lt;enumeration value="4"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="indCredCTe"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *               &lt;whiteSpace value="preserve"/&gt;
+         *               &lt;enumeration value="0"/&gt;
+         *               &lt;enumeration value="1"/&gt;
+         *               &lt;enumeration value="2"/&gt;
+         *               &lt;enumeration value="3"/&gt;
+         *               &lt;enumeration value="4"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="xNome"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
+         *               &lt;minLength value="1"/&gt;
+         *               &lt;maxLength value="60"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="xFant" minOccurs="0"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
+         *               &lt;minLength value="1"/&gt;
+         *               &lt;maxLength value="60"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="xRegApur" minOccurs="0"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+         *               &lt;minLength value="1"/&gt;
+         *               &lt;maxLength value="60"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="CNAE" minOccurs="0"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+         *               &lt;pattern value="[0-9]{6,7}"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="dIniAtiv" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+         *         &lt;element name="dUltSit" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+         *         &lt;element name="dBaixa" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+         *         &lt;element name="IEUnica" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/&gt;
+         *         &lt;element name="IEAtual" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/&gt;
+         *         &lt;element name="ender" type="{http://www.portalfiscal.inf.br/nfe}TEndereco" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -708,39 +715,46 @@ public class TRetConsCad {
         })
         public static class InfCad {
 
-            @XmlElement(name = "IE", required = true)
+            @XmlElement(name = "IE", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String ie;
-            @XmlElement(name = "CNPJ")
+            @XmlElement(name = "CNPJ", namespace = "http://www.portalfiscal.inf.br/nfe")
             protected String cnpj;
-            @XmlElement(name = "CPF")
+            @XmlElement(name = "CPF", namespace = "http://www.portalfiscal.inf.br/nfe")
             protected String cpf;
-            @XmlElement(name = "UF", required = true)
+            @XmlElement(name = "UF", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+            @XmlSchemaType(name = "string")
             protected TUf uf;
-            @XmlElement(required = true)
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
             protected String cSit;
-            @XmlElement(required = true)
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String indCredNFe;
-            @XmlElement(required = true)
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String indCredCTe;
-            @XmlElement(required = true)
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String xNome;
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
             protected String xFant;
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
             @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
             protected String xRegApur;
-            @XmlElement(name = "CNAE")
+            @XmlElement(name = "CNAE", namespace = "http://www.portalfiscal.inf.br/nfe")
             @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
             protected String cnae;
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar dIniAtiv;
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar dUltSit;
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar dBaixa;
-            @XmlElement(name = "IEUnica")
+            @XmlElement(name = "IEUnica", namespace = "http://www.portalfiscal.inf.br/nfe")
             protected String ieUnica;
-            @XmlElement(name = "IEAtual")
+            @XmlElement(name = "IEAtual", namespace = "http://www.portalfiscal.inf.br/nfe")
             protected String ieAtual;
+            @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
             protected TEndereco ender;
 
             /**

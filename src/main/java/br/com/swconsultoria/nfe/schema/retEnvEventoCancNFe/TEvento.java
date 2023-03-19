@@ -1,7 +1,12 @@
 
 package br.com.swconsultoria.nfe.schema.retEnvEventoCancNFe;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -14,94 +19,94 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="TEvento">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="infEvento">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/>
- *                   &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/>
- *                   &lt;choice>
- *                     &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjOpc"/>
- *                     &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpf"/>
- *                   &lt;/choice>
- *                   &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe"/>
- *                   &lt;element name="dhEvento" type="{http://www.portalfiscal.inf.br/nfe}TDateTimeUTC"/>
- *                   &lt;element name="tpEvento">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;whiteSpace value="preserve"/>
- *                         &lt;pattern value="[0-9]{6}"/>
- *                         &lt;enumeration value="110111"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="nSeqEvento">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;whiteSpace value="preserve"/>
- *                         &lt;pattern value="[1-9]|[1][0-9]{0,1}|20"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="verEvento">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;whiteSpace value="preserve"/>
- *                         &lt;enumeration value="1.00"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="detEvento">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="descEvento">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                   &lt;whiteSpace value="preserve"/>
- *                                   &lt;enumeration value="Cancelamento"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt"/>
- *                             &lt;element name="xJust" type="{http://www.portalfiscal.inf.br/nfe}TJust"/>
- *                           &lt;/sequence>
- *                           &lt;attribute name="versao" use="required">
- *                             &lt;simpleType>
- *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                 &lt;whiteSpace value="preserve"/>
- *                                 &lt;enumeration value="1.00"/>
- *                               &lt;/restriction>
- *                             &lt;/simpleType>
- *                           &lt;/attribute>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *                 &lt;attribute name="Id" use="required">
- *                   &lt;simpleType>
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}ID">
- *                       &lt;pattern value="ID[0-9]{52}"/>
- *                     &lt;/restriction>
- *                   &lt;/simpleType>
- *                 &lt;/attribute>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element ref="{http://www.w3.org/2000/09/xmldsig#}Signature"/>
- *       &lt;/sequence>
- *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerEvento" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TEvento"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="infEvento"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/&gt;
+ *                   &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjOpc"/&gt;
+ *                     &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpf"/&gt;
+ *                   &lt;/choice&gt;
+ *                   &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe"/&gt;
+ *                   &lt;element name="dhEvento" type="{http://www.portalfiscal.inf.br/nfe}TDateTimeUTC"/&gt;
+ *                   &lt;element name="tpEvento"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;whiteSpace value="preserve"/&gt;
+ *                         &lt;pattern value="[0-9]{6}"/&gt;
+ *                         &lt;enumeration value="110111"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="nSeqEvento"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;whiteSpace value="preserve"/&gt;
+ *                         &lt;pattern value="[1-9]|[1][0-9]{0,1}|20"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="verEvento"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;whiteSpace value="preserve"/&gt;
+ *                         &lt;enumeration value="1.00"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="detEvento"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;element name="descEvento"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                   &lt;whiteSpace value="preserve"/&gt;
+ *                                   &lt;enumeration value="Cancelamento"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt"/&gt;
+ *                             &lt;element name="xJust" type="{http://www.portalfiscal.inf.br/nfe}TJust"/&gt;
+ *                           &lt;/sequence&gt;
+ *                           &lt;attribute name="versao" use="required"&gt;
+ *                             &lt;simpleType&gt;
+ *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                 &lt;whiteSpace value="preserve"/&gt;
+ *                                 &lt;enumeration value="1.00"/&gt;
+ *                               &lt;/restriction&gt;
+ *                             &lt;/simpleType&gt;
+ *                           &lt;/attribute&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/sequence&gt;
+ *                 &lt;attribute name="Id" use="required"&gt;
+ *                   &lt;simpleType&gt;
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}ID"&gt;
+ *                       &lt;pattern value="ID[0-9]{52}"/&gt;
+ *                     &lt;/restriction&gt;
+ *                   &lt;/simpleType&gt;
+ *                 &lt;/attribute&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element ref="{http://www.w3.org/2000/09/xmldsig#}Signature"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerEvento" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -113,7 +118,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class TEvento {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TEvento.InfEvento infEvento;
     @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     protected SignatureType signature;
@@ -122,11 +127,11 @@ public class TEvento {
 
     /**
      * Obtém o valor da propriedade infEvento.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link TEvento.InfEvento }
-     *
+     *     
      */
     public TEvento.InfEvento getInfEvento() {
         return infEvento;
@@ -134,11 +139,11 @@ public class TEvento {
 
     /**
      * Define o valor da propriedade infEvento.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link TEvento.InfEvento }
-     *
+     *     
      */
     public void setInfEvento(TEvento.InfEvento value) {
         this.infEvento = value;
@@ -146,11 +151,11 @@ public class TEvento {
 
     /**
      * Obtém o valor da propriedade signature.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link SignatureType }
-     *
+     *     
      */
     public SignatureType getSignature() {
         return signature;
@@ -158,11 +163,11 @@ public class TEvento {
 
     /**
      * Define o valor da propriedade signature.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link SignatureType }
-     *
+     *     
      */
     public void setSignature(SignatureType value) {
         this.signature = value;
@@ -170,11 +175,11 @@ public class TEvento {
 
     /**
      * Obtém o valor da propriedade versao.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getVersao() {
         return versao;
@@ -182,11 +187,11 @@ public class TEvento {
 
     /**
      * Define o valor da propriedade versao.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;
@@ -195,89 +200,89 @@ public class TEvento {
 
     /**
      * <p>Classe Java de anonymous complex type.
-     *
+     * 
      * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
-     *
+     * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/>
-     *         &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/>
-     *         &lt;choice>
-     *           &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjOpc"/>
-     *           &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpf"/>
-     *         &lt;/choice>
-     *         &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe"/>
-     *         &lt;element name="dhEvento" type="{http://www.portalfiscal.inf.br/nfe}TDateTimeUTC"/>
-     *         &lt;element name="tpEvento">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;whiteSpace value="preserve"/>
-     *               &lt;pattern value="[0-9]{6}"/>
-     *               &lt;enumeration value="110111"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="nSeqEvento">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;whiteSpace value="preserve"/>
-     *               &lt;pattern value="[1-9]|[1][0-9]{0,1}|20"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="verEvento">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;whiteSpace value="preserve"/>
-     *               &lt;enumeration value="1.00"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="detEvento">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="descEvento">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                         &lt;whiteSpace value="preserve"/>
-     *                         &lt;enumeration value="Cancelamento"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt"/>
-     *                   &lt;element name="xJust" type="{http://www.portalfiscal.inf.br/nfe}TJust"/>
-     *                 &lt;/sequence>
-     *                 &lt;attribute name="versao" use="required">
-     *                   &lt;simpleType>
-     *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                       &lt;whiteSpace value="preserve"/>
-     *                       &lt;enumeration value="1.00"/>
-     *                     &lt;/restriction>
-     *                   &lt;/simpleType>
-     *                 &lt;/attribute>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *       &lt;attribute name="Id" use="required">
-     *         &lt;simpleType>
-     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}ID">
-     *             &lt;pattern value="ID[0-9]{52}"/>
-     *           &lt;/restriction>
-     *         &lt;/simpleType>
-     *       &lt;/attribute>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/&gt;
+     *         &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjOpc"/&gt;
+     *           &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpf"/&gt;
+     *         &lt;/choice&gt;
+     *         &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe"/&gt;
+     *         &lt;element name="dhEvento" type="{http://www.portalfiscal.inf.br/nfe}TDateTimeUTC"/&gt;
+     *         &lt;element name="tpEvento"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;whiteSpace value="preserve"/&gt;
+     *               &lt;pattern value="[0-9]{6}"/&gt;
+     *               &lt;enumeration value="110111"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="nSeqEvento"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;whiteSpace value="preserve"/&gt;
+     *               &lt;pattern value="[1-9]|[1][0-9]{0,1}|20"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="verEvento"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;whiteSpace value="preserve"/&gt;
+     *               &lt;enumeration value="1.00"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="detEvento"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="descEvento"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                         &lt;whiteSpace value="preserve"/&gt;
+     *                         &lt;enumeration value="Cancelamento"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt"/&gt;
+     *                   &lt;element name="xJust" type="{http://www.portalfiscal.inf.br/nfe}TJust"/&gt;
+     *                 &lt;/sequence&gt;
+     *                 &lt;attribute name="versao" use="required"&gt;
+     *                   &lt;simpleType&gt;
+     *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                       &lt;whiteSpace value="preserve"/&gt;
+     *                       &lt;enumeration value="1.00"/&gt;
+     *                     &lt;/restriction&gt;
+     *                   &lt;/simpleType&gt;
+     *                 &lt;/attribute&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *       &lt;attribute name="Id" use="required"&gt;
+     *         &lt;simpleType&gt;
+     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}ID"&gt;
+     *             &lt;pattern value="ID[0-9]{52}"/&gt;
+     *           &lt;/restriction&gt;
+     *         &lt;/simpleType&gt;
+     *       &lt;/attribute&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
-     *
-     *
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -321,11 +326,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade cOrgao.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCOrgao() {
             return cOrgao;
@@ -333,11 +338,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade cOrgao.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCOrgao(String value) {
             this.cOrgao = value;
@@ -345,11 +350,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade tpAmb.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getTpAmb() {
             return tpAmb;
@@ -357,11 +362,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade tpAmb.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setTpAmb(String value) {
             this.tpAmb = value;
@@ -369,11 +374,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade cnpj.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCNPJ() {
             return cnpj;
@@ -381,11 +386,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade cnpj.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCNPJ(String value) {
             this.cnpj = value;
@@ -393,11 +398,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade cpf.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getCPF() {
             return cpf;
@@ -405,11 +410,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade cpf.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setCPF(String value) {
             this.cpf = value;
@@ -417,11 +422,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade chNFe.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getChNFe() {
             return chNFe;
@@ -429,11 +434,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade chNFe.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setChNFe(String value) {
             this.chNFe = value;
@@ -441,11 +446,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade dhEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getDhEvento() {
             return dhEvento;
@@ -453,11 +458,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade dhEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setDhEvento(String value) {
             this.dhEvento = value;
@@ -465,11 +470,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade tpEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getTpEvento() {
             return tpEvento;
@@ -477,11 +482,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade tpEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setTpEvento(String value) {
             this.tpEvento = value;
@@ -489,11 +494,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade nSeqEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getNSeqEvento() {
             return nSeqEvento;
@@ -501,11 +506,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade nSeqEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setNSeqEvento(String value) {
             this.nSeqEvento = value;
@@ -513,11 +518,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade verEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getVerEvento() {
             return verEvento;
@@ -525,11 +530,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade verEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setVerEvento(String value) {
             this.verEvento = value;
@@ -537,11 +542,11 @@ public class TEvento {
 
         /**
          * Obtém o valor da propriedade detEvento.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link TEvento.InfEvento.DetEvento }
-         *
+         *     
          */
         public TEvento.InfEvento.DetEvento getDetEvento() {
             return detEvento;
@@ -549,11 +554,11 @@ public class TEvento {
 
         /**
          * Define o valor da propriedade detEvento.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link TEvento.InfEvento.DetEvento }
-         *
+         *     
          */
         public void setDetEvento(TEvento.InfEvento.DetEvento value) {
             this.detEvento = value;
@@ -590,32 +595,32 @@ public class TEvento {
          * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="descEvento">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *               &lt;whiteSpace value="preserve"/>
-         *               &lt;enumeration value="Cancelamento"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt"/>
-         *         &lt;element name="xJust" type="{http://www.portalfiscal.inf.br/nfe}TJust"/>
-         *       &lt;/sequence>
-         *       &lt;attribute name="versao" use="required">
-         *         &lt;simpleType>
-         *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *             &lt;whiteSpace value="preserve"/>
-         *             &lt;enumeration value="1.00"/>
-         *           &lt;/restriction>
-         *         &lt;/simpleType>
-         *       &lt;/attribute>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="descEvento"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *               &lt;whiteSpace value="preserve"/&gt;
+         *               &lt;enumeration value="Cancelamento"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt"/&gt;
+         *         &lt;element name="xJust" type="{http://www.portalfiscal.inf.br/nfe}TJust"/&gt;
+         *       &lt;/sequence&gt;
+         *       &lt;attribute name="versao" use="required"&gt;
+         *         &lt;simpleType&gt;
+         *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *             &lt;whiteSpace value="preserve"/&gt;
+         *             &lt;enumeration value="1.00"/&gt;
+         *           &lt;/restriction&gt;
+         *         &lt;/simpleType&gt;
+         *       &lt;/attribute&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

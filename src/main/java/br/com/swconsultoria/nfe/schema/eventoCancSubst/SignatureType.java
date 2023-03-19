@@ -15,21 +15,21 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * <p>Classe Java de SignatureType complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="SignatureType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="SignedInfo" type="{http://www.w3.org/2000/09/xmldsig#}SignedInfoType"/>
- *         &lt;element name="SignatureValue" type="{http://www.w3.org/2000/09/xmldsig#}SignatureValueType"/>
- *         &lt;element name="KeyInfo" type="{http://www.w3.org/2000/09/xmldsig#}KeyInfoType"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="SignatureType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="SignedInfo" type="{http://www.w3.org/2000/09/xmldsig#}SignedInfoType"/&gt;
+ *         &lt;element name="SignatureValue" type="{http://www.w3.org/2000/09/xmldsig#}SignatureValueType"/&gt;
+ *         &lt;element name="KeyInfo" type="{http://www.w3.org/2000/09/xmldsig#}KeyInfoType"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -55,7 +55,7 @@ public class SignatureType {
     protected String id;
 
     /**
-     * Obtm o valor da propriedade signedInfo.
+     * Obtém o valor da propriedade signedInfo.
      * 
      * @return
      *     possible object is
@@ -79,7 +79,7 @@ public class SignatureType {
     }
 
     /**
-     * Obtm o valor da propriedade signatureValue.
+     * Obtém o valor da propriedade signatureValue.
      * 
      * @return
      *     possible object is
@@ -103,7 +103,7 @@ public class SignatureType {
     }
 
     /**
-     * Obtm o valor da propriedade keyInfo.
+     * Obtém o valor da propriedade keyInfo.
      * 
      * @return
      *     possible object is
@@ -127,7 +127,7 @@ public class SignatureType {
     }
 
     /**
-     * Obtm o valor da propriedade id.
+     * Obtém o valor da propriedade id.
      * 
      * @return
      *     possible object is

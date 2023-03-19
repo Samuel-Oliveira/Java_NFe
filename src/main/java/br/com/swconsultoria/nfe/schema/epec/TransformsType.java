@@ -11,24 +11,26 @@ import java.util.List;
 
 /**
  * <p>Classe Java de TransformsType complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * 
  * <pre>
- * &lt;complexType name="TransformsType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Transform" type="{http://www.w3.org/2000/09/xmldsig#}TransformType" maxOccurs="2" minOccurs="2"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TransformsType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Transform" type="{http://www.w3.org/2000/09/xmldsig#}TransformType" maxOccurs="2" minOccurs="2"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TransformsType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
-        "transform"
+    "transform"
 })
 public class TransformsType {
 
@@ -37,23 +39,25 @@ public class TransformsType {
 
     /**
      * Gets the value of the transform property.
-     *
+     * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the transform property.
-     *
+     * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getTransform().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link TransformType }
+     * 
+     * 
      */
     public List<TransformType> getTransform() {
         if (transform == null) {

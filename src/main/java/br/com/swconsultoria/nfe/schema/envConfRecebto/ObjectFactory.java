@@ -24,9 +24,8 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Evento_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "evento");
-    private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
     private final static QName _EnvEvento_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "envEvento");
+    private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema.envConfRecebto
@@ -76,19 +75,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TRetEnvEvento }
-     * 
-     */
-    public TRetEnvEvento createTRetEnvEvento() {
-        return new TRetEnvEvento();
-    }
-
-    /**
      * Create an instance of {@link TEnvEvento }
      * 
      */
     public TEnvEvento createTEnvEvento() {
         return new TEnvEvento();
+    }
+
+    /**
+     * Create an instance of {@link TRetEnvEvento }
+     * 
+     */
+    public TRetEnvEvento createTRetEnvEvento() {
+        return new TRetEnvEvento();
     }
 
     /**
@@ -105,14 +104,6 @@ public class ObjectFactory {
      */
     public SignatureType createSignatureType() {
         return new SignatureType();
-    }
-
-    /**
-     * Create an instance of {@link X509DataType }
-     * 
-     */
-    public X509DataType createX509DataType() {
-        return new X509DataType();
     }
 
     /**
@@ -145,6 +136,14 @@ public class ObjectFactory {
      */
     public KeyInfoType createKeyInfoType() {
         return new KeyInfoType();
+    }
+
+    /**
+     * Create an instance of {@link X509DataType }
+     * 
+     */
+    public X509DataType createX509DataType() {
+        return new X509DataType();
     }
 
     /**
@@ -188,30 +187,29 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TEvento }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TEnvEvento }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "evento")
-    public JAXBElement<TEvento> createEvento(TEvento value) {
-        return new JAXBElement<TEvento>(_Evento_QNAME, TEvento.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.w3.org/2000/09/xmldsig#", name = "Signature")
-    public JAXBElement<SignatureType> createSignature(SignatureType value) {
-        return new JAXBElement<SignatureType>(_Signature_QNAME, SignatureType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TEnvEvento }{@code >}}
-     *
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TEnvEvento }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "envEvento")
     public JAXBElement<TEnvEvento> createEnvEvento(TEnvEvento value) {
         return new JAXBElement<TEnvEvento>(_EnvEvento_QNAME, TEnvEvento.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.w3.org/2000/09/xmldsig#", name = "Signature")
+    public JAXBElement<SignatureType> createSignature(SignatureType value) {
+        return new JAXBElement<SignatureType>(_Signature_QNAME, SignatureType.class, null, value);
     }
 
 }

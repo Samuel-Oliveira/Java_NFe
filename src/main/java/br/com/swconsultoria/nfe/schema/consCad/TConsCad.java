@@ -14,49 +14,49 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="TConsCad">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="infCons">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="xServ">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TServ">
- *                         &lt;enumeration value="CONS-CAD"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUfCons"/>
- *                   &lt;choice>
- *                     &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
- *                     &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/>
- *                     &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerConsCad" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TConsCad"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="infCons"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="xServ"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TServ"&gt;
+ *                         &lt;enumeration value="CONS-CAD"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUfCons"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/&gt;
+ *                     &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/&gt;
+ *                     &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerConsCad" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TConsCad", propOrder = {
+@XmlType(name = "TConsCad", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
     "infCons"
 })
 public class TConsCad {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TConsCad.InfCons infCons;
     @XmlAttribute(name = "versao", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -64,11 +64,11 @@ public class TConsCad {
 
     /**
      * Obtém o valor da propriedade infCons.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link TConsCad.InfCons }
-     *
+     *     
      */
     public TConsCad.InfCons getInfCons() {
         return infCons;
@@ -76,11 +76,11 @@ public class TConsCad {
 
     /**
      * Define o valor da propriedade infCons.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link TConsCad.InfCons }
-     *
+     *     
      */
     public void setInfCons(TConsCad.InfCons value) {
         this.infCons = value;
@@ -117,27 +117,27 @@ public class TConsCad {
      * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="xServ">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TServ">
-     *               &lt;enumeration value="CONS-CAD"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUfCons"/>
-     *         &lt;choice>
-     *           &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
-     *           &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/>
-     *           &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="xServ"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TServ"&gt;
+     *               &lt;enumeration value="CONS-CAD"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="UF" type="{http://www.portalfiscal.inf.br/nfe}TUfCons"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/&gt;
+     *           &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjVar"/&gt;
+     *           &lt;element name="CPF" type="{http://www.portalfiscal.inf.br/nfe}TCpfVar"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -152,15 +152,16 @@ public class TConsCad {
     })
     public static class InfCons {
 
-        @XmlElement(required = true)
+        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String xServ;
-        @XmlElement(name = "UF", required = true)
+        @XmlElement(name = "UF", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+        @XmlSchemaType(name = "token")
         protected TUfCons uf;
-        @XmlElement(name = "IE")
+        @XmlElement(name = "IE", namespace = "http://www.portalfiscal.inf.br/nfe")
         protected String ie;
-        @XmlElement(name = "CNPJ")
+        @XmlElement(name = "CNPJ", namespace = "http://www.portalfiscal.inf.br/nfe")
         protected String cnpj;
-        @XmlElement(name = "CPF")
+        @XmlElement(name = "CPF", namespace = "http://www.portalfiscal.inf.br/nfe")
         protected String cpf;
 
         /**

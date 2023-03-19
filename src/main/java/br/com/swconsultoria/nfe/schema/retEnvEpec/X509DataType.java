@@ -9,24 +9,26 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Classe Java de X509DataType complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * 
  * <pre>
- * &lt;complexType name="X509DataType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="X509Certificate" type="{http://www.w3.org/2001/XMLSchema}base64Binary"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="X509DataType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="X509Certificate" type="{http://www.w3.org/2001/XMLSchema}base64Binary"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "X509DataType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
-        "x509Certificate"
+    "x509Certificate"
 })
 public class X509DataType {
 
@@ -34,10 +36,11 @@ public class X509DataType {
     protected byte[] x509Certificate;
 
     /**
-     * Obtm o valor da propriedade x509Certificate.
-     *
-     * @return possible object is
-     * byte[]
+     * Obtém o valor da propriedade x509Certificate.
+     * 
+     * @return
+     *     possible object is
+     *     byte[]
      */
     public byte[] getX509Certificate() {
         return x509Certificate;
@@ -45,9 +48,10 @@ public class X509DataType {
 
     /**
      * Define o valor da propriedade x509Certificate.
-     *
-     * @param value allowed object is
-     *              byte[]
+     * 
+     * @param value
+     *     allowed object is
+     *     byte[]
      */
     public void setX509Certificate(byte[] value) {
         this.x509Certificate = value;

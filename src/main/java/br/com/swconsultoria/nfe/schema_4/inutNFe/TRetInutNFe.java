@@ -20,40 +20,40 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="TRetInutNFe">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="infInut">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/>
- *                   &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
- *                   &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
- *                   &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
- *                   &lt;element name="cUF" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/>
- *                   &lt;element name="ano" type="{http://www.portalfiscal.inf.br/nfe}Tano" minOccurs="0"/>
- *                   &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpj" minOccurs="0"/>
- *                   &lt;element name="mod" type="{http://www.portalfiscal.inf.br/nfe}TMod" minOccurs="0"/>
- *                   &lt;element name="serie" type="{http://www.portalfiscal.inf.br/nfe}TSerie" minOccurs="0"/>
- *                   &lt;element name="nNFIni" type="{http://www.portalfiscal.inf.br/nfe}TNF" minOccurs="0"/>
- *                   &lt;element name="nNFFin" type="{http://www.portalfiscal.inf.br/nfe}TNF" minOccurs="0"/>
- *                   &lt;element name="dhRecbto" type="{http://www.portalfiscal.inf.br/nfe}TDateTimeUTC"/>
- *                   &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt" minOccurs="0"/>
- *                 &lt;/sequence>
- *                 &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element ref="{http://www.w3.org/2000/09/xmldsig#}Signature" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerInutNFe" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TRetInutNFe"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="infInut"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/&gt;
+ *                   &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/&gt;
+ *                   &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/&gt;
+ *                   &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/&gt;
+ *                   &lt;element name="cUF" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
+ *                   &lt;element name="ano" type="{http://www.portalfiscal.inf.br/nfe}Tano" minOccurs="0"/&gt;
+ *                   &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpj" minOccurs="0"/&gt;
+ *                   &lt;element name="mod" type="{http://www.portalfiscal.inf.br/nfe}TMod" minOccurs="0"/&gt;
+ *                   &lt;element name="serie" type="{http://www.portalfiscal.inf.br/nfe}TSerie" minOccurs="0"/&gt;
+ *                   &lt;element name="nNFIni" type="{http://www.portalfiscal.inf.br/nfe}TNF" minOccurs="0"/&gt;
+ *                   &lt;element name="nNFFin" type="{http://www.portalfiscal.inf.br/nfe}TNF" minOccurs="0"/&gt;
+ *                   &lt;element name="dhRecbto" type="{http://www.portalfiscal.inf.br/nfe}TDateTimeUTC"/&gt;
+ *                   &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *                 &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element ref="{http://www.w3.org/2000/09/xmldsig#}Signature" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerInutNFe" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -66,7 +66,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class TRetInutNFe {
 
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-    protected InfInut infInut;
+    protected TRetInutNFe.InfInut infInut;
     @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#")
     protected SignatureType signature;
     @XmlAttribute(name = "versao", required = true)
@@ -78,10 +78,10 @@ public class TRetInutNFe {
      * 
      * @return
      *     possible object is
-     *     {@link InfInut }
+     *     {@link TRetInutNFe.InfInut }
      *     
      */
-    public InfInut getInfInut() {
+    public TRetInutNFe.InfInut getInfInut() {
         return infInut;
     }
 
@@ -90,10 +90,10 @@ public class TRetInutNFe {
      * 
      * @param value
      *     allowed object is
-     *     {@link InfInut }
+     *     {@link TRetInutNFe.InfInut }
      *     
      */
-    public void setInfInut(InfInut value) {
+    public void setInfInut(TRetInutNFe.InfInut value) {
         this.infInut = value;
     }
 
@@ -152,28 +152,28 @@ public class TRetInutNFe {
      * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/>
-     *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
-     *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
-     *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
-     *         &lt;element name="cUF" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/>
-     *         &lt;element name="ano" type="{http://www.portalfiscal.inf.br/nfe}Tano" minOccurs="0"/>
-     *         &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpj" minOccurs="0"/>
-     *         &lt;element name="mod" type="{http://www.portalfiscal.inf.br/nfe}TMod" minOccurs="0"/>
-     *         &lt;element name="serie" type="{http://www.portalfiscal.inf.br/nfe}TSerie" minOccurs="0"/>
-     *         &lt;element name="nNFIni" type="{http://www.portalfiscal.inf.br/nfe}TNF" minOccurs="0"/>
-     *         &lt;element name="nNFFin" type="{http://www.portalfiscal.inf.br/nfe}TNF" minOccurs="0"/>
-     *         &lt;element name="dhRecbto" type="{http://www.portalfiscal.inf.br/nfe}TDateTimeUTC"/>
-     *         &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt" minOccurs="0"/>
-     *       &lt;/sequence>
-     *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" />
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/&gt;
+     *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/&gt;
+     *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/&gt;
+     *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/&gt;
+     *         &lt;element name="cUF" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
+     *         &lt;element name="ano" type="{http://www.portalfiscal.inf.br/nfe}Tano" minOccurs="0"/&gt;
+     *         &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpj" minOccurs="0"/&gt;
+     *         &lt;element name="mod" type="{http://www.portalfiscal.inf.br/nfe}TMod" minOccurs="0"/&gt;
+     *         &lt;element name="serie" type="{http://www.portalfiscal.inf.br/nfe}TSerie" minOccurs="0"/&gt;
+     *         &lt;element name="nNFIni" type="{http://www.portalfiscal.inf.br/nfe}TNF" minOccurs="0"/&gt;
+     *         &lt;element name="nNFFin" type="{http://www.portalfiscal.inf.br/nfe}TNF" minOccurs="0"/&gt;
+     *         &lt;element name="dhRecbto" type="{http://www.portalfiscal.inf.br/nfe}TDateTimeUTC"/&gt;
+     *         &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

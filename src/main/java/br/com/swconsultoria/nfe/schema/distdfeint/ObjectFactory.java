@@ -1,16 +1,13 @@
 
 package br.com.swconsultoria.nfe.schema.distdfeint;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
-import javax.xml.namespace.QName;
 
 
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the br.inf.portalfiscal.nfe.schema.distdfeint package. 
+ * generated in the br.com.swconsultoria.nfe.schema.distdfeint package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -25,10 +22,8 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
 
-	  private final static QName _DistDFeInt_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "distDFeInt");
-	  
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.inf.portalfiscal.nfe.schema.distdfeint
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema.distdfeint
      * 
      */
     public ObjectFactory() {
@@ -64,15 +59,6 @@ public class ObjectFactory {
      */
     public DistDFeInt.ConsChNFe createDistDFeIntConsChNFe() {
         return new DistDFeInt.ConsChNFe();
-    }
-    
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DistDFeInt }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "distDFeInt")
-    public JAXBElement<DistDFeInt> createDistDFeInt(DistDFeInt value) {
-        return new JAXBElement<DistDFeInt>(_DistDFeInt_QNAME, DistDFeInt.class, null, value);
     }
 
 }

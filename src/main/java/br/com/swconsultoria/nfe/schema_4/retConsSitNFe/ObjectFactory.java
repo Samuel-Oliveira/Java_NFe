@@ -24,8 +24,8 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
     private final static QName _RetConsSitNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retConsSitNFe");
+    private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema_4.retConsSitNFe
@@ -51,6 +51,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TRetEvento }
+     * 
+     */
+    public TRetEvento createTRetEvento() {
+        return new TRetEvento();
+    }
+
+    /**
      * Create an instance of {@link TEvento }
      * 
      */
@@ -67,14 +75,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TProtNFe }
-     * 
-     */
-    public TProtNFe createTProtNFe() {
-        return new TProtNFe();
-    }
-
-    /**
      * Create an instance of {@link TRetCancNFe }
      * 
      */
@@ -83,11 +83,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TRetEvento }
+     * Create an instance of {@link TProtNFe }
      * 
      */
-    public TRetEvento createTRetEvento() {
-        return new TRetEvento();
+    public TProtNFe createTProtNFe() {
+        return new TProtNFe();
     }
 
     /**
@@ -123,14 +123,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link X509DataType }
-     * 
-     */
-    public X509DataType createX509DataType() {
-        return new X509DataType();
-    }
-
-    /**
      * Create an instance of {@link SignatureValueType }
      * 
      */
@@ -163,6 +155,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link X509DataType }
+     * 
+     */
+    public X509DataType createX509DataType() {
+        return new X509DataType();
+    }
+
+    /**
      * Create an instance of {@link ReferenceType.DigestMethod }
      * 
      */
@@ -187,19 +187,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TRetEvento.InfEvento }
+     * 
+     */
+    public TRetEvento.InfEvento createTRetEventoInfEvento() {
+        return new TRetEvento.InfEvento();
+    }
+
+    /**
      * Create an instance of {@link TEvento.InfEvento.DetEvento }
      * 
      */
     public TEvento.InfEvento.DetEvento createTEventoInfEventoDetEvento() {
         return new TEvento.InfEvento.DetEvento();
-    }
-
-    /**
-     * Create an instance of {@link TProtNFe.InfProt }
-     * 
-     */
-    public TProtNFe.InfProt createTProtNFeInfProt() {
-        return new TProtNFe.InfProt();
     }
 
     /**
@@ -211,29 +211,37 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TRetEvento.InfEvento }
+     * Create an instance of {@link TProtNFe.InfProt }
      * 
      */
-    public TRetEvento.InfEvento createTRetEventoInfEvento() {
-        return new TRetEvento.InfEvento();
+    public TProtNFe.InfProt createTProtNFeInfProt() {
+        return new TProtNFe.InfProt();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TRetConsSitNFe }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://www.w3.org/2000/09/xmldsig#", name = "Signature")
-    public JAXBElement<SignatureType> createSignature(SignatureType value) {
-        return new JAXBElement<SignatureType>(_Signature_QNAME, SignatureType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TRetConsSitNFe }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TRetConsSitNFe }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "retConsSitNFe")
     public JAXBElement<TRetConsSitNFe> createRetConsSitNFe(TRetConsSitNFe value) {
         return new JAXBElement<TRetConsSitNFe>(_RetConsSitNFe_QNAME, TRetConsSitNFe.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.w3.org/2000/09/xmldsig#", name = "Signature")
+    public JAXBElement<SignatureType> createSignature(SignatureType value) {
+        return new JAXBElement<SignatureType>(_Signature_QNAME, SignatureType.class, null, value);
     }
 
 }

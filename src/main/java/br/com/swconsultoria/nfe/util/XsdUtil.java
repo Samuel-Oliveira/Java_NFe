@@ -19,6 +19,7 @@ public class XsdUtil {
     private static final QName _TProcEvento_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "procEvento");
     private static final QName _TRetEnvEvento_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retEnvEvento");
     private static final QName _TRetInutNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retInutNFe");
+    private static final QName _TDistDFeInt_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "distDFeInt");
 
     public interface enviNfe {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TNfeProc", scope = br.com.swconsultoria.nfe.schema_4.enviNFe.TNfeProc.class)
@@ -34,6 +35,13 @@ public class XsdUtil {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnviNFe", scope = br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe> createTRetEnviNFe(br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe value) {
             return new JAXBElement<br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe>(_TRetEnviNFe_QNAME, br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe.class, br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe.class, value);
+        }
+    }
+
+    public interface distDFeInt {
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "distDFeInt", scope = br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt> createDistDFeInt(br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt value) {
+            return new JAXBElement<>(_TDistDFeInt_QNAME, br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt.class, br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt.class, value);
         }
     }
 
@@ -75,7 +83,34 @@ public class XsdUtil {
     public interface epec {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope = br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema.envEpec.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envEpec.TProcEvento value) {
-            return new JAXBElement<br.com.swconsultoria.nfe.schema.envEpec.TProcEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class, br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class, value);
+            return new JAXBElement<>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class, br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class, value);
+        }
+    }
+
+    public interface envEventoAtorInteressado {
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope = br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento value) {
+            return new JAXBElement<>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento.class, br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento.class, value);
+        }
+    }
+
+    public interface envEventoCancNFe {
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope = br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento value) {
+            return new JAXBElement<>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento.class, br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento.class, value);
+        }
+    }
+
+    public interface envEventoCancSubst {
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope = br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento value) {
+            return new JAXBElement<>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class, value);
+        }
+    }
+    public interface envcce {
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope = br.com.swconsultoria.nfe.schema.envcce.TProcEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envcce.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envcce.TProcEvento value) {
+            return new JAXBElement<>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envcce.TProcEvento.class, br.com.swconsultoria.nfe.schema.envcce.TProcEvento.class, value);
         }
     }
 

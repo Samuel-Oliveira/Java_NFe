@@ -8,25 +8,27 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * <p>Classe Java de KeyInfoType complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * 
  * <pre>
- * &lt;complexType name="KeyInfoType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="X509Data" type="{http://www.w3.org/2000/09/xmldsig#}X509DataType"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="KeyInfoType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="X509Data" type="{http://www.w3.org/2000/09/xmldsig#}X509DataType"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "KeyInfoType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
-        "x509Data"
+    "x509Data"
 })
 public class KeyInfoType {
 
@@ -39,10 +41,12 @@ public class KeyInfoType {
     protected String id;
 
     /**
-     * Obtm o valor da propriedade x509Data.
-     *
-     * @return possible object is
-     * {@link X509DataType }
+     * Obtém o valor da propriedade x509Data.
+     * 
+     * @return
+     *     possible object is
+     *     {@link X509DataType }
+     *     
      */
     public X509DataType getX509Data() {
         return x509Data;
@@ -50,19 +54,23 @@ public class KeyInfoType {
 
     /**
      * Define o valor da propriedade x509Data.
-     *
-     * @param value allowed object is
-     *              {@link X509DataType }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link X509DataType }
+     *     
      */
     public void setX509Data(X509DataType value) {
         this.x509Data = value;
     }
 
     /**
-     * Obtm o valor da propriedade id.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade id.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getId() {
         return id;
@@ -70,9 +78,11 @@ public class KeyInfoType {
 
     /**
      * Define o valor da propriedade id.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setId(String value) {
         this.id = value;

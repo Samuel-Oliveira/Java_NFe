@@ -1,53 +1,59 @@
 
 package br.com.swconsultoria.nfe.schema.retEnvEpec;
 
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo Retorno de Lote de Envio
- *
+ *  Tipo Retorno de Lote de Envio
+ * 
  * <p>Classe Java de TRetEnvEvento complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * 
  * <pre>
- * &lt;complexType name="TRetEnvEvento">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="idLote">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;whiteSpace value="preserve"/>
- *               &lt;pattern value="[0-9]{1,15}"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/>
- *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
- *         &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/>
- *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
- *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
- *         &lt;element name="retEvento" type="{http://www.portalfiscal.inf.br/nfe}TRetEvento" maxOccurs="20" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerEnvEvento" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TRetEnvEvento"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="idLote"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;whiteSpace value="preserve"/&gt;
+ *               &lt;pattern value="[0-9]{1,15}"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/&gt;
+ *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/&gt;
+ *         &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/&gt;
+ *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/&gt;
+ *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/&gt;
+ *         &lt;element name="retEvento" type="{http://www.portalfiscal.inf.br/nfe}TRetEvento" maxOccurs="20" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerEnvEvento" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TRetEnvEvento", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "idLote",
-        "tpAmb",
-        "verAplic",
-        "cOrgao",
-        "cStat",
-        "xMotivo",
-        "retEvento"
+    "idLote",
+    "tpAmb",
+    "verAplic",
+    "cOrgao",
+    "cStat",
+    "xMotivo",
+    "retEvento"
 })
 public class TRetEnvEvento {
 
@@ -69,10 +75,12 @@ public class TRetEnvEvento {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade idLote.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade idLote.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getIdLote() {
         return idLote;
@@ -80,19 +88,23 @@ public class TRetEnvEvento {
 
     /**
      * Define o valor da propriedade idLote.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setIdLote(String value) {
         this.idLote = value;
     }
 
     /**
-     * Obtm o valor da propriedade tpAmb.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade tpAmb.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getTpAmb() {
         return tpAmb;
@@ -100,19 +112,23 @@ public class TRetEnvEvento {
 
     /**
      * Define o valor da propriedade tpAmb.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setTpAmb(String value) {
         this.tpAmb = value;
     }
 
     /**
-     * Obtm o valor da propriedade verAplic.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade verAplic.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVerAplic() {
         return verAplic;
@@ -120,19 +136,23 @@ public class TRetEnvEvento {
 
     /**
      * Define o valor da propriedade verAplic.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVerAplic(String value) {
         this.verAplic = value;
     }
 
     /**
-     * Obtm o valor da propriedade cOrgao.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade cOrgao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCOrgao() {
         return cOrgao;
@@ -140,19 +160,23 @@ public class TRetEnvEvento {
 
     /**
      * Define o valor da propriedade cOrgao.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCOrgao(String value) {
         this.cOrgao = value;
     }
 
     /**
-     * Obtm o valor da propriedade cStat.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade cStat.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getCStat() {
         return cStat;
@@ -160,19 +184,23 @@ public class TRetEnvEvento {
 
     /**
      * Define o valor da propriedade cStat.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setCStat(String value) {
         this.cStat = value;
     }
 
     /**
-     * Obtm o valor da propriedade xMotivo.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade xMotivo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getXMotivo() {
         return xMotivo;
@@ -180,9 +208,11 @@ public class TRetEnvEvento {
 
     /**
      * Define o valor da propriedade xMotivo.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setXMotivo(String value) {
         this.xMotivo = value;
@@ -190,23 +220,25 @@ public class TRetEnvEvento {
 
     /**
      * Gets the value of the retEvento property.
-     *
+     * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the retEvento property.
-     *
+     * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getRetEvento().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link TRetEvento }
+     * 
+     * 
      */
     public List<TRetEvento> getRetEvento() {
         if (retEvento == null) {
@@ -216,10 +248,12 @@ public class TRetEnvEvento {
     }
 
     /**
-     * Obtm o valor da propriedade versao.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade versao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVersao() {
         return versao;
@@ -227,9 +261,11 @@ public class TRetEnvEvento {
 
     /**
      * Define o valor da propriedade versao.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;

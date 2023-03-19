@@ -26,16 +26,16 @@ public class ObjectFactory {
 
     private final static QName _ConsReciNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "consReciNFe");
     private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
-    private final static QName _TNFeInfNFeDetImpostoICMS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ICMS");
-    private final static QName _TNFeInfNFeDetImpostoPISST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PISST");
-    private final static QName _TNFeInfNFeDetImpostoCOFINSST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINSST");
-    private final static QName _TNFeInfNFeDetImpostoIPI_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "IPI");
-    private final static QName _TNFeInfNFeDetImpostoICMSUFDest_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ICMSUFDest");
     private final static QName _TNFeInfNFeDetImpostoVTotTrib_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "vTotTrib");
+    private final static QName _TNFeInfNFeDetImpostoICMS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ICMS");
+    private final static QName _TNFeInfNFeDetImpostoIPI_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "IPI");
     private final static QName _TNFeInfNFeDetImpostoII_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "II");
     private final static QName _TNFeInfNFeDetImpostoISSQN_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ISSQN");
-    private final static QName _TNFeInfNFeDetImpostoCOFINS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINS");
     private final static QName _TNFeInfNFeDetImpostoPIS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PIS");
+    private final static QName _TNFeInfNFeDetImpostoPISST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PISST");
+    private final static QName _TNFeInfNFeDetImpostoCOFINS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINS");
+    private final static QName _TNFeInfNFeDetImpostoCOFINSST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINSST");
+    private final static QName _TNFeInfNFeDetImpostoICMSUFDest_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ICMSUFDest");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema_4.consReciNFe
@@ -58,6 +58,30 @@ public class ObjectFactory {
      */
     public SignedInfoType createSignedInfoType() {
         return new SignedInfoType();
+    }
+
+    /**
+     * Create an instance of {@link TIpi }
+     * 
+     */
+    public TIpi createTIpi() {
+        return new TIpi();
+    }
+
+    /**
+     * Create an instance of {@link TRetEnviNFe }
+     * 
+     */
+    public TRetEnviNFe createTRetEnviNFe() {
+        return new TRetEnviNFe();
+    }
+
+    /**
+     * Create an instance of {@link TProtNFe }
+     * 
+     */
+    public TProtNFe createTProtNFe() {
+        return new TProtNFe();
     }
 
     /**
@@ -245,59 +269,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TProtNFe }
-     * 
-     */
-    public TProtNFe createTProtNFe() {
-        return new TProtNFe();
-    }
-
-    /**
-     * Create an instance of {@link TRetEnviNFe }
-     * 
-     */
-    public TRetEnviNFe createTRetEnviNFe() {
-        return new TRetEnviNFe();
-    }
-
-    /**
-     * Create an instance of {@link TIpi }
-     * 
-     */
-    public TIpi createTIpi() {
-        return new TIpi();
-    }
-
-    /**
      * Create an instance of {@link TConsReciNFe }
      * 
      */
     public TConsReciNFe createTConsReciNFe() {
         return new TConsReciNFe();
-    }
-
-    /**
-     * Create an instance of {@link TVeiculo }
-     * 
-     */
-    public TVeiculo createTVeiculo() {
-        return new TVeiculo();
-    }
-
-    /**
-     * Create an instance of {@link TEnderEmi }
-     * 
-     */
-    public TEnderEmi createTEnderEmi() {
-        return new TEnderEmi();
-    }
-
-    /**
-     * Create an instance of {@link TEndereco }
-     * 
-     */
-    public TEndereco createTEndereco() {
-        return new TEndereco();
     }
 
     /**
@@ -309,19 +285,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TInfRespTec }
+     * Create an instance of {@link TRetConsReciNFe }
      * 
      */
-    public TInfRespTec createTInfRespTec() {
-        return new TInfRespTec();
-    }
-
-    /**
-     * Create an instance of {@link TLocal }
-     * 
-     */
-    public TLocal createTLocal() {
-        return new TLocal();
+    public TRetConsReciNFe createTRetConsReciNFe() {
+        return new TRetConsReciNFe();
     }
 
     /**
@@ -333,11 +301,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TRetConsReciNFe }
+     * Create an instance of {@link TEndereco }
      * 
      */
-    public TRetConsReciNFe createTRetConsReciNFe() {
-        return new TRetConsReciNFe();
+    public TEndereco createTEndereco() {
+        return new TEndereco();
+    }
+
+    /**
+     * Create an instance of {@link TEnderEmi }
+     * 
+     */
+    public TEnderEmi createTEnderEmi() {
+        return new TEnderEmi();
+    }
+
+    /**
+     * Create an instance of {@link TLocal }
+     * 
+     */
+    public TLocal createTLocal() {
+        return new TLocal();
+    }
+
+    /**
+     * Create an instance of {@link TInfRespTec }
+     * 
+     */
+    public TInfRespTec createTInfRespTec() {
+        return new TInfRespTec();
+    }
+
+    /**
+     * Create an instance of {@link TVeiculo }
+     * 
+     */
+    public TVeiculo createTVeiculo() {
+        return new TVeiculo();
     }
 
     /**
@@ -346,14 +346,6 @@ public class ObjectFactory {
      */
     public SignatureType createSignatureType() {
         return new SignatureType();
-    }
-
-    /**
-     * Create an instance of {@link X509DataType }
-     * 
-     */
-    public X509DataType createX509DataType() {
-        return new X509DataType();
     }
 
     /**
@@ -389,6 +381,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link X509DataType }
+     * 
+     */
+    public X509DataType createX509DataType() {
+        return new X509DataType();
+    }
+
+    /**
      * Create an instance of {@link ReferenceType.DigestMethod }
      * 
      */
@@ -410,6 +410,38 @@ public class ObjectFactory {
      */
     public SignedInfoType.SignatureMethod createSignedInfoTypeSignatureMethod() {
         return new SignedInfoType.SignatureMethod();
+    }
+
+    /**
+     * Create an instance of {@link TIpi.IPITrib }
+     * 
+     */
+    public TIpi.IPITrib createTIpiIPITrib() {
+        return new TIpi.IPITrib();
+    }
+
+    /**
+     * Create an instance of {@link TIpi.IPINT }
+     * 
+     */
+    public TIpi.IPINT createTIpiIPINT() {
+        return new TIpi.IPINT();
+    }
+
+    /**
+     * Create an instance of {@link TRetEnviNFe.InfRec }
+     * 
+     */
+    public TRetEnviNFe.InfRec createTRetEnviNFeInfRec() {
+        return new TRetEnviNFe.InfRec();
+    }
+
+    /**
+     * Create an instance of {@link TProtNFe.InfProt }
+     * 
+     */
+    public TProtNFe.InfProt createTProtNFeInfProt() {
+        return new TProtNFe.InfProt();
     }
 
     /**
@@ -733,11 +765,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Imposto.ICMS.ICMS02 }
+     * 
+     */
+    public TNFe.InfNFe.Det.Imposto.ICMS.ICMS02 createTNFeInfNFeDetImpostoICMSICMS02() {
+        return new TNFe.InfNFe.Det.Imposto.ICMS.ICMS02();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Det.Imposto.ICMS.ICMS10 }
      * 
      */
     public TNFe.InfNFe.Det.Imposto.ICMS.ICMS10 createTNFeInfNFeDetImpostoICMSICMS10() {
         return new TNFe.InfNFe.Det.Imposto.ICMS.ICMS10();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Imposto.ICMS.ICMS15 }
+     * 
+     */
+    public TNFe.InfNFe.Det.Imposto.ICMS.ICMS15 createTNFeInfNFeDetImpostoICMSICMS15() {
+        return new TNFe.InfNFe.Det.Imposto.ICMS.ICMS15();
     }
 
     /**
@@ -773,11 +821,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Imposto.ICMS.ICMS53 }
+     * 
+     */
+    public TNFe.InfNFe.Det.Imposto.ICMS.ICMS53 createTNFeInfNFeDetImpostoICMSICMS53() {
+        return new TNFe.InfNFe.Det.Imposto.ICMS.ICMS53();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Det.Imposto.ICMS.ICMS60 }
      * 
      */
     public TNFe.InfNFe.Det.Imposto.ICMS.ICMS60 createTNFeInfNFeDetImpostoICMSICMS60() {
         return new TNFe.InfNFe.Det.Imposto.ICMS.ICMS60();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Imposto.ICMS.ICMS61 }
+     * 
+     */
+    public TNFe.InfNFe.Det.Imposto.ICMS.ICMS61 createTNFeInfNFeDetImpostoICMSICMS61() {
+        return new TNFe.InfNFe.Det.Imposto.ICMS.ICMS61();
     }
 
     /**
@@ -925,6 +989,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Prod.Comb.OrigComb }
+     * 
+     */
+    public TNFe.InfNFe.Det.Prod.Comb.OrigComb createTNFeInfNFeDetProdCombOrigComb() {
+        return new TNFe.InfNFe.Det.Prod.Comb.OrigComb();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Det.Prod.DetExport.ExportInd }
      * 
      */
@@ -965,40 +1037,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TProtNFe.InfProt }
+     * Create an instance of {@link JAXBElement }{@code <}{@link TConsReciNFe }{@code >}
      * 
-     */
-    public TProtNFe.InfProt createTProtNFeInfProt() {
-        return new TProtNFe.InfProt();
-    }
-
-    /**
-     * Create an instance of {@link TRetEnviNFe.InfRec }
-     * 
-     */
-    public TRetEnviNFe.InfRec createTRetEnviNFeInfRec() {
-        return new TRetEnviNFe.InfRec();
-    }
-
-    /**
-     * Create an instance of {@link TIpi.IPITrib }
-     * 
-     */
-    public TIpi.IPITrib createTIpiIPITrib() {
-        return new TIpi.IPITrib();
-    }
-
-    /**
-     * Create an instance of {@link TIpi.IPINT }
-     * 
-     */
-    public TIpi.IPINT createTIpiIPINT() {
-        return new TIpi.IPINT();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TConsReciNFe }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TConsReciNFe }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "consReciNFe")
     public JAXBElement<TConsReciNFe> createConsReciNFe(TConsReciNFe value) {
@@ -1006,8 +1050,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2000/09/xmldsig#", name = "Signature")
     public JAXBElement<SignatureType> createSignature(SignatureType value) {
@@ -1015,53 +1063,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "ICMS", scope = TNFe.InfNFe.Det.Imposto.class)
-    public JAXBElement<TNFe.InfNFe.Det.Imposto.ICMS> createTNFeInfNFeDetImpostoICMS(TNFe.InfNFe.Det.Imposto.ICMS value) {
-        return new JAXBElement<TNFe.InfNFe.Det.Imposto.ICMS>(_TNFeInfNFeDetImpostoICMS_QNAME, TNFe.InfNFe.Det.Imposto.ICMS.class, TNFe.InfNFe.Det.Imposto.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "PISST", scope = TNFe.InfNFe.Det.Imposto.class)
-    public JAXBElement<TNFe.InfNFe.Det.Imposto.PISST> createTNFeInfNFeDetImpostoPISST(TNFe.InfNFe.Det.Imposto.PISST value) {
-        return new JAXBElement<TNFe.InfNFe.Det.Imposto.PISST>(_TNFeInfNFeDetImpostoPISST_QNAME, TNFe.InfNFe.Det.Imposto.PISST.class, TNFe.InfNFe.Det.Imposto.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINSST }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "COFINSST", scope = TNFe.InfNFe.Det.Imposto.class)
-    public JAXBElement<TNFe.InfNFe.Det.Imposto.COFINSST> createTNFeInfNFeDetImpostoCOFINSST(TNFe.InfNFe.Det.Imposto.COFINSST value) {
-        return new JAXBElement<TNFe.InfNFe.Det.Imposto.COFINSST>(_TNFeInfNFeDetImpostoCOFINSST_QNAME, TNFe.InfNFe.Det.Imposto.COFINSST.class, TNFe.InfNFe.Det.Imposto.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TIpi }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "IPI", scope = TNFe.InfNFe.Det.Imposto.class)
-    public JAXBElement<TIpi> createTNFeInfNFeDetImpostoIPI(TIpi value) {
-        return new JAXBElement<TIpi>(_TNFeInfNFeDetImpostoIPI_QNAME, TIpi.class, TNFe.InfNFe.Det.Imposto.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMSUFDest }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "ICMSUFDest", scope = TNFe.InfNFe.Det.Imposto.class)
-    public JAXBElement<TNFe.InfNFe.Det.Imposto.ICMSUFDest> createTNFeInfNFeDetImpostoICMSUFDest(TNFe.InfNFe.Det.Imposto.ICMSUFDest value) {
-        return new JAXBElement<TNFe.InfNFe.Det.Imposto.ICMSUFDest>(_TNFeInfNFeDetImpostoICMSUFDest_QNAME, TNFe.InfNFe.Det.Imposto.ICMSUFDest.class, TNFe.InfNFe.Det.Imposto.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "vTotTrib", scope = TNFe.InfNFe.Det.Imposto.class)
     public JAXBElement<String> createTNFeInfNFeDetImpostoVTotTrib(String value) {
@@ -1069,8 +1076,38 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "ICMS", scope = TNFe.InfNFe.Det.Imposto.class)
+    public JAXBElement<TNFe.InfNFe.Det.Imposto.ICMS> createTNFeInfNFeDetImpostoICMS(TNFe.InfNFe.Det.Imposto.ICMS value) {
+        return new JAXBElement<TNFe.InfNFe.Det.Imposto.ICMS>(_TNFeInfNFeDetImpostoICMS_QNAME, TNFe.InfNFe.Det.Imposto.ICMS.class, TNFe.InfNFe.Det.Imposto.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TIpi }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TIpi }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "IPI", scope = TNFe.InfNFe.Det.Imposto.class)
+    public JAXBElement<TIpi> createTNFeInfNFeDetImpostoIPI(TIpi value) {
+        return new JAXBElement<TIpi>(_TNFeInfNFeDetImpostoIPI_QNAME, TIpi.class, TNFe.InfNFe.Det.Imposto.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "II", scope = TNFe.InfNFe.Det.Imposto.class)
     public JAXBElement<TNFe.InfNFe.Det.Imposto.II> createTNFeInfNFeDetImpostoII(TNFe.InfNFe.Det.Imposto.II value) {
@@ -1078,8 +1115,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "ISSQN", scope = TNFe.InfNFe.Det.Imposto.class)
     public JAXBElement<TNFe.InfNFe.Det.Imposto.ISSQN> createTNFeInfNFeDetImpostoISSQN(TNFe.InfNFe.Det.Imposto.ISSQN value) {
@@ -1087,8 +1128,38 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINS }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PIS }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PIS }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "PIS", scope = TNFe.InfNFe.Det.Imposto.class)
+    public JAXBElement<TNFe.InfNFe.Det.Imposto.PIS> createTNFeInfNFeDetImpostoPIS(TNFe.InfNFe.Det.Imposto.PIS value) {
+        return new JAXBElement<TNFe.InfNFe.Det.Imposto.PIS>(_TNFeInfNFeDetImpostoPIS_QNAME, TNFe.InfNFe.Det.Imposto.PIS.class, TNFe.InfNFe.Det.Imposto.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "PISST", scope = TNFe.InfNFe.Det.Imposto.class)
+    public JAXBElement<TNFe.InfNFe.Det.Imposto.PISST> createTNFeInfNFeDetImpostoPISST(TNFe.InfNFe.Det.Imposto.PISST value) {
+        return new JAXBElement<TNFe.InfNFe.Det.Imposto.PISST>(_TNFeInfNFeDetImpostoPISST_QNAME, TNFe.InfNFe.Det.Imposto.PISST.class, TNFe.InfNFe.Det.Imposto.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINS }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINS }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "COFINS", scope = TNFe.InfNFe.Det.Imposto.class)
     public JAXBElement<TNFe.InfNFe.Det.Imposto.COFINS> createTNFeInfNFeDetImpostoCOFINS(TNFe.InfNFe.Det.Imposto.COFINS value) {
@@ -1096,12 +1167,29 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PIS }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINSST }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINSST }{@code >}
      */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "PIS", scope = TNFe.InfNFe.Det.Imposto.class)
-    public JAXBElement<TNFe.InfNFe.Det.Imposto.PIS> createTNFeInfNFeDetImpostoPIS(TNFe.InfNFe.Det.Imposto.PIS value) {
-        return new JAXBElement<TNFe.InfNFe.Det.Imposto.PIS>(_TNFeInfNFeDetImpostoPIS_QNAME, TNFe.InfNFe.Det.Imposto.PIS.class, TNFe.InfNFe.Det.Imposto.class, value);
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "COFINSST", scope = TNFe.InfNFe.Det.Imposto.class)
+    public JAXBElement<TNFe.InfNFe.Det.Imposto.COFINSST> createTNFeInfNFeDetImpostoCOFINSST(TNFe.InfNFe.Det.Imposto.COFINSST value) {
+        return new JAXBElement<TNFe.InfNFe.Det.Imposto.COFINSST>(_TNFeInfNFeDetImpostoCOFINSST_QNAME, TNFe.InfNFe.Det.Imposto.COFINSST.class, TNFe.InfNFe.Det.Imposto.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMSUFDest }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMSUFDest }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "ICMSUFDest", scope = TNFe.InfNFe.Det.Imposto.class)
+    public JAXBElement<TNFe.InfNFe.Det.Imposto.ICMSUFDest> createTNFeInfNFeDetImpostoICMSUFDest(TNFe.InfNFe.Det.Imposto.ICMSUFDest value) {
+        return new JAXBElement<TNFe.InfNFe.Det.Imposto.ICMSUFDest>(_TNFeInfNFeDetImpostoICMSUFDest_QNAME, TNFe.InfNFe.Det.Imposto.ICMSUFDest.class, TNFe.InfNFe.Det.Imposto.class, value);
     }
 
 }

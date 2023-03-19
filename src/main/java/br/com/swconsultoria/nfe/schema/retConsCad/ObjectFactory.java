@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the br.inf.portalfiscal.nfe.schema.retConsCad package. 
+ * generated in the br.com.swconsultoria.nfe.schema.retConsCad package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -27,7 +27,7 @@ public class ObjectFactory {
     private final static QName _RetConsCad_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retConsCad");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.inf.portalfiscal.nfe.schema.retConsCad
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema.retConsCad
      * 
      */
     public ObjectFactory() {
@@ -82,8 +82,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TRetConsCad }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TRetConsCad }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TRetConsCad }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "retConsCad")
     public JAXBElement<TRetConsCad> createRetConsCad(TRetConsCad value) {

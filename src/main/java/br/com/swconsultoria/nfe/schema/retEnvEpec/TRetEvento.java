@@ -1,95 +1,102 @@
 
 package br.com.swconsultoria.nfe.schema.retEnvEpec;
 
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
  * Tipo retorno do Evento
- *
+ * 
  * <p>Classe Java de TRetEvento complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * 
  * <pre>
- * &lt;complexType name="TRetEvento">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="infEvento">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/>
- *                   &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
- *                   &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/>
- *                   &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
- *                   &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
- *                   &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" minOccurs="0"/>
- *                   &lt;element name="tpEvento" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;whiteSpace value="preserve"/>
- *                         &lt;pattern value="[0-9]{6}"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="xEvento" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
- *                         &lt;minLength value="5"/>
- *                         &lt;maxLength value="60"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="nSeqEvento" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;whiteSpace value="preserve"/>
- *                         &lt;pattern value="[1-9][0-9]{0,1}"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element ref="{http://www.portalfiscal.inf.br/nfe}cOrgaoAutor"/>
- *                   &lt;element name="dhRegEvento">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;whiteSpace value="preserve"/>
- *                         &lt;pattern value="(((20(([02468][048])|([13579][26]))-02-29))|(20[0-9][0-9])-((((0[1-9])|(1[0-2]))-((0[1-9])|(1\d)|(2[0-8])))|((((0[13578])|(1[02]))-31)|(((0[1,3-9])|(1[0-2]))-(29|30)))))T(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d[\-,\+](0[0-9]|10|11|12):00"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt" minOccurs="0"/>
- *                   &lt;element name="chNFePend" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" maxOccurs="50" minOccurs="0"/>
- *                 &lt;/sequence>
- *                 &lt;attribute name="Id">
- *                   &lt;simpleType>
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}ID">
- *                       &lt;pattern value="ID[0-9]{15}"/>
- *                     &lt;/restriction>
- *                   &lt;/simpleType>
- *                 &lt;/attribute>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element ref="{http://www.w3.org/2000/09/xmldsig#}Signature" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerEvento" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TRetEvento"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="infEvento"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/&gt;
+ *                   &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/&gt;
+ *                   &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/&gt;
+ *                   &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/&gt;
+ *                   &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/&gt;
+ *                   &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" minOccurs="0"/&gt;
+ *                   &lt;element name="tpEvento" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;whiteSpace value="preserve"/&gt;
+ *                         &lt;pattern value="[0-9]{6}"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="xEvento" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
+ *                         &lt;minLength value="5"/&gt;
+ *                         &lt;maxLength value="60"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="nSeqEvento" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;whiteSpace value="preserve"/&gt;
+ *                         &lt;pattern value="[1-9][0-9]{0,1}"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element ref="{http://www.portalfiscal.inf.br/nfe}cOrgaoAutor"/&gt;
+ *                   &lt;element name="dhRegEvento"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;whiteSpace value="preserve"/&gt;
+ *                         &lt;pattern value="(((20(([02468][048])|([13579][26]))-02-29))|(20[0-9][0-9])-((((0[1-9])|(1[0-2]))-((0[1-9])|(1\d)|(2[0-8])))|((((0[13578])|(1[02]))-31)|(((0[1,3-9])|(1[0-2]))-(29|30)))))T(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d[\-,\+](0[0-9]|10|11|12):00"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt" minOccurs="0"/&gt;
+ *                   &lt;element name="chNFePend" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" maxOccurs="50" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *                 &lt;attribute name="Id"&gt;
+ *                   &lt;simpleType&gt;
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}ID"&gt;
+ *                       &lt;pattern value="ID[0-9]{15}"/&gt;
+ *                     &lt;/restriction&gt;
+ *                   &lt;/simpleType&gt;
+ *                 &lt;/attribute&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element ref="{http://www.w3.org/2000/09/xmldsig#}Signature" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="versao" use="required" type="{http://www.portalfiscal.inf.br/nfe}TVerEvento" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TRetEvento", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-        "infEvento",
-        "signature"
+    "infEvento",
+    "signature"
 })
 public class TRetEvento {
 
@@ -101,10 +108,12 @@ public class TRetEvento {
     protected String versao;
 
     /**
-     * Obtm o valor da propriedade infEvento.
-     *
-     * @return possible object is
-     * {@link TRetEvento.InfEvento }
+     * Obtém o valor da propriedade infEvento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TRetEvento.InfEvento }
+     *     
      */
     public TRetEvento.InfEvento getInfEvento() {
         return infEvento;
@@ -112,19 +121,23 @@ public class TRetEvento {
 
     /**
      * Define o valor da propriedade infEvento.
-     *
-     * @param value allowed object is
-     *              {@link TRetEvento.InfEvento }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TRetEvento.InfEvento }
+     *     
      */
     public void setInfEvento(TRetEvento.InfEvento value) {
         this.infEvento = value;
     }
 
     /**
-     * Obtm o valor da propriedade signature.
-     *
-     * @return possible object is
-     * {@link SignatureType }
+     * Obtém o valor da propriedade signature.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SignatureType }
+     *     
      */
     public SignatureType getSignature() {
         return signature;
@@ -132,19 +145,23 @@ public class TRetEvento {
 
     /**
      * Define o valor da propriedade signature.
-     *
-     * @param value allowed object is
-     *              {@link SignatureType }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SignatureType }
+     *     
      */
     public void setSignature(SignatureType value) {
         this.signature = value;
     }
 
     /**
-     * Obtm o valor da propriedade versao.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade versao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getVersao() {
         return versao;
@@ -152,9 +169,11 @@ public class TRetEvento {
 
     /**
      * Define o valor da propriedade versao.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setVersao(String value) {
         this.versao = value;
@@ -163,83 +182,85 @@ public class TRetEvento {
 
     /**
      * <p>Classe Java de anonymous complex type.
-     *
-     * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
-     *
+     * 
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+     * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/>
-     *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
-     *         &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/>
-     *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
-     *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
-     *         &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" minOccurs="0"/>
-     *         &lt;element name="tpEvento" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;whiteSpace value="preserve"/>
-     *               &lt;pattern value="[0-9]{6}"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="xEvento" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
-     *               &lt;minLength value="5"/>
-     *               &lt;maxLength value="60"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="nSeqEvento" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;whiteSpace value="preserve"/>
-     *               &lt;pattern value="[1-9][0-9]{0,1}"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element ref="{http://www.portalfiscal.inf.br/nfe}cOrgaoAutor"/>
-     *         &lt;element name="dhRegEvento">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;whiteSpace value="preserve"/>
-     *               &lt;pattern value="(((20(([02468][048])|([13579][26]))-02-29))|(20[0-9][0-9])-((((0[1-9])|(1[0-2]))-((0[1-9])|(1\d)|(2[0-8])))|((((0[13578])|(1[02]))-31)|(((0[1,3-9])|(1[0-2]))-(29|30)))))T(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d[\-,\+](0[0-9]|10|11|12):00"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt" minOccurs="0"/>
-     *         &lt;element name="chNFePend" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" maxOccurs="50" minOccurs="0"/>
-     *       &lt;/sequence>
-     *       &lt;attribute name="Id">
-     *         &lt;simpleType>
-     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}ID">
-     *             &lt;pattern value="ID[0-9]{15}"/>
-     *           &lt;/restriction>
-     *         &lt;/simpleType>
-     *       &lt;/attribute>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="tpAmb" type="{http://www.portalfiscal.inf.br/nfe}TAmb"/&gt;
+     *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/&gt;
+     *         &lt;element name="cOrgao" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/&gt;
+     *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/&gt;
+     *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/&gt;
+     *         &lt;element name="chNFe" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" minOccurs="0"/&gt;
+     *         &lt;element name="tpEvento" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;whiteSpace value="preserve"/&gt;
+     *               &lt;pattern value="[0-9]{6}"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="xEvento" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
+     *               &lt;minLength value="5"/&gt;
+     *               &lt;maxLength value="60"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="nSeqEvento" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;whiteSpace value="preserve"/&gt;
+     *               &lt;pattern value="[1-9][0-9]{0,1}"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element ref="{http://www.portalfiscal.inf.br/nfe}cOrgaoAutor"/&gt;
+     *         &lt;element name="dhRegEvento"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;whiteSpace value="preserve"/&gt;
+     *               &lt;pattern value="(((20(([02468][048])|([13579][26]))-02-29))|(20[0-9][0-9])-((((0[1-9])|(1[0-2]))-((0[1-9])|(1\d)|(2[0-8])))|((((0[13578])|(1[02]))-31)|(((0[1,3-9])|(1[0-2]))-(29|30)))))T(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d[\-,\+](0[0-9]|10|11|12):00"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="nProt" type="{http://www.portalfiscal.inf.br/nfe}TProt" minOccurs="0"/&gt;
+     *         &lt;element name="chNFePend" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" maxOccurs="50" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *       &lt;attribute name="Id"&gt;
+     *         &lt;simpleType&gt;
+     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}ID"&gt;
+     *             &lt;pattern value="ID[0-9]{15}"/&gt;
+     *           &lt;/restriction&gt;
+     *         &lt;/simpleType&gt;
+     *       &lt;/attribute&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "tpAmb",
-            "verAplic",
-            "cOrgao",
-            "cStat",
-            "xMotivo",
-            "chNFe",
-            "tpEvento",
-            "xEvento",
-            "nSeqEvento",
-            "cOrgaoAutor",
-            "dhRegEvento",
-            "nProt",
-            "chNFePend"
+        "tpAmb",
+        "verAplic",
+        "cOrgao",
+        "cStat",
+        "xMotivo",
+        "chNFe",
+        "tpEvento",
+        "xEvento",
+        "nSeqEvento",
+        "cOrgaoAutor",
+        "dhRegEvento",
+        "nProt",
+        "chNFePend"
     })
     public static class InfEvento {
 
@@ -275,10 +296,12 @@ public class TRetEvento {
         protected String id;
 
         /**
-         * Obtm o valor da propriedade tpAmb.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade tpAmb.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getTpAmb() {
             return tpAmb;
@@ -286,19 +309,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade tpAmb.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setTpAmb(String value) {
             this.tpAmb = value;
         }
 
         /**
-         * Obtm o valor da propriedade verAplic.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade verAplic.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getVerAplic() {
             return verAplic;
@@ -306,19 +333,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade verAplic.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setVerAplic(String value) {
             this.verAplic = value;
         }
 
         /**
-         * Obtm o valor da propriedade cOrgao.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade cOrgao.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getCOrgao() {
             return cOrgao;
@@ -326,19 +357,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade cOrgao.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setCOrgao(String value) {
             this.cOrgao = value;
         }
 
         /**
-         * Obtm o valor da propriedade cStat.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade cStat.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getCStat() {
             return cStat;
@@ -346,19 +381,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade cStat.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setCStat(String value) {
             this.cStat = value;
         }
 
         /**
-         * Obtm o valor da propriedade xMotivo.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade xMotivo.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getXMotivo() {
             return xMotivo;
@@ -366,19 +405,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade xMotivo.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setXMotivo(String value) {
             this.xMotivo = value;
         }
 
         /**
-         * Obtm o valor da propriedade chNFe.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade chNFe.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getChNFe() {
             return chNFe;
@@ -386,19 +429,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade chNFe.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setChNFe(String value) {
             this.chNFe = value;
         }
 
         /**
-         * Obtm o valor da propriedade tpEvento.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade tpEvento.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getTpEvento() {
             return tpEvento;
@@ -406,19 +453,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade tpEvento.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setTpEvento(String value) {
             this.tpEvento = value;
         }
 
         /**
-         * Obtm o valor da propriedade xEvento.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade xEvento.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getXEvento() {
             return xEvento;
@@ -426,19 +477,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade xEvento.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setXEvento(String value) {
             this.xEvento = value;
         }
 
         /**
-         * Obtm o valor da propriedade nSeqEvento.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade nSeqEvento.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getNSeqEvento() {
             return nSeqEvento;
@@ -446,19 +501,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade nSeqEvento.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setNSeqEvento(String value) {
             this.nSeqEvento = value;
         }
 
         /**
-         * Obtm o valor da propriedade cOrgaoAutor.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade cOrgaoAutor.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getCOrgaoAutor() {
             return cOrgaoAutor;
@@ -466,19 +525,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade cOrgaoAutor.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setCOrgaoAutor(String value) {
             this.cOrgaoAutor = value;
         }
 
         /**
-         * Obtm o valor da propriedade dhRegEvento.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade dhRegEvento.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getDhRegEvento() {
             return dhRegEvento;
@@ -486,19 +549,23 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade dhRegEvento.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setDhRegEvento(String value) {
             this.dhRegEvento = value;
         }
 
         /**
-         * Obtm o valor da propriedade nProt.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade nProt.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getNProt() {
             return nProt;
@@ -506,9 +573,11 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade nProt.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setNProt(String value) {
             this.nProt = value;
@@ -516,23 +585,25 @@ public class TRetEvento {
 
         /**
          * Gets the value of the chNFePend property.
-         *
+         * 
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the chNFePend property.
-         *
+         * 
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getChNFePend().add(newItem);
          * </pre>
-         *
-         *
+         * 
+         * 
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link String }
+         * 
+         * 
          */
         public List<String> getChNFePend() {
             if (chNFePend == null) {
@@ -542,10 +613,12 @@ public class TRetEvento {
         }
 
         /**
-         * Obtm o valor da propriedade id.
-         *
-         * @return possible object is
-         * {@link String }
+         * Obtém o valor da propriedade id.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
         public String getId() {
             return id;
@@ -553,9 +626,11 @@ public class TRetEvento {
 
         /**
          * Define o valor da propriedade id.
-         *
-         * @param value allowed object is
-         *              {@link String }
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
          */
         public void setId(String value) {
             this.id = value;

@@ -148,7 +148,7 @@ public class XmlNfeUtil {
 
             case DIST_DFE:
                 context = JAXBContext.newInstance(DistDFeInt.class);
-                element = new br.com.swconsultoria.nfe.schema.distdfeint.ObjectFactory().createDistDFeInt((DistDFeInt) obj);
+                element = XsdUtil.distDFeInt.createDistDFeInt((DistDFeInt) obj);
                 break;
 
             case TCONSRECINFE:
@@ -195,19 +195,19 @@ public class XmlNfeUtil {
                 switch (obj.getClass().getName()) {
                     case TPROCCANCELAR:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento.class);
-                        element = new br.com.swconsultoria.nfe.schema.envEventoCancNFe.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento) obj);
+                        element = XsdUtil.envEventoCancNFe.createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento) obj);
                         break;
                     case TPROCATORINTERESSADO:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento.class);
-                        element = new br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento) obj);
+                        element = XsdUtil.envEventoAtorInteressado.createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento) obj);
                         break;
                     case TPROCCANCELARSUBST:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class);
-                        element = new br.com.swconsultoria.nfe.schema.envEventoCancSubst.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento) obj);
+                        element = XsdUtil.envEventoCancSubst.createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento) obj);
                         break;
                     case TPROCCCE:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envcce.TProcEvento.class);
-                        element = new br.com.swconsultoria.nfe.schema.envcce.ObjectFactory().createTProcEvento((br.com.swconsultoria.nfe.schema.envcce.TProcEvento) obj);
+                        element =  XsdUtil.envcce.createTProcEvento((br.com.swconsultoria.nfe.schema.envcce.TProcEvento) obj);
                         break;
                     case TPROCEPEC:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class);
@@ -333,7 +333,7 @@ public class XmlNfeUtil {
 
         String encodeXml = encode == null || !Charset.isSupported(encode.displayName()) ? "UTF-8" : encode.displayName();
 
-        sw.append("<?xml version=\"1.0\" encoding=\""+ encodeXml + "\"?>");
+        sw.append("<?xml version=\"1.0\" encoding=\"" + encodeXml + "\"?>");
 
         marshaller.marshal(element, sw);
 

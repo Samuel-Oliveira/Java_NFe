@@ -8,29 +8,31 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * <p>Classe Java de SignatureType complex type.
- *
- * <p>O seguinte fragmento do esquema especifica o contedo esperado contido dentro desta classe.
- *
+ * 
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * 
  * <pre>
- * &lt;complexType name="SignatureType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="SignedInfo" type="{http://www.w3.org/2000/09/xmldsig#}SignedInfoType"/>
- *         &lt;element name="SignatureValue" type="{http://www.w3.org/2000/09/xmldsig#}SignatureValueType"/>
- *         &lt;element name="KeyInfo" type="{http://www.w3.org/2000/09/xmldsig#}KeyInfoType"/>
- *       &lt;/sequence>
- *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="SignatureType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="SignedInfo" type="{http://www.w3.org/2000/09/xmldsig#}SignedInfoType"/&gt;
+ *         &lt;element name="SignatureValue" type="{http://www.w3.org/2000/09/xmldsig#}SignatureValueType"/&gt;
+ *         &lt;element name="KeyInfo" type="{http://www.w3.org/2000/09/xmldsig#}KeyInfoType"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="Id" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SignatureType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
-        "signedInfo",
-        "signatureValue",
-        "keyInfo"
+    "signedInfo",
+    "signatureValue",
+    "keyInfo"
 })
 public class SignatureType {
 
@@ -47,10 +49,12 @@ public class SignatureType {
     protected String id;
 
     /**
-     * Obtm o valor da propriedade signedInfo.
-     *
-     * @return possible object is
-     * {@link SignedInfoType }
+     * Obtém o valor da propriedade signedInfo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SignedInfoType }
+     *     
      */
     public SignedInfoType getSignedInfo() {
         return signedInfo;
@@ -58,19 +62,23 @@ public class SignatureType {
 
     /**
      * Define o valor da propriedade signedInfo.
-     *
-     * @param value allowed object is
-     *              {@link SignedInfoType }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SignedInfoType }
+     *     
      */
     public void setSignedInfo(SignedInfoType value) {
         this.signedInfo = value;
     }
 
     /**
-     * Obtm o valor da propriedade signatureValue.
-     *
-     * @return possible object is
-     * {@link SignatureValueType }
+     * Obtém o valor da propriedade signatureValue.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SignatureValueType }
+     *     
      */
     public SignatureValueType getSignatureValue() {
         return signatureValue;
@@ -78,19 +86,23 @@ public class SignatureType {
 
     /**
      * Define o valor da propriedade signatureValue.
-     *
-     * @param value allowed object is
-     *              {@link SignatureValueType }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SignatureValueType }
+     *     
      */
     public void setSignatureValue(SignatureValueType value) {
         this.signatureValue = value;
     }
 
     /**
-     * Obtm o valor da propriedade keyInfo.
-     *
-     * @return possible object is
-     * {@link KeyInfoType }
+     * Obtém o valor da propriedade keyInfo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link KeyInfoType }
+     *     
      */
     public KeyInfoType getKeyInfo() {
         return keyInfo;
@@ -98,19 +110,23 @@ public class SignatureType {
 
     /**
      * Define o valor da propriedade keyInfo.
-     *
-     * @param value allowed object is
-     *              {@link KeyInfoType }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link KeyInfoType }
+     *     
      */
     public void setKeyInfo(KeyInfoType value) {
         this.keyInfo = value;
     }
 
     /**
-     * Obtm o valor da propriedade id.
-     *
-     * @return possible object is
-     * {@link String }
+     * Obtém o valor da propriedade id.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getId() {
         return id;
@@ -118,9 +134,11 @@ public class SignatureType {
 
     /**
      * Define o valor da propriedade id.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setId(String value) {
         this.id = value;
