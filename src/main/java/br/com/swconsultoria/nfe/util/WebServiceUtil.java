@@ -60,6 +60,7 @@ public class WebServiceUtil {
                 if (!arquivo.exists())
                     throw new FileNotFoundException("Arquivo WebService" + config.getArquivoWebService() + " não encontrado");
                 is = new FileInputStream(arquivo);
+                log.info("[ARQUIVO INI CUSTOMIZADO]: " + config.getArquivoWebService());
             } else {
                 is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
             }
