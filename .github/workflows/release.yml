@@ -4,6 +4,8 @@ name: Liberar nova versão
 on:
   workflow_dispatch:
   push:
+    branches:
+      - 'master'
     tags:
       - '4.*'
 
