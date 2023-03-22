@@ -33,7 +33,7 @@ jobs:
           timezoneMacos: "America/Sao_Paulo"
           timezoneWindows: "America/Sao_Paulo"
       - name: Criando executavel
-        run: mvn -B package --file pom.xml
+        run: mvn -B package -Passembly --file pom.xml
       - name: Criando pasta para Zip
         run: mkdir java-nfe && cp target/*.jar java-nfe && cp schemas.zip java-nfe
       - uses: montudor/action-zip@v1
