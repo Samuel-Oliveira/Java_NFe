@@ -20,7 +20,8 @@ public enum ServicosEnum {
     CONSULTA_XML("nfeconsultaprotocolo_4.00", "consSitNFe_v4.00.xsd"),
     DISTRIBUICAO_DFE("nfedistribuicaodfe_1.01", "distDFeInt_v1.01.xsd"),
     URL_QRCODE("url-qrcode",null),
-    URL_CONSULTANFCE("url-consultanfce",null);
+    URL_CONSULTANFCE("url-consultanfce",null),
+    PROC("procNFe_v4.00","procNFe_v4.00.xsd");
 
     private final String servico;
     private final String xsd;
