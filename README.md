@@ -1,4 +1,4 @@
-# Java-NFe [![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.22/jar)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.23/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ## Dúvidas, Sugestões ou Consultoria
@@ -17,7 +17,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.22</version>
+    <version>4.00.23</version>
 </dependency>
 ```
 
@@ -29,7 +29,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.22"
+    implementation "br.com.swconsultoria:java-nfe:4.00.23"
 }
 ```
 
@@ -38,6 +38,10 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.23 - 25/04/2023 - Schemas PL.009k
+- Atualizado Objeto e XSD NT 2023.001 1.20
+- Adicionado Validacao XML Manual
 
 ## v4.00.22 - 22/03/2023 - Schemas PL.009k
 - Correções Build Maven
