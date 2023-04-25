@@ -1,20 +1,12 @@
 
 package br.com.swconsultoria.nfe.schema_4.consReciNFe;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlElementRefs;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -1267,7 +1259,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                                       &lt;/complexContent&gt;
  *                                                     &lt;/complexType&gt;
  *                                                   &lt;/element&gt;
- *                                                   &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc" minOccurs="0"/&gt;
+ *                                                   &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc" minOccurs="0"/&gt;
  *                                                   &lt;element name="origComb" maxOccurs="30" minOccurs="0"&gt;
  *                                                     &lt;complexType&gt;
  *                                                       &lt;complexContent&gt;
@@ -1283,7 +1275,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                                               &lt;/simpleType&gt;
  *                                                             &lt;/element&gt;
  *                                                             &lt;element name="cUFOrig" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
- *                                                             &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc"/&gt;
+ *                                                             &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc"/&gt;
  *                                                           &lt;/sequence&gt;
  *                                                         &lt;/restriction&gt;
  *                                                       &lt;/complexContent&gt;
@@ -1705,9 +1697,14 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                                                   &lt;/restriction&gt;
  *                                                                 &lt;/simpleType&gt;
  *                                                               &lt;/element&gt;
+ *                                                               &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
+ *                                                               &lt;element name="adRemICMS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
+ *                                                               &lt;element name="vICMSMonoOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+ *                                                               &lt;element name="pDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Max100" minOccurs="0"/&gt;
+ *                                                               &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+ *                                                               &lt;element name="vICMSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
  *                                                               &lt;element name="qBCMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
  *                                                               &lt;element name="adRemICMSDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
- *                                                               &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
  *                                                             &lt;/sequence&gt;
  *                                                           &lt;/restriction&gt;
  *                                                         &lt;/complexContent&gt;
@@ -4905,7 +4902,7 @@ public class TNFe {
      *                                             &lt;/complexContent&gt;
      *                                           &lt;/complexType&gt;
      *                                         &lt;/element&gt;
-     *                                         &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc" minOccurs="0"/&gt;
+     *                                         &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc" minOccurs="0"/&gt;
      *                                         &lt;element name="origComb" maxOccurs="30" minOccurs="0"&gt;
      *                                           &lt;complexType&gt;
      *                                             &lt;complexContent&gt;
@@ -4921,7 +4918,7 @@ public class TNFe {
      *                                                     &lt;/simpleType&gt;
      *                                                   &lt;/element&gt;
      *                                                   &lt;element name="cUFOrig" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
-     *                                                   &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc"/&gt;
+     *                                                   &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc"/&gt;
      *                                                 &lt;/sequence&gt;
      *                                               &lt;/restriction&gt;
      *                                             &lt;/complexContent&gt;
@@ -5343,9 +5340,14 @@ public class TNFe {
      *                                                         &lt;/restriction&gt;
      *                                                       &lt;/simpleType&gt;
      *                                                     &lt;/element&gt;
+     *                                                     &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
+     *                                                     &lt;element name="adRemICMS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
+     *                                                     &lt;element name="vICMSMonoOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+     *                                                     &lt;element name="pDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Max100" minOccurs="0"/&gt;
+     *                                                     &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+     *                                                     &lt;element name="vICMSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
      *                                                     &lt;element name="qBCMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
      *                                                     &lt;element name="adRemICMSDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
-     *                                                     &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
      *                                                   &lt;/sequence&gt;
      *                                                 &lt;/restriction&gt;
      *                                               &lt;/complexContent&gt;
@@ -10422,7 +10424,7 @@ public class TNFe {
          *                                   &lt;/complexContent&gt;
          *                                 &lt;/complexType&gt;
          *                               &lt;/element&gt;
-         *                               &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc" minOccurs="0"/&gt;
+         *                               &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc" minOccurs="0"/&gt;
          *                               &lt;element name="origComb" maxOccurs="30" minOccurs="0"&gt;
          *                                 &lt;complexType&gt;
          *                                   &lt;complexContent&gt;
@@ -10438,7 +10440,7 @@ public class TNFe {
          *                                           &lt;/simpleType&gt;
          *                                         &lt;/element&gt;
          *                                         &lt;element name="cUFOrig" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
-         *                                         &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc"/&gt;
+         *                                         &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc"/&gt;
          *                                       &lt;/sequence&gt;
          *                                     &lt;/restriction&gt;
          *                                   &lt;/complexContent&gt;
@@ -10860,9 +10862,14 @@ public class TNFe {
          *                                               &lt;/restriction&gt;
          *                                             &lt;/simpleType&gt;
          *                                           &lt;/element&gt;
+         *                                           &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
+         *                                           &lt;element name="adRemICMS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
+         *                                           &lt;element name="vICMSMonoOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+         *                                           &lt;element name="pDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Max100" minOccurs="0"/&gt;
+         *                                           &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+         *                                           &lt;element name="vICMSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
          *                                           &lt;element name="qBCMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
          *                                           &lt;element name="adRemICMSDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
-         *                                           &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
          *                                         &lt;/sequence&gt;
          *                                       &lt;/restriction&gt;
          *                                     &lt;/complexContent&gt;
@@ -12560,9 +12567,14 @@ public class TNFe {
              *                                     &lt;/restriction&gt;
              *                                   &lt;/simpleType&gt;
              *                                 &lt;/element&gt;
+             *                                 &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
+             *                                 &lt;element name="adRemICMS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
+             *                                 &lt;element name="vICMSMonoOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+             *                                 &lt;element name="pDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Max100" minOccurs="0"/&gt;
+             *                                 &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+             *                                 &lt;element name="vICMSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
              *                                 &lt;element name="qBCMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
              *                                 &lt;element name="adRemICMSDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
-             *                                 &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
              *                               &lt;/sequence&gt;
              *                             &lt;/restriction&gt;
              *                           &lt;/complexContent&gt;
@@ -13612,8 +13624,8 @@ public class TNFe {
                  * <p>
                  * Você está obtendo esta propriedade "catch-all" pelo seguinte motivo: 
                  * O nome do campo "IPI" é usado por duas partes diferentes de um esquema. Consulte: 
-                 * linha 4137 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
-                 * linha 4105 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
+                 * linha 4162 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
+                 * linha 4130 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
                  * <p>
                  * Para eliminar esta propriedade, aplique uma personalização de propriedade a uma 
                  * das seguintes declarações, a fim de alterar seus nomes: 
@@ -15099,9 +15111,14 @@ public class TNFe {
                  *                       &lt;/restriction&gt;
                  *                     &lt;/simpleType&gt;
                  *                   &lt;/element&gt;
+                 *                   &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
+                 *                   &lt;element name="adRemICMS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
+                 *                   &lt;element name="vICMSMonoOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+                 *                   &lt;element name="pDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Max100" minOccurs="0"/&gt;
+                 *                   &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+                 *                   &lt;element name="vICMSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
                  *                   &lt;element name="qBCMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
                  *                   &lt;element name="adRemICMSDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
-                 *                   &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
                  *                 &lt;/sequence&gt;
                  *               &lt;/restriction&gt;
                  *             &lt;/complexContent&gt;
@@ -19161,9 +19178,14 @@ public class TNFe {
                      *             &lt;/restriction&gt;
                      *           &lt;/simpleType&gt;
                      *         &lt;/element&gt;
+                     *         &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
+                     *         &lt;element name="adRemICMS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
+                     *         &lt;element name="vICMSMonoOp" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+                     *         &lt;element name="pDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04Max100" minOccurs="0"/&gt;
+                     *         &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
+                     *         &lt;element name="vICMSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
                      *         &lt;element name="qBCMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104v" minOccurs="0"/&gt;
                      *         &lt;element name="adRemICMSDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04" minOccurs="0"/&gt;
-                     *         &lt;element name="vICMSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/&gt;
                      *       &lt;/sequence&gt;
                      *     &lt;/restriction&gt;
                      *   &lt;/complexContent&gt;
@@ -19176,9 +19198,14 @@ public class TNFe {
                     @XmlType(name = "", propOrder = {
                         "orig",
                         "cst",
+                        "qbcMono",
+                        "adRemICMS",
+                        "vicmsMonoOp",
+                        "pDif",
+                        "vicmsMonoDif",
+                        "vicmsMono",
                         "qbcMonoDif",
-                        "adRemICMSDif",
-                        "vicmsMonoDif"
+                        "adRemICMSDif"
                     })
                     public static class ICMS53 {
 
@@ -19186,12 +19213,22 @@ public class TNFe {
                         protected String orig;
                         @XmlElement(name = "CST", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
                         protected String cst;
+                        @XmlElement(name = "qBCMono", namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String qbcMono;
+                        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String adRemICMS;
+                        @XmlElement(name = "vICMSMonoOp", namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String vicmsMonoOp;
+                        @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String pDif;
+                        @XmlElement(name = "vICMSMonoDif", namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String vicmsMonoDif;
+                        @XmlElement(name = "vICMSMono", namespace = "http://www.portalfiscal.inf.br/nfe")
+                        protected String vicmsMono;
                         @XmlElement(name = "qBCMonoDif", namespace = "http://www.portalfiscal.inf.br/nfe")
                         protected String qbcMonoDif;
                         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
                         protected String adRemICMSDif;
-                        @XmlElement(name = "vICMSMonoDif", namespace = "http://www.portalfiscal.inf.br/nfe")
-                        protected String vicmsMonoDif;
 
                         /**
                          * Obtém o valor da propriedade orig.
@@ -19242,6 +19279,150 @@ public class TNFe {
                         }
 
                         /**
+                         * Obtém o valor da propriedade qbcMono.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getQBCMono() {
+                            return qbcMono;
+                        }
+
+                        /**
+                         * Define o valor da propriedade qbcMono.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setQBCMono(String value) {
+                            this.qbcMono = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade adRemICMS.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getAdRemICMS() {
+                            return adRemICMS;
+                        }
+
+                        /**
+                         * Define o valor da propriedade adRemICMS.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setAdRemICMS(String value) {
+                            this.adRemICMS = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade vicmsMonoOp.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getVICMSMonoOp() {
+                            return vicmsMonoOp;
+                        }
+
+                        /**
+                         * Define o valor da propriedade vicmsMonoOp.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setVICMSMonoOp(String value) {
+                            this.vicmsMonoOp = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade pDif.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getPDif() {
+                            return pDif;
+                        }
+
+                        /**
+                         * Define o valor da propriedade pDif.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setPDif(String value) {
+                            this.pDif = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade vicmsMonoDif.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getVICMSMonoDif() {
+                            return vicmsMonoDif;
+                        }
+
+                        /**
+                         * Define o valor da propriedade vicmsMonoDif.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setVICMSMonoDif(String value) {
+                            this.vicmsMonoDif = value;
+                        }
+
+                        /**
+                         * Obtém o valor da propriedade vicmsMono.
+                         * 
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *     
+                         */
+                        public String getVICMSMono() {
+                            return vicmsMono;
+                        }
+
+                        /**
+                         * Define o valor da propriedade vicmsMono.
+                         * 
+                         * @param value
+                         *     allowed object is
+                         *     {@link String }
+                         *     
+                         */
+                        public void setVICMSMono(String value) {
+                            this.vicmsMono = value;
+                        }
+
+                        /**
                          * Obtém o valor da propriedade qbcMonoDif.
                          * 
                          * @return
@@ -19287,30 +19468,6 @@ public class TNFe {
                          */
                         public void setAdRemICMSDif(String value) {
                             this.adRemICMSDif = value;
-                        }
-
-                        /**
-                         * Obtém o valor da propriedade vicmsMonoDif.
-                         * 
-                         * @return
-                         *     possible object is
-                         *     {@link String }
-                         *     
-                         */
-                        public String getVICMSMonoDif() {
-                            return vicmsMonoDif;
-                        }
-
-                        /**
-                         * Define o valor da propriedade vicmsMonoDif.
-                         * 
-                         * @param value
-                         *     allowed object is
-                         *     {@link String }
-                         *     
-                         */
-                        public void setVICMSMonoDif(String value) {
-                            this.vicmsMonoDif = value;
                         }
 
                     }
@@ -27606,7 +27763,7 @@ public class TNFe {
              *                         &lt;/complexContent&gt;
              *                       &lt;/complexType&gt;
              *                     &lt;/element&gt;
-             *                     &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc" minOccurs="0"/&gt;
+             *                     &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc" minOccurs="0"/&gt;
              *                     &lt;element name="origComb" maxOccurs="30" minOccurs="0"&gt;
              *                       &lt;complexType&gt;
              *                         &lt;complexContent&gt;
@@ -27622,7 +27779,7 @@ public class TNFe {
              *                                 &lt;/simpleType&gt;
              *                               &lt;/element&gt;
              *                               &lt;element name="cUFOrig" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
-             *                               &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc"/&gt;
+             *                               &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc"/&gt;
              *                             &lt;/sequence&gt;
              *                           &lt;/restriction&gt;
              *                         &lt;/complexContent&gt;
@@ -28993,7 +29150,7 @@ public class TNFe {
                  *             &lt;/complexContent&gt;
                  *           &lt;/complexType&gt;
                  *         &lt;/element&gt;
-                 *         &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc" minOccurs="0"/&gt;
+                 *         &lt;element name="pBio" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc" minOccurs="0"/&gt;
                  *         &lt;element name="origComb" maxOccurs="30" minOccurs="0"&gt;
                  *           &lt;complexType&gt;
                  *             &lt;complexContent&gt;
@@ -29009,7 +29166,7 @@ public class TNFe {
                  *                     &lt;/simpleType&gt;
                  *                   &lt;/element&gt;
                  *                   &lt;element name="cUFOrig" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
-                 *                   &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc"/&gt;
+                 *                   &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc"/&gt;
                  *                 &lt;/sequence&gt;
                  *               &lt;/restriction&gt;
                  *             &lt;/complexContent&gt;
@@ -29706,7 +29863,7 @@ public class TNFe {
                      *           &lt;/simpleType&gt;
                      *         &lt;/element&gt;
                      *         &lt;element name="cUFOrig" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/&gt;
-                     *         &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_0304Max100Opc"/&gt;
+                     *         &lt;element name="pOrig" type="{http://www.portalfiscal.inf.br/nfe}TDec_03v00a04Max100Opc"/&gt;
                      *       &lt;/sequence&gt;
                      *     &lt;/restriction&gt;
                      *   &lt;/complexContent&gt;
