@@ -15,23 +15,44 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.StringReader;
 
-class Validar implements ErrorHandler {
+public class Validar implements ErrorHandler {
 
     private String listaComErrosDeValidacao = "";
 
-    void validaXml(ConfiguracoesNfe config, String xml, ServicosEnum servico) throws NfeException {
+    public boolean isValidXml(String pastaSchemas, String xml, ServicosEnum servico) {
+        return isValidXml(pastaSchemas + System.getProperty("file.separator") + servico.getXsd(), xml);
+    }
 
+    public boolean isValidXml(ConfiguracoesNfe config, String xml, ServicosEnum servico) {
+        return isValidXml(config.getPastaSchemas(), xml, servico);
+    }
+
+    public boolean isValidXml(String xsd, String xml) {
+        try {
+            validaXml(xsd, xml);
+
+            return true;
+        } catch (NfeException ex) {
+            return false;
+        }
+    }
+
+    void validaXml(String xsd, String xml) throws NfeException {
         System.setProperty("jdk.xml.maxOccurLimit", "99999");
         String errosValidacao;
-        String xsd = config.getPastaSchemas() + System.getProperty("file.separator") + servico.getXsd();
+
         if (!new File(xsd).exists()) {
             throw new NfeException("Schema Nfe não Localizado: " + xsd);
         }
 
         errosValidacao = validateXml(xml, xsd);
-        if(ObjetoUtil.verifica(errosValidacao).isPresent())
-            throw  new NfeValidacaoException("Erro na validação: " + errosValidacao);
+        if (ObjetoUtil.verifica(errosValidacao).isPresent()) {
+            throw new NfeValidacaoException("Erro na validação: " + errosValidacao);
+        }
+    }
 
+    void validaXml(ConfiguracoesNfe config, String xml, ServicosEnum servico) throws NfeException {
+        validaXml(config.getPastaSchemas() + System.getProperty("file.separator") + servico.getXsd(), xml);
     }
 
     private String validateXml(String xml, String xsd) throws NfeException {
@@ -59,6 +80,7 @@ class Validar implements ErrorHandler {
         return this.getListaComErrosDeValidacao();
     }
 
+    @Override
     public void error(SAXParseException exception) {
 
         if (isError(exception)) {
@@ -66,11 +88,13 @@ class Validar implements ErrorHandler {
         }
     }
 
+    @Override
     public void fatalError(SAXParseException exception) {
 
         listaComErrosDeValidacao += tratamentoRetorno(exception.getMessage());
     }
 
+    @Override
     public void warning(SAXParseException exception) {
 
         listaComErrosDeValidacao += tratamentoRetorno(exception.getMessage());
