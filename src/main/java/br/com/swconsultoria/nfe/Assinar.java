@@ -81,7 +81,7 @@ public class Assinar {
                 | InvalidAlgorithmParameterException | KeyStoreException | UnrecoverableEntryException
                 | CertificadoException | MarshalException
                 | XMLSignatureException e) {
-            throw new NfeException("Erro ao Assinar Nfe" + e.getMessage());
+            throw new NfeException("Erro ao Assinar Nfe" + e.getMessage(),e);
         }
     }
 

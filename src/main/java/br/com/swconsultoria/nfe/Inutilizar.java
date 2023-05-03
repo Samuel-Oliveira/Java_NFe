@@ -61,7 +61,7 @@ class Inutilizar {
             log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetInutNFe.class);
         } catch (RemoteException | XMLStreamException | JAXBException e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(),e);
         }
 
     }
