@@ -7,7 +7,10 @@ import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
-import br.com.swconsultoria.nfe.util.*;
+import br.com.swconsultoria.nfe.util.ConstantesUtil;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
+import br.com.swconsultoria.nfe.util.WebServiceUtil;
+import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocolo.NFeConsultaProtocolo4Stub;
 import lombok.extern.java.Log;
 import org.apache.axiom.om.OMElement;
@@ -87,7 +90,7 @@ class ConsultaXml {
             }
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(),e);
         }
 
     }

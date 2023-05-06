@@ -29,7 +29,7 @@ class Cancelar {
 			return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
 
 		} catch (JAXBException e) {
-			throw new NfeException(e.getMessage());
+			throw new NfeException(e.getMessage(),e);
 		}
 
 	}
@@ -48,7 +48,7 @@ class Cancelar {
 			return XmlNfeUtil.xmlToObject(xml, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class);
 
 		} catch (JAXBException e) {
-			throw new NfeException(e.getMessage());
+			throw new NfeException(e.getMessage(),e);
 		}
 
 	}

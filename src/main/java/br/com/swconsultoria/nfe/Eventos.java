@@ -58,7 +58,7 @@ class Eventos {
             log.info("[XML-RETORNO-" + tipoEvento + "]: " + result.getExtraElement().toString());
             return result.getExtraElement().toString();
         } catch (RemoteException | XMLStreamException e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(),e);
         }
 
     }

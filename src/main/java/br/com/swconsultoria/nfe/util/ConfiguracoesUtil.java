@@ -71,7 +71,7 @@ public class ConfiguracoesUtil {
                 CertificadoService.inicializaCertificado(configuracoesNfe.getCertificado());
             }
         } catch (CertificadoException e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(),e);
         }
 
         return configuracoesNfe;

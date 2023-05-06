@@ -28,7 +28,7 @@ class ManifestacaoDestinatario {
             return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
 
 		} catch (JAXBException e) {
-			throw new NfeException(e.getMessage());
+			throw new NfeException(e.getMessage(),e);
 		}
 	}
 

@@ -9,7 +9,6 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.envEpec.*;
 
 import javax.xml.bind.JAXBException;
-import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,17 +18,8 @@ import java.util.List;
  */
 public class EpecUtil {
 
-    /**
-     * MOnta o Evento de epec Lote
-     *
-     * @param epec
-     * @param configuracao
-     * @return
-     * @throws NfeException
-     */
-    public static TEnvEvento montaEpec(Evento epec, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
-        return montaEpec(Collections.singletonList(epec),configuracao,zoneId);
-    }
+    private EpecUtil() {}
+
     /**
      * MOnta o Evento de epec Lote
      *
@@ -39,8 +29,9 @@ public class EpecUtil {
      * @throws NfeException
      */
     public static TEnvEvento montaEpec(Evento epec, ConfiguracoesNfe configuracao) throws NfeException {
-        return montaEpec(Collections.singletonList(epec),configuracao);
+        return montaEpec(Collections.singletonList(epec), configuracao);
     }
+
     /**
      * MOnta o Evento de epec Lote
      *
@@ -50,18 +41,6 @@ public class EpecUtil {
      * @throws NfeException
      */
     public static TEnvEvento montaEpec(List<Evento> listaEpec, ConfiguracoesNfe configuracao) throws NfeException {
-        return montaEpec(listaEpec,configuracao,null);
-    }
-    /**
-     * MOnta o Evento de epec Lote
-     *
-     * @param listaEpec
-     * @param configuracao
-     * @return
-     * @throws NfeException
-     */
-    public static TEnvEvento montaEpec(List<Evento> listaEpec, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
-
 
         if (listaEpec.size() > 20) {
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
@@ -85,9 +64,9 @@ public class EpecUtil {
 
             infoEvento.setCPF(epec.getCpf());
             infoEvento.setCNPJ(epec.getCnpj());
-            
+
             infoEvento.setChNFe(epec.getChave());
-            infoEvento.setDhEvento(XmlNfeUtil.dataNfe(epec.getDataEvento(),zoneId));
+            infoEvento.setDhEvento(XmlNfeUtil.dataNfe(epec.getDataEvento(), configuracao.getZoneId()));
             infoEvento.setTpEvento(EventosEnum.EPEC.getCodigo());
             infoEvento.setNSeqEvento("1");
             infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_EPEC);
@@ -98,7 +77,7 @@ public class EpecUtil {
             detEvento.setCOrgaoAutor(configuracao.getEstado().getCodigoUF());
             detEvento.setTpAutor("1");
             detEvento.setVerAplic("1.0.0");
-            detEvento.setDhEmi(XmlNfeUtil.dataNfe(epec.getDataEvento(),zoneId));
+            detEvento.setDhEmi(XmlNfeUtil.dataNfe(epec.getDataEvento(), configuracao.getZoneId()));
             detEvento.setTpNF(epec.getEventoEpec().getTipoNF());
             detEvento.setIE(epec.getEventoEpec().getIeEmitente());
 
@@ -136,7 +115,7 @@ public class EpecUtil {
 
         String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
         xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
-        xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
+        xml = xml.replace("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
         String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), xml, AssinaturaEnum.EVENTO);
 

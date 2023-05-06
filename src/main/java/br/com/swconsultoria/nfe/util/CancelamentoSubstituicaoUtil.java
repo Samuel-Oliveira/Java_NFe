@@ -12,7 +12,6 @@ import br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento;
 import br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEvento;
 
 import javax.xml.bind.JAXBException;
-import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,18 +21,11 @@ import java.util.List;
  */
 public class CancelamentoSubstituicaoUtil {
 
+    private CancelamentoSubstituicaoUtil() {}
+
     /**
      * MOnta o Evento de cancelamento unico
-     * @param cancela
-     * @param configuracao
-     * @return
-     * @throws NfeException
-     */
-    public static TEnvEvento montaCancelamento(Evento cancela, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
-        return montaCancelamento(Collections.singletonList(cancela), configuracao, zoneId);
-    }
-    /**
-     * MOnta o Evento de cancelamento unico
+     *
      * @param cancela
      * @param configuracao
      * @return
@@ -45,25 +37,15 @@ public class CancelamentoSubstituicaoUtil {
 
     /**
      * MOnta o Evento de cancelamento Lote
+     *
      * @param listaCancela
      * @param configuracao
      * @return
      * @throws NfeException
      */
     public static TEnvEvento montaCancelamento(List<Evento> listaCancela, ConfiguracoesNfe configuracao) throws NfeException {
-        return montaCancelamento(listaCancela,configuracao,null);
-    }
-    /**
-     * MOnta o Evento de cancelamento Lote Com ZoneId
-     * @param listaCancela
-     * @param configuracao
-     * @param zoneId
-     * @return
-     * @throws NfeException
-     */
-    public static TEnvEvento montaCancelamento(List<Evento> listaCancela, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
 
-        if(listaCancela.size() > 20){
+        if (listaCancela.size() > 20) {
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
         }
 
@@ -87,7 +69,7 @@ public class CancelamentoSubstituicaoUtil {
 
             infoEvento.setChNFe(evento.getChave());
 
-            infoEvento.setDhEvento(XmlNfeUtil.dataNfe(evento.getDataEvento(), zoneId));
+            infoEvento.setDhEvento(XmlNfeUtil.dataNfe(evento.getDataEvento(), configuracao.getZoneId()));
             infoEvento.setTpEvento(EventosEnum.CANCELAMENTO_SUBSTITUICAO.getCodigo());
             infoEvento.setNSeqEvento("1");
             infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO_SUBSTIUICAO);
@@ -111,6 +93,7 @@ public class CancelamentoSubstituicaoUtil {
 
     /**
      * Cria o ProcEvento de Cancelamento
+     *
      * @param config
      * @param enviEvento
      * @param retorno
@@ -121,8 +104,8 @@ public class CancelamentoSubstituicaoUtil {
     public static String criaProcEventoCancelamento(ConfiguracoesNfe config, TEnvEvento enviEvento, TRetEvento retorno) throws JAXBException, NfeException {
 
         String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
-        xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
-        xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
+        xml = xml.replace(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "")
+                .replace("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
         String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), xml, AssinaturaEnum.EVENTO);
 
