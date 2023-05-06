@@ -101,7 +101,7 @@ class DistribuicaoDFe {
                     RetDistDFeInt.class);
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(),e);
         }
     }
 

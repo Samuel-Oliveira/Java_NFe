@@ -72,7 +72,7 @@ class ConsultaRecibo {
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsReciNFe.class);
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(),e);
         }
 
     }

@@ -16,7 +16,6 @@ import org.apache.axiom.om.util.AXIOMUtil;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Random;
 
 public class MockCancelar {
@@ -56,7 +55,7 @@ public class MockCancelar {
         tRetEvento.setInfEvento(infEvento);
         retorno.getRetEvento().add(tRetEvento);
 
-        String retornoStr = XmlNfeUtil.objectToXml(retorno).replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>","");
+        String retornoStr = XmlNfeUtil.objectToXml(retorno).replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>", "");
 
         OMElement om = AXIOMUtil.stringToOM("<nfeResultMsg>" + retornoStr + "</nfeResultMsg>");
         return NFeRecepcaoEvento4Stub.NfeResultMsg.Factory.parse(om.getXMLStreamReaderWithoutCaching());
@@ -70,6 +69,6 @@ public class MockCancelar {
         cancela.setCnpj(configuracoesNfe.getCertificado().getCnpjCpf());
         cancela.setMotivo("Teste de Cancelamento");
         cancela.setDataEvento(LocalDateTime.now());
-        return CancelamentoUtil.montaCancelamento(cancela, configuracoesNfe, ZoneId.systemDefault());
+        return CancelamentoUtil.montaCancelamento(cancela, configuracoesNfe);
     }
 }

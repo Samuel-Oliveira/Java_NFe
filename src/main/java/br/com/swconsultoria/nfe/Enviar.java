@@ -73,7 +73,7 @@ class Enviar {
             return XmlNfeUtil.xmlToObject(xml, TEnviNFe.class);
 
         } catch (Exception e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(),e);
         }
 
     }

@@ -120,7 +120,7 @@ public class WebServiceUtil {
             return url;
 
         } catch (IOException e) {
-            throw new NfeException(e.getMessage());
+            throw new NfeException(e.getMessage(),e);
         }
 
     }

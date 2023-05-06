@@ -12,7 +12,6 @@ import br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento;
 import br.com.swconsultoria.nfe.schema.envConfRecebto.TretEvento;
 
 import javax.xml.bind.JAXBException;
-import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,6 +20,8 @@ import java.util.List;
  * Data: 02/03/2019 - 22:51
  */
 public class ManifestacaoUtil {
+
+    private ManifestacaoUtil() {}
 
     /**
      * MOnta o Evento de Manifestacao Unico
@@ -35,18 +36,6 @@ public class ManifestacaoUtil {
     }
 
     /**
-     * MOnta o Evento de Manifestacao Unico
-     *
-     * @param manifesta
-     * @param configuracao
-     * @return
-     * @throws NfeException
-     */
-    public static TEnvEvento montaManifestacao(Evento manifesta, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
-        return montaManifestacao(Collections.singletonList(manifesta), configuracao, zoneId);
-    }
-
-    /**
      * MOnta o Evento de Manifestacao Lote
      *
      * @param listaManifestacao
@@ -55,18 +44,6 @@ public class ManifestacaoUtil {
      * @throws NfeException
      */
     public static TEnvEvento montaManifestacao(List<Evento> listaManifestacao, ConfiguracoesNfe configuracao) throws NfeException {
-        return montaManifestacao(listaManifestacao, configuracao, null);
-    }
-
-    /**
-     * MOnta o Evento de Manifestacao Lote
-     *
-     * @param listaManifestacao
-     * @param configuracao
-     * @return
-     * @throws NfeException
-     */
-    public static TEnvEvento montaManifestacao(List<Evento> listaManifestacao, ConfiguracoesNfe configuracao, ZoneId zoneId) throws NfeException {
 
         if (listaManifestacao.size() > 20) {
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
@@ -92,7 +69,7 @@ public class ManifestacaoUtil {
             infEvento.setCNPJ(manifestacao.getCnpj());
 
             infEvento.setChNFe(manifestacao.getChave());
-            infEvento.setDhEvento(XmlNfeUtil.dataNfe(manifestacao.getDataEvento(), zoneId));
+            infEvento.setDhEvento(XmlNfeUtil.dataNfe(manifestacao.getDataEvento(), configuracao.getZoneId()));
             infEvento.setTpEvento(manifestacao.getTipoManifestacao().getCodigo());
             infEvento.setNSeqEvento("1");
             infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
@@ -107,7 +84,6 @@ public class ManifestacaoUtil {
             evento.setInfEvento(infEvento);
             enviEvento.getEvento().add(evento);
         });
-
 
         return enviEvento;
     }
@@ -126,7 +102,7 @@ public class ManifestacaoUtil {
 
         String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
         xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
-        xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
+        xml = xml.replace("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
         String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), xml, AssinaturaEnum.EVENTO);
 

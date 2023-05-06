@@ -13,20 +13,21 @@ import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.time.ZoneId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * @author Samuel Oliveira
- *
- *         Responsável por iniciar as configurações das operações NF-e.
- *
- *         Para iniciar as configurações chame o método estático
- *         iniciaConfiguracoes:<br>
- *         {@code
+ * <p>
+ * Responsável por iniciar as configurações das operações NF-e.
+ * <p>
+ * Para iniciar as configurações chame o método estático
+ * iniciaConfiguracoes:<br>
+ * {@code
  * ConfiguracoesIniciaisNfe.iniciaConfiguracoes(estado, ambiente, certificado, schemas);
  * }
- *
  * @see ConfiguracoesNfe
  * @see ConfiguracoesWebNfe
  */
@@ -43,37 +44,49 @@ public class ConfiguracoesNfe {
     private String arquivoWebService;
     private Integer retry;
     private InputStream cacert;
-
     private Charset encode;
+    private ZoneId zoneId;
+
+    /**
+     * Este método recebe como parâmetro os dados necessários para iniciar a
+     * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
+     * mesma.
+     * Nessa inicializacao é usado o ZoneId padrao America/Sao_Paulo
+     *
+     * @param estado       enumeration Estados, UF do emitente.
+     * @param ambiente     Enumeration AmbienteEnum
+     * @param certificado  objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
+     * @return ConfiguracoesIniciaisNfe
+     * @see br.com.swconsultoria.certificado.Certificado
+     * @see EstadosEnum
+     */
+    public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado, String pastaSchemas) throws CertificadoException {
+        return criarConfiguracoes(estado,ambiente,certificado,pastaSchemas, ZoneId.of("America/Sao_Paulo"));
+    }
 
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a
      * comunicação de operações dos eventos da NF-e. Retorna uma instância dela
      * mesma.
      *
-     * @param estado
-     *            enumeration Estados, UF do emitente.
-     * @param ambiente
-     *            Enumeration AmbienteEnum
-     * @param certificado
-     *            objeto Certificado
-     * @param pastaSchemas
-     *            local dos arquivo de schemas da NF-e.
+     * @param estado       enumeration Estados, UF do emitente.
+     * @param ambiente     Enumeration AmbienteEnum
+     * @param certificado  objeto Certificado
+     * @param pastaSchemas local dos arquivo de schemas da NF-e.
+     * @param zoneId       Zona para configuracoes de data
      * @return ConfiguracoesIniciaisNfe
      * @see br.com.swconsultoria.certificado.Certificado
      * @see EstadosEnum
      */
-    public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado, String pastaSchemas)
-            throws CertificadoException {
+    public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado, String pastaSchemas, ZoneId zoneId) throws CertificadoException {
 
         ConfiguracoesNfe configuracoesNfe = new ConfiguracoesNfe();
-        configuracoesNfe.setEstado(
-                ObjetoUtil.verifica(estado).orElseThrow(() -> new IllegalArgumentException("Estado não pode ser Nulo.")));
-        configuracoesNfe.setAmbiente(
-                ObjetoUtil.verifica(ambiente).orElseThrow(() -> new IllegalArgumentException("Ambiente não pode ser Nulo.")));
-        configuracoesNfe.setCertificado(
-                ObjetoUtil.verifica(certificado).orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo.")));
+        configuracoesNfe.setEstado(ObjetoUtil.verifica(estado).orElseThrow(() -> new IllegalArgumentException("Estado não pode ser Nulo.")));
+        configuracoesNfe.setAmbiente(ObjetoUtil.verifica(ambiente).orElseThrow(() -> new IllegalArgumentException("Ambiente não pode ser Nulo.")));
+        configuracoesNfe.setCertificado(ObjetoUtil.verifica(certificado).orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo.")));
         configuracoesNfe.setPastaSchemas(pastaSchemas);
+        configuracoesNfe.setZoneId(ObjetoUtil.verifica(zoneId).orElseThrow(() -> new IllegalArgumentException("Zone ID não pode ser Nulo.")));
 
         /**
          * Para as versões Java até 11, Eu ainda seto o Encoding por que é permitido.
@@ -82,7 +95,7 @@ public class ConfiguracoesNfe {
          * -Dsun.jnu.encoding="UTF-8"
          *
          */
-        if(Integer.parseInt(System.getProperty("java.class.version").substring(0,2)) < 56){
+        if (Integer.parseInt(System.getProperty("java.class.version").substring(0, 2)) < 56) {
             try {
                 //Setando Encoding.
                 System.setProperty("file.encoding", "UTF-8");
@@ -96,7 +109,7 @@ public class ConfiguracoesNfe {
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
-            System.err.println("       Api Java Nfe - Versão 4.00.23 - 25/04/2023");
+            System.err.println("       Api Java Nfe - Versão 4.00.24 - 06/05/2023");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
@@ -143,10 +156,10 @@ public class ConfiguracoesNfe {
      * Ex.:<br>
      * {@code
      * ConfiguracoesIniciaisNfe.iniciaConfiguracoes(
-    estado,
-    AmbienteEnum.HOMOLOGACAO,
-    certificado,
-    schemas);
+     * estado,
+     * AmbienteEnum.HOMOLOGACAO,
+     * certificado,
+     * schemas);
      * }
      *
      * @param ambiente
@@ -210,8 +223,7 @@ public class ConfiguracoesNfe {
     /**
      * Atribui um valor para o atribuito Estado.
      *
-     * @param estado
-     *            estado
+     * @param estado estado
      * @see EstadosEnum
      */
     public void setEstado(EstadosEnum estado) {
@@ -317,15 +329,16 @@ public class ConfiguracoesNfe {
      *
      * @return
      */
-    public Charset getEncode() { return encode;}
+    public Charset getEncode() {return encode;}
 
     /**
      * Altera o encode utilizado para criar o arquivo xml.<br>
      * Por padrão é utilizado o UTF-8 em caso de erro ou não ser
      * informado nada.
+     *
      * @param encode
      */
-    public void setEncode(Charset encode) { this.encode = encode; }
+    public void setEncode(Charset encode) {this.encode = encode;}
 
     /**
      * Passar encode via String para o xml.
@@ -334,11 +347,19 @@ public class ConfiguracoesNfe {
      */
     public void setEncode(String nomeEncode) {
         if (nomeEncode != null && !nomeEncode.equals("")) {
-             try {
-                 this.encode = Charset.forName(nomeEncode);
-             } catch (Exception ex) {
-                 this.encode = Charset.forName("UTF-8");
-             }
+            try {
+                this.encode = Charset.forName(nomeEncode);
+            } catch (Exception ex) {
+                this.encode = StandardCharsets.UTF_8;
+            }
         }
+    }
+
+    public ZoneId getZoneId() {
+        return zoneId;
+    }
+
+    public void setZoneId(ZoneId zoneId) {
+        this.zoneId = zoneId;
     }
 }
