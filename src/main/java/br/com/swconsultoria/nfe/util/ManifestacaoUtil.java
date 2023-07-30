@@ -14,6 +14,7 @@ import br.com.swconsultoria.nfe.schema.envConfRecebto.TretEvento;
 import javax.xml.bind.JAXBException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com
@@ -89,12 +90,12 @@ public class ManifestacaoUtil {
     }
 
     /**
-     * Cria o ProcEvento de Cancelamento
+     * Cria e assina o tag procEventoNFe
      *
-     * @param config
-     * @param enviEvento
-     * @param retorno
-     * @return
+     * @param config Um {@link ConfiguracoesNfe}, interface de configuração da NF-e ou NFC-e.
+     * @param enviEvento Um {@link TEnvEvento} com a estrutura com a mensagem enviada para o sistema de distribuição.
+     * @param retorno Um {@link TretEvento} com os dadps do resultado do Envio do Evento.
+     * @return Uma {@link String} retornando um XML de evento assinado.
      * @throws JAXBException
      * @throws NfeException
      */
@@ -108,7 +109,17 @@ public class ManifestacaoUtil {
 
         TProcEvento procEvento = new TProcEvento();
         procEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
-        procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEvento.class).getEvento().get(0));
+
+        Optional<TEvento> optEvento = XmlNfeUtil.xmlToObject(assinado, TEnvEvento.class)
+                        .getEvento()
+                        .stream()
+                        .filter(e -> e.getInfEvento().getChNFe().equalsIgnoreCase(retorno.getInfEvento().getChNFe()))
+                        .findFirst();
+
+        if (optEvento.isPresent()) {
+            procEvento.setEvento(optEvento.get());
+        }
+
         procEvento.setRetEvento(retorno);
 
         return XmlNfeUtil.objectToXml(procEvento, config.getEncode());
