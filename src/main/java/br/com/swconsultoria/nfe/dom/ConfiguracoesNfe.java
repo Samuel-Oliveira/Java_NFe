@@ -109,7 +109,7 @@ public class ConfiguracoesNfe {
 
         if (Logger.getLogger("").isLoggable(Level.SEVERE)) {
             System.err.println("####################################################################");
-            System.err.println("       Api Java Nfe - Versão 4.00.24 - 06/05/2023");
+            System.err.println("       Api Java Nfe - Versão 4.00.25 - 30/07/2023");
             if (Logger.getLogger("").isLoggable(Level.WARNING)) {
                 System.err.println(" Samuel Olivera - samuel@swconsultoria.com.br ");
             }
@@ -199,7 +199,7 @@ public class ConfiguracoesNfe {
     }
 
     /**
-     * Atribui um valor para contigenciaSCAN. Caso True, as operações da NF-e
+     * Atribui um valor para contigenciaSVC. Caso True, as operações da NF-e
      * funcionarão no modo de Contingência. <br>
      * Usar para situações em que não for possível estabelecer conexão com o
      * WebService SEFAZ Origem.
