@@ -84,7 +84,7 @@
         <dependency>
             <groupId>br.com.swconsultoria</groupId>
             <artifactId>java_certificado</artifactId>
-            <version>2.10</version>
+            <version>2.11</version>
         </dependency>
         <!-- Ini4J -->
         <dependency>
