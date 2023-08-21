@@ -1,3 +1,3 @@
 # Notas de versão
 
-- Corrigido erro Inutilizacão CE
+- Atualizado Cacert MG
