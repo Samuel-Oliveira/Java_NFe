@@ -38,8 +38,6 @@ import java.util.Base64;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 /**
