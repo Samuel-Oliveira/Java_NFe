@@ -38,6 +38,8 @@ import java.util.Base64;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -95,6 +97,7 @@ public class XmlNfeUtil {
     private static final String RET_CCE = "br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento";
     private static final String RET_EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento";
     private static final String RET_MANIFESTAR = "br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento";
+    private static final Pattern PROTNFE_FIX = Pattern.compile("(<protNFe)(.*)(xmlns=\"http://www.w3.org/2000/09/xmldsig#\")(.*)(<infProt)");
 
     /**
      * Transforma o String do XML em Objeto
@@ -104,6 +107,10 @@ public class XmlNfeUtil {
      * @return T
      */
     public static <T> T xmlToObject(String xml, Class<T> classe) throws JAXBException {
+        //TODO Temporário, Sefaz MS enviando XML errado.
+        Matcher matcher = PROTNFE_FIX.matcher(xml);
+        xml = matcher.replaceAll("$1$2$4$5");
+
         return JAXB.unmarshal(new StreamSource(new StringReader(xml)), classe);
     }
 
