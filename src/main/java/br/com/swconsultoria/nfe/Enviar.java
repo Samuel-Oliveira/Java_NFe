@@ -27,6 +27,8 @@ import javax.xml.stream.XMLStreamException;
 import java.io.StringReader;
 import java.rmi.RemoteException;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Classe Responsavel por Enviar o XML.
@@ -35,6 +37,8 @@ import java.util.Iterator;
  */
 @Log
 class Enviar {
+
+    private static final Pattern PROTNFE_FIX = Pattern.compile("(<protNFe)(.*)(xmlns=\"http://www.w3.org/2000/09/xmldsig#\")(.*)(<infProt)");
 
     /**
      * Metodo para Montar a NFE
@@ -131,8 +135,15 @@ class Enviar {
             }
 
             NFeAutorizacao4Stub.NfeResultMsg result = stub.nfeAutorizacaoLote(dadosMsg);
-            log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
-            return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
+            String xmlString = result.getExtraElement().toString();
+            log.info("[XML-RETORNO]: " + xmlString);
+
+            //TODO Temporário, Sefaz MS enviando XML errado (xmlns)
+            Matcher matcher = PROTNFE_FIX.matcher(xmlString);
+            xmlString = matcher.replaceAll("$1$2$4$5");
+            log.fine("[XML-RETORNO TRATADO]: " + xmlString);
+
+            return XmlNfeUtil.xmlToObject(xmlString, TRetEnviNFe.class);
 
         } catch (RemoteException | XMLStreamException | JAXBException e) {
             throw new NfeException(e.getMessage(), e);
