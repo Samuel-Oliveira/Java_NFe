@@ -39,7 +39,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.26 - 26/11/2023 - Schemas PL.009k
+## v4.00.27 - 26/11/2023 - Schemas PL.009k
 - Atualizado Cacert MT
 - Adicionado Conversao para RetDistDFeInt
 
