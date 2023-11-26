@@ -20,6 +20,7 @@ public class XsdUtil {
     private static final QName _TRetEnvEvento_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retEnvEvento");
     private static final QName _TRetInutNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retInutNFe");
     private static final QName _TDistDFeInt_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "distDFeInt");
+    private static final QName _TRetDistDFeInt_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retDistDFeInt");
 
     public interface enviNfe {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TNfeProc", scope = br.com.swconsultoria.nfe.schema_4.enviNFe.TNfeProc.class)
@@ -42,6 +43,11 @@ public class XsdUtil {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "distDFeInt", scope = br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt> createDistDFeInt(br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt value) {
             return new JAXBElement<>(_TDistDFeInt_QNAME, br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt.class, br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt.class, value);
+        }
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "retDistDFeInt", scope = br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt> createRetDistDFeInt(br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt value) {
+            return new JAXBElement<>(_TRetDistDFeInt_QNAME, br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt.class,
+                    br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt.class, value);
         }
     }
 

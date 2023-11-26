@@ -27,6 +27,7 @@ import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.InvalidParameterException;
@@ -48,6 +49,8 @@ import java.util.zip.GZIPInputStream;
 @Log
 public class XmlNfeUtil {
 
+    private XmlNfeUtil(){}
+
     private static final String STATUS = "TConsStatServ";
     private static final String SITUACAO_NFE = "TConsSitNFe";
     private static final String ENVIO_NFE = "TEnviNFe";
@@ -65,30 +68,25 @@ public class XmlNfeUtil {
     private static final String RET_RECIBO_NFE = "TRetConsReciNFe";
     private static final String RET_STATUS_SERVICO = "TRetConsStatServ";
     private static final String RET_CONS_CAD = "TRetConsCad";
-
+    private static final String RET_DIST_DFE = "RetDistDFeInt";
     private static final String RET_ENV_EVENTO = "TRetEnvEvento";
-
     private static final String RET_INUT_NFE = "TRetInutNFe";
-
     private static final String TPROCCANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento";
     private static final String TPROCATORINTERESSADO = "br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento";
     private static final String TPROCCANCELARSUBST = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento";
     private static final String TPROCCCE = "br.com.swconsultoria.nfe.schema.envcce.TProcEvento";
     private static final String TPROCEPEC = "br.com.swconsultoria.nfe.schema.envEpec.TProcEvento";
     private static final String TPROCMAN = "br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento";
-
     private static final String TProtNFe = "TProtNFe";
     private static final String TProtEnvi = "br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe";
     private static final String TProtCons = "br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TProtNFe";
     private static final String TProtReci = "br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe";
-
     private static final String CANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento";
     private static final String ATOR_INTERESSADO = "br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TEnvEvento";
     private static final String CANCELAR_SUBSTITUICAO = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento";
     private static final String CCE = "br.com.swconsultoria.nfe.schema.envcce.TEnvEvento";
     private static final String EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento";
     private static final String MANIFESTAR = "br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento";
-
     private static final String RET_CANCELAR = "br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento";
     private static final String RET_ATOR_INTERESSADO = "br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento";
     private static final String RET_CANCELAR_SUBSTITUICAO = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento";
@@ -189,6 +187,11 @@ public class XmlNfeUtil {
             case RET_CONS_CAD:
                 context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.retConsCad.TRetConsCad.class);
                 element = new br.com.swconsultoria.nfe.schema.retConsCad.ObjectFactory().createRetConsCad((br.com.swconsultoria.nfe.schema.retConsCad.TRetConsCad) obj);
+                break;
+
+            case RET_DIST_DFE:
+                context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt.class);
+                element = XsdUtil.distDFeInt.createRetDistDFeInt((br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt) obj);
                 break;
 
             case TPROCEVENTO:
@@ -351,7 +354,7 @@ public class XmlNfeUtil {
         }
         GZIPInputStream gis;
         gis = new GZIPInputStream(new ByteArrayInputStream(conteudo));
-        BufferedReader bf = new BufferedReader(new InputStreamReader(gis, "UTF-8"));
+        BufferedReader bf = new BufferedReader(new InputStreamReader(gis, StandardCharsets.UTF_8));
         StringBuilder outStr = new StringBuilder();
         String line;
         while ((line = bf.readLine()) != null) {
