@@ -1,3 +1,4 @@
 # Notas de versão
 
-- Atualizado Cacert MG
+- Atualizado Cacert MT
+- Adicionado Conversao para RetDistDFeInt
