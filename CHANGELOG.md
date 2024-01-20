@@ -1,4 +1,3 @@
 # Notas de versão
 
-- Atualizado Cacert MT
-- Adicionado Conversao para RetDistDFeInt
+- Adicionado Eventos Suframa Vistoria E Internaliza
