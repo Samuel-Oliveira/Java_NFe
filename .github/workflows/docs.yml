@@ -3,8 +3,8 @@ name: Publish docs via GitHub Pages
 on:
   workflow_dispatch:
   push:
-    branches:
-      - master
+    tags:
+      - '4.*'
 
 jobs:
   build:
