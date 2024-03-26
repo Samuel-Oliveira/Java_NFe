@@ -33,12 +33,16 @@ jobs:
           timezoneMacos: "America/Sao_Paulo"
           timezoneWindows: "America/Sao_Paulo"
       - name: Criando executavel
-        run: mvn -B package -Passembly --file pom.xml
+        run: |
+          mvn versions:set -DnewVersion=${{github.ref_name}}
+          mvn -B compile -Passembly --file pom.xml
+
       - name: Criando pasta para Zip
         run: mkdir java-nfe && cp target/*.jar java-nfe && cp schemas.zip java-nfe
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r java-nfe.zip java-nfe
+          args: zip -qq -r java-nfe-${{github.ref_name}}.zip java-nfe
+
       - name: Criando release
         uses: actions/create-release@v1
         id: create_release
@@ -56,6 +60,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./java-nfe.zip
-          asset_name: java-nfe.zip
+          asset_path: ./java-nfe-${{github.ref_name}}.zip
+          asset_name: java-nfe-${{github.ref_name}}.zip
           asset_content_type: application/zip
