@@ -35,10 +35,10 @@ jobs:
       - name: Criando executavel
         run: |
           mvn versions:set -DnewVersion=${{github.ref_name}}
-          mvn -B compile -Passembly --file pom.xml
+          mvn -B package -Passembly --file pom.xml
 
       - name: Criando pasta para Zip
-        run: mkdir java-nfe && cp target/*.jar java-nfe && cp schemas.zip java-nfe
+        run: mkdir java-nfe && cp target/java-nfe-${{github.ref_name}}.jar java-nfe && cp schemas.zip java-nfe
       - uses: montudor/action-zip@v1
         with:
           args: zip -qq -r java-nfe-${{github.ref_name}}.zip java-nfe
