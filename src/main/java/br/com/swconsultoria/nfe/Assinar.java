@@ -40,7 +40,8 @@ import java.util.List;
 /**
  * Classe Responsavel Por Assinar O Xml.
  *
- * @author Samuel Oliveira - samuel@swconsultoria.com.br - www.swconsultoria.com.br
+ * @author Samuel Oliveira - samuel@swconsultoria.com.br -
+ *         www.swconsultoria.com.br
  */
 public class Assinar {
 
@@ -50,14 +51,21 @@ public class Assinar {
 
     /**
      * @param stringXml
-     * @param tipoAssinatura ('NFe' para nfe normal , 'infInut' para inutilizacao, 'evento'
+     * @param tipoAssinatura ('NFe' para nfe normal , 'infInut' para inutilizacao,
+     *                       'evento'
      *                       para eventos)
      * @return String do Xml Assinado
      * @throws NfeException
      */
-    public static String assinaNfe(ConfiguracoesNfe config, String stringXml, AssinaturaEnum tipoAssinatura) throws NfeException {
+    public static String assinaNfe(ConfiguracoesNfe config, String stringXml, AssinaturaEnum tipoAssinatura)
+            throws NfeException {
 
-        stringXml = stringXml.replaceAll("\r\n", "").replaceAll("\n", "").replaceAll(System.lineSeparator(), ""); // Erro quando tem salto de linha.
+        stringXml = stringXml.replaceAll("\r\n", "").replaceAll("\n", "").replaceAll(System.lineSeparator(), ""); // Erro
+                                                                                                                  // quando
+                                                                                                                  // tem
+                                                                                                                  // salto
+                                                                                                                  // de
+                                                                                                                  // linha.
         stringXml = stringXml.replaceAll("\\s+<", "<"); // Erro Espaço antes do final da Tag.
         stringXml = assinaDocNFe(config, stringXml, tipoAssinatura);
         stringXml = stringXml.replaceAll("&#13;", ""); // Java 11
@@ -65,15 +73,19 @@ public class Assinar {
         return stringXml;
     }
 
-    private static String assinaDocNFe(ConfiguracoesNfe config, String xml, AssinaturaEnum tipoAssinatura) throws NfeException {
+    private static String assinaDocNFe(ConfiguracoesNfe config, String xml, AssinaturaEnum tipoAssinatura)
+            throws NfeException {
 
         try {
             Document document = documentFactory(xml);
             XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
             ArrayList<Transform> transformList = signatureFactory(signatureFactory);
-            loadCertificates(config, signatureFactory);
 
-            for (int i = 0; i < document.getDocumentElement().getElementsByTagName(tipoAssinatura.getTipo()).getLength(); i++) {
+            if (!config.getCertificadoPreCarregado() || privateKey == null || keyInfo == null) {
+                loadCertificates(config, signatureFactory);
+            }
+            for (int i = 0; i < document.getDocumentElement().getElementsByTagName(tipoAssinatura.getTipo())
+                    .getLength(); i++) {
                 assinarNFe(tipoAssinatura, signatureFactory, transformList, privateKey, keyInfo, document, i);
             }
             return outputXML(document);
@@ -81,12 +93,13 @@ public class Assinar {
                 | InvalidAlgorithmParameterException | KeyStoreException | UnrecoverableEntryException
                 | CertificadoException | MarshalException
                 | XMLSignatureException e) {
-            throw new NfeException("Erro ao Assinar Nfe" + e.getMessage(),e);
+            throw new NfeException("Erro ao Assinar Nfe" + e.getMessage(), e);
         }
     }
 
-    private static void assinarNFe(AssinaturaEnum tipoAssinatura, XMLSignatureFactory fac, ArrayList<Transform> transformList,
-                                   PrivateKey privateKey, KeyInfo ki, Document document, int indexNFe) throws NoSuchAlgorithmException,
+    private static void assinarNFe(AssinaturaEnum tipoAssinatura, XMLSignatureFactory fac,
+            ArrayList<Transform> transformList,
+            PrivateKey privateKey, KeyInfo ki, Document document, int indexNFe) throws NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, MarshalException, XMLSignatureException {
 
         NodeList elements = document.getElementsByTagName(tipoAssinatura.getTag());
@@ -121,8 +134,10 @@ public class Assinar {
             throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
 
         ArrayList<Transform> transformList = new ArrayList<Transform>();
-        Transform envelopedTransform = signatureFactory.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null);
-        Transform c14NTransform = signatureFactory.newTransform("http://www.w3.org/TR/2001/REC-xml-c14n-20010315", (TransformParameterSpec) null);
+        Transform envelopedTransform = signatureFactory.newTransform(Transform.ENVELOPED,
+                (TransformParameterSpec) null);
+        Transform c14NTransform = signatureFactory.newTransform("http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
+                (TransformParameterSpec) null);
 
         transformList.add(envelopedTransform);
         transformList.add(c14NTransform);
@@ -157,7 +172,7 @@ public class Assinar {
 
     private static String outputXML(Document doc) throws NfeException {
 
-        try (ByteArrayOutputStream os = new ByteArrayOutputStream()){
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer trans = tf.newTransformer();
             trans.transform(new DOMSource(doc), new StreamResult(os));
@@ -166,7 +181,22 @@ public class Assinar {
             xml = xml.replaceAll(" standalone=\"no\"", "");
             return xml;
         } catch (TransformerException | IOException e) {
-            throw new NfeException("Erro ao Transformar Documento:" + e.getMessage(),e);
+            throw new NfeException("Erro ao Transformar Documento:" + e.getMessage(), e);
+        }
+    }
+
+    public static String preCarregarCertificado(ConfiguracoesNfe config)
+            throws NfeException {
+
+        try {
+            XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
+
+            loadCertificates(config, signatureFactory);
+            config.setCertificadoPreCarregado(true);
+            return "Certificado pré carregado com sucesso.";
+        } catch (NoSuchAlgorithmException | KeyStoreException
+                | UnrecoverableEntryException | CertificadoException e) {
+            throw new NfeException("Erro ao pré carregar certificado Nfe" + e.getMessage(), e);
         }
     }
 }

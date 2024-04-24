@@ -19,12 +19,12 @@ import java.time.ZoneId;
 
 /**
  * @author Samuel Oliveira
- * <p>
- * Responsável por iniciar as configurações das operações NF-e.
- * <p>
- * Para iniciar as configurações chame o método estático
- * iniciaConfiguracoes:<br>
- * {@code
+ *         <p>
+ *         Responsável por iniciar as configurações das operações NF-e.
+ *         <p>
+ *         Para iniciar as configurações chame o método estático
+ *         iniciaConfiguracoes:<br>
+ *         {@code
  * ConfiguracoesIniciaisNfe.iniciaConfiguracoes(estado, ambiente, certificado, schemas);
  * }
  * @see ConfiguracoesNfe
@@ -46,6 +46,7 @@ public class ConfiguracoesNfe {
     private InputStream cacert;
     private Charset encode;
     private ZoneId zoneId;
+    private Boolean certificadoPreCarregado;
 
     /**
      * Este método recebe como parâmetro os dados necessários para iniciar a
@@ -61,8 +62,9 @@ public class ConfiguracoesNfe {
      * @see br.com.swconsultoria.certificado.Certificado
      * @see EstadosEnum
      */
-    public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado, String pastaSchemas) throws CertificadoException {
-        return criarConfiguracoes(estado,ambiente,certificado,pastaSchemas, ZoneId.of("America/Sao_Paulo"));
+    public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente,
+            Certificado certificado, String pastaSchemas) throws CertificadoException {
+        return criarConfiguracoes(estado, ambiente, certificado, pastaSchemas, ZoneId.of("America/Sao_Paulo"));
     }
 
     /**
@@ -79,14 +81,19 @@ public class ConfiguracoesNfe {
      * @see br.com.swconsultoria.certificado.Certificado
      * @see EstadosEnum
      */
-    public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente, Certificado certificado, String pastaSchemas, ZoneId zoneId) throws CertificadoException {
+    public static ConfiguracoesNfe criarConfiguracoes(EstadosEnum estado, AmbienteEnum ambiente,
+            Certificado certificado, String pastaSchemas, ZoneId zoneId) throws CertificadoException {
 
         ConfiguracoesNfe configuracoesNfe = new ConfiguracoesNfe();
-        configuracoesNfe.setEstado(ObjetoUtil.verifica(estado).orElseThrow(() -> new IllegalArgumentException("Estado não pode ser Nulo.")));
-        configuracoesNfe.setAmbiente(ObjetoUtil.verifica(ambiente).orElseThrow(() -> new IllegalArgumentException("Ambiente não pode ser Nulo.")));
-        configuracoesNfe.setCertificado(ObjetoUtil.verifica(certificado).orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo.")));
+        configuracoesNfe.setEstado(ObjetoUtil.verifica(estado)
+                .orElseThrow(() -> new IllegalArgumentException("Estado não pode ser Nulo.")));
+        configuracoesNfe.setAmbiente(ObjetoUtil.verifica(ambiente)
+                .orElseThrow(() -> new IllegalArgumentException("Ambiente não pode ser Nulo.")));
+        configuracoesNfe.setCertificado(ObjetoUtil.verifica(certificado)
+                .orElseThrow(() -> new IllegalArgumentException("Certificado não pode ser Nulo.")));
         configuracoesNfe.setPastaSchemas(pastaSchemas);
-        configuracoesNfe.setZoneId(ObjetoUtil.verifica(zoneId).orElseThrow(() -> new IllegalArgumentException("Zone ID não pode ser Nulo.")));
+        configuracoesNfe.setZoneId(ObjetoUtil.verifica(zoneId)
+                .orElseThrow(() -> new IllegalArgumentException("Zone ID não pode ser Nulo.")));
 
         /**
          * Para as versões Java até 11, Eu ainda seto o Encoding por que é permitido.
@@ -97,7 +104,7 @@ public class ConfiguracoesNfe {
          */
         if (Integer.parseInt(System.getProperty("java.class.version").substring(0, 2)) < 56) {
             try {
-                //Setando Encoding.
+                // Setando Encoding.
                 System.setProperty("file.encoding", "UTF-8");
                 Field charset = Charset.class.getDeclaredField("defaultCharset");
                 charset.setAccessible(true);
@@ -108,7 +115,7 @@ public class ConfiguracoesNfe {
         }
 
         log.info(String.format("JAVA-NFE | Samuel Oliveira | samuel@swconsultoria.com.br " +
-                        "| VERSAO=%s | DATA_VERSAO=%s | PASTA_SCHEMAS=%s | AMBIENTE=%s | ESTADO=%s",
+                "| VERSAO=%s | DATA_VERSAO=%s | PASTA_SCHEMAS=%s | AMBIENTE=%s | ESTADO=%s",
                 "4.00.32",
                 "19/04/2024",
                 pastaSchemas,
@@ -327,7 +334,9 @@ public class ConfiguracoesNfe {
      *
      * @return
      */
-    public Charset getEncode() {return encode;}
+    public Charset getEncode() {
+        return encode;
+    }
 
     /**
      * Altera o encode utilizado para criar o arquivo xml.<br>
@@ -336,7 +345,9 @@ public class ConfiguracoesNfe {
      *
      * @param encode
      */
-    public void setEncode(Charset encode) {this.encode = encode;}
+    public void setEncode(Charset encode) {
+        this.encode = encode;
+    }
 
     /**
      * Passar encode via String para o xml.
@@ -351,6 +362,19 @@ public class ConfiguracoesNfe {
                 this.encode = StandardCharsets.UTF_8;
             }
         }
+    }
+
+    /**
+     * Passar parametro boolean para indicar se o certificado foi pré carregado.
+     *
+     * @param certificadoPreCarregado
+     */
+    public void setCertificadoPreCarregado(Boolean certificadoPreCarregado) {
+        this.certificadoPreCarregado = certificadoPreCarregado;
+    }
+
+    public Boolean getCertificadoPreCarregado() {
+        return certificadoPreCarregado;
     }
 
     public ZoneId getZoneId() {
