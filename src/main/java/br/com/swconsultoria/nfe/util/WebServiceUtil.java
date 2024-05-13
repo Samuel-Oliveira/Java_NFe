@@ -89,8 +89,9 @@ public class WebServiceUtil {
                     || tipoServico.equals(ServicosEnum.MANIFESTACAO)
                     || tipoServico.equals(ServicosEnum.EPEC)) {
                 secao = config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "NFe_AN_H" : "NFe_AN_P";
-
-            } else if (config.isContigenciaSVC()) {
+            } else if (!tipoServico.equals(ServicosEnum.URL_CONSULTANFCE)
+                    && !tipoServico.equals(ServicosEnum.URL_QRCODE) 
+                    && config.isContigenciaSVC() && tipoDocumento.equals(DocumentoEnum.NFE)) {
                 // SVC-RS
                 if (config.getEstado().equals(EstadosEnum.GO) || config.getEstado().equals(EstadosEnum.AM)
                         || config.getEstado().equals(EstadosEnum.BA) || config.getEstado().equals(EstadosEnum.CE)
