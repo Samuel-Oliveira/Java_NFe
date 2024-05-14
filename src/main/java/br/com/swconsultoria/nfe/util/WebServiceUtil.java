@@ -89,11 +89,9 @@ public class WebServiceUtil {
                     || tipoServico.equals(ServicosEnum.MANIFESTACAO)
                     || tipoServico.equals(ServicosEnum.EPEC)) {
                 secao = config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "NFe_AN_H" : "NFe_AN_P";
-
             } else if (!tipoServico.equals(ServicosEnum.URL_CONSULTANFCE)
-                    && !tipoServico.equals(ServicosEnum.URL_QRCODE) && ObjetoUtil.verifica(url).isPresent()) {
-                secao = url;
-            } else if (config.isContigenciaSVC()) {
+                    && !tipoServico.equals(ServicosEnum.URL_QRCODE) 
+                    && config.isContigenciaSVC() && tipoDocumento.equals(DocumentoEnum.NFE)) {
                 // SVC-RS
                 if (config.getEstado().equals(EstadosEnum.GO) || config.getEstado().equals(EstadosEnum.AM)
                         || config.getEstado().equals(EstadosEnum.BA) || config.getEstado().equals(EstadosEnum.CE)
@@ -108,6 +106,9 @@ public class WebServiceUtil {
                     secao = tipoDocumento.getTipo() + "_SVC-AN_"
                             + (config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "H" : "P");
                 }
+            }else if (!tipoServico.equals(ServicosEnum.URL_CONSULTANFCE)
+                    && !tipoServico.equals(ServicosEnum.URL_QRCODE) && ObjetoUtil.verifica(url).isPresent()) {
+                secao = url;
             }
 
             url = ini.get(secao, tipoServico.getServico().toLowerCase());
