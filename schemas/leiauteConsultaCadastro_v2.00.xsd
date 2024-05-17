@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  PL_006f versao com correcoes no xServ para tornar a literal CONS-CAD obrigatoria 21/05/2010 -->
 <!--  PL_006c versao com correcoes 24/12/2009 -->
-<xs:schema xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		   targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified"
-		   attributeFormDefault="unqualified">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposBasico_v1.03.xsd"/>
 	<xs:complexType name="TConsCad">
 		<xs:annotation>

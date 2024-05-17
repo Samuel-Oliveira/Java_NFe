@@ -35577,6 +35577,8 @@ public class TNFe {
                 "xPag",
                 "vPag",
                 "dPag",
+                "CNPJPag",
+                "UFPag",
                 "card"
             })
             public static class DetPag {
@@ -35590,10 +35592,37 @@ public class TNFe {
                 @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
                 protected String vPag;
                 @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                protected String CNPJPag;
+                @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                protected String UFPag;
+                @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
                 protected String dPag;
                 @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
                 protected TNFe.InfNFe.Pag.DetPag.Card card;
 
+                /**
+                 * Obtém o valor da propriedade CNPJPag.
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getCNPJPag(){
+                    return CNPJPag;
+                }
+
+                /**
+                 * Obtém o valor da propriedade UFPag.
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getUFPag(){
+                    return UFPag;
+                }
 
                 /**
                  * Obtém o valor da propriedade dPag.
@@ -35628,6 +35657,30 @@ public class TNFe {
                  */
                 public void setIndPag(String value) {
                     this.indPag = value;
+                }
+
+                /**
+                 * Define o valor da propriedade CNPJPag.
+                 *
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *
+                 */
+                public void setCNPJPag(String value) {
+                    this.CNPJPag = value;
+                }
+
+                /**
+                 * Define o valor da propriedade UFPag.
+                 *
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *
+                 */
+                public void setUFPag(String value) {
+                    this.UFPag = value;
                 }
 
                 /**
