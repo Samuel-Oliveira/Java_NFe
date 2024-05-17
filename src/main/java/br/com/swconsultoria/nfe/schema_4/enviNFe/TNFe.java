@@ -35576,6 +35576,7 @@ public class TNFe {
                 "tPag",
                 "xPag",
                 "vPag",
+                "dPag",
                 "card"
             })
             public static class DetPag {
@@ -35589,8 +35590,22 @@ public class TNFe {
                 @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
                 protected String vPag;
                 @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+                protected String dPag;
+                @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
                 protected TNFe.InfNFe.Pag.DetPag.Card card;
 
+
+                /**
+                 * Obtém o valor da propriedade dPag.
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getDPag() {
+                    return  dPag;
+                }
                 /**
                  * Obtém o valor da propriedade indPag.
                  * 
@@ -35637,6 +35652,18 @@ public class TNFe {
                  */
                 public void setTPag(String value) {
                     this.tPag = value;
+                }
+
+                /**
+                 * Define o valor da propriedade dPag.
+                 *
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *
+                 */
+                public void setDPag(String value) {
+                    this.dPag = value;
                 }
 
                 /**

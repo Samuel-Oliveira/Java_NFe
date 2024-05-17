@@ -5680,6 +5680,11 @@ Substituição Tributaria;</xs:documentation>
 														<xs:documentation>Valor do Pagamento. Esta tag poderá ser omitida quando a tag tPag=90 (Sem Pagamento), caso contrário deverá ser preenchida.</xs:documentation>
 													</xs:annotation>
 												</xs:element>
+												<xs:element name="dPag" type="TData">
+													<xs:annotation>
+														<xs:documentation>Data de pagamento do Documento de Arrecadação</xs:documentation>
+													</xs:annotation>
+												</xs:element>
 												<xs:element name="card" minOccurs="0">
 													<xs:annotation>
 														<xs:documentation>Grupo de Cartões</xs:documentation>
@@ -5718,12 +5723,12 @@ Substituição Tributaria;</xs:documentation>
 															</xs:element>
 															<xs:element name="cAut" minOccurs="0">
 																<xs:annotation>
-																	<xs:documentation>Número de autorização da operação cartão de crédito/débito</xs:documentation>
+																	<xs:documentation>Número de autorização da operação cartão de crédito/débito/pix/boletos</xs:documentation>
 																</xs:annotation>
 																<xs:simpleType>
 																	<xs:restriction base="TString">
 																		<xs:minLength value="1"/>
-																		<xs:maxLength value="20"/>
+																		<xs:maxLength value="128"/>
 																	</xs:restriction>
 																</xs:simpleType>
 															</xs:element>
