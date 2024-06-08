@@ -39,6 +39,16 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
+## v4.00.34 - 08/06/2024 - Schemas PL.009n
+- Atualizacao de URL Webservice
+  - Unificacao SVAN e SVC-AN Em Homologacao
+  - Urls QRCode Rio de Janeiro
+  - Add Url Inutilizacao SVC
+- Atualizado Cacerts
+- Implementado NT2023.004
+- Implementado NT2019.001
+- **Atenção: Atualizaçao de layout para Schemas PL.009n, faça o download dos Schemas Novamente.**
+
 ## v4.00.33 - 14/05/2024 - Schemas PL.009k
 - Ajustes Busca de URL Contingencia SVC
 

@@ -15,100 +15,100 @@ import javax.xml.bind.annotation.XmlType;
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="TIpi"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="CNPJProd" type="{http://www.portalfiscal.inf.br/nfe}TCnpj" minOccurs="0"/&gt;
- *         &lt;element name="cSelo" minOccurs="0"&gt;
- *           &lt;simpleType&gt;
- *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
- *               &lt;minLength value="1"/&gt;
- *               &lt;maxLength value="60"/&gt;
- *             &lt;/restriction&gt;
- *           &lt;/simpleType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="qSelo" minOccurs="0"&gt;
- *           &lt;simpleType&gt;
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *               &lt;whiteSpace value="preserve"/&gt;
- *               &lt;pattern value="[0-9]{1,12}"/&gt;
- *             &lt;/restriction&gt;
- *           &lt;/simpleType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="cEnq"&gt;
- *           &lt;simpleType&gt;
- *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
- *               &lt;minLength value="1"/&gt;
- *               &lt;maxLength value="3"/&gt;
- *             &lt;/restriction&gt;
- *           &lt;/simpleType&gt;
- *         &lt;/element&gt;
- *         &lt;choice&gt;
- *           &lt;element name="IPITrib"&gt;
- *             &lt;complexType&gt;
- *               &lt;complexContent&gt;
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                   &lt;sequence&gt;
- *                     &lt;element name="CST"&gt;
- *                       &lt;simpleType&gt;
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *                           &lt;whiteSpace value="preserve"/&gt;
- *                           &lt;enumeration value="00"/&gt;
- *                           &lt;enumeration value="49"/&gt;
- *                           &lt;enumeration value="50"/&gt;
- *                           &lt;enumeration value="99"/&gt;
- *                         &lt;/restriction&gt;
- *                       &lt;/simpleType&gt;
- *                     &lt;/element&gt;
- *                     &lt;choice&gt;
- *                       &lt;sequence&gt;
- *                         &lt;element name="vBC" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/&gt;
- *                         &lt;element name="pIPI" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/&gt;
- *                       &lt;/sequence&gt;
- *                       &lt;sequence&gt;
- *                         &lt;element name="qUnid" type="{http://www.portalfiscal.inf.br/nfe}TDec_1204v"/&gt;
- *                         &lt;element name="vUnid" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104"/&gt;
- *                       &lt;/sequence&gt;
- *                     &lt;/choice&gt;
- *                     &lt;element name="vIPI" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/&gt;
- *                   &lt;/sequence&gt;
- *                 &lt;/restriction&gt;
- *               &lt;/complexContent&gt;
- *             &lt;/complexType&gt;
- *           &lt;/element&gt;
- *           &lt;element name="IPINT"&gt;
- *             &lt;complexType&gt;
- *               &lt;complexContent&gt;
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                   &lt;sequence&gt;
- *                     &lt;element name="CST"&gt;
- *                       &lt;simpleType&gt;
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *                           &lt;whiteSpace value="preserve"/&gt;
- *                           &lt;enumeration value="01"/&gt;
- *                           &lt;enumeration value="02"/&gt;
- *                           &lt;enumeration value="03"/&gt;
- *                           &lt;enumeration value="04"/&gt;
- *                           &lt;enumeration value="05"/&gt;
- *                           &lt;enumeration value="51"/&gt;
- *                           &lt;enumeration value="52"/&gt;
- *                           &lt;enumeration value="53"/&gt;
- *                           &lt;enumeration value="54"/&gt;
- *                           &lt;enumeration value="55"/&gt;
- *                         &lt;/restriction&gt;
- *                       &lt;/simpleType&gt;
- *                     &lt;/element&gt;
- *                   &lt;/sequence&gt;
- *                 &lt;/restriction&gt;
- *               &lt;/complexContent&gt;
- *             &lt;/complexType&gt;
- *           &lt;/element&gt;
- *         &lt;/choice&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="TIpi">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="CNPJProd" type="{http://www.portalfiscal.inf.br/nfe}TCnpj" minOccurs="0"/>
+ *         &lt;element name="cSelo" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+ *               &lt;minLength value="1"/>
+ *               &lt;maxLength value="60"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="qSelo" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;whiteSpace value="preserve"/>
+ *               &lt;pattern value="[0-9]{1,12}"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="cEnq">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+ *               &lt;minLength value="1"/>
+ *               &lt;maxLength value="3"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;choice>
+ *           &lt;element name="IPITrib">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                   &lt;sequence>
+ *                     &lt;element name="CST">
+ *                       &lt;simpleType>
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                           &lt;whiteSpace value="preserve"/>
+ *                           &lt;enumeration value="00"/>
+ *                           &lt;enumeration value="49"/>
+ *                           &lt;enumeration value="50"/>
+ *                           &lt;enumeration value="99"/>
+ *                         &lt;/restriction>
+ *                       &lt;/simpleType>
+ *                     &lt;/element>
+ *                     &lt;choice>
+ *                       &lt;sequence>
+ *                         &lt;element name="vBC" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+ *                         &lt;element name="pIPI" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/>
+ *                       &lt;/sequence>
+ *                       &lt;sequence>
+ *                         &lt;element name="qUnid" type="{http://www.portalfiscal.inf.br/nfe}TDec_1204v"/>
+ *                         &lt;element name="vUnid" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104"/>
+ *                       &lt;/sequence>
+ *                     &lt;/choice>
+ *                     &lt;element name="vIPI" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+ *                   &lt;/sequence>
+ *                 &lt;/restriction>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *           &lt;element name="IPINT">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                   &lt;sequence>
+ *                     &lt;element name="CST">
+ *                       &lt;simpleType>
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                           &lt;whiteSpace value="preserve"/>
+ *                           &lt;enumeration value="01"/>
+ *                           &lt;enumeration value="02"/>
+ *                           &lt;enumeration value="03"/>
+ *                           &lt;enumeration value="04"/>
+ *                           &lt;enumeration value="05"/>
+ *                           &lt;enumeration value="51"/>
+ *                           &lt;enumeration value="52"/>
+ *                           &lt;enumeration value="53"/>
+ *                           &lt;enumeration value="54"/>
+ *                           &lt;enumeration value="55"/>
+ *                         &lt;/restriction>
+ *                       &lt;/simpleType>
+ *                     &lt;/element>
+ *                   &lt;/sequence>
+ *                 &lt;/restriction>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *         &lt;/choice>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -288,31 +288,31 @@ public class TIpi {
      * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;sequence&gt;
-     *         &lt;element name="CST"&gt;
-     *           &lt;simpleType&gt;
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
-     *               &lt;whiteSpace value="preserve"/&gt;
-     *               &lt;enumeration value="01"/&gt;
-     *               &lt;enumeration value="02"/&gt;
-     *               &lt;enumeration value="03"/&gt;
-     *               &lt;enumeration value="04"/&gt;
-     *               &lt;enumeration value="05"/&gt;
-     *               &lt;enumeration value="51"/&gt;
-     *               &lt;enumeration value="52"/&gt;
-     *               &lt;enumeration value="53"/&gt;
-     *               &lt;enumeration value="54"/&gt;
-     *               &lt;enumeration value="55"/&gt;
-     *             &lt;/restriction&gt;
-     *           &lt;/simpleType&gt;
-     *         &lt;/element&gt;
-     *       &lt;/sequence&gt;
-     *     &lt;/restriction&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="CST">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;whiteSpace value="preserve"/>
+     *               &lt;enumeration value="01"/>
+     *               &lt;enumeration value="02"/>
+     *               &lt;enumeration value="03"/>
+     *               &lt;enumeration value="04"/>
+     *               &lt;enumeration value="05"/>
+     *               &lt;enumeration value="51"/>
+     *               &lt;enumeration value="52"/>
+     *               &lt;enumeration value="53"/>
+     *               &lt;enumeration value="54"/>
+     *               &lt;enumeration value="55"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
      * </pre>
      * 
      * 
@@ -359,36 +359,36 @@ public class TIpi {
      * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
      * 
      * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;sequence&gt;
-     *         &lt;element name="CST"&gt;
-     *           &lt;simpleType&gt;
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
-     *               &lt;whiteSpace value="preserve"/&gt;
-     *               &lt;enumeration value="00"/&gt;
-     *               &lt;enumeration value="49"/&gt;
-     *               &lt;enumeration value="50"/&gt;
-     *               &lt;enumeration value="99"/&gt;
-     *             &lt;/restriction&gt;
-     *           &lt;/simpleType&gt;
-     *         &lt;/element&gt;
-     *         &lt;choice&gt;
-     *           &lt;sequence&gt;
-     *             &lt;element name="vBC" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/&gt;
-     *             &lt;element name="pIPI" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/&gt;
-     *           &lt;/sequence&gt;
-     *           &lt;sequence&gt;
-     *             &lt;element name="qUnid" type="{http://www.portalfiscal.inf.br/nfe}TDec_1204v"/&gt;
-     *             &lt;element name="vUnid" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104"/&gt;
-     *           &lt;/sequence&gt;
-     *         &lt;/choice&gt;
-     *         &lt;element name="vIPI" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/&gt;
-     *       &lt;/sequence&gt;
-     *     &lt;/restriction&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="CST">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;whiteSpace value="preserve"/>
+     *               &lt;enumeration value="00"/>
+     *               &lt;enumeration value="49"/>
+     *               &lt;enumeration value="50"/>
+     *               &lt;enumeration value="99"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;choice>
+     *           &lt;sequence>
+     *             &lt;element name="vBC" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+     *             &lt;element name="pIPI" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302a04"/>
+     *           &lt;/sequence>
+     *           &lt;sequence>
+     *             &lt;element name="qUnid" type="{http://www.portalfiscal.inf.br/nfe}TDec_1204v"/>
+     *             &lt;element name="vUnid" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104"/>
+     *           &lt;/sequence>
+     *         &lt;/choice>
+     *         &lt;element name="vIPI" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
      * </pre>
      * 
      * 

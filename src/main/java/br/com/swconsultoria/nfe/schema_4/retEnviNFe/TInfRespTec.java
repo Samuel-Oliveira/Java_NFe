@@ -15,57 +15,57 @@ import javax.xml.bind.annotation.XmlType;
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="TInfRespTec"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjOpc"/&gt;
- *         &lt;element name="xContato"&gt;
- *           &lt;simpleType&gt;
- *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
- *               &lt;maxLength value="60"/&gt;
- *               &lt;minLength value="2"/&gt;
- *             &lt;/restriction&gt;
- *           &lt;/simpleType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="email"&gt;
- *           &lt;simpleType&gt;
- *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString"&gt;
- *               &lt;whiteSpace value="preserve"/&gt;
- *               &lt;minLength value="6"/&gt;
- *               &lt;maxLength value="60"/&gt;
- *             &lt;/restriction&gt;
- *           &lt;/simpleType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="fone"&gt;
- *           &lt;simpleType&gt;
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *               &lt;whiteSpace value="preserve"/&gt;
- *               &lt;pattern value="[0-9]{6,14}"/&gt;
- *             &lt;/restriction&gt;
- *           &lt;/simpleType&gt;
- *         &lt;/element&gt;
- *         &lt;sequence minOccurs="0"&gt;
- *           &lt;element name="idCSRT"&gt;
- *             &lt;simpleType&gt;
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *                 &lt;whiteSpace value="preserve"/&gt;
- *                 &lt;pattern value="[0-9]{2}"/&gt;
- *               &lt;/restriction&gt;
- *             &lt;/simpleType&gt;
- *           &lt;/element&gt;
- *           &lt;element name="hashCSRT"&gt;
- *             &lt;simpleType&gt;
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}base64Binary"&gt;
- *                 &lt;length value="20"/&gt;
- *               &lt;/restriction&gt;
- *             &lt;/simpleType&gt;
- *           &lt;/element&gt;
- *         &lt;/sequence&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="TInfRespTec">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="CNPJ" type="{http://www.portalfiscal.inf.br/nfe}TCnpjOpc"/>
+ *         &lt;element name="xContato">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+ *               &lt;maxLength value="60"/>
+ *               &lt;minLength value="2"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="email">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
+ *               &lt;whiteSpace value="preserve"/>
+ *               &lt;minLength value="6"/>
+ *               &lt;maxLength value="60"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="fone">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;whiteSpace value="preserve"/>
+ *               &lt;pattern value="[0-9]{6,14}"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;sequence minOccurs="0">
+ *           &lt;element name="idCSRT">
+ *             &lt;simpleType>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                 &lt;whiteSpace value="preserve"/>
+ *                 &lt;pattern value="[0-9]{2}"/>
+ *               &lt;/restriction>
+ *             &lt;/simpleType>
+ *           &lt;/element>
+ *           &lt;element name="hashCSRT">
+ *             &lt;simpleType>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}base64Binary">
+ *                 &lt;length value="20"/>
+ *               &lt;/restriction>
+ *             &lt;/simpleType>
+ *           &lt;/element>
+ *         &lt;/sequence>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
