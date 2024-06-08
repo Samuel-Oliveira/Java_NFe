@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.33/jar)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.34/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ## Dúvidas, Sugestões ou Consultoria
@@ -17,7 +17,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.33</version>
+    <version>4.00.34</version>
 </dependency>
 ```
 
@@ -29,7 +29,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.33"
+    implementation "br.com.swconsultoria:java-nfe:4.00.34"
 }
 ```
 
@@ -38,6 +38,16 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.34 - 08/06/2024 - Schemas PL.009n
+- Atualizacao de URL Webservice
+  - Unificacao SVAN e SVC-AN Em Homologacao
+  - Urls QRCode Rio de Janeiro
+  - Add Url Inutilizacao SVC
+- Atualizado Cacerts
+- Implementado NT2023.004
+- Implementado NT2019.001
+- **Atenção: Atualizaçao de layout para Schemas PL.009n, faça o download dos Schemas Novamente.**
 
 ## v4.00.33 - 14/05/2024 - Schemas PL.009k
 - Ajustes Busca de URL Contingencia SVC

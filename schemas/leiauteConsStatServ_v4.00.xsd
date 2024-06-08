@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  PL_006f versao com correcoes no xServ para tornar a literal STATUS obrigatoria 21/05/2010 -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		   targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified"
-		   attributeFormDefault="unqualified">
+           targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposBasico_v4.00.xsd"/>
 	<xs:complexType name="TConsStatServ">
 		<xs:annotation>
