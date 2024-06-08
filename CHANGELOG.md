@@ -4,3 +4,4 @@
   - Unificacao SVAN e SVC-AN Em Homologacao
   - Urls QRCode Rio de Janeiro
   - Add Url Inutilizacao SVC
+- Atualizado Cacerts
