@@ -30,12 +30,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.InvalidParameterException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Base64;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.StringJoiner;
@@ -425,17 +421,5 @@ public class XmlNfeUtil {
             log.warning(e.getMessage());
         }
         return null;
-    }
-
-    public static byte[] geraHashCSRT(String chave, String csrt) throws NoSuchAlgorithmException {
-
-        ObjetoUtil.verifica(chave).orElseThrow(() -> new InvalidParameterException("Chave não deve ser nula ou vazia"));
-        ObjetoUtil.verifica(csrt).orElseThrow(() -> new InvalidParameterException("CSRT não deve ser nulo ou vazio"));
-        if (chave.length() != 44) {
-            throw new InvalidParameterException("Chave deve conter 44 caracteres.");
-        }
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        md.update((csrt + chave).getBytes());
-        return Base64.getEncoder().encode(md.digest());
     }
 }
