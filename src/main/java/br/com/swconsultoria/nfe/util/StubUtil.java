@@ -12,7 +12,7 @@ public class StubUtil {
 
     /**
      *
-     * Configura o stub para usar certificado específico, desde que esteja com
+     * Configura o stub para usar certificado e HttpClient específicos, desde que esteja com
      * configuracoesNfe.getCertificado().isModoMultithreading() ativo.
      *
      * @param stub {@link org.apache.axis2.client.Stub} que terá a conexão configurada para o {@link org.apache.commons.httpclient.HttpClient}
