@@ -1,5 +1,6 @@
 package br.com.swconsultoria.nfe;
 
+import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
@@ -8,6 +9,7 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.consStatServ.TConsStatServ;
 import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
+import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeStatusServico4.NFeStatusServico4Stub;
@@ -73,14 +75,16 @@ class Status {
 
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
+            String url = WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO);
+
             if (EstadosEnum.MS.equals(config.getEstado())) {
                 br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeDadosMsg dadosMsg =
                         new br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeDadosMsg();
                 dadosMsg.setExtraElement(ome);
 
                 br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub stub =
-                        new br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub(
-                                WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
+                        new br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub(url);
+                StubUtil.configuraHttpClient(stub, config, url);
 
                 br.com.swconsultoria.nfe.wsdl.NFeStatusServico4MS.NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
 
@@ -90,8 +94,8 @@ class Status {
                 NFeStatusServico4Stub.NfeDadosMsg dadosMsg = new NFeStatusServico4Stub.NfeDadosMsg();
                 dadosMsg.setExtraElement(ome);
 
-                NFeStatusServico4Stub stub = new NFeStatusServico4Stub(
-                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.STATUS_SERVICO));
+                NFeStatusServico4Stub stub = new NFeStatusServico4Stub(url);
+                StubUtil.configuraHttpClient(stub, config, url);
 
                 NFeStatusServico4Stub.NfeResultMsg result = stub.nfeStatusServicoNF(dadosMsg);
 
@@ -99,7 +103,7 @@ class Status {
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsStatServ.class);
             }
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
+        } catch (RemoteException | XMLStreamException | JAXBException | CertificadoException e) {
             throw new NfeException(e.getMessage(),e);
         }
     }
