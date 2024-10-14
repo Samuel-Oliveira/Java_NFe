@@ -12,6 +12,9 @@ public class StubUtil {
 
     /**
      *
+     * Configura o stub para usar certificado específico, desde que esteja com
+     * configuracoesNfe.getCertificado().isModoMultithreading() ativo.
+     *
      * @param stub {@link org.apache.axis2.client.Stub} que terá a conexão configurada para o {@link org.apache.commons.httpclient.HttpClient}
      *             específico do certificado.
      * @param configuracoesNfe {@link br.com.swconsultoria.nfe.dom.ConfiguracoesNfe} config que possui o {@link br.com.swconsultoria.certificado.Certificado}
@@ -21,12 +24,13 @@ public class StubUtil {
      */
     public static void configuraHttpClient(Stub stub, ConfiguracoesNfe configuracoesNfe, String url) throws CertificadoException {
         Certificado certificado = configuracoesNfe.getCertificado();
+        if (certificado.isModoMultithreading()) {
+            HttpClient httpClient = ObjetoUtil.verifica(configuracoesNfe.getCacert()).isPresent()
+                    ? CertificadoService.getHttpsClient(certificado, url, configuracoesNfe.getCacert())
+                    : CertificadoService.getHttpsClient(certificado, url);
 
-        HttpClient httpClient = ObjetoUtil.verifica(configuracoesNfe.getCacert()).isPresent()
-                ? CertificadoService.getHttpsClient(certificado, url, configuracoesNfe.getCacert())
-                : CertificadoService.getHttpsClient(certificado, url);
-
-        stub._getServiceClient().getOptions().setProperty(HTTPConstants.CACHED_HTTP_CLIENT, httpClient);
-        stub._getServiceClient().getOptions().setProperty(HTTPConstants.CUSTOM_PROTOCOL_HANDLER, httpClient.getHostConfiguration().getProtocol());
+            stub._getServiceClient().getOptions().setProperty(HTTPConstants.CACHED_HTTP_CLIENT, httpClient);
+            stub._getServiceClient().getOptions().setProperty(HTTPConstants.CUSTOM_PROTOCOL_HANDLER, httpClient.getHostConfiguration().getProtocol());
+        }
     }
 }
