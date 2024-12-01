@@ -1,5 +1,6 @@
 package br.com.swconsultoria.nfe;
 
+import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.ConsultaDFeEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
@@ -10,6 +11,7 @@ import br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt;
 import br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
+import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeDistribuicaoDFe.NFeDistribuicaoDFeStub;
@@ -85,8 +87,9 @@ class DistribuicaoDFe {
             NFeDistribuicaoDFeStub.NfeDistDFeInteresse distDFeInteresse = new NFeDistribuicaoDFeStub.NfeDistDFeInteresse();
             distDFeInteresse.setNfeDadosMsg(dadosMsgType0);
 
-            NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub(
-                    WebServiceUtil.getUrl(config, DocumentoEnum.NFE, ServicosEnum.DISTRIBUICAO_DFE));
+            String url = WebServiceUtil.getUrl(config, DocumentoEnum.NFE, ServicosEnum.DISTRIBUICAO_DFE);
+            NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub(url);
+            StubUtil.configuraHttpClient(stub, config, url);
 
             // Timeout
             if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -100,7 +103,7 @@ class DistribuicaoDFe {
             return XmlNfeUtil.xmlToObject(result.getNfeDistDFeInteresseResult().getExtraElement().toString(),
                     RetDistDFeInt.class);
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
+        } catch (RemoteException | XMLStreamException | JAXBException | CertificadoException e) {
             throw new NfeException(e.getMessage(),e);
         }
     }
