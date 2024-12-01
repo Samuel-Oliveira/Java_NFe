@@ -9,11 +9,7 @@ import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt;
 import br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt;
-import br.com.swconsultoria.nfe.util.ConstantesUtil;
-import br.com.swconsultoria.nfe.util.ObjetoUtil;
-import br.com.swconsultoria.nfe.util.StubUtil;
-import br.com.swconsultoria.nfe.util.WebServiceUtil;
-import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import br.com.swconsultoria.nfe.util.*;
 import br.com.swconsultoria.nfe.wsdl.NFeDistribuicaoDFe.NFeDistribuicaoDFeStub;
 import lombok.extern.java.Log;
 import org.apache.axiom.om.OMElement;
@@ -29,6 +25,9 @@ import java.rmi.RemoteException;
  */
 @Log
 class DistribuicaoDFe {
+
+    private DistribuicaoDFe() {
+    }
 
     /**
      * Classe Reponsavel Por Consultar as NFE na SEFAZ

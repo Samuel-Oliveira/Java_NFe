@@ -1,5 +1,6 @@
 package br.com.swconsultoria.nfe;
 
+import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
@@ -9,10 +10,7 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.consCad.TConsCad;
 import br.com.swconsultoria.nfe.schema.consCad.TUfCons;
 import br.com.swconsultoria.nfe.schema.retConsCad.TRetConsCad;
-import br.com.swconsultoria.nfe.util.ConstantesUtil;
-import br.com.swconsultoria.nfe.util.ObjetoUtil;
-import br.com.swconsultoria.nfe.util.WebServiceUtil;
-import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import br.com.swconsultoria.nfe.util.*;
 import br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.CadConsultaCadastro4Stub;
 import lombok.extern.java.Log;
 import org.apache.axiom.om.OMElement;
@@ -67,13 +65,16 @@ class ConsultaCadastro {
             configConsulta.setEstado(estado);
             configConsulta.setAmbiente(config.getAmbiente());
 
+            String url = WebServiceUtil.getUrl(configConsulta, DocumentoEnum.NFE, ServicosEnum.CONSULTA_CADASTRO);
             if (EstadosEnum.MS.equals(estado)) {
                 br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.ms.CadConsultaCadastro4Stub.NfeDadosMsg dadosMsg =
                         new br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.ms.CadConsultaCadastro4Stub.NfeDadosMsg();
                 dadosMsg.setExtraElement(ome);
 
-                br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.ms.CadConsultaCadastro4Stub stub = new br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.ms.CadConsultaCadastro4Stub(
-                        WebServiceUtil.getUrl(configConsulta, DocumentoEnum.NFE, ServicosEnum.CONSULTA_CADASTRO));
+                br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.ms.CadConsultaCadastro4Stub stub =
+                        new br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.ms.CadConsultaCadastro4Stub(url);
+
+                StubUtil.configuraHttpClient(stub, config, url);
 
                 // Timeout
                 if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -93,8 +94,10 @@ class ConsultaCadastro {
                 dadosMsg.setExtraElement(ome);
                 consultaCadastro.setNfeDadosMsg(dadosMsg);
 
-                br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.rs.CadConsultaCadastro4Stub stub = new br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.rs.CadConsultaCadastro4Stub(
-                        WebServiceUtil.getUrl(configConsulta, DocumentoEnum.NFE, ServicosEnum.CONSULTA_CADASTRO));
+                br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.rs.CadConsultaCadastro4Stub stub =
+                        new br.com.swconsultoria.nfe.wsdl.CadConsultaCadastro.rs.CadConsultaCadastro4Stub(url);
+
+                StubUtil.configuraHttpClient(stub, config, url);
 
                 // Timeout
                 if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -111,8 +114,9 @@ class ConsultaCadastro {
                 CadConsultaCadastro4Stub.NfeDadosMsg dadosMsg = new CadConsultaCadastro4Stub.NfeDadosMsg();
                 dadosMsg.setExtraElement(ome);
 
-                CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(
-                        WebServiceUtil.getUrl(configConsulta, DocumentoEnum.NFE, ServicosEnum.CONSULTA_CADASTRO));
+                CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(url);
+
+                StubUtil.configuraHttpClient(stub, config, url);
 
                 // Timeout
                 if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -127,8 +131,8 @@ class ConsultaCadastro {
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsCad.class);
             }
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
-            throw new NfeException(e.getMessage(),e);
+        } catch (RemoteException | XMLStreamException | JAXBException | CertificadoException e) {
+            throw new NfeException(e.getMessage(), e);
         }
 
     }

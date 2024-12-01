@@ -1,15 +1,13 @@
 package br.com.swconsultoria.nfe;
 
+import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.consReciNFe.TConsReciNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
-import br.com.swconsultoria.nfe.util.ConstantesUtil;
-import br.com.swconsultoria.nfe.util.ObjetoUtil;
-import br.com.swconsultoria.nfe.util.WebServiceUtil;
-import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import br.com.swconsultoria.nfe.util.*;
 import br.com.swconsultoria.nfe.wsdl.NFeRetAutorizacao.NFeRetAutorizacao4Stub;
 import lombok.extern.java.Log;
 import org.apache.axiom.om.OMElement;
@@ -27,6 +25,9 @@ import java.rmi.RemoteException;
  */
 @Log
 class ConsultaRecibo {
+
+    private ConsultaRecibo() {
+    }
 
     /**
      * Metodo Responsavel Por Pegar o Xml De Retorno.
@@ -58,7 +59,10 @@ class ConsultaRecibo {
             NFeRetAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeRetAutorizacao4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
 
-            NFeRetAutorizacao4Stub stub = new NFeRetAutorizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.CONSULTA_RECIBO));
+            String url = WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.CONSULTA_RECIBO);
+            NFeRetAutorizacao4Stub stub = new NFeRetAutorizacao4Stub(url);
+
+            StubUtil.configuraHttpClient(stub, config, url);
 
             // Timeout
             if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -71,8 +75,8 @@ class ConsultaRecibo {
             log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsReciNFe.class);
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
-            throw new NfeException(e.getMessage(),e);
+        } catch (RemoteException | XMLStreamException | JAXBException | CertificadoException e) {
+            throw new NfeException(e.getMessage(), e);
         }
 
     }

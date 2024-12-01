@@ -39,6 +39,10 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
+## v4.00.35 - 30/11/2024 - Schemas PL.009n
+- Atualizado CACERT
+- Adicionado modo Multithreading
+
 ## v4.00.34 - 08/06/2024 - Schemas PL.009n
 - Atualizacao de URL Webservice
   - Unificacao SVAN e SVC-AN Em Homologacao

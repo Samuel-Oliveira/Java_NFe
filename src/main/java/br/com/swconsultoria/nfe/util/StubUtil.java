@@ -10,6 +10,9 @@ import org.apache.commons.httpclient.HttpClient;
 
 public class StubUtil {
 
+    private StubUtil() {
+    }
+
     /**
      *
      * Configura o stub para usar certificado e HttpClient específicos, desde que esteja com
