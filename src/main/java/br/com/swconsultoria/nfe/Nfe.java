@@ -125,7 +125,6 @@ public class Nfe {
 
     }
 
-
     /**
      * Metodo para Enviar a NFE
      *
@@ -242,6 +241,80 @@ public class Nfe {
     public static br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento manifestacao(ConfiguracoesNfe configuracoesNfe,
                                                                                             br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento evento, boolean valida) throws NfeException {
         return ManifestacaoDestinatario.eventoManifestacao(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, evento.getEvento().get(0).getInfEvento().getCNPJ()), evento, valida);
+
+    }
+
+    /**
+     * Metodo para Evento InsucessoEntrega da NFE
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.retEventoInsucessoNFe.TRetEnvEvento insucessoEntrega(ConfiguracoesNfe configuracoesNfe,
+                                                                                                       br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TEnvEvento envEvento,
+                                                                                                       boolean valida) throws NfeException {
+
+        return InsucessoEntrega.eventoInsuccessoEntrega(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
+                envEvento
+                , valida);
+
+    }
+
+    /**
+     * Metodo para Evento CancInsucessoEntrega da NFE
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.retEventoCancInsucessoNFe.TRetEnvEvento cancelamentoInsucessoEntrega(ConfiguracoesNfe configuracoesNfe,
+                                                                                                                       br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TEnvEvento envEvento,
+                                                                                                                       boolean valida) throws NfeException {
+
+        return CancInsucessoEntrega.eventoCancInsuccessoEntrega(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe,
+                        envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
+                envEvento
+                , valida);
+
+    }
+
+    /**
+     * Metodo para Evento ECONF da NFE
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.retEventoEConf.TRetEnvEvento econf(ConfiguracoesNfe configuracoesNfe,
+                                                                                                       br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento envEvento,
+                                                                                                       boolean valida) throws NfeException {
+
+        return ConciliacaoFinanceira.eventoEConf(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
+                envEvento
+                , valida);
+
+    }
+
+    /**
+     * Metodo para Evento CancEConf da NFE
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.retEventoCancEConf.TRetEnvEvento cancelamentoEconf(ConfiguracoesNfe configuracoesNfe,
+                                                                                                                       br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento envEvento,
+                                                                                                                       boolean valida) throws NfeException {
+
+        return CancConciliacaoFinanceira.eventoEConf(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe,
+                        envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
+                envEvento
+                , valida);
 
     }
 

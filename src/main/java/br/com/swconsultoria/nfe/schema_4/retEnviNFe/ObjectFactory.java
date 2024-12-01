@@ -77,6 +77,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.Agropecuario }
+     * 
+     */
+    public TNFe.InfNFe.Agropecuario createTNFeInfNFeAgropecuario() {
+        return new TNFe.InfNFe.Agropecuario();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Cana }
      * 
      */
@@ -482,6 +490,22 @@ public class ObjectFactory {
      */
     public TNFe.InfNFe.InfSolicNFF createTNFeInfNFeInfSolicNFF() {
         return new TNFe.InfNFe.InfSolicNFF();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Agropecuario.Defensivo }
+     * 
+     */
+    public TNFe.InfNFe.Agropecuario.Defensivo createTNFeInfNFeAgropecuarioDefensivo() {
+        return new TNFe.InfNFe.Agropecuario.Defensivo();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Agropecuario.GuiaTransito }
+     * 
+     */
+    public TNFe.InfNFe.Agropecuario.GuiaTransito createTNFeInfNFeAgropecuarioGuiaTransito() {
+        return new TNFe.InfNFe.Agropecuario.GuiaTransito();
     }
 
     /**

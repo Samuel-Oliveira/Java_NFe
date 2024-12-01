@@ -1,11 +1,13 @@
 package br.com.swconsultoria.nfe;
 
+import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
+import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.ws.RetryParameter;
 import br.com.swconsultoria.nfe.wsdl.NFeRecepcaoEvento.NFeRecepcaoEvento4Stub;
@@ -19,6 +21,9 @@ import java.rmi.RemoteException;
 
 @Log
 class Eventos {
+
+    private Eventos() {
+    }
 
     static String enviarEvento(ConfiguracoesNfe config, String xml, ServicosEnum tipoEvento, boolean valida, boolean assina, DocumentoEnum tipoDocumento)
             throws NfeException {
@@ -43,6 +48,9 @@ class Eventos {
             String url = WebServiceUtil.getUrl(config, tipoDocumento, tipoEvento);
 
             NFeRecepcaoEvento4Stub stub = new NFeRecepcaoEvento4Stub(url);
+
+            StubUtil.configuraHttpClient(stub, config, url);
+
             // Timeout
             if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
                 stub._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, config.getTimeout());
@@ -57,7 +65,7 @@ class Eventos {
 
             log.info("[XML-RETORNO-" + tipoEvento + "]: " + result.getExtraElement().toString());
             return result.getExtraElement().toString();
-        } catch (RemoteException | XMLStreamException e) {
+        } catch (RemoteException | XMLStreamException | CertificadoException e) {
             throw new NfeException(e.getMessage(),e);
         }
 
