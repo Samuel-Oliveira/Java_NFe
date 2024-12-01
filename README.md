@@ -39,9 +39,12 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.35 - 30/11/2024 - Schemas PL.009n
+## v4.00.35 - 30/11/2024 - Schemas PL.009p1
 - Atualizado CACERT
 - Adicionado modo Multithreading
+- Atualizado Schemas para PL.009p1
+- Implementado NT2024.001
+- Implementado NT2024.003
 
 ## v4.00.34 - 08/06/2024 - Schemas PL.009n
 - Atualizacao de URL Webservice
