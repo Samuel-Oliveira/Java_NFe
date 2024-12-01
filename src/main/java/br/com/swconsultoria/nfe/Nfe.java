@@ -281,4 +281,41 @@ public class Nfe {
 
     }
 
+    /**
+     * Metodo para Evento ECONF da NFE
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.retEventoEConf.TRetEnvEvento econf(ConfiguracoesNfe configuracoesNfe,
+                                                                                                       br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento envEvento,
+                                                                                                       boolean valida) throws NfeException {
+
+        return ConciliacaoFinanceira.eventoEConf(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
+                envEvento
+                , valida);
+
+    }
+
+    /**
+     * Metodo para Evento CancEConf da NFE
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.retEventoCancEConf.TRetEnvEvento cancelamentoEconf(ConfiguracoesNfe configuracoesNfe,
+                                                                                                                       br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento envEvento,
+                                                                                                                       boolean valida) throws NfeException {
+
+        return CancConciliacaoFinanceira.eventoEConf(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe,
+                        envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
+                envEvento
+                , valida);
+
+    }
+
 }

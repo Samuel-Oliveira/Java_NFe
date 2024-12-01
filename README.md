@@ -39,7 +39,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.35 - 30/11/2024 - Schemas PL.009p1
+## v4.00.35 - 01/12/2024 - Schemas PL.009p1
 - Atualizado CACERT
 - Adicionado modo Multithreading
 - Atualizado Schemas para PL.009p1
@@ -47,6 +47,8 @@ ________________________________________________________________________________
 - Implementado NT2024.003
 - Adicionado Evento Insucesso Entrega (NT2023.005)
 - Adicionado Evento Cancelamento Insucesso Entrega (NT2023.005)
+- Adicionado Evento Conciliacao Financeira (NT2024.002)
+- Adicionado Evento Cancelamento Conciliacao Financeira (NT2024.002)
 
 ## v4.00.34 - 08/06/2024 - Schemas PL.009n
 - Atualizacao de URL Webservice

@@ -73,6 +73,8 @@ public class XmlNfeUtil {
     private static final String TPROCMAN = "br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento";
     private static final String TPROCINSUCESSO = "br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TProcEvento";
     private static final String TPROCCANCINSUCESSO = "br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento";
+    private static final String TPROCECONF = "br.com.swconsultoria.nfe.schema.envEventoEConf.TProcEvento";
+    private static final String TPROCCANCECONF = "br.com.swconsultoria.nfe.schema.envEventoCancEConf.TProcEvento";
     private static final String TProtNFe = "TProtNFe";
     private static final String TProtEnvi = "br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe";
     private static final String TProtCons = "br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TProtNFe";
@@ -81,6 +83,8 @@ public class XmlNfeUtil {
     private static final String ATOR_INTERESSADO = "br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TEnvEvento";
     private static final String INSUCESSO_ENTREGA = "br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TEnvEvento";
     private static final String CANC_INSUCESSO_ENTREGA = "br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TEnvEvento";
+    private static final String ECONF = "br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento";
+    private static final String CANC_ECONF = "br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento";
     private static final String CANCELAR_SUBSTITUICAO = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento";
     private static final String CCE = "br.com.swconsultoria.nfe.schema.envcce.TEnvEvento";
     private static final String EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento";
@@ -89,6 +93,8 @@ public class XmlNfeUtil {
     private static final String RET_ATOR_INTERESSADO = "br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento";
     private static final String RET_INSUCESSO_ENTREGA = "br.com.swconsultoria.nfe.schema.retEventoInsucessoNFe.TRetEnvEvento";
     private static final String RET_CANC_INSUCESSO_ENTREGA = "br.com.swconsultoria.nfe.schema.retEventoCancInsucessoNFe.TRetEnvEvento";
+    private static final String RET_ECONF = "br.com.swconsultoria.nfe.schema.retEventoEConf.TRetEnvEvento";
+    private static final String RET_CANC_ECONF = "br.com.swconsultoria.nfe.schema.retEventoCancEConf.TRetEnvEvento";
     private static final String RET_CANCELAR_SUBSTITUICAO = "br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento";
     private static final String RET_CCE = "br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento";
     private static final String RET_EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento";
@@ -229,6 +235,14 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento.class);
                         element = XsdUtil.cancInsucesso.createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento) obj);
                         break;
+                    case TPROCECONF:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoEConf.TProcEvento.class);
+                        element = XsdUtil.econf.createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoEConf.TProcEvento) obj);
+                        break;
+                    case TPROCCANCECONF:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TProcEvento.class);
+                        element = XsdUtil.cancEConf.createTProcEvento((br.com.swconsultoria.nfe.schema.envEventoCancEConf.TProcEvento) obj);
+                        break;
                     default:
                         throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
                 }
@@ -284,6 +298,14 @@ public class XmlNfeUtil {
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TEnvEvento.class);
                         element = new br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.ObjectFactory().createEnvEvento((br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TEnvEvento) obj);
                         break;
+                    case ECONF:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento.class);
+                        element = new br.com.swconsultoria.nfe.schema.envEventoEConf.ObjectFactory().createEnvEvento((br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento) obj);
+                        break;
+                    case CANC_ECONF:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento.class);
+                        element = new br.com.swconsultoria.nfe.schema.envEventoCancEConf.ObjectFactory().createEnvEvento((br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento) obj);
+                        break;
                     default:
                         throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
                 }
@@ -322,6 +344,14 @@ public class XmlNfeUtil {
                     case RET_CANC_INSUCESSO_ENTREGA:
                         context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento.class);
                         element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento) obj);
+                        break;
+                    case RET_ECONF:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoEConf.TRetEnvEvento.class);
+                        element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.com.swconsultoria.nfe.schema.envEventoEConf.TRetEnvEvento) obj);
+                        break;
+                    case RET_CANC_ECONF:
+                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento.class);
+                        element = XsdUtil.retEnvEvento.createTRetEnvEvento((br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento) obj);
                         break;
                     default:
                         throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
