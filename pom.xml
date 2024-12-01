@@ -141,7 +141,7 @@
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-jaxws</artifactId>
-            <version>1.7.5</version>
+            <version>1.8.2</version>
         </dependency>
 
         <dependency>
