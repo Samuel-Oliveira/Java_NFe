@@ -15,6 +15,8 @@ public enum ServicosEnum {
     MANIFESTACAO("recepcaoevento_4.00", "envConfRecebto_v1.00.xsd"),
     CANCELAMENTO("recepcaoevento_4.00", "envEventoCancNFe_v1.00.xsd"),
     ATOR_INTERESSADO("recepcaoevento_4.00", "envEventoAtorInteressado_v1.00.xsd"),
+    INSUCESSO_ENTREGA("recepcaoevento_4.00", "envEventoInsucessoNFe_v1.00.xsd"),
+    CANC_INSUCESSO_ENTREGA("recepcaoevento_4.00", "envEventoCancInsucessoNFe_v1.00.xsd"),
     CANCELAMENTO_SUBSTITUICAO("recepcaoevento_4.00", "envEventoCancSubst_v1.00.xsd"),
     INUTILIZACAO("nfeinutilizacao_4.00", "inutNFe_v4.00.xsd"),
     CONSULTA_XML("nfeconsultaprotocolo_4.00", "consSitNFe_v4.00.xsd"),

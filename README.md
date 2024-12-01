@@ -45,6 +45,8 @@ ________________________________________________________________________________
 - Atualizado Schemas para PL.009p1
 - Implementado NT2024.001
 - Implementado NT2024.003
+- Adicionado Evento Insucesso Entrega (NT2023.005)
+- Adicionado Evento Cancelamento Insucesso Entrega (NT2023.005)
 
 ## v4.00.34 - 08/06/2024 - Schemas PL.009n
 - Atualizacao de URL Webservice

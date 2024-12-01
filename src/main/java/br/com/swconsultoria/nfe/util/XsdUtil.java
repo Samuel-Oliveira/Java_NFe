@@ -127,6 +127,22 @@ public class XsdUtil {
         }
     }
 
+    public interface insucesso {
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope = br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TProcEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TProcEvento value) {
+            return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TProcEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TProcEvento.class, br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TProcEvento.class, value);
+        }
+    }
+
+    public interface cancInsucesso {
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope =
+                br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento value) {
+            return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento.class,
+                    br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento.class, value);
+        }
+    }
+
     public interface retEnvEvento {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnvEvento", scope = br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento value) {
@@ -156,6 +172,18 @@ public class XsdUtil {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnvEvento", scope = br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento value) {
             return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento.class, value);
+        }
+
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnvEvento", scope =
+                br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TRetEnvEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TRetEnvEvento value) {
+            return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TRetEnvEvento.class, value);
+        }
+
+        @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TRetEnvEvento", scope =
+                br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento.class)
+        static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento value) {
+            return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento.class, value);
         }
     }
 
