@@ -1,3 +1,2 @@
 # Notas de versão
-
-- Atualizado Endereços SVC
+- Atualizado Cacert MS
