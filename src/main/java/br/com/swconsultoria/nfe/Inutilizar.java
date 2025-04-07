@@ -1,5 +1,6 @@
 package br.com.swconsultoria.nfe;
 
+import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
@@ -9,6 +10,7 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
+import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.NFeInutilizacao4Stub;
@@ -29,6 +31,9 @@ import java.rmi.RemoteException;
 @Log
 class Inutilizar {
 
+    private Inutilizar() {
+    }
+
     static TRetInutNFe inutiliza(ConfiguracoesNfe config, TInutNFe inutNFe, DocumentoEnum tipoDocumento, boolean validar)
             throws NfeException {
 
@@ -46,12 +51,14 @@ class Inutilizar {
 
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
+            String url = WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.INUTILIZACAO);
             if (EstadosEnum.CE.equals(config.getEstado()) ) {
                 br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.ce.NFeInutilizacao4Stub.NfeDadosMsg dadosMsgCe =
                         new  br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.ce.NFeInutilizacao4Stub.NfeDadosMsg();
                 dadosMsgCe.setExtraElement(ome);
                 br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.ce.NFeInutilizacao4Stub stubCe = new br.com.swconsultoria.nfe.wsdl.NFeInutilizacao.ce.NFeInutilizacao4Stub(
-                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.INUTILIZACAO));
+                        url);
+                StubUtil.configuraHttpClient(stubCe, config, url);
 
                 // Timeout
                 if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -66,7 +73,9 @@ class Inutilizar {
                 NFeInutilizacao4Stub.NfeDadosMsg dadosMsg = new NFeInutilizacao4Stub.NfeDadosMsg();
                 dadosMsg.setExtraElement(ome);
                 NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(
-                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.INUTILIZACAO));
+                        url);
+
+                StubUtil.configuraHttpClient(stub, config, url);
 
                 // Timeout
                 if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -79,7 +88,7 @@ class Inutilizar {
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetInutNFe.class);
             }
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
+        } catch (RemoteException | XMLStreamException | JAXBException | CertificadoException e) {
             throw new NfeException(e.getMessage(),e);
         }
 
