@@ -1,8 +1,9 @@
 package br.com.swconsultoria.nfe.util;
 
+import java.security.InvalidParameterException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;  
-  
+import java.security.NoSuchAlgorithmException;
+
 /** 
 * 
 * @author Samuel Oliveira
@@ -56,6 +57,26 @@ public class NFCeUtil {
         String cHashQRCode = getHexa(getHash(value.toString() + CSC)).toUpperCase();
 
         return urlConsulta + "?p=" + value + "|" + cHashQRCode;
+    }
+
+    /**
+     *
+     * Função responsável por gerar o hashCSRT conforme definições da NT2018.005 v1.40.
+     *
+     * @param chave Chave da nota fiscal com 44 caracteres.
+     * @param csrt Token/Código de Segurança do Responsável Técnico, fornecido pela Sefaz de da estado.
+     * @return bytes conforme definição da NF2018.005 v1.40 sem fazer encode em base64.
+     *         Isso porque já será feito ao gerar o xml devido ao tipo no XSD ser xs:base64Binary.
+     * @throws NoSuchAlgorithmException caso não encontre suporte para SHA-1.
+     */
+    public static byte[] geraHashCSRT(String chave, String csrt) throws NoSuchAlgorithmException {
+        ObjetoUtil.verifica(chave).orElseThrow(() -> new InvalidParameterException("Chave não deve ser nula ou vazia"));
+        ObjetoUtil.verifica(csrt).orElseThrow(() -> new InvalidParameterException("CSRT não deve ser nulo ou vazio"));
+        if (chave.length() != 44) {
+            throw new InvalidParameterException("Chave deve conter 44 caracteres.");
+        }
+
+        return getHash(csrt + chave);
     }
 
  

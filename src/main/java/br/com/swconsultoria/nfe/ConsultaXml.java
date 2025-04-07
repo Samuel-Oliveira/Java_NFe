@@ -1,5 +1,6 @@
 package br.com.swconsultoria.nfe;
 
+import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
@@ -7,10 +8,7 @@ import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.consSitNFe.TConsSitNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
-import br.com.swconsultoria.nfe.util.ConstantesUtil;
-import br.com.swconsultoria.nfe.util.ObjetoUtil;
-import br.com.swconsultoria.nfe.util.WebServiceUtil;
-import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import br.com.swconsultoria.nfe.util.*;
 import br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocolo.NFeConsultaProtocolo4Stub;
 import lombok.extern.java.Log;
 import org.apache.axiom.om.OMElement;
@@ -28,6 +26,8 @@ import java.rmi.RemoteException;
  */
 @Log
 class ConsultaXml {
+
+    private ConsultaXml() {}
 
     /**
      * Classe Reponsavel Por Consultar o status da NFE na SEFAZ
@@ -49,16 +49,19 @@ class ConsultaXml {
 
             String xml = XmlNfeUtil.objectToXml(consSitNFe, config.getEncode());
 
-            log.info("[XML-ENVIO]: " +xml);
+            log.info("[XML-ENVIO]: " + xml);
 
             OMElement ome = AXIOMUtil.stringToOM(xml);
 
-            if(EstadosEnum.MS.equals(config.getEstado())) {
+            String url = WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.CONSULTA_XML);
+            if (EstadosEnum.MS.equals(config.getEstado())) {
                 br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocoloMS.NFeConsultaProtocolo4Stub.NfeDadosMsg dadosMsg = new br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocoloMS.NFeConsultaProtocolo4Stub.NfeDadosMsg();
                 dadosMsg.setExtraElement(ome);
 
-                br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocoloMS.NFeConsultaProtocolo4Stub stub = new br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocoloMS.NFeConsultaProtocolo4Stub(
-                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.CONSULTA_XML));
+                br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocoloMS.NFeConsultaProtocolo4Stub stub =
+                        new br.com.swconsultoria.nfe.wsdl.NFeConsultaProtocoloMS.NFeConsultaProtocolo4Stub(url);
+
+                StubUtil.configuraHttpClient(stub, config, url);
 
                 // Timeout
                 if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -75,7 +78,9 @@ class ConsultaXml {
                 dadosMsg.setExtraElement(ome);
 
                 NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(
-                        WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.CONSULTA_XML));
+                        url);
+
+                StubUtil.configuraHttpClient(stub, config, url);
 
                 // Timeout
                 if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -89,8 +94,8 @@ class ConsultaXml {
                 return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetConsSitNFe.class);
             }
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
-            throw new NfeException(e.getMessage(),e);
+        } catch (RemoteException | XMLStreamException | JAXBException | CertificadoException e) {
+            throw new NfeException(e.getMessage(), e);
         }
 
     }

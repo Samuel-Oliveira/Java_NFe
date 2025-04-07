@@ -1,5 +1,6 @@
 package br.com.swconsultoria.nfe;
 
+import br.com.swconsultoria.certificado.exception.CertificadoException;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
@@ -9,6 +10,7 @@ import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
+import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.ws.RetryParameter;
@@ -35,6 +37,9 @@ import java.util.Iterator;
  */
 @Log
 class Enviar {
+
+    private Enviar() {
+    }
 
     /**
      * Metodo para Montar a NFE
@@ -73,7 +78,7 @@ class Enviar {
             return XmlNfeUtil.xmlToObject(xml, TEnviNFe.class);
 
         } catch (Exception e) {
-            throw new NfeException(e.getMessage(),e);
+            throw new NfeException(e.getMessage(), e);
         }
 
     }
@@ -113,7 +118,10 @@ class Enviar {
             NFeAutorizacao4Stub.NfeDadosMsg dadosMsg = new NFeAutorizacao4Stub.NfeDadosMsg();
             dadosMsg.setExtraElement(ome);
 
-            NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.ENVIO));
+            String url = WebServiceUtil.getUrl(config, tipoDocumento, ServicosEnum.ENVIO);
+            NFeAutorizacao4Stub stub = new NFeAutorizacao4Stub(url);
+
+            StubUtil.configuraHttpClient(stub, config, url);
 
             // Timeout
             if (ObjetoUtil.verifica(config.getTimeout()).isPresent()) {
@@ -134,7 +142,7 @@ class Enviar {
             log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetEnviNFe.class);
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
+        } catch (RemoteException | XMLStreamException | JAXBException | CertificadoException e) {
             throw new NfeException(e.getMessage(), e);
         }
 

@@ -30,14 +30,13 @@ public class Validar implements ErrorHandler {
     public boolean isValidXml(String xsd, String xml) {
         try {
             validaXml(xsd, xml);
-
             return true;
         } catch (NfeException ex) {
             return false;
         }
     }
 
-    void validaXml(String xsd, String xml) throws NfeException {
+    private void validaXml(String xsd, String xml) throws NfeException {
         System.setProperty("jdk.xml.maxOccurLimit", "99999");
         String errosValidacao;
 
