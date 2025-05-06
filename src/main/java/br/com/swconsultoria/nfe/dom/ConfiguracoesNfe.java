@@ -109,8 +109,8 @@ public class ConfiguracoesNfe {
 
         log.info(String.format("JAVA-NFE | Samuel Oliveira | samuel@swconsultoria.com.br " +
                         "| VERSAO=%s | DATA_VERSAO=%s | PASTA_SCHEMAS=%s | AMBIENTE=%s | ESTADO=%s",
-                "4.00.37",
-                "05/04/2025",
+                "4.00.38",
+                "06/05/2025",
                 pastaSchemas,
                 ambiente,
                 estado.getNome().toUpperCase()));
