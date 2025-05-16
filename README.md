@@ -3,6 +3,7 @@ Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSource)
+
 Thanks to JetBrains for supporting this project! https://www.jetbrains.com/?from=Java_NFe
 
 ## Dúvidas, Sugestões ou Consultoria
