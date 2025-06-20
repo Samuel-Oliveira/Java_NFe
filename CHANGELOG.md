@@ -1,2 +1,2 @@
 # Notas de versão
-- Atualizado URL Consulta Cadastro RS
+- Atualizado WebServices NFCe Ceara
