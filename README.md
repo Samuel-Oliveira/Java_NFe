@@ -1,6 +1,11 @@
 # Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.39/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
+### Powered by
+[![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSource)
+
+Thanks to JetBrains for supporting this project! https://www.jetbrains.com/?from=Java_NFe
+
 ## Dúvidas, Sugestões ou Consultoria
 [![Java Brasil](https://discordapp.com/api/guilds/519583346066587676/widget.png?style=banner2)](https://discord.gg/ZXpqnaV)
 
@@ -457,6 +462,3 @@ ________________________________________________________________________________
 
 ## v3.10.0 - 26-09-2016
 - Versão Inicial Do Sistema
-
-<img src="https://raw.githubusercontent.com/Samuel-Oliveira/Java_NFe/master/jetbrains.png" width="200">
-Thanks to JetBrains for supporting this project! https://www.jetbrains.com/?from=Java_NFe
