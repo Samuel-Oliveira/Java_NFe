@@ -42,6 +42,7 @@ ________________________________________________________________________________
 ## v4.00.39 - 20/06/2025 - Schemas PL.009p1
 - Atualizado WebServices NFCe Ceara
 - Atualizado CACERT
+- Adicionado QrCode NFC-e V3
 
 ## v4.00.38 - 06/05/2025 - Schemas PL.009p1
 - Atualizado URL Consulta Cadastro RS
