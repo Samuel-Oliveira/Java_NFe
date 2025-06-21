@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.38/jar)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.39/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ## Dúvidas, Sugestões ou Consultoria
@@ -17,7 +17,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.38</version>
+    <version>4.00.39</version>
 </dependency>
 ```
 
@@ -29,15 +29,74 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.38"
+    implementation "br.com.swconsultoria:java-nfe:4.00.39"
 }
 ```
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
 
 ________________________________________________________________________________________________
+# 🚨 Atenção — Reforma Tributária na NF-e / NFC-e
+
+Foram adicionadas as classes com o **layout da Reforma Tributária**.  
+Para garantir que não haja impacto nos sistemas em produção, **todas as novas classes estão isoladas** no seguinte pacote: br.com.swconsultoria.nfe.schema_rt.nfe
+
+---
+
+## 🧠 O que muda?
+
+A reforma, neste momento, afeta apenas as seguintes funções:
+
+- 🔍 `consultaRecibo` — Consulta NF-e / NFC-e Assíncrona
+- 🧾 `montaNfe` — Montagem, Assinatura e Validação do XML
+- 🚀 `enviarNfe` — Envio de NF-e / NFC-e
+
+Para utilizar essas funções adaptadas à Reforma Tributária, utilize a classe: **NfeRT**
+
+---
+
+## 📦 Schemas XSD
+
+Foi adicionado um arquivo ZIP com os novos schemas: **schemas_rt.zip**
+
+**Importante:**  
+Esse arquivo deve ser **extraído na mesma pasta dos schemas atuais**, sobrescrevendo-os temporariamente **apenas se você deseja testar o novo layout da Reforma Tributária**.
+
+---
+
+## 🗓️ Cronograma de Implantação da Reforma Tributária (NF-e / NFC-e)
+
+| Data                          | Evento                                                                                      |
+|-------------------------------|---------------------------------------------------------------------------------------------|
+| **07/07/2025 até 28/07/2025** | Entrada em **homologação** dos novos campos: `IBS`, `CBS` e `IS`. *(Varia conforme a UF)*  |
+| **04/08/2025**                | Homologação da implantação dos **eventos fiscais** necessários para a apuração tributária. |
+| **06/10/2025**                | Entrada em **produção** dos eventos e dos novos campos, porém com **preenchimento opcional**. |
+| **05/01/2026**                | Os campos `IBS`, `CBS` e `IS` tornam-se de **preenchimento obrigatório em produção**.      |
+
+---
+
+## 💼 Consultoria Especializada
+
+Estamos com uma equipe dedicada exclusivamente à **Reforma Tributária**.  
+A partir de **Agosto de 2025**, estaremos oferecendo serviços de **consultoria personalizada** para apoiar empresas na migração de seus sistemas para o novo layout.
+
+---
+
+## 📞 Contato
+
+- Discord: `.samueloliveira`
+- E-mail: [samuel@swconsultoria.com.br](mailto:samuel@swconsultoria.com.br)
+- WhatsApp/Telefone: **(62) 99306-6546**
+
+________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.39 - 21/06/2025 - Schemas PL.009p1 e PL.010b
+- Atualizado WebServices NFCe Ceara
+- Atualizado CACERT
+- Adicionado QrCode NFC-e V3
+- Adicionado Layout Reforma Tributária
 
 ## v4.00.38 - 06/05/2025 - Schemas PL.009p1
 - Atualizado URL Consulta Cadastro RS

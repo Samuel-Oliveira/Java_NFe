@@ -12,7 +12,13 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class XsdUtil {
 
+    private static final QName _TConsReciNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "consReciNFe");
+    private static final QName _TConsSitNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "consSitNFe");
+    private static final QName _TRetConsSitNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retConsSitNFe");
+    private static final QName _TEnviNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "enviNFe");
+    private static final QName _TRetConsReciNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retConsReciNFe");
     private final static QName _TNfeProc_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "nfeProc");
+    private final static QName _TNfe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "NFe");
     private final static QName _TProtNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "protNFe");
     private final static QName _TProcInutNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "procInutNFe");
     private final static QName _TRetEnviNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "retEnviNFe");
@@ -44,6 +50,7 @@ public class XsdUtil {
         static JAXBElement<br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt> createDistDFeInt(br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt value) {
             return new JAXBElement<>(_TDistDFeInt_QNAME, br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt.class, br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt.class, value);
         }
+
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "retDistDFeInt", scope = br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt> createRetDistDFeInt(br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt value) {
             return new JAXBElement<>(_TRetDistDFeInt_QNAME, br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt.class,
@@ -83,7 +90,6 @@ public class XsdUtil {
             return new JAXBElement<br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe>(_TProcInutNFe_QNAME, br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe.class, br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe.class, value);
         }
 
-
     }
 
     public interface epec {
@@ -113,6 +119,7 @@ public class XsdUtil {
             return new JAXBElement<>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class, value);
         }
     }
+
     public interface envcce {
         @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "TProcEvento", scope = br.com.swconsultoria.nfe.schema.envcce.TProcEvento.class)
         static JAXBElement<br.com.swconsultoria.nfe.schema.envcce.TProcEvento> createTProcEvento(br.com.swconsultoria.nfe.schema.envcce.TProcEvento value) {
@@ -214,6 +221,46 @@ public class XsdUtil {
         static JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento> createTRetEnvEvento(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento value) {
             return new JAXBElement<br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento>(_TProcEvento_QNAME, br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento.class, br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento.class, value);
         }
+    }
+
+    //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+    public interface NfeRt {
+
+        static JAXBElement<br.com.swconsultoria.nfe.schema_rt.nfe.TNFe> createTNFe(
+                br.com.swconsultoria.nfe.schema_rt.nfe.TNFe value) {
+            return JAXBElementFactory.create(_TNfe_QNAME, br.com.swconsultoria.nfe.schema_rt.nfe.TNFe.class, value);
+        }
+
+        static JAXBElement<br.com.swconsultoria.nfe.schema_rt.nfe.TNfeProc> createTNfeProc(
+                br.com.swconsultoria.nfe.schema_rt.nfe.TNfeProc value) {
+            return JAXBElementFactory.create(_TNfeProc_QNAME, br.com.swconsultoria.nfe.schema_rt.nfe.TNfeProc.class, value);
+        }
+
+        static JAXBElement<br.com.swconsultoria.nfe.schema_rt.nfe.TProtNFe> createTProtNFe(
+                br.com.swconsultoria.nfe.schema_rt.nfe.TProtNFe value) {
+            return JAXBElementFactory.create(_TProtNFe_QNAME, br.com.swconsultoria.nfe.schema_rt.nfe.TProtNFe.class, value);
+        }
+
+        static JAXBElement<br.com.swconsultoria.nfe.schema_rt.nfe.TRetEnviNFe> createTRetEnviNFe(
+                br.com.swconsultoria.nfe.schema_rt.nfe.TRetEnviNFe value) {
+            return JAXBElementFactory.create(_TRetEnviNFe_QNAME, br.com.swconsultoria.nfe.schema_rt.nfe.TRetEnviNFe.class, value);
+        }
+
+        static JAXBElement<br.com.swconsultoria.nfe.schema_rt.nfe.TConsReciNFe> createTConsReciNFe(
+                br.com.swconsultoria.nfe.schema_rt.nfe.TConsReciNFe value) {
+            return JAXBElementFactory.create(_TConsReciNFe_QNAME, br.com.swconsultoria.nfe.schema_rt.nfe.TConsReciNFe.class, value);
+        }
+
+        static JAXBElement<br.com.swconsultoria.nfe.schema_rt.nfe.TEnviNFe> createTEnviNFe(
+                br.com.swconsultoria.nfe.schema_rt.nfe.TEnviNFe value) {
+            return JAXBElementFactory.create(_TEnviNFe_QNAME, br.com.swconsultoria.nfe.schema_rt.nfe.TEnviNFe.class, value);
+        }
+
+        static JAXBElement<br.com.swconsultoria.nfe.schema_rt.nfe.TRetConsReciNFe> createTRetConsReciNFe(
+                br.com.swconsultoria.nfe.schema_rt.nfe.TRetConsReciNFe value) {
+            return JAXBElementFactory.create(_TRetConsReciNFe_QNAME, br.com.swconsultoria.nfe.schema_rt.nfe.TRetConsReciNFe.class, value);
+        }
+
     }
 
 }
