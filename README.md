@@ -39,7 +39,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.00.39 - 20/06/2025 - Schemas PL.009p1
+## v4.00.39 - 20/06/2025 - Schemas PL.009p1 e PL.010b
 - Atualizado WebServices NFCe Ceara
 - Atualizado CACERT
 - Adicionado QrCode NFC-e V3
