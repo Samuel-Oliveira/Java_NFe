@@ -17,6 +17,11 @@ import br.com.swconsultoria.nfe.schema_4.inutNFe.TProcInutNFe;
 import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
 import br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TRetConsSitNFe;
 import lombok.extern.java.Log;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.InputSource;
 
 import javax.xml.bind.*;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -24,7 +29,11 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -99,6 +108,7 @@ public class XmlNfeUtil {
     private static final String RET_CCE = "br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento";
     private static final String RET_EPEC = "br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento";
     private static final String RET_MANIFESTAR = "br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento";
+
     private XmlNfeUtil() {}
 
     /**
@@ -128,6 +138,8 @@ public class XmlNfeUtil {
 
         JAXBContext context;
         JAXBElement<?> element;
+        //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+        boolean layoutReforma = obj.getClass().getName().contains("schema_rt");
 
         switch (obj.getClass().getSimpleName()) {
 
@@ -137,13 +149,25 @@ public class XmlNfeUtil {
                 break;
 
             case ENVIO_NFE:
-                context = JAXBContext.newInstance(TEnviNFe.class);
-                element = new br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory().createEnviNFe((TEnviNFe) obj);
+                if (layoutReforma) {
+                    //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+                    context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_rt.nfe.TEnviNFe.class);
+                    element = XsdUtil.NfeRt.createTEnviNFe((br.com.swconsultoria.nfe.schema_rt.nfe.TEnviNFe) obj);
+                } else {
+                    context = JAXBContext.newInstance(TEnviNFe.class);
+                    element = new br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory().createEnviNFe((TEnviNFe) obj);
+                }
                 break;
 
             case RETORNO_ENVIO:
-                context = JAXBContext.newInstance(TRetEnviNFe.class);
-                element = XsdUtil.enviNfe.createTRetEnviNFe((TRetEnviNFe) obj);
+                if (layoutReforma) {
+                    //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+                    context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_rt.nfe.TRetEnviNFe.class);
+                    element = XsdUtil.NfeRt.createTRetEnviNFe((br.com.swconsultoria.nfe.schema_rt.nfe.TRetEnviNFe) obj);
+                } else {
+                    context = JAXBContext.newInstance(TRetEnviNFe.class);
+                    element = XsdUtil.enviNfe.createTRetEnviNFe((TRetEnviNFe) obj);
+                }
                 break;
 
             case SITUACAO_NFE:
@@ -157,8 +181,14 @@ public class XmlNfeUtil {
                 break;
 
             case TCONSRECINFE:
-                context = JAXBContext.newInstance(TConsReciNFe.class);
-                element = new br.com.swconsultoria.nfe.schema_4.consReciNFe.ObjectFactory().createConsReciNFe((TConsReciNFe) obj);
+                if (layoutReforma) {
+                    //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+                    context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_rt.nfe.TConsReciNFe.class);
+                    element = XsdUtil.NfeRt.createTConsReciNFe((br.com.swconsultoria.nfe.schema_rt.nfe.TConsReciNFe) obj);
+                } else {
+                    context = JAXBContext.newInstance(TConsReciNFe.class);
+                    element = new br.com.swconsultoria.nfe.schema_4.consReciNFe.ObjectFactory().createConsReciNFe((TConsReciNFe) obj);
+                }
                 break;
 
             case TCONS_CAD:
@@ -182,8 +212,14 @@ public class XmlNfeUtil {
                 break;
 
             case RET_RECIBO_NFE:
-                context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe.class);
-                element = new br.com.swconsultoria.nfe.schema_4.retConsReciNFe.ObjectFactory().createRetConsReciNFe((br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe) obj);
+                if (layoutReforma) {
+                    //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+                    context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_rt.nfe.TRetConsReciNFe.class);
+                    element = XsdUtil.NfeRt.createTRetConsReciNFe((br.com.swconsultoria.nfe.schema_rt.nfe.TRetConsReciNFe) obj);
+                } else {
+                    context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe.class);
+                    element = new br.com.swconsultoria.nfe.schema_4.retConsReciNFe.ObjectFactory().createRetConsReciNFe((br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe) obj);
+                }
                 break;
 
             case RET_STATUS_SERVICO:
@@ -250,13 +286,25 @@ public class XmlNfeUtil {
                 break;
 
             case NFEPROC:
-                context = JAXBContext.newInstance(TNfeProc.class);
-                element = XsdUtil.enviNfe.createTNfeProc((TNfeProc) obj);
+                if (layoutReforma) {
+                    //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+                    context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_rt.nfe.TNfeProc.class);
+                    element = XsdUtil.NfeRt.createTNfeProc((br.com.swconsultoria.nfe.schema_rt.nfe.TNfeProc) obj);
+                } else {
+                    context = JAXBContext.newInstance(TNfeProc.class);
+                    element = XsdUtil.enviNfe.createTNfeProc((TNfeProc) obj);
+                }
                 break;
 
             case NFE:
-                context = JAXBContext.newInstance(TNFe.class);
-                element = new JAXBElement<>(new QName("http://www.portalfiscal.inf.br/nfe", "NFe"), TNFe.class, null, (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe) obj);
+                if (layoutReforma) {
+                    //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+                    context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_rt.nfe.TNFe.class);
+                    element = XsdUtil.NfeRt.createTNFe((br.com.swconsultoria.nfe.schema_rt.nfe.TNFe) obj);
+                } else {
+                    context = JAXBContext.newInstance(TNFe.class);
+                    element = new JAXBElement<>(new QName("http://www.portalfiscal.inf.br/nfe", "NFe"), TNFe.class, null, (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe) obj);
+                }
                 break;
 
             case TPROCINUT:
@@ -359,21 +407,27 @@ public class XmlNfeUtil {
                 break;
 
             case TProtNFe:
-                switch (obj.getClass().getName()) {
-                    case TProtEnvi:
-                        context = JAXBContext.newInstance(TProtNFe.class);
-                        element = XsdUtil.enviNfe.createTProtNFe((br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe) obj);
-                        break;
-                    case TProtCons:
-                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TProtNFe.class);
-                        element = XsdUtil.retConsSitNfe.createTProtNFe((br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TProtNFe) obj);
-                        break;
-                    case TProtReci:
-                        context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe.class);
-                        element = XsdUtil.retConsReciNfe.createTProtNFe((br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe) obj);
-                        break;
-                    default:
-                        throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
+                if (layoutReforma) {
+                    //TODO REMOVER DEPOIS DO LAYOUT REFORMA ENTRAR EM PRODUCAO
+                    context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_rt.nfe.TProtNFe.class);
+                    element = XsdUtil.NfeRt.createTProtNFe((br.com.swconsultoria.nfe.schema_rt.nfe.TProtNFe) obj);
+                }else{
+                    switch (obj.getClass().getName()) {
+                        case TProtEnvi:
+                            context = JAXBContext.newInstance(TProtNFe.class);
+                            element = XsdUtil.enviNfe.createTProtNFe((br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe) obj);
+                            break;
+                        case TProtCons:
+                            context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TProtNFe.class);
+                            element = XsdUtil.retConsSitNfe.createTProtNFe((br.com.swconsultoria.nfe.schema_4.retConsSitNFe.TProtNFe) obj);
+                            break;
+                        case TProtReci:
+                            context = JAXBContext.newInstance(br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe.class);
+                            element = XsdUtil.retConsReciNfe.createTProtNFe((br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TProtNFe) obj);
+                            break;
+                        default:
+                            throw new NfeException("Objeto não mapeado no XmlUtil:" + obj.getClass().getSimpleName());
+                    }
                 }
                 break;
 
@@ -391,7 +445,7 @@ public class XmlNfeUtil {
 
         String encodeXml = encode == null || !Charset.isSupported(encode.displayName()) ? "UTF-8" : encode.displayName();
 
-        sw.append("<?xml version=\"1.0\" encoding=\"" + encodeXml + "\"?>");
+        sw.append("<?xml version=\"1.0\" encoding=\"").append(encodeXml).append("\"?>");
 
         marshaller.marshal(element, sw);
 
@@ -480,5 +534,44 @@ public class XmlNfeUtil {
             log.warning(e.getMessage());
         }
         return null;
+    }
+
+    public static String getTag(String xml, String tag) throws NfeException {
+        if (xml == null || xml.isEmpty()) {
+            throw new NfeException("XML de entrada está vazio.");
+        }
+
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setNamespaceAware(true);
+            dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
+            Document doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+            doc.getDocumentElement().normalize();
+
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            Node node = (Node) xPath.evaluate("//*[local-name()='" + tag + "']", doc, XPathConstants.NODE);
+
+            if (node == null) {
+                throw new NfeException("Tag '" + tag + "' não encontrada no XML.");
+            }
+
+            return nodeToString(node);
+
+        } catch (Exception e) {
+            throw new NfeException("Erro ao extrair a tag '" + tag + "' do XML.\nErro: " + e.getMessage(), e);
+        }
+    }
+
+
+    private static String nodeToString(Node node) {
+        Document document = node.getOwnerDocument();
+        DOMImplementationLS domImplLS = (DOMImplementationLS) document.getImplementation().getFeature("LS", "3.0");
+        LSSerializer serializer = domImplLS.createLSSerializer();
+        serializer.getDomConfig().setParameter("xml-declaration", false);
+        return serializer.writeToString(node);
     }
 }
