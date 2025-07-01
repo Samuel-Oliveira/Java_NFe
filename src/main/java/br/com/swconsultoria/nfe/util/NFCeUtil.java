@@ -95,7 +95,7 @@ public class NFCeUtil {
      * @param valorNF        : Campo de Valor da Nota (W16)
      * @param tpDestinatario : 1=CNPJ; 2=CPF; 3=idEstrangeiro; Caso Destinatário estrangeiro ou não identificado, informar apenas nulo ou vazio
      * @param identDest      : Identificação do Destinatário CPF ou CNPJ na NFC-e.; Caso Destinatário estrangeiro ou não identificado, informar apenas nulo ou vazio
-     * @param urlConsulta : Url De Consulta da Nfc-e do Estado
+     * @param urlConsulta    : Url De Consulta da Nfc-e do Estado
      *
      * Para NFC-e emitida em contingência “off-line”:
      * https://endereco-consultaQRCode?p=<chave_acesso>|<versao_qrcode>|<tpAmb>|<dia_data_emissao>|<vNF>|<tp_idDest>|<idDest>|<assinatura>
@@ -106,14 +106,14 @@ public class NFCeUtil {
                                                      String tpDestinatario, String identDest, String urlConsulta,
                                                      Certificado certificado) throws NfeException {
 
-        String valor = String.format("%s?p=%s|3|%s|%s|%s|%s|%s",
-                urlConsulta, chave, ambiente, dhEmi.substring(8, 10), valorNF,
+        String valor = String.format("%s|3|%s|%s|%s|%s|%s",
+                chave, ambiente, dhEmi.substring(8, 10), valorNF,
                 Optional.ofNullable(tpDestinatario).orElse(""),
                 Optional.ofNullable(identDest).orElse(""));
 
-        String assinatura = "";
-        return valor + "|" + assinarQrCodeV3(valor,certificado);
+        String assinatura = assinarQrCodeV3(valor, certificado);
 
+        return urlConsulta + "?p=" + valor + "|" + assinatura;
     }
 
     /**
