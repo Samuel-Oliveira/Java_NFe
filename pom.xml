@@ -41,7 +41,7 @@
         <axiom-api.version>1.2.20</axiom-api.version>
         <jmockit.version>1.46</jmockit.version>
         <junit-jupiter.version>5.4.0</junit-jupiter.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
@@ -106,11 +106,6 @@
             <groupId>br.com.swconsultoria</groupId>
             <artifactId>java_certificado</artifactId>
             <version>${java-certificado.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ini4j</groupId>
-            <artifactId>ini4j</artifactId>
-            <version>${ini4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
