@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.39/jar)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.40/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
@@ -22,7 +22,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.39</version>
+    <version>4.00.40</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.39"
+    implementation "br.com.swconsultoria:java-nfe:4.00.40"
 }
 ```
 
@@ -96,6 +96,11 @@ A partir de **Agosto de 2025**, estaremos oferecendo serviços de **consultoria 
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.40 - 06/07/2025 - Schemas PL.009p1 e PL.010b
+- Atualizado CACERT
+- Correcao QrCode NFC-e V3
+- Removido Ini4J (Vunerabilidade)
 
 ## v4.00.39 - 21/06/2025 - Schemas PL.009p1 e PL.010b
 - Atualizado WebServices NFCe Ceara
