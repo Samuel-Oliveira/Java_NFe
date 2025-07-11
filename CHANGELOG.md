@@ -1,2 +1,4 @@
 # Notas de versão
-- Atualizado Cacert MS
+- Atualizado CACERT
+- Correcao QrCode NFC-e V3
+- Removido Ini4J (Vunerabilidade)
