@@ -1,2 +1,3 @@
 # Notas de versão
-- Alterado URLs COnsulta Cadastro Amazonas
+- Alterado URLs Consulta Cadastro Amazonas
+- Alterado URLs QRCode Goias
