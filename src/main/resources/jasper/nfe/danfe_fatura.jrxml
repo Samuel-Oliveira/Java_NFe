@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="danfe1_fatura" columnCount="12" printOrder="Horizontal" pageWidth="560" pageHeight="21" columnWidth="46" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2a2c3ec9-f104-4b31-9375-9fb7b2fb22a6">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NF-e"/>
+	<queryString language="xPath">
+		<![CDATA[/nfeProc/NFe/infNFe/cobr/dup]]>
+	</queryString>
+	<field name="Duplicata" class="java.lang.String">
+		<fieldDescription><![CDATA[nDup]]></fieldDescription>
+	</field>
+	<field name="Vencimento" class="java.lang.String">
+		<fieldDescription><![CDATA[dVenc]]></fieldDescription>
+	</field>
+	<field name="Valor" class="java.lang.String">
+		<fieldDescription><![CDATA[vDup]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<detail>
+		<band height="21">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement mode="Transparent" x="2" y="1" width="561" height="19" uuid="f2201e0c-0232-47e7-9cf0-f321fb43c117">
+					<printWhenExpression><![CDATA[$F{Duplicata} == null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Outras Formas de Pagamento, Verifique as Informações no Campo de Dados Adicionais ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="1" width="44" height="7" uuid="33ce4feb-0950-444f-b327-e01a4cc77d47">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Verdana" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Duplicata}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="1" y="7" width="44" height="7" uuid="9cc4eb6a-e948-447f-9f74-74e56da037f8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Verdana" size="5" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Vencimento} != null ? new SimpleDateFormat("yyyy-MM-dd").parse($F{Vencimento}) : null]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="1" y="13" width="44" height="7" uuid="2ac5b94a-31ef-4593-84fb-2170e9b3353f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Verdana" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Valor} == null ? 0.00 : Double.parseDouble($F{Valor})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

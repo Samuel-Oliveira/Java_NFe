@@ -7,42 +7,15 @@ package br.com.swconsultoria.nfe.exception;
  */
 public class NfeValidacaoException extends NfeException {
 
-	private static final long serialVersionUID = 2224963351733125955L;
-	String message;
-	
-	/**
-	 * Construtor da classe.
-	 * 
-	 * @param e
-	 */
 	public NfeValidacaoException(Throwable e) {
 		super(e);
 	}
 
-	
-	/**
-	 * Construtor da classe.
-	 * 
-	 * @param message
-	 */
 	public NfeValidacaoException(String message) {
-		this((Throwable) null);
-		this.message = message;
+		super(message);
 	}
 
-	/**
-	 * @return the message
-	 */
-	public String getMessage() {
-		return message;
+	public NfeValidacaoException(String message, Throwable cause) {
+		super(message, cause);
 	}
-
-	/**
-	 * @param message the message to set
-	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	
 }

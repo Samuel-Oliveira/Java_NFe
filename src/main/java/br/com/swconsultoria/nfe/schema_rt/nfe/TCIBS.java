@@ -20,36 +20,39 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="vBC" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *         &lt;element name="gIBSUF">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="pIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="gDif" type="{http://www.portalfiscal.inf.br/nfe}TDif" minOccurs="0"/>
- *                   &lt;element name="gDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDevTrib" minOccurs="0"/>
- *                   &lt;element name="gRed" type="{http://www.portalfiscal.inf.br/nfe}TRed" minOccurs="0"/>
- *                   &lt;element name="vIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="gIBSMun">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="pIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="gDif" type="{http://www.portalfiscal.inf.br/nfe}TDif" minOccurs="0"/>
- *                   &lt;element name="gDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDevTrib" minOccurs="0"/>
- *                   &lt;element name="gRed" type="{http://www.portalfiscal.inf.br/nfe}TRed" minOccurs="0"/>
- *                   &lt;element name="vIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
+ *         &lt;sequence>
+ *           &lt;element name="gIBSUF">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                   &lt;sequence>
+ *                     &lt;element name="pIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
+ *                     &lt;element name="gDif" type="{http://www.portalfiscal.inf.br/nfe}TDif" minOccurs="0"/>
+ *                     &lt;element name="gDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDevTrib" minOccurs="0"/>
+ *                     &lt;element name="gRed" type="{http://www.portalfiscal.inf.br/nfe}TRed" minOccurs="0"/>
+ *                     &lt;element name="vIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;/sequence>
+ *                 &lt;/restriction>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *           &lt;element name="gIBSMun">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                   &lt;sequence>
+ *                     &lt;element name="pIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
+ *                     &lt;element name="gDif" type="{http://www.portalfiscal.inf.br/nfe}TDif" minOccurs="0"/>
+ *                     &lt;element name="gDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDevTrib" minOccurs="0"/>
+ *                     &lt;element name="gRed" type="{http://www.portalfiscal.inf.br/nfe}TRed" minOccurs="0"/>
+ *                     &lt;element name="vIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;/sequence>
+ *                 &lt;/restriction>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *           &lt;element name="vIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *         &lt;/sequence>
  *         &lt;element name="gCBS">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -82,6 +85,7 @@ import javax.xml.bind.annotation.XmlType;
     "vbc",
     "gibsuf",
     "gibsMun",
+    "vibs",
     "gcbs",
     "gTribRegular",
     "gibsCredPres",
@@ -96,6 +100,8 @@ public class TCIBS {
     protected TCIBS.GIBSUF gibsuf;
     @XmlElement(name = "gIBSMun", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TCIBS.GIBSMun gibsMun;
+    @XmlElement(name = "vIBS", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+    protected String vibs;
     @XmlElement(name = "gCBS", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected TCIBS.GCBS gcbs;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
@@ -177,6 +183,30 @@ public class TCIBS {
      */
     public void setGIBSMun(TCIBS.GIBSMun value) {
         this.gibsMun = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade vibs.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getVIBS() {
+        return vibs;
+    }
+
+    /**
+     * Define o valor da propriedade vibs.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setVIBS(String value) {
+        this.vibs = value;
     }
 
     /**
