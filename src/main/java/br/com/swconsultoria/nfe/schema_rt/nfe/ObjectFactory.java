@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the br.com.swconsultoria.nfe.schema_rt.enviNFe package. 
+ * generated in the br.com.swconsultoria.nfe.schema_rt.nfe package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
-    private final static QName _EnviNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "enviNFe");
+    private final static QName _NFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "NFe");
     private final static QName _TNFeInfNFeDetImpostoICMS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ICMS");
     private final static QName _TNFeInfNFeDetImpostoPISST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PISST");
     private final static QName _TNFeInfNFeDetImpostoCOFINSST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINSST");
@@ -40,7 +40,7 @@ public class ObjectFactory {
     private final static QName _TNFeInfNFeDetImpostoPIS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PIS");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema_rt.enviNFe
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schema_rt.nfe
      * 
      */
     public ObjectFactory() {
@@ -60,6 +60,78 @@ public class ObjectFactory {
      */
     public SignedInfoType createSignedInfoType() {
         return new SignedInfoType();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot }
+     * 
+     */
+    public TIBSCBSMonoTot createTIBSCBSMonoTot() {
+        return new TIBSCBSMonoTot();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GIBS }
+     * 
+     */
+    public TIBSCBSMonoTot.GIBS createTIBSCBSMonoTotGIBS() {
+        return new TIBSCBSMonoTot.GIBS();
+    }
+
+    /**
+     * Create an instance of {@link TRetEnviNFe }
+     * 
+     */
+    public TRetEnviNFe createTRetEnviNFe() {
+        return new TRetEnviNFe();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot }
+     * 
+     */
+    public TIBSCBSTot createTIBSCBSTot() {
+        return new TIBSCBSTot();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GIBS }
+     * 
+     */
+    public TIBSCBSTot.GIBS createTIBSCBSTotGIBS() {
+        return new TIBSCBSTot.GIBS();
+    }
+
+    /**
+     * Create an instance of {@link TProtNFe }
+     * 
+     */
+    public TProtNFe createTProtNFe() {
+        return new TProtNFe();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia }
+     * 
+     */
+    public TMonofasia createTMonofasia() {
+        return new TMonofasia();
+    }
+
+    /**
+     * Create an instance of {@link TCIBS }
+     * 
+     */
+    public TCIBS createTCIBS() {
+        return new TCIBS();
+    }
+
+    /**
+     * Create an instance of {@link TIpi }
+     * 
+     */
+    public TIpi createTIpi() {
+        return new TIpi();
     }
 
     /**
@@ -255,78 +327,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TIBSCBSMonoTot }
-     * 
-     */
-    public TIBSCBSMonoTot createTIBSCBSMonoTot() {
-        return new TIBSCBSMonoTot();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSMonoTot.GIBS }
-     * 
-     */
-    public TIBSCBSMonoTot.GIBS createTIBSCBSMonoTotGIBS() {
-        return new TIBSCBSMonoTot.GIBS();
-    }
-
-    /**
-     * Create an instance of {@link TRetEnviNFe }
-     * 
-     */
-    public TRetEnviNFe createTRetEnviNFe() {
-        return new TRetEnviNFe();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSTot }
-     * 
-     */
-    public TIBSCBSTot createTIBSCBSTot() {
-        return new TIBSCBSTot();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSTot.GIBS }
-     * 
-     */
-    public TIBSCBSTot.GIBS createTIBSCBSTotGIBS() {
-        return new TIBSCBSTot.GIBS();
-    }
-
-    /**
-     * Create an instance of {@link TProtNFe }
-     * 
-     */
-    public TProtNFe createTProtNFe() {
-        return new TProtNFe();
-    }
-
-    /**
-     * Create an instance of {@link TCIBS }
-     * 
-     */
-    public TCIBS createTCIBS() {
-        return new TCIBS();
-    }
-
-    /**
-     * Create an instance of {@link TIpi }
-     * 
-     */
-    public TIpi createTIpi() {
-        return new TIpi();
-    }
-
-    /**
-     * Create an instance of {@link TEnviNFe }
-     * 
-     */
-    public TEnviNFe createTEnviNFe() {
-        return new TEnviNFe();
-    }
-
-    /**
      * Create an instance of {@link TCompraGov }
      * 
      */
@@ -383,11 +383,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TMonofasia }
+     * Create an instance of {@link TEnviNFe }
      * 
      */
-    public TMonofasia createTMonofasia() {
-        return new TMonofasia();
+    public TEnviNFe createTEnviNFe() {
+        return new TEnviNFe();
     }
 
     /**
@@ -612,6 +612,150 @@ public class ObjectFactory {
      */
     public SignedInfoType.SignatureMethod createSignedInfoTypeSignatureMethod() {
         return new SignedInfoType.SignatureMethod();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GCBS }
+     * 
+     */
+    public TIBSCBSMonoTot.GCBS createTIBSCBSMonoTotGCBS() {
+        return new TIBSCBSMonoTot.GCBS();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GMono }
+     * 
+     */
+    public TIBSCBSMonoTot.GMono createTIBSCBSMonoTotGMono() {
+        return new TIBSCBSMonoTot.GMono();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GIBS.GIBSUF }
+     * 
+     */
+    public TIBSCBSMonoTot.GIBS.GIBSUF createTIBSCBSMonoTotGIBSGIBSUF() {
+        return new TIBSCBSMonoTot.GIBS.GIBSUF();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GIBS.GIBSMun }
+     * 
+     */
+    public TIBSCBSMonoTot.GIBS.GIBSMun createTIBSCBSMonoTotGIBSGIBSMun() {
+        return new TIBSCBSMonoTot.GIBS.GIBSMun();
+    }
+
+    /**
+     * Create an instance of {@link TRetEnviNFe.InfRec }
+     * 
+     */
+    public TRetEnviNFe.InfRec createTRetEnviNFeInfRec() {
+        return new TRetEnviNFe.InfRec();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GCBS }
+     * 
+     */
+    public TIBSCBSTot.GCBS createTIBSCBSTotGCBS() {
+        return new TIBSCBSTot.GCBS();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GIBS.GIBSUF }
+     * 
+     */
+    public TIBSCBSTot.GIBS.GIBSUF createTIBSCBSTotGIBSGIBSUF() {
+        return new TIBSCBSTot.GIBS.GIBSUF();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GIBS.GIBSMun }
+     * 
+     */
+    public TIBSCBSTot.GIBS.GIBSMun createTIBSCBSTotGIBSGIBSMun() {
+        return new TIBSCBSTot.GIBS.GIBSMun();
+    }
+
+    /**
+     * Create an instance of {@link TProtNFe.InfProt }
+     * 
+     */
+    public TProtNFe.InfProt createTProtNFeInfProt() {
+        return new TProtNFe.InfProt();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GMonoPadrao }
+     * 
+     */
+    public TMonofasia.GMonoPadrao createTMonofasiaGMonoPadrao() {
+        return new TMonofasia.GMonoPadrao();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GMonoReten }
+     * 
+     */
+    public TMonofasia.GMonoReten createTMonofasiaGMonoReten() {
+        return new TMonofasia.GMonoReten();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GMonoRet }
+     * 
+     */
+    public TMonofasia.GMonoRet createTMonofasiaGMonoRet() {
+        return new TMonofasia.GMonoRet();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GMonoDif }
+     * 
+     */
+    public TMonofasia.GMonoDif createTMonofasiaGMonoDif() {
+        return new TMonofasia.GMonoDif();
+    }
+
+    /**
+     * Create an instance of {@link TCIBS.GIBSUF }
+     * 
+     */
+    public TCIBS.GIBSUF createTCIBSGIBSUF() {
+        return new TCIBS.GIBSUF();
+    }
+
+    /**
+     * Create an instance of {@link TCIBS.GIBSMun }
+     * 
+     */
+    public TCIBS.GIBSMun createTCIBSGIBSMun() {
+        return new TCIBS.GIBSMun();
+    }
+
+    /**
+     * Create an instance of {@link TCIBS.GCBS }
+     * 
+     */
+    public TCIBS.GCBS createTCIBSGCBS() {
+        return new TCIBS.GCBS();
+    }
+
+    /**
+     * Create an instance of {@link TIpi.IPITrib }
+     * 
+     */
+    public TIpi.IPITrib createTIpiIPITrib() {
+        return new TIpi.IPITrib();
+    }
+
+    /**
+     * Create an instance of {@link TIpi.IPINT }
+     * 
+     */
+    public TIpi.IPINT createTIpiIPINT() {
+        return new TIpi.IPINT();
     }
 
     /**
@@ -1247,118 +1391,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TIBSCBSMonoTot.GCBS }
-     * 
-     */
-    public TIBSCBSMonoTot.GCBS createTIBSCBSMonoTotGCBS() {
-        return new TIBSCBSMonoTot.GCBS();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSMonoTot.GMono }
-     * 
-     */
-    public TIBSCBSMonoTot.GMono createTIBSCBSMonoTotGMono() {
-        return new TIBSCBSMonoTot.GMono();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSMonoTot.GIBS.GIBSUF }
-     * 
-     */
-    public TIBSCBSMonoTot.GIBS.GIBSUF createTIBSCBSMonoTotGIBSGIBSUF() {
-        return new TIBSCBSMonoTot.GIBS.GIBSUF();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSMonoTot.GIBS.GIBSMun }
-     * 
-     */
-    public TIBSCBSMonoTot.GIBS.GIBSMun createTIBSCBSMonoTotGIBSGIBSMun() {
-        return new TIBSCBSMonoTot.GIBS.GIBSMun();
-    }
-
-    /**
-     * Create an instance of {@link TRetEnviNFe.InfRec }
-     * 
-     */
-    public TRetEnviNFe.InfRec createTRetEnviNFeInfRec() {
-        return new TRetEnviNFe.InfRec();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSTot.GCBS }
-     * 
-     */
-    public TIBSCBSTot.GCBS createTIBSCBSTotGCBS() {
-        return new TIBSCBSTot.GCBS();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSTot.GIBS.GIBSUF }
-     * 
-     */
-    public TIBSCBSTot.GIBS.GIBSUF createTIBSCBSTotGIBSGIBSUF() {
-        return new TIBSCBSTot.GIBS.GIBSUF();
-    }
-
-    /**
-     * Create an instance of {@link TIBSCBSTot.GIBS.GIBSMun }
-     * 
-     */
-    public TIBSCBSTot.GIBS.GIBSMun createTIBSCBSTotGIBSGIBSMun() {
-        return new TIBSCBSTot.GIBS.GIBSMun();
-    }
-
-    /**
-     * Create an instance of {@link TProtNFe.InfProt }
-     * 
-     */
-    public TProtNFe.InfProt createTProtNFeInfProt() {
-        return new TProtNFe.InfProt();
-    }
-
-    /**
-     * Create an instance of {@link TCIBS.GIBSUF }
-     * 
-     */
-    public TCIBS.GIBSUF createTCIBSGIBSUF() {
-        return new TCIBS.GIBSUF();
-    }
-
-    /**
-     * Create an instance of {@link TCIBS.GIBSMun }
-     * 
-     */
-    public TCIBS.GIBSMun createTCIBSGIBSMun() {
-        return new TCIBS.GIBSMun();
-    }
-
-    /**
-     * Create an instance of {@link TCIBS.GCBS }
-     * 
-     */
-    public TCIBS.GCBS createTCIBSGCBS() {
-        return new TCIBS.GCBS();
-    }
-
-    /**
-     * Create an instance of {@link TIpi.IPITrib }
-     * 
-     */
-    public TIpi.IPITrib createTIpiIPITrib() {
-        return new TIpi.IPITrib();
-    }
-
-    /**
-     * Create an instance of {@link TIpi.IPINT }
-     * 
-     */
-    public TIpi.IPINT createTIpiIPINT() {
-        return new TIpi.IPINT();
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}}
      * 
      */
@@ -1368,12 +1400,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TEnviNFe }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TNFe }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "enviNFe")
-    public JAXBElement<TEnviNFe> createEnviNFe(TEnviNFe value) {
-        return new JAXBElement<TEnviNFe>(_EnviNFe_QNAME, TEnviNFe.class, null, value);
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "NFe")
+    public JAXBElement<TNFe> createNFe(TNFe value) {
+        return new JAXBElement<TNFe>(_NFe_QNAME, TNFe.class, null, value);
     }
 
     /**
