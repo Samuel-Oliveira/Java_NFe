@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.40-${versao}-SNAPSHOT</version>
+    <version>4.00.41-${versao}-SNAPSHOT</version>
     <name>Java_NFe</name>
     <description>Api java para consumo do webService de nota fiscal eletronica</description>
     <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
@@ -40,6 +40,9 @@
         <jmockit.version>1.49</jmockit.version>
         <junit-jupiter.version>5.13.3</junit-jupiter.version>
         <lombok.version>1.18.38</lombok.version>
+        <jasper.version>6.20.6</jasper.version>
+        <barbecue.version>1.5-beta1</barbecue.version>
+        <zxing.version>3.2.1</zxing.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
@@ -177,6 +180,36 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasper.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>${jasper.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.barbecue</groupId>
+            <artifactId>barbecue</artifactId>
+            <version>${barbecue.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${zxing.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>${zxing.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
