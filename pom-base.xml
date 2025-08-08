@@ -41,7 +41,7 @@
         <junit-jupiter.version>5.13.3</junit-jupiter.version>
         <lombok.version>1.18.38</lombok.version>
         <jasper.version>6.20.6</jasper.version>
-        <openpdf.version>1.3.30.jaspersoft.3</openpdf.version>
+        <openpdf.version>1.3.30</openpdf.version>
         <barbecue.version>1.5-beta1</barbecue.version>
         <zxing.version>3.2.1</zxing.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
