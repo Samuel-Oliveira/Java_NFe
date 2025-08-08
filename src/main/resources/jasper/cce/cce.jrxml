@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="CCe" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20" uuid="89cf247f-0b52-4f36-be6f-bb8abd0a49b5">
+    <property name="ireport.zoom" value="1.5"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <parameter name="Logo" class="java.lang.String" isForPrompting="false">
+        <parameterDescription><![CDATA[Local onde está  a imagem do logo da empresa.]]></parameterDescription>
+        <defaultValueExpression><![CDATA[]]></defaultValueExpression>
+    </parameter>
+    <queryString language="xPath">
+        <![CDATA[procEventoNFe/evento]]>
+    </queryString>
+    <field name="Id" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/@Id]]></fieldDescription>
+    </field>
+    <field name="cOrgao" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/cOrgao]]></fieldDescription>
+    </field>
+    <field name="tpAmb" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/tpAmb]]></fieldDescription>
+    </field>
+    <field name="cnpj" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/CNPJ]]></fieldDescription>
+    </field>
+    <field name="chNFe" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/chNFe]]></fieldDescription>
+    </field>
+    <field name="tpEvento" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/tpEvento]]></fieldDescription>
+    </field>
+    <field name="nSeqEvento" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/nSeqEvento]]></fieldDescription>
+    </field>
+    <field name="verEvento" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/verEvento]]></fieldDescription>
+    </field>
+    <field name="descEvento" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/detEvento/descEvento]]></fieldDescription>
+    </field>
+    <field name="xCorrecao" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/detEvento/xCorrecao]]></fieldDescription>
+    </field>
+    <field name="dhEvento" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/dhEvento]]></fieldDescription>
+    </field>
+    <field name="endEmitente" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/CNPJ]]></fieldDescription>
+    </field>
+    <field name="Data_Saida" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/evento/infEvento/dhEvento]]></fieldDescription>
+    </field>
+    <field name="nProt" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/retEvento/infEvento/nProt]]></fieldDescription>
+    </field>
+    <field name="xMotivo" class="java.lang.String">
+        <fieldDescription><![CDATA[/procEventoNFe/retEvento/infEvento/xMotivo]]></fieldDescription>
+    </field>
+    <background>
+        <band/>
+    </background>
+    <title>
+        <band height="7"/>
+    </title>
+    <pageHeader>
+        <band/>
+    </pageHeader>
+    <columnHeader>
+        <band height="146">
+            <rectangle radius="2">
+                <reportElement uuid="067c60ad-f3f8-4bc2-90f5-900aed5db15b" key="rectangle-6" mode="Transparent" x="337"
+                               y="4" width="218" height="94"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement uuid="3cd1e3d4-31f3-4b34-9177-c260d1e99d4a" key="staticText-71" x="346" y="61"
+                               width="200" height="36">
+                    <printWhenExpression><![CDATA[new Boolean(true)]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Verdana" size="6" pdfFontName="Times-Roman"/>
+                </textElement>
+                <text><![CDATA[Consulta de autenticidade no portal nacional da NF-e
+www.nfe.fazenda.gov.br/portal ou no site da Sefaz Autorizadora]]></text>
+            </staticText>
+            <textField pattern="" isBlankWhenNull="true">
+                <reportElement uuid="211a95cd-9cdf-4ff4-a63a-151789872976" key="textField-19" mode="Transparent" x="346"
+                               y="51" width="208" height="10"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Courier New" size="7" isBold="false" pdfFontName="Times-Bold"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{chNFe}.substring(0,4) + " " + $F{chNFe}.substring(4,8) + " " + $F{chNFe}.substring(8,12) + " " +
+$F{chNFe}.substring(12,16) + " " + $F{chNFe}.substring(16,20) + " " + $F{chNFe}.substring(20,24) + " " +
+$F{chNFe}.substring(24,28) + " " + $F{chNFe}.substring(28,32) + " " + $F{chNFe}.substring(32,36) + " " +
+$F{chNFe}.substring(36,40) + " " + $F{chNFe}.substring(40,44) + " "]]></textFieldExpression>
+            </textField>
+            <rectangle radius="2">
+                <reportElement uuid="d273e141-6e8b-4c56-a66c-89a26cda9a45" key="rectangle-5" mode="Transparent" x="0"
+                               y="4" width="337" height="93"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </rectangle>
+            <rectangle radius="2">
+                <reportElement uuid="f2a806f6-edc2-4822-8fa7-8e9ed9d08b73" key="rectangle-60" mode="Transparent" x="258"
+                               y="101" width="296" height="19"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </rectangle>
+            <textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+                <reportElement uuid="23adc56e-e10e-463e-8e3f-e07bbfa6de71" key="textField-9" mode="Transparent" x="175"
+                               y="76" width="153" height="20" isPrintInFirstWholeBand="true"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Courier New" size="12" isBold="false" pdfFontName="Times-Bold"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cnpj}.length() == 14 ? $F{cnpj}.substring(0,2) + "." +
+$F{cnpj}.substring(2,5) + "." + $F{cnpj}.substring(5,8) + "/" +
+$F{cnpj}.substring(8,12) + "-" + $F{cnpj}.substring(12,14) : $F{cnpj}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement uuid="e88a829a-34b8-4fc5-939a-2762142b5df2" key="textField-67" x="268" y="100"
+                               width="168" height="19"/>
+                <textElement verticalAlignment="Middle" markup="none">
+                    <font fontName="Courier New" size="8" isItalic="false" pdfFontName="Times-Roman"/>
+                </textElement>
+                <text><![CDATA[PROTOCOLO DE AUTORIZAÇÃO DE USO:]]></text>
+            </staticText>
+            <rectangle radius="2">
+                <reportElement uuid="4b7c2d0c-9094-49f4-a490-82e0f916bfc0" key="rectangle-60" mode="Transparent" x="0"
+                               y="121" width="554" height="20"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement uuid="d0f9a4bd-f3f7-435e-9c6b-235366a66070" x="130" y="31" width="138" height="29"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Courier New" size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[Carta de Correção eletrônica]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="279093ba-1365-44fa-af19-9b7ad8920fc6" x="109" y="60" width="77" height="16"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Courier New" size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Data Do Evento:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="c57f1aed-3942-48b7-a827-952fed6f0515" key="textField-67" x="6" y="124" width="83"
+                               height="16"/>
+                <textElement verticalAlignment="Middle" markup="none">
+                    <font fontName="Courier New" size="8" isItalic="false" pdfFontName="Times-Roman"/>
+                </textElement>
+                <text><![CDATA[RESPOSTA SEFAZ:]]></text>
+            </staticText>
+            <textField>
+                <reportElement uuid="b26fdbbb-1234-4409-a089-35cc4f2f7bdb" x="436" y="100" width="119" height="19"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Courier New" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{nProt}]]></textFieldExpression>
+            </textField>
+            <textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+                <reportElement uuid="33142986-cb01-4b87-91ef-aae548e59a43" x="186" y="60" width="151" height="16"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Courier New" size="8" isBold="true"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[$F{Data_Saida}.subSequence(8,10) +"/"+$F{Data_Saida}.subSequence(5,7)+"/"+ $F{Data_Saida}.subSequence(0,4) + "   -   " +$F{Data_Saida}.subSequence(11,19)]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="c3a8dc8b-a067-4287-bb81-5bdaddb34742" x="124" y="76" width="51" height="20"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Courier New" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["CNPJ:"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="62394e93-302b-411a-8682-d8647c981d7d" x="89" y="124" width="465" height="16"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Courier New" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{xMotivo}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="e0e494c3-536e-40cd-bf00-37c4eadfba0e" x="143" y="2" width="97" height="29"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Courier New" size="25" isBold="true" pdfFontName="Times-Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA["CCE"]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement uuid="bdaaeb7e-f1fe-4468-8295-b71f66bf5f5e" key="textField-67" x="346" y="41" width="208"
+                               height="10"/>
+                <textElement verticalAlignment="Middle" markup="none">
+                    <font fontName="Courier New" size="8" isItalic="false" pdfFontName="Times-Roman"/>
+                </textElement>
+                <text><![CDATA[CHAVE DE ACESSO:]]></text>
+            </staticText>
+            <textField>
+                <reportElement uuid="a2e1ec61-fa90-4dcb-94b3-895e01264f10" x="6" y="100" width="234" height="20"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Courier New" size="8"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA["NUMERO SEQUÊNCIA CCE:"+ $F{nSeqEvento}+ "    Nº Nfe: "+$F{chNFe}.subSequence(25,34)]]></textFieldExpression>
+            </textField>
+            <rectangle radius="2">
+                <reportElement uuid="13706436-734d-4a3d-933a-e6a228cb89ca" key="rectangle-60" mode="Transparent" x="0"
+                               y="101" width="258" height="19"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </rectangle>
+            <componentElement>
+                <reportElement uuid="cf8cbacc-be5d-4e62-8884-8512f00778e4" positionType="Float"
+                               stretchType="RelativeToBandHeight" mode="Transparent" x="359" y="8" width="175"
+                               height="33"/>
+                <jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components"
+                             xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd"
+                             type="Code128C" drawText="false" checksumRequired="true" barWidth="0" barHeight="0">
+                    <jr:codeExpression><![CDATA[$F{chNFe}]]></jr:codeExpression>
+                </jr:barbecue>
+            </componentElement>
+            <image>
+                <reportElement uuid="66b60d5b-ea71-494d-a171-54c1334b0a79" x="6" y="8" width="90" height="73"/>
+                <imageExpression><![CDATA[$P{Logo}]]></imageExpression>
+            </image>
+            <rectangle radius="2">
+                <reportElement uuid="f2a806f6-edc2-4822-8fa7-8e9ed9d08b73" key="rectangle-60" mode="Transparent" x="337"
+                               y="41" width="218" height="19"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </rectangle>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="586">
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="3bb3b375-1b84-433f-a21e-8f6ecc8bd9eb" x="6" y="132" width="252" height="36"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Courier New" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Detalhes da Correção:"]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="eef1a9d1-dfac-4ecb-8098-4e466c51f233" x="6" y="168" width="549" height="418"
+                               isPrintWhenDetailOverflows="true"/>
+                <textElement verticalAlignment="Top">
+                    <font fontName="Courier New" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{xCorrecao}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="a623efa6-cf31-4104-a602-9d63b22644be" x="6" y="12" width="540" height="36"
+                               isPrintWhenDetailOverflows="true"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Courier New"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA["A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: "]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="6de99cfd-8350-4bea-8acf-7d2395a8210e" x="24" y="48" width="522" height="28"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Courier New"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA["I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação;"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="9eecdd34-e4b3-4f6c-a85b-1b184337bf67" x="24" y="76" width="522" height="23"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Courier New"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA["II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário;"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement uuid="ec8e9806-bb67-4359-ab6f-2608d87b8940" x="24" y="99" width="522" height="20"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Courier New"/>
+                </textElement>
+                <textFieldExpression><![CDATA["III - a data de emissão ou de saída."]]></textFieldExpression>
+            </textField>
+            <rectangle radius="2">
+                <reportElement uuid="4b7c2d0c-9094-49f4-a490-82e0f916bfc0" key="rectangle-60" mode="Transparent" x="0"
+                               y="0" width="554" height="119"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </rectangle>
+            <rectangle radius="2">
+                <reportElement uuid="4b7c2d0c-9094-49f4-a490-82e0f916bfc0" key="rectangle-60" mode="Transparent" x="1"
+                               y="132" width="554" height="441"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </rectangle>
+        </band>
+    </detail>
+    <columnFooter>
+        <band/>
+    </columnFooter>
+    <pageFooter>
+        <band height="17">
+            <textField>
+                <reportElement uuid="821190d3-75ac-442f-9a13-f8b39df89e0d" mode="Opaque" x="0" y="4" width="524"
+                               height="13" backcolor="#E6E6E6"/>
+                <textElement textAlignment="Right">
+                    <font fontName="Courier New"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement uuid="8078a315-a84b-4576-b477-42191d668edc" mode="Opaque" x="524" y="4" width="31"
+                               height="13" backcolor="#E6E6E6"/>
+                <textElement>
+                    <font fontName="Courier New"/>
+                </textElement>
+                <textFieldExpression><![CDATA[""+$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement uuid="a25eff6a-c08c-4f87-8f65-e4655e346bd9" x="0" y="4" width="175" height="13"/>
+                <textElement>
+                    <font fontName="Courier New"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band/>
+    </summary>
+</jasperReport>

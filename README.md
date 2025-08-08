@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.40/jar)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.41/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
@@ -22,7 +22,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.40</version>
+    <version>4.00.41</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.40"
+    implementation "br.com.swconsultoria:java-nfe:4.00.41"
 }
 ```
 
@@ -83,7 +83,7 @@ Esse arquivo deve ser **extraído na mesma pasta dos schemas atuais**, sobrescre
 ## 💼 Consultoria Especializada
 
 Estamos com uma equipe dedicada exclusivamente à **Reforma Tributária**.  
-A partir de **Agosto de 2025**, estaremos oferecendo serviços de **consultoria personalizada** para apoiar empresas na migração de seus sistemas para o novo layout.
+A partir de **Setembro de 2025**, estaremos oferecendo serviços de **consultoria personalizada** para apoiar empresas na migração de seus sistemas para o novo layout.
 
 ---
 
@@ -96,6 +96,13 @@ A partir de **Agosto de 2025**, estaremos oferecendo serviços de **consultoria 
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.41 - 31/07/2025 - Schemas PL.009p1 e PL.010b
+- Alterado URLs Consulta Cadastro AM
+- Alterado URLs QRCode GO
+- Alterado URLs ConsultaNFCe RN
+- Atualizado Layout RT com Nota Técnica 2025.002.v.1.20
+- Adicionado Impressao de NFe, NFCe e CCe : https://github.com/Samuel-Oliveira/Java_NFe/wiki/14-:-Impressao
 
 ## v4.00.40 - 06/07/2025 - Schemas PL.009p1 e PL.010b
 - Atualizado CACERT
