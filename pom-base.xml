@@ -125,7 +125,7 @@
         <repository>
             <id>librepdf-repo</id>
             <name>LibrePDF Repository</name>
-            <url>https://jcenter.bintray.com/</url>
+            <url>https://repo1.maven.org/maven2/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
