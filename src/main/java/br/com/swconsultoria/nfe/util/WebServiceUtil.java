@@ -216,11 +216,10 @@ public class WebServiceUtil {
 
     private static boolean verificaEstadosComServidorProprio(ConfiguracoesNfe config) {
         return config.getEstado().equals(EstadosEnum.GO) || config.getEstado().equals(EstadosEnum.AM) ||
-               config.getEstado().equals(EstadosEnum.BA) || config.getEstado().equals(EstadosEnum.CE) ||
-               config.getEstado().equals(EstadosEnum.MA) || config.getEstado().equals(EstadosEnum.MS) ||
-               config.getEstado().equals(EstadosEnum.MT) || config.getEstado().equals(EstadosEnum.PA) ||
-               config.getEstado().equals(EstadosEnum.PE) || config.getEstado().equals(EstadosEnum.PI) ||
-               config.getEstado().equals(EstadosEnum.PR);
+               config.getEstado().equals(EstadosEnum.BA) || config.getEstado().equals(EstadosEnum.MA) ||
+               config.getEstado().equals(EstadosEnum.MS) || config.getEstado().equals(EstadosEnum.MT) ||
+               config.getEstado().equals(EstadosEnum.PE) || config.getEstado().equals(EstadosEnum.PR);
+
     }
 
     private static boolean verificaServicosAmbienteNacional(ServicosEnum tipoServico) {
