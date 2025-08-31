@@ -50,12 +50,8 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TRetConsStatServ }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TRetConsStatServ }{@code >}}
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link TRetConsStatServ }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "retConsStatServ")
     public JAXBElement<TRetConsStatServ> createRetConsStatServ(TRetConsStatServ value) {

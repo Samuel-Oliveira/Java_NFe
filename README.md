@@ -43,31 +43,7 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 # 🚨 Atenção — Reforma Tributária na NF-e / NFC-e
 
-Foram adicionadas as classes com o **layout da Reforma Tributária**.  
-Para garantir que não haja impacto nos sistemas em produção, **todas as novas classes estão isoladas** no seguinte pacote: br.com.swconsultoria.nfe.schema_rt.nfe
-
----
-
-## 🧠 O que muda?
-
-A reforma, neste momento, afeta apenas as seguintes funções:
-
-- 🔍 `consultaRecibo` — Consulta NF-e / NFC-e Assíncrona
-- 🧾 `montaNfe` — Montagem, Assinatura e Validação do XML
-- 🚀 `enviarNfe` — Envio de NF-e / NFC-e
-
-Para utilizar essas funções adaptadas à Reforma Tributária, utilize a classe: **NfeRT**
-
----
-
-## 📦 Schemas XSD
-
-Foi adicionado um arquivo ZIP com os novos schemas: **schemas_rt.zip**
-
-**Importante:**  
-Esse arquivo deve ser **extraído na mesma pasta dos schemas atuais**, sobrescrevendo-os temporariamente **apenas se você deseja testar o novo layout da Reforma Tributária**.
-
----
+Foram adicionadas as classes com o **layout da Reforma Tributária** a partir da versao 4.00.42.  
 
 ## 🗓️ Cronograma de Implantação da Reforma Tributária (NF-e / NFC-e)
 
@@ -96,6 +72,9 @@ A partir de **Setembro de 2025**, estaremos oferecendo serviços de **consultori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.42 - 31/08/2025 - Schemas PL.010b (v1.1)
+- Adicionado Layout Reforma Tributária
 
 ## v4.00.41 - 31/07/2025 - Schemas PL.009p1 e PL.010b
 - Alterado URLs Consulta Cadastro AM
