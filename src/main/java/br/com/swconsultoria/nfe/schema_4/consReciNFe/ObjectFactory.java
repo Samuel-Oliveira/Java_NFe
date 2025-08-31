@@ -33,8 +33,10 @@ public class ObjectFactory {
     private final static QName _TNFeInfNFeDetImpostoICMSUFDest_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ICMSUFDest");
     private final static QName _TNFeInfNFeDetImpostoVTotTrib_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "vTotTrib");
     private final static QName _TNFeInfNFeDetImpostoII_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "II");
+    private final static QName _TNFeInfNFeDetImpostoIBSCBS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "IBSCBS");
     private final static QName _TNFeInfNFeDetImpostoISSQN_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ISSQN");
     private final static QName _TNFeInfNFeDetImpostoCOFINS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINS");
+    private final static QName _TNFeInfNFeDetImpostoIS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "IS");
     private final static QName _TNFeInfNFeDetImpostoPIS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PIS");
 
     /**
@@ -253,11 +255,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TProtNFe }
+     * Create an instance of {@link TIBSCBSMonoTot }
      * 
      */
-    public TProtNFe createTProtNFe() {
-        return new TProtNFe();
+    public TIBSCBSMonoTot createTIBSCBSMonoTot() {
+        return new TIBSCBSMonoTot();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GIBS }
+     * 
+     */
+    public TIBSCBSMonoTot.GIBS createTIBSCBSMonoTotGIBS() {
+        return new TIBSCBSMonoTot.GIBS();
     }
 
     /**
@@ -266,6 +276,46 @@ public class ObjectFactory {
      */
     public TRetEnviNFe createTRetEnviNFe() {
         return new TRetEnviNFe();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot }
+     * 
+     */
+    public TIBSCBSTot createTIBSCBSTot() {
+        return new TIBSCBSTot();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GIBS }
+     * 
+     */
+    public TIBSCBSTot.GIBS createTIBSCBSTotGIBS() {
+        return new TIBSCBSTot.GIBS();
+    }
+
+    /**
+     * Create an instance of {@link TProtNFe }
+     * 
+     */
+    public TProtNFe createTProtNFe() {
+        return new TProtNFe();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia }
+     * 
+     */
+    public TMonofasia createTMonofasia() {
+        return new TMonofasia();
+    }
+
+    /**
+     * Create an instance of {@link TCIBS }
+     * 
+     */
+    public TCIBS createTCIBS() {
+        return new TCIBS();
     }
 
     /**
@@ -285,11 +335,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TVeiculo }
+     * Create an instance of {@link TCompraGov }
      * 
      */
-    public TVeiculo createTVeiculo() {
-        return new TVeiculo();
+    public TCompraGov createTCompraGov() {
+        return new TCompraGov();
+    }
+
+    /**
+     * Create an instance of {@link TTribCompraGov }
+     * 
+     */
+    public TTribCompraGov createTTribCompraGov() {
+        return new TTribCompraGov();
+    }
+
+    /**
+     * Create an instance of {@link TTribNFCom }
+     * 
+     */
+    public TTribNFCom createTTribNFCom() {
+        return new TTribNFCom();
     }
 
     /**
@@ -309,11 +375,115 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TTribCTe }
+     * 
+     */
+    public TTribCTe createTTribCTe() {
+        return new TTribCTe();
+    }
+
+    /**
+     * Create an instance of {@link TCredPresIBSZFM }
+     * 
+     */
+    public TCredPresIBSZFM createTCredPresIBSZFM() {
+        return new TCredPresIBSZFM();
+    }
+
+    /**
      * Create an instance of {@link TEnviNFe }
      * 
      */
     public TEnviNFe createTEnviNFe() {
         return new TEnviNFe();
+    }
+
+    /**
+     * Create an instance of {@link TNfeProc }
+     * 
+     */
+    public TNfeProc createTNfeProc() {
+        return new TNfeProc();
+    }
+
+    /**
+     * Create an instance of {@link TTransfCred }
+     * 
+     */
+    public TTransfCred createTTransfCred() {
+        return new TTransfCred();
+    }
+
+    /**
+     * Create an instance of {@link TISTot }
+     * 
+     */
+    public TISTot createTISTot() {
+        return new TISTot();
+    }
+
+    /**
+     * Create an instance of {@link TIS }
+     * 
+     */
+    public TIS createTIS() {
+        return new TIS();
+    }
+
+    /**
+     * Create an instance of {@link TTribBPe }
+     * 
+     */
+    public TTribBPe createTTribBPe() {
+        return new TTribBPe();
+    }
+
+    /**
+     * Create an instance of {@link TVeiculo }
+     * 
+     */
+    public TVeiculo createTVeiculo() {
+        return new TVeiculo();
+    }
+
+    /**
+     * Create an instance of {@link TCompraGovReduzido }
+     * 
+     */
+    public TCompraGovReduzido createTCompraGovReduzido() {
+        return new TCompraGovReduzido();
+    }
+
+    /**
+     * Create an instance of {@link TTribNFe }
+     * 
+     */
+    public TTribNFe createTTribNFe() {
+        return new TTribNFe();
+    }
+
+    /**
+     * Create an instance of {@link TDif }
+     * 
+     */
+    public TDif createTDif() {
+        return new TDif();
+    }
+
+    /**
+     * Create an instance of {@link TRed }
+     * 
+     */
+    public TRed createTRed() {
+        return new TRed();
+    }
+
+    /**
+     * Create an instance of {@link TTribNF3E }
+     * 
+     */
+    public TTribNF3E createTTribNF3E() {
+        return new TTribNF3E();
     }
 
     /**
@@ -333,11 +503,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TNfeProc }
+     * Create an instance of {@link TDevTrib }
      * 
      */
-    public TNfeProc createTNfeProc() {
-        return new TNfeProc();
+    public TDevTrib createTDevTrib() {
+        return new TDevTrib();
+    }
+
+    /**
+     * Create an instance of {@link TTribNFCe }
+     * 
+     */
+    public TTribNFCe createTTribNFCe() {
+        return new TTribNFCe();
+    }
+
+    /**
+     * Create an instance of {@link TTribRegular }
+     * 
+     */
+    public TTribRegular createTTribRegular() {
+        return new TTribRegular();
     }
 
     /**
@@ -346,6 +532,14 @@ public class ObjectFactory {
      */
     public TRetConsReciNFe createTRetConsReciNFe() {
         return new TRetConsReciNFe();
+    }
+
+    /**
+     * Create an instance of {@link TCredPres }
+     * 
+     */
+    public TCredPres createTCredPres() {
+        return new TCredPres();
     }
 
     /**
@@ -618,6 +812,14 @@ public class ObjectFactory {
      */
     public TNFe.InfNFe.Total.RetTrib createTNFeInfNFeTotalRetTrib() {
         return new TNFe.InfNFe.Total.RetTrib();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.DFeReferenciado }
+     * 
+     */
+    public TNFe.InfNFe.Det.DFeReferenciado createTNFeInfNFeDetDFeReferenciado() {
+        return new TNFe.InfNFe.Det.DFeReferenciado();
     }
 
     /**
@@ -1013,6 +1215,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TNFe.InfNFe.Ide.GPagAntecipado }
+     * 
+     */
+    public TNFe.InfNFe.Ide.GPagAntecipado createTNFeInfNFeIdeGPagAntecipado() {
+        return new TNFe.InfNFe.Ide.GPagAntecipado();
+    }
+
+    /**
      * Create an instance of {@link TNFe.InfNFe.Ide.NFref.RefNF }
      * 
      */
@@ -1037,11 +1247,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TProtNFe.InfProt }
+     * Create an instance of {@link TIBSCBSMonoTot.GCBS }
      * 
      */
-    public TProtNFe.InfProt createTProtNFeInfProt() {
-        return new TProtNFe.InfProt();
+    public TIBSCBSMonoTot.GCBS createTIBSCBSMonoTotGCBS() {
+        return new TIBSCBSMonoTot.GCBS();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GMono }
+     * 
+     */
+    public TIBSCBSMonoTot.GMono createTIBSCBSMonoTotGMono() {
+        return new TIBSCBSMonoTot.GMono();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GIBS.GIBSUF }
+     * 
+     */
+    public TIBSCBSMonoTot.GIBS.GIBSUF createTIBSCBSMonoTotGIBSGIBSUF() {
+        return new TIBSCBSMonoTot.GIBS.GIBSUF();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSMonoTot.GIBS.GIBSMun }
+     * 
+     */
+    public TIBSCBSMonoTot.GIBS.GIBSMun createTIBSCBSMonoTotGIBSGIBSMun() {
+        return new TIBSCBSMonoTot.GIBS.GIBSMun();
     }
 
     /**
@@ -1050,6 +1284,94 @@ public class ObjectFactory {
      */
     public TRetEnviNFe.InfRec createTRetEnviNFeInfRec() {
         return new TRetEnviNFe.InfRec();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GCBS }
+     * 
+     */
+    public TIBSCBSTot.GCBS createTIBSCBSTotGCBS() {
+        return new TIBSCBSTot.GCBS();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GIBS.GIBSUF }
+     * 
+     */
+    public TIBSCBSTot.GIBS.GIBSUF createTIBSCBSTotGIBSGIBSUF() {
+        return new TIBSCBSTot.GIBS.GIBSUF();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GIBS.GIBSMun }
+     * 
+     */
+    public TIBSCBSTot.GIBS.GIBSMun createTIBSCBSTotGIBSGIBSMun() {
+        return new TIBSCBSTot.GIBS.GIBSMun();
+    }
+
+    /**
+     * Create an instance of {@link TProtNFe.InfProt }
+     * 
+     */
+    public TProtNFe.InfProt createTProtNFeInfProt() {
+        return new TProtNFe.InfProt();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GMonoPadrao }
+     * 
+     */
+    public TMonofasia.GMonoPadrao createTMonofasiaGMonoPadrao() {
+        return new TMonofasia.GMonoPadrao();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GMonoReten }
+     * 
+     */
+    public TMonofasia.GMonoReten createTMonofasiaGMonoReten() {
+        return new TMonofasia.GMonoReten();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GMonoRet }
+     * 
+     */
+    public TMonofasia.GMonoRet createTMonofasiaGMonoRet() {
+        return new TMonofasia.GMonoRet();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GMonoDif }
+     * 
+     */
+    public TMonofasia.GMonoDif createTMonofasiaGMonoDif() {
+        return new TMonofasia.GMonoDif();
+    }
+
+    /**
+     * Create an instance of {@link TCIBS.GIBSUF }
+     * 
+     */
+    public TCIBS.GIBSUF createTCIBSGIBSUF() {
+        return new TCIBS.GIBSUF();
+    }
+
+    /**
+     * Create an instance of {@link TCIBS.GIBSMun }
+     * 
+     */
+    public TCIBS.GIBSMun createTCIBSGIBSMun() {
+        return new TCIBS.GIBSMun();
+    }
+
+    /**
+     * Create an instance of {@link TCIBS.GCBS }
+     * 
+     */
+    public TCIBS.GCBS createTCIBSGCBS() {
+        return new TCIBS.GCBS();
     }
 
     /**
@@ -1150,6 +1472,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TTribNFe }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "IBSCBS", scope = TNFe.InfNFe.Det.Imposto.class)
+    public JAXBElement<TTribNFe> createTNFeInfNFeDetImpostoIBSCBS(TTribNFe value) {
+        return new JAXBElement<TTribNFe>(_TNFeInfNFeDetImpostoIBSCBS_QNAME, TTribNFe.class, TNFe.InfNFe.Det.Imposto.class, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}}
      * 
      */
@@ -1165,6 +1496,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "COFINS", scope = TNFe.InfNFe.Det.Imposto.class)
     public JAXBElement<TNFe.InfNFe.Det.Imposto.COFINS> createTNFeInfNFeDetImpostoCOFINS(TNFe.InfNFe.Det.Imposto.COFINS value) {
         return new JAXBElement<TNFe.InfNFe.Det.Imposto.COFINS>(_TNFeInfNFeDetImpostoCOFINS_QNAME, TNFe.InfNFe.Det.Imposto.COFINS.class, TNFe.InfNFe.Det.Imposto.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TIS }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "IS", scope = TNFe.InfNFe.Det.Imposto.class)
+    public JAXBElement<TIS> createTNFeInfNFeDetImpostoIS(TIS value) {
+        return new JAXBElement<TIS>(_TNFeInfNFeDetImpostoIS_QNAME, TIS.class, TNFe.InfNFe.Det.Imposto.class, value);
     }
 
     /**
