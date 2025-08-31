@@ -2,11 +2,9 @@ name: Liberar nova versão Maven
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version'
-        required: true
-        type: string
+  push:
+    tags:
+      - '4.*'
 
 jobs:
   release:
@@ -88,17 +86,3 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           mvn deploy -B --no-transfer-progress
-
-      - name: Create GitHub Release
-        if: success()
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ env.RELEASE_VERSION }}
-          name: Release v${{ env.RELEASE_VERSION }}
-          body_path: CHANGELOG.md
-          draft: false
-          prerelease: false
-          files: |
-            target/paf-nfce-${{ env.RELEASE_VERSION }}.jar
-            target/paf-nfce-${{ env.RELEASE_VERSION }}-sources.jar
-            target/paf-nfce-${{ env.RELEASE_VERSION }}-javadoc.jar
