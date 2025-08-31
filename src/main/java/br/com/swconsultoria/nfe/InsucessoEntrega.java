@@ -5,7 +5,7 @@ import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.retEventoInsucessoNFe.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schema.eventoInsucessoNFe.TRetEnvEvento;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import javax.xml.bind.JAXBException;

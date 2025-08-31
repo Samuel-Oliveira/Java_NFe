@@ -7,7 +7,7 @@ import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema_4.consStatServ.TConsStatServ;
-import br.com.swconsultoria.nfe.schema_4.retConsStatServ.TRetConsStatServ;
+import br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
