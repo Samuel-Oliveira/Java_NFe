@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.41/jar)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.42/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
@@ -22,7 +22,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.41</version>
+    <version>4.00.42</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.41"
+    implementation "br.com.swconsultoria:java-nfe:4.00.42"
 }
 ```
 
@@ -74,7 +74,9 @@ ________________________________________________________________________________
 # Historico de Versões
 
 ## v4.00.42 - 31/08/2025 - Schemas PL.010b (v1.1)
-- Adicionado Layout Reforma Tributária
+- Atualizado Schema Reforma Tributaria
+- Remoçao de classes duplicadas
+- Reforacao JAXB
 
 ## v4.00.41 - 31/07/2025 - Schemas PL.009p1 e PL.010b
 - Alterado URLs Consulta Cadastro AM
