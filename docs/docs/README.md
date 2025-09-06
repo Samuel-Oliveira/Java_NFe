@@ -2,7 +2,8 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe)
 [![Java CI](https://img.shields.io/badge/Java-8%2B-orange.svg)]()
-[![LGTM Grade](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=Samuel-Oliveira_Java_NFe&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Samuel-Oliveira_Java_NFe)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Samuel-Oliveira_Java_NFe&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Samuel-Oliveira_Java_NFe)
 ***Biblioteca Java para consumo do WebService de NFe/NFCe***
 
 ## Dúvidas, Sugestões ou Consultoria
