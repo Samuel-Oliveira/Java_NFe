@@ -1,5 +1,8 @@
-[![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe) [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.25/jar) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/context:java) [![Total alerts](https://img.shields.io/lgtm/alerts/g/Samuel-Oliveira/Java_NFe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe/alerts/)
-
+[![Build Status](https://travis-ci.org/Samuel-Oliveira/Java_NFe.svg?branch=master)](https://travis-ci.org/Samuel-Oliveira/Java_NFe)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE)
+[![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe)
+[![Java CI](https://img.shields.io/badge/Java-8%2B-orange.svg)]()
+[![LGTM Grade](https://img.shields.io/lgtm/grade/java/g/Samuel-Oliveira/Java_NFe.svg)](https://lgtm.com/projects/g/Samuel-Oliveira/Java_NFe)
 ***Biblioteca Java para consumo do WebService de NFe/NFCe***
 
 ## Dúvidas, Sugestões ou Consultoria
