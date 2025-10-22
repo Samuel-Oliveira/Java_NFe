@@ -56,7 +56,8 @@ public class ManifestacaoUtil {
 
         listaManifestacao.forEach(manifestacao -> {
 
-            String id = "ID" + manifestacao.getTipoManifestacao().getCodigo() + manifestacao.getChave() + "01";
+            String id =
+                    "ID" + manifestacao.getTipoManifestacao().getCodigo() + manifestacao.getChave() + ChaveUtil.completarComZerosAEsquerda(String.valueOf(manifestacao.getSequencia()), 2);
 
             TEvento evento = new TEvento();
             evento.setVersao(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
@@ -72,7 +73,7 @@ public class ManifestacaoUtil {
             infEvento.setChNFe(manifestacao.getChave());
             infEvento.setDhEvento(XmlNfeUtil.dataNfe(manifestacao.getDataEvento(), configuracao.getZoneId()));
             infEvento.setTpEvento(manifestacao.getTipoManifestacao().getCodigo());
-            infEvento.setNSeqEvento("1");
+            infEvento.setNSeqEvento(String.valueOf(manifestacao.getSequencia()));
             infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
 
             TEvento.InfEvento.DetEvento detEvento = new TEvento.InfEvento.DetEvento();
@@ -92,9 +93,9 @@ public class ManifestacaoUtil {
     /**
      * Cria e assina o tag procEventoNFe
      *
-     * @param config Um {@link ConfiguracoesNfe}, interface de configuração da NF-e ou NFC-e.
+     * @param config     Um {@link ConfiguracoesNfe}, interface de configuração da NF-e ou NFC-e.
      * @param enviEvento Um {@link TEnvEvento} com a estrutura com a mensagem enviada para o sistema de distribuição.
-     * @param retorno Um {@link TretEvento} com os dadps do resultado do Envio do Evento.
+     * @param retorno    Um {@link TretEvento} com os dadps do resultado do Envio do Evento.
      * @return Uma {@link String} retornando um XML de evento assinado.
      * @throws JAXBException
      * @throws NfeException
@@ -111,10 +112,10 @@ public class ManifestacaoUtil {
         procEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
 
         Optional<TEvento> optEvento = XmlNfeUtil.xmlToObject(assinado, TEnvEvento.class)
-                        .getEvento()
-                        .stream()
-                        .filter(e -> e.getInfEvento().getChNFe().equalsIgnoreCase(retorno.getInfEvento().getChNFe()))
-                        .findFirst();
+                .getEvento()
+                .stream()
+                .filter(e -> e.getInfEvento().getChNFe().equalsIgnoreCase(retorno.getInfEvento().getChNFe()))
+                .findFirst();
 
         if (optEvento.isPresent()) {
             procEvento.setEvento(optEvento.get());

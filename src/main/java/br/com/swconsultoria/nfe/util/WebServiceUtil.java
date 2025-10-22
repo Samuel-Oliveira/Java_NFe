@@ -181,6 +181,10 @@ public class WebServiceUtil {
             lookupSectionKey = config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "NFe_AN_H" : "NFe_AN_P";
             Map<String, String> nationalSectionMap = iniData.get(lookupSectionKey);
             finalUrl = getIniValueIgnoreCase(nationalSectionMap, tipoServico.getServico());
+        } else if (verificaServicosAmbienteSVRS(tipoServico)) {
+            lookupSectionKey = config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "NFe_SVRS_H" : "NFe_SVRS_P";
+            Map<String, String> nationalSectionMap = iniData.get(lookupSectionKey);
+            finalUrl = getIniValueIgnoreCase(nationalSectionMap, tipoServico.getServico());
         } else if (verificaSeContingenciaSvcNfe(config, tipoDocumento, tipoServico)) {
             if (verificaEstadosComServidorProprio(config)) {
                 lookupSectionKey = tipoDocumento.getTipo() + "_SVRS_" + (config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "H" : "P");
@@ -226,6 +230,11 @@ public class WebServiceUtil {
         return tipoServico.equals(ServicosEnum.DISTRIBUICAO_DFE) ||
                tipoServico.equals(ServicosEnum.MANIFESTACAO) ||
                tipoServico.equals(ServicosEnum.EPEC);
+    }
+
+    private static boolean verificaServicosAmbienteSVRS(ServicosEnum tipoServico) {
+        return tipoServico.equals(ServicosEnum.ECONF) ||
+               tipoServico.equals(ServicosEnum.CANC_ECONF);
     }
 
     private static boolean verificaEstadosConsultaCadastro(ConfiguracoesNfe config, ServicosEnum tipoServico) {
