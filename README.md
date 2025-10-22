@@ -75,6 +75,8 @@ ________________________________________________________________________________
 
 ## v4.00.43 - 22/10/2025 - Schemas PL.010b (v1.1)
 - Correcoes EConf
+- Alterado Fonte Impressao Danfe NFe e NFCe de Times New Roman para Verdana
+- Correcao Manifestacao Util para Considerar mais de uma Sequencia
 
 ## v4.00.42 - 31/08/2025 - Schemas PL.010b (v1.1)
 - Atualizado Schema Reforma Tributaria
