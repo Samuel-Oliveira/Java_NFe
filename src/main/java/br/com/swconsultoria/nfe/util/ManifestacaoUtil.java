@@ -56,6 +56,10 @@ public class ManifestacaoUtil {
 
         listaManifestacao.forEach(manifestacao -> {
 
+            if(manifestacao.getSequencia() == 0) {
+                manifestacao.setSequencia(1);
+            }
+
             String id =
                     "ID" + manifestacao.getTipoManifestacao().getCodigo() + manifestacao.getChave() + ChaveUtil.completarComZerosAEsquerda(String.valueOf(manifestacao.getSequencia()), 2);
 
