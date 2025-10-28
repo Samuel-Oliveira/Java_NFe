@@ -74,9 +74,8 @@ ________________________________________________________________________________
 # Historico de Versões
 
 ## v4.00.44 - 28/10/2025 - Schemas PL.010b (v1.1)
-- Correcoes EConf
 - Correcao sequencia Manifestacao Util
-- 
+
 ## v4.00.43 - 22/10/2025 - Schemas PL.010b (v1.1)
 - Correcoes EConf
 - Alterado Fonte Impressao Danfe NFe e NFCe de Times New Roman para Verdana
