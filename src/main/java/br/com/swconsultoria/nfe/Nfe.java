@@ -253,8 +253,8 @@ public class Nfe {
      * @throws NfeException
      */
     public static br.com.swconsultoria.nfe.schema.eventoInsucessoNFe.TRetEnvEvento insucessoEntrega(ConfiguracoesNfe configuracoesNfe,
-                                                                                                       br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TEnvEvento envEvento,
-                                                                                                       boolean valida) throws NfeException {
+                                                                                                    br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TEnvEvento envEvento,
+                                                                                                    boolean valida) throws NfeException {
 
         return InsucessoEntrega.eventoInsuccessoEntrega(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
                 envEvento
@@ -271,8 +271,8 @@ public class Nfe {
      * @throws NfeException
      */
     public static br.com.swconsultoria.nfe.schema.eventoCancInsucessoNFe.TRetEnvEvento cancelamentoInsucessoEntrega(ConfiguracoesNfe configuracoesNfe,
-                                                                                                                       br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TEnvEvento envEvento,
-                                                                                                                       boolean valida) throws NfeException {
+                                                                                                                    br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TEnvEvento envEvento,
+                                                                                                                    boolean valida) throws NfeException {
 
         return CancInsucessoEntrega.eventoCancInsuccessoEntrega(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe,
                         envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
@@ -290,12 +290,12 @@ public class Nfe {
      * @throws NfeException
      */
     public static br.com.swconsultoria.nfe.schema.eventoEConf.TRetEnvEvento econf(ConfiguracoesNfe configuracoesNfe,
-                                                                                                       br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento envEvento,
-                                                                                                       boolean valida) throws NfeException {
+                                                                                  br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento envEvento
+                                                                                    , DocumentoEnum documento,
+                                                                                  boolean valida) throws NfeException {
 
         return ConciliacaoFinanceira.eventoEConf(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
-                envEvento
-                , valida);
+                envEvento, documento, valida);
 
     }
 
@@ -308,8 +308,8 @@ public class Nfe {
      * @throws NfeException
      */
     public static br.com.swconsultoria.nfe.schema.eventoCancEConf.TRetEnvEvento cancelamentoEconf(ConfiguracoesNfe configuracoesNfe,
-                                                                                                                       br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento envEvento,
-                                                                                                                       boolean valida) throws NfeException {
+                                                                                                  br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento envEvento,
+                                                                                                  boolean valida) throws NfeException {
 
         return CancConciliacaoFinanceira.eventoEConf(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe,
                         envEvento.getEvento().get(0).getInfEvento().getCNPJ()),

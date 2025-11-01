@@ -3,6 +3,7 @@ package br.com.swconsultoria.nfe.exemplos;
 import br.com.swconsultoria.nfe.Nfe;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
+import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.envEventoEConf.DetEvento;
@@ -34,11 +35,11 @@ public class EConfTeste {
             TEvento evento = new TEvento();
             evento.setVersao("1.00");
             TEvento.InfEvento infEvento = new TEvento.InfEvento();
-            infEvento.setId("ID" + "110750" + "52250810732644000128550010000927501960446967" + "01");
-            infEvento.setCOrgao("92");
+            infEvento.setId("ID" + "110750" + "52251010732644000128650030000004409296182274" + "01");
+            infEvento.setCOrgao("52");
             infEvento.setTpAmb("2");
             infEvento.setCNPJ("10732644000128");
-            infEvento.setChNFe("52250810732644000128550010000927501960446967");
+            infEvento.setChNFe("52251010732644000128650030000004409296182274");
             infEvento.setDhEvento(XmlNfeUtil.dataNfe(LocalDateTime.now()));
             infEvento.setTpEvento("110750");
             infEvento.setNSeqEvento("1");
@@ -56,7 +57,7 @@ public class EConfTeste {
             detPag.setIndPag("1");
             detPag.setTPag("04");
             detPag.setVPag("500.00");
-            detPag.setDPag("2025-10-21");
+            detPag.setDPag("2025-09-21");
             detPag.setCNPJPag("10440482000154");
             detPag.setUFPag(TUfEmi.GO);
             detPag.setTBand("02");
@@ -67,7 +68,7 @@ public class EConfTeste {
             System.out.println(XmlNfeUtil.objectToXml(envEvento));
 
             //Envia a ECONF
-            TRetEnvEvento retorno = Nfe.econf(config, envEvento, true);
+            TRetEnvEvento retorno = Nfe.econf(config, envEvento, DocumentoEnum.NFCE, true);
 
             if (!retorno.getCStat().equals("128")) {
                 throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
