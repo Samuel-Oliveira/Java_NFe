@@ -10,6 +10,7 @@ import lombok.extern.java.Log;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -210,6 +211,59 @@ public class WebServiceUtil {
 
         log.info("[URL]: " + tipoServico + ": " + finalUrl);
         return finalUrl;
+    }
+
+    /**
+     * Retorna um valor customizado a partir do arquivo WebServicesNfe.ini.
+     * <p>
+     * Exemplo de uso:
+     *   // carregar configuração (config é sua ConfiguracoesNfe já inicializada)
+     *   String url = WebServiceUtil.getCustomUrl(config, "CFF", "classTrib");
+     * <p>
+     * Lança NfeException em caso de arquivo inválido / seção ou chave não encontrada.
+     */
+    public static String getCustomUrl(ConfiguracoesNfe config, String section, String key) throws NfeException {
+        InputStream is = null;
+        Map<String, Map<String, String>> iniData;
+        try {
+            if (ObjetoUtil.verifica(config.getArquivoWebService()).isPresent()) {
+                File arquivo = new File(config.getArquivoWebService());
+                if (!arquivo.exists()) {
+                    throw new FileNotFoundException("Arquivo WebService " + config.getArquivoWebService() + " não encontrado");
+                }
+                is = Files.newInputStream(arquivo.toPath());
+                log.info("[ARQUIVO INI CUSTOMIZADO]: " + config.getArquivoWebService());
+            } else {
+                is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
+                if (is == null) {
+                    throw new NfeException("Arquivo WebServicesNfe.ini não encontrado no classpath.");
+                }
+            }
+            iniData = parseIniFile(is);
+        } catch (IOException e) {
+            throw new NfeException("Erro ao carregar arquivo de configuração WebService: " + e.getMessage(), e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    log.fine("Erro ao fechar InputStream: " + e.getMessage());
+                }
+            }
+        }
+
+        Map<String, String> sectionMap = iniData.get(section);
+        if (sectionMap == null) {
+            throw new NfeException("Seção '" + section + "' não encontrada em WebServicesNfe.ini");
+        }
+
+        String value = getIniValueIgnoreCase(sectionMap, key);
+        if (value == null || value.trim().isEmpty()) {
+            throw new NfeException("Chave '" + key + "' não encontrada na seção '" + section + "' do WebServicesNfe.ini");
+        }
+
+        log.info("[URL CUSTOM] " + section + " -> " + key + ": " + value);
+        return value;
     }
 
     private static boolean verificaSeContingenciaSvcNfe(ConfiguracoesNfe config, DocumentoEnum tipoDocumento, ServicosEnum tipoServico) {
