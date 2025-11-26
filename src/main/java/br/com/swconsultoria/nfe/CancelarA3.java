@@ -13,24 +13,16 @@ public class CancelarA3 {
 
     static TRetEnvEvento eventoCancelamento(ConfiguracoesNfe config, boolean valida, DocumentoEnum tipoDocumento, String xmlAssinado)
             throws NfeException {
-        try {
+
             String xmlRetorno = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.CANCELAMENTO, valida, tipoDocumento);
             return XmlNfeUtil.xmlToObject(xmlRetorno, TRetEnvEvento.class);
-
-        } catch (JAXBException e) {
-            throw new NfeException(e.getMessage());
-        }
     }
 
     static  br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento eventoCancelamentoSubstituicao(ConfiguracoesNfe config, boolean valida, DocumentoEnum tipoDocumento, String xmlAssinado)
             throws NfeException {
-        try {
+
             String xmlRetorno = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.CANCELAMENTO_SUBSTITUICAO, valida, tipoDocumento);
             return XmlNfeUtil.xmlToObject(xmlRetorno, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class);
-
-        } catch (JAXBException e) {
-            throw new NfeException(e.getMessage());
-        }
     }
 
     static String montaXmleventoCancelamento(ConfiguracoesNfe config, TEnvEvento enviEvento)
