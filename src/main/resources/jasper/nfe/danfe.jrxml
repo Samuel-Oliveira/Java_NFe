@@ -964,7 +964,7 @@ $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
 			<textField textAdjust="StretchHeight">
 				<reportElement style="dados" stretchType="RelativeToBandHeight" mode="Transparent" x="3" y="8" width="559" height="786" isPrintWhenDetailOverflows="true" forecolor="#CCCCCC" uuid="2446e187-c788-462c-95ca-71461937fa36"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="40" isBold="true" isItalic="false" isUnderline="false"/>
+					<font fontName="Verdana" size="40" isBold="true" isItalic="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Emissao}.equals( "5" ) ? "DANFE em Contingência – impresso em decorrência de problemas técnicos" : $F{Ambiente}.equals( "2" ) || ($F{Ambiente}.equals( "1" ) && $F{Protocolo} == null) ? "SEM VALOR FISCAL" : ""]]></textFieldExpression>
 			</textField>
