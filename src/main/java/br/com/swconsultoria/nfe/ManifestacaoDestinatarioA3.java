@@ -14,13 +14,9 @@ import lombok.extern.java.Log;
 public class ManifestacaoDestinatarioA3 {
 
     static TRetEnvEvento eventoManifestacao(ConfiguracoesNfe config, boolean valida,  String xmlAssinado) throws NfeException {
-        try {
-            log.info("[XML-ENVIO]: " + xmlAssinado);
-            xmlAssinado = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.MANIFESTACAO, valida, DocumentoEnum.NFE);
-            return XmlNfeUtil.xmlToObject(xmlAssinado, TRetEnvEvento.class);
-        } catch (JAXBException e) {
-            throw new NfeException(e.getMessage());
-        }
+        log.info("[XML-ENVIO]: " + xmlAssinado);
+        xmlAssinado = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.MANIFESTACAO, valida, DocumentoEnum.NFE);
+        return XmlNfeUtil.xmlToObject(xmlAssinado, TRetEnvEvento.class);
     }
 
     static String montarXML(ConfiguracoesNfe config, TEnvEvento envEvento) throws NfeException {
