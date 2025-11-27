@@ -3,8 +3,8 @@ package br.com.swconsultoria.nfe.util;
 import br.com.swconsultoria.nfe.dom.enuns.StatusEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schema_4.consReciNFe.TRetConsReciNFe;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.retConsReciNFe.TRetConsReciNFe;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com
@@ -152,7 +152,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaConsultaCadastro(br.com.swconsultoria.nfe.schema.retConsCad.TRetConsCad retorno) throws NfeException {
+    public static void validaConsultaCadastro(br.com.swconsultoria.nfe.schema.consCad.TRetConsCad retorno) throws NfeException {
         if (!retorno.getInfCons().getCStat().equals(StatusEnum.CADASTRO_ENCONTRADO.getCodigo())) {
             throw new NfeException(retorno.getInfCons().getCStat() + " - " + retorno.getInfCons().getXMotivo());
         }

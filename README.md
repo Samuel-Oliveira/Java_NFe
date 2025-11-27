@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.41/jar)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.45/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
@@ -22,7 +22,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.41</version>
+    <version>4.00.45</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.41"
+    implementation "br.com.swconsultoria:java-nfe:4.00.45"
 }
 ```
 
@@ -43,40 +43,7 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 ________________________________________________________________________________________________
 # 🚨 Atenção — Reforma Tributária na NF-e / NFC-e
 
-Foram adicionadas as classes com o **layout da Reforma Tributária**.  
-Para garantir que não haja impacto nos sistemas em produção, **todas as novas classes estão isoladas** no seguinte pacote: br.com.swconsultoria.nfe.schema_rt.nfe
-
----
-
-## 🧠 O que muda?
-
-A reforma, neste momento, afeta apenas as seguintes funções:
-
-- 🔍 `consultaRecibo` — Consulta NF-e / NFC-e Assíncrona
-- 🧾 `montaNfe` — Montagem, Assinatura e Validação do XML
-- 🚀 `enviarNfe` — Envio de NF-e / NFC-e
-
-Para utilizar essas funções adaptadas à Reforma Tributária, utilize a classe: **NfeRT**
-
----
-
-## 📦 Schemas XSD
-
-Foi adicionado um arquivo ZIP com os novos schemas: **schemas_rt.zip**
-
-**Importante:**  
-Esse arquivo deve ser **extraído na mesma pasta dos schemas atuais**, sobrescrevendo-os temporariamente **apenas se você deseja testar o novo layout da Reforma Tributária**.
-
----
-
-## 🗓️ Cronograma de Implantação da Reforma Tributária (NF-e / NFC-e)
-
-| Data                          | Evento                                                                                      |
-|-------------------------------|---------------------------------------------------------------------------------------------|
-| **07/07/2025 até 28/07/2025** | Entrada em **homologação** dos novos campos: `IBS`, `CBS` e `IS`. *(Varia conforme a UF)*  |
-| **04/08/2025**                | Homologação da implantação dos **eventos fiscais** necessários para a apuração tributária. |
-| **06/10/2025**                | Entrada em **produção** dos eventos e dos novos campos, porém com **preenchimento opcional**. |
-| **05/01/2026**                | Os campos `IBS`, `CBS` e `IS` tornam-se de **preenchimento obrigatório em produção**.      |
+Foram adicionadas as classes com o **layout da Reforma Tributária** a partir da versao 4.00.42.  
 
 ---
 
@@ -96,6 +63,22 @@ A partir de **Setembro de 2025**, estaremos oferecendo serviços de **consultori
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.00.45 - 09/11/2025 - Schemas PL.010b (v1.1)
+- Adicionado Conculta ao JSON dos CST/Cclasstrib do IBSCBS
+
+## v4.00.44 - 28/10/2025 - Schemas PL.010b (v1.1)
+- Correcao sequencia Manifestacao Util
+
+## v4.00.43 - 22/10/2025 - Schemas PL.010b (v1.1)
+- Correcoes EConf
+- Alterado Fonte Impressao Danfe NFe e NFCe de Times New Roman para Verdana
+- Correcao Manifestacao Util para Considerar mais de uma Sequencia
+
+## v4.00.42 - 31/08/2025 - Schemas PL.010b (v1.1)
+- Atualizado Schema Reforma Tributaria
+- Remoçao de classes duplicadas
+- Reforacao JAXB
 
 ## v4.00.41 - 31/07/2025 - Schemas PL.009p1 e PL.010b
 - Alterado URLs Consulta Cadastro AM

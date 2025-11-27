@@ -11,39 +11,39 @@ import javax.xml.bind.annotation.XmlType;
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * <p>
  * <pre>
- * &lt;simpleType name="TUf"&gt;
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *     &lt;whiteSpace value="preserve"/&gt;
- *     &lt;enumeration value="AC"/&gt;
- *     &lt;enumeration value="AL"/&gt;
- *     &lt;enumeration value="AM"/&gt;
- *     &lt;enumeration value="AP"/&gt;
- *     &lt;enumeration value="BA"/&gt;
- *     &lt;enumeration value="CE"/&gt;
- *     &lt;enumeration value="DF"/&gt;
- *     &lt;enumeration value="ES"/&gt;
- *     &lt;enumeration value="GO"/&gt;
- *     &lt;enumeration value="MA"/&gt;
- *     &lt;enumeration value="MG"/&gt;
- *     &lt;enumeration value="MS"/&gt;
- *     &lt;enumeration value="MT"/&gt;
- *     &lt;enumeration value="PA"/&gt;
- *     &lt;enumeration value="PB"/&gt;
- *     &lt;enumeration value="PE"/&gt;
- *     &lt;enumeration value="PI"/&gt;
- *     &lt;enumeration value="PR"/&gt;
- *     &lt;enumeration value="RJ"/&gt;
- *     &lt;enumeration value="RN"/&gt;
- *     &lt;enumeration value="RO"/&gt;
- *     &lt;enumeration value="RR"/&gt;
- *     &lt;enumeration value="RS"/&gt;
- *     &lt;enumeration value="SC"/&gt;
- *     &lt;enumeration value="SE"/&gt;
- *     &lt;enumeration value="SP"/&gt;
- *     &lt;enumeration value="TO"/&gt;
- *     &lt;enumeration value="EX"/&gt;
- *   &lt;/restriction&gt;
- * &lt;/simpleType&gt;
+ * &lt;simpleType name="TUf">
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *     &lt;whiteSpace value="preserve"/>
+ *     &lt;enumeration value="AC"/>
+ *     &lt;enumeration value="AL"/>
+ *     &lt;enumeration value="AM"/>
+ *     &lt;enumeration value="AP"/>
+ *     &lt;enumeration value="BA"/>
+ *     &lt;enumeration value="CE"/>
+ *     &lt;enumeration value="DF"/>
+ *     &lt;enumeration value="ES"/>
+ *     &lt;enumeration value="GO"/>
+ *     &lt;enumeration value="MA"/>
+ *     &lt;enumeration value="MG"/>
+ *     &lt;enumeration value="MS"/>
+ *     &lt;enumeration value="MT"/>
+ *     &lt;enumeration value="PA"/>
+ *     &lt;enumeration value="PB"/>
+ *     &lt;enumeration value="PE"/>
+ *     &lt;enumeration value="PI"/>
+ *     &lt;enumeration value="PR"/>
+ *     &lt;enumeration value="RJ"/>
+ *     &lt;enumeration value="RN"/>
+ *     &lt;enumeration value="RO"/>
+ *     &lt;enumeration value="RR"/>
+ *     &lt;enumeration value="RS"/>
+ *     &lt;enumeration value="SC"/>
+ *     &lt;enumeration value="SE"/>
+ *     &lt;enumeration value="SP"/>
+ *     &lt;enumeration value="TO"/>
+ *     &lt;enumeration value="EX"/>
+ *   &lt;/restriction>
+ * &lt;/simpleType>
  * </pre>
  * 
  */

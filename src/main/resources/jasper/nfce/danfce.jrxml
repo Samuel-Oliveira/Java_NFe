@@ -723,7 +723,7 @@ $F{dhRecbto}.substring(11,19)]]></textFieldExpression>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="60" y="1" width="139" height="328" forecolor="#CCCCCC" uuid="9233214b-dbb5-46b9-b87a-048cdfd63e36"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left" markup="none">
-					<font fontName="Times New Roman" size="39" isBold="true" isItalic="false" isUnderline="false"/>
+					<font fontName="Verdana" size="39" isBold="true" isItalic="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cStat}.equals( "101" ) ? "NFCe Cancelada" : ""]]></textFieldExpression>
 			</textField>

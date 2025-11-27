@@ -51,7 +51,7 @@ public class DistribuicaoDFeA3 {
             return XmlNfeUtil.xmlToObject(result.getNfeDistDFeInteresseResult().getExtraElement().toString(),
                     RetDistDFeInt.class);
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
+        } catch (RemoteException | XMLStreamException e) {
             throw new NfeException(e.getMessage());
         }
 

@@ -48,7 +48,7 @@ public class InutilizarA3 {
             log.info("[XML-RETORNO]: " + result.getExtraElement().toString());
             return XmlNfeUtil.xmlToObject(result.getExtraElement().toString(), TRetInutNFe.class);
 
-        } catch (RemoteException | XMLStreamException | JAXBException e) {
+        } catch (RemoteException | XMLStreamException e) {
             throw new NfeException(e.getMessage());
         }
 

@@ -5,7 +5,7 @@ import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.retEventoEConf.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schema.eventoEConf.TRetEnvEvento;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import javax.xml.bind.JAXBException;
@@ -18,7 +18,7 @@ class ConciliacaoFinanceira {
     private ConciliacaoFinanceira() {
     }
 
-    static TRetEnvEvento eventoEConf(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida)
+    static TRetEnvEvento eventoEConf(ConfiguracoesNfe config, TEnvEvento enviEvento, DocumentoEnum documento, boolean valida)
             throws NfeException {
 
         try {
@@ -27,7 +27,7 @@ class ConciliacaoFinanceira {
             xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
             xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
-            xml = Eventos.enviarEvento(config, xml, ServicosEnum.ECONF, valida, true, DocumentoEnum.NFE);
+            xml = Eventos.enviarEvento(config, xml, ServicosEnum.ECONF, valida, true, documento);
 
             return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
 

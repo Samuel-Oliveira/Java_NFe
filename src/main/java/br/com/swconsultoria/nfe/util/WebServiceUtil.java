@@ -10,6 +10,7 @@ import lombok.extern.java.Log;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -181,6 +182,10 @@ public class WebServiceUtil {
             lookupSectionKey = config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "NFe_AN_H" : "NFe_AN_P";
             Map<String, String> nationalSectionMap = iniData.get(lookupSectionKey);
             finalUrl = getIniValueIgnoreCase(nationalSectionMap, tipoServico.getServico());
+        } else if (verificaServicosAmbienteSVRS(tipoServico, tipoDocumento)) {
+            lookupSectionKey = config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "NFe_SVRS_H" : "NFe_SVRS_P";
+            Map<String, String> nationalSectionMap = iniData.get(lookupSectionKey);
+            finalUrl = getIniValueIgnoreCase(nationalSectionMap, tipoServico.getServico());
         } else if (verificaSeContingenciaSvcNfe(config, tipoDocumento, tipoServico)) {
             if (verificaEstadosComServidorProprio(config)) {
                 lookupSectionKey = tipoDocumento.getTipo() + "_SVRS_" + (config.getAmbiente().equals(AmbienteEnum.HOMOLOGACAO) ? "H" : "P");
@@ -208,6 +213,59 @@ public class WebServiceUtil {
         return finalUrl;
     }
 
+    /**
+     * Retorna um valor customizado a partir do arquivo WebServicesNfe.ini.
+     * <p>
+     * Exemplo de uso:
+     *   // carregar configuração (config é sua ConfiguracoesNfe já inicializada)
+     *   String url = WebServiceUtil.getCustomUrl(config, "CFF", "classTrib");
+     * <p>
+     * Lança NfeException em caso de arquivo inválido / seção ou chave não encontrada.
+     */
+    public static String getCustomUrl(ConfiguracoesNfe config, String section, String key) throws NfeException {
+        InputStream is = null;
+        Map<String, Map<String, String>> iniData;
+        try {
+            if (ObjetoUtil.verifica(config.getArquivoWebService()).isPresent()) {
+                File arquivo = new File(config.getArquivoWebService());
+                if (!arquivo.exists()) {
+                    throw new FileNotFoundException("Arquivo WebService " + config.getArquivoWebService() + " não encontrado");
+                }
+                is = Files.newInputStream(arquivo.toPath());
+                log.info("[ARQUIVO INI CUSTOMIZADO]: " + config.getArquivoWebService());
+            } else {
+                is = WebServiceUtil.class.getResourceAsStream("/WebServicesNfe.ini");
+                if (is == null) {
+                    throw new NfeException("Arquivo WebServicesNfe.ini não encontrado no classpath.");
+                }
+            }
+            iniData = parseIniFile(is);
+        } catch (IOException e) {
+            throw new NfeException("Erro ao carregar arquivo de configuração WebService: " + e.getMessage(), e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    log.fine("Erro ao fechar InputStream: " + e.getMessage());
+                }
+            }
+        }
+
+        Map<String, String> sectionMap = iniData.get(section);
+        if (sectionMap == null) {
+            throw new NfeException("Seção '" + section + "' não encontrada em WebServicesNfe.ini");
+        }
+
+        String value = getIniValueIgnoreCase(sectionMap, key);
+        if (value == null || value.trim().isEmpty()) {
+            throw new NfeException("Chave '" + key + "' não encontrada na seção '" + section + "' do WebServicesNfe.ini");
+        }
+
+        log.info("[URL CUSTOM] " + section + " -> " + key + ": " + value);
+        return value;
+    }
+
     private static boolean verificaSeContingenciaSvcNfe(ConfiguracoesNfe config, DocumentoEnum tipoDocumento, ServicosEnum tipoServico) {
         return !tipoServico.equals(ServicosEnum.URL_CONSULTANFCE) &&
                !tipoServico.equals(ServicosEnum.URL_QRCODE) &&
@@ -216,17 +274,22 @@ public class WebServiceUtil {
 
     private static boolean verificaEstadosComServidorProprio(ConfiguracoesNfe config) {
         return config.getEstado().equals(EstadosEnum.GO) || config.getEstado().equals(EstadosEnum.AM) ||
-               config.getEstado().equals(EstadosEnum.BA) || config.getEstado().equals(EstadosEnum.CE) ||
-               config.getEstado().equals(EstadosEnum.MA) || config.getEstado().equals(EstadosEnum.MS) ||
-               config.getEstado().equals(EstadosEnum.MT) || config.getEstado().equals(EstadosEnum.PA) ||
-               config.getEstado().equals(EstadosEnum.PE) || config.getEstado().equals(EstadosEnum.PI) ||
-               config.getEstado().equals(EstadosEnum.PR);
+               config.getEstado().equals(EstadosEnum.BA) || config.getEstado().equals(EstadosEnum.MA) ||
+               config.getEstado().equals(EstadosEnum.MS) || config.getEstado().equals(EstadosEnum.MT) ||
+               config.getEstado().equals(EstadosEnum.PE) || config.getEstado().equals(EstadosEnum.PR);
+
     }
 
     private static boolean verificaServicosAmbienteNacional(ServicosEnum tipoServico) {
         return tipoServico.equals(ServicosEnum.DISTRIBUICAO_DFE) ||
                tipoServico.equals(ServicosEnum.MANIFESTACAO) ||
                tipoServico.equals(ServicosEnum.EPEC);
+    }
+
+    private static boolean verificaServicosAmbienteSVRS(ServicosEnum tipoServico,DocumentoEnum tipoDocumento ) {
+        return tipoDocumento.equals(DocumentoEnum.NFE) &&
+               (tipoServico.equals(ServicosEnum.ECONF) ||
+               tipoServico.equals(ServicosEnum.CANC_ECONF));
     }
 
     private static boolean verificaEstadosConsultaCadastro(ConfiguracoesNfe config, ServicosEnum tipoServico) {

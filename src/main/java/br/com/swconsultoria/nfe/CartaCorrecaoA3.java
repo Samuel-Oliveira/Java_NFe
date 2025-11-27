@@ -13,15 +13,10 @@ public class CartaCorrecaoA3 {
 
     static TRetEnvEvento eventoCCe(ConfiguracoesNfe config, boolean valida, String xmlAssinado)
             throws NfeException {
-        try {
+
             String xmlRetorno = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.CCE, valida, DocumentoEnum.NFE);
 
             return XmlNfeUtil.xmlToObject(xmlRetorno, TRetEnvEvento.class);
-
-        } catch (JAXBException e) {
-            throw new NfeException(e.getMessage());
-        }
-
     }
 
     static String montaXmlCartaCorrecao(ConfiguracoesNfe config, TEnvEvento enviEvento)

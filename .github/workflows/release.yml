@@ -9,7 +9,7 @@ on:
 jobs:
 
   package:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     name: Empacotar executavel
     steps:
       - uses: actions/checkout@v2
