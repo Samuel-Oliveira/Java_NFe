@@ -383,6 +383,11 @@ public class ConsultaTributacao {
         Map<String, Class<?>> fields = new HashMap<>();
 
         for (Field field : clazz.getDeclaredFields()) {
+            // Ignora campos static e serialVersionUID
+            if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+
             JsonProperty annotation = field.getAnnotation(JsonProperty.class);
             String jsonFieldName;
 

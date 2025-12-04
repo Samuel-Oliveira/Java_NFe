@@ -1,16 +1,25 @@
 package br.com.swconsultoria.nfe.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+/**
+ * DTO representando uma Classificação Tributária do CFF.
+ * Tolerante a mudanças: campos desconhecidos são ignorados automaticamente.
+ *
+ * @author Rodrigo Cananea - rodrigo@rcconsultoria. inf.br
+ */
+@Data
 @NoArgsConstructor
-public class ClassificacaoTributariaDTO {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ClassificacaoTributariaDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @JsonProperty("cClassTrib")
     private String cClassTrib;
@@ -35,6 +44,27 @@ public class ClassificacaoTributariaDTO {
 
     @JsonProperty("IndEstornoCred")
     private Boolean indEstornoCred;
+
+    @JsonProperty("MonofasiaSujeitaRetencao")
+    private Boolean monofasiaSujeitaRetencao;
+
+    @JsonProperty("MonofasiaRetidaAnt")
+    private Boolean monofasiaRetidaAnt;
+
+    @JsonProperty("MonofasiaDiferimento")
+    private Boolean monofasiaDiferimento;
+
+    @JsonProperty("MonofasiaPadrao")
+    private Boolean monofasiaPadrao;
+
+    @JsonProperty("Publicacao")
+    private String publicacao;
+
+    @JsonProperty("InicioVigencia")
+    private String inicioVigencia;
+
+    @JsonProperty("FimVigencia")
+    private String fimVigencia;
 
     @JsonProperty("TipoAliquota")
     private String tipoAliquota;
@@ -89,5 +119,4 @@ public class ClassificacaoTributariaDTO {
 
     @JsonProperty("Link")
     private String link;
-
 }

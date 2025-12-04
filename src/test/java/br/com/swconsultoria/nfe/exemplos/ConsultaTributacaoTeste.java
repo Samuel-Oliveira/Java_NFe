@@ -4,6 +4,7 @@ import br.com.swconsultoria.nfe.ConsultaTributacao;
 import br.com.swconsultoria.nfe.ConsultaTributacao.ValidationReport;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dto.CstDTO;
+import br.com.swconsultoria.nfe.dto.CstTesteDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.HashMap;
@@ -67,6 +68,9 @@ public class ConsultaTributacaoTeste {
         if (!lista.isEmpty()) {
             CstDTO primeiro = lista.get(0);
             System.out.println("Primeiro CST: " + primeiro.getCst() + " - " + primeiro.getDescricaoCST());
+            System.out.println("Publicacao: " + primeiro.getPublicacao());
+            System.out.println("inicioVigencia: " + primeiro.getInicioVigencia());
+            System.out.println("fimVigencia: " + primeiro.getFimVigencia());
         }
 
         System.out.println();
@@ -103,7 +107,7 @@ public class ConsultaTributacaoTeste {
     private static void exemploValidacao(ConfiguracoesNfe config) throws Exception {
         System.out.println("=== EXEMPLO 4: Validar Estrutura ===");
 
-        ValidationReport report = ConsultaTributacao.validate(config, CstDTO.class);
+        ValidationReport report = ConsultaTributacao.validate(config, CstTesteDTO.class);
 
         if (report.isValid()) {
             System.out.println("DTO esta 100% compativel com a API");
