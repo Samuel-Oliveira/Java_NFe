@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CstDTO implements Serializable {
+public class CstTesteDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -50,15 +50,6 @@ public class CstDTO implements Serializable {
 
     @JsonProperty("IndCredPresIBSZFM")
     private Boolean indCredPresIBSZFM;
-
-    @JsonProperty("Publicacao")
-    private String publicacao;
-
-    @JsonProperty("InicioVigencia")
-    private String inicioVigencia;
-
-    @JsonProperty("FimVigencia")
-    private String fimVigencia;
 
     @JsonProperty("classificacoesTributarias")
     private List<ClassificacaoTributariaDTO> classificacoesTributarias;
