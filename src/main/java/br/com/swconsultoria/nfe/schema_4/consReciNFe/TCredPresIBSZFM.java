@@ -1,10 +1,8 @@
 
 package br.com.swconsultoria.nfe.schema_4.consReciNFe;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -19,8 +17,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="competApur" type="{http://www.portalfiscal.inf.br/nfe}TCompetApur"/>
  *         &lt;element name="tpCredPresIBSZFM" type="{http://www.portalfiscal.inf.br/nfe}TTpCredPresIBSZFM"/>
- *         &lt;element name="vCredPresIBSZFM" type="{http://www.portalfiscal.inf.br/nfe}TDec1302" minOccurs="0"/>
+ *         &lt;element name="vCredPresIBSZFM" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,15 +30,43 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TCredPresIBSZFM", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
+    "competApur",
     "tpCredPresIBSZFM",
     "vCredPresIBSZFM"
 })
 public class TCredPresIBSZFM {
 
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+    @XmlSchemaType(name = "gYearMonth")
+    protected XMLGregorianCalendar competApur;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String tpCredPresIBSZFM;
-    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String vCredPresIBSZFM;
+
+    /**
+     * Obtém o valor da propriedade competApur.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getCompetApur() {
+        return competApur;
+    }
+
+    /**
+     * Define o valor da propriedade competApur.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setCompetApur(XMLGregorianCalendar value) {
+        this.competApur = value;
+    }
 
     /**
      * Obtém o valor da propriedade tpCredPresIBSZFM.

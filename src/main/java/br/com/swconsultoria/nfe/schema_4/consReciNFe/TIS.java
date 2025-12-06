@@ -22,9 +22,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="CSTIS" type="{http://www.portalfiscal.inf.br/nfe}TCST"/>
  *         &lt;element name="cClassTribIS" type="{http://www.portalfiscal.inf.br/nfe}TcClassTrib"/>
  *         &lt;sequence minOccurs="0">
- *           &lt;element name="vBCIS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *           &lt;element name="pIS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *           &lt;element name="pISEspec" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04" minOccurs="0"/>
+ *           &lt;element name="vBCIS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *           &lt;element name="pIS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *           &lt;element name="pISEspec" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC" minOccurs="0"/>
  *           &lt;sequence minOccurs="0">
  *             &lt;element name="uTrib">
  *               &lt;simpleType>
@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.XmlType;
  *                 &lt;/restriction>
  *               &lt;/simpleType>
  *             &lt;/element>
- *             &lt;element name="qTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104Op"/>
+ *             &lt;element name="qTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104OpRTC"/>
  *           &lt;/sequence>
- *           &lt;element name="vIS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *           &lt;element name="vIS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *         &lt;/sequence>
  *       &lt;/sequence>
  *     &lt;/restriction>

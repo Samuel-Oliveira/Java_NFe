@@ -24,11 +24,11 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104Op"/>
- *                   &lt;element name="adRemIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="adRemCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="vIBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1104RTC"/>
+ *                   &lt;element name="adRemIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *                   &lt;element name="adRemCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *                   &lt;element name="vIBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -39,11 +39,11 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="qBCMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104Op"/>
- *                   &lt;element name="adRemIBSReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="vIBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="adRemCBSReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="vCBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;element name="qBCMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1104RTC"/>
+ *                   &lt;element name="adRemIBSReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *                   &lt;element name="vIBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="adRemCBSReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *                   &lt;element name="vCBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -54,11 +54,11 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="qBCMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104Op"/>
- *                   &lt;element name="adRemIBSRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="vIBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="adRemCBSRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="vCBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;element name="qBCMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1104RTC"/>
+ *                   &lt;element name="adRemIBSRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *                   &lt;element name="vIBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="adRemCBSRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *                   &lt;element name="vCBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -69,17 +69,17 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="pDifIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *                   &lt;element name="vIBSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="pDifCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCBSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;element name="pDifIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *                   &lt;element name="vIBSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="pDifCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *                   &lt;element name="vCBSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="vTotIBSMonoItem" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *         &lt;element name="vTotCBSMonoItem" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *         &lt;element name="vTotIBSMonoItem" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *         &lt;element name="vTotCBSMonoItem" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -267,10 +267,10 @@ public class TMonofasia {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="pDifIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
-     *         &lt;element name="vIBSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="pDifCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCBSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *         &lt;element name="pDifIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+     *         &lt;element name="vIBSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="pDifCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+     *         &lt;element name="vCBSMonoDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -406,11 +406,11 @@ public class TMonofasia {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104Op"/>
-     *         &lt;element name="adRemIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
-     *         &lt;element name="adRemCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
-     *         &lt;element name="vIBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *         &lt;element name="qBCMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1104RTC"/>
+     *         &lt;element name="adRemIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+     *         &lt;element name="adRemCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+     *         &lt;element name="vIBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -573,11 +573,11 @@ public class TMonofasia {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="qBCMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104Op"/>
-     *         &lt;element name="adRemIBSRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
-     *         &lt;element name="vIBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="adRemCBSRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
-     *         &lt;element name="vCBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *         &lt;element name="qBCMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1104RTC"/>
+     *         &lt;element name="adRemIBSRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+     *         &lt;element name="vIBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="adRemCBSRet" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+     *         &lt;element name="vCBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -740,11 +740,11 @@ public class TMonofasia {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="qBCMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_1104Op"/>
-     *         &lt;element name="adRemIBSReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
-     *         &lt;element name="vIBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="adRemCBSReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
-     *         &lt;element name="vCBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *         &lt;element name="qBCMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1104RTC"/>
+     *         &lt;element name="adRemIBSReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+     *         &lt;element name="vIBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="adRemCBSReten" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+     *         &lt;element name="vCBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>

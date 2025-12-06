@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="vBCIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *         &lt;element name="vBCIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *         &lt;element name="gIBS" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.XmlType;
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;sequence>
- *                             &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                             &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                             &lt;element name="vIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                             &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                             &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                             &lt;element name="vIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                           &lt;/sequence>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
@@ -43,17 +43,17 @@ import javax.xml.bind.annotation.XmlType;
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;sequence>
- *                             &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                             &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                             &lt;element name="vIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                             &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                             &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                             &lt;element name="vIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                           &lt;/sequence>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
  *                   &lt;/element>
- *                   &lt;element name="vIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;element name="vIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -64,11 +64,11 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -79,12 +79,24 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="vIBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vIBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vIBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *                   &lt;element name="vCBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *                   &lt;element name="vIBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vIBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vIBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="gEstornoCred" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="vIBSEstCred" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCBSEstCred" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -103,7 +115,8 @@ import javax.xml.bind.annotation.XmlType;
     "vbcibscbs",
     "gibs",
     "gcbs",
-    "gMono"
+    "gMono",
+    "gEstornoCred"
 })
 public class TIBSCBSMonoTot {
 
@@ -115,6 +128,8 @@ public class TIBSCBSMonoTot {
     protected TIBSCBSMonoTot.GCBS gcbs;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TIBSCBSMonoTot.GMono gMono;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected TIBSCBSMonoTot.GEstornoCred gEstornoCred;
 
     /**
      * Obtém o valor da propriedade vbcibscbs.
@@ -212,6 +227,30 @@ public class TIBSCBSMonoTot {
         this.gMono = value;
     }
 
+    /**
+     * Obtém o valor da propriedade gEstornoCred.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TIBSCBSMonoTot.GEstornoCred }
+     *     
+     */
+    public TIBSCBSMonoTot.GEstornoCred getGEstornoCred() {
+        return gEstornoCred;
+    }
+
+    /**
+     * Define o valor da propriedade gEstornoCred.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TIBSCBSMonoTot.GEstornoCred }
+     *     
+     */
+    public void setGEstornoCred(TIBSCBSMonoTot.GEstornoCred value) {
+        this.gEstornoCred = value;
+    }
+
 
     /**
      * <p>Classe Java de anonymous complex type.
@@ -223,11 +262,11 @@ public class TIBSCBSMonoTot {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *         &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -390,14 +429,97 @@ public class TIBSCBSMonoTot {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
+     *         &lt;element name="vIBSEstCred" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCBSEstCred" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "vibsEstCred",
+        "vcbsEstCred"
+    })
+    public static class GEstornoCred {
+
+        @XmlElement(name = "vIBSEstCred", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+        protected String vibsEstCred;
+        @XmlElement(name = "vCBSEstCred", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+        protected String vcbsEstCred;
+
+        /**
+         * Obtém o valor da propriedade vibsEstCred.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getVIBSEstCred() {
+            return vibsEstCred;
+        }
+
+        /**
+         * Define o valor da propriedade vibsEstCred.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setVIBSEstCred(String value) {
+            this.vibsEstCred = value;
+        }
+
+        /**
+         * Obtém o valor da propriedade vcbsEstCred.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getVCBSEstCred() {
+            return vcbsEstCred;
+        }
+
+        /**
+         * Define o valor da propriedade vcbsEstCred.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setVCBSEstCred(String value) {
+            this.vcbsEstCred = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Classe Java de anonymous complex type.
+     * 
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
      *         &lt;element name="gIBSUF">
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *                   &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *                   &lt;element name="vIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *                   &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *                   &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *                   &lt;element name="vIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *                 &lt;/sequence>
      *               &lt;/restriction>
      *             &lt;/complexContent>
@@ -408,17 +530,17 @@ public class TIBSCBSMonoTot {
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *                   &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *                   &lt;element name="vIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *                   &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *                   &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *                   &lt;element name="vIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *                 &lt;/sequence>
      *               &lt;/restriction>
      *             &lt;/complexContent>
      *           &lt;/complexType>
      *         &lt;/element>
-     *         &lt;element name="vIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *         &lt;element name="vIBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -579,9 +701,9 @@ public class TIBSCBSMonoTot {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-         *         &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-         *         &lt;element name="vIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+         *         &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+         *         &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+         *         &lt;element name="vIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
          *       &lt;/sequence>
          *     &lt;/restriction>
          *   &lt;/complexContent>
@@ -690,9 +812,9 @@ public class TIBSCBSMonoTot {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-         *         &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-         *         &lt;element name="vIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+         *         &lt;element name="vDif" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+         *         &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+         *         &lt;element name="vIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
          *       &lt;/sequence>
          *     &lt;/restriction>
          *   &lt;/complexContent>
@@ -803,12 +925,12 @@ public class TIBSCBSMonoTot {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="vIBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vIBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vIBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
-     *         &lt;element name="vCBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+     *         &lt;element name="vIBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vIBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCBSMonoReten" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vIBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCBSMonoRet" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>

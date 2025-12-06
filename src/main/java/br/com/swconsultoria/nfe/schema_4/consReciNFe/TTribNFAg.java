@@ -1,5 +1,5 @@
 
-package br.com.swconsultoria.nfe.schema_4.enviNFe;
+package br.com.swconsultoria.nfe.schema_4.consReciNFe;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,14 +8,14 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Grupo de informações da Tributação da NF3e
+ * Grupo de informações da Tributação da NFAg
  * 
- * <p>Classe Java de TTribNF3e complex type.
+ * <p>Classe Java de TTribNFAg complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="TTribNF3e">
+ * &lt;complexType name="TTribNFAg">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -33,14 +33,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TTribNF3e", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
+@XmlType(name = "TTribNFAg", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
     "cst",
     "cClassTrib",
     "indDoacao",
     "gibscbs",
     "gEstornoCred"
 })
-public class TTribNF3E {
+public class TTribNFAg {
 
     @XmlElement(name = "CST", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String cst;

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="tpEnteGov" type="{http://www.portalfiscal.inf.br/nfe}TEnteGov"/>
- *         &lt;element name="pRedutor" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
+ *         &lt;element name="pRedutor" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

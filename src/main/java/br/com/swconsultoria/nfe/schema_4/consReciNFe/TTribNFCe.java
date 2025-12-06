@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="CST" type="{http://www.portalfiscal.inf.br/nfe}TCST"/>
  *         &lt;element name="cClassTrib" type="{http://www.portalfiscal.inf.br/nfe}TcClassTrib"/>
+ *         &lt;element name="indDoacao" type="{http://www.portalfiscal.inf.br/nfe}TIndDoacao" minOccurs="0"/>
  *         &lt;choice minOccurs="0">
  *           &lt;element name="gIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TCIBS"/>
  *           &lt;element name="gIBSCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TMonofasia"/>
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TTribNFCe", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
     "cst",
     "cClassTrib",
+    "indDoacao",
     "gibscbs",
     "gibscbsMono"
 })
@@ -46,6 +48,8 @@ public class TTribNFCe {
     protected String cst;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String cClassTrib;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected String indDoacao;
     @XmlElement(name = "gIBSCBS", namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TCIBS gibscbs;
     @XmlElement(name = "gIBSCBSMono", namespace = "http://www.portalfiscal.inf.br/nfe")
@@ -97,6 +101,30 @@ public class TTribNFCe {
      */
     public void setCClassTrib(String value) {
         this.cClassTrib = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade indDoacao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIndDoacao() {
+        return indDoacao;
+    }
+
+    /**
+     * Define o valor da propriedade indDoacao.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIndDoacao(String value) {
+        this.indDoacao = value;
     }
 
     /**

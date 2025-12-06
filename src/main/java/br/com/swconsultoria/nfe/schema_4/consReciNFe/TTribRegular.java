@@ -21,12 +21,12 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="CSTReg" type="{http://www.portalfiscal.inf.br/nfe}TCST"/>
  *         &lt;element name="cClassTribReg" type="{http://www.portalfiscal.inf.br/nfe}TcClassTrib"/>
- *         &lt;element name="pAliqEfetRegIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *         &lt;element name="vTribRegIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *         &lt;element name="pAliqEfetRegIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *         &lt;element name="vTribRegIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *         &lt;element name="pAliqEfetRegCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
- *         &lt;element name="vTribRegCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *         &lt;element name="pAliqEfetRegIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *         &lt;element name="vTribRegIBSUF" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *         &lt;element name="pAliqEfetRegIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *         &lt;element name="vTribRegIBSMun" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *         &lt;element name="pAliqEfetRegCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+ *         &lt;element name="vTribRegCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

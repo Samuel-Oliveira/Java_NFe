@@ -21,12 +21,18 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="CST" type="{http://www.portalfiscal.inf.br/nfe}TCST"/>
  *         &lt;element name="cClassTrib" type="{http://www.portalfiscal.inf.br/nfe}TcClassTrib"/>
+ *         &lt;element name="indDoacao" type="{http://www.portalfiscal.inf.br/nfe}TIndDoacao" minOccurs="0"/>
  *         &lt;choice minOccurs="0">
  *           &lt;element name="gIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TCIBS"/>
  *           &lt;element name="gIBSCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TMonofasia"/>
  *           &lt;element name="gTransfCred" type="{http://www.portalfiscal.inf.br/nfe}TTransfCred"/>
+ *           &lt;element name="gAjusteCompet" type="{http://www.portalfiscal.inf.br/nfe}TAjusteCompet"/>
  *         &lt;/choice>
- *         &lt;element name="gCredPresIBSZFM" type="{http://www.portalfiscal.inf.br/nfe}TCredPresIBSZFM" minOccurs="0"/>
+ *         &lt;element name="gEstornoCred" type="{http://www.portalfiscal.inf.br/nfe}TEstornoCred" minOccurs="0"/>
+ *         &lt;choice minOccurs="0">
+ *           &lt;element name="gCredPresOper" type="{http://www.portalfiscal.inf.br/nfe}TCredPresOper"/>
+ *           &lt;element name="gCredPresIBSZFM" type="{http://www.portalfiscal.inf.br/nfe}TCredPresIBSZFM"/>
+ *         &lt;/choice>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -39,9 +45,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TTribNFe", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
     "cst",
     "cClassTrib",
+    "indDoacao",
     "gibscbs",
     "gibscbsMono",
     "gTransfCred",
+    "gAjusteCompet",
+    "gEstornoCred",
+    "gCredPresOper",
     "gCredPresIBSZFM"
 })
 public class TTribNFe {
@@ -50,12 +60,20 @@ public class TTribNFe {
     protected String cst;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String cClassTrib;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected String indDoacao;
     @XmlElement(name = "gIBSCBS", namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TCIBS gibscbs;
     @XmlElement(name = "gIBSCBSMono", namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TMonofasia gibscbsMono;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TTransfCred gTransfCred;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected TAjusteCompet gAjusteCompet;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected TEstornoCred gEstornoCred;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected TCredPresOper gCredPresOper;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TCredPresIBSZFM gCredPresIBSZFM;
 
@@ -105,6 +123,30 @@ public class TTribNFe {
      */
     public void setCClassTrib(String value) {
         this.cClassTrib = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade indDoacao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIndDoacao() {
+        return indDoacao;
+    }
+
+    /**
+     * Define o valor da propriedade indDoacao.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIndDoacao(String value) {
+        this.indDoacao = value;
     }
 
     /**
@@ -177,6 +219,78 @@ public class TTribNFe {
      */
     public void setGTransfCred(TTransfCred value) {
         this.gTransfCred = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade gAjusteCompet.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TAjusteCompet }
+     *     
+     */
+    public TAjusteCompet getGAjusteCompet() {
+        return gAjusteCompet;
+    }
+
+    /**
+     * Define o valor da propriedade gAjusteCompet.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TAjusteCompet }
+     *     
+     */
+    public void setGAjusteCompet(TAjusteCompet value) {
+        this.gAjusteCompet = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade gEstornoCred.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TEstornoCred }
+     *     
+     */
+    public TEstornoCred getGEstornoCred() {
+        return gEstornoCred;
+    }
+
+    /**
+     * Define o valor da propriedade gEstornoCred.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TEstornoCred }
+     *     
+     */
+    public void setGEstornoCred(TEstornoCred value) {
+        this.gEstornoCred = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade gCredPresOper.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TCredPresOper }
+     *     
+     */
+    public TCredPresOper getGCredPresOper() {
+        return gCredPresOper;
+    }
+
+    /**
+     * Define o valor da propriedade gCredPresOper.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TCredPresOper }
+     *     
+     */
+    public void setGCredPresOper(TCredPresOper value) {
+        this.gCredPresOper = value;
     }
 
     /**

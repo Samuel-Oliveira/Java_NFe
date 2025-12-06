@@ -21,7 +21,9 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="CST" type="{http://www.portalfiscal.inf.br/nfe}TCST"/>
  *         &lt;element name="cClassTrib" type="{http://www.portalfiscal.inf.br/nfe}TcClassTrib"/>
+ *         &lt;element name="indDoacao" type="{http://www.portalfiscal.inf.br/nfe}TIndDoacao" minOccurs="0"/>
  *         &lt;element name="gIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TCIBS" minOccurs="0"/>
+ *         &lt;element name="gEstornoCred" type="{http://www.portalfiscal.inf.br/nfe}TEstornoCred" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -34,7 +36,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TTribBPe", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
     "cst",
     "cClassTrib",
-    "gibscbs"
+    "indDoacao",
+    "gibscbs",
+    "gEstornoCred"
 })
 public class TTribBPe {
 
@@ -42,8 +46,12 @@ public class TTribBPe {
     protected String cst;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String cClassTrib;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected String indDoacao;
     @XmlElement(name = "gIBSCBS", namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TCIBS gibscbs;
+    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected TEstornoCred gEstornoCred;
 
     /**
      * Obtém o valor da propriedade cst.
@@ -94,6 +102,30 @@ public class TTribBPe {
     }
 
     /**
+     * Obtém o valor da propriedade indDoacao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIndDoacao() {
+        return indDoacao;
+    }
+
+    /**
+     * Define o valor da propriedade indDoacao.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIndDoacao(String value) {
+        this.indDoacao = value;
+    }
+
+    /**
      * Obtém o valor da propriedade gibscbs.
      * 
      * @return
@@ -115,6 +147,30 @@ public class TTribBPe {
      */
     public void setGIBSCBS(TCIBS value) {
         this.gibscbs = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade gEstornoCred.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TEstornoCred }
+     *     
+     */
+    public TEstornoCred getGEstornoCred() {
+        return gEstornoCred;
+    }
+
+    /**
+     * Define o valor da propriedade gEstornoCred.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TEstornoCred }
+     *     
+     */
+    public void setGEstornoCred(TEstornoCred value) {
+        this.gEstornoCred = value;
     }
 
 }
