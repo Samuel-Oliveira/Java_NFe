@@ -1,2 +1,2 @@
 # Notas de versão
-- Correcao Manifestacao
+- Atualizado Schemas PL.010b (v1.30)

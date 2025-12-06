@@ -64,6 +64,9 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
+## v4.00.46 - 06/12/2025 - Schemas PL.010b (v1.30)
+- Atualizado Schemas PL.010b (v1.30)
+
 ## v4.00.45 - 09/11/2025 - Schemas PL.010b (v1.1)
 - Adicionado Conculta ao JSON dos CST/Cclasstrib do IBSCBS
 
