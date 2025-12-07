@@ -16,6 +16,7 @@ public enum ServicosEnum {
     CONSULTA_RECIBO("nferetautorizacao_4.00", "consReciNFe_v4.00.xsd"),
     CONSULTA_CADASTRO("nfeconsultacadastro_4.00", "ConsCad_v4.00.xsd"),
     CCE("recepcaoevento_4.00", "envCCe_v1.00.xsd"),
+    EVENTO_GENERICO("recepcaoevento_4.00", "envEvento_v1.00.xsd"),
     EPEC("recepcaoevento_4.00", "envEPEC_v1.00.xsd"),
     MANIFESTACAO("recepcaoevento_4.00", "envConfRecebto_v1.00.xsd"),
     CANCELAMENTO("recepcaoevento_4.00", "envEventoCancNFe_v1.00.xsd"),

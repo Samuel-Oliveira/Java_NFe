@@ -10,6 +10,7 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TNfeProc;
 import br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe;
 import lombok.extern.java.Log;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
@@ -225,5 +226,19 @@ public class XmlNfeUtil {
         LSSerializer serializer = domImplLS.createLSSerializer();
         serializer.getDomConfig().setParameter("xml-declaration", false);
         return serializer.writeToString(node);
+    }
+
+    public static <T> Element objectToElement(Object objeto, Class<T> classe) throws NfeException {
+        try {
+            Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            JAXBContext context = JAXBContext.newInstance(classe);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.marshal(objeto, document);
+
+            return document.getDocumentElement();
+
+        } catch (Exception e) {
+            throw new NfeException("Erro Ao Converter Objeto em Elemento: ", e);
+        }
     }
 }

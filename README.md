@@ -41,31 +41,12 @@ dependencies {
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
 
 ________________________________________________________________________________________________
-# 🚨 Atenção — Reforma Tributária na NF-e / NFC-e
-
-Foram adicionadas as classes com o **layout da Reforma Tributária** a partir da versao 4.00.42.  
-
----
-
-## 💼 Consultoria Especializada
-
-Estamos com uma equipe dedicada exclusivamente à **Reforma Tributária**.  
-A partir de **Setembro de 2025**, estaremos oferecendo serviços de **consultoria personalizada** para apoiar empresas na migração de seus sistemas para o novo layout.
-
----
-
-## 📞 Contato
-
-- Discord: `.samueloliveira`
-- E-mail: [samuel@swconsultoria.com.br](mailto:samuel@swconsultoria.com.br)
-- WhatsApp/Telefone: **(62) 99306-6546**
-
-________________________________________________________________________________________________
 
 # Historico de Versões
 
 ## v4.00.46 - 06/12/2025 - Schemas PL.010b (v1.30)
 - Atualizado Schemas PL.010b (v1.30)
+- Adicionado novos eventos da reforma Tributaria (Ver exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/exemplos/EventoGenerico.java)
 
 ## v4.00.45 - 09/11/2025 - Schemas PL.010b (v1.1)
 - Adicionado Conculta ao JSON dos CST/Cclasstrib do IBSCBS

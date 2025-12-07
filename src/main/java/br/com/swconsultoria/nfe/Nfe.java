@@ -291,7 +291,7 @@ public class Nfe {
      */
     public static br.com.swconsultoria.nfe.schema.eventoEConf.TRetEnvEvento econf(ConfiguracoesNfe configuracoesNfe,
                                                                                   br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento envEvento
-                                                                                    , DocumentoEnum documento,
+            , DocumentoEnum documento,
                                                                                   boolean valida) throws NfeException {
 
         return ConciliacaoFinanceira.eventoEConf(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe, envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
@@ -315,6 +315,23 @@ public class Nfe {
                         envEvento.getEvento().get(0).getInfEvento().getCNPJ()),
                 envEvento
                 , valida);
+
+    }
+
+    /**
+     * Metodo para Evento Generico da NFE
+     *
+     * @param envEvento
+     * @param valida
+     * @return
+     * @throws NfeException
+     */
+    public static br.com.swconsultoria.nfe.schema.eventoGenerico.TRetEnvEvento eventoGenerico(ConfiguracoesNfe configuracoesNfe,
+                                                                                              br.com.swconsultoria.nfe.schema.eventoGenerico.TEnvEvento envEvento,
+                                                                                              boolean valida) throws NfeException {
+
+        return EventoGenerico.evento(ConfiguracoesUtil.iniciaConfiguracoes(configuracoesNfe),
+                envEvento, valida);
 
     }
 

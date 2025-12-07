@@ -20,6 +20,7 @@ public class Evento {
     private int sequencia;
     private ManifestacaoEnum tipoManifestacao;
     private EventoEpec eventoEpec;
+    private Object detEvento;
 
     public String getChave() {
         return chave;
@@ -99,5 +100,13 @@ public class Evento {
 
     public void setChaveSusbstituta(String chaveSusbstituta) {
         this.chaveSusbstituta = chaveSusbstituta;
+    }
+
+    public Object getDetEvento() {
+        return detEvento;
+    }
+
+    public void setDetEvento(Object detEvento) {
+        this.detEvento = detEvento;
     }
 }
