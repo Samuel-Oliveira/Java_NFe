@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 /**
  * @author Samuel Oliveira
  */
-public class EventoGenerico {
+public class EventoGenericoTeste {
 
     public static void main(String[] args) {
 

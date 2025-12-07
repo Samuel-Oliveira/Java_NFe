@@ -88,7 +88,8 @@ public class EventoGenericoUtil {
 
         String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
         xml = xml.replace(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "")
-                .replace("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
+                .replace("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v")
+                .replace("<detEvento v", "<detEvento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
 
         String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), xml, AssinaturaEnum.EVENTO);
 

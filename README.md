@@ -45,11 +45,12 @@ ________________________________________________________________________________
 # Historico de Versões
 
 ## v4.00.46 - 06/12/2025 - Schemas PL.010b (v1.30)
-- Atualizado Schemas PL.010b (v1.30)
-- Adicionado novos eventos da reforma Tributaria (Ver exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/exemplos/EventoGenerico.java)
+- Atualizado Schemas PL.010b (v1.30) **CASO USE VALIDACAO ATUALIZE A PASTA SCHEMAS**
+- Adicionado novos eventos da reforma Tributaria (Ver exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/exemplos/EventoGenericoTeste.java)
+- Adicionado ao projeto o calculo e preenchimento automatico do IBSCBS dos Itens e do Total (Ver exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/exemplos/CalculosIbsCbsTeste.java)
 
 ## v4.00.45 - 09/11/2025 - Schemas PL.010b (v1.1)
-- Adicionado Conculta ao JSON dos CST/Cclasstrib do IBSCBS
+- Adicionado Conculta ao JSON dos CST/Cclasstrib do IBSCBS (Ver exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/exemplos/ConsultaTributacaoTeste.java)
 
 ## v4.00.44 - 28/10/2025 - Schemas PL.010b (v1.1)
 - Correcao sequencia Manifestacao Util

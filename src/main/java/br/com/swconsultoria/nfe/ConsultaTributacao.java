@@ -458,7 +458,7 @@ public class ConsultaTributacao {
         return "Unknown";
     }
 
-    private static <T> T convertJsonToObject(String json, Class<T> clazz) throws NfeException {
+    public static <T> T convertJsonToObject(String json, Class<T> clazz) throws NfeException {
         try {
             log.info("[ConsultaTributacao] Convertendo JSON para " + clazz.getSimpleName());
             return MAPPER.readValue(json, clazz);
@@ -468,7 +468,7 @@ public class ConsultaTributacao {
         }
     }
 
-    private static <T> T convertJsonToObject(String json, TypeReference<T> typeRef) throws NfeException {
+    public static <T> T convertJsonToObject(String json, TypeReference<T> typeRef) throws NfeException {
         try {
             log.info("[ConsultaTributacao] Convertendo JSON para tipo complexo");
             return MAPPER.readValue(json, typeRef);
