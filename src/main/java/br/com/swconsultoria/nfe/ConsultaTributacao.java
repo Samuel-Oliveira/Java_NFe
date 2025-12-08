@@ -576,7 +576,7 @@ public class ConsultaTributacao {
 
             try {
                 java.lang.reflect.Method m = svc.getMethod("getSSLSocketFactory",
-                        Class.forName("br.com.swconsultoria.certificado. Certificado"));
+                        Class.forName("br.com.swconsultoria.certificado.Certificado"));
                 Object res = m.invoke(null, config.getCertificado());
                 if (res instanceof SSLSocketFactory) {
                     return (SSLSocketFactory) res;
