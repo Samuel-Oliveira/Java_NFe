@@ -89,9 +89,11 @@ public class IbsCbsUtil {
     }
 
     private boolean deveMontarGrupoIBSCBS() {
-        return Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBS()) &&
-               (cstIbsCbs.getIndIBSCBSMono() || cstIbsCbs.getIndDif() ||
-                cstIbsCbs.getIndTransfCred() || classTribIbsCbs.getIndRedutorBC());
+        return Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBS())
+                || Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBSMono())
+                || Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq())
+                || Boolean.TRUE.equals(cstIbsCbs.getIndDif())
+                || Boolean.TRUE.equals(cstIbsCbs.getIndTransfCred());
     }
 
     private TCIBS montarGrupoIBSCBS() {
@@ -234,10 +236,7 @@ public class IbsCbsUtil {
         BigDecimal percentRed = ObjetoUtil.getOrZero(percentualReducao);
         BigDecimal aliqEfet = aliq;
 
-        if (Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq()) &&
-            percentRed.compareTo(BigDecimal.ZERO) > 0 &&
-            Boolean.FALSE.equals(classTribIbsCbs.getIndTribRegular())) {
-
+        if (Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq()) && percentRed.compareTo(BigDecimal.ZERO) > 0) {
             TRed gRed = criarRedutor(percentRed, aliq);
             redSetter.set(grupo, gRed);
             aliqEfet = new BigDecimal(gRed.getPAliqEfet());
