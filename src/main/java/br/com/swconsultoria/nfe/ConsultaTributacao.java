@@ -269,7 +269,7 @@ public class ConsultaTributacao {
      * ValidationReport report = ConsultaTributacao.validate(
      *     config,
      *     new TypeReference&lt;List&lt;CstDTO&gt;&gt;() {},
-     *     CstDTO. class  // classe interna para validar
+     *     CstDTO.class  // classe interna para validar
      * );
      * </pre>
      *

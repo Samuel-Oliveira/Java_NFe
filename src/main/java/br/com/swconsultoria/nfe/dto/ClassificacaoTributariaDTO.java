@@ -33,9 +33,6 @@ public class ClassificacaoTributariaDTO implements Serializable {
     @JsonProperty("pRedCBS")
     private BigDecimal pRedCBS;
 
-    @JsonProperty("IndRedutorBC")
-    private Boolean indRedutorBC;
-
     @JsonProperty("IndTribRegular")
     private Boolean indTribRegular;
 
