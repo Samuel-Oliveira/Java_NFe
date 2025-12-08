@@ -269,7 +269,7 @@ public class ConsultaTributacao {
      * ValidationReport report = ConsultaTributacao.validate(
      *     config,
      *     new TypeReference&lt;List&lt;CstDTO&gt;&gt;() {},
-     *     CstDTO. class  // classe interna para validar
+     *     CstDTO.class  // classe interna para validar
      * );
      * </pre>
      *
@@ -576,7 +576,7 @@ public class ConsultaTributacao {
 
             try {
                 java.lang.reflect.Method m = svc.getMethod("getSSLSocketFactory",
-                        Class.forName("br.com.swconsultoria.certificado. Certificado"));
+                        Class.forName("br.com.swconsultoria.certificado.Certificado"));
                 Object res = m.invoke(null, config.getCertificado());
                 if (res instanceof SSLSocketFactory) {
                     return (SSLSocketFactory) res;
