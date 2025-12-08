@@ -91,7 +91,7 @@ public class IbsCbsUtil {
     private boolean deveMontarGrupoIBSCBS() {
         return Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBS()) &&
                (cstIbsCbs.getIndIBSCBSMono() || cstIbsCbs.getIndDif() ||
-                cstIbsCbs.getIndTransfCred() || classTribIbsCbs.getIndRedutorBC());
+                cstIbsCbs.getIndTransfCred() || cstIbsCbs.getIndRedBC());
     }
 
     private TCIBS montarGrupoIBSCBS() {
