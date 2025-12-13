@@ -507,7 +507,18 @@ public class ConsultaTributacao {
     }
 
     private static String executeRequestWithHttpClient(HttpClient httpClient, String url) throws IOException {
-        GetMethod getMethod = new GetMethod(url);
+        String uri = url;
+        if (httpClient.getHostConfiguration().getProtocol() != null) {
+            try {
+                URL u = new URL(url);
+                httpClient.getHostConfiguration().setHost(u.getHost(), u.getPort(), httpClient.getHostConfiguration().getProtocol());
+                uri = u.getFile();
+            } catch (Exception e) {
+                log.warning("[ConsultaTributacao] Erro ao processar URL para modo multithreading: " + e.getMessage());
+            }
+        }
+
+        GetMethod getMethod = new GetMethod(uri);
 
         try {
             getMethod.setRequestHeader("Accept", "application/json");
