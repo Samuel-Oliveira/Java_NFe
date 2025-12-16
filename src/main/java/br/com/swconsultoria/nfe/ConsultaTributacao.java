@@ -134,7 +134,7 @@ public class ConsultaTributacao {
         try {
             HttpClient httpClient = createHttpClient(config, certificado, url);
             if (httpClient != null) {
-                return executeRequestWithHttpClient(httpClient, url);
+                return executeRequestWithHttpClient(httpClient, url, certificado);
             }
         } catch (CertificadoException e) {
             log.warning("[ConsultaTributacao] Falha ao criar HttpClient, tentando fallback: " + e.getMessage());
@@ -506,8 +506,21 @@ public class ConsultaTributacao {
         }
     }
 
-    private static String executeRequestWithHttpClient(HttpClient httpClient, String url) throws IOException {
-        GetMethod getMethod = new GetMethod(url);
+    private static String executeRequestWithHttpClient(HttpClient httpClient, String url, Certificado certificado) throws IOException {
+        String uri = url;
+        if (certificado.isModoMultithreading()) {
+            if (httpClient.getHostConfiguration().getProtocol() != null) {
+                try {
+                    URL u = new URL(url);
+                    httpClient.getHostConfiguration().setHost(u.getHost(), u.getPort(), httpClient.getHostConfiguration().getProtocol());
+                    uri = u.getFile();
+                } catch (Exception e) {
+                    log.warning("[ConsultaTributacao] Erro ao processar URL para modo multithreading: " + e.getMessage());
+                }
+            }
+        }
+
+        GetMethod getMethod = new GetMethod(uri);
 
         try {
             getMethod.setRequestHeader("Accept", "application/json");
