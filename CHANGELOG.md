@@ -1,2 +1,3 @@
 # Notas de versão
-- Correcoes Calculos IBSCBS
+- Adicionado Monofasico aos calculos IBSCBS
+- Corrigido busca de IBSCBS para multi-thread

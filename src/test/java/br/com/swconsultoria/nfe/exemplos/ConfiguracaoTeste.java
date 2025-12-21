@@ -29,7 +29,7 @@ public class ConfiguracaoTeste {
 
         Certificado certificado = CertificadoService.certificadoPfx("d:/teste/certificado.pfx", "123456");
 
-        return ConfiguracoesNfe.criarConfiguracoes(estado, ambiente, certificado, "d:/teste/nfe/schemas");
+        return ConfiguracoesNfe.criarConfiguracoes(estado, ambiente, certificado, "./schemas");
     }
 
 }

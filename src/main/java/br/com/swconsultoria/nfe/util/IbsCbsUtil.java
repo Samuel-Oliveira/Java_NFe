@@ -85,12 +85,62 @@ public class IbsCbsUtil {
             ibsCbs.setGIBSCBS(montarGrupoIBSCBS());
         }
 
+        if (Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBSMono())) {
+            ibsCbs.setGIBSCBSMono(montaGrupoMono(det));
+        }
+
         return ibsCbs;
+    }
+
+    private TMonofasia montaGrupoMono(TNFe.InfNFe.Det det) {
+        TMonofasia gMono = new TMonofasia();
+        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
+            TMonofasia.GMonoPadrao monoPadrao = new TMonofasia.GMonoPadrao();
+            monoPadrao.setQBCMono(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
+            monoPadrao.setAdRemIBS("0.00");
+            monoPadrao.setAdRemCBS("0.00");
+            monoPadrao.setVIBSMono("0.00");
+            monoPadrao.setVCBSMono("0.00");
+            gMono.setGMonoPadrao(monoPadrao);
+        }
+
+        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
+            TMonofasia.GMonoReten monoReten = new TMonofasia.GMonoReten();
+            monoReten.setQBCMonoReten(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
+            monoReten.setAdRemCBSReten("0.00");
+            monoReten.setAdRemIBSReten("0.00");
+            monoReten.setVCBSMonoReten("0.00");
+            monoReten.setVIBSMonoReten("0.00");
+            gMono.setGMonoReten(monoReten);
+        }
+
+        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
+            TMonofasia.GMonoRet monoRet = new TMonofasia.GMonoRet();
+            monoRet.setQBCMonoRet(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
+            monoRet.setAdRemCBSRet("0.00");
+            monoRet.setAdRemIBSRet("0.00");
+            monoRet.setVCBSMonoRet("0.00");
+            monoRet.setVIBSMonoRet("0.00");
+            gMono.setGMonoRet(monoRet);
+        }
+
+        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaDiferimento())) {
+            TMonofasia.GMonoDif gMonoDif = new TMonofasia.GMonoDif();
+            gMonoDif.setPDifCBS("0.00");
+            gMonoDif.setPDifIBS("0.00");
+            gMonoDif.setVCBSMonoDif("0.00");
+            gMonoDif.setVIBSMonoDif("0.00");
+            gMono.setGMonoDif(gMonoDif);
+
+        }
+        gMono.setVTotCBSMonoItem("0.00");
+        gMono.setVTotIBSMonoItem("0.00");
+
+        return gMono;
     }
 
     private boolean deveMontarGrupoIBSCBS() {
         return Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBS())
-                || Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBSMono())
                 || Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq())
                 || Boolean.TRUE.equals(cstIbsCbs.getIndDif())
                 || Boolean.TRUE.equals(cstIbsCbs.getIndTransfCred());
@@ -236,7 +286,7 @@ public class IbsCbsUtil {
         BigDecimal percentRed = ObjetoUtil.getOrZero(percentualReducao);
         BigDecimal aliqEfet = aliq;
 
-        if (Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq()) && percentRed.compareTo(BigDecimal.ZERO) > 0) {
+        if (Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq())) {
             TRed gRed = criarRedutor(percentRed, aliq);
             redSetter.set(grupo, gRed);
             aliqEfet = new BigDecimal(gRed.getPAliqEfet());
