@@ -105,16 +105,6 @@ public class IbsCbsUtil {
         }
 
         if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
-            TMonofasia.GMonoReten monoReten = new TMonofasia.GMonoReten();
-            monoReten.setQBCMonoReten(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
-            monoReten.setAdRemCBSReten("0.00");
-            monoReten.setAdRemIBSReten("0.00");
-            monoReten.setVCBSMonoReten("0.00");
-            monoReten.setVIBSMonoReten("0.00");
-            gMono.setGMonoReten(monoReten);
-        }
-
-        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
             TMonofasia.GMonoRet monoRet = new TMonofasia.GMonoRet();
             monoRet.setQBCMonoRet(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
             monoRet.setAdRemCBSRet("0.00");
@@ -122,6 +112,16 @@ public class IbsCbsUtil {
             monoRet.setVCBSMonoRet("0.00");
             monoRet.setVIBSMonoRet("0.00");
             gMono.setGMonoRet(monoRet);
+        }
+
+        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
+            TMonofasia.GMonoReten monoReten = new TMonofasia.GMonoReten();
+            monoReten.setQBCMonoReten(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
+            monoReten.setAdRemCBSReten("0.00");
+            monoReten.setAdRemIBSReten("0.00");
+            monoReten.setVCBSMonoReten("0.00");
+            monoReten.setVIBSMonoReten("0.00");
+            gMono.setGMonoReten(monoReten);
         }
 
         if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaDiferimento())) {

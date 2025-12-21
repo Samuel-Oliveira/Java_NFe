@@ -44,6 +44,9 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
+## v4.00.49 - ??? - Schemas PL.010b (v1.30)
+- Corrigido monofasia retida Anteriormente.
+
 ## v4.00.48 - 20/12/2025 - Schemas PL.010b (v1.30)
 - Adicionado Monofasico aos calculos IBSCBS
 - Corrigido busca de IBSCBS para multi-thread
