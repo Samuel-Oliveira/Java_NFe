@@ -40,11 +40,14 @@ public final class ObjetoUtil {
     }
 
     public static String getValor2Casas(BigDecimal valor) {
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) < 0) {
+            return "0.00";
+        }
         return valor.setScale(2, RoundingMode.HALF_UP).toString();
     }
 
     public static String getValor4Casas(BigDecimal valor) {
-        if (valor == null) {
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) < 0) {
             return "0.0000";
         }
         return valor.setScale(4, RoundingMode.HALF_UP).toString();

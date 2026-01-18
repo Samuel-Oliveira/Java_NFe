@@ -20,6 +20,9 @@ public class IbsCbsUtil {
     private static final String TOTAL_IBS_UF = "TOTAL_IBS_UF";
     private static final String TOTAL_IBS_MUN = "TOTAL_IBS_MUN";
     private static final String TOTAL_CBS = "TOTAL_CBS";
+    private static final String TOTAL_DIFERIMENTO_IBS_UF = "TOTAL_DIFERIMENTO_IBS_UF";
+    private static final String TOTAL_DIFERIMENTO_IBS_MUN = "TOTAL_DIFERIMENTO_IBS_MUN";
+    private static final String TOTAL_DIFERIMENTO_CBS = "TOTAL_DIFERIMENTO_CBS";
     private static final BigDecimal CEM = BigDecimal.valueOf(100);
     private static final int SCALE_5 = 5;
 
@@ -35,6 +38,7 @@ public class IbsCbsUtil {
     private BigDecimal pAliqIbsUf = new BigDecimal("0.1");
     private BigDecimal pAliqIbsMun = BigDecimal.ZERO;
     private BigDecimal pAliqCbs = new BigDecimal("0.9");
+    private BigDecimal pAliqDiferimento = BigDecimal.ZERO;
     private BigDecimal baseCalculo = BigDecimal.ZERO;
 
     public void setpAliqIbsUf(BigDecimal pAliqIbsUf) {
@@ -47,6 +51,10 @@ public class IbsCbsUtil {
 
     public void setpAliqCbs(BigDecimal pAliqCbs) {
         this.pAliqCbs = pAliqCbs;
+    }
+
+    public void setpAliqDiferimento(BigDecimal pAliqDiferimento) {
+        this.pAliqDiferimento = pAliqDiferimento;
     }
 
     public IbsCbsUtil(@NonNull List<CstDTO> listaCstIbsCbs, @NonNull DocumentoEnum documento) {
@@ -66,6 +74,9 @@ public class IbsCbsUtil {
         mapTotais.put(TOTAL_IBS_UF, BigDecimal.ZERO);
         mapTotais.put(TOTAL_IBS_MUN, BigDecimal.ZERO);
         mapTotais.put(TOTAL_CBS, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_DIFERIMENTO_IBS_UF, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_DIFERIMENTO_IBS_MUN, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_DIFERIMENTO_CBS, BigDecimal.ZERO);
     }
 
     public TTribNFe montaImpostosDet(String cclassTrib, TNFe.InfNFe.Det det) throws NfeException {
@@ -94,7 +105,7 @@ public class IbsCbsUtil {
 
     private TMonofasia montaGrupoMono(TNFe.InfNFe.Det det) {
         TMonofasia gMono = new TMonofasia();
-        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
             TMonofasia.GMonoPadrao monoPadrao = new TMonofasia.GMonoPadrao();
             monoPadrao.setQBCMono(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
             monoPadrao.setAdRemIBS("0.00");
@@ -104,7 +115,7 @@ public class IbsCbsUtil {
             gMono.setGMonoPadrao(monoPadrao);
         }
 
-        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
             TMonofasia.GMonoRet monoRet = new TMonofasia.GMonoRet();
             monoRet.setQBCMonoRet(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
             monoRet.setAdRemCBSRet("0.00");
@@ -114,7 +125,7 @@ public class IbsCbsUtil {
             gMono.setGMonoRet(monoRet);
         }
 
-        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
             TMonofasia.GMonoReten monoReten = new TMonofasia.GMonoReten();
             monoReten.setQBCMonoReten(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
             monoReten.setAdRemCBSReten("0.00");
@@ -124,7 +135,7 @@ public class IbsCbsUtil {
             gMono.setGMonoReten(monoReten);
         }
 
-        if(Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaDiferimento())) {
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaDiferimento())) {
             TMonofasia.GMonoDif gMonoDif = new TMonofasia.GMonoDif();
             gMonoDif.setPDifCBS("0.00");
             gMonoDif.setPDifIBS("0.00");
@@ -141,9 +152,9 @@ public class IbsCbsUtil {
 
     private boolean deveMontarGrupoIBSCBS() {
         return Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBS())
-                || Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq())
-                || Boolean.TRUE.equals(cstIbsCbs.getIndDif())
-                || Boolean.TRUE.equals(cstIbsCbs.getIndTransfCred());
+               || Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq())
+               || Boolean.TRUE.equals(cstIbsCbs.getIndDif())
+               || Boolean.TRUE.equals(cstIbsCbs.getIndTransfCred());
     }
 
     private TCIBS montarGrupoIBSCBS() {
@@ -173,6 +184,15 @@ public class IbsCbsUtil {
         mapTotais.merge(TOTAL_IBS_UF, new BigDecimal(gIBSUF.getVIBSUF()), BigDecimal::add);
         mapTotais.merge(TOTAL_IBS_MUN, new BigDecimal(gIBSMun.getVIBSMun()), BigDecimal::add);
         mapTotais.merge(TOTAL_CBS, new BigDecimal(gCBS.getVCBS()), BigDecimal::add);
+        if(gIBSUF.getGDif() != null){
+            mapTotais.merge(TOTAL_DIFERIMENTO_IBS_UF, new BigDecimal(gIBSUF.getGDif().getVDif()), BigDecimal::add);
+        }
+        if(gIBSMun.getGDif() != null){
+            mapTotais.merge(TOTAL_DIFERIMENTO_IBS_MUN, new BigDecimal(gIBSMun.getGDif().getVDif()), BigDecimal::add);
+        }
+        if(gCBS.getGDif() != null){
+            mapTotais.merge(TOTAL_DIFERIMENTO_CBS, new BigDecimal(gCBS.getGDif().getVDif()), BigDecimal::add);
+        }
     }
 
     private void filtraCClasstrib(String cclassTrib, String cclassTribRegular) {
@@ -218,9 +238,11 @@ public class IbsCbsUtil {
     private TCIBS.GIBSUF criarGIBSUF() {
         return criarGrupoImposto(
                 pAliqIbsUf,
+                pAliqDiferimento,
                 classTribIbsCbs.getPRedIBS(),
                 TCIBS.GIBSUF::new,
                 TCIBS.GIBSUF::setPIBSUF,
+                TCIBS.GIBSUF::setGDif,
                 TCIBS.GIBSUF::setGRed,
                 TCIBS.GIBSUF::setVIBSUF
         );
@@ -229,9 +251,11 @@ public class IbsCbsUtil {
     private TCIBS.GIBSMun criarGIBSMun() {
         return criarGrupoImposto(
                 pAliqIbsMun,
+                pAliqDiferimento,
                 classTribIbsCbs.getPRedIBS(),
                 TCIBS.GIBSMun::new,
                 TCIBS.GIBSMun::setPIBSMun,
+                TCIBS.GIBSMun::setGDif,
                 TCIBS.GIBSMun::setGRed,
                 TCIBS.GIBSMun::setVIBSMun
         );
@@ -240,9 +264,11 @@ public class IbsCbsUtil {
     private TCIBS.GCBS criarGCBS() {
         return criarGrupoImposto(
                 pAliqCbs,
+                pAliqDiferimento,
                 classTribIbsCbs.getPRedCBS(),
                 TCIBS.GCBS::new,
                 TCIBS.GCBS::setPCBS,
+                TCIBS.GCBS::setGDif,
                 TCIBS.GCBS::setGRed,
                 TCIBS.GCBS::setVCBS
         );
@@ -264,15 +290,22 @@ public class IbsCbsUtil {
     }
 
     @FunctionalInterface
+    private interface DifererimentoSetter<T> {
+        void set(T grupo, TDif diferimento);
+    }
+
+    @FunctionalInterface
     private interface ValorSetter<T> {
         void set(T grupo, String valor);
     }
 
     private <T> T criarGrupoImposto(
             BigDecimal aliqPadrao,
+            BigDecimal percentualDiferimento,
             BigDecimal percentualReducao,
             GrupoImpostoFactory<T> factory,
             AliquotaSetter<T> aliqSetter,
+            DifererimentoSetter<T> difSetter,
             RedutorSetter<T> redSetter,
             ValorSetter<T> valorSetter) {
 
@@ -283,16 +316,25 @@ public class IbsCbsUtil {
 
         aliqSetter.set(grupo, ObjetoUtil.getValor4Casas(aliq));
 
-        BigDecimal percentRed = ObjetoUtil.getOrZero(percentualReducao);
         BigDecimal aliqEfet = aliq;
 
         if (Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq())) {
+            BigDecimal percentRed = ObjetoUtil.getOrZero(percentualReducao);
             TRed gRed = criarRedutor(percentRed, aliq);
             redSetter.set(grupo, gRed);
             aliqEfet = new BigDecimal(gRed.getPAliqEfet());
         }
 
         BigDecimal valor = calcularValorImposto(aliqEfet);
+
+        if (Boolean.TRUE.equals(cstIbsCbs.getIndDif())) {
+            BigDecimal percentDif = ObjetoUtil.getOrZero(percentualDiferimento);
+            TDif gDif = criarDiferimento(percentDif, aliqEfet);
+            difSetter.set(grupo, gDif);
+            valor = valor.subtract(new BigDecimal(gDif.getVDif()));
+        }
+
+
         valorSetter.set(grupo, ObjetoUtil.getValor2Casas(valor));
 
         return grupo;
@@ -339,6 +381,14 @@ public class IbsCbsUtil {
         gRed.setPAliqEfet(ObjetoUtil.getValor4Casas(aliqEfet));
 
         return gRed;
+    }
+
+    private TDif criarDiferimento(BigDecimal percentualDiferimento, BigDecimal aliqEfet) {
+        TDif gDif = new TDif();
+        gDif.setPDif(ObjetoUtil.getValor4Casas(percentualDiferimento));
+        BigDecimal valorDif = calcularValorImposto(percentualDiferimento).multiply(aliqEfet.divide(CEM, SCALE_5, RoundingMode.HALF_UP));
+        gDif.setVDif(ObjetoUtil.getValor2Casas(valorDif));
+        return gDif;
     }
 
     @SuppressWarnings("unchecked")
@@ -397,7 +447,7 @@ public class IbsCbsUtil {
 
     private TIBSCBSMonoTot.GIBS.GIBSUF criarGIBSUFTotal() {
         TIBSCBSMonoTot.GIBS.GIBSUF gIbsUF = new TIBSCBSMonoTot.GIBS.GIBSUF();
-        gIbsUF.setVDif("0.00");
+        gIbsUF.setVDif(ObjetoUtil.getValor2Casas(mapTotais.getOrDefault(TOTAL_DIFERIMENTO_IBS_UF, BigDecimal.ZERO)));
         gIbsUF.setVDevTrib("0.00");
         gIbsUF.setVIBSUF(ObjetoUtil.getValor2Casas(mapTotais.getOrDefault(TOTAL_IBS_UF, BigDecimal.ZERO)));
         return gIbsUF;
@@ -405,7 +455,7 @@ public class IbsCbsUtil {
 
     private TIBSCBSMonoTot.GIBS.GIBSMun criarGIBSMunTotal() {
         TIBSCBSMonoTot.GIBS.GIBSMun gIbsMun = new TIBSCBSMonoTot.GIBS.GIBSMun();
-        gIbsMun.setVDif("0.00");
+        gIbsMun.setVDif(ObjetoUtil.getValor2Casas(mapTotais.getOrDefault(TOTAL_DIFERIMENTO_IBS_MUN, BigDecimal.ZERO)));
         gIbsMun.setVDevTrib("0.00");
         gIbsMun.setVIBSMun(ObjetoUtil.getValor2Casas(mapTotais.getOrDefault(TOTAL_IBS_MUN, BigDecimal.ZERO)));
         return gIbsMun;
@@ -413,7 +463,7 @@ public class IbsCbsUtil {
 
     private TIBSCBSMonoTot.GCBS criarTotaisCBS() {
         TIBSCBSMonoTot.GCBS gCbs = new TIBSCBSMonoTot.GCBS();
-        gCbs.setVDif("0.00");
+        gCbs.setVDif(ObjetoUtil.getValor2Casas(mapTotais.getOrDefault(TOTAL_DIFERIMENTO_CBS, BigDecimal.ZERO)));
         gCbs.setVDevTrib("0.00");
         gCbs.setVCBS(ObjetoUtil.getValor2Casas(mapTotais.getOrDefault(TOTAL_CBS, BigDecimal.ZERO)));
         gCbs.setVCredPres("0.00");
