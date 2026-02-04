@@ -44,7 +44,7 @@ public class EnvioNfceTeste {
             LocalDateTime start = LocalDateTime.now();
 
             //Informe o Numero da NFCe
-            int numeroNFCe = 9408;
+            int numeroNFCe = 9410;
             //Informe o CNPJ do Emitente da NFCe
             String cnpj = "10732644000128";
             //Informe a data de Emissao da NFCe

@@ -19,11 +19,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="cCredPres" type="{http://www.portalfiscal.inf.br/nfe}TcCredPres"/>
- *         &lt;element name="pCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04"/>
+ *         &lt;element name="pCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
  *         &lt;choice>
- *           &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
- *           &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302"/>
+ *           &lt;element name="vCredPres" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *           &lt;element name="vCredPresCondSus" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *         &lt;/choice>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -35,7 +34,6 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TCredPres", namespace = "http://www.portalfiscal.inf.br/nfe", propOrder = {
-    "cCredPres",
     "pCredPres",
     "vCredPres",
     "vCredPresCondSus"
@@ -43,37 +41,11 @@ import javax.xml.bind.annotation.XmlType;
 public class TCredPres {
 
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-    protected String cCredPres;
-    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
     protected String pCredPres;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
     protected String vCredPres;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
     protected String vCredPresCondSus;
-
-    /**
-     * Obtém o valor da propriedade cCredPres.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCCredPres() {
-        return cCredPres;
-    }
-
-    /**
-     * Define o valor da propriedade cCredPres.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCCredPres(String value) {
-        this.cCredPres = value;
-    }
 
     /**
      * Obtém o valor da propriedade pCredPres.

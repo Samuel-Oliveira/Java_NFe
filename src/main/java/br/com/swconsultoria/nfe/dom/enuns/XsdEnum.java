@@ -107,6 +107,11 @@ public enum XsdEnum {
     CANC_ECONF_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento.class, "envEvento"),
     CANC_ECONF_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento.class, "retEnvEvento"),
 
+    //EVENTO GENERICO
+    EVENTO_GENERICO_PROC_EVENTO(br.com.swconsultoria.nfe.schema.eventoGenerico.TProcEvento.class, "procEventoNFe"),
+    EVENTO_GENERICO_ENV_EVENTO(br.com.swconsultoria.nfe.schema.eventoGenerico.TEnvEvento.class, "envEvento"),
+    EVENTO_GENERICO_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.eventoGenerico.TRetEnvEvento.class, "retEnvEvento"),
+
     //DistDfe
     DIST_DFE_INT(DistDFeInt.class, "distDFeInt"),
     RET_DIST_DFE_INT(RetDistDFeInt.class, "retDistDFeInt");
