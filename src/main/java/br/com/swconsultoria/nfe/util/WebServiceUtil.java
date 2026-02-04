@@ -289,6 +289,7 @@ public class WebServiceUtil {
     private static boolean verificaServicosAmbienteSVRS(ServicosEnum tipoServico,DocumentoEnum tipoDocumento ) {
         return tipoDocumento.equals(DocumentoEnum.NFE) &&
                (tipoServico.equals(ServicosEnum.ECONF) ||
+               tipoServico.equals(ServicosEnum.EVENTO_GENERICO) ||
                tipoServico.equals(ServicosEnum.CANC_ECONF));
     }
 

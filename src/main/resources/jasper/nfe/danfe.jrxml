@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="322"/>
 	<property name="ireport.y" value="160"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NF-e"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
 	<style name="campoPequeno" hTextAlign="Left" hImageAlign="Left" vTextAlign="Top" vImageAlign="Top" markup="styled" pattern="" fontName="Verdana" fontSize="4" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
 	<style name="borda" mode="Transparent" forecolor="#000000" fill="Solid" radius="3" scaleImage="Clip" hTextAlign="Left" hImageAlign="Left" vTextAlign="Top" vImageAlign="Top" markup="none" pattern="" fontName="Verdana" fontSize="5" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="true" isPdfEmbedded="false">
 		<pen lineWidth="0.25"/>
@@ -293,6 +293,9 @@
 	<field name="infAdProd" class="java.lang.String">
 		<property name="net.sf.jasperreports.xpath.field.expression" value="infAdProd"/>
 		<fieldDescription><![CDATA[infAdProd]]></fieldDescription>
+	</field>
+	<field name="Informacoes_fisco" class="java.lang.String">
+		<fieldDescription><![CDATA[../infAdic/infAdFisco]]></fieldDescription>
 	</field>
 	<variable name="count_itens" class="java.lang.Integer" resetType="None" incrementType="Report" calculation="Count">
 		<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
@@ -998,7 +1001,8 @@ $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
 					<textElement verticalAlignment="Top">
 						<font size="6" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{Informacoes}.replace("  ","").replace("\n"," ")]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Inf. Contribuinte:"+$F{Informacoes}.replace("  ","").replace("\n"," ")+
+"\nInf. Fisco:"+$F{Informacoes_fisco}.replace("  ","").replace("\n"," ")]]></textFieldExpression>
 				</textField>
 				<frame>
 					<reportElement positionType="FixRelativeToBottom" stretchType="ContainerBottom" mode="Transparent" x="0" y="0" width="565" height="34" isPrintWhenDetailOverflows="true" uuid="91c422c4-c8b1-42ed-accb-e694dbf89daa">
@@ -1064,7 +1068,6 @@ $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
 					<textElement verticalAlignment="Top">
 						<font size="6" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{infAdFisco}.replace("  ","").replace("\n"," ")]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

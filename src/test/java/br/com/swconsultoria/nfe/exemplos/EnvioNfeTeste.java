@@ -48,7 +48,7 @@ public class EnvioNfeTeste {
             ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO);
 
             //Informe o Numero da NFe
-            int numeroNfe = 92752;
+            int numeroNfe = 92756;
             //Informe o CNPJ do Emitente da NFe
             String cnpj = "10732644000128";
             //Informe a data de Emissao da NFe

@@ -367,6 +367,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TCredPresOper }
+     * 
+     */
+    public TCredPresOper createTCredPresOper() {
+        return new TCredPresOper();
+    }
+
+    /**
      * Create an instance of {@link TEndereco }
      * 
      */
@@ -388,6 +396,14 @@ public class ObjectFactory {
      */
     public TCredPresIBSZFM createTCredPresIBSZFM() {
         return new TCredPresIBSZFM();
+    }
+
+    /**
+     * Create an instance of {@link TAjusteCompet }
+     * 
+     */
+    public TAjusteCompet createTAjusteCompet() {
+        return new TAjusteCompet();
     }
 
     /**
@@ -447,6 +463,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TTribNFAg }
+     * 
+     */
+    public TTribNFAg createTTribNFAg() {
+        return new TTribNFAg();
+    }
+
+    /**
      * Create an instance of {@link TCompraGovReduzido }
      * 
      */
@@ -476,6 +500,14 @@ public class ObjectFactory {
      */
     public TRed createTRed() {
         return new TRed();
+    }
+
+    /**
+     * Create an instance of {@link TTribNFGas }
+     * 
+     */
+    public TTribNFGas createTTribNFGas() {
+        return new TTribNFGas();
     }
 
     /**
@@ -524,6 +556,14 @@ public class ObjectFactory {
      */
     public TTribRegular createTTribRegular() {
         return new TTribRegular();
+    }
+
+    /**
+     * Create an instance of {@link TEstornoCred }
+     * 
+     */
+    public TEstornoCred createTEstornoCred() {
+        return new TEstornoCred();
     }
 
     /**
@@ -1263,6 +1303,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TIBSCBSMonoTot.GEstornoCred }
+     * 
+     */
+    public TIBSCBSMonoTot.GEstornoCred createTIBSCBSMonoTotGEstornoCred() {
+        return new TIBSCBSMonoTot.GEstornoCred();
+    }
+
+    /**
      * Create an instance of {@link TIBSCBSMonoTot.GIBS.GIBSUF }
      * 
      */
@@ -1292,6 +1340,14 @@ public class ObjectFactory {
      */
     public TIBSCBSTot.GCBS createTIBSCBSTotGCBS() {
         return new TIBSCBSTot.GCBS();
+    }
+
+    /**
+     * Create an instance of {@link TIBSCBSTot.GEstornoCred }
+     * 
+     */
+    public TIBSCBSTot.GEstornoCred createTIBSCBSTotGEstornoCred() {
+        return new TIBSCBSTot.GEstornoCred();
     }
 
     /**

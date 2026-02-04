@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.45/jar)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.00.49/jar)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
@@ -22,7 +22,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.45</version>
+    <version>4.00.49</version>
 </dependency>
 ```
 
@@ -34,38 +34,36 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.00.45"
+    implementation "br.com.swconsultoria:java-nfe:4.00.49"
 }
 ```
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
 
 ________________________________________________________________________________________________
-# 🚨 Atenção — Reforma Tributária na NF-e / NFC-e
-
-Foram adicionadas as classes com o **layout da Reforma Tributária** a partir da versao 4.00.42.  
-
----
-
-## 💼 Consultoria Especializada
-
-Estamos com uma equipe dedicada exclusivamente à **Reforma Tributária**.  
-A partir de **Setembro de 2025**, estaremos oferecendo serviços de **consultoria personalizada** para apoiar empresas na migração de seus sistemas para o novo layout.
-
----
-
-## 📞 Contato
-
-- Discord: `.samueloliveira`
-- E-mail: [samuel@swconsultoria.com.br](mailto:samuel@swconsultoria.com.br)
-- WhatsApp/Telefone: **(62) 99306-6546**
-
-________________________________________________________________________________________________
 
 # Historico de Versões
 
+## v4.00.49 - 18/01/2026 - Schemas PL.010b (v1.30)
+- Corrigido monofasia retida Anteriormente.
+- Adicionado calculos IBSCBS para Diferimento
+- Atualizado Cacerts
+- Corrigido Informacoes Fisco Impressao Danfe
+
+## v4.00.48 - 20/12/2025 - Schemas PL.010b (v1.30)
+- Adicionado Monofasico aos calculos IBSCBS
+- Corrigido busca de IBSCBS para multi-thread
+
+## v4.00.47 - 10/12/2025 - Schemas PL.010b (v1.30)
+- Correcoes calculos IBSCBS
+
+## v4.00.46 - 06/12/2025 - Schemas PL.010b (v1.30)
+- Atualizado Schemas PL.010b (v1.30) **CASO USE VALIDACAO ATUALIZE A PASTA SCHEMAS**
+- Adicionado novos eventos da reforma Tributaria (Ver exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/exemplos/EventoGenericoTeste.java)
+- Adicionado ao projeto o calculo e preenchimento automatico do IBSCBS dos Itens e do Total (Ver exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/exemplos/CalculosIbsCbsTeste.java)
+
 ## v4.00.45 - 09/11/2025 - Schemas PL.010b (v1.1)
-- Adicionado Conculta ao JSON dos CST/Cclasstrib do IBSCBS
+- Adicionado Conculta ao JSON dos CST/Cclasstrib do IBSCBS (Ver exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/exemplos/ConsultaTributacaoTeste.java)
 
 ## v4.00.44 - 28/10/2025 - Schemas PL.010b (v1.1)
 - Correcao sequencia Manifestacao Util
