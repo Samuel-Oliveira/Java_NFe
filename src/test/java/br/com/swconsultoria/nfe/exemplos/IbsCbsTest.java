@@ -13,7 +13,6 @@ import br.com.swconsultoria.nfe.schema_4.enviNFe.TTribNFe;
 import br.com.swconsultoria.nfe.util.IbsCbsUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBElement;
@@ -26,8 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Samuel Oliveira
  */
-@Disabled
-class IbsCbsTeste {
+class IbsCbsTest {
 
     @Test
     void testeIbsCbs() throws Exception {
