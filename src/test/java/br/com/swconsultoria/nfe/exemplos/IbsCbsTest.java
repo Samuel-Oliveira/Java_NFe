@@ -1,5 +1,7 @@
 package br.com.swconsultoria.nfe.exemplos;
 
+import br.com.swconsultoria.certificado.Certificado;
+import br.com.swconsultoria.certificado.CertificadoService;
 import br.com.swconsultoria.nfe.Nfe;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
@@ -19,6 +21,9 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -125,7 +130,7 @@ class IbsCbsTest {
 
         TIBSCBSMonoTot totaisIbsCsb = ibsCbsUtil.preencheTotaisIbsCsb();
         enviNFe.getNFe().get(0).getInfNFe().getTotal().setIBSCBSTot(totaisIbsCsb);
-        return Nfe.montaNfe(config, enviNFe, true);
+        return Nfe.montaNfe(config, enviNFe, false);
     }
 
     private static String getIbsCbsJson() throws IOException {
@@ -138,7 +143,11 @@ class IbsCbsTest {
     }
 
     private static ConfiguracoesNfe getConfiguracoesNfe() throws Exception {
-        return ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO);
+        URI uri = Objects.requireNonNull(IbsCbsTest.class.getClassLoader()
+                        .getResource("NAO_UTILIZE.pfx"))
+                .toURI();
+        Certificado certificado = CertificadoService.certificadoPfx(Paths.get(uri).toString(), "123456");
+        return ConfiguracoesNfe.criarConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO, certificado, null);
     }
 
 }
