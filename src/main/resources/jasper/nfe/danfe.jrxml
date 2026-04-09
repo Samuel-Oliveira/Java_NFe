@@ -1001,8 +1001,8 @@ $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
 					<textElement verticalAlignment="Top">
 						<font size="6" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Inf. Contribuinte:"+$F{Informacoes}.replace("  ","").replace("\n"," ")+
-"\nInf. Fisco:"+$F{Informacoes_fisco}.replace("  ","").replace("\n"," ")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($F{Informacoes} != null ? ("Inf. Contribuinte:"+$F{Informacoes}.replace("  ","").replace("\n"," ") + "\n") : "") + 
+($F{Informacoes_fisco} != null ? ("Inf. Fisco:"+$F{Informacoes_fisco}.replace("  ","").replace("\n"," ")): "")]]></textFieldExpression>
 				</textField>
 				<frame>
 					<reportElement positionType="FixRelativeToBottom" stretchType="ContainerBottom" mode="Transparent" x="0" y="0" width="565" height="34" isPrintWhenDetailOverflows="true" uuid="91c422c4-c8b1-42ed-accb-e694dbf89daa">
