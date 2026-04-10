@@ -98,4 +98,84 @@ class XmlNfeUtilTest {
         assertEquals("XML de entrada está vazio.", exception.getMessage());
     }
 
+    // -------------------------------------------------------------------------
+    // objectToXml / xmlToObject
+    // -------------------------------------------------------------------------
+
+    @Test
+    void objectToXml_retornaXmlComDeclaracaoETagRaiz() throws Exception {
+        br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ obj =
+                new br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ();
+        obj.setCStat("107");
+        obj.setXMotivo("Servico em Operacao");
+
+        String xml = XmlNfeUtil.objectToXml(obj);
+
+        assertTrue(xml.startsWith("<?xml version=\"1.0\""));
+        assertTrue(xml.contains("retConsStatServ"));
+        assertTrue(xml.contains("107"));
+    }
+
+    @Test
+    void xmlToObject_desserializaCorretamente() {
+        String xml = "<retConsStatServ xmlns=\"http://www.portalfiscal.inf.br/nfe\">" +
+                "<tpAmb>2</tpAmb><verAplic>GO4.0</verAplic><cStat>107</cStat>" +
+                "<xMotivo>Servico em Operacao</xMotivo><cUF>52</cUF>" +
+                "<dhRecbto>2024-01-01T10:00:00-03:00</dhRecbto></retConsStatServ>";
+
+        br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ obj =
+                XmlNfeUtil.xmlToObject(xml, br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ.class);
+
+        assertNotNull(obj);
+        assertEquals("107", obj.getCStat());
+        assertEquals("Servico em Operacao", obj.getXMotivo());
+    }
+
+    // -------------------------------------------------------------------------
+    // dataNfe
+    // -------------------------------------------------------------------------
+
+    @Test
+    void dataNfe_comZoneId_retornaFormatoISO() {
+        java.time.LocalDateTime dt = java.time.LocalDateTime.of(2024, 3, 15, 10, 30, 0);
+        java.time.ZoneId zone = java.time.ZoneId.of("America/Sao_Paulo");
+
+        String resultado = XmlNfeUtil.dataNfe(dt, zone);
+
+        assertNotNull(resultado);
+        assertTrue(resultado.startsWith("2024-03-15T10:30:00"));
+    }
+
+    @Test
+    void dataNfe_zoneIdNulo_usaFallback() {
+        java.time.LocalDateTime dt = java.time.LocalDateTime.of(2024, 6, 1, 8, 0, 0);
+        assertNotNull(XmlNfeUtil.dataNfe(dt, null));
+    }
+
+    // -------------------------------------------------------------------------
+    // gZipToXml
+    // -------------------------------------------------------------------------
+
+    @Test
+    void gZipToXml_descomprimeBytesGzip() throws Exception {
+        String conteudo = "<nfeProc>teste</nfeProc>";
+        java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+        try (java.util.zip.GZIPOutputStream gos = new java.util.zip.GZIPOutputStream(baos)) {
+            gos.write(conteudo.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        }
+
+        String resultado = XmlNfeUtil.gZipToXml(baos.toByteArray());
+        assertEquals(conteudo, resultado);
+    }
+
+    @Test
+    void gZipToXml_bytesNulos_retornaVazio() throws Exception {
+        assertEquals("", XmlNfeUtil.gZipToXml(null));
+    }
+
+    @Test
+    void gZipToXml_bytesVazios_retornaVazio() throws Exception {
+        assertEquals("", XmlNfeUtil.gZipToXml(new byte[0]));
+    }
+
 }
