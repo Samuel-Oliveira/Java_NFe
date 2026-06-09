@@ -86,7 +86,8 @@ import javax.xml.bind.annotation.XmlType;
     "vibs",
     "gcbs",
     "gTribRegular",
-    "gTribCompraGov"
+    "gTribCompraGov",
+    "gEstornoCred"
 })
 public class TCIBS {
 
@@ -104,6 +105,8 @@ public class TCIBS {
     protected TTribRegular gTribRegular;
     @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
     protected TTribCompraGov gTribCompraGov;
+    @XmlElement(name = "gEstornoCred", namespace = "http://www.portalfiscal.inf.br/nfe")
+    protected TEstornoCred gEstornoCred;
 
     /**
      * Obtém o valor da propriedade vbc.
@@ -271,6 +274,14 @@ public class TCIBS {
      */
     public void setGTribCompraGov(TTribCompraGov value) {
         this.gTribCompraGov = value;
+    }
+
+    public TEstornoCred getGEstornoCred() {
+        return gEstornoCred;
+    }
+
+    public void setGEstornoCred(TEstornoCred value) {
+        this.gEstornoCred = value;
     }
 
 
