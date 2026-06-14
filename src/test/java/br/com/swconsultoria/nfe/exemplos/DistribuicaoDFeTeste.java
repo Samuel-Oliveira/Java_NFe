@@ -3,8 +3,8 @@ package br.com.swconsultoria.nfe.exemplos;
 import br.com.swconsultoria.nfe.Nfe;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.*;
-import br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt;
-import br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt.LoteDistDFeInt.DocZip;
+import br.com.swconsultoria.nfe.schemas.RetDistDFeInt;
+import br.com.swconsultoria.nfe.schemas.RetDistDFeInt.LoteDistDFeInt.DocZip;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import java.util.List;

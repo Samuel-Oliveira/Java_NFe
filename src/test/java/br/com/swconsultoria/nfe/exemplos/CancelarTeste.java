@@ -9,8 +9,8 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento;
 import br.com.swconsultoria.nfe.util.CancelamentoUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
@@ -33,9 +33,9 @@ public class CancelarTeste {
             //Para isso Foi criado o Objeto Cancela
             Evento cancela = new Evento();
             //Informe a chave da Nota a ser Cancelada
-            cancela.setChave("52250810732644000128650010000094071716409173");
+            cancela.setChave("52260610732644000128550010000927581162933910");
             //Informe o protocolo da Nota a ser Cancelada
-            cancela.setProtocolo("152250026070344");
+            cancela.setProtocolo("152260027418507");
             //Informe o CNPJ do emitente
             cancela.setCnpj("10732644000128");
             //Informe o Motivo do Cancelamento
@@ -44,12 +44,12 @@ public class CancelarTeste {
             cancela.setDataEvento(LocalDateTime.now());
 
             //Monta o Evento de Cancelamento
-            TEnvEvento enviEvento = CancelamentoUtil.montaCancelamento(cancela, config);
+            TEnvEventoCancelamento enviEvento = CancelamentoUtil.montaCancelamento(cancela, config);
 
             System.out.println(XmlNfeUtil.objectToXml(enviEvento));
 
             //Envia o Evento de Cancelamento
-            TRetEnvEvento retorno = Nfe.cancelarNfe(config, enviEvento, true, DocumentoEnum.NFCE);
+            TRetEnvEventoCancelamento retorno = Nfe.cancelarNfe(config, enviEvento, true, DocumentoEnum.NFCE);
 
             //Valida o Retorno do Cancelamento
             RetornoUtil.validaCancelamento(retorno);

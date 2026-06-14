@@ -4,8 +4,8 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.eventoInsucessoNFe.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoInsucessoEntrega;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoInsucessoEntrega;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import javax.xml.bind.JAXBException;
@@ -18,7 +18,7 @@ class InsucessoEntrega {
     private InsucessoEntrega() {
     }
 
-    static TRetEnvEvento eventoInsuccessoEntrega(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida)
+    static TRetEnvEventoInsucessoEntrega eventoInsuccessoEntrega(ConfiguracoesNfe config, TEnvEventoInsucessoEntrega enviEvento, boolean valida)
             throws NfeException {
 
         try {
@@ -29,7 +29,7 @@ class InsucessoEntrega {
 
             xml = Eventos.enviarEvento(config, xml, ServicosEnum.INSUCESSO_ENTREGA, valida, true, DocumentoEnum.NFE);
 
-            return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
+            return XmlNfeUtil.xmlToObject(xml, TRetEnvEventoInsucessoEntrega.class);
 
         } catch (JAXBException e) {
             throw new NfeException(e.getMessage(),e);

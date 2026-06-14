@@ -6,10 +6,10 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envcce.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envcce.TEvento;
-import br.com.swconsultoria.nfe.schema.envcce.TProcEvento;
-import br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoCartaCorrecao;
+import br.com.swconsultoria.nfe.schemas_eventos.TProcEventoCartaCorrecao;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao;
 
 import javax.xml.bind.JAXBException;
 import java.util.Collections;
@@ -31,7 +31,7 @@ public class CartaCorrecaoUtil {
      * @return
      * @throws NfeException
      */
-    public static TEnvEvento montaCCe(Evento cce, ConfiguracoesNfe configuracao) throws NfeException {
+    public static TEnvEventoCartaCorrecao montaCCe(Evento cce, ConfiguracoesNfe configuracao) throws NfeException {
         return montaCCe(Collections.singletonList(cce), configuracao);
     }
 
@@ -43,23 +43,23 @@ public class CartaCorrecaoUtil {
      * @return
      * @throws NfeException
      */
-    public static TEnvEvento montaCCe(List<Evento> listaCCe, ConfiguracoesNfe configuracao) throws NfeException {
+    public static TEnvEventoCartaCorrecao montaCCe(List<Evento> listaCCe, ConfiguracoesNfe configuracao) throws NfeException {
 
         if (listaCCe.size() > 20) {
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
         }
 
-        TEnvEvento envEvento = new TEnvEvento();
+        TEnvEventoCartaCorrecao envEvento = new TEnvEventoCartaCorrecao();
         envEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CCE);
         envEvento.setIdLote("1");
 
         listaCCe.forEach(cce -> {
             String id = "ID" + EventosEnum.CCE.getCodigo() + cce.getChave() + ChaveUtil.completarComZerosAEsquerda(String.valueOf(cce.getSequencia()), 2);
 
-            TEvento evento = new TEvento();
+            TEventoCartaCorrecao evento = new TEventoCartaCorrecao();
             evento.setVersao(ConstantesUtil.VERSAO.EVENTO_CCE);
 
-            TEvento.InfEvento infEvento = new TEvento.InfEvento();
+            TEventoCartaCorrecao.InfEvento infEvento = new TEventoCartaCorrecao.InfEvento();
             infEvento.setId(id);
             infEvento.setCOrgao(configuracao.getEstado().getCodigoUF());
             infEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
@@ -75,7 +75,7 @@ public class CartaCorrecaoUtil {
             infEvento.setNSeqEvento(String.valueOf(cce.getSequencia()));
             infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CCE);
 
-            TEvento.InfEvento.DetEvento detEvento = new TEvento.InfEvento.DetEvento();
+            TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao detEvento = new TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CCE);
             detEvento.setDescEvento("Carta de Correcao");
 
@@ -100,7 +100,7 @@ public class CartaCorrecaoUtil {
      * @throws JAXBException
      * @throws NfeException
      */
-    public static String criaProcEventoCCe(ConfiguracoesNfe config, TEnvEvento enviEvento, TRetEnvEvento retorno) throws JAXBException, NfeException {
+    public static String criaProcEventoCCe(ConfiguracoesNfe config, TEnvEventoCartaCorrecao enviEvento, TRetEnvEventoCartaCorrecao retorno) throws JAXBException, NfeException {
 
         String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
         xml = xml.replace(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "")
@@ -108,8 +108,8 @@ public class CartaCorrecaoUtil {
 
         String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), xml, AssinaturaEnum.EVENTO);
 
-        TProcEvento procEvento = new TProcEvento();
-        procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEvento.class).getEvento().get(0));
+        TProcEventoCartaCorrecao procEvento = new TProcEventoCartaCorrecao();
+        procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEventoCartaCorrecao.class).getEvento().get(0));
         procEvento.setRetEvento(retorno.getRetEvento().get(0));
         procEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CCE);
 

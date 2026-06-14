@@ -34,10 +34,13 @@ jobs:
           timezoneMacos: "America/Sao_Paulo"
           timezoneWindows: "America/Sao_Paulo"
 
+      - name: Coverage tests
+        run: mvn clean test jacoco:report coveralls:report --file pom.xml
+
       - name: Criando executavel
         run: |
           mvn versions:set -DnewVersion=${{ github.ref_name }}
-          mvn -B package -Passembly --file pom.xml
+          mvn -B package -DskipTests -Passembly --file pom.xml
 
       - name: Criando pasta para Zip
         run: |

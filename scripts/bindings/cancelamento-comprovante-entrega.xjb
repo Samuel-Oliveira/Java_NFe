@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- leiauteEventoCancEntregaNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEventoCancEntregaNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:complexType[@name='TEvento']">
+      <jxb:class name="TEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TretEvento']">
+      <jxb:class name="TRetEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TEnvEvento']">
+      <jxb:class name="TEnvEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEnvEvento']">
+      <jxb:class name="TRetEnvEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TProcEvento']">
+      <jxb:class name="TProcEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- EventoCancEntregaNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/EventoCancEntregaNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='evento']">
+      <jxb:factoryMethod name="EventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- envEventoCancEntregaNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/envEventoCancEntregaNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='envEvento']">
+      <jxb:factoryMethod name="EnvEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- procEventoCancEntregaNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/procEventoCancEntregaNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='procEventoNFe']">
+      <jxb:factoryMethod name="ProcEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- retEventoCancEntregaNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/retEventoCancEntregaNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='retEnvEvento']">
+      <jxb:factoryMethod name="RetEnvEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- patch-bindings-detevento: DetEventoCancelamentoComprovanteEntrega -->
+  <jxb:bindings schemaLocation="../../schemas/e110131_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='detEvento']/xs:complexType">
+      <jxb:class name="DetEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+</jxb:bindings>

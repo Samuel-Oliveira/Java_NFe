@@ -6,10 +6,10 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEvento;
-import br.com.swconsultoria.nfe.schema_4.consSitNFe.TProtNFe;
-import br.com.swconsultoria.nfe.schema_4.consSitNFe.TRetConsSitNFe;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas.TProtNFe;
+import br.com.swconsultoria.nfe.schemas.TRetConsSitNFe;
 import br.com.swconsultoria.nfe.util.CancelamentoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
@@ -42,9 +42,9 @@ public class ConsultaXmlCancelamentoTeste {
 				//if retorno for cancelado
 				TProtNFe retCancNFe = retorno.getProtNFe();
 
-				TRetEvento retCance = new TRetEvento();
+				TRetEventoCancelamento retCance = new TRetEventoCancelamento();
 				retCance.setVersao("1.00");
-				TRetEvento.InfEvento infEvento = new TRetEvento.InfEvento();
+				TRetEventoCancelamento.InfEvento infEvento = new TRetEventoCancelamento.InfEvento();
 				infEvento.setTpAmb(retCancNFe.getInfProt().getTpAmb());
 				infEvento.setVerAplic(retCancNFe.getInfProt().getVerAplic());
 				infEvento.setCOrgao(EstadosEnum.GO.getCodigoUF());
@@ -69,7 +69,7 @@ public class ConsultaXmlCancelamentoTeste {
 				cancela.setDataEvento(LocalDateTime.of(2024,6,13,15,4,50));
 
 				//Monta o Evento de Cancelamento
-				TEnvEvento enviEvento = CancelamentoUtil.montaCancelamento(cancela, config);
+				TEnvEventoCancelamento enviEvento = CancelamentoUtil.montaCancelamento(cancela, config);
 
 				//Cria ProcEvento de Cacnelamento
 				String proc = CancelamentoUtil.criaProcEventoCancelamento(config, enviEvento, retCance);

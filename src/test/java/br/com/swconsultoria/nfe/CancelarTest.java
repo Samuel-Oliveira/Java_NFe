@@ -7,8 +7,8 @@ import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento;
 import br.com.swconsultoria.nfe.util.CancelamentoUtil;
 import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeRecepcaoEvento.NFeRecepcaoEvento4Stub;
@@ -31,7 +31,7 @@ class CancelarTest {
             "</retEnvEvento>";
 
     private ConfiguracoesNfe config;
-    private TEnvEvento enviEvento;
+    private TEnvEventoCancelamento enviEvento;
 
     @BeforeEach
     void setUp() throws NfeException {
@@ -90,7 +90,7 @@ class CancelarTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = Cancelar.eventoCancelamento(config, enviEvento, false, DocumentoEnum.NFE);
+        TRetEnvEventoCancelamento ret = Cancelar.eventoCancelamento(config, enviEvento, false, DocumentoEnum.NFE);
 
         assertNotNull(ret);
         assertEquals("128", ret.getCStat());
@@ -102,7 +102,7 @@ class CancelarTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = Cancelar.eventoCancelamento(config, enviEvento, false, DocumentoEnum.NFE);
+        TRetEnvEventoCancelamento ret = Cancelar.eventoCancelamento(config, enviEvento, false, DocumentoEnum.NFE);
 
         assertEquals("Lote de Evento Processado", ret.getXMotivo());
     }
@@ -113,7 +113,7 @@ class CancelarTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = Cancelar.eventoCancelamento(config, enviEvento, false, DocumentoEnum.NFE);
+        TRetEnvEventoCancelamento ret = Cancelar.eventoCancelamento(config, enviEvento, false, DocumentoEnum.NFE);
 
         assertEquals("2", ret.getTpAmb());
     }

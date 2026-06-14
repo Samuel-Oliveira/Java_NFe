@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="322"/>
 	<property name="ireport.y" value="160"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NF-e"/>
 	<style name="campoPequeno" hTextAlign="Left" hImageAlign="Left" vTextAlign="Top" vImageAlign="Top" markup="styled" pattern="" fontName="Verdana" fontSize="4" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
 	<style name="borda" mode="Transparent" forecolor="#000000" fill="Solid" radius="3" scaleImage="Clip" hTextAlign="Left" hImageAlign="Left" vTextAlign="Top" vImageAlign="Top" markup="none" pattern="" fontName="Verdana" fontSize="5" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="true" isPdfEmbedded="false">
 		<pen lineWidth="0.25"/>
@@ -293,9 +293,6 @@
 	<field name="infAdProd" class="java.lang.String">
 		<property name="net.sf.jasperreports.xpath.field.expression" value="infAdProd"/>
 		<fieldDescription><![CDATA[infAdProd]]></fieldDescription>
-	</field>
-	<field name="Informacoes_fisco" class="java.lang.String">
-		<fieldDescription><![CDATA[../infAdic/infAdFisco]]></fieldDescription>
 	</field>
 	<variable name="count_itens" class="java.lang.Integer" resetType="None" incrementType="Report" calculation="Count">
 		<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
@@ -606,7 +603,7 @@ $F{infAdProd} != null && !$F{infAdProd}.trim().isEmpty() ? $V{count_infAdProd}+1
 						</textElement>
 						<textFieldExpression><![CDATA[$F{Trans_CNPJ} != null ? $F{Trans_CNPJ}.substring(0,2) + "." +
 $F{Trans_CNPJ}.substring(2,5) + "." + $F{Trans_CNPJ}.substring(5,8) + "/" +
-$F{Trans_CNPJ}.substring(8,12) + "-" + $F{Trans_CNPJ}.substring(12,14) : 
+$F{Trans_CNPJ}.substring(8,12) + "-" + $F{Trans_CNPJ}.substring(12,14) :
 $F{Trans_CPF} != null ? $F{Trans_CPF}.substring(0,3) + "." +
 $F{Trans_CPF}.substring(3,6) + "." + $F{Trans_CPF}.substring(6,9) + "-" +
 $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
@@ -1001,8 +998,7 @@ $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
 					<textElement verticalAlignment="Top">
 						<font size="6" isItalic="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[($F{Informacoes} != null ? ("Inf. Contribuinte:"+$F{Informacoes}.replace("  ","").replace("\n"," ") + "\n") : "") + 
-($F{Informacoes_fisco} != null ? ("Inf. Fisco:"+$F{Informacoes_fisco}.replace("  ","").replace("\n"," ")): "")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{Informacoes}.replace("  ","").replace("\n"," ")]]></textFieldExpression>
 				</textField>
 				<frame>
 					<reportElement positionType="FixRelativeToBottom" stretchType="ContainerBottom" mode="Transparent" x="0" y="0" width="565" height="34" isPrintWhenDetailOverflows="true" uuid="91c422c4-c8b1-42ed-accb-e694dbf89daa">
@@ -1068,6 +1064,7 @@ $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
 					<textElement verticalAlignment="Top">
 						<font size="6" isItalic="false"/>
 					</textElement>
+					<textFieldExpression><![CDATA[$F{infAdFisco}.replace("  ","").replace("\n"," ")]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -1370,9 +1367,14 @@ $F{Chave}.substring(36,40) + " " + $F{Chave}.substring(40,44) + " "]]></textFiel
 					<textElement textAlignment="Center">
 						<font size="7" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{Emi_Telefone}.length() == 8 ? "FONE: " + $F{Emi_Telefone}.substring(0,4) +
-"-" + $F{Emi_Telefone}.substring(4,8) : "FONE: (" + $F{Emi_Telefone}.substring(0,2) + ") " +
-$F{Emi_Telefone}.substring(2,6) + "-" + $F{Emi_Telefone}.substring(6,10)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[
+     $F{Emi_Telefone} == null || $F{Emi_Telefone}.trim().isEmpty() ? "" :
+     $F{Emi_Telefone}.trim().length() == 8  ? "FONE: " + $F{Emi_Telefone}.trim().substring(0,4) + "-" + $F{Emi_Telefone}.trim().substring(4,8) :
+     $F{Emi_Telefone}.trim().length() == 9  ? "FONE: " + $F{Emi_Telefone}.trim().substring(0,5) + "-" + $F{Emi_Telefone}.trim().substring(5,9) :
+     $F{Emi_Telefone}.trim().length() == 10 ? "FONE: (" + $F{Emi_Telefone}.trim().substring(0,2) + ") " + $F{Emi_Telefone}.trim().substring(2,6) + "-" + $F{Emi_Telefone}.trim().substring(6,10) :
+     $F{Emi_Telefone}.trim().length() == 11 ? "FONE: (" + $F{Emi_Telefone}.trim().substring(0,2) + ") " + $F{Emi_Telefone}.trim().substring(2,7) + "-" + $F{Emi_Telefone}.trim().substring(7,11) :
+     "FONE: " + $F{Emi_Telefone}.trim()
+   ]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy HH:mm:ss">
 					<reportElement style="dados" positionType="Float" x="454" y="103" width="109" height="16" isPrintInFirstWholeBand="true" uuid="94e62645-5088-47f1-ba93-ae6047b045f3"/>
@@ -1856,23 +1858,23 @@ $F{Dest_CPF}.substring(6,9) + "-" + $F{Dest_CPF}.substring(9,11)]]></textFieldEx
 		</band>
 		<band height="40">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[/* Vou chamar de CORPO tudo aquilo que for impresso antes da seção "dados adicionais".  
-* 
+			<printWhenExpression><![CDATA[/* Vou chamar de CORPO tudo aquilo que for impresso antes da seção "dados adicionais".
+*
 * Vou calcular a quantidade de pixel que sobra para os itens da NF-e,
-* quando a impressão atigir 208px e o emitente possuir IM vou emitir os dados do ISSQN, 
+* quando a impressão atigir 208px e o emitente possuir IM vou emitir os dados do ISSQN,
 * caso contrário essa seção será suprimida.
 */
 $F{Emi_IM} !=null && !$F{Emi_IM}.trim().isEmpty() && $V{PAGE_NUMBER}==1 && (
 
-	/* Cada item da nota oculpa 16px no corpo da NF-e. 
-	 * Aquantidade de itens impresso no corpo será representada pela variável $V{count_itens} 
+	/* Cada item da nota oculpa 16px no corpo da NF-e.
+	 * Aquantidade de itens impresso no corpo será representada pela variável $V{count_itens}
 	 * */
-	( $V{count_itens} == null ? 0 : $V{count_itens} * 16 ) + 
+	( $V{count_itens} == null ? 0 : $V{count_itens} * 16 ) +
 
-	/* Cada vez que for impresso informação complementar do item, ela ocupará 12px no corpo da NF-e.  
+	/* Cada vez que for impresso informação complementar do item, ela ocupará 12px no corpo da NF-e.
 	 * A quantidade de itens com informações adicionais impressa no corpo será representado pela variável $V{count_infAdProd}
 	 * */
-	( $V{count_infAdProd} == null ? 0 : $V{count_infAdProd} * 15 ) 
+	( $V{count_infAdProd} == null ? 0 : $V{count_infAdProd} * 15 )
 
 )>=203]]></printWhenExpression>
 			<textField>
@@ -1886,19 +1888,19 @@ $F{Emi_IM} !=null && !$F{Emi_IM}.trim().isEmpty() && $V{PAGE_NUMBER}==1 && (
 			</textField>
 		</band>
 		<band height="94">
-			<printWhenExpression><![CDATA[/* Vou chamar de CORPO tudo aquilo que for impresso antes da seção "dados adicionais". 
+			<printWhenExpression><![CDATA[/* Vou chamar de CORPO tudo aquilo que for impresso antes da seção "dados adicionais".
 
-* Aqui vou calcular a quantidade de pixel ocupada pelo copo da NF-e, 
+* Aqui vou calcular a quantidade de pixel ocupada pelo copo da NF-e,
 * caso a quantidade de pixel for igual ou superior a 240px vou emitir os dados adicionais.
 */
 $V{PAGE_NUMBER} == 1 && (
 
-	/* Cada item da nota oculpa 16px no corpo da NF-e. 
-	 * A quantidade de itens impressa no corpo será representada pela variável $V{count_itens} 
+	/* Cada item da nota oculpa 16px no corpo da NF-e.
+	 * A quantidade de itens impressa no corpo será representada pela variável $V{count_itens}
 	 * */
-	( $V{count_itens} == null ? 0 : $V{count_itens} * 16 ) + 
+	( $V{count_itens} == null ? 0 : $V{count_itens} * 16 ) +
 
-	/* Cada vez for impresso as informação complementar de um item, ela ocupará 12px no corpo da NF-e.  
+	/* Cada vez for impresso as informação complementar de um item, ela ocupará 12px no corpo da NF-e.
 	 * A quantidade de itens com informações adicionais impressa no corpo será representado pela variável $V{count_infAdProd}
 	 * */
 	( $V{count_infAdProd} == null ? 0 : $V{count_infAdProd} * 15 ) +
@@ -1907,7 +1909,7 @@ $V{PAGE_NUMBER} == 1 && (
 	 * ISSQN só será exibido caso o emitente informar a IM (inscrição municipal) na NF-e.
 	 * */
 	 ( $F{Emi_IM} == null || $F{Emi_IM}.trim().isEmpty() ? 0 : 40 )
- 
+
  ) >= 235]]></printWhenExpression>
 			<textField>
 				<reportElement x="0" y="0" width="565" height="94" uuid="2ee23722-0933-4c39-8ee2-258ef171a13f"/>

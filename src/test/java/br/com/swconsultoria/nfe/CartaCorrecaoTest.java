@@ -6,8 +6,8 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envcce.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao;
 import br.com.swconsultoria.nfe.util.CartaCorrecaoUtil;
 import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeRecepcaoEvento.NFeRecepcaoEvento4Stub;
@@ -30,7 +30,7 @@ class CartaCorrecaoTest {
             "</retEnvEvento>";
 
     private ConfiguracoesNfe config;
-    private TEnvEvento enviEvento;
+    private TEnvEventoCartaCorrecao enviEvento;
 
     @BeforeEach
     void setUp() throws NfeException {
@@ -89,7 +89,7 @@ class CartaCorrecaoTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = CartaCorrecao.eventoCCe(config, enviEvento, false);
+        TRetEnvEventoCartaCorrecao ret = CartaCorrecao.eventoCCe(config, enviEvento, false);
 
         assertNotNull(ret);
         assertEquals("128", ret.getCStat());
@@ -101,7 +101,7 @@ class CartaCorrecaoTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = CartaCorrecao.eventoCCe(config, enviEvento, false);
+        TRetEnvEventoCartaCorrecao ret = CartaCorrecao.eventoCCe(config, enviEvento, false);
 
         assertEquals("Lote de Evento Processado", ret.getXMotivo());
     }
@@ -112,7 +112,7 @@ class CartaCorrecaoTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = CartaCorrecao.eventoCCe(config, enviEvento, false);
+        TRetEnvEventoCartaCorrecao ret = CartaCorrecao.eventoCCe(config, enviEvento, false);
 
         assertEquals("2", ret.getTpAmb());
     }

@@ -1,23 +1,7 @@
 package br.com.swconsultoria.nfe.dom.enuns;
 
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.consCad.TConsCad;
-import br.com.swconsultoria.nfe.schema.consCad.TRetConsCad;
-import br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt;
-import br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt;
-import br.com.swconsultoria.nfe.schema_4.consReciNFe.TConsReciNFe;
-import br.com.swconsultoria.nfe.schema_4.consReciNFe.TRetConsReciNFe;
-import br.com.swconsultoria.nfe.schema_4.consSitNFe.TConsSitNFe;
-import br.com.swconsultoria.nfe.schema_4.consSitNFe.TRetConsSitNFe;
-import br.com.swconsultoria.nfe.schema_4.consStatServ.TConsStatServ;
-import br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNfeProc;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TProcInutNFe;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
+import br.com.swconsultoria.nfe.schemas.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -46,71 +30,67 @@ public enum XsdEnum {
     ENVI_NFE(TEnviNFe.class, "enviNFe"),
     RET_ENVI_NFE(TRetEnviNFe.class, "retEnviNFe"),
     NFE_PROC(TNfeProc.class, "nfeProc"),
+    PROT_NFE(br.com.swconsultoria.nfe.schemas.TProtNFe.class, "protNFe"),
 
     //Inutilização
     INUT_NFE(TInutNFe.class, "inutNFe"),
     PROC_INUT_NFE(TProcInutNFe.class, "procInutNFe"),
     RET_INUT_NFE(TRetInutNFe.class, "retInutNFe"),
 
-    //Prot
-    ENVI_PROT_NFE(br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe.class, "protNFe"),
-    CONS_PROT_NFE(br.com.swconsultoria.nfe.schema_4.consSitNFe.TProtNFe.class, "protNFe"),
-    CONS_RECI_PROT_NFE(br.com.swconsultoria.nfe.schema_4.consReciNFe.TProtNFe.class, "protNFe"),
-
     //Cancelamento
-    CANC_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancNFe.TProcEvento.class, "procEventoNFe"),
-    CANC_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento.class, "envEvento"),
-    CANC_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento.class, "retEnvEvento"),
+    CANC_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoCancelamento.class, "procEventoNFe"),
+    CANC_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento.class, "envEvento"),
+    CANC_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento.class, "retEnvEvento"),
 
     //Cancelamento Substituicao
-    CANC_SUBS_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TProcEvento.class, "procEventoNFe"),
-    CANC_SUBS_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento.class, "envEvento"),
-    CANC_SUBS_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class, "retEnvEvento"),
+    CANC_SUBS_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoCancelamentoSubstituicao.class, "procEventoNFe"),
+    CANC_SUBS_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoSubstituicao.class, "envEvento"),
+    CANC_SUBS_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoSubstituicao.class, "retEnvEvento"),
 
     //Ator Interessado
-    ATOR_INTER_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TProcEvento.class, "procEventoNFe"),
-    ATOR_INTER_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TEnvEvento.class, "envEvento"),
-    ATOR_INTER_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoAtorInteressado.TRetEnvEvento.class, "retEnvEvento"),
+    ATOR_INTER_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoAtorInteressado.class, "procEventoNFe"),
+    ATOR_INTER_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoAtorInteressado.class, "envEvento"),
+    ATOR_INTER_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoAtorInteressado.class, "retEnvEvento"),
 
     //Carta Correcao
-    CCE_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envcce.TProcEvento.class, "procEventoNFe"),
-    CCE_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envcce.TEnvEvento.class, "envEvento"),
-    CCE_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento.class, "retEnvEvento"),
+    CCE_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoCartaCorrecao.class, "procEventoNFe"),
+    CCE_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao.class, "envEvento"),
+    CCE_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao.class, "retEnvEvento"),
 
     //EPEC
-    EPEC_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envEpec.TProcEvento.class, "procEventoNFe"),
-    EPEC_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento.class, "envEvento"),
-    EPEC_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento.class, "retEnvEvento"),
+    EPEC_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoEpec.class, "procEventoNFe"),
+    EPEC_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoEpec.class, "envEvento"),
+    EPEC_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoEpec.class, "retEnvEvento"),
 
     //MANIFESTACAO
-    MAN_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envConfRecebto.TProcEvento.class, "procEventoNFe"),
-    MAN_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento.class, "envEvento"),
-    MAN_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento.class, "retEnvEvento"),
+    MAN_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoManifestacao.class, "procEventoNFe"),
+    MAN_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoManifestacao.class, "envEvento"),
+    MAN_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoManifestacao.class, "retEnvEvento"),
 
     //INSUCESSO
-    INS_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TProcEvento.class, "procEventoNFe"),
-    INS_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TEnvEvento.class, "envEvento"),
-    INS_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoInsucessoNFe.TRetEnvEvento.class, "retEnvEvento"),
+    INS_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoInsucessoEntrega.class, "procEventoNFe"),
+    INS_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoInsucessoEntrega.class, "envEvento"),
+    INS_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoInsucessoEntrega.class, "retEnvEvento"),
 
     //CANC INSUCESSO
-    _PROC_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TProcEvento.class, "procEventoNFe"),
-    _ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TEnvEvento.class, "envEvento"),
-    _RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancInsucessoNFe.TRetEnvEvento.class, "retEnvEvento"),
+    _PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoCancelamentoInsucessoEntrega.class, "procEventoNFe"),
+    _ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoInsucessoEntrega.class, "envEvento"),
+    _RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoInsucessoEntrega.class, "retEnvEvento"),
 
     //ECONF
-    ECONF_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envEventoEConf.TProcEvento.class, "procEventoNFe"),
-    ECONF_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento.class, "envEvento"),
-    ECONF_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoEConf.TRetEnvEvento.class, "retEnvEvento"),
+    ECONF_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoConciliacaoFinanceira.class, "procEventoNFe"),
+    ECONF_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoConciliacaoFinanceira.class, "envEvento"),
+    ECONF_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoConciliacaoFinanceira.class, "retEnvEvento"),
 
     //CANC ECONF
-    CANC_ECONF_PROC_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TProcEvento.class, "procEventoNFe"),
-    CANC_ECONF_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento.class, "envEvento"),
-    CANC_ECONF_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.envEventoCancEConf.TRetEnvEvento.class, "retEnvEvento"),
+    CANC_ECONF_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoCancelamentoConciliacaoFinanceira.class, "procEventoNFe"),
+    CANC_ECONF_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoConciliacaoFinanceira.class, "envEvento"),
+    CANC_ECONF_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoConciliacaoFinanceira.class, "retEnvEvento"),
 
     //EVENTO GENERICO
-    EVENTO_GENERICO_PROC_EVENTO(br.com.swconsultoria.nfe.schema.eventoGenerico.TProcEvento.class, "procEventoNFe"),
-    EVENTO_GENERICO_ENV_EVENTO(br.com.swconsultoria.nfe.schema.eventoGenerico.TEnvEvento.class, "envEvento"),
-    EVENTO_GENERICO_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schema.eventoGenerico.TRetEnvEvento.class, "retEnvEvento"),
+    EVENTO_GENERICO_PROC_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TProcEventoGenerico.class, "procEventoNFe"),
+    EVENTO_GENERICO_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoGenerico.class, "envEvento"),
+    EVENTO_GENERICO_RET_ENV_EVENTO(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoGenerico.class, "retEnvEvento"),
 
     //DistDfe
     DIST_DFE_INT(DistDFeInt.class, "distDFeInt"),

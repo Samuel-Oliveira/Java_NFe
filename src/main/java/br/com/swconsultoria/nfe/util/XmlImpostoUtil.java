@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class XmlImpostoUtil {
 
-    private XmlImpostoUtil(){}
+    private XmlImpostoUtil() {}
 
     /**
      * Recupera o valor do PIS (vPIS) do produto.
@@ -27,9 +27,9 @@ public class XmlImpostoUtil {
     public static BigDecimal getVPIS(List<JAXBElement<?>> impostos) {
         for (JAXBElement<?> elem : impostos) {
             // Verifica se o elemento é do tipo PIS
-            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS) {
-                br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS pis =
-                        (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS) elem.getValue();
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS pis =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS) elem.getValue();
                 // Busca vPIS em cada modalidade possível no XML
                 if (pis.getPISAliq() != null && pis.getPISAliq().getVPIS() != null)
                     return new BigDecimal(pis.getPISAliq().getVPIS());
@@ -54,9 +54,9 @@ public class XmlImpostoUtil {
     public static BigDecimal getVCOFINS(List<JAXBElement<?>> impostos) {
         for (JAXBElement<?> elem : impostos) {
             // Verifica se o elemento é do tipo COFINS
-            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS) {
-                br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS cof =
-                        (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS) elem.getValue();
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS cof =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS) elem.getValue();
                 // Busca vCOFINS em cada modalidade possível no XML
                 if (cof.getCOFINSAliq() != null && cof.getCOFINSAliq().getVCOFINS() != null)
                     return new BigDecimal(cof.getCOFINSAliq().getVCOFINS());
@@ -81,9 +81,9 @@ public class XmlImpostoUtil {
     public static BigDecimal getVICMS(List<JAXBElement<?>> impostos) {
         for (JAXBElement<?> elem : impostos) {
             // Verifica se o elemento é do tipo ICMS
-            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS) {
-                br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS icms =
-                        (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS) elem.getValue();
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS icms =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS) elem.getValue();
                 // Busca vICMS em cada modalidade possível no XML
                 if (icms.getICMS00() != null && icms.getICMS00().getVICMS() != null)
                     return new BigDecimal(icms.getICMS00().getVICMS());
@@ -111,9 +111,9 @@ public class XmlImpostoUtil {
     public static BigDecimal getVICMSUFDest(List<JAXBElement<?>> impostos) {
         for (JAXBElement<?> elem : impostos) {
             // Verifica se o elemento é do tipo ICMSUFDest
-            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMSUFDest) {
-                br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMSUFDest icmsUfDest =
-                        (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMSUFDest) elem.getValue();
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMSUFDest) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMSUFDest icmsUfDest =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMSUFDest) elem.getValue();
                 if (icmsUfDest.getVICMSUFDest() != null)
                     return new BigDecimal(icmsUfDest.getVICMSUFDest());
             }
@@ -132,9 +132,9 @@ public class XmlImpostoUtil {
     public static BigDecimal getVFCP(List<JAXBElement<?>> impostos) {
         for (JAXBElement<?> elem : impostos) {
             // Verifica se o elemento é do tipo ICMS
-            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS) {
-                br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS icms =
-                        (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS) elem.getValue();
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS icms =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS) elem.getValue();
                 // Busca vFCP em modalidades possíveis
                 if (icms.getICMS00() != null && icms.getICMS00().getVFCP() != null)
                     return new BigDecimal(icms.getICMS00().getVFCP());
@@ -161,9 +161,9 @@ public class XmlImpostoUtil {
     public static BigDecimal getVFCPUFDest(List<JAXBElement<?>> impostos) {
         for (JAXBElement<?> elem : impostos) {
             // Verifica se o elemento é do tipo ICMSUFDest
-            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMSUFDest) {
-                br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMSUFDest icmsUfDest =
-                        (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMSUFDest) elem.getValue();
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMSUFDest) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMSUFDest icmsUfDest =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMSUFDest) elem.getValue();
                 if (icmsUfDest.getVFCPUFDest() != null)
                     return new BigDecimal(icmsUfDest.getVFCPUFDest());
             }
@@ -176,15 +176,15 @@ public class XmlImpostoUtil {
      *
      * @param impostos Lista de elementos JAXB do bloco de impostos do produto.
      * @return Valor do ICMS Monofásico ou BigDecimal.ZERO se não houver.
-     *
+     * <p>
      * OBS: Este método está como placeholder, ajuste conforme o schema e uso na sua empresa.
      */
     public static BigDecimal getVICMSMono(List<JAXBElement<?>> impostos) {
         for (JAXBElement<?> elem : impostos) {
             // Verifica se o elemento é do tipo ICMS
-            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS) {
-                br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS icms =
-                        (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ICMS) elem.getValue();
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS icms =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS) elem.getValue();
                 // Busca vICMS em cada modalidade possível no XML
                 if (icms.getICMS02() != null && icms.getICMS02().getVICMSMono() != null)
                     return new BigDecimal(icms.getICMS02().getVICMSMono());
@@ -206,9 +206,9 @@ public class XmlImpostoUtil {
     public static BigDecimal getVISSQN(List<JAXBElement<?>> impostos) {
         for (JAXBElement<?> elem : impostos) {
             // Verifica se o elemento é do tipo ISSQN
-            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ISSQN) {
-                br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ISSQN issqn =
-                        (br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.ISSQN) elem.getValue();
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ISSQN) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ISSQN issqn =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ISSQN) elem.getValue();
                 if (issqn.getVISSQN() != null)
                     return new BigDecimal(issqn.getVISSQN());
             }

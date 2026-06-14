@@ -6,7 +6,7 @@ import br.com.swconsultoria.nfe.dom.enuns.ConsultaDFeEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.PessoaEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt;
+import br.com.swconsultoria.nfe.schemas.RetDistDFeInt;
 import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeDistribuicaoDFe.NFeDistribuicaoDFeStub;
 import mockit.Mock;

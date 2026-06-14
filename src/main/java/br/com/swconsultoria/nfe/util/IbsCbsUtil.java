@@ -5,7 +5,7 @@ import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dto.ClassificacaoTributariaDTO;
 import br.com.swconsultoria.nfe.dto.CstDTO;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.*;
+import br.com.swconsultoria.nfe.schemas.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.NonNull;
 
@@ -23,6 +23,14 @@ public class IbsCbsUtil {
     private static final String TOTAL_DIFERIMENTO_IBS_UF = "TOTAL_DIFERIMENTO_IBS_UF";
     private static final String TOTAL_DIFERIMENTO_IBS_MUN = "TOTAL_DIFERIMENTO_IBS_MUN";
     private static final String TOTAL_DIFERIMENTO_CBS = "TOTAL_DIFERIMENTO_CBS";
+    private static final String TOTAL_IBS_MONO = "TOTAL_IBS_MONO";
+    private static final String TOTAL_CBS_MONO = "TOTAL_CBS_MONO";
+    private static final String TOTAL_IBS_MONO_RETEN = "TOTAL_IBS_MONO_RETEN";
+    private static final String TOTAL_CBS_MONO_RETEN = "TOTAL_CBS_MONO_RETEN";
+    private static final String TOTAL_IBS_MONO_RET = "TOTAL_IBS_MONO_RET";
+    private static final String TOTAL_CBS_MONO_RET = "TOTAL_CBS_MONO_RET";
+    private static final String TOTAL_IBS_EST_CRED = "TOTAL_IBS_EST_CRED";
+    private static final String TOTAL_CBS_EST_CRED = "TOTAL_CBS_EST_CRED";
     private static final BigDecimal CEM = BigDecimal.valueOf(100);
     private static final int SCALE_5 = 5;
 
@@ -41,6 +49,55 @@ public class IbsCbsUtil {
     private BigDecimal pAliqDiferimento = BigDecimal.ZERO;
     private BigDecimal baseCalculo = BigDecimal.ZERO;
 
+    /**
+     * Código de crédito presumido da tabela SEFAZ (TcCredPres).
+     * Deve ser preenchido pelo integrador conforme tabela publicada pela SEFAZ
+     * antes de chamar montaImpostosDet com um cClassTrib que ative IndCredPresOper.
+     */
+    private String cCredPres = null;
+
+    /**
+     * Percentual de crédito presumido para o grupo IBS (TCredPres.pCredPres).
+     * Exigido quando IndCredPresOper=true.
+     */
+    private String pCredPresIBS = "0.0000";
+
+    /**
+     * Percentual de crédito presumido para o grupo CBS (TCredPres.pCredPres).
+     * Exigido quando IndCredPresOper=true.
+     */
+    private String pCredPresCBS = "0.0000";
+
+    /**
+     * Competência de apuração para gAjusteCompet (formato gYearMonth, ex: "2025-01").
+     * Deve ser preenchida pelo integrador antes de usar cClassTrib com IndAjusteCompet=true.
+     */
+    private javax.xml.datatype.XMLGregorianCalendar competApur = null;
+
+    /**
+     * Tipo de crédito presumido IBS-ZFM (TTpCredPresIBSZFM).
+     * Deve ser preenchido pelo integrador conforme tabela SEFAZ antes de usar IndCredPresIBSZFM=true.
+     */
+    private String tpCredPresIBSZFM = null;
+
+    /**
+     * Tipo de ente governamental (TEnteGov) para gTribCompraGov.
+     * Exigido quando IndCompraGov=true.
+     */
+    private String tpEnteGov = null;
+
+    /**
+     * Percentual redutor para gTribCompraGov (TDec_0302_04RTC).
+     * Exigido quando IndCompraGov=true.
+     */
+    private String pRedutorCompraGov = "0.0000";
+
+    /**
+     * Tipo de operação governamental (TOperCompraGov) para gTribCompraGov.
+     * Exigido quando IndCompraGov=true.
+     */
+    private String tpOperGov = null;
+
     public void setpAliqIbsUf(BigDecimal pAliqIbsUf) {
         this.pAliqIbsUf = pAliqIbsUf;
     }
@@ -55,6 +112,62 @@ public class IbsCbsUtil {
 
     public void setpAliqDiferimento(BigDecimal pAliqDiferimento) {
         this.pAliqDiferimento = pAliqDiferimento;
+    }
+
+    /**
+     * Código de crédito presumido (TcCredPres) da tabela SEFAZ.
+     */
+    public void setCCredPres(String cCredPres) {
+        this.cCredPres = cCredPres;
+    }
+
+    /**
+     * Percentual de crédito presumido para IBS (TDec_0302_04RTC).
+     */
+    public void setPCredPresIBS(String pCredPresIBS) {
+        this.pCredPresIBS = pCredPresIBS;
+    }
+
+    /**
+     * Percentual de crédito presumido para CBS (TDec_0302_04RTC).
+     */
+    public void setPCredPresCBS(String pCredPresCBS) {
+        this.pCredPresCBS = pCredPresCBS;
+    }
+
+    /**
+     * Competência de apuração para gAjusteCompet e gCredPresIBSZFM (gYearMonth).
+     */
+    public void setCompetApur(javax.xml.datatype.XMLGregorianCalendar competApur) {
+        this.competApur = competApur;
+    }
+
+    /**
+     * Tipo de crédito presumido IBS-ZFM (TTpCredPresIBSZFM), tabela SEFAZ.
+     */
+    public void setTpCredPresIBSZFM(String tpCredPresIBSZFM) {
+        this.tpCredPresIBSZFM = tpCredPresIBSZFM;
+    }
+
+    /**
+     * Tipo de ente governamental (TEnteGov) para gTribCompraGov, tabela SEFAZ.
+     */
+    public void setTpEnteGov(String tpEnteGov) {
+        this.tpEnteGov = tpEnteGov;
+    }
+
+    /**
+     * Percentual redutor de gTribCompraGov (TDec_0302_04RTC).
+     */
+    public void setPRedutorCompraGov(String pRedutorCompraGov) {
+        this.pRedutorCompraGov = pRedutorCompraGov;
+    }
+
+    /**
+     * Tipo de operação governamental (TOperCompraGov) para gTribCompraGov, tabela SEFAZ.
+     */
+    public void setTpOperGov(String tpOperGov) {
+        this.tpOperGov = tpOperGov;
     }
 
     public IbsCbsUtil(@NonNull List<CstDTO> listaCstIbsCbs, @NonNull DocumentoEnum documento) {
@@ -77,6 +190,14 @@ public class IbsCbsUtil {
         mapTotais.put(TOTAL_DIFERIMENTO_IBS_UF, BigDecimal.ZERO);
         mapTotais.put(TOTAL_DIFERIMENTO_IBS_MUN, BigDecimal.ZERO);
         mapTotais.put(TOTAL_DIFERIMENTO_CBS, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_IBS_MONO, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_CBS_MONO, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_IBS_MONO_RETEN, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_CBS_MONO_RETEN, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_IBS_MONO_RET, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_CBS_MONO_RET, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_IBS_EST_CRED, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_CBS_EST_CRED, BigDecimal.ZERO);
     }
 
     public TTribNFe montaImpostosDet(String cclassTrib, TNFe.InfNFe.Det det) throws NfeException {
@@ -92,12 +213,27 @@ public class IbsCbsUtil {
         ibsCbs.setCST(cstIbsCbs.getCst());
         ibsCbs.setCClassTrib(classTribIbsCbs.getCClassTrib());
 
-        if (deveMontarGrupoIBSCBS()) {
+        // choice: gIBSCBS | gIBSCBSMono | gTransfCred | gAjusteCompet
+        if (Boolean.TRUE.equals(cstIbsCbs.getIndTransfCred())) {
+            ibsCbs.setGTransfCred(montaTransfCred(det));
+        } else if (Boolean.TRUE.equals(cstIbsCbs.getIndAjusteCompet())) {
+            ibsCbs.setGAjusteCompet(montaAjusteCompet(det));
+        } else if (Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBSMono())) {
+            ibsCbs.setGIBSCBSMono(montaGrupoMono(det));
+        } else if (deveMontarGrupoIBSCBS()) {
             ibsCbs.setGIBSCBS(montarGrupoIBSCBS());
         }
 
-        if (Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBSMono())) {
-            ibsCbs.setGIBSCBSMono(montaGrupoMono(det));
+        // gEstornoCred — independente do choice acima
+        if (Boolean.TRUE.equals(classTribIbsCbs.getIndEstornoCred())) {
+            ibsCbs.setGEstornoCred(montaEstornoCred(det));
+        }
+
+        // choice: gCredPresOper | gCredPresIBSZFM
+        if (Boolean.TRUE.equals(classTribIbsCbs.getIndCredPresOper())) {
+            ibsCbs.setGCredPresOper(montaCredPresOper(det));
+        } else if (Boolean.TRUE.equals(cstIbsCbs.getIndCredPresIBSZFM())) {
+            ibsCbs.setGCredPresIBSZFM(montaCredPresIBSZFM(det));
         }
 
         return ibsCbs;
@@ -105,6 +241,13 @@ public class IbsCbsUtil {
 
     private TMonofasia montaGrupoMono(TNFe.InfNFe.Det det) {
         TMonofasia gMono = new TMonofasia();
+        BigDecimal totalIBSMono = BigDecimal.ZERO;
+        BigDecimal totalCBSMono = BigDecimal.ZERO;
+        BigDecimal totalIBSMonoReten = BigDecimal.ZERO;
+        BigDecimal totalCBSMonoReten = BigDecimal.ZERO;
+        BigDecimal totalIBSMonoRet = BigDecimal.ZERO;
+        BigDecimal totalCBSMonoRet = BigDecimal.ZERO;
+
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
             TMonofasia.GMonoPadrao monoPadrao = new TMonofasia.GMonoPadrao();
             monoPadrao.setQBCMono(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
@@ -113,6 +256,8 @@ public class IbsCbsUtil {
             monoPadrao.setVIBSMono("0.00");
             monoPadrao.setVCBSMono("0.00");
             gMono.setGMonoPadrao(monoPadrao);
+            totalIBSMono = totalIBSMono.add(new BigDecimal(monoPadrao.getVIBSMono()));
+            totalCBSMono = totalCBSMono.add(new BigDecimal(monoPadrao.getVCBSMono()));
         }
 
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
@@ -123,6 +268,8 @@ public class IbsCbsUtil {
             monoRet.setVCBSMonoRet("0.00");
             monoRet.setVIBSMonoRet("0.00");
             gMono.setGMonoRet(monoRet);
+            totalIBSMonoRet = totalIBSMonoRet.add(new BigDecimal(monoRet.getVIBSMonoRet()));
+            totalCBSMonoRet = totalCBSMonoRet.add(new BigDecimal(monoRet.getVCBSMonoRet()));
         }
 
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
@@ -133,6 +280,8 @@ public class IbsCbsUtil {
             monoReten.setVCBSMonoReten("0.00");
             monoReten.setVIBSMonoReten("0.00");
             gMono.setGMonoReten(monoReten);
+            totalIBSMonoReten = totalIBSMonoReten.add(new BigDecimal(monoReten.getVIBSMonoReten()));
+            totalCBSMonoReten = totalCBSMonoReten.add(new BigDecimal(monoReten.getVCBSMonoReten()));
         }
 
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaDiferimento())) {
@@ -142,10 +291,16 @@ public class IbsCbsUtil {
             gMonoDif.setVCBSMonoDif("0.00");
             gMonoDif.setVIBSMonoDif("0.00");
             gMono.setGMonoDif(gMonoDif);
-
         }
         gMono.setVTotCBSMonoItem("0.00");
         gMono.setVTotIBSMonoItem("0.00");
+
+        mapTotais.merge(TOTAL_IBS_MONO, totalIBSMono, BigDecimal::add);
+        mapTotais.merge(TOTAL_CBS_MONO, totalCBSMono, BigDecimal::add);
+        mapTotais.merge(TOTAL_IBS_MONO_RETEN, totalIBSMonoReten, BigDecimal::add);
+        mapTotais.merge(TOTAL_CBS_MONO_RETEN, totalCBSMonoReten, BigDecimal::add);
+        mapTotais.merge(TOTAL_IBS_MONO_RET, totalIBSMonoRet, BigDecimal::add);
+        mapTotais.merge(TOTAL_CBS_MONO_RET, totalCBSMonoRet, BigDecimal::add);
 
         return gMono;
     }
@@ -153,8 +308,7 @@ public class IbsCbsUtil {
     private boolean deveMontarGrupoIBSCBS() {
         return Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBS())
                || Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq())
-               || Boolean.TRUE.equals(cstIbsCbs.getIndDif())
-               || Boolean.TRUE.equals(cstIbsCbs.getIndTransfCred());
+               || Boolean.TRUE.equals(cstIbsCbs.getIndDif());
     }
 
     private TCIBS montarGrupoIBSCBS() {
@@ -175,6 +329,10 @@ public class IbsCbsUtil {
             gIBSCBS.setGTribRegular(criarGTribRegular());
         }
 
+        if (Boolean.TRUE.equals(classTribIbsCbs.getIndCompraGov())) {
+            gIBSCBS.setGTribCompraGov(criarGTribCompraGov());
+        }
+
         atualizarTotais(gIBSUF, gIBSMun, gCBS);
         return gIBSCBS;
     }
@@ -184,13 +342,13 @@ public class IbsCbsUtil {
         mapTotais.merge(TOTAL_IBS_UF, new BigDecimal(gIBSUF.getVIBSUF()), BigDecimal::add);
         mapTotais.merge(TOTAL_IBS_MUN, new BigDecimal(gIBSMun.getVIBSMun()), BigDecimal::add);
         mapTotais.merge(TOTAL_CBS, new BigDecimal(gCBS.getVCBS()), BigDecimal::add);
-        if(gIBSUF.getGDif() != null){
+        if (gIBSUF.getGDif() != null) {
             mapTotais.merge(TOTAL_DIFERIMENTO_IBS_UF, new BigDecimal(gIBSUF.getGDif().getVDif()), BigDecimal::add);
         }
-        if(gIBSMun.getGDif() != null){
+        if (gIBSMun.getGDif() != null) {
             mapTotais.merge(TOTAL_DIFERIMENTO_IBS_MUN, new BigDecimal(gIBSMun.getGDif().getVDif()), BigDecimal::add);
         }
-        if(gCBS.getGDif() != null){
+        if (gCBS.getGDif() != null) {
             mapTotais.merge(TOTAL_DIFERIMENTO_CBS, new BigDecimal(gCBS.getGDif().getVDif()), BigDecimal::add);
         }
     }
@@ -334,7 +492,6 @@ public class IbsCbsUtil {
             valor = valor.subtract(new BigDecimal(gDif.getVDif()));
         }
 
-
         valorSetter.set(grupo, ObjetoUtil.getValor2Casas(valor));
 
         return grupo;
@@ -428,6 +585,42 @@ public class IbsCbsUtil {
         totalIbsCbs.setVBCIBSCBS(ObjetoUtil.getValor2Casas(mapTotais.getOrDefault(TOTAL_BC_IBS_CBS, BigDecimal.ZERO)));
         totalIbsCbs.setGIBS(criarTotaisIBS());
         totalIbsCbs.setGCBS(criarTotaisCBS());
+
+        BigDecimal ibsMono = mapTotais.getOrDefault(TOTAL_IBS_MONO, BigDecimal.ZERO);
+        BigDecimal cbsMono = mapTotais.getOrDefault(TOTAL_CBS_MONO, BigDecimal.ZERO);
+        BigDecimal ibsMonoReten = mapTotais.getOrDefault(TOTAL_IBS_MONO_RETEN, BigDecimal.ZERO);
+        BigDecimal cbsMonoReten = mapTotais.getOrDefault(TOTAL_CBS_MONO_RETEN, BigDecimal.ZERO);
+        BigDecimal ibsMonoRet = mapTotais.getOrDefault(TOTAL_IBS_MONO_RET, BigDecimal.ZERO);
+        BigDecimal cbsMonoRet = mapTotais.getOrDefault(TOTAL_CBS_MONO_RET, BigDecimal.ZERO);
+
+        boolean temMono = ibsMono.compareTo(BigDecimal.ZERO) != 0
+                          || cbsMono.compareTo(BigDecimal.ZERO) != 0
+                          || ibsMonoReten.compareTo(BigDecimal.ZERO) != 0
+                          || cbsMonoReten.compareTo(BigDecimal.ZERO) != 0
+                          || ibsMonoRet.compareTo(BigDecimal.ZERO) != 0
+                          || cbsMonoRet.compareTo(BigDecimal.ZERO) != 0;
+
+        if (temMono) {
+            TIBSCBSMonoTot.GMono gMono = new TIBSCBSMonoTot.GMono();
+            gMono.setVIBSMono(ObjetoUtil.getValor2Casas(ibsMono));
+            gMono.setVCBSMono(ObjetoUtil.getValor2Casas(cbsMono));
+            gMono.setVIBSMonoReten(ObjetoUtil.getValor2Casas(ibsMonoReten));
+            gMono.setVCBSMonoReten(ObjetoUtil.getValor2Casas(cbsMonoReten));
+            gMono.setVIBSMonoRet(ObjetoUtil.getValor2Casas(ibsMonoRet));
+            gMono.setVCBSMonoRet(ObjetoUtil.getValor2Casas(cbsMonoRet));
+            totalIbsCbs.setGMono(gMono);
+        }
+
+        BigDecimal ibsEstCred = mapTotais.getOrDefault(TOTAL_IBS_EST_CRED, BigDecimal.ZERO);
+        BigDecimal cbsEstCred = mapTotais.getOrDefault(TOTAL_CBS_EST_CRED, BigDecimal.ZERO);
+
+        if (ibsEstCred.compareTo(BigDecimal.ZERO) != 0 || cbsEstCred.compareTo(BigDecimal.ZERO) != 0) {
+            TIBSCBSMonoTot.GEstornoCred gEstorno = new TIBSCBSMonoTot.GEstornoCred();
+            gEstorno.setVIBSEstCred(ObjetoUtil.getValor2Casas(ibsEstCred));
+            gEstorno.setVCBSEstCred(ObjetoUtil.getValor2Casas(cbsEstCred));
+            totalIbsCbs.setGEstornoCred(gEstorno);
+        }
+
         return totalIbsCbs;
     }
 
@@ -469,5 +662,81 @@ public class IbsCbsUtil {
         gCbs.setVCredPres("0.00");
         gCbs.setVCredPresCondSus("0.00");
         return gCbs;
+    }
+
+    private TTransfCred montaTransfCred(TNFe.InfNFe.Det det) {
+        TTransfCred transfCred = new TTransfCred();
+        BigDecimal ibsUf = calcularValorImposto(ObjetoUtil.getOrZero(pAliqIbsUf))
+                .add(calcularValorImposto(ObjetoUtil.getOrZero(pAliqIbsMun)));
+        BigDecimal cbs = calcularValorImposto(ObjetoUtil.getOrZero(pAliqCbs));
+        transfCred.setVIBS(ObjetoUtil.getValor2Casas(ibsUf));
+        transfCred.setVCBS(ObjetoUtil.getValor2Casas(cbs));
+        return transfCred;
+    }
+
+    private TAjusteCompet montaAjusteCompet(TNFe.InfNFe.Det det) {
+        TAjusteCompet ajusteCompet = new TAjusteCompet();
+        ajusteCompet.setCompetApur(competApur);
+        BigDecimal ibsTotal = calcularValorImposto(ObjetoUtil.getOrZero(pAliqIbsUf))
+                .add(calcularValorImposto(ObjetoUtil.getOrZero(pAliqIbsMun)));
+        BigDecimal cbs = calcularValorImposto(ObjetoUtil.getOrZero(pAliqCbs));
+        ajusteCompet.setVIBS(ObjetoUtil.getValor2Casas(ibsTotal));
+        ajusteCompet.setVCBS(ObjetoUtil.getValor2Casas(cbs));
+        return ajusteCompet;
+    }
+
+    private TEstornoCred montaEstornoCred(TNFe.InfNFe.Det det) {
+        TEstornoCred estornoCred = new TEstornoCred();
+        BigDecimal ibsTotal = calcularValorImposto(ObjetoUtil.getOrZero(pAliqIbsUf))
+                .add(calcularValorImposto(ObjetoUtil.getOrZero(pAliqIbsMun)));
+        BigDecimal cbs = calcularValorImposto(ObjetoUtil.getOrZero(pAliqCbs));
+        estornoCred.setVIBSEstCred(ObjetoUtil.getValor2Casas(ibsTotal));
+        estornoCred.setVCBSEstCred(ObjetoUtil.getValor2Casas(cbs));
+        mapTotais.merge(TOTAL_IBS_EST_CRED, ibsTotal, BigDecimal::add);
+        mapTotais.merge(TOTAL_CBS_EST_CRED, cbs, BigDecimal::add);
+        return estornoCred;
+    }
+
+    private TCredPresOper montaCredPresOper(TNFe.InfNFe.Det det) {
+        TCredPresOper credPresOper = new TCredPresOper();
+        credPresOper.setVBCCredPres(ObjetoUtil.getValor2Casas(baseCalculo));
+        credPresOper.setCCredPres(cCredPres);
+
+        TCredPres ibsCredPres = new TCredPres();
+        ibsCredPres.setPCredPres(pCredPresIBS);
+        BigDecimal pCredPresIBSBD = ObjetoUtil.getBigDecimalOrZero(pCredPresIBS);
+        BigDecimal vCredPresIBS = baseCalculo.multiply(
+                pCredPresIBSBD.divide(CEM, SCALE_5, RoundingMode.HALF_UP));
+        ibsCredPres.setVCredPres(ObjetoUtil.getValor2Casas(vCredPresIBS));
+        credPresOper.setGIBSCredPres(ibsCredPres);
+
+        TCredPres cbsCredPres = new TCredPres();
+        cbsCredPres.setPCredPres(pCredPresCBS);
+        BigDecimal pCredPresCBSBD = ObjetoUtil.getBigDecimalOrZero(pCredPresCBS);
+        BigDecimal vCredPresCBS = baseCalculo.multiply(
+                pCredPresCBSBD.divide(CEM, SCALE_5, RoundingMode.HALF_UP));
+        cbsCredPres.setVCredPres(ObjetoUtil.getValor2Casas(vCredPresCBS));
+        credPresOper.setGCBSCredPres(cbsCredPres);
+
+        return credPresOper;
+    }
+
+    private TCredPresIBSZFM montaCredPresIBSZFM(TNFe.InfNFe.Det det) {
+        TCredPresIBSZFM credPresIBSZFM = new TCredPresIBSZFM();
+        credPresIBSZFM.setCompetApur(competApur);
+        credPresIBSZFM.setTpCredPresIBSZFM(tpCredPresIBSZFM);
+        credPresIBSZFM.setVCredPresIBSZFM(ObjetoUtil.getValor2Casas(baseCalculo));
+        return credPresIBSZFM;
+    }
+
+    private TTribCompraGov criarGTribCompraGov() {
+        TTribCompraGov tribCompraGov = new TTribCompraGov();
+        tribCompraGov.setPAliqIBSUF(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(pAliqIbsUf)));
+        tribCompraGov.setVTribIBSUF(ObjetoUtil.getValor2Casas(calcularValorImposto(ObjetoUtil.getOrZero(pAliqIbsUf))));
+        tribCompraGov.setPAliqIBSMun(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(pAliqIbsMun)));
+        tribCompraGov.setVTribIBSMun(ObjetoUtil.getValor2Casas(calcularValorImposto(ObjetoUtil.getOrZero(pAliqIbsMun))));
+        tribCompraGov.setPAliqCBS(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(pAliqCbs)));
+        tribCompraGov.setVTribCBS(ObjetoUtil.getValor2Casas(calcularValorImposto(ObjetoUtil.getOrZero(pAliqCbs))));
+        return tribCompraGov;
     }
 }

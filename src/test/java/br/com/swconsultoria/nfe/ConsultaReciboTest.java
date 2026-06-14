@@ -5,7 +5,7 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema_4.consReciNFe.TRetConsReciNFe;
+import br.com.swconsultoria.nfe.schemas.TRetConsReciNFe;
 import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeRetAutorizacao.NFeRetAutorizacao4Stub;
 import mockit.Mock;
