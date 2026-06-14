@@ -74,7 +74,7 @@ public class CancelamentoUtil {
             infoEvento.setNSeqEvento("1");
             infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO);
 
-            TEventoCancelamento.InfEvento.DetEvento detEvento = new TEventoCancelamento.InfEvento.DetEvento();
+            TEventoCancelamento.InfEvento.DetEventoCancelamento detEvento = new TEventoCancelamento.InfEvento.DetEventoCancelamento();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO);
             detEvento.setDescEvento("Cancelamento");
             detEvento.setNProt(evento.getProtocolo());

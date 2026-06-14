@@ -75,7 +75,7 @@ public class CartaCorrecaoUtil {
             infEvento.setNSeqEvento(String.valueOf(cce.getSequencia()));
             infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CCE);
 
-            TEventoCartaCorrecao.InfEvento.DetEvento detEvento = new TEventoCartaCorrecao.InfEvento.DetEvento();
+            TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao detEvento = new TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CCE);
             detEvento.setDescEvento("Carta de Correcao");
 

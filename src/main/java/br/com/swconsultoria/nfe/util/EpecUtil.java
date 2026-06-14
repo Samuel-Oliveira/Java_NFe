@@ -75,7 +75,7 @@ public class EpecUtil {
             infoEvento.setNSeqEvento("1");
             infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_EPEC);
 
-            TEventoEpec.InfEvento.DetEvento detEvento = new TEventoEpec.InfEvento.DetEvento();
+            TEventoEpec.InfEvento.DetEventoEpec detEvento = new TEventoEpec.InfEvento.DetEventoEpec();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_EPEC);
             detEvento.setDescEvento("EPEC");
             detEvento.setCOrgaoAutor(configuracao.getEstado().getCodigoUF());
@@ -85,7 +85,7 @@ public class EpecUtil {
             detEvento.setTpNF(epec.getEventoEpec().getTipoNF());
             detEvento.setIE(epec.getEventoEpec().getIeEmitente());
 
-            TEventoEpec.InfEvento.DetEvento.Dest dest = new TEventoEpec.InfEvento.DetEvento.Dest();
+            TEventoEpec.InfEvento.DetEventoEpec.Dest dest = new TEventoEpec.InfEvento.DetEventoEpec.Dest();
             dest.setUF(TUf.valueOf(epec.getEventoEpec().getEstadoDestinatario().toString()));
             dest.setCNPJ(epec.getEventoEpec().getCnpjDestinatario());
             dest.setCPF(epec.getEventoEpec().getCpfDestinatario());

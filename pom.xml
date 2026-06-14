@@ -268,7 +268,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <argLine>@{argLine} -javaagent:src/test/resources/agent.jar</argLine>
+                    <argLine>@{argLine} -javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
                 </configuration>
             </plugin>
             <plugin>

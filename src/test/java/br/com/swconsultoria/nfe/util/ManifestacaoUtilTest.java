@@ -81,7 +81,7 @@ class ManifestacaoUtilTest {
         e.setMotivo("Mercadoria nao recebida");
 
         TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(e, config);
-        TEventoManifestacao.InfEvento.DetEvento det = resultado.getEvento().get(0).getInfEvento().getDetEvento();
+        TEventoManifestacao.InfEvento.DetEventoManifestacao det = resultado.getEvento().get(0).getInfEvento().getDetEvento();
         assertEquals("Mercadoria nao recebida", det.getXJust());
     }
 

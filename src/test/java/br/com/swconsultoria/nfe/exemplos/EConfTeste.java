@@ -6,10 +6,10 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schemas_eventos.DetEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.DetEventoConciliacaoFinanceira;
 import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoConciliacaoFinanceira;
 import br.com.swconsultoria.nfe.schemas_eventos.TEventoConciliacaoFinanceira;
-import br.com.swconsultoria.nfe.schemas.TUfEmi;
+import br.com.swconsultoria.nfe.schemas_eventos.TUfEmi;
 import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoConciliacaoFinanceira;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
@@ -46,7 +46,7 @@ public class EConfTeste {
             infEvento.setNSeqEvento("1");
             infEvento.setVerEvento("1.00");
 
-            DetEvento detEvento = new DetEvento();
+            DetEventoConciliacaoFinanceira detEvento = new DetEventoConciliacaoFinanceira();
             detEvento.setVersao("1.00");
             detEvento.setDescEvento("ECONF");
             detEvento.setVerAplic("1.00");
@@ -54,7 +54,7 @@ public class EConfTeste {
             evento.setInfEvento(infEvento);
             envEvento.getEvento().add(evento);
 
-            DetEvento.DetPag detPag = new DetEvento.DetPag();
+            DetEventoConciliacaoFinanceira.DetPag detPag = new DetEventoConciliacaoFinanceira.DetPag();
             detPag.setIndPag("1");
             detPag.setTPag("04");
             detPag.setVPag("500.00");

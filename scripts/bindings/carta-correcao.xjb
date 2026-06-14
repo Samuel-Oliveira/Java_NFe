@@ -50,4 +50,11 @@
     </jxb:bindings>
   </jxb:bindings>
 
+  <!-- patch-bindings-detevento: DetEventoCartaCorrecao -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteCCe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='detEvento']/xs:complexType">
+      <jxb:class name="DetEventoCartaCorrecao"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
 </jxb:bindings>

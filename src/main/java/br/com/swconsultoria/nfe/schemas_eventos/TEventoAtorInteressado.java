@@ -390,7 +390,7 @@ public class TEventoAtorInteressado {
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-        protected TEventoAtorInteressado.InfEvento.DetEvento detEvento;
+        protected TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado detEvento;
         @XmlAttribute(name = "Id", required = true)
         @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
         @XmlID
@@ -617,10 +617,10 @@ public class TEventoAtorInteressado {
          * 
          * @return
          *     possible object is
-         *     {@link TEventoAtorInteressado.InfEvento.DetEvento }
+         *     {@link TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado }
          *     
          */
-        public TEventoAtorInteressado.InfEvento.DetEvento getDetEvento() {
+        public TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado getDetEvento() {
             return detEvento;
         }
 
@@ -629,10 +629,10 @@ public class TEventoAtorInteressado {
          * 
          * @param value
          *     allowed object is
-         *     {@link TEventoAtorInteressado.InfEvento.DetEvento }
+         *     {@link TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado }
          *     
          */
-        public void setDetEvento(TEventoAtorInteressado.InfEvento.DetEvento value) {
+        public void setDetEvento(TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado value) {
             this.detEvento = value;
         }
 
@@ -746,7 +746,7 @@ public class TEventoAtorInteressado {
             "tpAutorizacao",
             "xCondUso"
         })
-        public static class DetEvento {
+        public static class DetEventoAtorInteressado {
 
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String descEvento;
@@ -757,7 +757,7 @@ public class TEventoAtorInteressado {
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String verAplic;
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-            protected TEventoAtorInteressado.InfEvento.DetEvento.AutXML autXML;
+            protected TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado.AutXML autXML;
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
             protected String tpAutorizacao;
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
@@ -866,10 +866,10 @@ public class TEventoAtorInteressado {
              * 
              * @return
              *     possible object is
-             *     {@link TEventoAtorInteressado.InfEvento.DetEvento.AutXML }
+             *     {@link TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado.AutXML }
              *     
              */
-            public TEventoAtorInteressado.InfEvento.DetEvento.AutXML getAutXML() {
+            public TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado.AutXML getAutXML() {
                 return autXML;
             }
 
@@ -878,10 +878,10 @@ public class TEventoAtorInteressado {
              * 
              * @param value
              *     allowed object is
-             *     {@link TEventoAtorInteressado.InfEvento.DetEvento.AutXML }
+             *     {@link TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado.AutXML }
              *     
              */
-            public void setAutXML(TEventoAtorInteressado.InfEvento.DetEvento.AutXML value) {
+            public void setAutXML(TEventoAtorInteressado.InfEvento.DetEventoAtorInteressado.AutXML value) {
                 this.autXML = value;
             }
 

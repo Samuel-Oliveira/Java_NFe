@@ -80,7 +80,7 @@ public class ManifestacaoUtil {
             infEvento.setNSeqEvento(String.valueOf(manifestacao.getSequencia()));
             infEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
 
-            TEventoManifestacao.InfEvento.DetEvento detEvento = new TEventoManifestacao.InfEvento.DetEvento();
+            TEventoManifestacao.InfEvento.DetEventoManifestacao detEvento = new TEventoManifestacao.InfEvento.DetEventoManifestacao();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_MANIFESTAR);
             detEvento.setDescEvento(manifestacao.getTipoManifestacao().getValor());
             if (ManifestacaoEnum.OPERACAO_NAO_REALIZADA.equals(manifestacao.getTipoManifestacao())) {

@@ -330,7 +330,7 @@ public class TEventoGenerico {
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-        protected TEventoGenerico.InfEvento.DetEvento detEvento;
+        protected TEventoGenerico.InfEvento.DetEventoGenerico detEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe")
         protected TEventoGenerico.InfEvento.InfPAA infPAA;
         @XmlAttribute(name = "Id", required = true)
@@ -559,10 +559,10 @@ public class TEventoGenerico {
          * 
          * @return
          *     possible object is
-         *     {@link TEventoGenerico.InfEvento.DetEvento }
+         *     {@link TEventoGenerico.InfEvento.DetEventoGenerico }
          *     
          */
-        public TEventoGenerico.InfEvento.DetEvento getDetEvento() {
+        public TEventoGenerico.InfEvento.DetEventoGenerico getDetEvento() {
             return detEvento;
         }
 
@@ -571,10 +571,10 @@ public class TEventoGenerico {
          * 
          * @param value
          *     allowed object is
-         *     {@link TEventoGenerico.InfEvento.DetEvento }
+         *     {@link TEventoGenerico.InfEvento.DetEventoGenerico }
          *     
          */
-        public void setDetEvento(TEventoGenerico.InfEvento.DetEvento value) {
+        public void setDetEvento(TEventoGenerico.InfEvento.DetEventoGenerico value) {
             this.detEvento = value;
         }
 
@@ -651,7 +651,7 @@ public class TEventoGenerico {
         @XmlType(name = "", propOrder = {
             "any"
         })
-        public static class DetEvento {
+        public static class DetEventoGenerico {
 
             @XmlAnyElement
             protected List<Element> any;

@@ -1,10 +1,10 @@
 #Requires -Version 7.0
 <#
 .SYNOPSIS
-    Regenera as classes JAXB do java-nfe v5.0.0 — DOIS packages apenas.
+    Regenera as classes JAXB do java-nfe v4.1.1 — DOIS packages apenas.
 
 .DESCRIPTION
-    Estrategia (v5.0.0):
+    Estrategia (v4.1.1):
 
     Package schemas (5 passes sequenciais, sem limpar entre eles):
       1) consSitNFe + retConsSitNFe    — cons-sit-nfe.xjb renomeia TEvento->TEventoConsSitNFe etc.
@@ -410,7 +410,106 @@ Invoke-XjcPass `
     -XsdFiles @('resEvento_v1.01.xsd') `
     -BindingFiles @((Join-Path $BindingsDir 'res-evento.xjb'))
 
+# ============================================================
+# Grupo 15+: Eventos INDIVIDUAIS (cada um e' um XSD `e<codigo>_v1.00.xsd` standalone)
+# Inclui eventos da Reforma Tributaria (112xxx, 211xxx, 212xxx, 412xxx) e
+# eventos legados (110xxx) usados por consumidores.
+#
+# Cada XSD tem `<xs:element name="detEvento">` global. Bindings sao gerados
+# dinamicamente em scripts/bindings/auto/ para renomear DetEvento -> DetEvento<codigo>.
+# ============================================================
+$EventosIndividuais = @(
+    'e110001', 'e110110', 'e110111', 'e110112', 'e110140',
+    'e112110', 'e112120', 'e112130', 'e112140', 'e112150',
+    'e210200', 'e210210', 'e210220', 'e210240',
+    'e211110', 'e211120', 'e211124', 'e211128', 'e211130', 'e211140', 'e211150',
+    'e212110', 'e212120',
+    'e412120', 'e412130',
+    '110150'  # mesmo padrao mas sem prefixo 'e' no arquivo
+)
+
+$AutoBindingsDir = Join-Path $BindingsDir 'auto'
+if (-not (Test-Path $AutoBindingsDir)) {
+    New-Item -ItemType Directory -Path $AutoBindingsDir -Force | Out-Null
+}
+
+# Resolve nome real do XSD (algum tem espaco no nome, ex.: 'e112120_v1.00 .xsd').
+function Resolve-EventoXsd([string]$evento) {
+    $candidatos = @("$evento`_v1.00.xsd", "$evento`_v1.00 .xsd")
+    foreach ($c in $candidatos) {
+        if (Test-Path (Join-Path $SchemasDir $c)) { return $c }
+    }
+    return $null
+}
+
+$passNum = 15
+$schemasEventosDir = Join-Path $JavaSrcDir ('br/com/swconsultoria/nfe/schemas_eventos' -replace '/', [IO.Path]::DirectorySeparatorChar)
+
+foreach ($evento in $EventosIndividuais) {
+    $xsdName = Resolve-EventoXsd $evento
+    if (-not $xsdName) {
+        Write-Host "  AVISO: XSD nao encontrado para evento $evento (skip)" -ForegroundColor Yellow
+        continue
+    }
+
+    # Nome da classe alvo: DetEvento<codigo> (curto e unico).
+    $detEventoClass = "DetEvento$($evento -replace '^e','')"
+
+    # ABORDAGEM: rodar XJC em pacote temporario, depois extrair APENAS DetEvento.java,
+    # renomea-lo para DetEvento<codigo>.java e move-lo para schemas_eventos.
+    # Isso preserva @XmlRootElement (necessario para marshalling direto via JAXB
+    # em EventoGenericoUtil.montaEvento), que e' perdido se usarmos binding em
+    # `xs:complexType` (renomeia o tipo mas o element global perde XmlRootElement).
+    $tmpPkg = "$BasePkg.tmp_evt_$($evento -replace '^e','')"
+
+    Invoke-XjcPass `
+        -Label "schemas_eventos pass-${passNum}: $evento (tmp -> $detEventoClass)" `
+        -Package $tmpPkg `
+        -XsdFiles @($xsdName)
+
+    $tmpDir = Join-Path $JavaSrcDir ($tmpPkg.Replace('.', [IO.Path]::DirectorySeparatorChar))
+    $srcDetEvento = Join-Path $tmpDir 'DetEvento.java'
+    if (-not (Test-Path $srcDetEvento)) {
+        Write-Warning "DetEvento.java nao gerado para $evento (XSD pode nao ter elemento global)"
+    } else {
+        $dstDetEvento = Join-Path $schemasEventosDir "$detEventoClass.java"
+        $body = Get-Content -Path $srcDetEvento -Raw -Encoding UTF8
+
+        # Reescreve package + nome da classe (top-level e inner classes).
+        $body = $body -replace [regex]::Escape("package $tmpPkg;"), "package $BasePkg.schemas_eventos;"
+        $body = [regex]::Replace($body, '\bpublic class DetEvento\b', "public class $detEventoClass")
+        $body = [regex]::Replace($body, '\bDetEvento\.([A-Z])', "$detEventoClass.`$1")
+
+        Set-Content -Path $dstDetEvento -Value $body -Encoding UTF8 -NoNewline
+        Write-Host "    extraido: $detEventoClass.java" -ForegroundColor DarkGray
+    }
+
+    # Limpar pacote temporario (todas as outras classes — TUf, TCnpj etc. — sao
+    # duplicatas das do package principal e nao sao necessarias).
+    if (Test-Path $tmpDir) {
+        Remove-Item -Path $tmpDir -Recurse -Force
+    }
+
+    $passNum++
+}
+
 Write-Host "  schemas_eventos: OK" -ForegroundColor Green
+
+# ============================================================
+# Pos-processamento: corrigir package-info.java de schemas_eventos
+# (algum XSD do pass-14 res-evento gera namespace xmldsig por engano;
+# o namespace correto da NFe e' http://www.portalfiscal.inf.br/nfe).
+# ============================================================
+$pkgInfoPath = Join-Path $JavaSrcDir ('br/com/swconsultoria/nfe/schemas_eventos/package-info.java' -replace '/', [IO.Path]::DirectorySeparatorChar)
+if (Test-Path $pkgInfoPath) {
+    $pkgInfoContent = Get-Content -Path $pkgInfoPath -Raw -Encoding UTF8
+    $correctNs = 'http://www.portalfiscal.inf.br/nfe'
+    if ($pkgInfoContent -notmatch [regex]::Escape($correctNs)) {
+        $newPkgInfo = "@javax.xml.bind.annotation.XmlSchema(namespace = `"$correctNs`", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)`npackage br.com.swconsultoria.nfe.schemas_eventos;`n"
+        Set-Content -Path $pkgInfoPath -Value $newPkgInfo -Encoding UTF8 -NoNewline
+        Write-Host "  package-info.java schemas_eventos: namespace corrigido para $correctNs" -ForegroundColor Cyan
+    }
+}
 
 # ============================================================
 # DETECCAO DE PACKAGES ORFAOS
@@ -449,5 +548,5 @@ if ($orphans.Count -gt 0) {
 }
 
 Write-Host ""
-Write-Host "Regeneracao v5.0.0 completa." -ForegroundColor Green
+Write-Host "Regeneracao v4.1.1 completa." -ForegroundColor Green
 Write-Host "Proximo passo: mvn test-compile" -ForegroundColor DarkGray

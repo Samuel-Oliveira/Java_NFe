@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # =====================================================================
-# migrate-to-v5.sh — Migra imports Java de java-nfe v4.x para v5.0.0
+# migrate.sh — Migra imports Java de java-nfe v4.00.* para v4.1.1
 #
 # USO:
-#   bash scripts/migrate-to-v5.sh [caminho] [--dry-run]
+#   bash scripts/migrate.sh [caminho] [--dry-run]
 #
 # EXEMPLOS:
-#   bash scripts/migrate-to-v5.sh src/main/java
-#   bash scripts/migrate-to-v5.sh --dry-run
+#   bash scripts/migrate.sh src/main/java
+#   bash scripts/migrate.sh --dry-run
 #
-# A versao 5.0.0 consolidou ~48 sub-packages em 2 packages:
+# A v4.1.1 consolidou ~48 sub-packages em 2 packages:
 #   br.com.swconsultoria.nfe.schemas         (tipos nao-evento)
 #   br.com.swconsultoria.nfe.schemas_eventos (todos os eventos)
 #
@@ -17,7 +17,15 @@
 #   TEnvEvento (cancelamento) -> TEnvEventoCancelamento
 #   TEnvEvento (cce)          -> TEnvEventoCartaCorrecao
 #   TEvento (generico)        -> TEventoGenerico
+#   ResEvento                 -> ResumoEvento
+#   TProcEvento (consSitNFe)  -> TProcEventoConsSitNFe
 #   etc.
+#
+# LIMITACAO: este script NAO bumpa o pom.xml, NAO renomeia o nome simples
+# no corpo do arquivo (so o FQN no import) e NAO trata eventos individuais
+# da Reforma Tributaria. Para esses casos use scripts/migrate.ps1.
+#
+# Veja MIGRATION.md para detalhes e o script PowerShell completo.
 # =====================================================================
 
 set -euo pipefail
@@ -33,7 +41,7 @@ for arg in "$@"; do
 done
 
 echo ""
-echo "=== java-nfe v4 -> v5 Migration Script (bash) ==="
+echo "=== java-nfe v4.00.* -> v4.1.1 Migration Script (bash) ==="
 echo ""
 if $DRY_RUN; then
     echo "Modo DRY-RUN: nenhum arquivo sera modificado."
@@ -127,6 +135,16 @@ for file in "${FILES[@]}"; do
         -e 's/br\.com\.swconsultoria\.nfe\.schema\.envEventoEntregaNFe\./br.com.swconsultoria.nfe.schemas_eventos./g' \
         -e 's/br\.com\.swconsultoria\.nfe\.schema\.envEventoCancEntregaNFe\./br.com.swconsultoria.nfe.schemas_eventos./g')
 
+    # schema.resnfe.ResNFe / schema.retdistdfeint.* → schemas (nao schemas_eventos)
+    modified=$(echo "$modified" | sed \
+        -e 's/br\.com\.swconsultoria\.nfe\.schema\.resnfe\./br.com.swconsultoria.nfe.schemas./g' \
+        -e 's/br\.com\.swconsultoria\.nfe\.schema\.retdistdfeint\./br.com.swconsultoria.nfe.schemas./g')
+
+    # schema.eventoXXXXXX.DetEvento (Reforma Tributaria) → schemas_eventos.DetEvento<XXXXXX>
+    # (inner classes preservadas: schema.evento112110.DetEvento.GConsumo → schemas_eventos.DetEvento112110.GConsumo)
+    modified=$(echo "$modified" | sed -E \
+        -e 's/br\.com\.swconsultoria\.nfe\.schema\.evento([0-9]+)\.DetEvento\b/br.com.swconsultoria.nfe.schemas_eventos.DetEvento\1/g')
+
     # qualquer schema.* restante → schemas_eventos (catch-all para outros eventos)
     modified=$(echo "$modified" | sed \
         -e 's/br\.com\.swconsultoria\.nfe\.schema\.[a-zA-Z0-9_]*\./br.com.swconsultoria.nfe.schemas_eventos./g')
@@ -158,7 +176,8 @@ for file in "${FILES[@]}"; do
         -e 's/\bTEnvEventoEntregaNFe\b/TEnvEventoComprovanteEntrega/g' \
         -e 's/\bTRetEnvEventoEntregaNFe\b/TRetEnvEventoComprovanteEntrega/g' \
         -e 's/\bTEnvEventoCancEntregaNFe\b/TEnvEventoCancelamentoComprovanteEntrega/g' \
-        -e 's/\bTRetEnvEventoCancEntregaNFe\b/TRetEnvEventoCancelamentoComprovanteEntrega/g')
+        -e 's/\bTRetEnvEventoCancEntregaNFe\b/TRetEnvEventoCancelamentoComprovanteEntrega/g' \
+        -e 's/\bResEvento\b/ResumoEvento/g')
 
     if [ "$modified" != "$original" ]; then
         total_modified=$((total_modified + 1))
@@ -180,11 +199,14 @@ fi
 
 echo ""
 echo "IMPORTANTE: Revise manualmente os seguintes casos:"
-echo "  - Usos de TEnvEvento/TRetEnvEvento/TEvento/TRetEvento sem prefixo de evento"
-echo "    (agora cada evento tem sua propria classe: TEnvEventoCancelamento, etc.)"
-echo "  - Chamadas de Nfe.cancelarNfe(TEnvEvento) -> Nfe.cancelarNfe(TEnvEventoCancelamento)"
-echo "  - Chamadas de Nfe.cce(TEnvEvento) -> Nfe.cce(TEnvEventoCartaCorrecao)"
+echo "  - Usos do nome simples TEnvEvento/TRetEnvEvento/TEvento/TRetEvento no corpo"
+echo "    (apos o import ser corrigido, o nome simples PRECISA virar TEnvEventoCancelamento,"
+echo "    TEnvEventoCartaCorrecao etc. baseado em qual evento o arquivo manipula)."
+echo "  - TProtNFe.InfProt.getDhRecbto() agora retorna String (era XMLGregorianCalendar)."
 echo "  - XmlNfeUtil.xmlToObject(xml, T*.class) — certifique-se de usar a classe correta"
+echo ""
+echo "Para tratamento automatico do nome simples no corpo do arquivo + bump do pom,"
+echo "use scripts/migrate.ps1 (PowerShell 7+ roda em Linux/macOS via pwsh)."
 echo ""
 echo "Apos migrar, execute:"
 echo "  mvn test-compile   # verificar compilacao"

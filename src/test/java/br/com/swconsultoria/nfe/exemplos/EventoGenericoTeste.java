@@ -9,7 +9,7 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
-import br.com.swconsultoria.nfe.schemas_eventos.DetEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.DetEventoConciliacaoFinanceira;
 import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoGenerico;
 import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoGenerico;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
@@ -39,17 +39,17 @@ public class EventoGenericoTeste {
 
             //Monta Eventos da Receita, Aqui pode ser qualquer um.
             //Abaixo Exemplo do 112110
-            DetEvento detEvento = new DetEvento();
+            DetEventoConciliacaoFinanceira detEvento = new DetEventoConciliacaoFinanceira();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_GENERICO);
             detEvento.setDescEvento("Informação de efetivo pagamento integral para liberar crédito presumido do adquirente");
-            detEvento.setCOrgaoAutor(config.getEstado().getCodigoUF());
-            detEvento.setTpAutor("1");
+            // TODO 112110: detEvento.setCOrgaoAutor(config.getEstado().getCodigoUF());
+            // TODO 112110: detEvento.setTpAutor("1");
             detEvento.setVerAplic("v4.1.1");
-            detEvento.setIndQuitacao("1");
+            // TODO 112110: detEvento.setIndQuitacao("1");
             generico.setDetEvento(detEvento);
 
             //Monta o Evento Generico
-            TEnvEventoGenerico enviEvento = EventoGenericoUtil.montaEvento(generico,DetEvento.class, EventosEnum.PAGAMENTO_INTEGRAL_CREDITO_PRESUMIDO, config);
+            TEnvEventoGenerico enviEvento = EventoGenericoUtil.montaEvento(generico,DetEventoConciliacaoFinanceira.class, EventosEnum.PAGAMENTO_INTEGRAL_CREDITO_PRESUMIDO, config);
 
             //Envia o Evento Generico
             TRetEnvEventoGenerico retorno = Nfe.eventoGenerico(config, enviEvento, true);

@@ -54,7 +54,7 @@ public class EventoGenericoUtil {
         infoEvento.setNSeqEvento(String.valueOf(evento.getSequencia()));
         infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_GENERICO);
 
-        TEventoGenerico. InfEvento.DetEvento detEvento = new TEventoGenerico.InfEvento.DetEvento();
+        TEventoGenerico.InfEvento.DetEventoGenerico detEvento = new TEventoGenerico.InfEvento.DetEventoGenerico();
         Element element = XmlNfeUtil.objectToElement(evento. getDetEvento(), clazz);
         detEvento.getOtherAttributes().put(new QName("versao"), element.getAttribute("versao"));
 

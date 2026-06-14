@@ -348,7 +348,7 @@ public class TEventoCartaCorrecao {
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-        protected TEventoCartaCorrecao.InfEvento.DetEvento detEvento;
+        protected TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao detEvento;
         @XmlAttribute(name = "Id", required = true)
         @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
         @XmlID
@@ -575,10 +575,10 @@ public class TEventoCartaCorrecao {
          * 
          * @return
          *     possible object is
-         *     {@link TEventoCartaCorrecao.InfEvento.DetEvento }
+         *     {@link TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao }
          *     
          */
-        public TEventoCartaCorrecao.InfEvento.DetEvento getDetEvento() {
+        public TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao getDetEvento() {
             return detEvento;
         }
 
@@ -587,10 +587,10 @@ public class TEventoCartaCorrecao {
          * 
          * @param value
          *     allowed object is
-         *     {@link TEventoCartaCorrecao.InfEvento.DetEvento }
+         *     {@link TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao }
          *     
          */
-        public void setDetEvento(TEventoCartaCorrecao.InfEvento.DetEvento value) {
+        public void setDetEvento(TEventoCartaCorrecao.InfEvento.DetEventoCartaCorrecao value) {
             this.detEvento = value;
         }
 
@@ -679,7 +679,7 @@ public class TEventoCartaCorrecao {
             "xCorrecao",
             "xCondUso"
         })
-        public static class DetEvento {
+        public static class DetEventoCartaCorrecao {
 
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String descEvento;

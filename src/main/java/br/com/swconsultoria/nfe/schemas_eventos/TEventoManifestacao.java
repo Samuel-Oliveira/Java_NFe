@@ -326,7 +326,7 @@ public class TEventoManifestacao {
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-        protected TEventoManifestacao.InfEvento.DetEvento detEvento;
+        protected TEventoManifestacao.InfEvento.DetEventoManifestacao detEvento;
         @XmlAttribute(name = "Id", required = true)
         @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
         @XmlID
@@ -553,10 +553,10 @@ public class TEventoManifestacao {
          * 
          * @return
          *     possible object is
-         *     {@link TEventoManifestacao.InfEvento.DetEvento }
+         *     {@link TEventoManifestacao.InfEvento.DetEventoManifestacao }
          *     
          */
-        public TEventoManifestacao.InfEvento.DetEvento getDetEvento() {
+        public TEventoManifestacao.InfEvento.DetEventoManifestacao getDetEvento() {
             return detEvento;
         }
 
@@ -565,10 +565,10 @@ public class TEventoManifestacao {
          * 
          * @param value
          *     allowed object is
-         *     {@link TEventoManifestacao.InfEvento.DetEvento }
+         *     {@link TEventoManifestacao.InfEvento.DetEventoManifestacao }
          *     
          */
-        public void setDetEvento(TEventoManifestacao.InfEvento.DetEvento value) {
+        public void setDetEvento(TEventoManifestacao.InfEvento.DetEventoManifestacao value) {
             this.detEvento = value;
         }
 
@@ -649,7 +649,7 @@ public class TEventoManifestacao {
             "descEvento",
             "xJust"
         })
-        public static class DetEvento {
+        public static class DetEventoManifestacao {
 
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String descEvento;

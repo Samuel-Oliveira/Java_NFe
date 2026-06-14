@@ -332,7 +332,7 @@ public class TEventoCancelamentoSubstituicao {
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-        protected TEventoCancelamentoSubstituicao.InfEvento.DetEvento detEvento;
+        protected TEventoCancelamentoSubstituicao.InfEvento.DetEventoCancelamentoSubstituicao detEvento;
         @XmlAttribute(name = "Id", required = true)
         @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
         @XmlID
@@ -559,10 +559,10 @@ public class TEventoCancelamentoSubstituicao {
          * 
          * @return
          *     possible object is
-         *     {@link TEventoCancelamentoSubstituicao.InfEvento.DetEvento }
+         *     {@link TEventoCancelamentoSubstituicao.InfEvento.DetEventoCancelamentoSubstituicao }
          *     
          */
-        public TEventoCancelamentoSubstituicao.InfEvento.DetEvento getDetEvento() {
+        public TEventoCancelamentoSubstituicao.InfEvento.DetEventoCancelamentoSubstituicao getDetEvento() {
             return detEvento;
         }
 
@@ -571,10 +571,10 @@ public class TEventoCancelamentoSubstituicao {
          * 
          * @param value
          *     allowed object is
-         *     {@link TEventoCancelamentoSubstituicao.InfEvento.DetEvento }
+         *     {@link TEventoCancelamentoSubstituicao.InfEvento.DetEventoCancelamentoSubstituicao }
          *     
          */
-        public void setDetEvento(TEventoCancelamentoSubstituicao.InfEvento.DetEvento value) {
+        public void setDetEvento(TEventoCancelamentoSubstituicao.InfEvento.DetEventoCancelamentoSubstituicao value) {
             this.detEvento = value;
         }
 
@@ -659,7 +659,7 @@ public class TEventoCancelamentoSubstituicao {
             "xJust",
             "chNFeRef"
         })
-        public static class DetEvento {
+        public static class DetEventoCancelamentoSubstituicao {
 
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String descEvento;

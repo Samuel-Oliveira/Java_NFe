@@ -258,7 +258,7 @@ public class TEventoCancelamentoInsucessoEntrega {
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-        protected DetEvento detEvento;
+        protected DetEventoCancelamentoInsucessoEntrega detEvento;
         @XmlAttribute(name = "Id", required = true)
         @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
         @XmlID
@@ -485,10 +485,10 @@ public class TEventoCancelamentoInsucessoEntrega {
          * 
          * @return
          *     possible object is
-         *     {@link DetEvento }
+         *     {@link DetEventoCancelamentoInsucessoEntrega }
          *     
          */
-        public DetEvento getDetEvento() {
+        public DetEventoCancelamentoInsucessoEntrega getDetEvento() {
             return detEvento;
         }
 
@@ -497,10 +497,10 @@ public class TEventoCancelamentoInsucessoEntrega {
          * 
          * @param value
          *     allowed object is
-         *     {@link DetEvento }
+         *     {@link DetEventoCancelamentoInsucessoEntrega }
          *     
          */
-        public void setDetEvento(DetEvento value) {
+        public void setDetEvento(DetEventoCancelamentoInsucessoEntrega value) {
             this.detEvento = value;
         }
 

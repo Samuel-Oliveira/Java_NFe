@@ -74,7 +74,7 @@ public class CancelamentoSubstituicaoUtil {
             infoEvento.setNSeqEvento("1");
             infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO_SUBSTIUICAO);
 
-            TEventoCancelamentoSubstituicao.InfEvento.DetEvento detEvento = new TEventoCancelamentoSubstituicao.InfEvento.DetEvento();
+            TEventoCancelamentoSubstituicao.InfEvento.DetEventoCancelamentoSubstituicao detEvento = new TEventoCancelamentoSubstituicao.InfEvento.DetEventoCancelamentoSubstituicao();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_CANCELAMENTO_SUBSTIUICAO);
             detEvento.setDescEvento("Cancelamento por substituicao");
             detEvento.setCOrgaoAutor(String.valueOf(configuracao.getEstado().getCodigoUF()));

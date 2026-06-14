@@ -50,4 +50,11 @@
     </jxb:bindings>
   </jxb:bindings>
 
+  <!-- patch-bindings-detevento: DetEventoCancelamentoSubstituicao -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEventoCancSubst_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='detEvento']/xs:complexType">
+      <jxb:class name="DetEventoCancelamentoSubstituicao"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
 </jxb:bindings>

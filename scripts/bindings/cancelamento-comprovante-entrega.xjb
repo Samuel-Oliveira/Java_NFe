@@ -50,4 +50,11 @@
     </jxb:bindings>
   </jxb:bindings>
 
+  <!-- patch-bindings-detevento: DetEventoCancelamentoComprovanteEntrega -->
+  <jxb:bindings schemaLocation="../../schemas/e110131_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='detEvento']/xs:complexType">
+      <jxb:class name="DetEventoCancelamentoComprovanteEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
 </jxb:bindings>

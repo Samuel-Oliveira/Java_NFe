@@ -43,4 +43,11 @@
     </jxb:bindings>
   </jxb:bindings>
 
+  <!-- patch-bindings-detevento: DetEventoGenerico -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEvento_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='detEvento']/xs:complexType">
+      <jxb:class name="DetEventoGenerico"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
 </jxb:bindings>

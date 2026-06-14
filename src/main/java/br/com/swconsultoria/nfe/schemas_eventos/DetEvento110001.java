@@ -16,23 +16,37 @@ import javax.xml.bind.annotation.*;
  *         &lt;element name="descEvento">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;enumeration value="Cancelamento Comprovante de Entrega da NF-e"/>
+ *               &lt;enumeration value="Cancelamento de Evento"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="cOrgaoAutor" type="{http://www.portalfiscal.inf.br/nfe}TCOrgaoIBGE"/>
- *         &lt;element name="tpAutor">
+ *         &lt;element name="cOrgaoAutor" type="{http://www.portalfiscal.inf.br/nfe}TCodUfIBGE"/>
+ *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
+ *         &lt;element name="tpEventoAut">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;whiteSpace value="preserve"/>
- *               &lt;enumeration value="1"/>
+ *               &lt;enumeration value="112110"/>
+ *               &lt;enumeration value="112120"/>
+ *               &lt;enumeration value="112130"/>
+ *               &lt;enumeration value="112140"/>
+ *               &lt;enumeration value="112150"/>
+ *               &lt;enumeration value="211110"/>
+ *               &lt;enumeration value="211120"/>
+ *               &lt;enumeration value="211124"/>
+ *               &lt;enumeration value="211128"/>
+ *               &lt;enumeration value="211130"/>
+ *               &lt;enumeration value="211140"/>
+ *               &lt;enumeration value="211150"/>
+ *               &lt;enumeration value="212110"/>
+ *               &lt;enumeration value="212120"/>
+ *               &lt;enumeration value="412120"/>
+ *               &lt;enumeration value="412130"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="verAplic" type="{http://www.portalfiscal.inf.br/nfe}TVerAplic"/>
  *         &lt;element name="nProtEvento" type="{http://www.portalfiscal.inf.br/nfe}TProt"/>
  *       &lt;/sequence>
- *       &lt;attribute name="versao" use="required">
+ *       &lt;attribute name="versao">
  *         &lt;simpleType>
  *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *             &lt;whiteSpace value="preserve"/>
@@ -51,24 +65,24 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "", propOrder = {
     "descEvento",
     "cOrgaoAutor",
-    "tpAutor",
     "verAplic",
+    "tpEventoAut",
     "nProtEvento"
 })
-@XmlRootElement(name = "detEvento", namespace = "http://www.portalfiscal.inf.br/nfe")
-public class DetEvento {
+@XmlRootElement(name = "detEvento")
+public class DetEvento110001 {
 
-    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+    @XmlElement(required = true)
     protected String descEvento;
-    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+    @XmlElement(required = true)
     protected String cOrgaoAutor;
-    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-    protected String tpAutor;
-    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+    @XmlElement(required = true)
     protected String verAplic;
-    @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
+    @XmlElement(required = true)
+    protected String tpEventoAut;
+    @XmlElement(required = true)
     protected String nProtEvento;
-    @XmlAttribute(name = "versao", required = true)
+    @XmlAttribute(name = "versao")
     protected String versao;
 
     /**
@@ -120,30 +134,6 @@ public class DetEvento {
     }
 
     /**
-     * Obtém o valor da propriedade tpAutor.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getTpAutor() {
-        return tpAutor;
-    }
-
-    /**
-     * Define o valor da propriedade tpAutor.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setTpAutor(String value) {
-        this.tpAutor = value;
-    }
-
-    /**
      * Obtém o valor da propriedade verAplic.
      * 
      * @return
@@ -165,6 +155,30 @@ public class DetEvento {
      */
     public void setVerAplic(String value) {
         this.verAplic = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade tpEventoAut.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTpEventoAut() {
+        return tpEventoAut;
+    }
+
+    /**
+     * Define o valor da propriedade tpEventoAut.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTpEventoAut(String value) {
+        this.tpEventoAut = value;
     }
 
     /**

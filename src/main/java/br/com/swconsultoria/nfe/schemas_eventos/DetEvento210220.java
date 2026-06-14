@@ -1,0 +1,136 @@
+
+package br.com.swconsultoria.nfe.schemas_eventos;
+
+import javax.xml.bind.annotation.*;
+
+/**
+ * <p>Classe Java de anonymous complex type.
+ * 
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * 
+ * <pre>
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="descEvento">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;whiteSpace value="preserve"/>
+ *               &lt;enumeration value="Desconhecimento da Operacao"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="xJust" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;whiteSpace value="preserve"/>
+ *               &lt;minLength value="15"/>
+ *               &lt;maxLength value="255"/>
+ *               &lt;pattern value="[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *       &lt;/sequence>
+ *       &lt;attribute name="versao" use="required">
+ *         &lt;simpleType>
+ *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *             &lt;whiteSpace value="preserve"/>
+ *             &lt;enumeration value="1.00"/>
+ *           &lt;/restriction>
+ *         &lt;/simpleType>
+ *       &lt;/attribute>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "descEvento",
+    "xJust"
+})
+@XmlRootElement(name = "detEvento")
+public class DetEvento210220 {
+
+    @XmlElement(required = true)
+    protected String descEvento;
+    protected String xJust;
+    @XmlAttribute(name = "versao", required = true)
+    protected String versao;
+
+    /**
+     * Obtém o valor da propriedade descEvento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDescEvento() {
+        return descEvento;
+    }
+
+    /**
+     * Define o valor da propriedade descEvento.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDescEvento(String value) {
+        this.descEvento = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade xJust.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getXJust() {
+        return xJust;
+    }
+
+    /**
+     * Define o valor da propriedade xJust.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setXJust(String value) {
+        this.xJust = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade versao.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getVersao() {
+        return versao;
+    }
+
+    /**
+     * Define o valor da propriedade versao.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setVersao(String value) {
+        this.versao = value;
+    }
+
+}

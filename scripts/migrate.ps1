@@ -1,198 +1,315 @@
 #Requires -Version 7.0
 <#
 .SYNOPSIS
-    Migra imports de código Java da estrutura v4.x para v5.0.0 do java-nfe.
+    Migra um projeto consumidor da estrutura antiga do java-nfe (v4.00.x com
+    sub-packages schema.X / schema_4.X) para a nova estrutura consolidada
+    (schemas e schemas_eventos) e bumpa a versao no pom.xml.
 
 .DESCRIPTION
-    A versão 5.0.0 consolidou ~48 sub-packages em apenas 2 packages:
+    A nova versao consolidou ~48 sub-packages em apenas 2:
 
-        ANTES (v4.x)                                DEPOIS (v5.0.0)
-        ──────────────────────────────────────────────────────────────────────
-        br.com.swconsultoria.nfe.schema_4.enviNFe    br.com.swconsultoria.nfe.schemas
-        br.com.swconsultoria.nfe.schema_4.consSitNFe  br.com.swconsultoria.nfe.schemas
-        br.com.swconsultoria.nfe.schema_4.inutNFe     br.com.swconsultoria.nfe.schemas
-        br.com.swconsultoria.nfe.schema_4.consReciNFe br.com.swconsultoria.nfe.schemas
-        br.com.swconsultoria.nfe.schema_4.consStatServ br.com.swconsultoria.nfe.schemas
-        br.com.swconsultoria.nfe.schema.consCad       br.com.swconsultoria.nfe.schemas
-        ...demais schema_4/* e schema/* (exceto Suframa)
+        ANTES                                            DEPOIS
+        ────────────────────────────────────────────────────────────────────────
+        br.com.swconsultoria.nfe.schema_4.X.*            br.com.swconsultoria.nfe.schemas.*
+        br.com.swconsultoria.nfe.schema.consCad.*        br.com.swconsultoria.nfe.schemas.*
+        br.com.swconsultoria.nfe.schema.resnfe.ResNFe    br.com.swconsultoria.nfe.schemas.ResNFe
+        br.com.swconsultoria.nfe.schema.retdistdfeint.*  br.com.swconsultoria.nfe.schemas.*
 
-        br.com.swconsultoria.nfe.schema.envcce.*      br.com.swconsultoria.nfe.schemas_eventos
-        br.com.swconsultoria.nfe.schema.envEventoCancNFe.* br.com.swconsultoria.nfe.schemas_eventos
-        ...demais eventos
+        br.com.swconsultoria.nfe.schema.envcce.*         br.com.swconsultoria.nfe.schemas_eventos.*
+        br.com.swconsultoria.nfe.schema.envEventoCancNFe.* br.com.swconsultoria.nfe.schemas_eventos.*
+        ...todos os demais schema.*Evento*               br.com.swconsultoria.nfe.schemas_eventos.*
 
-    Classes de eventos foram renomeadas para evitar colisão. Exemplos:
-        TEnvEvento  (cancelamento)  → TEnvEventoCancelamento
-        TRetEnvEvento (cce)         → TRetEnvEventoCartaCorrecao
-        TEvento (generico)          → TEventoGenerico
-        etc.
+    Como o pacote unificado evitou colisao renomeando as classes ambiguas,
+    o script tambem renomeia esses nomes simples no codigo:
 
-    Este script faz substituições de texto em arquivos .java e .kt.
-    Recomenda-se fazer backup (git) antes de rodar.
+        TEnvEvento (de envEventoCancNFe)    → TEnvEventoCancelamento
+        TEnvEvento (de envcce)              → TEnvEventoCartaCorrecao
+        TRetEnvEvento (de envConfRecebto)   → TRetEnvEventoManifestacao
+        TretEvento  (lowercase em envcce)   → TRetEventoCartaCorrecao
+        TProcEvento (de consSitNFe)         → TProcEventoConsSitNFe
+        ResEvento (resumo de DFe)           → ResumoEvento
+        DetEvento (de evento110001 etc.)    → DetEvento110001 (codigo do evento)
+        ...
 
-.PARAMETER Path
-    Pasta raiz dos fontes a migrar. Default: diretório atual.
+    O que o script faz:
+      1. (Opcional) Bumpa <java-nfe.version> no pom.xml
+      2. Renomeia imports e referencias fully-qualified em arquivos .java/.kt
+      3. Renomeia usos do nome simples (ex.: `TEnvEvento envio = ...`) baseado
+         no import resultante de cada arquivo
+      4. Renomeia ocorrencias de classes que mudaram de nome (ResEvento, etc.)
+
+    BREAKING CHANGES de API que o script NAO consegue tratar automaticamente
+    (revise apos rodar):
+
+      * TProtNFe.InfProt.getDhRecbto() agora retorna String (era XMLGregorianCalendar).
+        Se voce convertia esse valor para LocalDateTime, ajuste o parser.
+      * Algumas classes geradas a partir de XSDs de eventos individuais (e110001,
+        e112110, e211110 etc.) tem nomes novos no formato DetEvento<codigo>.
+        Antes ficavam dispersas em sub-packages distintos.
+      * O script NAO usa as classes antigas como wildcard se voce usava
+        `import schema.X.*;` — revise esses imports manualmente.
+
+    Idempotente: rodar duas vezes nao causa dano.
+
+.PARAMETER ProjectRoot
+    Caminho raiz do projeto a migrar (default: diretorio atual).
+
+.PARAMETER OldVersion
+    Versao atual no pom.xml a substituir (default: 4.00.51). Aceita expressao
+    regular simples — passe a versao que esta no seu pom.
+
+.PARAMETER NewVersion
+    Versao alvo (default: 4.1.1).
+
+.PARAMETER BumpPom
+    Tambem bumpa <java-nfe.version>$OldVersion</java-nfe.version> para
+    $NewVersion no pom.xml do projeto. Sem essa flag, so reescreve codigo.
 
 .PARAMETER DryRun
-    Apenas lista os arquivos que seriam modificados, sem alterar.
+    Mostra o que seria modificado sem alterar arquivos.
 
 .EXAMPLE
-    pwsh scripts/migrate-to-v5.ps1 -Path src/main/java
-    pwsh scripts/migrate-to-v5.ps1 -DryRun
+    # Migracao completa: bumpa pom + reescreve codigo
+    pwsh scripts/migrate.ps1 -ProjectRoot . -BumpPom
+
+.EXAMPLE
+    # Dry-run: ver o que mudaria
+    pwsh scripts/migrate.ps1 -ProjectRoot D:\meu\projeto -DryRun
+
+.EXAMPLE
+    # Versao diferente da default
+    pwsh scripts/migrate.ps1 -OldVersion 4.00.49 -NewVersion 4.1.1 -BumpPom
 #>
 
 [CmdletBinding()]
 param(
-    [string]$Path = ".",
+    [string]$ProjectRoot = '.',
+    [string]$OldVersion = '4.00.51',
+    [string]$NewVersion = '4.1.1',
+    [switch]$BumpPom,
     [switch]$DryRun
 )
 
 $ErrorActionPreference = 'Stop'
+$ProjectRoot = (Resolve-Path $ProjectRoot).Path
+
+if (-not (Test-Path $ProjectRoot)) { throw "ProjectRoot nao existe: $ProjectRoot" }
 
 Write-Host ""
-Write-Host "=== java-nfe v4 → v5 Migration Script ===" -ForegroundColor Cyan
+Write-Host "=== java-nfe consumer migration ===" -ForegroundColor Cyan
+Write-Host "  Project : $ProjectRoot"
+Write-Host "  Versao  : $OldVersion -> $NewVersion"
+if ($DryRun) { Write-Host "  DRY-RUN : nenhum arquivo sera modificado" -ForegroundColor Yellow }
 Write-Host ""
-if ($DryRun) {
-    Write-Host "Modo DRY-RUN: nenhum arquivo sera modificado." -ForegroundColor Yellow
-    Write-Host ""
+
+# ─────────────────────────────────────────────────────────
+# Mapeamento explicito de imports: oldFQN -> newFQN
+# (aplicado antes do fallback por regex; cobre os casos onde o nome simples
+# precisa mudar — pois o catch-all generico nao saberia disso)
+# ─────────────────────────────────────────────────────────
+$ImportMap = [ordered]@{
+    # Manifestacao do destinatario
+    'br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento'       = 'br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoManifestacao'
+    'br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento'    = 'br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoManifestacao'
+    'br.com.swconsultoria.nfe.schema.envConfRecebto.TretEvento'       = 'br.com.swconsultoria.nfe.schemas_eventos.TRetEventoManifestacao'
+    # Cancelamento de NFe
+    'br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento'     = 'br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento'
+    'br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento'  = 'br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento'
+    'br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEvento'     = 'br.com.swconsultoria.nfe.schemas_eventos.TRetEventoCancelamento'
+    # Carta de correcao (envcce)
+    'br.com.swconsultoria.nfe.schema.envcce.TEnvEvento'               = 'br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao'
+    'br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento'            = 'br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao'
+    'br.com.swconsultoria.nfe.schema.envcce.TretEvento'               = 'br.com.swconsultoria.nfe.schemas_eventos.TRetEventoCartaCorrecao'
+    # Evento generico
+    'br.com.swconsultoria.nfe.schema.eventoGenerico.TEnvEvento'       = 'br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoGenerico'
+    'br.com.swconsultoria.nfe.schema.eventoGenerico.TRetEnvEvento'    = 'br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoGenerico'
+    # Resumo de DFe — nome da classe MUDOU
+    'br.com.swconsultoria.nfe.schema.resevento.ResEvento'             = 'br.com.swconsultoria.nfe.schemas_eventos.ResumoEvento'
+    # Resnfe, retdistdfeint
+    'br.com.swconsultoria.nfe.schema.resnfe.ResNFe'                   = 'br.com.swconsultoria.nfe.schemas.ResNFe'
+    'br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt'     = 'br.com.swconsultoria.nfe.schemas.RetDistDFeInt'
+    # ConsSitNFe — TProcEvento renomeado para evitar colisao
+    'br.com.swconsultoria.nfe.schema_4.consSitNFe.TProcEvento'        = 'br.com.swconsultoria.nfe.schemas.TProcEventoConsSitNFe'
+    # Eventos individuais (codigo do evento como sufixo)
+    'br.com.swconsultoria.nfe.schema.evento110001.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento110001'
+    'br.com.swconsultoria.nfe.schema.evento112110.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento112110'
+    'br.com.swconsultoria.nfe.schema.evento112120.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento112120'
+    'br.com.swconsultoria.nfe.schema.evento112130.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento112130'
+    'br.com.swconsultoria.nfe.schema.evento112140.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento112140'
+    'br.com.swconsultoria.nfe.schema.evento112150.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento112150'
+    'br.com.swconsultoria.nfe.schema.evento211110.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento211110'
+    'br.com.swconsultoria.nfe.schema.evento211120.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento211120'
+    'br.com.swconsultoria.nfe.schema.evento211124.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento211124'
+    'br.com.swconsultoria.nfe.schema.evento211128.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento211128'
+    'br.com.swconsultoria.nfe.schema.evento211130.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento211130'
+    'br.com.swconsultoria.nfe.schema.evento211140.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento211140'
+    'br.com.swconsultoria.nfe.schema.evento211150.DetEvento'          = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento211150'
 }
 
 # ─────────────────────────────────────────────────────────
-# Mapeamento de pacotes (ordem importa: mais especifico primeiro)
+# Fallback por regex (aplicado APOS o mapa explicito)
 # ─────────────────────────────────────────────────────────
-$packageMap = [ordered]@{
-    # schema_4 → schemas
-    'br\.com\.swconsultoria\.nfe\.schema_4\.enviNFe\.'        = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema_4\.consReciNFe\.'    = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema_4\.consSitNFe\.'     = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema_4\.consStatServ\.'   = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema_4\.inutNFe\.'        = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema_4\.comune?\.'        = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema_4\.[^.]+\.'          = 'br.com.swconsultoria.nfe.schemas.'
-    # schema.consCad / distDFe / resNFe → schemas
-    'br\.com\.swconsultoria\.nfe\.schema\.consCad\.'          = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema\.distDFe\.'          = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema\.resNFe\.'           = 'br.com.swconsultoria.nfe.schemas.'
-    'br\.com\.swconsultoria\.nfe\.schema\.comum\.'            = 'br.com.swconsultoria.nfe.schemas.'
-    # schema.cce → schemas_eventos  (carta correcao)
-    'br\.com\.swconsultoria\.nfe\.schema\.envcce\.'           = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    'br\.com\.swconsultoria\.nfe\.schema\.cce\.'              = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.envEventoCancNFe → schemas_eventos
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoCancNFe\.' = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    'br\.com\.swconsultoria\.nfe\.schema\.eventoCancNFe\.'    = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.envEventoCancSubst → schemas_eventos
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoCancSubst\.' = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.envConfRecebto → schemas_eventos (manifestacao)
-    'br\.com\.swconsultoria\.nfe\.schema\.envConfRecebto\.'   = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    'br\.com\.swconsultoria\.nfe\.schema\.confRecebto\.'      = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.envEpec → schemas_eventos
-    'br\.com\.swconsultoria\.nfe\.schema\.envEpec\.'          = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    'br\.com\.swconsultoria\.nfe\.schema\.epec\.'             = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.envEventoAtorInteressado → schemas_eventos
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoAtorInteressado\.' = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.eventoGenerico → schemas_eventos
-    'br\.com\.swconsultoria\.nfe\.schema\.eventoGenerico\.'   = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.envEventoEConf → schemas_eventos
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoEConf\.'   = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoCancEConf\.' = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.envEventoInsucessoNFe → schemas_eventos
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoInsucessoNFe\.'    = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoCancInsucessoNFe\.' = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # schema.envEventoEntregaNFe → schemas_eventos
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoEntregaNFe\.'     = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    'br\.com\.swconsultoria\.nfe\.schema\.envEventoCancEntregaNFe\.' = 'br.com.swconsultoria.nfe.schemas_eventos.'
-    # qualquer schema.* restante → schemas_eventos (catch-all para outros eventos)
-    'br\.com\.swconsultoria\.nfe\.schema\.[^.]+\.'            = 'br.com.swconsultoria.nfe.schemas_eventos.'
+$FallbackPatterns = @(
+    # schema_4.<subpacote>.<Classe> → schemas.<Classe>
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema_4\.consReciNFe\.';                Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema_4\.consSitNFe\.';                 Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema_4\.consStatServ\.';               Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema_4\.enviNFe\.';                    Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema_4\.inutNFe\.';                    Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema_4\.[^.]+\.';                      Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    # schema.* base (consCad, distDFe, comum etc.) → schemas
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema\.consCad\.';                      Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema\.distDFe\.';                      Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema\.comum\.';                        Replacement = 'br.com.swconsultoria.nfe.schemas.' }
+    # Eventos individuais por codigo: schema.eventoXXXXXX.DetEvento(.G<algo>)?
+    # -> schemas_eventos.DetEvento<XXXXXX>(.G<algo>)? (inner classes preservadas)
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema\.evento(\d+)\.DetEvento\b';       Replacement = 'br.com.swconsultoria.nfe.schemas_eventos.DetEvento$1' }
+    # Catch-all para schema.*Evento* (cobre eventos sem renomeio especifico)
+    @{ Pattern = '\bbr\.com\.swconsultoria\.nfe\.schema\.[^.]+\.';                        Replacement = 'br.com.swconsultoria.nfe.schemas_eventos.' }
+)
+
+# Helpers
+function Get-SimpleName([string]$fqn) { ($fqn -split '\.')[-1] }
+
+# ─────────────────────────────────────────────────────────
+# 1) Bump pom.xml (opcional)
+# ─────────────────────────────────────────────────────────
+if ($BumpPom) {
+    $pomPath = Join-Path $ProjectRoot 'pom.xml'
+    if (Test-Path $pomPath) {
+        $pomContent = Get-Content -Path $pomPath -Raw -Encoding UTF8
+        $oldTag = "<java-nfe.version>$OldVersion</java-nfe.version>"
+        $newTag = "<java-nfe.version>$NewVersion</java-nfe.version>"
+        if ($pomContent.Contains($oldTag)) {
+            $pomContent = $pomContent -replace [regex]::Escape($oldTag), $newTag
+            if (-not $DryRun) {
+                Set-Content -Path $pomPath -Value $pomContent -Encoding UTF8 -NoNewline
+            }
+            Write-Host "  pom.xml : <java-nfe.version> $OldVersion -> $NewVersion" -ForegroundColor Green
+        } elseif ($pomContent.Contains($newTag)) {
+            Write-Host "  pom.xml : ja em $NewVersion (skip)" -ForegroundColor DarkGray
+        } else {
+            Write-Warning "pom.xml nao contem <java-nfe.version>$OldVersion</java-nfe.version> — bump pulado"
+        }
+    } else {
+        Write-Warning "pom.xml nao encontrado em $ProjectRoot — bump pulado"
+    }
 }
 
 # ─────────────────────────────────────────────────────────
-# Mapeamento de classes renomeadas em schemas_eventos
-# (TEnvEvento, TEvento, TRetEnvEvento, TRetEvento, TProcEvento — todos ambiguos)
+# 2) Processar arquivos .java e .kt
 # ─────────────────────────────────────────────────────────
-$classRenames = [ordered]@{
-    # Cancelamento
-    'TEnvEventoCancNFe'            = 'TEnvEventoCancelamento'
-    'TRetEnvEventoCancNFe'         = 'TRetEnvEventoCancelamento'
-    # Carta de Correcao (CCe)
-    'TEnvEventoCCe'                = 'TEnvEventoCartaCorrecao'
-    'TRetEnvEventoCCe'             = 'TRetEnvEventoCartaCorrecao'
-    # EPEC
-    'TEnvEventoEPEC'               = 'TEnvEventoEpec'
-    'TRetEnvEventoEPEC'            = 'TRetEnvEventoEpec'
-    # Manifestacao (confRecebto)
-    'TEnvEventoConfRecebto'        = 'TEnvEventoManifestacao'
-    'TRetEnvEventoConfRecebto'     = 'TRetEnvEventoManifestacao'
-    # Cancelamento Substituicao
-    'TEnvEventoCancSubst'          = 'TEnvEventoCancelamentoSubstituicao'
-    'TRetEnvEventoCancSubst'       = 'TRetEnvEventoCancelamentoSubstituicao'
-    # Ator Interessado
-    'TEnvEventoAtorInt'            = 'TEnvEventoAtorInteressado'
-    'TRetEnvEventoAtorInt'         = 'TRetEnvEventoAtorInteressado'
-    # ECONF
-    'TEnvEventoEConf'              = 'TEnvEventoConciliacaoFinanceira'
-    'TRetEnvEventoEConf'           = 'TRetEnvEventoConciliacaoFinanceira'
-    'TEnvEventoCancEConf'          = 'TEnvEventoCancelamentoConciliacaoFinanceira'
-    'TRetEnvEventoCancEConf'       = 'TRetEnvEventoCancelamentoConciliacaoFinanceira'
-    # Insucesso entrega
-    'TEnvEventoInsucessoNFe'       = 'TEnvEventoInsucessoEntrega'
-    'TRetEnvEventoInsucessoNFe'    = 'TRetEnvEventoInsucessoEntrega'
-    'TEnvEventoCancInsucessoNFe'   = 'TEnvEventoCancelamentoInsucessoEntrega'
-    'TRetEnvEventoCancInsucessoNFe'= 'TRetEnvEventoCancelamentoInsucessoEntrega'
-    # Comprovante entrega
-    'TEnvEventoEntregaNFe'         = 'TEnvEventoComprovanteEntrega'
-    'TRetEnvEventoEntregaNFe'      = 'TRetEnvEventoComprovanteEntrega'
-    'TEnvEventoCancEntregaNFe'     = 'TEnvEventoCancelamentoComprovanteEntrega'
-    'TRetEnvEventoCancEntregaNFe'  = 'TRetEnvEventoCancelamentoComprovanteEntrega'
+$srcRoot = Join-Path $ProjectRoot 'src'
+$rootForScan = if (Test-Path $srcRoot) { $srcRoot } else { $ProjectRoot }
+
+$files = Get-ChildItem -Path $rootForScan -Recurse -Include '*.java','*.kt' -File -ErrorAction SilentlyContinue |
+    # Excluir pacotes da propria lib (caso o usuario tenha clonado o java-nfe)
+    Where-Object { $_.FullName -notmatch '[\\/]br[\\/]com[\\/]swconsultoria[\\/]nfe[\\/](schema|schemas|schemas_eventos|schemas_eventos)[\\/]' }
+
+if (-not $files) {
+    Write-Warning "Nenhum arquivo .java ou .kt encontrado em $rootForScan"
+    return
 }
 
-# ─────────────────────────────────────────────────────────
-# Processar arquivos
-# ─────────────────────────────────────────────────────────
-$files = Get-ChildItem -Path $Path -Recurse -Include '*.java','*.kt' -File |
-    Where-Object { $_.FullName -notmatch '[\\/]schemas_?eventos?[\\/]|[\\/]schemas[\\/]|[\\/]schema[\\/]eventoSuframa' }
-
-$totalModified = 0
+$filesModified  = 0
+$importsRewrite = 0
+$simpleRenames  = 0
+$resEventoRen   = 0
 
 foreach ($file in $files) {
-    $content = Get-Content $file.FullName -Raw -Encoding UTF8
-    $modified = $content
+    $content   = Get-Content -Path $file.FullName -Raw -Encoding UTF8
+    $original  = $content
 
-    # 1) Substituir packages
-    foreach ($pattern in $packageMap.Keys) {
-        $replacement = $packageMap[$pattern]
-        $modified = $modified -replace $pattern, $replacement
+    # Rastreia renomeacoes de nome simples para aplicar no corpo apos.
+    $localRenames = @{}
+
+    # 2a) Imports explicitos do mapa.
+    foreach ($oldFqn in $ImportMap.Keys) {
+        $newFqn = $ImportMap[$oldFqn]
+        $oldImport = "import $oldFqn;"
+        $newImport = "import $newFqn;"
+        if ($content.Contains($oldImport)) {
+            $content = $content.Replace($oldImport, $newImport)
+            $importsRewrite++
+        }
+        # Mesmo se nao houve troca nesta execucao, registra rename simples se o
+        # import novo ja esta no arquivo (idempotente: cobre re-execucao).
+        $oldSimple = Get-SimpleName $oldFqn
+        $newSimple = Get-SimpleName $newFqn
+        if ($oldSimple -ne $newSimple -and $content.Contains("import $newFqn;")) {
+            $localRenames[$oldSimple] = $newSimple
+        }
     }
 
-    # 2) Substituir nomes de classes renomeadas (só em linhas de import ou uso)
-    foreach ($oldName in $classRenames.Keys) {
-        $newName = $classRenames[$oldName]
-        $modified = $modified -replace "\b$oldName\b", $newName
+    # 2b) Fallback regex (schema_4.* / schema.X.* / eventoXXXXXX).
+    foreach ($p in $FallbackPatterns) {
+        $matches = [regex]::Matches($content, $p.Pattern)
+        if ($matches.Count -gt 0) {
+            $content = [regex]::Replace($content, $p.Pattern, $p.Replacement)
+            $importsRewrite += $matches.Count
+        }
     }
 
-    if ($modified -ne $content) {
-        $totalModified++
+    # 2c) Substituir FQN inline para cada entry do mapa explicito
+    #     (testes/exemplos as vezes usam FQN sem import).
+    foreach ($oldFqn in $ImportMap.Keys) {
+        $newFqn = $ImportMap[$oldFqn]
+        $fqnPattern = "(?<![\w.])$([regex]::Escape($oldFqn))(?![\w])"
+        $matches = [regex]::Matches($content, $fqnPattern)
+        if ($matches.Count -gt 0) {
+            $content = [regex]::Replace($content, $fqnPattern, $newFqn)
+            $importsRewrite += $matches.Count
+        }
+    }
+
+    # 2d) Renomeio do nome de classe ResEvento -> ResumoEvento (palavra inteira).
+    $resPattern = '\bResEvento\b'
+    $resCount   = ([regex]::Matches($content, $resPattern)).Count
+    if ($resCount -gt 0) {
+        $content = [regex]::Replace($content, $resPattern, 'ResumoEvento')
+        $resEventoRen += $resCount
+    }
+
+    # 2e) Renomear usos do nome simples ja "presentes" no arquivo (baseado em
+    #     imports atuais). Ordena por tamanho desc para evitar conflito de prefixo.
+    $sortedSimple = $localRenames.Keys | Sort-Object -Property Length -Descending
+    foreach ($oldSimple in $sortedSimple) {
+        $newSimple = $localRenames[$oldSimple]
+        # Lookbehind impede casar campos qualificados como `Foo.TEnvEvento`.
+        $simplePattern = "(?<![.\w])$([regex]::Escape($oldSimple))\b"
+        $simpleCount = ([regex]::Matches($content, $simplePattern)).Count
+        if ($simpleCount -gt 0) {
+            $content = [regex]::Replace($content, $simplePattern, $newSimple)
+            $simpleRenames += $simpleCount
+        }
+    }
+
+    if ($content -ne $original) {
+        $filesModified++
         if ($DryRun) {
             Write-Host "  [DRY] $($file.FullName)" -ForegroundColor Yellow
         } else {
-            Set-Content $file.FullName -Value $modified -Encoding UTF8 -NoNewline
-            Write-Host "  [OK]  $($file.FullName)" -ForegroundColor Green
+            Set-Content -Path $file.FullName -Value $content -Encoding UTF8 -NoNewline
         }
     }
 }
 
+# ─────────────────────────────────────────────────────────
+# Sumario
+# ─────────────────────────────────────────────────────────
 Write-Host ""
-if ($DryRun) {
-    Write-Host "$totalModified arquivo(s) seriam modificados." -ForegroundColor Yellow
-} else {
-    Write-Host "$totalModified arquivo(s) modificados." -ForegroundColor Green
-}
+Write-Host "  Arquivos modificados      : $filesModified"
+Write-Host "  Imports/FQN reescritos     : $importsRewrite"
+Write-Host "  Nomes simples renomeados   : $simpleRenames"
+Write-Host "  ResEvento -> ResumoEvento  : $resEventoRen"
 Write-Host ""
-Write-Host "IMPORTANTE: Revise manualmente os seguintes casos:" -ForegroundColor Cyan
-Write-Host "  - Usos de TEnvEvento/TRetEnvEvento/TEvento/TRetEvento sem prefixo de evento"
-Write-Host "    (agora cada evento tem sua propria classe: TEnvEventoCancelamento, etc.)"
-Write-Host "  - Chamadas de Nfe.cancelarNfe(TEnvEvento) → Nfe.cancelarNfe(TEnvEventoCancelamento)"
-Write-Host "  - Chamadas de Nfe.cce(TEnvEvento) → Nfe.cce(TEnvEventoCartaCorrecao)"
-Write-Host "  - XmlNfeUtil.xmlToObject(xml, T*.class) — certifique-se de usar a classe correta"
+
+# Avisos sobre o que o script NAO cobre — usuario precisa revisar manualmente.
+Write-Host "Revise manualmente:" -ForegroundColor Cyan
+Write-Host "  - TProtNFe.InfProt.getDhRecbto() agora retorna String (era XMLGregorianCalendar)."
+Write-Host "  - Imports do tipo `import schema.X.*;` (wildcard) — o script nao trata."
+Write-Host "  - Codigo que comparava classes via Class.getName() ou reflection — os FQN mudaram."
 Write-Host ""
-Write-Host "Apos migrar, execute:" -ForegroundColor DarkGray
-Write-Host "  mvn test-compile   # verificar compilacao"
-Write-Host "  mvn test           # verificar testes"
+Write-Host "Apos migrar:" -ForegroundColor DarkGray
+Write-Host "  mvn test-compile     # verificar compilacao"
+Write-Host "  mvn test             # verificar testes"

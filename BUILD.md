@@ -1,6 +1,6 @@
-# Build & regeneração JAXB — v5.0.0
+# Build & regeneração JAXB — v4.1.1
 
-A partir da versão **5.0.0** todos os tipos JAXB foram consolidados em **2 packages** (antes ~48):
+A partir da versão **4.1.1** todos os tipos JAXB foram consolidados em **2 packages** (antes ~48):
 
 | Package | Conteúdo |
 |---|---|
@@ -54,7 +54,7 @@ pwsh scripts/regenerate-jaxb.ps1 -Jdk8Path /opt/zulu-8
 pwsh scripts/regenerate-jaxb.ps1 -RemoveOrphans
 ```
 
-Saída esperada: 5 mensagens "schemas pass-N" + 14 mensagens "schemas_eventos pass-NN" + "Regeneracao v5.0.0 completa". Tempo total ~30-60s.
+Saída esperada: 5 mensagens "schemas pass-N" + 14 mensagens "schemas_eventos pass-NN" + 26 mensagens "extraido: DetEvento<código>.java" (eventos individuais da Reforma Tributária) + "Regeneracao completa". Tempo total ~1-2 min.
 
 ## Estratégia de compilação: passes sequenciais
 
@@ -95,38 +95,42 @@ Cada evento define `TEvento`, `TRetEnvEvento`, `TProcEvento` etc. com o mesmo no
 
 Os arquivos de binding (`.xjb`) ficam em `scripts/bindings/`.
 
+### Passes 15+ — Eventos individuais (Reforma Tributária e legados)
+
+Após os 14 passes principais, o script faz mais um laço sobre 26 XSDs de eventos
+individuais (`e110001`, `e110110-140`, `e112110-150`, `e210200-240`, `e211110-150`,
+`e212110-120`, `e412120-130`, `110150`).
+
+Cada XSD desses define `<xs:element name="detEvento">` global com `complexType` próprio.
+A estratégia: rodar `xjc` em um **pacote temporário** (`br.com.swconsultoria.nfe.tmp_evt_<código>`),
+extrair apenas o `DetEvento.java`, renomear para `DetEvento<código>.java` e movê-lo para
+`schemas_eventos`. O pacote temporário é deletado após.
+
+Por que pacote temporário em vez de binding com `<jxb:class name="...">` em `xs:complexType`?
+Porque renomear o tipo via binding **descarta o `@XmlRootElement`** (o XJC entende que é um
+tipo nomeado, não um elemento global). Sem `@XmlRootElement`, o `EventoGenericoUtil.montaEvento`
+falha em runtime ao fazer marshal direto (`MarshalException`).
+
 ### Por que não usar `-episode`
 
 O mecanismo de JAXB episodes (`.episode` + `-b episode`) exige que os tipos referenciados **existam** no schema do pass consumidor com o mesmo nome. Os schemas SEFAZ redefinem tipos básicos (como `TUf`, `TUfEmi`) em múltiplos XSDs com o mesmo nome de element — o episode causaria "SCD not matched" em pelo menos 3 passes. A estratégia de sobrescrição sequencial é equivalente e mais robusta para este caso.
 
-## DetEvento.java — classe superset manual
+## DetEvento — agora uma classe por código de evento
 
-O elemento global `<detEvento>` aparece em múltiplos schemas de eventos com campos diferentes por tipo de evento. O xjc só pode gerar uma versão (a do último pass). A solução é manter **manualmente** o arquivo:
+Versões anteriores mantinham um arquivo `DetEvento.java` superset escrito à mão (para cobrir os campos de todos os eventos). Essa abordagem era frágil: o `xjc` o sobrescrevia a cada regeneração, exigindo `git checkout` manual.
 
-```
-src/main/java/br/com/swconsultoria/nfe/schemas_eventos/DetEvento.java
-```
+A partir desta versão **cada evento individual tem sua própria classe** `DetEvento<código>.java` (ex.: `DetEvento110001`, `DetEvento112110`, `DetEvento211110`, etc.), gerada automaticamente pelos passes 15+. Veja a seção "Passes 15+" acima.
 
-Este arquivo é um superset com todos os campos de todos os eventos:
-
-- `descEvento`, `cOrgaoAutor`, `tpAutor`, `verAplic`, `nProtEvento` — campos comuns
-- `indQuitacao` — campo do evento genérico 112110
-- `detPag` (`List<DetPag>`) — lista de pagamentos do ECONF (e110750)
-- `DetPag` inner class — campos: `indPag`, `tPag`, `xPag`, `vPag`, `dPag`, `CNPJPag`, `UFPag` (`TUfEmi` de `schemas`), `CNPJIF`, `tBand`, `cAut`, `CNPJReceb`, `UFReceb`
-
-> **ATENÇÃO:** após cada execução de `pwsh scripts/regenerate-jaxb.ps1`, o `DetEvento.java` é **sobrescrito**. É necessário reaplicar manualmente a versão correta. O arquivo correto está commitado no Git — basta fazer `git checkout src/main/java/br/com/swconsultoria/nfe/schemas_eventos/DetEvento.java` após regenerar.
+Os arquivos top-level `DetEvento.java` (anônimo) **não existem mais** — qualquer arquivo de código deve referenciar a classe específica do evento que está manipulando.
 
 ## O que verificar depois de regerar
 
 ```bash
-# 1. Restaurar DetEvento.java (sobrescrito pelo xjc)
-git checkout src/main/java/br/com/swconsultoria/nfe/schemas_eventos/DetEvento.java
-
-# 2. Verificar mudanças
+# 1. Verificar mudanças
 git status        # devem aparecer mudanças em schemas/ e schemas_eventos/
 git diff --stat
 
-# 3. Compilar e testar
+# 2. Compilar e testar
 mvn test-compile  # compilação OK?
 mvn test          # testes verdes? (esperado: 2157 testes, 0 falhas)
 ```
@@ -152,8 +156,6 @@ O CI **não regera automaticamente** — apenas detecta se alguém esqueceu de r
   env:
     JAVA_HOME_8: ${{ steps.jdk8.outputs.path }}
   run: pwsh scripts/regenerate-jaxb.ps1
-- name: Restaura DetEvento.java superset
-  run: git checkout src/main/java/br/com/swconsultoria/nfe/schemas_eventos/DetEvento.java
 - name: Detecta drift
   run: git diff --exit-code -- src/main/java/br/com/swconsultoria/nfe/schemas src/main/java/br/com/swconsultoria/nfe/schemas_eventos
 ```
@@ -182,7 +184,6 @@ src/main/java/br/com/swconsultoria/nfe/
 │   ├── TEventoConsSitNFe.java      # renomeado via binding (era TEvento)
 │   └── ...
 └── schemas_eventos/                # TODOS os eventos SEFAZ
-    ├── DetEvento.java              # HANDWRITTEN superset — nao editar via xjc
     ├── TUf.java                    # enum de UFs (separado de schemas.TUf)
     ├── TEventoGenerico.java
     ├── TEnvEventoGenerico.java
@@ -193,18 +194,17 @@ src/main/java/br/com/swconsultoria/nfe/
     ├── TEventoCartaCorrecao.java
     ├── TEnvEventoCartaCorrecao.java
     ├── TRetEnvEventoCartaCorrecao.java
-    ├── TEventoEpec.java
-    ├── TEnvEventoEpec.java
-    ├── TRetEnvEventoEpec.java
-    ├── TEventoManifestacao.java
-    ├── TEnvEventoManifestacao.java
-    ├── TRetEnvEventoManifestacao.java
+    ├── TEventoEpec.java / TEnvEventoEpec.java / TRetEnvEventoEpec.java
+    ├── TEventoManifestacao.java / TEnvEventoManifestacao.java / TRetEnvEventoManifestacao.java
+    ├── DetEvento110001.java        # eventos individuais com @XmlRootElement
+    ├── DetEvento112110.java
+    ├── DetEvento211110.java        # ...e assim para os 26 codigos
     └── ... (conciliacao financeira, insucesso, comprovante, ator interessado, resumo)
 ```
 
 ## Não-fazer
 
-- **Nao edite** `.java` dentro de `schemas/` ou `schemas_eventos/` à mão — exceto `DetEvento.java`. Próxima regeneração apaga.
+- **Nao edite** `.java` dentro de `schemas/` ou `schemas_eventos/` à mão. Próxima regeneração apaga.
 - **Nao altere a ordem** dos passes em `scripts/regenerate-jaxb.ps1` sem entender o impacto. O pass NFe DEVE ser o último do grupo `schemas`.
 - **Nao adicione `<execution>` extras** ao plugin `exec-maven-plugin`. A tabela canônica vive em `scripts/regenerate-jaxb.ps1`.
 - **Nao use** o `xjc` do JDK 11+ (não existe), nem do `jaxb-impl` standalone (gera anotações `jakarta.*`, incompatível com Java 8 + `javax.*`).
@@ -238,18 +238,18 @@ Quando a Sefaz publicar um novo evento ou documento:
 5. Verifique que `DetEvento.java` nao foi alterado (se foi, restaure via git).
 6. Commite: XSD(s) nova(s) + `.xjb` novo + linha no script + `.java` gerados.
 
-## Migrando de v4 para v5
+## Migrando um projeto consumidor de v4.00.* para v4.1.1
 
 Ver [`MIGRATION.md`](MIGRATION.md) e o script automático:
 
 ```bash
-# Windows (PowerShell):
-pwsh scripts/migrate-to-v5.ps1 -Path src/main/java
+# Windows / Linux / macOS (PowerShell — completo, recomendado):
+pwsh scripts/migrate.ps1 -ProjectRoot . -BumpPom
 # Simulacao (sem alterar arquivos):
-pwsh scripts/migrate-to-v5.ps1 -DryRun
+pwsh scripts/migrate.ps1 -ProjectRoot . -DryRun
 
-# Linux/macOS (bash):
-bash scripts/migrate-to-v5.sh src/main/java
+# Linux/macOS (bash — limitado):
+bash scripts/migrate.sh src/main/java
 ```
 
 ## Troubleshooting
@@ -261,6 +261,7 @@ bash scripts/migrate-to-v5.sh src/main/java
 | `xjc falhou para <pass> (exit ...)` | XSD inválida ou conflito de tipo | Veja stderr do `xjc` acima da mensagem |
 | `cannot find symbol: ObjectFactory.createTNFeInfNFeDet*` | Pass NFe não foi o último | Verifique a ordem dos passes em `regenerate-jaxb.ps1` — NFe deve ser pass 5 |
 | `TEndereco.setUF() / setFone() not found` | Pass consCad rodou depois do pass NFe | Mesma causa: restaurar a ordem correta dos passes |
-| `DetEvento.getDetPag() not found` | `DetEvento.java` foi sobrescrito pelo xjc | `git checkout src/main/java/br/com/swconsultoria/nfe/schemas_eventos/DetEvento.java` |
+| `MarshalException` em `XmlNfeUtil.objectToElement` para evento individual | Classe `DetEvento<código>` sem `@XmlRootElement` | Confirme que o pass 15+ usa pacote temporário (não binding em `xs:complexType` direto). Veja "Passes 15+" acima. |
+| `MarshalException` com namespace `xmldsig` em vez de NFe | `package-info.java` de `schemas_eventos` errado | Confirme que o pós-processamento do `regenerate-jaxb.ps1` corrigiu o namespace. |
 | `mvn test-compile` quebra após regerar | Classe renomeada/removida em XSD nova | Atualize import no código de negócio |
 | Git diff gigante "do nada" | Versão de `xjc` mudou entre JDKs | Pinne JDK 8 da Temurin nas três máquinas (dev + CI) |

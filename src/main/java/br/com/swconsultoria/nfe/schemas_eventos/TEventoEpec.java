@@ -360,7 +360,7 @@ public class TEventoEpec {
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
         protected String verEvento;
         @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-        protected TEventoEpec.InfEvento.DetEvento detEvento;
+        protected TEventoEpec.InfEvento.DetEventoEpec detEvento;
         @XmlAttribute(name = "Id", required = true)
         @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
         @XmlID
@@ -587,10 +587,10 @@ public class TEventoEpec {
          * 
          * @return
          *     possible object is
-         *     {@link TEventoEpec.InfEvento.DetEvento }
+         *     {@link TEventoEpec.InfEvento.DetEventoEpec }
          *     
          */
-        public TEventoEpec.InfEvento.DetEvento getDetEvento() {
+        public TEventoEpec.InfEvento.DetEventoEpec getDetEvento() {
             return detEvento;
         }
 
@@ -599,10 +599,10 @@ public class TEventoEpec {
          * 
          * @param value
          *     allowed object is
-         *     {@link TEventoEpec.InfEvento.DetEvento }
+         *     {@link TEventoEpec.InfEvento.DetEventoEpec }
          *     
          */
-        public void setDetEvento(TEventoEpec.InfEvento.DetEvento value) {
+        public void setDetEvento(TEventoEpec.InfEvento.DetEventoEpec value) {
             this.detEvento = value;
         }
 
@@ -702,7 +702,7 @@ public class TEventoEpec {
             "ie",
             "dest"
         })
-        public static class DetEvento {
+        public static class DetEventoEpec {
 
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String descEvento;
@@ -719,7 +719,7 @@ public class TEventoEpec {
             @XmlElement(name = "IE", namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
             protected String ie;
             @XmlElement(namespace = "http://www.portalfiscal.inf.br/nfe", required = true)
-            protected TEventoEpec.InfEvento.DetEvento.Dest dest;
+            protected TEventoEpec.InfEvento.DetEventoEpec.Dest dest;
             @XmlAttribute(name = "versao", required = true)
             protected String versao;
 
@@ -896,10 +896,10 @@ public class TEventoEpec {
              * 
              * @return
              *     possible object is
-             *     {@link TEventoEpec.InfEvento.DetEvento.Dest }
+             *     {@link TEventoEpec.InfEvento.DetEventoEpec.Dest }
              *     
              */
-            public TEventoEpec.InfEvento.DetEvento.Dest getDest() {
+            public TEventoEpec.InfEvento.DetEventoEpec.Dest getDest() {
                 return dest;
             }
 
@@ -908,10 +908,10 @@ public class TEventoEpec {
              * 
              * @param value
              *     allowed object is
-             *     {@link TEventoEpec.InfEvento.DetEvento.Dest }
+             *     {@link TEventoEpec.InfEvento.DetEventoEpec.Dest }
              *     
              */
-            public void setDest(TEventoEpec.InfEvento.DetEvento.Dest value) {
+            public void setDest(TEventoEpec.InfEvento.DetEventoEpec.Dest value) {
                 this.dest = value;
             }
 

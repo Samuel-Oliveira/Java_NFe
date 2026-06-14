@@ -42,7 +42,30 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 
 ________________________________________________________________________________________________
 
+## ⚠️ Atualizando de v4.00.x para v4.1.1?
+
+A v4.1.1 **consolidou ~48 sub-packages JAXB em apenas 2** (`schemas` e `schemas_eventos`)
+e renomeou várias classes de evento para evitar colisões. Imports antigos como
+`schema_4.enviNFe.*`, `schema.envEventoCancNFe.*`, `schema.evento112110.DetEvento`
+**não compilam mais**.
+
+**Use o script automático de migração** — guia completo, tabela de renomeios,
+breaking changes e instruções de uso em **[MIGRATION.md](MIGRATION.md)**.
+
+Resumo: `pwsh scripts/migrate.ps1 -ProjectRoot . -BumpPom` (ou `bash scripts/migrate.sh`).
+
+________________________________________________________________________________________________
+
 # Historico de Versões
+
+## v4.1.1 - Schemas PL.010d
+- **Consolidação de packages JAXB**: `~48 sub-packages → schemas + schemas_eventos`
+- Adicionado processamento de eventos individuais da Reforma Tributária (`DetEvento110001`, `DetEvento112110-150`, `DetEvento211110-150` etc.) gerados como classes top-level com `@XmlRootElement`
+- Corrigido bug do `regenerate-jaxb` em que o `DetEvento` anônimo de cada evento colidia entre passes — agora cada evento tem sua própria classe nomeada via binding
+- Corrigido `package-info.java` de `schemas_eventos` (namespace estava apontando pra `xmldsig` em vez de `portalfiscal.inf.br/nfe`)
+- **BREAKING**: `TProtNFe.InfProt.getDhRecbto()` agora retorna `String` (era `XMLGregorianCalendar`) — ajuste callers que faziam conversão direta para `LocalDateTime`
+- Adicionado script automático de migração para projetos consumidores (ver [MIGRATION.md](MIGRATION.md))
+- Validado em 3 projetos consumidores: 1009 testes, 0 falhas
 
 ## v4.00.51 - 19/03/2026 - Schemas PL.010b (v1.30)
 - Adicionado Teste Unitarios
