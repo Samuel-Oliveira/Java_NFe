@@ -4,8 +4,8 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoEpec;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoEpec;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import javax.xml.bind.JAXBException;
@@ -16,7 +16,7 @@ import javax.xml.bind.JAXBException;
  */
 class Epec {
 
-    static TRetEnvEvento eventoEpec(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida) throws NfeException {
+    static TRetEnvEventoEpec eventoEpec(ConfiguracoesNfe config, TEnvEventoEpec enviEvento, boolean valida) throws NfeException {
 
         try {
 
@@ -26,7 +26,7 @@ class Epec {
 
             xml = Eventos.enviarEvento(config, xml, ServicosEnum.EPEC, valida,true, DocumentoEnum.NFE);
 
-            return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
+            return XmlNfeUtil.xmlToObject(xml, TRetEnvEventoEpec.class);
 
         } catch (JAXBException e) {
             throw new NfeException(e.getMessage(),e);

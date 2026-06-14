@@ -7,8 +7,8 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEpec.TEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoEpec;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoEpec;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,33 +54,33 @@ class EpecUtilTest {
 
     @Test
     void montaEpec_unico_retornaTEnvEvento() throws NfeException {
-        TEnvEvento resultado = EpecUtil.montaEpec(novoEpec(), config);
+        TEnvEventoEpec resultado = EpecUtil.montaEpec(novoEpec(), config);
         assertNotNull(resultado);
         assertEquals(1, resultado.getEvento().size());
     }
 
     @Test
     void montaEpec_tpEvento_ehEpec() throws NfeException {
-        TEnvEvento resultado = EpecUtil.montaEpec(novoEpec(), config);
-        TEvento.InfEvento info = resultado.getEvento().get(0).getInfEvento();
+        TEnvEventoEpec resultado = EpecUtil.montaEpec(novoEpec(), config);
+        TEventoEpec.InfEvento info = resultado.getEvento().get(0).getInfEvento();
         assertEquals(EventosEnum.EPEC.getCodigo(), info.getTpEvento());
     }
 
     @Test
     void montaEpec_chaveNFe_preenchida() throws NfeException {
-        TEnvEvento resultado = EpecUtil.montaEpec(novoEpec(), config);
+        TEnvEventoEpec resultado = EpecUtil.montaEpec(novoEpec(), config);
         assertEquals(CHAVE, resultado.getEvento().get(0).getInfEvento().getChNFe());
     }
 
     @Test
     void montaEpec_idComecaComID() throws NfeException {
-        TEnvEvento resultado = EpecUtil.montaEpec(novoEpec(), config);
+        TEnvEventoEpec resultado = EpecUtil.montaEpec(novoEpec(), config);
         assertTrue(resultado.getEvento().get(0).getInfEvento().getId().startsWith("ID"));
     }
 
     @Test
     void montaEpec_descEvento_epec() throws NfeException {
-        TEnvEvento resultado = EpecUtil.montaEpec(novoEpec(), config);
+        TEnvEventoEpec resultado = EpecUtil.montaEpec(novoEpec(), config);
         assertEquals("EPEC", resultado.getEvento().get(0).getInfEvento().getDetEvento().getDescEvento());
     }
 
@@ -90,7 +90,7 @@ class EpecUtilTest {
         lista.add(novoEpec());
         lista.add(novoEpec());
 
-        TEnvEvento resultado = EpecUtil.montaEpec(lista, config);
+        TEnvEventoEpec resultado = EpecUtil.montaEpec(lista, config);
         assertEquals(2, resultado.getEvento().size());
     }
 
@@ -104,7 +104,7 @@ class EpecUtilTest {
 
     @Test
     void montaEpec_ambiente_preenchido() throws NfeException {
-        TEnvEvento resultado = EpecUtil.montaEpec(novoEpec(), config);
+        TEnvEventoEpec resultado = EpecUtil.montaEpec(novoEpec(), config);
         assertEquals(AmbienteEnum.HOMOLOGACAO.getCodigo(),
                 resultado.getEvento().get(0).getInfEvento().getTpAmb());
     }

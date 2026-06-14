@@ -6,10 +6,11 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoEConf.DetEvento;
-import br.com.swconsultoria.nfe.schema.envEventoEConf.TEvento;
-import br.com.swconsultoria.nfe.schema.envEventoEConf.TUfEmi;
-import br.com.swconsultoria.nfe.schema.eventoEConf.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.DetEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoConciliacaoFinanceira;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoConciliacaoFinanceira;
+import br.com.swconsultoria.nfe.schemas.TUfEmi;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoConciliacaoFinanceira;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import java.time.LocalDateTime;
@@ -28,13 +29,13 @@ public class EConfTeste {
             ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.PRODUCAO);
 
             // Monta o Evento
-            br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento envEvento = new br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento();
+            TEnvEventoConciliacaoFinanceira envEvento = new TEnvEventoConciliacaoFinanceira();
             envEvento.setVersao("1.00");
             envEvento.setIdLote("1");
 
-            TEvento evento = new TEvento();
+            TEventoConciliacaoFinanceira evento = new TEventoConciliacaoFinanceira();
             evento.setVersao("1.00");
-            TEvento.InfEvento infEvento = new TEvento.InfEvento();
+            TEventoConciliacaoFinanceira.InfEvento infEvento = new TEventoConciliacaoFinanceira.InfEvento();
             infEvento.setId("ID" + "110750" + "522511107326440001286509887049582437824" + "01");
             infEvento.setCOrgao("52");
             infEvento.setTpAmb("2");
@@ -68,7 +69,7 @@ public class EConfTeste {
             System.out.println(XmlNfeUtil.objectToXml(envEvento));
 
             //Envia a ECONF
-            TRetEnvEvento retorno = Nfe.econf(config, envEvento, DocumentoEnum.NFE, false);
+            TRetEnvEventoConciliacaoFinanceira retorno = Nfe.econf(config, envEvento, DocumentoEnum.NFE, false);
 
             if (!retorno.getCStat().equals("128")) {
                 throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());

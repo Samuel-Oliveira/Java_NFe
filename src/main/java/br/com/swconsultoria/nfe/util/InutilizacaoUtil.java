@@ -5,9 +5,9 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TProcInutNFe;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
+import br.com.swconsultoria.nfe.schemas.TInutNFe;
+import br.com.swconsultoria.nfe.schemas.TProcInutNFe;
+import br.com.swconsultoria.nfe.schemas.TRetInutNFe;
 
 import javax.xml.bind.JAXBException;
 import java.time.LocalDateTime;

@@ -9,9 +9,9 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
-import br.com.swconsultoria.nfe.schema.evento112110.DetEvento;
-import br.com.swconsultoria.nfe.schema.eventoGenerico.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.eventoGenerico.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.DetEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoGenerico;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoGenerico;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.EventoGenericoUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
@@ -44,15 +44,15 @@ public class EventoGenericoTeste {
             detEvento.setDescEvento("Informação de efetivo pagamento integral para liberar crédito presumido do adquirente");
             detEvento.setCOrgaoAutor(config.getEstado().getCodigoUF());
             detEvento.setTpAutor("1");
-            detEvento.setVerAplic("v4.00.51");
+            detEvento.setVerAplic("v4.1.1");
             detEvento.setIndQuitacao("1");
             generico.setDetEvento(detEvento);
 
             //Monta o Evento Generico
-            TEnvEvento enviEvento = EventoGenericoUtil.montaEvento(generico,DetEvento.class, EventosEnum.PAGAMENTO_INTEGRAL_CREDITO_PRESUMIDO, config);
+            TEnvEventoGenerico enviEvento = EventoGenericoUtil.montaEvento(generico,DetEvento.class, EventosEnum.PAGAMENTO_INTEGRAL_CREDITO_PRESUMIDO, config);
 
             //Envia o Evento Generico
-            TRetEnvEvento retorno = Nfe.eventoGenerico(config, enviEvento, true);
+            TRetEnvEventoGenerico retorno = Nfe.eventoGenerico(config, enviEvento, true);
 
             //Valida o Retorno do Cancelamento
             RetornoUtil.validaEventoGenerico(retorno);

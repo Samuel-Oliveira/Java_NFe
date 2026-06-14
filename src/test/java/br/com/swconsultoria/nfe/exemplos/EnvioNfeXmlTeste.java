@@ -9,9 +9,9 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.StatusEnum;
-import br.com.swconsultoria.nfe.schema_4.consReciNFe.TRetConsReciNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.com.swconsultoria.nfe.schemas.TRetConsReciNFe;
+import br.com.swconsultoria.nfe.schemas.TEnviNFe;
+import br.com.swconsultoria.nfe.schemas.TRetEnviNFe;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 

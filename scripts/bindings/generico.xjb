@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- leiauteEvento_v1.00.xsd (era "eventoGenerico") -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEvento_v1.00.xsd">
+    <jxb:bindings node="//xs:complexType[@name='TEvento']">
+      <jxb:class name="TEventoGenerico"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEvento']">
+      <jxb:class name="TRetEventoGenerico"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TEnvEvento']">
+      <jxb:class name="TEnvEventoGenerico"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEnvEvento']">
+      <jxb:class name="TRetEnvEventoGenerico"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TProcEvento']">
+      <jxb:class name="TProcEventoGenerico"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- envEvento_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/envEvento_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='envEvento']">
+      <jxb:factoryMethod name="EnvEventoGenerico"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- retEnvEvento_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/retEnvEvento_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='retEnvEvento']">
+      <jxb:factoryMethod name="RetEnvEventoGenerico"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- procEventoNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/procEventoNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='procEventoNFe']">
+      <jxb:factoryMethod name="ProcEventoGenerico"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+</jxb:bindings>

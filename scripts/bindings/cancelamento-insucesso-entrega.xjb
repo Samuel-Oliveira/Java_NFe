@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- leiauteEventoCancInsucessoNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEventoCancInsucessoNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:complexType[@name='TEvento']">
+      <jxb:class name="TEventoCancelamentoInsucessoEntrega"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TretEvento']">
+      <jxb:class name="TRetEventoCancelamentoInsucessoEntrega"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TEnvEvento']">
+      <jxb:class name="TEnvEventoCancelamentoInsucessoEntrega"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEnvEvento']">
+      <jxb:class name="TRetEnvEventoCancelamentoInsucessoEntrega"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TProcEvento']">
+      <jxb:class name="TProcEventoCancelamentoInsucessoEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- EventoCancInsucessoNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/EventoCancInsucessoNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='evento']">
+      <jxb:factoryMethod name="EventoCancelamentoInsucessoEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- envEventoCancInsucessoNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/envEventoCancInsucessoNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='envEvento']">
+      <jxb:factoryMethod name="EnvEventoCancelamentoInsucessoEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- procEventoCancInsucessoNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/procEventoCancInsucessoNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='procEventoNFe']">
+      <jxb:factoryMethod name="ProcEventoCancelamentoInsucessoEntrega"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+
+</jxb:bindings>

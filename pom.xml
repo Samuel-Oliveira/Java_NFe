@@ -4,7 +4,7 @@
 
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.00.51</version>
+    <version>4.1.1</version>
     <name>Java_NFe</name>
     <description>Api java para consumo do webService de nota fiscal eletronica</description>
     <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
@@ -32,7 +32,7 @@
         <java.version>1.8</java.version>
 
         <!-- Versions -->
-        <java-certificado.version>3.14</java-certificado.version>
+        <java-certificado.version>3.16</java-certificado.version>
         <httpcore.version>4.4.6</httpcore.version>
         <jaxb-impl.version>2.3.1</jaxb-impl.version>
         <jaxb-xjc.version>2.3.1</jaxb-xjc.version>
@@ -52,6 +52,7 @@
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
     </properties>
 
     <developers>
@@ -300,6 +301,30 @@
                 <configuration>
                     <repoToken>paGe4qkZvPNJtvxqY8NaJN5ImZO56RqB6</repoToken>
                 </configuration>
+            </plugin>
+            <!-- Regeneracao manual de classes JAXB. Acionar via: mvn exec:exec@regenerate-jaxb -->
+            <!-- A tabela canonica (package x XSD) vive em scripts/regenerate-jaxb.ps1. Ver BUILD.md. -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>regenerate-jaxb</id>
+                        <phase>none</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>pwsh</executable>
+                            <arguments>
+                                <argument>-NoProfile</argument>
+                                <argument>-File</argument>
+                                <argument>${project.basedir}/scripts/regenerate-jaxb.ps1</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

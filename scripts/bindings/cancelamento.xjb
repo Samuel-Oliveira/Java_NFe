@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- leiauteEventoCancNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEventoCancNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:complexType[@name='TEvento']">
+      <jxb:class name="TEventoCancelamento"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEvento']">
+      <jxb:class name="TRetEventoCancelamento"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TEnvEvento']">
+      <jxb:class name="TEnvEventoCancelamento"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEnvEvento']">
+      <jxb:class name="TRetEnvEventoCancelamento"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TProcEvento']">
+      <jxb:class name="TProcEventoCancelamento"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- eventoCancNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/eventoCancNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='evento']">
+      <jxb:factoryMethod name="EventoCancelamento"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- envEventoCancNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/envEventoCancNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='envEvento']">
+      <jxb:factoryMethod name="EnvEventoCancelamento"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- retEnvEventoCancNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/retEnvEventoCancNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='retEnvEvento']">
+      <jxb:factoryMethod name="RetEnvEventoCancelamento"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- procEventoCancNFe_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/procEventoCancNFe_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='procEventoNFe']">
+      <jxb:factoryMethod name="ProcEventoCancelamento"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+</jxb:bindings>

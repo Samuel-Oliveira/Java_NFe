@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- resEvento_v1.01.xsd: rename resEvento element to ResumoEvento in ObjectFactory -->
+  <jxb:bindings schemaLocation="../../schemas/resEvento_v1.01.xsd">
+    <jxb:bindings node="//xs:element[@name='resEvento']">
+      <jxb:factoryMethod name="ResumoEvento"/>
+      <jxb:class name="ResumoEvento"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+</jxb:bindings>

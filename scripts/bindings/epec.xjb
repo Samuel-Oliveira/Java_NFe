@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- leiauteEPEC_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEPEC_v1.00.xsd">
+    <jxb:bindings node="//xs:complexType[@name='TEvento']">
+      <jxb:class name="TEventoEpec"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEvento']">
+      <jxb:class name="TRetEventoEpec"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TEnvEvento']">
+      <jxb:class name="TEnvEventoEpec"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEnvEvento']">
+      <jxb:class name="TRetEnvEventoEpec"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TProcEvento']">
+      <jxb:class name="TProcEventoEpec"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- EPEC_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/EPEC_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='evento']">
+      <jxb:factoryMethod name="EventoEpec"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- envEPEC_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/envEPEC_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='envEvento']">
+      <jxb:factoryMethod name="EnvEventoEpec"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- retEnvEPEC_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/retEnvEPEC_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='retEnvEvento']">
+      <jxb:factoryMethod name="RetEnvEventoEpec"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- procEPEC_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/procEPEC_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='procEventoNFe']">
+      <jxb:factoryMethod name="ProcEventoEpec"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+</jxb:bindings>

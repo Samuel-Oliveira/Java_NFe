@@ -6,8 +6,8 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ManifestacaoEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envConfRecebto.TEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoManifestacao;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoManifestacao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +45,7 @@ class ManifestacaoUtilTest {
 
     @Test
     void montaManifestacao_confirmacao_retornaTEnvEvento() throws NfeException {
-        TEnvEvento resultado = ManifestacaoUtil.montaManifestacao(
+        TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(
                 novoEvento(ManifestacaoEnum.CONFIRMACAO_DA_OPERACAO), config);
         assertNotNull(resultado);
         assertEquals(1, resultado.getEvento().size());
@@ -53,15 +53,15 @@ class ManifestacaoUtilTest {
 
     @Test
     void montaManifestacao_tpEvento_confirmacao() throws NfeException {
-        TEnvEvento resultado = ManifestacaoUtil.montaManifestacao(
+        TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(
                 novoEvento(ManifestacaoEnum.CONFIRMACAO_DA_OPERACAO), config);
-        TEvento.InfEvento info = resultado.getEvento().get(0).getInfEvento();
+        TEventoManifestacao.InfEvento info = resultado.getEvento().get(0).getInfEvento();
         assertEquals(ManifestacaoEnum.CONFIRMACAO_DA_OPERACAO.getCodigo(), info.getTpEvento());
     }
 
     @Test
     void montaManifestacao_ciencia_tpEvento() throws NfeException {
-        TEnvEvento resultado = ManifestacaoUtil.montaManifestacao(
+        TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(
                 novoEvento(ManifestacaoEnum.CIENCIA_DA_OPERACAO), config);
         assertEquals(ManifestacaoEnum.CIENCIA_DA_OPERACAO.getCodigo(),
                 resultado.getEvento().get(0).getInfEvento().getTpEvento());
@@ -69,7 +69,7 @@ class ManifestacaoUtilTest {
 
     @Test
     void montaManifestacao_desconhecimento_tpEvento() throws NfeException {
-        TEnvEvento resultado = ManifestacaoUtil.montaManifestacao(
+        TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(
                 novoEvento(ManifestacaoEnum.DESCONHECIMENTO_DA_OPERACAO), config);
         assertEquals(ManifestacaoEnum.DESCONHECIMENTO_DA_OPERACAO.getCodigo(),
                 resultado.getEvento().get(0).getInfEvento().getTpEvento());
@@ -80,8 +80,8 @@ class ManifestacaoUtilTest {
         Evento e = novoEvento(ManifestacaoEnum.OPERACAO_NAO_REALIZADA);
         e.setMotivo("Mercadoria nao recebida");
 
-        TEnvEvento resultado = ManifestacaoUtil.montaManifestacao(e, config);
-        TEvento.InfEvento.DetEvento det = resultado.getEvento().get(0).getInfEvento().getDetEvento();
+        TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(e, config);
+        TEventoManifestacao.InfEvento.DetEvento det = resultado.getEvento().get(0).getInfEvento().getDetEvento();
         assertEquals("Mercadoria nao recebida", det.getXJust());
     }
 
@@ -90,7 +90,7 @@ class ManifestacaoUtilTest {
         Evento e = novoEvento(ManifestacaoEnum.CONFIRMACAO_DA_OPERACAO);
         e.setSequencia(0); // deve ser corrigido para 1
 
-        TEnvEvento resultado = ManifestacaoUtil.montaManifestacao(e, config);
+        TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(e, config);
         assertEquals("1", resultado.getEvento().get(0).getInfEvento().getNSeqEvento());
     }
 
@@ -100,7 +100,7 @@ class ManifestacaoUtilTest {
         lista.add(novoEvento(ManifestacaoEnum.CONFIRMACAO_DA_OPERACAO));
         lista.add(novoEvento(ManifestacaoEnum.CIENCIA_DA_OPERACAO));
 
-        TEnvEvento resultado = ManifestacaoUtil.montaManifestacao(lista, config);
+        TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(lista, config);
         assertEquals(2, resultado.getEvento().size());
     }
 
@@ -115,7 +115,7 @@ class ManifestacaoUtilTest {
 
     @Test
     void montaManifestacao_chaveNFe_preenchida() throws NfeException {
-        TEnvEvento resultado = ManifestacaoUtil.montaManifestacao(
+        TEnvEventoManifestacao resultado = ManifestacaoUtil.montaManifestacao(
                 novoEvento(ManifestacaoEnum.CONFIRMACAO_DA_OPERACAO), config);
         assertEquals(CHAVE, resultado.getEvento().get(0).getInfEvento().getChNFe());
     }

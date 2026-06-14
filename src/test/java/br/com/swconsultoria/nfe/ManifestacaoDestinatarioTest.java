@@ -7,8 +7,8 @@ import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ManifestacaoEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoManifestacao;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoManifestacao;
 import br.com.swconsultoria.nfe.util.ManifestacaoUtil;
 import br.com.swconsultoria.nfe.util.StubUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeRecepcaoEvento.NFeRecepcaoEvento4Stub;
@@ -31,7 +31,7 @@ class ManifestacaoDestinatarioTest {
             "</retEnvEvento>";
 
     private ConfiguracoesNfe config;
-    private TEnvEvento enviEvento;
+    private TEnvEventoManifestacao enviEvento;
 
     @BeforeEach
     void setUp() throws NfeException {
@@ -90,7 +90,7 @@ class ManifestacaoDestinatarioTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = ManifestacaoDestinatario.eventoManifestacao(config, enviEvento, false);
+        TRetEnvEventoManifestacao ret = ManifestacaoDestinatario.eventoManifestacao(config, enviEvento, false);
 
         assertNotNull(ret);
         assertEquals("128", ret.getCStat());
@@ -102,7 +102,7 @@ class ManifestacaoDestinatarioTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = ManifestacaoDestinatario.eventoManifestacao(config, enviEvento, false);
+        TRetEnvEventoManifestacao ret = ManifestacaoDestinatario.eventoManifestacao(config, enviEvento, false);
 
         assertEquals("Lote de Evento Processado", ret.getXMotivo());
     }
@@ -113,7 +113,7 @@ class ManifestacaoDestinatarioTest {
         mockAssinar();
         mockEventosStub();
 
-        TRetEnvEvento ret = ManifestacaoDestinatario.eventoManifestacao(config, enviEvento, false);
+        TRetEnvEventoManifestacao ret = ManifestacaoDestinatario.eventoManifestacao(config, enviEvento, false);
 
         assertEquals("2", ret.getTpAmb());
     }
