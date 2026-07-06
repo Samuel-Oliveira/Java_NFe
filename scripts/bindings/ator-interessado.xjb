@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- leiauteEventoAtorInteressado_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEventoAtorInteressado_v1.00.xsd">
+    <jxb:bindings node="//xs:complexType[@name='TEvento']">
+      <jxb:class name="TEventoAtorInteressado"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEvento']">
+      <jxb:class name="TRetEventoAtorInteressado"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TEnvEvento']">
+      <jxb:class name="TEnvEventoAtorInteressado"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEnvEvento']">
+      <jxb:class name="TRetEnvEventoAtorInteressado"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TProcEvento']">
+      <jxb:class name="TProcEventoAtorInteressado"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- eventoAtorInteressado_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/eventoAtorInteressado_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='evento']">
+      <jxb:factoryMethod name="EventoAtorInteressado"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- envEventoAtorInteressado_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/envEventoAtorInteressado_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='envEvento']">
+      <jxb:factoryMethod name="EnvEventoAtorInteressado"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- retEnvEventoAtorInteressado_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/retEnvEventoAtorInteressado_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='retEnvEvento']">
+      <jxb:factoryMethod name="RetEnvEventoAtorInteressado"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- procEventoAtorInteressado_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/procEventoAtorInteressado_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='procEventoNFe']">
+      <jxb:factoryMethod name="ProcEventoAtorInteressado"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- patch-bindings-detevento: DetEventoAtorInteressado -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEventoAtorInteressado_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='detEvento']/xs:complexType">
+      <jxb:class name="DetEventoAtorInteressado"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+</jxb:bindings>

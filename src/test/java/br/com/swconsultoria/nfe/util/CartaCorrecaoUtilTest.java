@@ -6,8 +6,8 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envcce.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envcce.TEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoCartaCorrecao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,33 +46,33 @@ class CartaCorrecaoUtilTest {
 
     @Test
     void montaCCe_unico_retornaTEnvEvento() throws NfeException {
-        TEnvEvento resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
+        TEnvEventoCartaCorrecao resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
         assertNotNull(resultado);
         assertEquals(1, resultado.getEvento().size());
     }
 
     @Test
     void montaCCe_tpEvento_ehCCe() throws NfeException {
-        TEnvEvento resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
-        TEvento.InfEvento info = resultado.getEvento().get(0).getInfEvento();
+        TEnvEventoCartaCorrecao resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
+        TEventoCartaCorrecao.InfEvento info = resultado.getEvento().get(0).getInfEvento();
         assertEquals(EventosEnum.CCE.getCodigo(), info.getTpEvento());
     }
 
     @Test
     void montaCCe_chaveNFe_preenchida() throws NfeException {
-        TEnvEvento resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
+        TEnvEventoCartaCorrecao resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
         assertEquals(CHAVE, resultado.getEvento().get(0).getInfEvento().getChNFe());
     }
 
     @Test
     void montaCCe_correcao_preenchida() throws NfeException {
-        TEnvEvento resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
+        TEnvEventoCartaCorrecao resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
         assertEquals(CORRECAO, resultado.getEvento().get(0).getInfEvento().getDetEvento().getXCorrecao());
     }
 
     @Test
     void montaCCe_descEvento_cartaDeCorrecao() throws NfeException {
-        TEnvEvento resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
+        TEnvEventoCartaCorrecao resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
         assertEquals("Carta de Correcao",
                 resultado.getEvento().get(0).getInfEvento().getDetEvento().getDescEvento());
     }
@@ -83,7 +83,7 @@ class CartaCorrecaoUtilTest {
         lista.add(novoCCe());
         lista.add(novoCCe());
 
-        TEnvEvento resultado = CartaCorrecaoUtil.montaCCe(lista, config);
+        TEnvEventoCartaCorrecao resultado = CartaCorrecaoUtil.montaCCe(lista, config);
         assertEquals(2, resultado.getEvento().size());
     }
 
@@ -97,7 +97,7 @@ class CartaCorrecaoUtilTest {
 
     @Test
     void montaCCe_idComecaComID() throws NfeException {
-        TEnvEvento resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
+        TEnvEventoCartaCorrecao resultado = CartaCorrecaoUtil.montaCCe(novoCCe(), config);
         assertTrue(resultado.getEvento().get(0).getInfEvento().getId().startsWith("ID"));
     }
 }

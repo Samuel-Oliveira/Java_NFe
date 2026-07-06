@@ -104,8 +104,8 @@ class XmlNfeUtilTest {
 
     @Test
     void objectToXml_retornaXmlComDeclaracaoETagRaiz() throws Exception {
-        br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ obj =
-                new br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ();
+        br.com.swconsultoria.nfe.schemas.TRetConsStatServ obj =
+                new br.com.swconsultoria.nfe.schemas.TRetConsStatServ();
         obj.setCStat("107");
         obj.setXMotivo("Servico em Operacao");
 
@@ -123,8 +123,8 @@ class XmlNfeUtilTest {
                 "<xMotivo>Servico em Operacao</xMotivo><cUF>52</cUF>" +
                 "<dhRecbto>2024-01-01T10:00:00-03:00</dhRecbto></retConsStatServ>";
 
-        br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ obj =
-                XmlNfeUtil.xmlToObject(xml, br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ.class);
+        br.com.swconsultoria.nfe.schemas.TRetConsStatServ obj =
+                XmlNfeUtil.xmlToObject(xml, br.com.swconsultoria.nfe.schemas.TRetConsStatServ.class);
 
         assertNotNull(obj);
         assertEquals("107", obj.getCStat());

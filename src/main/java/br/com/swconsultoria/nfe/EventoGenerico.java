@@ -4,8 +4,8 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.eventoGenerico.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.eventoGenerico.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoGenerico;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoGenerico;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import javax.xml.bind.JAXBException;
@@ -17,7 +17,7 @@ class EventoGenerico {
 
 	private EventoGenerico(){}
 
-	static TRetEnvEvento evento(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida)
+	static TRetEnvEventoGenerico evento(ConfiguracoesNfe config, TEnvEventoGenerico enviEvento, boolean valida)
 			throws NfeException {
 
 		try {
@@ -29,7 +29,7 @@ class EventoGenerico {
 
 			xml = Eventos.enviarEvento(config, xml, ServicosEnum.EVENTO_GENERICO, valida, true, DocumentoEnum.NFE);
 
-			return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
+			return XmlNfeUtil.xmlToObject(xml, TRetEnvEventoGenerico.class);
 
 		} catch (JAXBException e) {
 			throw new NfeException(e.getMessage(),e);

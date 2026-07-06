@@ -111,6 +111,9 @@ public class ClassificacaoTributariaDTO implements Serializable {
     @JsonProperty("IndDERE")
     private Boolean indDERE;
 
+    @JsonProperty("IndCompraGov")
+    private Boolean indCompraGov;
+
     @JsonProperty("Anexo")
     private Integer anexo;
 

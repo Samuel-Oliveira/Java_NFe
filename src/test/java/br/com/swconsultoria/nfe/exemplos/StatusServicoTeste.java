@@ -8,7 +8,7 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
-import br.com.swconsultoria.nfe.schema_4.consStatServ.TRetConsStatServ;
+import br.com.swconsultoria.nfe.schemas.TRetConsStatServ;
 
 /**
  * @author Samuel Oliveira
@@ -19,11 +19,11 @@ public class StatusServicoTeste {
 
         try {
             // Inicia As Configurações
-            ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO);
+            ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.MG, AmbienteEnum.PRODUCAO);
 
             try {
                 //Efetua Consulta
-                TRetConsStatServ retorno = Nfe.statusServico(config, DocumentoEnum.NFCE);
+                TRetConsStatServ retorno = Nfe.statusServico(config, DocumentoEnum.NFE);
 
                 //Resultado
                 System.out.println();

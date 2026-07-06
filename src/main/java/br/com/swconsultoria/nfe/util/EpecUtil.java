@@ -6,7 +6,11 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEpec.*;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoEpec;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoEpec;
+import br.com.swconsultoria.nfe.schemas_eventos.TUf;
+import br.com.swconsultoria.nfe.schemas_eventos.TProcEventoEpec;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoEpec;
 
 import javax.xml.bind.JAXBException;
 import java.util.Collections;
@@ -28,7 +32,7 @@ public class EpecUtil {
      * @return
      * @throws NfeException
      */
-    public static TEnvEvento montaEpec(Evento epec, ConfiguracoesNfe configuracao) throws NfeException {
+    public static TEnvEventoEpec montaEpec(Evento epec, ConfiguracoesNfe configuracao) throws NfeException {
         return montaEpec(Collections.singletonList(epec), configuracao);
     }
 
@@ -40,13 +44,13 @@ public class EpecUtil {
      * @return
      * @throws NfeException
      */
-    public static TEnvEvento montaEpec(List<Evento> listaEpec, ConfiguracoesNfe configuracao) throws NfeException {
+    public static TEnvEventoEpec montaEpec(List<Evento> listaEpec, ConfiguracoesNfe configuracao) throws NfeException {
 
         if (listaEpec.size() > 20) {
             throw new NfeException("Podem ser enviados no máximo 20 eventos no Lote.");
         }
 
-        TEnvEvento enviEvento = new TEnvEvento();
+        TEnvEventoEpec enviEvento = new TEnvEventoEpec();
         enviEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_EPEC);
         enviEvento.setIdLote("1");
 
@@ -54,10 +58,10 @@ public class EpecUtil {
 
             String id = "ID" + EventosEnum.EPEC.getCodigo() + epec.getChave() + "01";
 
-            TEvento eventoEpec = new TEvento();
+            TEventoEpec eventoEpec = new TEventoEpec();
             eventoEpec.setVersao(ConstantesUtil.VERSAO.EVENTO_EPEC);
 
-            TEvento.InfEvento infoEvento = new TEvento.InfEvento();
+            TEventoEpec.InfEvento infoEvento = new TEventoEpec.InfEvento();
             infoEvento.setId(id);
             infoEvento.setCOrgao("91");
             infoEvento.setTpAmb(configuracao.getAmbiente().getCodigo());
@@ -71,7 +75,7 @@ public class EpecUtil {
             infoEvento.setNSeqEvento("1");
             infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_EPEC);
 
-            TEvento.InfEvento.DetEvento detEvento = new TEvento.InfEvento.DetEvento();
+            TEventoEpec.InfEvento.DetEventoEpec detEvento = new TEventoEpec.InfEvento.DetEventoEpec();
             detEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_EPEC);
             detEvento.setDescEvento("EPEC");
             detEvento.setCOrgaoAutor(configuracao.getEstado().getCodigoUF());
@@ -81,7 +85,7 @@ public class EpecUtil {
             detEvento.setTpNF(epec.getEventoEpec().getTipoNF());
             detEvento.setIE(epec.getEventoEpec().getIeEmitente());
 
-            TEvento.InfEvento.DetEvento.Dest dest = new TEvento.InfEvento.DetEvento.Dest();
+            TEventoEpec.InfEvento.DetEventoEpec.Dest dest = new TEventoEpec.InfEvento.DetEventoEpec.Dest();
             dest.setUF(TUf.valueOf(epec.getEventoEpec().getEstadoDestinatario().toString()));
             dest.setCNPJ(epec.getEventoEpec().getCnpjDestinatario());
             dest.setCPF(epec.getEventoEpec().getCpfDestinatario());
@@ -111,7 +115,7 @@ public class EpecUtil {
      * @throws JAXBException
      * @throws NfeException
      */
-    public static String criaProcEventoEpec(ConfiguracoesNfe config, TEnvEvento enviEvento, TRetEnvEvento retorno) throws JAXBException, NfeException {
+    public static String criaProcEventoEpec(ConfiguracoesNfe config, TEnvEventoEpec enviEvento, TRetEnvEventoEpec retorno) throws JAXBException, NfeException {
 
         String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
         xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
@@ -119,8 +123,8 @@ public class EpecUtil {
 
         String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), xml, AssinaturaEnum.EVENTO);
 
-        TProcEvento procEvento = new TProcEvento();
-        procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEvento.class).getEvento().get(0));
+        TProcEventoEpec procEvento = new TProcEventoEpec();
+        procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEventoEpec.class).getEvento().get(0));
         procEvento.setRetEvento(retorno.getRetEvento().get(0));
         procEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_EPEC);
 

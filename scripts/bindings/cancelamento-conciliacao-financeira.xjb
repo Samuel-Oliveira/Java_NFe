@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- leiauteEventoCancEConf_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteEventoCancEConf_v1.00.xsd">
+    <jxb:bindings node="//xs:complexType[@name='TEvento']">
+      <jxb:class name="TEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TretEvento']">
+      <jxb:class name="TRetEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TEnvEvento']">
+      <jxb:class name="TEnvEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEnvEvento']">
+      <jxb:class name="TRetEnvEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TProcEvento']">
+      <jxb:class name="TProcEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- EventoCancEConf_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/EventoCancEConf_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='evento']">
+      <jxb:factoryMethod name="EventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- envEventoCancEConf_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/envEventoCancEConf_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='envEvento']">
+      <jxb:factoryMethod name="EnvEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- procEventoCancEConf_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/procEventoCancEConf_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='procEventoNFe']">
+      <jxb:factoryMethod name="ProcEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- retEventoCancEConf_v1.00.xsd -->
+  <jxb:bindings schemaLocation="../../schemas/retEventoCancEConf_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='retEnvEvento']">
+      <jxb:factoryMethod name="RetEnvEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+  <!-- patch-bindings-detevento: DetEventoCancelamentoConciliacaoFinanceira -->
+  <jxb:bindings schemaLocation="../../schemas/e110751_v1.00.xsd">
+    <jxb:bindings node="//xs:element[@name='detEvento']/xs:complexType">
+      <jxb:class name="DetEventoCancelamentoConciliacaoFinanceira"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+</jxb:bindings>

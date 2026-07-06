@@ -10,17 +10,19 @@ import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.StatusEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.*;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS.COFINSAliq;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS.PISAliq;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Prod;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Total.ICMSTot;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Transp;
+import br.com.swconsultoria.nfe.schemas.TUf;
+import br.com.swconsultoria.nfe.schemas.TUfEmi;
+import br.com.swconsultoria.nfe.schemas.*;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS.COFINSAliq;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS.PISAliq;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Prod;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Total;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Total.ICMSTot;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Transp;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
@@ -48,7 +50,7 @@ public class EnvioNfeTeste {
             ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO);
 
             //Informe o Numero da NFe
-            int numeroNfe = 92756;
+            int numeroNfe = 92758;
             //Informe o CNPJ do Emitente da NFe
             String cnpj = "10732644000128";
             //Informe a data de Emissao da NFe
@@ -123,7 +125,7 @@ public class EnvioNfeTeste {
                 //Pega o Recibo
                 String recibo = retorno.getInfRec().getNRec();
                 int tentativa = 0;
-                br.com.swconsultoria.nfe.schema_4.consReciNFe.TRetConsReciNFe retornoNfe = null;
+                br.com.swconsultoria.nfe.schemas.TRetConsReciNFe retornoNfe = null;
 
                 //Define Numero de tentativas que irá tentar a Consulta
                 while (tentativa < 15) {

@@ -6,8 +6,8 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.EventoEpec;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
-import br.com.swconsultoria.nfe.schema.envEpec.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoEpec;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoEpec;
 import br.com.swconsultoria.nfe.util.EpecUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 
@@ -47,10 +47,10 @@ public class EpecTeste {
             epec.setEventoEpec(eventoEpec);
 
             //Monta o Evento de Cancelamento
-            TEnvEvento enviEvento = EpecUtil.montaEpec(epec,config);
+            TEnvEventoEpec enviEvento = EpecUtil.montaEpec(epec,config);
 
             //Envia Evento EPEC
-            TRetEnvEvento retorno = Nfe.enviarEpec(config, enviEvento, true);
+            TRetEnvEventoEpec retorno = Nfe.enviarEpec(config, enviEvento, true);
 
             //Valida o Retorno do Cancelamento
             RetornoUtil.validaEpec(retorno);

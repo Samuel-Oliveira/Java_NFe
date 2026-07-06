@@ -61,10 +61,10 @@ class NfeTest {
 
     @Test
     void inutilizacao_configNula_lancaNfeException() {
-        br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe inutNFe =
-                new br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe();
-        br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe.InfInut infInut =
-                new br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe.InfInut();
+        br.com.swconsultoria.nfe.schemas.TInutNFe inutNFe =
+                new br.com.swconsultoria.nfe.schemas.TInutNFe();
+        br.com.swconsultoria.nfe.schemas.TInutNFe.InfInut infInut =
+                new br.com.swconsultoria.nfe.schemas.TInutNFe.InfInut();
         infInut.setCNPJ("09158456000159");
         inutNFe.setInfInut(infInut);
 
