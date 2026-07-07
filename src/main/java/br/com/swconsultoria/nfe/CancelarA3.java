@@ -4,28 +4,28 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import javax.xml.bind.JAXBException;
 
 public class CancelarA3 {
 
-    static TRetEnvEvento eventoCancelamento(ConfiguracoesNfe config, boolean valida, DocumentoEnum tipoDocumento, String xmlAssinado)
+    static TRetEnvEventoCancelamento eventoCancelamento(ConfiguracoesNfe config, boolean valida, DocumentoEnum tipoDocumento, String xmlAssinado)
             throws NfeException {
 
             String xmlRetorno = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.CANCELAMENTO, valida, tipoDocumento);
-            return XmlNfeUtil.xmlToObject(xmlRetorno, TRetEnvEvento.class);
+            return XmlNfeUtil.xmlToObject(xmlRetorno, TRetEnvEventoCancelamento.class);
     }
 
-    static  br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento eventoCancelamentoSubstituicao(ConfiguracoesNfe config, boolean valida, DocumentoEnum tipoDocumento, String xmlAssinado)
+    static  br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEvento eventoCancelamentoSubstituicao(ConfiguracoesNfe config, boolean valida, DocumentoEnum tipoDocumento, String xmlAssinado)
             throws NfeException {
 
             String xmlRetorno = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.CANCELAMENTO_SUBSTITUICAO, valida, tipoDocumento);
-            return XmlNfeUtil.xmlToObject(xmlRetorno, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento.class);
+            return XmlNfeUtil.xmlToObject(xmlRetorno, br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEvento.class);
     }
 
-    static String montaXmleventoCancelamento(ConfiguracoesNfe config, TEnvEvento enviEvento)
+    static String montaXmleventoCancelamento(ConfiguracoesNfe config, TEnvEventoCancelamento enviEvento)
             throws NfeException {
         try {
             String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
@@ -40,7 +40,7 @@ public class CancelarA3 {
         }
     }
 
-    static String montaXmleventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento enviEvento)
+    static String montaXmleventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEvento enviEvento)
             throws NfeException {
         try {
             String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());

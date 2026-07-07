@@ -4,22 +4,22 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envcce.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import javax.xml.bind.JAXBException;
 
 public class CartaCorrecaoA3 {
 
-    static TRetEnvEvento eventoCCe(ConfiguracoesNfe config, boolean valida, String xmlAssinado)
+    static TRetEnvEventoCartaCorrecao eventoCCe(ConfiguracoesNfe config, boolean valida, String xmlAssinado)
             throws NfeException {
 
             String xmlRetorno = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.CCE, valida, DocumentoEnum.NFE);
 
-            return XmlNfeUtil.xmlToObject(xmlRetorno, TRetEnvEvento.class);
+            return XmlNfeUtil.xmlToObject(xmlRetorno, TRetEnvEventoCartaCorrecao.class);
     }
 
-    static String montaXmlCartaCorrecao(ConfiguracoesNfe config, TEnvEvento enviEvento)
+    static String montaXmlCartaCorrecao(ConfiguracoesNfe config, TEnvEventoCartaCorrecao enviEvento)
             throws NfeException {
         try {
             String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
