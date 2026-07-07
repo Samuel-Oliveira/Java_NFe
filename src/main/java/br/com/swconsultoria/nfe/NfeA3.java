@@ -72,12 +72,12 @@ public class NfeA3 {
         return DistribuicaoDFeA3.montarXML(ConfiguracoesUtil.iniciaConfiguracoes(config), tipoPessoa, cpfCnpj, tipoConsulta, nsuChave);
     }
 
-    public static br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEvento manifestacaoA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
+    public static br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoManifestacao manifestacaoA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
         return ManifestacaoDestinatarioA3.eventoManifestacao(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, xmlAssinado);
     }
 
     public static String manifestacaoMontaXmlA3(ConfiguracoesNfe config,
-            br.com.swconsultoria.nfe.schemas_eventos.TEnvEvento evento) throws NfeException {
+            br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoManifestacao evento) throws NfeException {
         return ManifestacaoDestinatarioA3.montarXML(ConfiguracoesUtil.iniciaConfiguracoes(config), evento);
     }
 
