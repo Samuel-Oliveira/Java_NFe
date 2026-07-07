@@ -18,11 +18,11 @@ public class CancelarA3 {
             return XmlNfeUtil.xmlToObject(xmlRetorno, TRetEnvEventoCancelamento.class);
     }
 
-    static  br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEvento eventoCancelamentoSubstituicao(ConfiguracoesNfe config, boolean valida, DocumentoEnum tipoDocumento, String xmlAssinado)
+    static  br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoSubstituicao eventoCancelamentoSubstituicao(ConfiguracoesNfe config, boolean valida, DocumentoEnum tipoDocumento, String xmlAssinado)
             throws NfeException {
 
             String xmlRetorno = EventosA3.enviarEvento(config, xmlAssinado, ServicosEnum.CANCELAMENTO_SUBSTITUICAO, valida, tipoDocumento);
-            return XmlNfeUtil.xmlToObject(xmlRetorno, br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEvento.class);
+            return XmlNfeUtil.xmlToObject(xmlRetorno, br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoSubstituicao.class);
     }
 
     static String montaXmleventoCancelamento(ConfiguracoesNfe config, TEnvEventoCancelamento enviEvento)
@@ -40,7 +40,7 @@ public class CancelarA3 {
         }
     }
 
-    static String montaXmleventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEvento enviEvento)
+    static String montaXmleventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoSubstituicao enviEvento)
             throws NfeException {
         try {
             String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());

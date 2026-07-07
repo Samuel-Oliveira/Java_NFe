@@ -38,11 +38,11 @@ public class NfeA3 {
         return CancelarA3.eventoCancelamento(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, tipoDocumento, xlmAssinado);
     }
 
-    public static String montaXmleventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEvento enviEvento) throws NfeException {
+    public static String montaXmleventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoSubstituicao enviEvento) throws NfeException {
         return CancelarA3.montaXmleventoCancelamentoSubstituicao(ConfiguracoesUtil.iniciaConfiguracoes(config), enviEvento);
     }
 
-    public static  br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEvento cancelarSubstituicaoNfeA3(ConfiguracoesNfe config, String xlmAssinado, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
+    public static  br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoSubstituicao cancelarSubstituicaoNfeA3(ConfiguracoesNfe config, String xlmAssinado, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
         return CancelarA3.eventoCancelamentoSubstituicao(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, tipoDocumento, xlmAssinado);
     }
 
