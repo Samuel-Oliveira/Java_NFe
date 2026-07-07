@@ -54,12 +54,12 @@ public class NfeA3 {
         return InutilizarA3.montaXmlInutlizacao(ConfiguracoesUtil.iniciaConfiguracoes(config), inutNFe);
     }
 
-    public static br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEvento cceA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
+    public static br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao cceA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
         return CartaCorrecaoA3.eventoCCe(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, xmlAssinado);
 
     }
 
-    public static String montaXmlCce(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEvento evento) throws NfeException {
+    public static String montaXmlCce(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao evento) throws NfeException {
         return CartaCorrecaoA3.montaXmlCartaCorrecao(ConfiguracoesUtil.iniciaConfiguracoes(config), evento);
     }
 
