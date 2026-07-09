@@ -5,9 +5,9 @@ package br.com.swconsultoria.nfe.util;
 
 import br.com.swconsultoria.nfe.dom.enuns.XsdEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNfeProc;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe;
+import br.com.swconsultoria.nfe.schemas.TEnviNFe;
+import br.com.swconsultoria.nfe.schemas.TNfeProc;
+import br.com.swconsultoria.nfe.schemas.TProtNFe;
 import lombok.extern.java.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

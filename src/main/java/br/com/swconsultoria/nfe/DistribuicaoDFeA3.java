@@ -1,25 +1,25 @@
 package br.com.swconsultoria.nfe;
 
-import java.rmi.RemoteException;
-import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLStreamException;
-import lombok.extern.java.Log;
-import org.apache.axiom.om.OMElement;
-import org.apache.axiom.om.util.AXIOMUtil;
-import org.apache.axis2.transport.http.HTTPConstants;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.ConsultaDFeEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.PessoaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.distdfeint.DistDFeInt;
-import br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt;
+import br.com.swconsultoria.nfe.schemas.DistDFeInt;
+import br.com.swconsultoria.nfe.schemas.RetDistDFeInt;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import br.com.swconsultoria.nfe.wsdl.NFeDistribuicaoDFe.NFeDistribuicaoDFeStub;
+import lombok.extern.java.Log;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.axis2.transport.http.HTTPConstants;
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
+import java.rmi.RemoteException;
 
 @Log
 public class DistribuicaoDFeA3 {

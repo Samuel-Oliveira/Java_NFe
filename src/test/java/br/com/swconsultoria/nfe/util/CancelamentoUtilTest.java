@@ -6,8 +6,8 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoCancelamento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,40 +47,40 @@ class CancelamentoUtilTest {
 
     @Test
     void montaCancelamento_unico_retornaTEnvEvento() throws NfeException {
-        TEnvEvento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
         assertNotNull(resultado);
         assertEquals(1, resultado.getEvento().size());
     }
 
     @Test
     void montaCancelamento_tpEvento_ehCancelamento() throws NfeException {
-        TEnvEvento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
-        TEvento.InfEvento info = resultado.getEvento().get(0).getInfEvento();
+        TEnvEventoCancelamento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
+        TEventoCancelamento.InfEvento info = resultado.getEvento().get(0).getInfEvento();
         assertEquals(EventosEnum.CANCELAMENTO.getCodigo(), info.getTpEvento());
     }
 
     @Test
     void montaCancelamento_chaveNFe_preenchida() throws NfeException {
-        TEnvEvento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
         assertEquals(CHAVE, resultado.getEvento().get(0).getInfEvento().getChNFe());
     }
 
     @Test
     void montaCancelamento_idComecaComID() throws NfeException {
-        TEnvEvento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
         String id = resultado.getEvento().get(0).getInfEvento().getId();
         assertTrue(id.startsWith("ID"));
     }
 
     @Test
     void montaCancelamento_protocolo_preenchido() throws NfeException {
-        TEnvEvento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
         assertEquals(PROTOCOLO, resultado.getEvento().get(0).getInfEvento().getDetEvento().getNProt());
     }
 
     @Test
     void montaCancelamento_justificativa_preenchida() throws NfeException {
-        TEnvEvento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
         assertEquals(MOTIVO, resultado.getEvento().get(0).getInfEvento().getDetEvento().getXJust());
     }
 
@@ -90,7 +90,7 @@ class CancelamentoUtilTest {
         lista.add(novoEvento());
         lista.add(novoEvento());
 
-        TEnvEvento resultado = CancelamentoUtil.montaCancelamento(lista, config);
+        TEnvEventoCancelamento resultado = CancelamentoUtil.montaCancelamento(lista, config);
         assertEquals(2, resultado.getEvento().size());
     }
 
@@ -104,7 +104,7 @@ class CancelamentoUtilTest {
 
     @Test
     void montaCancelamento_ambienteHomologacao_preenchido() throws NfeException {
-        TEnvEvento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamento resultado = CancelamentoUtil.montaCancelamento(novoEvento(), config);
         assertEquals(AmbienteEnum.HOMOLOGACAO.getCodigo(),
                 resultado.getEvento().get(0).getInfEvento().getTpAmb());
     }

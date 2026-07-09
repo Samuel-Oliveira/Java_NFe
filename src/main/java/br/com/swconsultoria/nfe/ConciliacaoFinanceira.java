@@ -4,8 +4,8 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoEConf.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.eventoEConf.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoConciliacaoFinanceira;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoConciliacaoFinanceira;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import javax.xml.bind.JAXBException;
@@ -18,7 +18,7 @@ class ConciliacaoFinanceira {
     private ConciliacaoFinanceira() {
     }
 
-    static TRetEnvEvento eventoEConf(ConfiguracoesNfe config, TEnvEvento enviEvento, DocumentoEnum documento, boolean valida)
+    static TRetEnvEventoConciliacaoFinanceira eventoEConf(ConfiguracoesNfe config, TEnvEventoConciliacaoFinanceira enviEvento, DocumentoEnum documento, boolean valida)
             throws NfeException {
 
         try {
@@ -29,7 +29,7 @@ class ConciliacaoFinanceira {
 
             xml = Eventos.enviarEvento(config, xml, ServicosEnum.ECONF, valida, true, documento);
 
-            return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
+            return XmlNfeUtil.xmlToObject(xml, TRetEnvEventoConciliacaoFinanceira.class);
 
         } catch (JAXBException e) {
             throw new NfeException(e.getMessage(),e);

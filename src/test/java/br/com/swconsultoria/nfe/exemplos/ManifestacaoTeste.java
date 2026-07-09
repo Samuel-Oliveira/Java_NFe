@@ -9,8 +9,8 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ManifestacaoEnum;
-import br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoManifestacao;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoManifestacao;
 import br.com.swconsultoria.nfe.util.ManifestacaoUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 
@@ -41,10 +41,10 @@ public class ManifestacaoTeste {
             manifesta.setTipoManifestacao(ManifestacaoEnum.CIENCIA_DA_OPERACAO);
 
             //Monta o Evento de Manifestação
-            TEnvEvento enviEvento = ManifestacaoUtil.montaManifestacao(manifesta, config);
+            TEnvEventoManifestacao enviEvento = ManifestacaoUtil.montaManifestacao(manifesta, config);
 
             //Envia o Evento de Manifestação
-            TRetEnvEvento retorno = Nfe.manifestacao(config, enviEvento, false);
+            TRetEnvEventoManifestacao retorno = Nfe.manifestacao(config, enviEvento, false);
 
             //Valida o Retorno do Cancelamento
             RetornoUtil.validaManifestacao(retorno);

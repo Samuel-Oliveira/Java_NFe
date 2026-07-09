@@ -2,12 +2,12 @@ package br.com.swconsultoria.nfe.util;
 
 import br.com.swconsultoria.nfe.dom.enuns.StatusEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEvento;
-import br.com.swconsultoria.nfe.schema_4.consReciNFe.TProtNFe;
-import br.com.swconsultoria.nfe.schema_4.consReciNFe.TRetConsReciNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas.TProtNFe;
+import br.com.swconsultoria.nfe.schemas.TRetConsReciNFe;
+import br.com.swconsultoria.nfe.schemas.TRetEnviNFe;
+import br.com.swconsultoria.nfe.schemas.TRetInutNFe;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -106,7 +106,7 @@ class RetornoUtilTest {
 
     @Test
     void validaCancelamento_eventoVinculado_naoLancaExcecao() {
-        TRetEnvEvento retorno = criaRetEnvEvento(
+        TRetEnvEventoCancelamento retorno = criaRetEnvEvento(
                 StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo(),
                 StatusEnum.EVENTO_VINCULADO.getCodigo());
         assertDoesNotThrow(() -> RetornoUtil.validaCancelamento(retorno));
@@ -114,7 +114,7 @@ class RetornoUtilTest {
 
     @Test
     void validaCancelamento_cancelamentoForaPrazo_naoLancaExcecao() {
-        TRetEnvEvento retorno = criaRetEnvEvento(
+        TRetEnvEventoCancelamento retorno = criaRetEnvEvento(
                 StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo(),
                 StatusEnum.CANCELAMENTO_FORA_PRAZO.getCodigo());
         assertDoesNotThrow(() -> RetornoUtil.validaCancelamento(retorno));
@@ -122,13 +122,13 @@ class RetornoUtilTest {
 
     @Test
     void validaCancelamento_envelopeErrado_lancaExcecao() {
-        TRetEnvEvento retorno = criaRetEnvEvento("999", StatusEnum.EVENTO_VINCULADO.getCodigo());
+        TRetEnvEventoCancelamento retorno = criaRetEnvEvento("999", StatusEnum.EVENTO_VINCULADO.getCodigo());
         assertThrows(NfeException.class, () -> RetornoUtil.validaCancelamento(retorno));
     }
 
     @Test
     void validaCancelamento_eventoErrado_lancaExcecao() {
-        TRetEnvEvento retorno = criaRetEnvEvento(
+        TRetEnvEventoCancelamento retorno = criaRetEnvEvento(
                 StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo(), "999");
         assertThrows(NfeException.class, () -> RetornoUtil.validaCancelamento(retorno));
     }
@@ -174,10 +174,8 @@ class RetornoUtilTest {
                                                String cStatProt, String xMotivoProt) {
         TRetEnviNFe retorno = criaRetEnviNFe(cStatEnvelope, xMotivoEnvelope);
 
-        br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe protNFe =
-                new br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe();
-        br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe.InfProt infProt =
-                new br.com.swconsultoria.nfe.schema_4.enviNFe.TProtNFe.InfProt();
+        TProtNFe protNFe = new TProtNFe();
+        TProtNFe.InfProt infProt = new TProtNFe.InfProt();
         infProt.setCStat(cStatProt);
         infProt.setXMotivo(xMotivoProt);
         protNFe.setInfProt(infProt);
@@ -203,13 +201,13 @@ class RetornoUtilTest {
         return retorno;
     }
 
-    private TRetEnvEvento criaRetEnvEvento(String cStatEnvelope, String cStatEvento) {
-        TRetEnvEvento retorno = new TRetEnvEvento();
+    private TRetEnvEventoCancelamento criaRetEnvEvento(String cStatEnvelope, String cStatEvento) {
+        TRetEnvEventoCancelamento retorno = new TRetEnvEventoCancelamento();
         retorno.setCStat(cStatEnvelope);
         retorno.setXMotivo("Lote de Evento Processado");
 
-        TRetEvento retEvento = new TRetEvento();
-        TRetEvento.InfEvento infEvento = new TRetEvento.InfEvento();
+        TRetEventoCancelamento retEvento = new TRetEventoCancelamento();
+        TRetEventoCancelamento.InfEvento infEvento = new TRetEventoCancelamento.InfEvento();
         infEvento.setCStat(cStatEvento);
         infEvento.setXMotivo("Evento registrado");
         infEvento.setChNFe("52240310732644000128550010000000011234567890");

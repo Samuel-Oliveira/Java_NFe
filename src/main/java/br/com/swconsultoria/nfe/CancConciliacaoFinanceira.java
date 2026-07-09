@@ -4,8 +4,8 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoCancEConf.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.eventoCancEConf.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoConciliacaoFinanceira;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoConciliacaoFinanceira;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import javax.xml.bind.JAXBException;
@@ -18,7 +18,7 @@ class CancConciliacaoFinanceira {
     private CancConciliacaoFinanceira() {
     }
 
-    static TRetEnvEvento eventoEConf(ConfiguracoesNfe config, TEnvEvento enviEvento, boolean valida)
+    static TRetEnvEventoCancelamentoConciliacaoFinanceira eventoEConf(ConfiguracoesNfe config, TEnvEventoCancelamentoConciliacaoFinanceira enviEvento, boolean valida)
             throws NfeException {
 
         try {
@@ -29,7 +29,7 @@ class CancConciliacaoFinanceira {
 
             xml = Eventos.enviarEvento(config, xml, ServicosEnum.CANC_ECONF, valida, true, DocumentoEnum.NFE);
 
-            return XmlNfeUtil.xmlToObject(xml, TRetEnvEvento.class);
+            return XmlNfeUtil.xmlToObject(xml, TRetEnvEventoCancelamentoConciliacaoFinanceira.class);
 
         } catch (JAXBException e) {
             throw new NfeException(e.getMessage(),e);

@@ -7,8 +7,8 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
-import br.com.swconsultoria.nfe.schema.envcce.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao;
 import br.com.swconsultoria.nfe.util.CartaCorrecaoUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
@@ -43,12 +43,12 @@ public class CartaCorrecaoTeste {
             cce.setSequencia(1);
 
 			// Monta o Evento
-            TEnvEvento envEvento = CartaCorrecaoUtil.montaCCe(cce,config);
+            TEnvEventoCartaCorrecao envEvento = CartaCorrecaoUtil.montaCCe(cce,config);
 
             System.out.println(XmlNfeUtil.objectToXml(envEvento));
 
 //            //Envia a CCe
-            TRetEnvEvento retorno = Nfe.cce(config, envEvento, true);
+            TRetEnvEventoCartaCorrecao retorno = Nfe.cce(config, envEvento, true);
 
             //Valida o Retorno do Carta de Correção
             RetornoUtil.validaCartaCorrecao(retorno);
@@ -65,7 +65,7 @@ public class CartaCorrecaoTeste {
             xml = xml.replaceAll(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "");
             xml = xml.replaceAll("<evento v", "<evento xmlns=\"http://www.portalfiscal.inf.br/nfe\" v");
             xml = Assinar.assinaNfe(config, xml, AssinaturaEnum.EVENTO);
-            envEvento = XmlNfeUtil.xmlToObject(xml, TEnvEvento.class);
+            envEvento = XmlNfeUtil.xmlToObject(xml, TEnvEventoCartaCorrecao.class);
 
             //Cria ProcEvento da CCe
             String proc = CartaCorrecaoUtil.criaProcEventoCCe(config, envEvento, retorno);

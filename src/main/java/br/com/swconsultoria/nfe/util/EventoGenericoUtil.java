@@ -6,10 +6,10 @@ import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AssinaturaEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.eventoGenerico.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.eventoGenerico.TEvento;
-import br.com.swconsultoria.nfe.schema.eventoGenerico.TProcEvento;
-import br.com.swconsultoria.nfe.schema.eventoGenerico.TRetEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoGenerico;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoGenerico;
+import br.com.swconsultoria.nfe.schemas_eventos.TProcEventoGenerico;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEventoGenerico;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -29,18 +29,18 @@ public class EventoGenericoUtil {
      * @return
      * @throws NfeException
      */
-    public static TEnvEvento montaEvento(Evento evento, Class<?> clazz, EventosEnum eventosEnum, ConfiguracoesNfe configuracao) throws NfeException {
+    public static TEnvEventoGenerico montaEvento(Evento evento, Class<?> clazz, EventosEnum eventosEnum, ConfiguracoesNfe configuracao) throws NfeException {
 
-        TEnvEvento enviEvento = new TEnvEvento();
+        TEnvEventoGenerico enviEvento = new TEnvEventoGenerico();
         enviEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_GENERICO);
         enviEvento.setIdLote("1");
 
         String id = "ID" + eventosEnum.getCodigo() + evento.getChave()+ ChaveUtil.completarComZerosAEsquerda(String.valueOf(evento.getSequencia()), 2);
 
-        TEvento eventoGenerico = new TEvento();
+        TEventoGenerico eventoGenerico = new TEventoGenerico();
         eventoGenerico.setVersao(ConstantesUtil.VERSAO.EVENTO_GENERICO);
 
-        TEvento.InfEvento infoEvento = new TEvento.InfEvento();
+        TEventoGenerico.InfEvento infoEvento = new TEventoGenerico.InfEvento();
         infoEvento.setId(id);
         infoEvento.setChNFe(evento.getChave());
         infoEvento.setCOrgao(String.valueOf(configuracao.getEstado().getCodigoUF()));
@@ -54,7 +54,7 @@ public class EventoGenericoUtil {
         infoEvento.setNSeqEvento(String.valueOf(evento.getSequencia()));
         infoEvento.setVerEvento(ConstantesUtil.VERSAO.EVENTO_GENERICO);
 
-        TEvento. InfEvento.DetEvento detEvento = new TEvento.InfEvento.DetEvento();
+        TEventoGenerico.InfEvento.DetEventoGenerico detEvento = new TEventoGenerico.InfEvento.DetEventoGenerico();
         Element element = XmlNfeUtil.objectToElement(evento. getDetEvento(), clazz);
         detEvento.getOtherAttributes().put(new QName("versao"), element.getAttribute("versao"));
 
@@ -84,7 +84,7 @@ public class EventoGenericoUtil {
      * @throws JAXBException
      * @throws NfeException
      */
-    public static String criaProcEventoGenerico(ConfiguracoesNfe config, TEnvEvento enviEvento, TRetEvento retorno) throws JAXBException, NfeException {
+    public static String criaProcEventoGenerico(ConfiguracoesNfe config, TEnvEventoGenerico enviEvento, TRetEventoGenerico retorno) throws JAXBException, NfeException {
 
         String xml = XmlNfeUtil.objectToXml(enviEvento, config.getEncode());
         xml = xml.replace(" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"", "")
@@ -93,9 +93,9 @@ public class EventoGenericoUtil {
 
         String assinado = Assinar.assinaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), xml, AssinaturaEnum.EVENTO);
 
-        TProcEvento procEvento = new TProcEvento();
+        TProcEventoGenerico procEvento = new TProcEventoGenerico();
         procEvento.setVersao(ConstantesUtil.VERSAO.EVENTO_GENERICO);
-        procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEvento.class).getEvento().get(0));
+        procEvento.setEvento(XmlNfeUtil.xmlToObject(assinado, TEnvEventoGenerico.class).getEvento().get(0));
         procEvento.setRetEvento(retorno);
 
         return XmlNfeUtil.objectToXml(procEvento, config.getEncode());

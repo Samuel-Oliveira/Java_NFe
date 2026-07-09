@@ -2,9 +2,9 @@ package br.com.swconsultoria.nfe.util;
 
 import br.com.swconsultoria.nfe.dom.enuns.StatusEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
-import br.com.swconsultoria.nfe.schema_4.consReciNFe.TRetConsReciNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
+import br.com.swconsultoria.nfe.schemas.TRetConsReciNFe;
+import br.com.swconsultoria.nfe.schemas.TRetEnviNFe;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento;
 
 /**
  * @author Samuel Oliveira - samuk.exe@hotmail.com
@@ -35,7 +35,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaCancelamento(TRetEnvEvento retorno) throws NfeException {
+    public static void validaCancelamento(TRetEnvEventoCancelamento retorno) throws NfeException {
         if (!StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo().equals(retorno.getCStat())) {
             throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
         }
@@ -59,7 +59,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaCancelamentoSubstituicao(br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento retorno) throws NfeException {
+    public static void validaCancelamentoSubstituicao(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoSubstituicao retorno) throws NfeException {
         if (!StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo().equals(retorno.getCStat())) {
             throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
         }
@@ -82,7 +82,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaEventoGenerico(br.com.swconsultoria.nfe.schema.eventoGenerico.TRetEnvEvento retorno) throws NfeException {
+    public static void validaEventoGenerico(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoGenerico retorno) throws NfeException {
         if (!StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo().equals(retorno.getCStat())) {
             throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
         }
@@ -105,7 +105,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaManifestacao(br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento retorno) throws NfeException {
+    public static void validaManifestacao(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoManifestacao retorno) throws NfeException {
         if (!StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo().equals(retorno.getCStat())) {
             throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
         }
@@ -129,7 +129,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaCartaCorrecao(br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento retorno) throws NfeException {
+    public static void validaCartaCorrecao(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao retorno) throws NfeException {
         if (!StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo().equals(retorno.getCStat())) {
             throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
         }
@@ -151,7 +151,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaEpec(br.com.swconsultoria.nfe.schema.envEpec.TRetEnvEvento retorno) throws NfeException {
+    public static void validaEpec(br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoEpec retorno) throws NfeException {
         if (!StatusEnum.LOTE_EVENTO_PROCESSADO.getCodigo().equals(retorno.getCStat())) {
             throw new NfeException(retorno.getCStat() + " - " + retorno.getXMotivo());
 
@@ -175,7 +175,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaConsultaCadastro(br.com.swconsultoria.nfe.schema.consCad.TRetConsCad retorno) throws NfeException {
+    public static void validaConsultaCadastro(br.com.swconsultoria.nfe.schemas.TRetConsCad retorno) throws NfeException {
         if (!retorno.getInfCons().getCStat().equals(StatusEnum.CADASTRO_ENCONTRADO.getCodigo())) {
             throw new NfeException(retorno.getInfCons().getCStat() + " - " + retorno.getInfCons().getXMotivo());
         }
@@ -187,7 +187,7 @@ public class RetornoUtil {
      * @param retorno
      * @throws NfeException
      */
-    public static void validaInutilizacao(br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe retorno) throws NfeException {
+    public static void validaInutilizacao(br.com.swconsultoria.nfe.schemas.TRetInutNFe retorno) throws NfeException {
         if (!retorno.getInfInut().getCStat().equals(StatusEnum.INUTILIZADO.getCodigo())) {
             throw new NfeException(retorno.getInfInut().getCStat() + " - " + retorno.getInfInut().getXMotivo());
         }

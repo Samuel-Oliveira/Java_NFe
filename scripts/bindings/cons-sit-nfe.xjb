@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    leiauteConsSitNFe_v4.00.xsd defines:
+    - TEvento, TRetEvento, TProcEvento: conflict with schemas_eventos package
+    - TProtNFe: conflict with leiauteNFe (different dhRecbto type)
+    - TVerNFe, TVerEvento, TRetVerEvento: simpleType strings - no Java class generated, no renaming needed
+
+    Strategy: rename the conflicting complex types so they coexist in schemas package.
+    Sequential compilation (consSitNFe first, then leiauteNFe) overwrites TProtNFe with leiauteNFe version.
+    So we DON'T rename TProtNFe here to avoid breaking consSitNFe internal references.
+    TEvento/TRetEvento/TProcEvento renaming is needed to avoid schemas_eventos ObjectFactory conflicts.
+  -->
+  <jxb:bindings schemaLocation="../../schemas/leiauteConsSitNFe_v4.00.xsd">
+    <!-- TEvento/TRetEvento/TProcEvento conflict with schemas_eventos -->
+    <jxb:bindings node="//xs:complexType[@name='TEvento']">
+      <jxb:class name="TEventoConsSitNFe"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TRetEvento']">
+      <jxb:class name="TRetEventoConsSitNFe"/>
+    </jxb:bindings>
+    <jxb:bindings node="//xs:complexType[@name='TProcEvento']">
+      <jxb:class name="TProcEventoConsSitNFe"/>
+    </jxb:bindings>
+  </jxb:bindings>
+
+</jxb:bindings>

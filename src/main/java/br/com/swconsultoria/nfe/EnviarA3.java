@@ -3,7 +3,7 @@ package br.com.swconsultoria.nfe;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.ServicosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
+import br.com.swconsultoria.nfe.schemas.TEnviNFe;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import lombok.extern.java.Log;
 

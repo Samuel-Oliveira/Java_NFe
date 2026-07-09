@@ -6,13 +6,13 @@ import br.com.swconsultoria.nfe.dom.enuns.ConsultaDFeEnum;
 import br.com.swconsultoria.nfe.dom.enuns.DocumentoEnum;
 import br.com.swconsultoria.nfe.dom.enuns.PessoaEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancNFe.TRetEnvEvento;
-import br.com.swconsultoria.nfe.schema.retdistdfeint.RetDistDFeInt;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TRetEnviNFe;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TInutNFe;
-import br.com.swconsultoria.nfe.schema_4.inutNFe.TRetInutNFe;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas.RetDistDFeInt;
+import br.com.swconsultoria.nfe.schemas.TEnviNFe;
+import br.com.swconsultoria.nfe.schemas.TRetEnviNFe;
+import br.com.swconsultoria.nfe.schemas.TInutNFe;
+import br.com.swconsultoria.nfe.schemas.TRetInutNFe;
 import br.com.swconsultoria.nfe.util.ConfiguracoesUtil;
 
 
@@ -30,19 +30,19 @@ public class NfeA3 {
         return Enviar.enviaNfe(ConfiguracoesUtil.iniciaConfiguracoes(config), enviNFe, tipoDocumento);
     }
     
-    public static String montaXmleventoCancelamento(ConfiguracoesNfe config, TEnvEvento enviEvento) throws NfeException {
+    public static String montaXmleventoCancelamento(ConfiguracoesNfe config, TEnvEventoCancelamento enviEvento) throws NfeException {
         return CancelarA3.montaXmleventoCancelamento(ConfiguracoesUtil.iniciaConfiguracoes(config), enviEvento);
     }
 
-    public static TRetEnvEvento cancelarNfeA3(ConfiguracoesNfe config, String xlmAssinado, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
+    public static TRetEnvEventoCancelamento cancelarNfeA3(ConfiguracoesNfe config, String xlmAssinado, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
         return CancelarA3.eventoCancelamento(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, tipoDocumento, xlmAssinado);
     }
 
-    public static String montaXmleventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento enviEvento) throws NfeException {
+    public static String montaXmleventoCancelamentoSubstituicao(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoSubstituicao enviEvento) throws NfeException {
         return CancelarA3.montaXmleventoCancelamentoSubstituicao(ConfiguracoesUtil.iniciaConfiguracoes(config), enviEvento);
     }
 
-    public static  br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento cancelarSubstituicaoNfeA3(ConfiguracoesNfe config, String xlmAssinado, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
+    public static  br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoSubstituicao cancelarSubstituicaoNfeA3(ConfiguracoesNfe config, String xlmAssinado, boolean valida, DocumentoEnum tipoDocumento) throws NfeException {
         return CancelarA3.eventoCancelamentoSubstituicao(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, tipoDocumento, xlmAssinado);
     }
 
@@ -54,12 +54,12 @@ public class NfeA3 {
         return InutilizarA3.montaXmlInutlizacao(ConfiguracoesUtil.iniciaConfiguracoes(config), inutNFe);
     }
 
-    public static br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento cceA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
+    public static br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCartaCorrecao cceA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
         return CartaCorrecaoA3.eventoCCe(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, xmlAssinado);
 
     }
 
-    public static String montaXmlCce(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schema.envcce.TEnvEvento evento) throws NfeException {
+    public static String montaXmlCce(ConfiguracoesNfe config, br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCartaCorrecao evento) throws NfeException {
         return CartaCorrecaoA3.montaXmlCartaCorrecao(ConfiguracoesUtil.iniciaConfiguracoes(config), evento);
     }
 
@@ -72,12 +72,12 @@ public class NfeA3 {
         return DistribuicaoDFeA3.montarXML(ConfiguracoesUtil.iniciaConfiguracoes(config), tipoPessoa, cpfCnpj, tipoConsulta, nsuChave);
     }
 
-    public static br.com.swconsultoria.nfe.schema.envConfRecebto.TRetEnvEvento manifestacaoA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
+    public static br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoManifestacao manifestacaoA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
         return ManifestacaoDestinatarioA3.eventoManifestacao(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, xmlAssinado);
     }
 
     public static String manifestacaoMontaXmlA3(ConfiguracoesNfe config,
-            br.com.swconsultoria.nfe.schema.envConfRecebto.TEnvEvento evento) throws NfeException {
+            br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoManifestacao evento) throws NfeException {
         return ManifestacaoDestinatarioA3.montarXML(ConfiguracoesUtil.iniciaConfiguracoes(config), evento);
     }
 

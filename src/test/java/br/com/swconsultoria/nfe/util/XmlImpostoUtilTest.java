@@ -1,11 +1,11 @@
 package br.com.swconsultoria.nfe.util;
 
-import br.com.swconsultoria.nfe.schema_4.enviNFe.ObjectFactory;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.*;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS.COFINSAliq;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.COFINS.COFINSQtde;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS.PISAliq;
-import br.com.swconsultoria.nfe.schema_4.enviNFe.TNFe.InfNFe.Det.Imposto.PIS.PISQtde;
+import br.com.swconsultoria.nfe.schemas.ObjectFactory;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.*;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS.COFINSAliq;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS.COFINSQtde;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS.PISAliq;
+import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS.PISQtde;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBElement;

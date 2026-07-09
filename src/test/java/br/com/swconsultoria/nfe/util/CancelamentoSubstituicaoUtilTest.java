@@ -6,8 +6,8 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EventosEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoSubstituicao;
+import br.com.swconsultoria.nfe.schemas_eventos.TEventoCancelamentoSubstituicao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,51 +49,51 @@ class CancelamentoSubstituicaoUtilTest {
 
     @Test
     void montaCancelamento_retornaTEnvEvento() throws NfeException {
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
         assertNotNull(resultado);
         assertEquals(1, resultado.getEvento().size());
     }
 
     @Test
     void montaCancelamento_tpEvento_ehCancelamentoSubstituicao() throws NfeException {
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
-        TEvento.InfEvento info = resultado.getEvento().get(0).getInfEvento();
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
+        TEventoCancelamentoSubstituicao.InfEvento info = resultado.getEvento().get(0).getInfEvento();
         assertEquals(EventosEnum.CANCELAMENTO_SUBSTITUICAO.getCodigo(), info.getTpEvento());
     }
 
     @Test
     void montaCancelamento_idComecaComID() throws NfeException {
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
         assertTrue(resultado.getEvento().get(0).getInfEvento().getId().startsWith("ID"));
     }
 
     @Test
     void montaCancelamento_chaveNFe_preenchida() throws NfeException {
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
         assertEquals(CHAVE, resultado.getEvento().get(0).getInfEvento().getChNFe());
     }
 
     @Test
     void montaCancelamento_chaveSubstituta_preenchida() throws NfeException {
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
         assertEquals(CHAVE_SUBST, resultado.getEvento().get(0).getInfEvento().getDetEvento().getChNFeRef());
     }
 
     @Test
     void montaCancelamento_protocolo_preenchido() throws NfeException {
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
         assertEquals(PROTOCOLO, resultado.getEvento().get(0).getInfEvento().getDetEvento().getNProt());
     }
 
     @Test
     void montaCancelamento_justificativa_preenchida() throws NfeException {
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
         assertEquals(MOTIVO, resultado.getEvento().get(0).getInfEvento().getDetEvento().getXJust());
     }
 
     @Test
     void montaCancelamento_descEvento_cancelamentoPorSubstituicao() throws NfeException {
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(novoEvento(), config);
         assertEquals("Cancelamento por substituicao",
                 resultado.getEvento().get(0).getInfEvento().getDetEvento().getDescEvento());
     }
@@ -104,7 +104,7 @@ class CancelamentoSubstituicaoUtilTest {
         lista.add(novoEvento());
         lista.add(novoEvento());
 
-        TEnvEvento resultado = CancelamentoSubstituicaoUtil.montaCancelamento(lista, config);
+        TEnvEventoCancelamentoSubstituicao resultado = CancelamentoSubstituicaoUtil.montaCancelamento(lista, config);
         assertEquals(2, resultado.getEvento().size());
     }
 

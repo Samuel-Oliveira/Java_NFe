@@ -8,8 +8,8 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.Evento;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
-import br.com.swconsultoria.nfe.schema.envEventoCancSubst.TEnvEvento;
-import br.com.swconsultoria.nfe.schema.envEventoCancSubst.TRetEnvEvento;
+import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamentoSubstituicao;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamentoSubstituicao;
 import br.com.swconsultoria.nfe.util.CancelamentoSubstituicaoUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 
@@ -44,10 +44,10 @@ public class CancelarSubstituicaoTeste {
             cancela.setDataEvento(LocalDateTime.now());
 
             //Monta o Evento de Cancelamento
-            TEnvEvento enviEvento = CancelamentoSubstituicaoUtil.montaCancelamento(cancela, config);
+            TEnvEventoCancelamentoSubstituicao enviEvento = CancelamentoSubstituicaoUtil.montaCancelamento(cancela, config);
 
             //Envia o Evento de Cancelamento
-            TRetEnvEvento retorno = Nfe.cancelarSubstituicaoNfe(config, enviEvento, true);
+            TRetEnvEventoCancelamentoSubstituicao retorno = Nfe.cancelarSubstituicaoNfe(config, enviEvento, true);
 
             //Valida o Retorno do Cancelamento
             RetornoUtil.validaCancelamentoSubstituicao(retorno);

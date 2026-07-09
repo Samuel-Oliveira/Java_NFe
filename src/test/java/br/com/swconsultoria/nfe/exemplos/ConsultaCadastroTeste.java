@@ -5,7 +5,7 @@ import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.dom.enuns.PessoaEnum;
-import br.com.swconsultoria.nfe.schema.consCad.TRetConsCad;
+import br.com.swconsultoria.nfe.schemas.TRetConsCad;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
