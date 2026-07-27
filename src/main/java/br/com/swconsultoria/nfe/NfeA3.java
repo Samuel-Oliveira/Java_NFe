@@ -8,6 +8,8 @@ import br.com.swconsultoria.nfe.dom.enuns.PessoaEnum;
 import br.com.swconsultoria.nfe.exception.NfeException;
 import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoCancelamento;
 import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoCancelamento;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoGenerico;
+import br.com.swconsultoria.nfe.schemas_eventos.TRetEventoGenerico;
 import br.com.swconsultoria.nfe.schemas.RetDistDFeInt;
 import br.com.swconsultoria.nfe.schemas.TEnviNFe;
 import br.com.swconsultoria.nfe.schemas.TRetEnviNFe;
@@ -79,6 +81,14 @@ public class NfeA3 {
     public static String manifestacaoMontaXmlA3(ConfiguracoesNfe config,
             br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoManifestacao evento) throws NfeException {
         return ManifestacaoDestinatarioA3.montarXML(ConfiguracoesUtil.iniciaConfiguracoes(config), evento);
+    }
+
+    public static TRetEnvEventoGenerico eventoGenericoA3(ConfiguracoesNfe config, boolean valida, String xmlAssinado) throws NfeException {
+        return EventoGenericoA3.eventoGenericoA3(ConfiguracoesUtil.iniciaConfiguracoes(config), valida, xmlAssinado);
+    }
+
+    public static String criaProcEventoGenericoA3(ConfiguracoesNfe config, String xmlAssinado, TRetEventoGenerico retorno) throws NfeException {
+        return EventoGenericoA3.criaProcEventoGenericoA3(ConfiguracoesUtil.iniciaConfiguracoes(config), xmlAssinado, retorno);
     }
 
 }
