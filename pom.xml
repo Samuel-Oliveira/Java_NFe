@@ -4,10 +4,18 @@
 
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.1.1</version>
+    <version>4.1.1-evoli1</version>
     <name>Java_NFe</name>
     <description>Api java para consumo do webService de nota fiscal eletronica</description>
     <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/edivaldoms/Java_NFe</url>
+        </repository>
+    </distributionManagement>
 
     <licenses>
         <license>
@@ -27,6 +35,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+        <!-- Fork Evoli: publicacao no GitHub Packages, sem assinatura GPG do Maven Central -->
+        <gpg.skip>true</gpg.skip>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>

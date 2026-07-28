@@ -19,23 +19,50 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="pDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec0302a04RTC" minOccurs="0"/>
  *         &lt;element name="vDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TDevTrib", propOrder = {
+    "pDevTrib",
     "vDevTrib"
 })
 public class TDevTrib {
 
+    protected String pDevTrib;
     @XmlElement(required = true)
     protected String vDevTrib;
+
+    /**
+     * Obtém o valor da propriedade pDevTrib.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getPDevTrib() {
+        return pDevTrib;
+    }
+
+    /**
+     * Define o valor da propriedade pDevTrib.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setPDevTrib(String value) {
+        this.pDevTrib = value;
+    }
 
     /**
      * Obtém o valor da propriedade vDevTrib.

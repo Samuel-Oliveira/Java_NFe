@@ -286,14 +286,15 @@ public class TCIBS {
      *         &lt;element name="gDif" type="{http://www.portalfiscal.inf.br/nfe}TDif" minOccurs="0"/>
      *         &lt;element name="gDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDevTrib" minOccurs="0"/>
      *         &lt;element name="gRed" type="{http://www.portalfiscal.inf.br/nfe}TRed" minOccurs="0"/>
+     *         &lt;element name="gALCZFMCBS" minOccurs="0"/>
      *         &lt;element name="vCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -301,6 +302,7 @@ public class TCIBS {
         "gDif",
         "gDevTrib",
         "gRed",
+        "galczfmcbs",
         "vcbs"
     })
     public static class GCBS {
@@ -310,6 +312,8 @@ public class TCIBS {
         protected TDif gDif;
         protected TDevTrib gDevTrib;
         protected TRed gRed;
+        @XmlElement(name = "gALCZFMCBS")
+        protected TCIBS.GCBS.GALCZFMCBS galczfmcbs;
         @XmlElement(name = "vCBS", required = true)
         protected String vcbs;
 
@@ -431,6 +435,169 @@ public class TCIBS {
          */
         public void setVCBS(String value) {
             this.vcbs = value;
+        }
+
+        /**
+         * Obtém o valor da propriedade galczfmcbs.
+         *
+         * @return
+         *     possible object is
+         *     {@link TCIBS.GCBS.GALCZFMCBS }
+         *
+         */
+        public TCIBS.GCBS.GALCZFMCBS getGALCZFMCBS() {
+            return galczfmcbs;
+        }
+
+        /**
+         * Define o valor da propriedade galczfmcbs.
+         *
+         * @param value
+         *     allowed object is
+         *     {@link TCIBS.GCBS.GALCZFMCBS }
+         *
+         */
+        public void setGALCZFMCBS(TCIBS.GCBS.GALCZFMCBS value) {
+            this.galczfmcbs = value;
+        }
+
+
+        /**
+         * Grupo de operações em áreas incentivadas (ALC/ZFM) - CBS (alíquota zero).
+         * Criado pela NT 2025.002 v1.40 (UB66a), arts. 451 e 466 da LC 214/2025.
+         *
+         * <p>Classe Java de anonymous complex type.
+         *
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="tpALCZFMCBS" type="{http://www.portalfiscal.inf.br/nfe}TtpALCZFMCBS"/>
+         *         &lt;element name="nProcSuframa" minOccurs="0"/>
+         *         &lt;element name="pAliqEfetRegCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
+         *         &lt;element name="vTribRegCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         *
+         *
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "tpALCZFMCBS",
+            "nProcSuframa",
+            "pAliqEfetRegCBS",
+            "vTribRegCBS"
+        })
+        public static class GALCZFMCBS {
+
+            @XmlElement(required = true)
+            protected String tpALCZFMCBS;
+            protected String nProcSuframa;
+            @XmlElement(required = true)
+            protected String pAliqEfetRegCBS;
+            @XmlElement(required = true)
+            protected String vTribRegCBS;
+
+            /**
+             * Obtém o valor da propriedade tpALCZFMCBS.
+             *
+             * @return
+             *     possible object is
+             *     {@link String }
+             *
+             */
+            public String getTpALCZFMCBS() {
+                return tpALCZFMCBS;
+            }
+
+            /**
+             * Define o valor da propriedade tpALCZFMCBS.
+             *
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *
+             */
+            public void setTpALCZFMCBS(String value) {
+                this.tpALCZFMCBS = value;
+            }
+
+            /**
+             * Obtém o valor da propriedade nProcSuframa.
+             *
+             * @return
+             *     possible object is
+             *     {@link String }
+             *
+             */
+            public String getNProcSuframa() {
+                return nProcSuframa;
+            }
+
+            /**
+             * Define o valor da propriedade nProcSuframa.
+             *
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *
+             */
+            public void setNProcSuframa(String value) {
+                this.nProcSuframa = value;
+            }
+
+            /**
+             * Obtém o valor da propriedade pAliqEfetRegCBS.
+             *
+             * @return
+             *     possible object is
+             *     {@link String }
+             *
+             */
+            public String getPAliqEfetRegCBS() {
+                return pAliqEfetRegCBS;
+            }
+
+            /**
+             * Define o valor da propriedade pAliqEfetRegCBS.
+             *
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *
+             */
+            public void setPAliqEfetRegCBS(String value) {
+                this.pAliqEfetRegCBS = value;
+            }
+
+            /**
+             * Obtém o valor da propriedade vTribRegCBS.
+             *
+             * @return
+             *     possible object is
+             *     {@link String }
+             *
+             */
+            public String getVTribRegCBS() {
+                return vTribRegCBS;
+            }
+
+            /**
+             * Define o valor da propriedade vTribRegCBS.
+             *
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *
+             */
+            public void setVTribRegCBS(String value) {
+                this.vTribRegCBS = value;
+            }
+
         }
 
     }

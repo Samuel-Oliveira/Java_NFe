@@ -34502,7 +34502,8 @@ public class TNFe {
             "iest",
             "im",
             "cnae",
-            "crt"
+            "crt",
+            "isufEmit"
         })
         public static class Emit {
 
@@ -34525,6 +34526,8 @@ public class TNFe {
             protected String cnae;
             @XmlElement(name = "CRT", required = true)
             protected String crt;
+            @XmlElement(name = "ISUFEmit")
+            protected String isufEmit;
 
             /**
              * Obtém o valor da propriedade cnpj.
@@ -34764,6 +34767,31 @@ public class TNFe {
              */
             public void setCRT(String value) {
                 this.crt = value;
+            }
+
+            /**
+             * Obtém o valor da propriedade isufEmit.
+             * Inscrição do emitente na Suframa (C22, NT 2025.002 v1.40).
+             *
+             * @return
+             *     possible object is
+             *     {@link String }
+             *
+             */
+            public String getISUFEmit() {
+                return isufEmit;
+            }
+
+            /**
+             * Define o valor da propriedade isufEmit.
+             *
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *
+             */
+            public void setISUFEmit(String value) {
+                this.isufEmit = value;
             }
 
         }
@@ -35200,6 +35228,7 @@ public class TNFe {
             "indFinal",
             "indPres",
             "indIntermed",
+            "cIndOp",
             "procEmi",
             "verProc",
             "dhCont",
@@ -35250,6 +35279,7 @@ public class TNFe {
             @XmlElement(required = true)
             protected String indPres;
             protected String indIntermed;
+            protected String cIndOp;
             @XmlElement(required = true)
             protected String procEmi;
             @XmlElement(required = true)
@@ -35811,6 +35841,31 @@ public class TNFe {
              */
             public void setIndIntermed(String value) {
                 this.indIntermed = value;
+            }
+
+            /**
+             * Obtém o valor da propriedade cIndOp.
+             * Código indicador do local da operação de fornecimento (B25d, NT 2025.002 v1.40).
+             *
+             * @return
+             *     possible object is
+             *     {@link String }
+             *
+             */
+            public String getCIndOp() {
+                return cIndOp;
+            }
+
+            /**
+             * Define o valor da propriedade cIndOp.
+             *
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *
+             */
+            public void setCIndOp(String value) {
+                this.cIndOp = value;
             }
 
             /**

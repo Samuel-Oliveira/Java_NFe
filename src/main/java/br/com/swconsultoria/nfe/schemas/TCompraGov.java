@@ -1,6 +1,8 @@
 
 package br.com.swconsultoria.nfe.schemas;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,19 +24,21 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="tpEnteGov" type="{http://www.portalfiscal.inf.br/nfe}TEnteGov"/>
  *         &lt;element name="pRedutor" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
  *         &lt;element name="tpOperGov" type="{http://www.portalfiscal.inf.br/nfe}TOperCompraGov"/>
+ *         &lt;element name="refDFeAnt" type="{http://www.portalfiscal.inf.br/nfe}TChNFe" maxOccurs="99" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TCompraGov", propOrder = {
     "tpEnteGov",
     "pRedutor",
-    "tpOperGov"
+    "tpOperGov",
+    "refDFeAnt"
 })
 public class TCompraGov {
 
@@ -44,6 +48,7 @@ public class TCompraGov {
     protected String pRedutor;
     @XmlElement(required = true)
     protected String tpOperGov;
+    protected List<String> refDFeAnt;
 
     /**
      * Obtém o valor da propriedade tpEnteGov.
@@ -115,6 +120,27 @@ public class TCompraGov {
      */
     public void setTpOperGov(String value) {
         this.tpOperGov = value;
+    }
+
+    /**
+     * Gets the value of the refDFeAnt property.
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     *
+     *
+     */
+    public List<String> getRefDFeAnt() {
+        if (refDFeAnt == null) {
+            refDFeAnt = new ArrayList<String>();
+        }
+        return this.refDFeAnt;
     }
 
 }
