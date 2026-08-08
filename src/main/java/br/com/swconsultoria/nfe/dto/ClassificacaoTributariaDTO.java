@@ -111,6 +111,18 @@ public class ClassificacaoTributariaDTO implements Serializable {
     @JsonProperty("IndDERE")
     private Boolean indDERE;
 
+    @JsonProperty("IndPercentualDiferencaBioCombustivel")
+    private Boolean indPercentualDiferencaBioCombustivel;
+
+    @JsonProperty("IndDIR")
+    private Boolean indDIR;
+
+    @JsonProperty("IndDUIMP")
+    private Boolean indDUIMP;
+
+    @JsonProperty("TipoReceitaBrutaSN")
+    private String tipoReceitaBrutaSN;
+
     @JsonProperty("IndCompraGov")
     private Boolean indCompraGov;
 
