@@ -1,6 +1,6 @@
-# Build & regeneração JAXB — v4.1.1
+# Build & regeneração JAXB — v4.1.2
 
-A partir da versão **4.1.1** todos os tipos JAXB foram consolidados em **2 packages** (antes ~48):
+A partir da versão **4.1.2** todos os tipos JAXB foram consolidados em **2 packages** (antes ~48):
 
 | Package | Conteúdo |
 |---|---|
@@ -238,7 +238,7 @@ Quando a Sefaz publicar um novo evento ou documento:
 5. Verifique que `DetEvento.java` nao foi alterado (se foi, restaure via git).
 6. Commite: XSD(s) nova(s) + `.xjb` novo + linha no script + `.java` gerados.
 
-## Migrando um projeto consumidor de v4.00.* para v4.1.1
+## Migrando um projeto consumidor de v4.00.* para v4.1.*
 
 Ver [`MIGRATION.md`](MIGRATION.md) e o script automático:
 

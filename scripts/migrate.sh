@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =====================================================================
-# migrate.sh — Migra imports Java de java-nfe v4.00.* para v4.1.1
+# migrate.sh — Migra imports Java de java-nfe v4.00.* para v4.1.2
 #
 # USO:
 #   bash scripts/migrate.sh [caminho] [--dry-run]
@@ -9,7 +9,7 @@
 #   bash scripts/migrate.sh src/main/java
 #   bash scripts/migrate.sh --dry-run
 #
-# A v4.1.1 consolidou ~48 sub-packages em 2 packages:
+# A v4.1.2 consolidou ~48 sub-packages em 2 packages:
 #   br.com.swconsultoria.nfe.schemas         (tipos nao-evento)
 #   br.com.swconsultoria.nfe.schemas_eventos (todos os eventos)
 #
@@ -41,7 +41,7 @@ for arg in "$@"; do
 done
 
 echo ""
-echo "=== java-nfe v4.00.* -> v4.1.1 Migration Script (bash) ==="
+echo "=== java-nfe v4.00.* -> v4.1.2 Migration Script (bash) ==="
 echo ""
 if $DRY_RUN; then
     echo "Modo DRY-RUN: nenhum arquivo sera modificado."

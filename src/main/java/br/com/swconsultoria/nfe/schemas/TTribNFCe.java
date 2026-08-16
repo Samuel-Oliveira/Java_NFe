@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="cClassTrib" type="{http://www.portalfiscal.inf.br/nfe}TcClassTrib"/>
  *         &lt;element name="indDoacao" type="{http://www.portalfiscal.inf.br/nfe}TIndDoacao" minOccurs="0"/>
  *         &lt;choice minOccurs="0">
- *           &lt;element name="gIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TCIBS"/>
+ *           &lt;element name="gIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TCIBS_NFe"/>
  *           &lt;element name="gIBSCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TMonofasia"/>
  *         &lt;/choice>
  *       &lt;/sequence>
@@ -50,7 +50,7 @@ public class TTribNFCe {
     protected String cClassTrib;
     protected String indDoacao;
     @XmlElement(name = "gIBSCBS")
-    protected TCIBS gibscbs;
+    protected TCIBSNFe gibscbs;
     @XmlElement(name = "gIBSCBSMono")
     protected TMonofasia gibscbsMono;
 
@@ -131,10 +131,10 @@ public class TTribNFCe {
      * 
      * @return
      *     possible object is
-     *     {@link TCIBS }
+     *     {@link TCIBSNFe }
      *     
      */
-    public TCIBS getGIBSCBS() {
+    public TCIBSNFe getGIBSCBS() {
         return gibscbs;
     }
 
@@ -143,10 +143,10 @@ public class TTribNFCe {
      * 
      * @param value
      *     allowed object is
-     *     {@link TCIBS }
+     *     {@link TCIBSNFe }
      *     
      */
-    public void setGIBSCBS(TCIBS value) {
+    public void setGIBSCBS(TCIBSNFe value) {
         this.gibscbs = value;
     }
 

@@ -8,14 +8,14 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo CBS IBS Completo
+ * Tipo CBS IBS Completo NFe
  * 
- * <p>Classe Java de TCIBS complex type.
+ * <p>Classe Java de TCIBS_NFe complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="TCIBS">
+ * &lt;complexType name="TCIBS_NFe">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -62,7 +62,7 @@ import javax.xml.bind.annotation.XmlType;
  *                   &lt;element name="gDif" type="{http://www.portalfiscal.inf.br/nfe}TDif" minOccurs="0"/>
  *                   &lt;element name="gDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDevTrib" minOccurs="0"/>
  *                   &lt;element name="gRed" type="{http://www.portalfiscal.inf.br/nfe}TRed" minOccurs="0"/>
- *                   &lt;element name="gALCZFMCBS" type="{http://www.portalfiscal.inf.br/nfe}TALCZFMCBS" minOccurs="0"/>
+ *                   &lt;element name="gALCZFMCBS" type="{http://www.portalfiscal.inf.br/nfe}TALCZFMCBS_NFe" minOccurs="0"/>
  *                   &lt;element name="vCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
@@ -80,7 +80,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TCIBS", propOrder = {
+@XmlType(name = "TCIBS_NFe", propOrder = {
     "vbc",
     "gibsuf",
     "gibsMun",
@@ -89,18 +89,18 @@ import javax.xml.bind.annotation.XmlType;
     "gTribRegular",
     "gTribCompraGov"
 })
-public class TCIBS {
+public class TCIBSNFe {
 
     @XmlElement(name = "vBC", required = true)
     protected String vbc;
     @XmlElement(name = "gIBSUF", required = true)
-    protected TCIBS.GIBSUF gibsuf;
+    protected TCIBSNFe.GIBSUF gibsuf;
     @XmlElement(name = "gIBSMun", required = true)
-    protected TCIBS.GIBSMun gibsMun;
+    protected TCIBSNFe.GIBSMun gibsMun;
     @XmlElement(name = "vIBS", required = true)
     protected String vibs;
     @XmlElement(name = "gCBS", required = true)
-    protected TCIBS.GCBS gcbs;
+    protected TCIBSNFe.GCBS gcbs;
     protected TTribRegular gTribRegular;
     protected TTribCompraGov gTribCompraGov;
 
@@ -133,10 +133,10 @@ public class TCIBS {
      * 
      * @return
      *     possible object is
-     *     {@link TCIBS.GIBSUF }
+     *     {@link TCIBSNFe.GIBSUF }
      *     
      */
-    public TCIBS.GIBSUF getGIBSUF() {
+    public TCIBSNFe.GIBSUF getGIBSUF() {
         return gibsuf;
     }
 
@@ -145,10 +145,10 @@ public class TCIBS {
      * 
      * @param value
      *     allowed object is
-     *     {@link TCIBS.GIBSUF }
+     *     {@link TCIBSNFe.GIBSUF }
      *     
      */
-    public void setGIBSUF(TCIBS.GIBSUF value) {
+    public void setGIBSUF(TCIBSNFe.GIBSUF value) {
         this.gibsuf = value;
     }
 
@@ -157,10 +157,10 @@ public class TCIBS {
      * 
      * @return
      *     possible object is
-     *     {@link TCIBS.GIBSMun }
+     *     {@link TCIBSNFe.GIBSMun }
      *     
      */
-    public TCIBS.GIBSMun getGIBSMun() {
+    public TCIBSNFe.GIBSMun getGIBSMun() {
         return gibsMun;
     }
 
@@ -169,10 +169,10 @@ public class TCIBS {
      * 
      * @param value
      *     allowed object is
-     *     {@link TCIBS.GIBSMun }
+     *     {@link TCIBSNFe.GIBSMun }
      *     
      */
-    public void setGIBSMun(TCIBS.GIBSMun value) {
+    public void setGIBSMun(TCIBSNFe.GIBSMun value) {
         this.gibsMun = value;
     }
 
@@ -205,10 +205,10 @@ public class TCIBS {
      * 
      * @return
      *     possible object is
-     *     {@link TCIBS.GCBS }
+     *     {@link TCIBSNFe.GCBS }
      *     
      */
-    public TCIBS.GCBS getGCBS() {
+    public TCIBSNFe.GCBS getGCBS() {
         return gcbs;
     }
 
@@ -217,10 +217,10 @@ public class TCIBS {
      * 
      * @param value
      *     allowed object is
-     *     {@link TCIBS.GCBS }
+     *     {@link TCIBSNFe.GCBS }
      *     
      */
-    public void setGCBS(TCIBS.GCBS value) {
+    public void setGCBS(TCIBSNFe.GCBS value) {
         this.gcbs = value;
     }
 
@@ -287,7 +287,7 @@ public class TCIBS {
      *         &lt;element name="gDif" type="{http://www.portalfiscal.inf.br/nfe}TDif" minOccurs="0"/>
      *         &lt;element name="gDevTrib" type="{http://www.portalfiscal.inf.br/nfe}TDevTrib" minOccurs="0"/>
      *         &lt;element name="gRed" type="{http://www.portalfiscal.inf.br/nfe}TRed" minOccurs="0"/>
-     *         &lt;element name="gALCZFMCBS" type="{http://www.portalfiscal.inf.br/nfe}TALCZFMCBS" minOccurs="0"/>
+     *         &lt;element name="gALCZFMCBS" type="{http://www.portalfiscal.inf.br/nfe}TALCZFMCBS_NFe" minOccurs="0"/>
      *         &lt;element name="vCBS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
@@ -314,7 +314,7 @@ public class TCIBS {
         protected TDevTrib gDevTrib;
         protected TRed gRed;
         @XmlElement(name = "gALCZFMCBS")
-        protected TALCZFMCBS galczfmcbs;
+        protected TALCZFMCBSNFe galczfmcbs;
         @XmlElement(name = "vCBS", required = true)
         protected String vcbs;
 
@@ -419,10 +419,10 @@ public class TCIBS {
          * 
          * @return
          *     possible object is
-         *     {@link TALCZFMCBS }
+         *     {@link TALCZFMCBSNFe }
          *     
          */
-        public TALCZFMCBS getGALCZFMCBS() {
+        public TALCZFMCBSNFe getGALCZFMCBS() {
             return galczfmcbs;
         }
 
@@ -431,10 +431,10 @@ public class TCIBS {
          * 
          * @param value
          *     allowed object is
-         *     {@link TALCZFMCBS }
+         *     {@link TALCZFMCBSNFe }
          *     
          */
-        public void setGALCZFMCBS(TALCZFMCBS value) {
+        public void setGALCZFMCBS(TALCZFMCBSNFe value) {
             this.galczfmcbs = value;
         }
 

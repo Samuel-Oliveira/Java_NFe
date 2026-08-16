@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.1.1/jar) [![Coverage Status](https://coveralls.io/repos/github/Samuel-Oliveira/Java_NFe/badge.svg?branch=master)](https://coveralls.io/github/Samuel-Oliveira/Java_NFe?branch=master)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.1.2/jar) [![Coverage Status](https://coveralls.io/repos/github/Samuel-Oliveira/Java_NFe/badge.svg?branch=master)](https://coveralls.io/github/Samuel-Oliveira/Java_NFe?branch=master)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
@@ -22,7 +22,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.1.1</version>
+    <version>4.1.2</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.1.1"
+    implementation "br.com.swconsultoria:java-nfe:4.1.2"
 }
 ```
 
@@ -42,9 +42,9 @@ Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutori
 
 ________________________________________________________________________________________________
 
-## ⚠️ Atualizando de v4.00.x para v4.1.1?
+## ⚠️ Atualizando de v4.00.x para v4.1.*?
 
-A v4.1.1 **consolidou ~48 sub-packages JAXB em apenas 2** (`schemas` e `schemas_eventos`)
+A v4.1.* **consolidou ~48 sub-packages JAXB em apenas 2** (`schemas` e `schemas_eventos`)
 e renomeou várias classes de evento para evitar colisões. Imports antigos como
 `schema_4.enviNFe.*`, `schema.envEventoCancNFe.*`, `schema.evento112110.DetEvento`
 **não compilam mais**.
@@ -57,6 +57,10 @@ Resumo: `pwsh scripts/migrate.ps1 -ProjectRoot . -BumpPom` (ou `bash scripts/mig
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.1.2 - Schemas PL 010e e RTC v1.40
+- Atualizado Schemas PL 010e e RTC v1.40
+- Atualizado Cacert
 
 ## v4.1.1 - Schemas PL.010d
 - **Consolidação de packages JAXB**: `~48 sub-packages → schemas + schemas_eventos`

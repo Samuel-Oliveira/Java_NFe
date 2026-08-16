@@ -311,13 +311,13 @@ public class IbsCbsUtil {
                || Boolean.TRUE.equals(cstIbsCbs.getIndDif());
     }
 
-    private TCIBS montarGrupoIBSCBS() {
-        TCIBS gIBSCBS = new TCIBS();
+    private TCIBSNFe montarGrupoIBSCBS() {
+        TCIBSNFe gIBSCBS = new TCIBSNFe();
         gIBSCBS.setVBC(ObjetoUtil.getValor2Casas(baseCalculo));
 
-        TCIBS.GIBSUF gIBSUF = criarGIBSUF();
-        TCIBS.GIBSMun gIBSMun = criarGIBSMun();
-        TCIBS.GCBS gCBS = criarGCBS();
+        TCIBSNFe.GIBSUF gIBSUF = criarGIBSUF();
+        TCIBSNFe.GIBSMun gIBSMun = criarGIBSMun();
+        TCIBSNFe.GCBS gCBS = criarGCBS();
 
         gIBSCBS.setGIBSUF(gIBSUF);
         gIBSCBS.setGIBSMun(gIBSMun);
@@ -337,7 +337,7 @@ public class IbsCbsUtil {
         return gIBSCBS;
     }
 
-    private void atualizarTotais(TCIBS.GIBSUF gIBSUF, TCIBS.GIBSMun gIBSMun, TCIBS.GCBS gCBS) {
+    private void atualizarTotais(TCIBSNFe.GIBSUF gIBSUF, TCIBSNFe.GIBSMun gIBSMun, TCIBSNFe.GCBS gCBS) {
         mapTotais.merge(TOTAL_BC_IBS_CBS, baseCalculo, BigDecimal::add);
         mapTotais.merge(TOTAL_IBS_UF, new BigDecimal(gIBSUF.getVIBSUF()), BigDecimal::add);
         mapTotais.merge(TOTAL_IBS_MUN, new BigDecimal(gIBSMun.getVIBSMun()), BigDecimal::add);
@@ -393,42 +393,42 @@ public class IbsCbsUtil {
         }
     }
 
-    private TCIBS.GIBSUF criarGIBSUF() {
+    private TCIBSNFe.GIBSUF criarGIBSUF() {
         return criarGrupoImposto(
                 pAliqIbsUf,
                 pAliqDiferimento,
                 classTribIbsCbs.getPRedIBS(),
-                TCIBS.GIBSUF::new,
-                TCIBS.GIBSUF::setPIBSUF,
-                TCIBS.GIBSUF::setGDif,
-                TCIBS.GIBSUF::setGRed,
-                TCIBS.GIBSUF::setVIBSUF
+                TCIBSNFe.GIBSUF::new,
+                TCIBSNFe.GIBSUF::setPIBSUF,
+                TCIBSNFe.GIBSUF::setGDif,
+                TCIBSNFe.GIBSUF::setGRed,
+                TCIBSNFe.GIBSUF::setVIBSUF
         );
     }
 
-    private TCIBS.GIBSMun criarGIBSMun() {
+    private TCIBSNFe.GIBSMun criarGIBSMun() {
         return criarGrupoImposto(
                 pAliqIbsMun,
                 pAliqDiferimento,
                 classTribIbsCbs.getPRedIBS(),
-                TCIBS.GIBSMun::new,
-                TCIBS.GIBSMun::setPIBSMun,
-                TCIBS.GIBSMun::setGDif,
-                TCIBS.GIBSMun::setGRed,
-                TCIBS.GIBSMun::setVIBSMun
+                TCIBSNFe.GIBSMun::new,
+                TCIBSNFe.GIBSMun::setPIBSMun,
+                TCIBSNFe.GIBSMun::setGDif,
+                TCIBSNFe.GIBSMun::setGRed,
+                TCIBSNFe.GIBSMun::setVIBSMun
         );
     }
 
-    private TCIBS.GCBS criarGCBS() {
+    private TCIBSNFe.GCBS criarGCBS() {
         return criarGrupoImposto(
                 pAliqCbs,
                 pAliqDiferimento,
                 classTribIbsCbs.getPRedCBS(),
-                TCIBS.GCBS::new,
-                TCIBS.GCBS::setPCBS,
-                TCIBS.GCBS::setGDif,
-                TCIBS.GCBS::setGRed,
-                TCIBS.GCBS::setVCBS
+                TCIBSNFe.GCBS::new,
+                TCIBSNFe.GCBS::setPCBS,
+                TCIBSNFe.GCBS::setGDif,
+                TCIBSNFe.GCBS::setGRed,
+                TCIBSNFe.GCBS::setVCBS
         );
     }
 

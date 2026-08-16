@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-software@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/nfe"
-		   targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified"
-		   attributeFormDefault="unqualified">
+           targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposBasico_v1.03.xsd"/>
 	<xs:element name="detEvento">
 		<xs:annotation>
