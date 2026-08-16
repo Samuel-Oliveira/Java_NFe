@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;sequence minOccurs="0">
  *           &lt;element name="vBCIS" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
  *           &lt;element name="pIS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC"/>
- *           &lt;element name="pISEspec" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC" minOccurs="0"/>
+ *           &lt;element name="adRemIS" type="{http://www.portalfiscal.inf.br/nfe}TDec_0302_04RTC" minOccurs="0"/>
  *           &lt;sequence minOccurs="0">
  *             &lt;element name="uTrib">
  *               &lt;simpleType>
@@ -52,7 +52,7 @@ import javax.xml.bind.annotation.XmlType;
     "cClassTribIS",
     "vbcis",
     "pis",
-    "pisEspec",
+    "adRemIS",
     "uTrib",
     "qTrib",
     "vis"
@@ -67,8 +67,7 @@ public class TIS {
     protected String vbcis;
     @XmlElement(name = "pIS")
     protected String pis;
-    @XmlElement(name = "pISEspec")
-    protected String pisEspec;
+    protected String adRemIS;
     protected String uTrib;
     protected String qTrib;
     @XmlElement(name = "vIS")
@@ -171,27 +170,27 @@ public class TIS {
     }
 
     /**
-     * Obtém o valor da propriedade pisEspec.
+     * Obtém o valor da propriedade adRemIS.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPISEspec() {
-        return pisEspec;
+    public String getAdRemIS() {
+        return adRemIS;
     }
 
     /**
-     * Define o valor da propriedade pisEspec.
+     * Define o valor da propriedade adRemIS.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPISEspec(String value) {
-        this.pisEspec = value;
+    public void setAdRemIS(String value) {
+        this.adRemIS = value;
     }
 
     /**

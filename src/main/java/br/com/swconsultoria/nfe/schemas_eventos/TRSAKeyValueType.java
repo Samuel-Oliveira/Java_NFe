@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Tipo que representa uma chave publica padrão RSA
+ * Tipo que representa uma chave publica padrao RSA
  * 
  * <p>Classe Java de TRSAKeyValueType complex type.
  * 

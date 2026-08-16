@@ -1,9 +1,12 @@
 
 package br.com.swconsultoria.nfe.schemas;
 
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tipo Protocolo de status resultado do processamento da NF-e
@@ -30,7 +33,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                   &lt;element name="digVal" type="{http://www.w3.org/2000/09/xmldsig#}DigestValueType" minOccurs="0"/>
  *                   &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
  *                   &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
- *                   &lt;sequence minOccurs="0">
+ *                   &lt;sequence maxOccurs="5" minOccurs="0">
  *                     &lt;element name="cMsg">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -43,7 +46,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
  *                           &lt;minLength value="1"/>
- *                           &lt;maxLength value="200"/>
+ *                           &lt;maxLength value="255"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
  *                     &lt;/element>
@@ -169,7 +172,7 @@ public class TProtNFe {
      *         &lt;element name="digVal" type="{http://www.w3.org/2000/09/xmldsig#}DigestValueType" minOccurs="0"/>
      *         &lt;element name="cStat" type="{http://www.portalfiscal.inf.br/nfe}TStat"/>
      *         &lt;element name="xMotivo" type="{http://www.portalfiscal.inf.br/nfe}TMotivo"/>
-     *         &lt;sequence minOccurs="0">
+     *         &lt;sequence maxOccurs="5" minOccurs="0">
      *           &lt;element name="cMsg">
      *             &lt;simpleType>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -182,7 +185,7 @@ public class TProtNFe {
      *             &lt;simpleType>
      *               &lt;restriction base="{http://www.portalfiscal.inf.br/nfe}TString">
      *                 &lt;minLength value="1"/>
-     *                 &lt;maxLength value="200"/>
+     *                 &lt;maxLength value="255"/>
      *               &lt;/restriction>
      *             &lt;/simpleType>
      *           &lt;/element>
@@ -206,8 +209,7 @@ public class TProtNFe {
         "digVal",
         "cStat",
         "xMotivo",
-        "cMsg",
-        "xMsg"
+        "cMsgAndXMsg"
     })
     public static class InfProt {
 
@@ -225,8 +227,11 @@ public class TProtNFe {
         protected String cStat;
         @XmlElement(required = true)
         protected String xMotivo;
-        protected String cMsg;
-        protected String xMsg;
+        @XmlElementRefs({
+            @XmlElementRef(name = "cMsg", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+            @XmlElementRef(name = "xMsg", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false)
+        })
+        protected List<JAXBElement<String>> cMsgAndXMsg;
         @XmlAttribute(name = "Id")
         @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
         @XmlID
@@ -424,51 +429,33 @@ public class TProtNFe {
         }
 
         /**
-         * Obtém o valor da propriedade cMsg.
+         * Gets the value of the cMsgAndXMsg property.
          * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getCMsg() {
-            return cMsg;
-        }
-
-        /**
-         * Define o valor da propriedade cMsg.
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the cMsgAndXMsg property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setCMsg(String value) {
-            this.cMsg = value;
-        }
-
-        /**
-         * Obtém o valor da propriedade xMsg.
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getCMsgAndXMsg().add(newItem);
+         * </pre>
          * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getXMsg() {
-            return xMsg;
-        }
-
-        /**
-         * Define o valor da propriedade xMsg.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link JAXBElement }{@code <}{@link String }{@code >}
+         * {@link JAXBElement }{@code <}{@link String }{@code >}
+         * 
+         * 
          */
-        public void setXMsg(String value) {
-            this.xMsg = value;
+        public List<JAXBElement<String>> getCMsgAndXMsg() {
+            if (cMsgAndXMsg == null) {
+                cMsgAndXMsg = new ArrayList<JAXBElement<String>>();
+            }
+            return this.cMsgAndXMsg;
         }
 
         /**

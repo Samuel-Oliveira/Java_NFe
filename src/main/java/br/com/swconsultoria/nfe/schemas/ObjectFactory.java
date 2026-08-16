@@ -36,6 +36,8 @@ public class ObjectFactory {
     private final static QName _NFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "NFe");
     private final static QName _ProcInutNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ProcInutNFe");
     private final static QName _EnviNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "enviNFe");
+    private final static QName _TProtNFeInfProtCMsg_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "cMsg");
+    private final static QName _TProtNFeInfProtXMsg_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "xMsg");
     private final static QName _TNFeInfNFeDetImpostoICMS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ICMS");
     private final static QName _TNFeInfNFeDetImpostoPISST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PISST");
     private final static QName _TNFeInfNFeDetImpostoCOFINSST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINSST");
@@ -86,6 +88,14 @@ public class ObjectFactory {
      */
     public TIBSCBSMonoTot.GIBS createTIBSCBSMonoTotGIBS() {
         return new TIBSCBSMonoTot.GIBS();
+    }
+
+    /**
+     * Create an instance of {@link TCIBSNFe }
+     * 
+     */
+    public TCIBSNFe createTCIBSNFe() {
+        return new TCIBSNFe();
     }
 
     /**
@@ -433,6 +443,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TPagRef }
+     * 
+     */
+    public TPagRef createTPagRef() {
+        return new TPagRef();
+    }
+
+    /**
      * Create an instance of {@link TTribCompraGov }
      * 
      */
@@ -441,11 +459,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TALCZFMCBS }
+     * 
+     */
+    public TALCZFMCBS createTALCZFMCBS() {
+        return new TALCZFMCBS();
+    }
+
+    /**
      * Create an instance of {@link TTribNFCom }
      * 
      */
     public TTribNFCom createTTribNFCom() {
         return new TTribNFCom();
+    }
+
+    /**
+     * Create an instance of {@link TALCZFMCBSNFe }
+     * 
+     */
+    public TALCZFMCBSNFe createTALCZFMCBSNFe() {
+        return new TALCZFMCBSNFe();
     }
 
     /**
@@ -758,6 +792,30 @@ public class ObjectFactory {
      */
     public TIBSCBSMonoTot.GIBS.GIBSMun createTIBSCBSMonoTotGIBSGIBSMun() {
         return new TIBSCBSMonoTot.GIBS.GIBSMun();
+    }
+
+    /**
+     * Create an instance of {@link TCIBSNFe.GIBSUF }
+     * 
+     */
+    public TCIBSNFe.GIBSUF createTCIBSNFeGIBSUF() {
+        return new TCIBSNFe.GIBSUF();
+    }
+
+    /**
+     * Create an instance of {@link TCIBSNFe.GIBSMun }
+     * 
+     */
+    public TCIBSNFe.GIBSMun createTCIBSNFeGIBSMun() {
+        return new TCIBSNFe.GIBSMun();
+    }
+
+    /**
+     * Create an instance of {@link TCIBSNFe.GCBS }
+     * 
+     */
+    public TCIBSNFe.GCBS createTCIBSNFeGCBS() {
+        return new TCIBSNFe.GCBS();
     }
 
     /**
@@ -1642,6 +1700,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "enviNFe")
     public JAXBElement<TEnviNFe> createEnviNFe(TEnviNFe value) {
         return new JAXBElement<TEnviNFe>(_EnviNFe_QNAME, TEnviNFe.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "cMsg", scope = TProtNFe.InfProt.class)
+    public JAXBElement<String> createTProtNFeInfProtCMsg(String value) {
+        return new JAXBElement<String>(_TProtNFeInfProtCMsg_QNAME, String.class, TProtNFe.InfProt.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "xMsg", scope = TProtNFe.InfProt.class)
+    public JAXBElement<String> createTProtNFeInfProtXMsg(String value) {
+        return new JAXBElement<String>(_TProtNFeInfProtXMsg_QNAME, String.class, TProtNFe.InfProt.class, value);
     }
 
     /**

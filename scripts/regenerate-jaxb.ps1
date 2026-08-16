@@ -1,10 +1,10 @@
 #Requires -Version 7.0
 <#
 .SYNOPSIS
-    Regenera as classes JAXB do java-nfe v4.1.1 — DOIS packages apenas.
+    Regenera as classes JAXB do java-nfe v4.1.* — DOIS packages apenas.
 
 .DESCRIPTION
-    Estrategia (v4.1.1):
+    Estrategia (v4.1.*):
 
     Package schemas (5 passes sequenciais, sem limpar entre eles):
       1) consSitNFe + retConsSitNFe    — cons-sit-nfe.xjb renomeia TEvento->TEventoConsSitNFe etc.
@@ -239,6 +239,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-01: generico" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEvento_v1.00.xsd'
         'envEvento_v1.00.xsd'
         'retEnvEvento_v1.00.xsd'
@@ -251,6 +252,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-02: cancelamento" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoCancNFe_v1.00.xsd'
         'eventoCancNFe_v1.00.xsd'
         'envEventoCancNFe_v1.00.xsd'
@@ -264,6 +266,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-03: cancelamento-substituicao" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoCancSubst_v1.00.xsd'
         'eventoCancSubst_v1.00.xsd'
         'envEventoCancSubst_v1.00.xsd'
@@ -277,6 +280,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-04: carta-correcao" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteCCe_v1.00.xsd'
         'CCe_v1.00.xsd'
         'envCCe_v1.00.xsd'
@@ -290,6 +294,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-05: epec" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEPEC_v1.00.xsd'
         'EPEC_v1.00.xsd'
         'envEPEC_v1.00.xsd'
@@ -303,6 +308,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-06: manifestacao" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteConfRecebto_v1.00.xsd'
         'confRecebto_v1.00.xsd'
         'envConfRecebto_v1.00.xsd'
@@ -316,6 +322,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-07: conciliacao-financeira" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoEConf_v1.00.xsd'
         'EventoEConf_v1.00.xsd'
         'envEventoEConf_v1.00.xsd'
@@ -329,6 +336,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-08: cancelamento-conciliacao-financeira" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoCancEConf_v1.00.xsd'
         'EventoCancEConf_v1.00.xsd'
         'envEventoCancEConf_v1.00.xsd'
@@ -342,6 +350,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-09: insucesso-entrega" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoInsucessoNFe_v1.00.xsd'
         'EventoInsucessoNFe_v1.00.xsd'
         'envEventoInsucessoNFe_v1.00.xsd'
@@ -357,6 +366,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-10: cancelamento-insucesso-entrega" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoCancInsucessoNFe_v1.00.xsd'
         'EventoCancInsucessoNFe_v1.00.xsd'
         'envEventoCancInsucessoNFe_v1.00.xsd'
@@ -369,6 +379,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-11: comprovante-entrega" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoEntregaNFe_v1.00.xsd'
         'EventoEntregaNFe_v1.00.xsd'
         'envEventoEntregaNFe_v1.00.xsd'
@@ -382,6 +393,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-12: cancelamento-comprovante-entrega" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoCancEntregaNFe_v1.00.xsd'
         'EventoCancEntregaNFe_v1.00.xsd'
         'envEventoCancEntregaNFe_v1.00.xsd'
@@ -395,6 +407,7 @@ Invoke-XjcPass `
     -Label "schemas_eventos pass-13: ator-interessado" `
     -Package "$BasePkg.schemas_eventos" `
     -XsdFiles @(
+        '_types_legado_v1.xsd'
         'leiauteEventoAtorInteressado_v1.00.xsd'
         'eventoAtorInteressado_v1.00.xsd'
         'envEventoAtorInteressado_v1.00.xsd'
@@ -548,5 +561,5 @@ if ($orphans.Count -gt 0) {
 }
 
 Write-Host ""
-Write-Host "Regeneracao v4.1.1 completa." -ForegroundColor Green
+Write-Host "Regeneracao v4.1.* completa." -ForegroundColor Green
 Write-Host "Proximo passo: mvn test-compile" -ForegroundColor DarkGray

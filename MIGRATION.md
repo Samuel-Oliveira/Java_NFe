@@ -1,12 +1,12 @@
-# Guia de migração — v4.00.* → v4.1.1
+# Guia de migração — v4.00.* → v4.1.*
 
 > 💡 **Resumo rápido:** rode `pwsh scripts/migrate.ps1 -ProjectRoot . -BumpPom` (ou o equivalente bash) no seu projeto consumidor da lib, depois `mvn test-compile`. Os detalhes abaixo cobrem o que muda e o que o script não consegue migrar automaticamente.
 
 ## O que mudou
 
-A v4.1.1 consolidou ~48 sub-packages JAXB em **2 packages**:
+A v4.1.* consolidou ~48 sub-packages JAXB em **2 packages**:
 
-| Antes (v4.00.*)                                               | Depois (v4.1.1)                              |
+| Antes (v4.00.*)                                               | Depois (v4.1.*)                              |
 |---------------------------------------------------------------|----------------------------------------------|
 | `br.com.swconsultoria.nfe.schema_4.enviNFe.*`                 | `br.com.swconsultoria.nfe.schemas.*`         |
 | `br.com.swconsultoria.nfe.schema_4.consReciNFe.*`             | `br.com.swconsultoria.nfe.schemas.*`         |
@@ -39,7 +39,7 @@ A v4.1.1 consolidou ~48 sub-packages JAXB em **2 packages**:
 
 Como todos os eventos agora vivem no mesmo package, os nomes genéricos colideriam. As classes foram renomeadas por evento:
 
-| Classe v4.00.*                  | Classe v4.1.1                                    | Evento |
+| Classe v4.00.*                  | Classe v4.1.*                                    | Evento |
 |---------------------------------|--------------------------------------------------|---|
 | `TEnvEventoCancNFe`             | `TEnvEventoCancelamento`                         | Cancelamento |
 | `TRetEnvEventoCancNFe`          | `TRetEnvEventoCancelamento`                      | Cancelamento |
@@ -70,7 +70,7 @@ Como todos os eventos agora vivem no mesmo package, os nomes genéricos colideri
 
 ## Outras classes que mudaram de nome
 
-| Antes (v4.00.*)                                          | Depois (v4.1.1)                                       | Motivo |
+| Antes (v4.00.*)                                          | Depois (v4.1.*)                                       | Motivo |
 |----------------------------------------------------------|-------------------------------------------------------|--------|
 | `br.com.swconsultoria.nfe.schema.resevento.ResEvento`    | `br.com.swconsultoria.nfe.schemas_eventos.ResumoEvento` | Nome da classe foi normalizado |
 | `br.com.swconsultoria.nfe.schema_4.consSitNFe.TProcEvento` | `br.com.swconsultoria.nfe.schemas.TProcEventoConsSitNFe` | Conflito com `TProcEvento*` de `schemas_eventos` |
@@ -127,8 +127,8 @@ bash scripts/migrate.sh src/test/java
 
 ## ⚠️ Breaking change de API
 
-| API | Antes (v4.00.*) | Depois (v4.1.1) | O que fazer |
-|---|---|---|---|
+| API | Antes (v4.00.51)                 | Depois (v4.1.*) | O que fazer |
+|---|----------------------------------|---|---|
 | `TProtNFe.InfProt.getDhRecbto()` | retornava `XMLGregorianCalendar` | retorna **`String`** (ISO 8601 com offset, ex. `"2024-01-15T10:30:00-03:00"`) | Atualize o caller. Para converter para `LocalDateTime`: `OffsetDateTime.parse(value).atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()` |
 
 > Outras assinaturas podem ter mudado em casos isolados. Após `mvn test-compile`, qualquer "incompatible types" indica diferença de assinatura.
