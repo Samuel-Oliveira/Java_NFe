@@ -1,6 +1,7 @@
 package br.com.swconsultoria.nfe.util;
 
 import br.com.swconsultoria.nfe.schemas.ObjectFactory;
+import br.com.swconsultoria.nfe.schemas.TIS;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.*;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS.COFINSAliq;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS.COFINSQtde;
@@ -244,4 +245,90 @@ class XmlImpostoUtilTest {
 
         assertEquals(new BigDecimal("99.99"), XmlImpostoUtil.getVISSQN(impostos));
     }
+
+    // -------------------------------------------------------------------------
+    // getVICMS / getVFCP - grupos que estavam faltando (ICMS70, ICMSPart)
+    // -------------------------------------------------------------------------
+
+    @Test
+    void getVICMS_icms70_retornaValor() {
+        ICMS icms = new ICMS();
+        ICMS.ICMS70 icms70 = new ICMS.ICMS70();
+        icms70.setVICMS("80.23");
+        icms70.setVICMSST("157.23");
+        icms.setICMS70(icms70);
+
+        List<JAXBElement<?>> impostos = new ArrayList<>();
+        impostos.add(FACTORY.createTNFeInfNFeDetImpostoICMS(icms));
+
+        assertEquals(new BigDecimal("80.23"), XmlImpostoUtil.getVICMS(impostos));
+    }
+
+    @Test
+    void getVICMS_icmsPart_retornaValor() {
+        ICMS icms = new ICMS();
+        ICMS.ICMSPart part = new ICMS.ICMSPart();
+        part.setVICMS("18.00");
+        icms.setICMSPart(part);
+
+        List<JAXBElement<?>> impostos = new ArrayList<>();
+        impostos.add(FACTORY.createTNFeInfNFeDetImpostoICMS(icms));
+
+        assertEquals(new BigDecimal("18.00"), XmlImpostoUtil.getVICMS(impostos));
+    }
+
+    @Test
+    void getVFCP_icms70ComFCP_retornaValor() {
+        ICMS icms = new ICMS();
+        ICMS.ICMS70 icms70 = new ICMS.ICMS70();
+        icms70.setVICMS("80.23");
+        icms70.setVFCP("10.00");
+        icms.setICMS70(icms70);
+
+        List<JAXBElement<?>> impostos = new ArrayList<>();
+        impostos.add(FACTORY.createTNFeInfNFeDetImpostoICMS(icms));
+
+        assertEquals(new BigDecimal("10.00"), XmlImpostoUtil.getVFCP(impostos));
+    }
+
+    // -------------------------------------------------------------------------
+    // getVII
+    // -------------------------------------------------------------------------
+
+    @Test
+    void getVII_listaVazia_retornaZero() {
+        assertEquals(BigDecimal.ZERO, XmlImpostoUtil.getVII(Collections.emptyList()));
+    }
+
+    @Test
+    void getVII_comValor_retornaValor() {
+        II ii = new II();
+        ii.setVII("20.00");
+
+        List<JAXBElement<?>> impostos = new ArrayList<>();
+        impostos.add(FACTORY.createTNFeInfNFeDetImpostoII(ii));
+
+        assertEquals(new BigDecimal("20.00"), XmlImpostoUtil.getVII(impostos));
+    }
+
+    // -------------------------------------------------------------------------
+    // getVIS
+    // -------------------------------------------------------------------------
+
+    @Test
+    void getVIS_listaVazia_retornaZero() {
+        assertEquals(BigDecimal.ZERO, XmlImpostoUtil.getVIS(Collections.emptyList()));
+    }
+
+    @Test
+    void getVIS_comValor_retornaValor() {
+        TIS is = new TIS();
+        is.setVIS("5.00");
+
+        List<JAXBElement<?>> impostos = new ArrayList<>();
+        impostos.add(FACTORY.createTNFeInfNFeDetImpostoIS(is));
+
+        assertEquals(new BigDecimal("5.00"), XmlImpostoUtil.getVIS(impostos));
+    }
+
 }

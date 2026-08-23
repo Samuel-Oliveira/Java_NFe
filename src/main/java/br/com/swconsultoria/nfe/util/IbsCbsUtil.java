@@ -563,6 +563,8 @@ public class IbsCbsUtil {
                 .add(vSeg)
                 .add(vOutro)
                 .subtract(vDesc)
+                .add(XmlImpostoUtil.getVII(impostos))
+                .add(XmlImpostoUtil.getVIS(impostos))
                 .subtract(XmlImpostoUtil.getVPIS(impostos))
                 .subtract(XmlImpostoUtil.getVCOFINS(impostos))
                 .subtract(XmlImpostoUtil.getVICMS(impostos))

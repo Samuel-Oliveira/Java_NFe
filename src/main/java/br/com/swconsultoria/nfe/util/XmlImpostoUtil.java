@@ -95,6 +95,10 @@ public class XmlImpostoUtil {
                     return new BigDecimal(icms.getICMS51().getVICMS());
                 if (icms.getICMS90() != null && icms.getICMS90().getVICMS() != null)
                     return new BigDecimal(icms.getICMS90().getVICMS());
+                if (icms.getICMS70() != null && icms.getICMS70().getVICMS() != null)
+                    return new BigDecimal(icms.getICMS70().getVICMS());
+                if (icms.getICMSPart() != null && icms.getICMSPart().getVICMS() != null)
+                    return new BigDecimal(icms.getICMSPart().getVICMS());
                 if (icms.getICMSSN900() != null && icms.getICMSSN900().getVICMS() != null)
                     return new BigDecimal(icms.getICMSSN900().getVICMS());
             }
@@ -144,6 +148,8 @@ public class XmlImpostoUtil {
                     return new BigDecimal(icms.getICMS20().getVFCP());
                 if (icms.getICMS51() != null && icms.getICMS51().getVFCP() != null)
                     return new BigDecimal(icms.getICMS51().getVFCP());
+                if (icms.getICMS70() != null && icms.getICMS70().getVFCP() != null)
+                    return new BigDecimal(icms.getICMS70().getVFCP());
                 if (icms.getICMS90() != null && icms.getICMS90().getVFCP() != null)
                     return new BigDecimal(icms.getICMS90().getVFCP());
             }
@@ -211,6 +217,44 @@ public class XmlImpostoUtil {
                         (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ISSQN) elem.getValue();
                 if (issqn.getVISSQN() != null)
                     return new BigDecimal(issqn.getVISSQN());
+            }
+        }
+        return BigDecimal.ZERO;
+    }
+
+    /**
+     * Recupera o valor do Imposto de Importacao (vII) do produto.
+     *
+     * @param impostos Lista de elementos JAXB do bloco de impostos do produto.
+     * @return Valor do II (vII) ou BigDecimal.ZERO se nao houver.
+     */
+    public static BigDecimal getVII(List<JAXBElement<?>> impostos) {
+        for (JAXBElement<?> elem : impostos) {
+            // Verifica se o elemento e do tipo II
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.II) {
+                br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.II ii =
+                        (br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.II) elem.getValue();
+                if (ii.getVII() != null)
+                    return new BigDecimal(ii.getVII());
+            }
+        }
+        return BigDecimal.ZERO;
+    }
+
+    /**
+     * Recupera o valor do Imposto Seletivo (vIS) do produto.
+     *
+     * @param impostos Lista de elementos JAXB do bloco de impostos do produto.
+     * @return Valor do IS (vIS) ou BigDecimal.ZERO se nao houver.
+     */
+    public static BigDecimal getVIS(List<JAXBElement<?>> impostos) {
+        for (JAXBElement<?> elem : impostos) {
+            // Verifica se o elemento e do tipo IS
+            if (elem.getValue() instanceof br.com.swconsultoria.nfe.schemas.TIS) {
+                br.com.swconsultoria.nfe.schemas.TIS is =
+                        (br.com.swconsultoria.nfe.schemas.TIS) elem.getValue();
+                if (is.getVIS() != null)
+                    return new BigDecimal(is.getVIS());
             }
         }
         return BigDecimal.ZERO;

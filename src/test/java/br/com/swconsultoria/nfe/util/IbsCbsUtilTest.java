@@ -9,9 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -290,6 +288,72 @@ class IbsCbsUtilTest {
     }
 
     // -------------------------------------------------------------------------
+    // Base de calculo do IBS/CBS (gIBSCBS/vBC)
+    // -------------------------------------------------------------------------
+
+    /**
+     * Regressao: item com ICMS70 (reducao de BC + ST) tinha o vICMS ignorado por
+     * XmlImpostoUtil.getVICMS, inflando a base do IBS/CBS.
+     * Cenario real: NF-e 735190 / Puratos, item 1.
+     * 668.57 - 9.71 (PIS) - 44.71 (COFINS) - 80.23 (ICMS) = 533.92
+     */
+    @Test
+    void deveSubtrairVicmsDoGrupoIcms70NaBaseDeCalculo() throws NfeException {
+        TNFe.InfNFe.Det det = criarDetMinimo("668.57", "2.0000");
+        adicionarIcms70(det, "80.23", null);
+        adicionarPisCofins(det, "9.71", "44.71");
+
+        TTribNFe resultado = calcular(det);
+
+        assertEquals("533.92", resultado.getGIBSCBS().getVBC());
+        assertEquals("0.53", resultado.getGIBSCBS().getGIBSUF().getVIBSUF());
+        assertEquals("4.81", resultado.getGIBSCBS().getGCBS().getVCBS());
+    }
+
+    @Test
+    void deveSubtrairVfcpDoGrupoIcms70NaBaseDeCalculo() throws NfeException {
+        TNFe.InfNFe.Det det = criarDetMinimo("668.57", "2.0000");
+        adicionarIcms70(det, "80.23", "10.00");
+        adicionarPisCofins(det, "9.71", "44.71");
+
+        TTribNFe resultado = calcular(det);
+
+        assertEquals("523.92", resultado.getGIBSCBS().getVBC());
+    }
+
+    @Test
+    void deveSubtrairVicmsDoGrupoIcmsPartNaBaseDeCalculo() throws NfeException {
+        TNFe.InfNFe.Det det = criarDetMinimo("100.00", "1.0000");
+        TNFe.InfNFe.Det.Imposto.ICMS icms = new TNFe.InfNFe.Det.Imposto.ICMS();
+        TNFe.InfNFe.Det.Imposto.ICMS.ICMSPart part = new TNFe.InfNFe.Det.Imposto.ICMS.ICMSPart();
+        part.setVICMS("18.00");
+        icms.setICMSPart(part);
+        det.getImposto().getContent().add(new ObjectFactory().createTNFeInfNFeDetImpostoICMS(icms));
+
+        TTribNFe resultado = calcular(det);
+
+        assertEquals("82.00", resultado.getGIBSCBS().getVBC());
+    }
+
+    @Test
+    void deveSomarViiEVisNaBaseDeCalculo() throws NfeException {
+        TNFe.InfNFe.Det det = criarDetMinimo("100.00", "1.0000");
+        ObjectFactory of = new ObjectFactory();
+
+        TNFe.InfNFe.Det.Imposto.II ii = new TNFe.InfNFe.Det.Imposto.II();
+        ii.setVII("20.00");
+        det.getImposto().getContent().add(of.createTNFeInfNFeDetImpostoII(ii));
+
+        TIS is = new TIS();
+        is.setVIS("5.00");
+        det.getImposto().getContent().add(of.createTNFeInfNFeDetImpostoIS(is));
+
+        TTribNFe resultado = calcular(det);
+
+        assertEquals("125.00", resultado.getGIBSCBS().getVBC());
+    }
+
+    // -------------------------------------------------------------------------
     // Helpers
     // -------------------------------------------------------------------------
 
@@ -334,5 +398,45 @@ class IbsCbsUtilTest {
         dto.setIndEstornoCred(indEstornoCred);
         dto.setIndCompraGov(indCompraGov);
         return dto;
+    }
+
+    /** Monta o IbsCbsUtil padrao (IBS UF 0,10% / CBS 0,90%) e calcula os impostos do item. */
+    private TTribNFe calcular(TNFe.InfNFe.Det det) throws NfeException {
+        CstDTO cst = montarCst("TST", true, false, false, false, false, false);
+        cst.setClassificacoesTributarias(
+                Collections.singletonList(montarClassTrib(CC_TRIB, false, false, false)));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setpAliqIbsUf(new BigDecimal("0.1"));
+        util.setpAliqIbsMun(BigDecimal.ZERO);
+        util.setpAliqCbs(new BigDecimal("0.9"));
+        return util.montaImpostosDet(CC_TRIB, det);
+    }
+
+    private void adicionarIcms70(TNFe.InfNFe.Det det, String vIcms, String vFcp) {
+        TNFe.InfNFe.Det.Imposto.ICMS icms = new TNFe.InfNFe.Det.Imposto.ICMS();
+        TNFe.InfNFe.Det.Imposto.ICMS.ICMS70 icms70 = new TNFe.InfNFe.Det.Imposto.ICMS.ICMS70();
+        icms70.setVICMS(vIcms);
+        icms70.setVFCP(vFcp);
+        // ICMS-ST nao entra na base do IBS/CBS
+        icms70.setVICMSST("157.23");
+        icms.setICMS70(icms70);
+        det.getImposto().getContent().add(new ObjectFactory().createTNFeInfNFeDetImpostoICMS(icms));
+    }
+
+    private void adicionarPisCofins(TNFe.InfNFe.Det det, String vPis, String vCofins) {
+        ObjectFactory of = new ObjectFactory();
+
+        TNFe.InfNFe.Det.Imposto.PIS pis = new TNFe.InfNFe.Det.Imposto.PIS();
+        TNFe.InfNFe.Det.Imposto.PIS.PISAliq pisAliq = new TNFe.InfNFe.Det.Imposto.PIS.PISAliq();
+        pisAliq.setVPIS(vPis);
+        pis.setPISAliq(pisAliq);
+        det.getImposto().getContent().add(of.createTNFeInfNFeDetImpostoPIS(pis));
+
+        TNFe.InfNFe.Det.Imposto.COFINS cofins = new TNFe.InfNFe.Det.Imposto.COFINS();
+        TNFe.InfNFe.Det.Imposto.COFINS.COFINSAliq cofAliq = new TNFe.InfNFe.Det.Imposto.COFINS.COFINSAliq();
+        cofAliq.setVCOFINS(vCofins);
+        cofins.setCOFINSAliq(cofAliq);
+        det.getImposto().getContent().add(of.createTNFeInfNFeDetImpostoCOFINS(cofins));
     }
 }
