@@ -8,6 +8,7 @@ import br.com.swconsultoria.nfe.schemas.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collections;
 
@@ -354,8 +355,119 @@ class IbsCbsUtilTest {
     }
 
     // -------------------------------------------------------------------------
+    // Regressão issue #349: IbsCbsUtil herdava cClassTrib do item anterior
+    // quando o cClassTrib do item corrente era nulo/vazio/inexistente, pois
+    // filtraCClasstrib só atribuía os campos de instância dentro do
+    // ifPresent, sem limpá-los no caminho "não encontrado". A partir do 2º
+    // item, um cClassTrib inválido deixava de lançar exceção porque
+    // validaClassTrib valida o campo remanescente do item anterior, não o
+    // argumento recebido.
+    // -------------------------------------------------------------------------
+
+    @Test
+    void deveLancarExcecaoNoSegundoItemQuandoCClassTribForNuloAposItemValido() throws Exception {
+        IbsCbsUtil util = new IbsCbsUtil(carregarJsonIbsCbs(), DocumentoEnum.NFE);
+        util.setpAliqIbsUf(new BigDecimal("10"));
+        util.setpAliqIbsMun(BigDecimal.ZERO);
+        util.setpAliqCbs(new BigDecimal("9"));
+
+        // Item 1 válido, processado com sucesso
+        util.montaImpostosDet("000001", criarDetMinimo("100.00", "1.0000"));
+
+        // Item 2 com cClassTrib nulo deve lançar, mesmo com estado do item 1 na instância
+        NfeException excecao = assertThrows(NfeException.class,
+                () -> util.montaImpostosDet(null, criarDetMinimo("100.00", "1.0000")));
+        assertEquals("CClassTrib inválido ou não encontrado: null", excecao.getMessage());
+    }
+
+    @Test
+    void deveLancarExcecaoNoSegundoItemQuandoCClassTribForVazioAposItemValido() throws Exception {
+        IbsCbsUtil util = new IbsCbsUtil(carregarJsonIbsCbs(), DocumentoEnum.NFE);
+        util.setpAliqIbsUf(new BigDecimal("10"));
+        util.setpAliqIbsMun(BigDecimal.ZERO);
+        util.setpAliqCbs(new BigDecimal("9"));
+
+        util.montaImpostosDet("000001", criarDetMinimo("100.00", "1.0000"));
+
+        NfeException excecao = assertThrows(NfeException.class,
+                () -> util.montaImpostosDet("", criarDetMinimo("100.00", "1.0000")));
+        assertEquals("CClassTrib inválido ou não encontrado: ", excecao.getMessage());
+    }
+
+    @Test
+    void deveLancarExcecaoNoSegundoItemQuandoCClassTribForInexistenteAposItemValido() throws Exception {
+        IbsCbsUtil util = new IbsCbsUtil(carregarJsonIbsCbs(), DocumentoEnum.NFE);
+        util.setpAliqIbsUf(new BigDecimal("10"));
+        util.setpAliqIbsMun(BigDecimal.ZERO);
+        util.setpAliqCbs(new BigDecimal("9"));
+
+        util.montaImpostosDet("000001", criarDetMinimo("100.00", "1.0000"));
+
+        NfeException excecao = assertThrows(NfeException.class,
+                () -> util.montaImpostosDet("999999", criarDetMinimo("100.00", "1.0000")));
+        assertEquals("CClassTrib inválido ou não encontrado: 999999", excecao.getMessage());
+    }
+
+    @Test
+    void deveLancarExcecaoParaCClassTribInvalidoIndependenteDaPosicaoDoItem() throws Exception {
+        String json = carregarJsonIbsCbs();
+
+        // Mesmo cClassTrib inválido como 1º item de uma instância nova
+        IbsCbsUtil utilPrimeiroItem = new IbsCbsUtil(json, DocumentoEnum.NFE);
+        utilPrimeiroItem.setpAliqIbsUf(new BigDecimal("10"));
+        utilPrimeiroItem.setpAliqCbs(new BigDecimal("9"));
+        NfeException excecaoNoPrimeiroItem = assertThrows(NfeException.class,
+                () -> utilPrimeiroItem.montaImpostosDet("999999", criarDetMinimo("100.00", "1.0000")));
+
+        // Mesmo cClassTrib inválido como 2º item, após um 1º item válido na mesma instância
+        IbsCbsUtil utilSegundoItem = new IbsCbsUtil(json, DocumentoEnum.NFE);
+        utilSegundoItem.setpAliqIbsUf(new BigDecimal("10"));
+        utilSegundoItem.setpAliqCbs(new BigDecimal("9"));
+        utilSegundoItem.montaImpostosDet("000001", criarDetMinimo("100.00", "1.0000"));
+        NfeException excecaoNoSegundoItem = assertThrows(NfeException.class,
+                () -> utilSegundoItem.montaImpostosDet("999999", criarDetMinimo("100.00", "1.0000")));
+
+        assertEquals(excecaoNoPrimeiroItem.getMessage(), excecaoNoSegundoItem.getMessage(),
+                "O mesmo cClassTrib inválido deve lançar a mesma exceção independente da posição do item");
+        assertEquals("CClassTrib inválido ou não encontrado: 999999", excecaoNoSegundoItem.getMessage());
+    }
+
+    @Test
+    void deveManterCstEClassTribCorretosDeCadaItemEAcumularTotaisCorretamenteEmSequenciaValida() throws Exception {
+        IbsCbsUtil util = new IbsCbsUtil(carregarJsonIbsCbs(), DocumentoEnum.NFE);
+        util.setpAliqIbsUf(new BigDecimal("10"));
+        util.setpAliqIbsMun(BigDecimal.ZERO);
+        util.setpAliqCbs(new BigDecimal("9"));
+
+        // Item 1: CST 000/cClassTrib 000001, sem redução de alíquota
+        TTribNFe resultadoItem1 = util.montaImpostosDet("000001", criarDetMinimo("100.00", "1.0000"));
+        assertEquals("000", resultadoItem1.getCST());
+        assertEquals("000001", resultadoItem1.getCClassTrib());
+        assertEquals("10.00", resultadoItem1.getGIBSCBS().getGIBSUF().getVIBSUF());
+        assertEquals("9.00", resultadoItem1.getGIBSCBS().getGCBS().getVCBS());
+
+        // Item 2: CST 200/cClassTrib 200013, com redução de 100% da alíquota
+        TTribNFe resultadoItem2 = util.montaImpostosDet("200013", criarDetMinimo("100.00", "1.0000"));
+        assertEquals("200", resultadoItem2.getCST());
+        assertEquals("200013", resultadoItem2.getCClassTrib());
+        assertEquals("100.00", resultadoItem2.getGIBSCBS().getVBC());
+        assertEquals("0.00", resultadoItem2.getGIBSCBS().getGIBSUF().getVIBSUF());
+        assertEquals("0.00", resultadoItem2.getGIBSCBS().getGCBS().getVCBS());
+
+        // Totais acumulados corretamente via preencheTotaisIbsCsb()
+        TIBSCBSMonoTot totais = util.preencheTotaisIbsCsb();
+        assertEquals("200.00", totais.getVBCIBSCBS());
+        assertEquals("10.00", totais.getGIBS().getVIBS());
+        assertEquals("9.00", totais.getGCBS().getVCBS());
+    }
+
+    // -------------------------------------------------------------------------
     // Helpers
     // -------------------------------------------------------------------------
+
+    private String carregarJsonIbsCbs() throws IOException {
+        return XmlNfeUtil.leXml("src/test/resources/ibscbs.json");
+    }
 
     private TNFe.InfNFe.Det criarDetMinimo(String vProd, String qCom) {
         TNFe.InfNFe.Det det = new TNFe.InfNFe.Det();

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SignatureValueType", propOrder = {
+@XmlType(name = "SignatureValueType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
     "value"
 })
 public class SignatureValueType {

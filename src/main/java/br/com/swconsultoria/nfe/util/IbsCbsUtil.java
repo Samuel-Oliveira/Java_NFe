@@ -354,16 +354,18 @@ public class IbsCbsUtil {
     }
 
     private void filtraCClasstrib(String cclassTrib, String cclassTribRegular) {
-        buscarCstEClassificacao(cclassTrib).ifPresent(entry -> {
-            cstIbsCbs = entry.getKey();
-            classTribIbsCbs = entry.getValue();
-        });
+        Optional<AbstractMap.SimpleEntry<CstDTO, ClassificacaoTributariaDTO>> achado =
+                buscarCstEClassificacao(cclassTrib);
+        cstIbsCbs = achado.map(AbstractMap.SimpleEntry::getKey).orElse(null);
+        classTribIbsCbs = achado.map(AbstractMap.SimpleEntry::getValue).orElse(null);
 
+        cstIbsCbsTribRegular = null;
+        classTribIbsCbsTribRegular = null;
         if (cclassTribRegular != null && !cclassTribRegular.isEmpty()) {
-            buscarCstEClassificacao(cclassTribRegular).ifPresent(entry -> {
-                cstIbsCbsTribRegular = entry.getKey();
-                classTribIbsCbsTribRegular = entry.getValue();
-            });
+            Optional<AbstractMap.SimpleEntry<CstDTO, ClassificacaoTributariaDTO>> achadoRegular =
+                    buscarCstEClassificacao(cclassTribRegular);
+            cstIbsCbsTribRegular = achadoRegular.map(AbstractMap.SimpleEntry::getKey).orElse(null);
+            classTribIbsCbsTribRegular = achadoRegular.map(AbstractMap.SimpleEntry::getValue).orElse(null);
         }
     }
 
