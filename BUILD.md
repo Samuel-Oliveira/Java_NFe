@@ -1,6 +1,6 @@
-# Build & regeneração JAXB — v4.1.2
+# Build & regeneração JAXB
 
-A partir da versão **4.1.2** todos os tipos JAXB foram consolidados em **2 packages** (antes ~48):
+A partir da versão **4.1.*** todos os tipos JAXB foram consolidados em **2 packages** (antes ~48):
 
 | Package | Conteúdo |
 |---|---|

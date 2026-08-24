@@ -44,7 +44,7 @@ public class EventoGenericoTeste {
             detEvento.setDescEvento("Informação de efetivo pagamento integral para liberar crédito presumido do adquirente");
             // TODO 112110: detEvento.setCOrgaoAutor(config.getEstado().getCodigoUF());
             // TODO 112110: detEvento.setTpAutor("1");
-            detEvento.setVerAplic("v4.1.2");
+            detEvento.setVerAplic("v4.1.3");
             // TODO 112110: detEvento.setIndQuitacao("1");
             generico.setDetEvento(detEvento);
 

@@ -59,7 +59,7 @@
     regular simples — passe a versao que esta no seu pom.
 
 .PARAMETER NewVersion
-    Versao alvo (default: 4.1.2).
+    Versao alvo (default: 4.1.3).
 
 .PARAMETER BumpPom
     Tambem bumpa <java-nfe.version>$OldVersion</java-nfe.version> para
@@ -78,14 +78,14 @@
 
 .EXAMPLE
     # Versao diferente da default
-    pwsh scripts/migrate.ps1 -OldVersion 4.00.49 -NewVersion 4.1.2 -BumpPom
+    pwsh scripts/migrate.ps1 -OldVersion 4.00.49 -NewVersion 4.1.3 -BumpPom
 #>
 
 [CmdletBinding()]
 param(
     [string]$ProjectRoot = '.',
     [string]$OldVersion = '4.00.51',
-    [string]$NewVersion = '4.1.2',
+    [string]$NewVersion = '4.1.3',
     [switch]$BumpPom,
     [switch]$DryRun
 )

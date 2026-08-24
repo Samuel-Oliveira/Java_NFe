@@ -1,4 +1,6 @@
 # Notas de versão
 
-## v4.1.2
-- Atualizado Schema PL. 010e e RTC v1.40
+## v4.1.3
+- Correcao de Base de calculo Cclasstrib icms 70
+- Correcao com reuso de cclasstrib 
+- Correcao proc Eventos sem signature
