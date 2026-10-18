@@ -497,6 +497,105 @@ class IbsCbsUtilTest {
         return dto;
     }
 
+    // -------------------------------------------------------------------------
+    // Monofasia: estrutura das modalidades ad rem / ad valorem
+    // -------------------------------------------------------------------------
+
+    @Test
+    void deveMontarMonofasiaAdRemPorPadraoComGruposIbsECbsSeparados() throws NfeException {
+        TMonofasia mono = calcularMono(false, true, false, false);
+
+        assertNotNull(mono.getGIBSMonoAdRem(), "ad rem é o padrão: gIBSMonoAdRem deve ser emitido");
+        assertNotNull(mono.getGCBSMonoAdRem(), "IBS e CBS são eixos independentes: ambos emitidos");
+        assertNull(mono.getGIBSMonoAdValorem(), "as duas modalidades do mesmo eixo são exclusivas");
+        assertNull(mono.getGCBSMonoAdValorem(), "as duas modalidades do mesmo eixo são exclusivas");
+
+        assertNotNull(mono.getGIBSMonoAdRem().getGMonoPadrao(), "MonofasiaPadrao=true deve emitir gMonoPadrao");
+        assertNull(mono.getGIBSMonoAdRem().getGMonoRet(), "RetidaAnt=false não deve emitir gMonoRet");
+        assertNull(mono.getGIBSMonoAdRem().getGMonoReten(), "SujeitaRetencao=false não deve emitir gMonoReten");
+    }
+
+    @Test
+    void deveMontarMonofasiaAdValoremQuandoHabilitadaPeloSetter() throws NfeException {
+        TMonofasia mono = calcularMono(true, true, false, false);
+
+        assertNotNull(mono.getGIBSMonoAdValorem(), "setMonofasiaAdValorem(true) deve emitir gIBSMonoAdValorem");
+        assertNotNull(mono.getGCBSMonoAdValorem(), "setMonofasiaAdValorem(true) deve emitir gCBSMonoAdValorem");
+        assertNull(mono.getGIBSMonoAdRem(), "ad valorem e ad rem não coexistem no mesmo eixo");
+        assertNull(mono.getGCBSMonoAdRem(), "ad valorem e ad rem não coexistem no mesmo eixo");
+    }
+
+    @Test
+    void naoDeveEmitirAliquotaMonofasicaDiferenteDeZeroEnquantoValorForZero() throws NfeException {
+        // Alíquota monofásica é própria por produto e não é a alíquota do regime regular
+        // configurada nos setters. Emitir alíquota real com valor zerado deixaria o grupo
+        // aritmeticamente incoerente, então ambos ficam zerados.
+        TMonofasia adValorem = calcularMono(true, true, false, false);
+        TMonofasia.GIBSMonoAdValorem.GMonoPadrao ibs = adValorem.getGIBSMonoAdValorem().getGMonoPadrao();
+
+        assertEquals(new BigDecimal(ibs.getVIBSMonoUF()).signum() == 0,
+                new BigDecimal(ibs.getPAliqMonoUF()).signum() == 0,
+                "pAliqMonoUF e vIBSMonoUF devem ser ambos zero ou ambos não-zero");
+        assertEquals(new BigDecimal(ibs.getVIBSMonoMun()).signum() == 0,
+                new BigDecimal(ibs.getPAliqMonoMun()).signum() == 0,
+                "pAliqMonoMun e vIBSMonoMun devem ser ambos zero ou ambos não-zero");
+
+        TMonofasia.GCBSMonoAdValorem.GMonoPadrao cbs = adValorem.getGCBSMonoAdValorem().getGMonoPadrao();
+        assertEquals(new BigDecimal(cbs.getVCBSMono()).signum() == 0,
+                new BigDecimal(cbs.getPAliqMonoCBS()).signum() == 0,
+                "pAliqMonoCBS e vCBSMono devem ser ambos zero ou ambos não-zero");
+
+        TMonofasia adRem = calcularMono(false, true, false, false);
+        TMonofasia.GIBSMonoAdRem.GMonoPadrao ibsAdRem = adRem.getGIBSMonoAdRem().getGMonoPadrao();
+        assertEquals(new BigDecimal(ibsAdRem.getVIBSMono()).signum() == 0,
+                new BigDecimal(ibsAdRem.getAdRemIBS()).signum() == 0,
+                "adRemIBS e vIBSMono devem ser ambos zero ou ambos não-zero");
+    }
+
+    @Test
+    void deveEmitirApenasOsSubgruposCorrespondentesAsFlagsDoCClassTrib() throws NfeException {
+        TMonofasia soRetido = calcularMono(false, false, true, false);
+        assertNull(soRetido.getGIBSMonoAdRem().getGMonoPadrao(), "Padrao=false não emite gMonoPadrao");
+        assertNotNull(soRetido.getGIBSMonoAdRem().getGMonoRet(), "RetidaAnt=true emite gMonoRet");
+        assertNull(soRetido.getGIBSMonoAdRem().getGMonoReten(), "SujeitaRetencao=false não emite gMonoReten");
+
+        TMonofasia soReten = calcularMono(false, false, false, true);
+        assertNull(soReten.getGIBSMonoAdRem().getGMonoRet(), "RetidaAnt=false não emite gMonoRet");
+        assertNotNull(soReten.getGIBSMonoAdRem().getGMonoReten(), "SujeitaRetencao=true emite gMonoReten");
+    }
+
+    @Test
+    void naoDeveEmitirGrupoMonofasicoVazioQuandoNenhumaFlagEstaAtiva() throws NfeException {
+        TMonofasia mono = calcularMono(false, false, false, false);
+
+        assertNull(mono.getGIBSMonoAdRem(), "sem flag de monofasia, não emitir wrapper vazio");
+        assertNull(mono.getGCBSMonoAdRem(), "sem flag de monofasia, não emitir wrapper vazio");
+    }
+
+    /**
+     * Monta o grupo de monofasia para as flags informadas.
+     * Parâmetros: adValorem, monofasiaPadrao, monofasiaRetidaAnt, monofasiaSujeitaRetencao.
+     */
+    private TMonofasia calcularMono(boolean adValorem, boolean padrao,
+                                    boolean retidaAnt, boolean sujeitaRetencao) throws NfeException {
+        CstDTO cst = montarCst("TST", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(padrao);
+        ct.setMonofasiaRetidaAnt(retidaAnt);
+        ct.setMonofasiaSujeitaRetencao(sujeitaRetencao);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setpAliqIbsUf(new BigDecimal("0.1"));
+        util.setpAliqIbsMun(BigDecimal.ZERO);
+        util.setpAliqCbs(new BigDecimal("0.9"));
+        util.setMonofasiaAdValorem(adValorem);
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("100.00", "1.0000")).getGIBSCBSMono();
+        assertNotNull(mono, "IndIBSCBSMono=true deve emitir gIBSCBSMono");
+        return mono;
+    }
+
     /**
      * Monta ClassificacaoTributariaDTO com os flags relevantes para os novos grupos.
      * Parâmetros: indCredPresOper, indEstornoCred, indCompraGov.

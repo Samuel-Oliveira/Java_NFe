@@ -263,24 +263,29 @@ public class IbsCbsUtil {
      * {@code classTribIbsCbs.getMonofasiaDiferimento()} não tem mais grupo correspondente.
      * O gpBioDiferenca que surgiu no lugar modela diferença de biocombustível, não
      * diferimento, e por isso não é preenchido automaticamente aqui.
+     *
+     * Alíquotas e valores monofásicos saem zerados: monofasia tem alíquota própria por
+     * produto (ad rem em valor por unidade, ad valorem em percentual específico), que
+     * não é a alíquota do regime regular configurada em {@link #setpAliqIbsUf(BigDecimal)}
+     * e afins. Preencher com a alíquota regular geraria valor tributariamente errado, o
+     * que é pior que zero. Os totais do item e de {@link #preencheTotaisIbsCsb()}
+     * seguem a mesma postura.
      */
     private TMonofasia montaGrupoMono(TNFe.InfNFe.Det det) {
         TMonofasia gMono = new TMonofasia();
-        String qCom = ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom()));
-        String vBC = ObjetoUtil.getValor2Casas(baseCalculo);
 
         if (monofasiaAdValorem) {
+            String vBC = ObjetoUtil.getValor2Casas(baseCalculo);
             gMono.setGIBSMonoAdValorem(montaIbsMonoAdValorem(vBC));
             gMono.setGCBSMonoAdValorem(montaCbsMonoAdValorem(vBC));
         } else {
+            String qCom = ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom()));
             gMono.setGIBSMonoAdRem(montaIbsMonoAdRem(qCom));
             gMono.setGCBSMonoAdRem(montaCbsMonoAdRem(qCom));
         }
 
         gMono.setVTotIBSMonoItem("0.00");
         gMono.setVTotCBSMonoItem("0.00");
-
-        acumulaTotaisMono();
 
         return gMono;
     }
@@ -308,6 +313,11 @@ public class IbsCbsUtil {
             reten.setAdRemIBSReten("0.00");
             reten.setVIBSMonoReten("0.00");
             grupo.setGMonoReten(reten);
+        }
+
+        if (grupo.getGMonoPadrao() == null && grupo.getGMonoRet() == null
+                && grupo.getGMonoReten() == null) {
+            return null;
         }
 
         return grupo;
@@ -338,6 +348,11 @@ public class IbsCbsUtil {
             grupo.setGMonoReten(reten);
         }
 
+        if (grupo.getGMonoPadrao() == null && grupo.getGMonoRet() == null
+                && grupo.getGMonoReten() == null) {
+            return null;
+        }
+
         return grupo;
     }
 
@@ -347,9 +362,9 @@ public class IbsCbsUtil {
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
             TMonofasia.GIBSMonoAdValorem.GMonoPadrao padrao = new TMonofasia.GIBSMonoAdValorem.GMonoPadrao();
             padrao.setVBCMono(vBC);
-            padrao.setPAliqMonoUF(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(pAliqIbsUf)));
+            padrao.setPAliqMonoUF("0.0000");
             padrao.setVIBSMonoUF("0.00");
-            padrao.setPAliqMonoMun(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(pAliqIbsMun)));
+            padrao.setPAliqMonoMun("0.0000");
             padrao.setVIBSMonoMun("0.00");
             padrao.setVIBSMono("0.00");
             grupo.setGMonoPadrao(padrao);
@@ -369,6 +384,11 @@ public class IbsCbsUtil {
             grupo.setGMonoReten(reten);
         }
 
+        if (grupo.getGMonoPadrao() == null && grupo.getGMonoRet() == null
+                && grupo.getGMonoReten() == null) {
+            return null;
+        }
+
         return grupo;
     }
 
@@ -378,7 +398,7 @@ public class IbsCbsUtil {
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
             TMonofasia.GCBSMonoAdValorem.GMonoPadrao padrao = new TMonofasia.GCBSMonoAdValorem.GMonoPadrao();
             padrao.setVBCMono(vBC);
-            padrao.setPAliqMonoCBS(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(pAliqCbs)));
+            padrao.setPAliqMonoCBS("0.0000");
             padrao.setVCBSMono("0.00");
             grupo.setGMonoPadrao(padrao);
         }
@@ -397,23 +417,14 @@ public class IbsCbsUtil {
             grupo.setGMonoReten(reten);
         }
 
+        if (grupo.getGMonoPadrao() == null && grupo.getGMonoRet() == null
+                && grupo.getGMonoReten() == null) {
+            return null;
+        }
+
         return grupo;
     }
 
-    /**
-     * Acumula os totais de monofasia. Os valores monofásicos ainda não são calculados
-     * (ficam em "0.00" até o integrador informar as alíquotas ad rem/ad valorem por NCM),
-     * então os totais permanecem zerados e gMono não é emitido em
-     * {@link #preencheTotaisIbsCsb()}.
-     */
-    private void acumulaTotaisMono() {
-        mapTotais.merge(TOTAL_IBS_MONO, BigDecimal.ZERO, BigDecimal::add);
-        mapTotais.merge(TOTAL_CBS_MONO, BigDecimal.ZERO, BigDecimal::add);
-        mapTotais.merge(TOTAL_IBS_MONO_RETEN, BigDecimal.ZERO, BigDecimal::add);
-        mapTotais.merge(TOTAL_CBS_MONO_RETEN, BigDecimal.ZERO, BigDecimal::add);
-        mapTotais.merge(TOTAL_IBS_MONO_RET, BigDecimal.ZERO, BigDecimal::add);
-        mapTotais.merge(TOTAL_CBS_MONO_RET, BigDecimal.ZERO, BigDecimal::add);
-    }
 
     private boolean deveMontarGrupoIBSCBS() {
         return Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBS())
