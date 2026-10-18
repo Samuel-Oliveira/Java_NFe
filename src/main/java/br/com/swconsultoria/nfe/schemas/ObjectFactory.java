@@ -131,6 +131,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TMonofasia.GCBSMonoAdValorem }
+     * 
+     */
+    public TMonofasia.GCBSMonoAdValorem createTMonofasiaGCBSMonoAdValorem() {
+        return new TMonofasia.GCBSMonoAdValorem();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GCBSMonoAdRem }
+     * 
+     */
+    public TMonofasia.GCBSMonoAdRem createTMonofasiaGCBSMonoAdRem() {
+        return new TMonofasia.GCBSMonoAdRem();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdValorem }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdValorem createTMonofasiaGIBSMonoAdValorem() {
+        return new TMonofasia.GIBSMonoAdValorem();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdRem }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdRem createTMonofasiaGIBSMonoAdRem() {
+        return new TMonofasia.GIBSMonoAdRem();
+    }
+
+    /**
      * Create an instance of {@link TCIBS }
      * 
      */
@@ -859,35 +891,131 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TMonofasia.GMonoPadrao }
+     * Create an instance of {@link TMonofasia.GCBSMonoAdValorem.GMonoPadrao }
      * 
      */
-    public TMonofasia.GMonoPadrao createTMonofasiaGMonoPadrao() {
-        return new TMonofasia.GMonoPadrao();
+    public TMonofasia.GCBSMonoAdValorem.GMonoPadrao createTMonofasiaGCBSMonoAdValoremGMonoPadrao() {
+        return new TMonofasia.GCBSMonoAdValorem.GMonoPadrao();
     }
 
     /**
-     * Create an instance of {@link TMonofasia.GMonoReten }
+     * Create an instance of {@link TMonofasia.GCBSMonoAdValorem.GMonoReten }
      * 
      */
-    public TMonofasia.GMonoReten createTMonofasiaGMonoReten() {
-        return new TMonofasia.GMonoReten();
+    public TMonofasia.GCBSMonoAdValorem.GMonoReten createTMonofasiaGCBSMonoAdValoremGMonoReten() {
+        return new TMonofasia.GCBSMonoAdValorem.GMonoReten();
     }
 
     /**
-     * Create an instance of {@link TMonofasia.GMonoRet }
+     * Create an instance of {@link TMonofasia.GCBSMonoAdValorem.GMonoRet }
      * 
      */
-    public TMonofasia.GMonoRet createTMonofasiaGMonoRet() {
-        return new TMonofasia.GMonoRet();
+    public TMonofasia.GCBSMonoAdValorem.GMonoRet createTMonofasiaGCBSMonoAdValoremGMonoRet() {
+        return new TMonofasia.GCBSMonoAdValorem.GMonoRet();
     }
 
     /**
-     * Create an instance of {@link TMonofasia.GMonoDif }
+     * Create an instance of {@link TMonofasia.GCBSMonoAdValorem.GpBioDiferenca }
      * 
      */
-    public TMonofasia.GMonoDif createTMonofasiaGMonoDif() {
-        return new TMonofasia.GMonoDif();
+    public TMonofasia.GCBSMonoAdValorem.GpBioDiferenca createTMonofasiaGCBSMonoAdValoremGpBioDiferenca() {
+        return new TMonofasia.GCBSMonoAdValorem.GpBioDiferenca();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GCBSMonoAdRem.GMonoPadrao }
+     * 
+     */
+    public TMonofasia.GCBSMonoAdRem.GMonoPadrao createTMonofasiaGCBSMonoAdRemGMonoPadrao() {
+        return new TMonofasia.GCBSMonoAdRem.GMonoPadrao();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GCBSMonoAdRem.GMonoReten }
+     * 
+     */
+    public TMonofasia.GCBSMonoAdRem.GMonoReten createTMonofasiaGCBSMonoAdRemGMonoReten() {
+        return new TMonofasia.GCBSMonoAdRem.GMonoReten();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GCBSMonoAdRem.GMonoRet }
+     * 
+     */
+    public TMonofasia.GCBSMonoAdRem.GMonoRet createTMonofasiaGCBSMonoAdRemGMonoRet() {
+        return new TMonofasia.GCBSMonoAdRem.GMonoRet();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GCBSMonoAdRem.GpBioDiferenca }
+     * 
+     */
+    public TMonofasia.GCBSMonoAdRem.GpBioDiferenca createTMonofasiaGCBSMonoAdRemGpBioDiferenca() {
+        return new TMonofasia.GCBSMonoAdRem.GpBioDiferenca();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdValorem.GMonoPadrao }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdValorem.GMonoPadrao createTMonofasiaGIBSMonoAdValoremGMonoPadrao() {
+        return new TMonofasia.GIBSMonoAdValorem.GMonoPadrao();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdValorem.GMonoReten }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdValorem.GMonoReten createTMonofasiaGIBSMonoAdValoremGMonoReten() {
+        return new TMonofasia.GIBSMonoAdValorem.GMonoReten();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdValorem.GMonoRet }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdValorem.GMonoRet createTMonofasiaGIBSMonoAdValoremGMonoRet() {
+        return new TMonofasia.GIBSMonoAdValorem.GMonoRet();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdValorem.GpBioDiferenca }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdValorem.GpBioDiferenca createTMonofasiaGIBSMonoAdValoremGpBioDiferenca() {
+        return new TMonofasia.GIBSMonoAdValorem.GpBioDiferenca();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdRem.GMonoPadrao }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdRem.GMonoPadrao createTMonofasiaGIBSMonoAdRemGMonoPadrao() {
+        return new TMonofasia.GIBSMonoAdRem.GMonoPadrao();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdRem.GMonoReten }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdRem.GMonoReten createTMonofasiaGIBSMonoAdRemGMonoReten() {
+        return new TMonofasia.GIBSMonoAdRem.GMonoReten();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdRem.GMonoRet }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdRem.GMonoRet createTMonofasiaGIBSMonoAdRemGMonoRet() {
+        return new TMonofasia.GIBSMonoAdRem.GMonoRet();
+    }
+
+    /**
+     * Create an instance of {@link TMonofasia.GIBSMonoAdRem.GpBioDiferenca }
+     * 
+     */
+    public TMonofasia.GIBSMonoAdRem.GpBioDiferenca createTMonofasiaGIBSMonoAdRemGpBioDiferenca() {
+        return new TMonofasia.GIBSMonoAdRem.GpBioDiferenca();
     }
 
     /**

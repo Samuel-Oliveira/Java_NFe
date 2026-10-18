@@ -512,6 +512,50 @@ if (Test-Path $pkgInfoPath) {
 }
 
 # ============================================================
+# Pos-processamento: namespace XMLDSig nos tipos de assinatura
+# (regressao da issue #352 / PR #356)
+#
+# Em `schemas` o xjc gera os tipos XMLDSig com
+# namespace="http://www.w3.org/2000/09/xmldsig#" nas anotacoes, porque
+# leiauteNFe_v4.00.xsd traz o xmldsig via <xs:import namespace=...>.
+# Em `schemas_eventos` algum dos passes sobrescreve esses mesmos tipos sem o
+# namespace, e sem ele o unmarshal descarta silenciosamente SignedInfo,
+# SignatureValue e KeyInfo (procEvento sai com <Signature/> vazio).
+#
+# Os dois pacotes geram tipos identicos a menos do `package`, entao copiamos a
+# versao correta de `schemas` trocando apenas a declaracao de package. Isso
+# acompanha automaticamente qualquer mudanca futura no xmldsig-core-schema.
+# ============================================================
+$dsigTypes = @(
+    'SignatureType', 'SignedInfoType', 'SignatureValueType', 'KeyInfoType',
+    'X509DataType', 'ReferenceType', 'TransformType', 'TransformsType'
+)
+$schemasDirJava        = Join-Path $JavaSrcDir ('br/com/swconsultoria/nfe/schemas' -replace '/', [IO.Path]::DirectorySeparatorChar)
+$schemasEventosDirJava = Join-Path $JavaSrcDir ('br/com/swconsultoria/nfe/schemas_eventos' -replace '/', [IO.Path]::DirectorySeparatorChar)
+$dsigCopiados = 0
+
+foreach ($t in $dsigTypes) {
+    $origem  = Join-Path $schemasDirJava "$t.java"
+    $destino = Join-Path $schemasEventosDirJava "$t.java"
+    if (-not (Test-Path $origem)) {
+        Write-Warning "Tipo XMLDSig nao encontrado em schemas (ignorando): $t"
+        continue
+    }
+    $conteudo = Get-Content -Path $origem -Raw -Encoding UTF8
+    if ($conteudo -notmatch 'xmldsig#') {
+        Write-Warning "$t em schemas nao tem namespace xmldsig# — copia abortada para nao propagar versao incorreta."
+        continue
+    }
+    $conteudo = $conteudo -replace 'package br\.com\.swconsultoria\.nfe\.schemas;', 'package br.com.swconsultoria.nfe.schemas_eventos;'
+    Set-Content -Path $destino -Value $conteudo -Encoding UTF8 -NoNewline
+    $dsigCopiados++
+}
+
+if ($dsigCopiados -gt 0) {
+    Write-Host "  tipos XMLDSig: $dsigCopiados copiados de schemas (namespace xmldsig# preservado)" -ForegroundColor Cyan
+}
+
+# ============================================================
 # DETECCAO DE PACKAGES ORFAOS
 # ============================================================
 Write-Host ""

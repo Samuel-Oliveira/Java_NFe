@@ -497,6 +497,139 @@ class IbsCbsUtilTest {
         return dto;
     }
 
+    // -------------------------------------------------------------------------
+    // Monofasia: estrutura das modalidades ad rem / ad valorem
+    // -------------------------------------------------------------------------
+
+    @Test
+    void deveMontarMonofasiaAdRemPorPadraoComGruposIbsECbsSeparados() throws NfeException {
+        TMonofasia mono = calcularMono(false, true, false, false);
+
+        assertNotNull(mono.getGIBSMonoAdRem(), "ad rem é o padrão: gIBSMonoAdRem deve ser emitido");
+        assertNotNull(mono.getGCBSMonoAdRem(), "IBS e CBS são eixos independentes: ambos emitidos");
+        assertNull(mono.getGIBSMonoAdValorem(), "as duas modalidades do mesmo eixo são exclusivas");
+        assertNull(mono.getGCBSMonoAdValorem(), "as duas modalidades do mesmo eixo são exclusivas");
+
+        assertNotNull(mono.getGIBSMonoAdRem().getGMonoPadrao(), "MonofasiaPadrao=true deve emitir gMonoPadrao");
+        assertNull(mono.getGIBSMonoAdRem().getGMonoRet(), "RetidaAnt=false não deve emitir gMonoRet");
+        assertNull(mono.getGIBSMonoAdRem().getGMonoReten(), "SujeitaRetencao=false não deve emitir gMonoReten");
+    }
+
+    @Test
+    void deveMontarMonofasiaAdValoremQuandoHabilitadaPeloSetter() throws NfeException {
+        TMonofasia mono = calcularMono(true, true, false, false);
+
+        assertNotNull(mono.getGIBSMonoAdValorem(), "setMonofasiaAdValorem(true) deve emitir gIBSMonoAdValorem");
+        assertNotNull(mono.getGCBSMonoAdValorem(), "setMonofasiaAdValorem(true) deve emitir gCBSMonoAdValorem");
+        assertNull(mono.getGIBSMonoAdRem(), "ad valorem e ad rem não coexistem no mesmo eixo");
+        assertNull(mono.getGCBSMonoAdRem(), "ad valorem e ad rem não coexistem no mesmo eixo");
+    }
+
+    @Test
+    void naoDeveEmitirAliquotaMonofasicaDiferenteDeZeroEnquantoValorForZero() throws NfeException {
+        // Alíquota monofásica é própria por produto e não é a alíquota do regime regular
+        // configurada nos setters. Emitir alíquota real com valor zerado deixaria o grupo
+        // aritmeticamente incoerente, então ambos ficam zerados. O helper configura as três
+        // alíquotas regulares com valores não-zero justamente para que uma regressão que as
+        // vazasse para cá seja detectada.
+        TMonofasia adValorem = calcularMono(true, true, false, false);
+        TMonofasia.GIBSMonoAdValorem.GMonoPadrao ibs = adValorem.getGIBSMonoAdValorem().getGMonoPadrao();
+
+        assertEquals("0.0000", ibs.getPAliqMonoUF(), "pAliqMonoUF não deve receber a alíquota do regime regular");
+        assertEquals("0.0000", ibs.getPAliqMonoMun(), "pAliqMonoMun não deve receber a alíquota do regime regular");
+        assertCoerente(ibs.getPAliqMonoUF(), ibs.getVIBSMonoUF(), "pAliqMonoUF", "vIBSMonoUF");
+        assertCoerente(ibs.getPAliqMonoMun(), ibs.getVIBSMonoMun(), "pAliqMonoMun", "vIBSMonoMun");
+
+        TMonofasia.GCBSMonoAdValorem.GMonoPadrao cbs = adValorem.getGCBSMonoAdValorem().getGMonoPadrao();
+        assertEquals("0.0000", cbs.getPAliqMonoCBS(), "pAliqMonoCBS não deve receber a alíquota do regime regular");
+        assertCoerente(cbs.getPAliqMonoCBS(), cbs.getVCBSMono(), "pAliqMonoCBS", "vCBSMono");
+
+        TMonofasia adRem = calcularMono(false, true, false, false);
+        TMonofasia.GIBSMonoAdRem.GMonoPadrao ibsAdRem = adRem.getGIBSMonoAdRem().getGMonoPadrao();
+        assertCoerente(ibsAdRem.getAdRemIBS(), ibsAdRem.getVIBSMono(), "adRemIBS", "vIBSMono");
+
+        TMonofasia.GCBSMonoAdRem.GMonoPadrao cbsAdRem = adRem.getGCBSMonoAdRem().getGMonoPadrao();
+        assertCoerente(cbsAdRem.getAdRemCBS(), cbsAdRem.getVCBSMono(), "adRemCBS", "vCBSMono");
+    }
+
+    /** Alíquota e valor precisam ser ambos zero ou ambos não-zero. */
+    private void assertCoerente(String aliquota, String valor, String nomeAliquota, String nomeValor) {
+        boolean aliqZero = new BigDecimal(aliquota).signum() == 0;
+        boolean valorZero = new BigDecimal(valor).signum() == 0;
+        assertTrue(aliqZero == valorZero, String.format(
+                "%s=%s e %s=%s são incoerentes: devem ser ambos zero ou ambos não-zero",
+                nomeAliquota, aliquota, nomeValor, valor));
+    }
+
+    @Test
+    void deveEmitirApenasOsSubgruposCorrespondentesAsFlagsDoCClassTrib() throws NfeException {
+        TMonofasia soRetido = calcularMono(false, false, true, false);
+        assertNull(soRetido.getGIBSMonoAdRem().getGMonoPadrao(), "Padrao=false não emite gMonoPadrao");
+        assertNotNull(soRetido.getGIBSMonoAdRem().getGMonoRet(), "RetidaAnt=true emite gMonoRet");
+        assertNull(soRetido.getGIBSMonoAdRem().getGMonoReten(), "SujeitaRetencao=false não emite gMonoReten");
+
+        TMonofasia soReten = calcularMono(false, false, false, true);
+        assertNull(soReten.getGIBSMonoAdRem().getGMonoRet(), "RetidaAnt=false não emite gMonoRet");
+        assertNotNull(soReten.getGIBSMonoAdRem().getGMonoReten(), "SujeitaRetencao=true emite gMonoReten");
+    }
+
+    @Test
+    void naoDeveEmitirGrupoMonofasicoVazioQuandoNenhumaFlagEstaAtiva() throws NfeException {
+        TMonofasia adRem = calcularMono(false, false, false, false);
+        assertNull(adRem.getGIBSMonoAdRem(), "sem flag de monofasia, não emitir wrapper vazio");
+        assertNull(adRem.getGCBSMonoAdRem(), "sem flag de monofasia, não emitir wrapper vazio");
+
+        TMonofasia adValorem = calcularMono(true, false, false, false);
+        assertNull(adValorem.getGIBSMonoAdValorem(), "o guard também vale para o eixo ad valorem");
+        assertNull(adValorem.getGCBSMonoAdValorem(), "o guard também vale para o eixo ad valorem");
+
+        // Com as 4 modalidades nulas sobram apenas os totais do item, que são obrigatórios
+        // no XSD (as duas sequences de modalidade são minOccurs="0").
+        assertNotNull(adRem.getVTotIBSMonoItem(), "vTotIBSMonoItem é obrigatório e deve sobreviver");
+        assertNotNull(adRem.getVTotCBSMonoItem(), "vTotCBSMonoItem é obrigatório e deve sobreviver");
+    }
+
+    @Test
+    void deveEmitirOsTresSubgruposQuandoTodasAsFlagsEstaoAtivas() throws NfeException {
+        TMonofasia mono = calcularMono(false, true, true, true);
+
+        TMonofasia.GIBSMonoAdRem ibs = mono.getGIBSMonoAdRem();
+        assertNotNull(ibs.getGMonoPadrao(), "gMonoPadrao deve sair com Padrao=true");
+        assertNotNull(ibs.getGMonoRet(), "gMonoRet deve sair com RetidaAnt=true");
+        assertNotNull(ibs.getGMonoReten(), "gMonoReten deve sair com SujeitaRetencao=true");
+
+        TMonofasia.GCBSMonoAdRem cbs = mono.getGCBSMonoAdRem();
+        assertNotNull(cbs.getGMonoPadrao(), "o eixo CBS acompanha as mesmas flags");
+        assertNotNull(cbs.getGMonoRet(), "o eixo CBS acompanha as mesmas flags");
+        assertNotNull(cbs.getGMonoReten(), "o eixo CBS acompanha as mesmas flags");
+    }
+
+    /**
+     * Monta o grupo de monofasia para as flags informadas.
+     * Parâmetros: adValorem, monofasiaPadrao, monofasiaRetidaAnt, monofasiaSujeitaRetencao.
+     */
+    private TMonofasia calcularMono(boolean adValorem, boolean padrao,
+                                    boolean retidaAnt, boolean sujeitaRetencao) throws NfeException {
+        CstDTO cst = montarCst("TST", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(padrao);
+        ct.setMonofasiaRetidaAnt(retidaAnt);
+        ct.setMonofasiaSujeitaRetencao(sujeitaRetencao);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        // As tres aliquotas regulares precisam ser nao-zero: e isso que permite detectar
+        // uma regressao que as vaze para os campos monofasicos.
+        util.setpAliqIbsUf(new BigDecimal("0.1"));
+        util.setpAliqIbsMun(new BigDecimal("0.05"));
+        util.setpAliqCbs(new BigDecimal("0.9"));
+        util.setMonofasiaAdValorem(adValorem);
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("100.00", "1.0000")).getGIBSCBSMono();
+        assertNotNull(mono, "IndIBSCBSMono=true deve emitir gIBSCBSMono");
+        return mono;
+    }
+
     /**
      * Monta ClassificacaoTributariaDTO com os flags relevantes para os novos grupos.
      * Parâmetros: indCredPresOper, indEstornoCred, indCompraGov.

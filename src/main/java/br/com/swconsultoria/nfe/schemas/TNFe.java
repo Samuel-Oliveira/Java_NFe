@@ -1,12 +1,21 @@
 
 package br.com.swconsultoria.nfe.schemas;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElementRefs;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 
 /**
  * Tipo Nota Fiscal Eletrônica
@@ -333,7 +342,7 @@ import java.util.List;
  *                               &lt;/simpleType>
  *                             &lt;/element>
  *                             &lt;element name="enderEmit" type="{http://www.portalfiscal.inf.br/nfe}TEnderEmi"/>
- *                             &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
+ *                             &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
  *                             &lt;element name="IEST" type="{http://www.portalfiscal.inf.br/nfe}TIeST" minOccurs="0"/>
  *                             &lt;sequence minOccurs="0">
  *                               &lt;element name="IM">
@@ -3110,7 +3119,7 @@ import java.util.List;
  *                             &lt;/element>
  *                             &lt;element name="ISTot" type="{http://www.portalfiscal.inf.br/nfe}TISTot" minOccurs="0"/>
  *                             &lt;element name="IBSCBSTot" type="{http://www.portalfiscal.inf.br/nfe}TIBSCBSMonoTot" minOccurs="0"/>
- *                             &lt;element name="vNFTot" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302Opc" minOccurs="0"/>
+ *                             &lt;element name="vNFTot" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
  *                           &lt;/sequence>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
@@ -4275,7 +4284,7 @@ public class TNFe {
      *                     &lt;/simpleType>
      *                   &lt;/element>
      *                   &lt;element name="enderEmit" type="{http://www.portalfiscal.inf.br/nfe}TEnderEmi"/>
-     *                   &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
+     *                   &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
      *                   &lt;element name="IEST" type="{http://www.portalfiscal.inf.br/nfe}TIeST" minOccurs="0"/>
      *                   &lt;sequence minOccurs="0">
      *                     &lt;element name="IM">
@@ -7052,7 +7061,7 @@ public class TNFe {
      *                   &lt;/element>
      *                   &lt;element name="ISTot" type="{http://www.portalfiscal.inf.br/nfe}TISTot" minOccurs="0"/>
      *                   &lt;element name="IBSCBSTot" type="{http://www.portalfiscal.inf.br/nfe}TIBSCBSMonoTot" minOccurs="0"/>
-     *                   &lt;element name="vNFTot" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302Opc" minOccurs="0"/>
+     *                   &lt;element name="vNFTot" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
      *                 &lt;/sequence>
      *               &lt;/restriction>
      *             &lt;/complexContent>
@@ -15005,18 +15014,18 @@ public class TNFe {
             public static class Imposto {
 
                 @XmlElementRefs({
-                    @XmlElementRef(name = "PISST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "II", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "IS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "ICMSUFDest", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "IBSCBS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "vTotTrib", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "PIS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "COFINS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "IPI", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "COFINSST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "ICMS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "COFINSST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "vTotTrib", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "II", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "COFINS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "PISST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "PIS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "ISSQN", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "ICMSUFDest", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false)
+                    @XmlElementRef(name = "IS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "IPI", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false)
                 })
                 protected List<JAXBElement<?>> content;
 
@@ -15048,18 +15057,18 @@ public class TNFe {
                  * 
                  * <p>
                  * Objects of the following type(s) are allowed in the list
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TIS }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TTribNFe }{@code >}
-                 * {@link JAXBElement }{@code <}{@link String }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PIS }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINS }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TIpi }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINSST }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}
                  * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMSUFDest }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TTribNFe }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINSST }{@code >}
+                 * {@link JAXBElement }{@code <}{@link String }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PIS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TIS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TIpi }{@code >}
                  * 
                  * 
                  */
@@ -34486,7 +34495,7 @@ public class TNFe {
          *           &lt;/simpleType>
          *         &lt;/element>
          *         &lt;element name="enderEmit" type="{http://www.portalfiscal.inf.br/nfe}TEnderEmi"/>
-         *         &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe"/>
+         *         &lt;element name="IE" type="{http://www.portalfiscal.inf.br/nfe}TIe" minOccurs="0"/>
          *         &lt;element name="IEST" type="{http://www.portalfiscal.inf.br/nfe}TIeST" minOccurs="0"/>
          *         &lt;sequence minOccurs="0">
          *           &lt;element name="IM">
@@ -34558,7 +34567,7 @@ public class TNFe {
             protected String xFant;
             @XmlElement(required = true)
             protected TEnderEmi enderEmit;
-            @XmlElement(name = "IE", required = true)
+            @XmlElement(name = "IE")
             protected String ie;
             @XmlElement(name = "IEST")
             protected String iest;
@@ -38806,7 +38815,7 @@ public class TNFe {
          *         &lt;/element>
          *         &lt;element name="ISTot" type="{http://www.portalfiscal.inf.br/nfe}TISTot" minOccurs="0"/>
          *         &lt;element name="IBSCBSTot" type="{http://www.portalfiscal.inf.br/nfe}TIBSCBSMonoTot" minOccurs="0"/>
-         *         &lt;element name="vNFTot" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302Opc" minOccurs="0"/>
+         *         &lt;element name="vNFTot" type="{http://www.portalfiscal.inf.br/nfe}TDec_1302" minOccurs="0"/>
          *       &lt;/sequence>
          *     &lt;/restriction>
          *   &lt;/complexContent>

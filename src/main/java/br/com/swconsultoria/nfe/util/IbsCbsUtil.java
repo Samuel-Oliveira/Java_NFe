@@ -98,6 +98,18 @@ public class IbsCbsUtil {
      */
     private String tpOperGov = null;
 
+    /**
+     * Modalidade dos grupos de monofasia. A NT que reestruturou o TMonofasia separou
+     * a tributação em ad valorem (percentual sobre base) e ad rem (valor por unidade),
+     * que são mutuamente exclusivas no XSD.
+     * Padrão false (ad rem), modalidade usada em combustíveis.
+     */
+    private boolean monofasiaAdValorem = false;
+
+    public void setMonofasiaAdValorem(boolean monofasiaAdValorem) {
+        this.monofasiaAdValorem = monofasiaAdValorem;
+    }
+
     public void setpAliqIbsUf(BigDecimal pAliqIbsUf) {
         this.pAliqIbsUf = pAliqIbsUf;
     }
@@ -239,70 +251,178 @@ public class IbsCbsUtil {
         return ibsCbs;
     }
 
+    /**
+     * Monta o grupo de monofasia (TMonofasia).
+     *
+     * A partir da reestruturação do DFeTiposBasicos, IBS e CBS deixaram de compartilhar
+     * um único gMonoPadrao/gMonoRet/gMonoReten e passaram a ter grupos próprios, cada um
+     * em uma de duas modalidades mutuamente exclusivas: ad valorem ou ad rem
+     * (ver {@link #setMonofasiaAdValorem(boolean)}).
+     *
+     * O grupo gMonoDif (diferimento de monofasia) foi removido do XSD, portanto
+     * {@code classTribIbsCbs.getMonofasiaDiferimento()} não tem mais grupo correspondente.
+     * O gpBioDiferenca que surgiu no lugar modela diferença de biocombustível, não
+     * diferimento, e por isso não é preenchido automaticamente aqui.
+     *
+     * Alíquotas e valores monofásicos saem zerados: monofasia tem alíquota própria por
+     * produto (ad rem em valor por unidade, ad valorem em percentual específico), que
+     * não é a alíquota do regime regular configurada em {@link #setpAliqIbsUf(BigDecimal)}
+     * e afins. Preencher com a alíquota regular geraria valor tributariamente errado, o
+     * que é pior que zero. Os totais do item e de {@link #preencheTotaisIbsCsb()}
+     * seguem a mesma postura.
+     */
     private TMonofasia montaGrupoMono(TNFe.InfNFe.Det det) {
         TMonofasia gMono = new TMonofasia();
-        BigDecimal totalIBSMono = BigDecimal.ZERO;
-        BigDecimal totalCBSMono = BigDecimal.ZERO;
-        BigDecimal totalIBSMonoReten = BigDecimal.ZERO;
-        BigDecimal totalCBSMonoReten = BigDecimal.ZERO;
-        BigDecimal totalIBSMonoRet = BigDecimal.ZERO;
-        BigDecimal totalCBSMonoRet = BigDecimal.ZERO;
+
+        if (monofasiaAdValorem) {
+            String vBC = ObjetoUtil.getValor2Casas(baseCalculo);
+            gMono.setGIBSMonoAdValorem(montaIbsMonoAdValorem(vBC));
+            gMono.setGCBSMonoAdValorem(montaCbsMonoAdValorem(vBC));
+        } else {
+            String qCom = ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom()));
+            gMono.setGIBSMonoAdRem(montaIbsMonoAdRem(qCom));
+            gMono.setGCBSMonoAdRem(montaCbsMonoAdRem(qCom));
+        }
+
+        gMono.setVTotIBSMonoItem("0.00");
+        gMono.setVTotCBSMonoItem("0.00");
+
+        return gMono;
+    }
+
+    private TMonofasia.GIBSMonoAdRem montaIbsMonoAdRem(String qCom) {
+        TMonofasia.GIBSMonoAdRem grupo = new TMonofasia.GIBSMonoAdRem();
 
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
-            TMonofasia.GMonoPadrao monoPadrao = new TMonofasia.GMonoPadrao();
-            monoPadrao.setQBCMono(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
-            monoPadrao.setAdRemIBS("0.00");
-            monoPadrao.setAdRemCBS("0.00");
-            monoPadrao.setVIBSMono("0.00");
-            monoPadrao.setVCBSMono("0.00");
-            gMono.setGMonoPadrao(monoPadrao);
-            totalIBSMono = totalIBSMono.add(new BigDecimal(monoPadrao.getVIBSMono()));
-            totalCBSMono = totalCBSMono.add(new BigDecimal(monoPadrao.getVCBSMono()));
+            TMonofasia.GIBSMonoAdRem.GMonoPadrao padrao = new TMonofasia.GIBSMonoAdRem.GMonoPadrao();
+            padrao.setQBCMono(qCom);
+            padrao.setAdRemIBS("0.00");
+            padrao.setVIBSMono("0.00");
+            grupo.setGMonoPadrao(padrao);
         }
 
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
-            TMonofasia.GMonoRet monoRet = new TMonofasia.GMonoRet();
-            monoRet.setQBCMonoRet(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
-            monoRet.setAdRemCBSRet("0.00");
-            monoRet.setAdRemIBSRet("0.00");
-            monoRet.setVCBSMonoRet("0.00");
-            monoRet.setVIBSMonoRet("0.00");
-            gMono.setGMonoRet(monoRet);
-            totalIBSMonoRet = totalIBSMonoRet.add(new BigDecimal(monoRet.getVIBSMonoRet()));
-            totalCBSMonoRet = totalCBSMonoRet.add(new BigDecimal(monoRet.getVCBSMonoRet()));
+            TMonofasia.GIBSMonoAdRem.GMonoRet ret = new TMonofasia.GIBSMonoAdRem.GMonoRet();
+            ret.setVIBSMonoRet("0.00");
+            grupo.setGMonoRet(ret);
         }
 
         if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
-            TMonofasia.GMonoReten monoReten = new TMonofasia.GMonoReten();
-            monoReten.setQBCMonoReten(ObjetoUtil.getValor4Casas(new BigDecimal(det.getProd().getQCom())));
-            monoReten.setAdRemCBSReten("0.00");
-            monoReten.setAdRemIBSReten("0.00");
-            monoReten.setVCBSMonoReten("0.00");
-            monoReten.setVIBSMonoReten("0.00");
-            gMono.setGMonoReten(monoReten);
-            totalIBSMonoReten = totalIBSMonoReten.add(new BigDecimal(monoReten.getVIBSMonoReten()));
-            totalCBSMonoReten = totalCBSMonoReten.add(new BigDecimal(monoReten.getVCBSMonoReten()));
+            TMonofasia.GIBSMonoAdRem.GMonoReten reten = new TMonofasia.GIBSMonoAdRem.GMonoReten();
+            reten.setQBCMonoReten(qCom);
+            reten.setAdRemIBSReten("0.00");
+            reten.setVIBSMonoReten("0.00");
+            grupo.setGMonoReten(reten);
         }
 
-        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaDiferimento())) {
-            TMonofasia.GMonoDif gMonoDif = new TMonofasia.GMonoDif();
-            gMonoDif.setPDifCBS("0.00");
-            gMonoDif.setPDifIBS("0.00");
-            gMonoDif.setVCBSMonoDif("0.00");
-            gMonoDif.setVIBSMonoDif("0.00");
-            gMono.setGMonoDif(gMonoDif);
+        if (grupo.getGMonoPadrao() == null && grupo.getGMonoRet() == null
+                && grupo.getGMonoReten() == null) {
+            return null;
         }
-        gMono.setVTotCBSMonoItem("0.00");
-        gMono.setVTotIBSMonoItem("0.00");
 
-        mapTotais.merge(TOTAL_IBS_MONO, totalIBSMono, BigDecimal::add);
-        mapTotais.merge(TOTAL_CBS_MONO, totalCBSMono, BigDecimal::add);
-        mapTotais.merge(TOTAL_IBS_MONO_RETEN, totalIBSMonoReten, BigDecimal::add);
-        mapTotais.merge(TOTAL_CBS_MONO_RETEN, totalCBSMonoReten, BigDecimal::add);
-        mapTotais.merge(TOTAL_IBS_MONO_RET, totalIBSMonoRet, BigDecimal::add);
-        mapTotais.merge(TOTAL_CBS_MONO_RET, totalCBSMonoRet, BigDecimal::add);
+        return grupo;
+    }
 
-        return gMono;
+    private TMonofasia.GCBSMonoAdRem montaCbsMonoAdRem(String qCom) {
+        TMonofasia.GCBSMonoAdRem grupo = new TMonofasia.GCBSMonoAdRem();
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
+            TMonofasia.GCBSMonoAdRem.GMonoPadrao padrao = new TMonofasia.GCBSMonoAdRem.GMonoPadrao();
+            padrao.setQBCMono(qCom);
+            padrao.setAdRemCBS("0.00");
+            padrao.setVCBSMono("0.00");
+            grupo.setGMonoPadrao(padrao);
+        }
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
+            TMonofasia.GCBSMonoAdRem.GMonoRet ret = new TMonofasia.GCBSMonoAdRem.GMonoRet();
+            ret.setVCBSMonoRet("0.00");
+            grupo.setGMonoRet(ret);
+        }
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
+            TMonofasia.GCBSMonoAdRem.GMonoReten reten = new TMonofasia.GCBSMonoAdRem.GMonoReten();
+            reten.setQBCMonoReten(qCom);
+            reten.setAdRemCBSReten("0.00");
+            reten.setVCBSMonoReten("0.00");
+            grupo.setGMonoReten(reten);
+        }
+
+        if (grupo.getGMonoPadrao() == null && grupo.getGMonoRet() == null
+                && grupo.getGMonoReten() == null) {
+            return null;
+        }
+
+        return grupo;
+    }
+
+    private TMonofasia.GIBSMonoAdValorem montaIbsMonoAdValorem(String vBC) {
+        TMonofasia.GIBSMonoAdValorem grupo = new TMonofasia.GIBSMonoAdValorem();
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
+            TMonofasia.GIBSMonoAdValorem.GMonoPadrao padrao = new TMonofasia.GIBSMonoAdValorem.GMonoPadrao();
+            padrao.setVBCMono(vBC);
+            padrao.setPAliqMonoUF("0.0000");
+            padrao.setVIBSMonoUF("0.00");
+            padrao.setPAliqMonoMun("0.0000");
+            padrao.setVIBSMonoMun("0.00");
+            padrao.setVIBSMono("0.00");
+            grupo.setGMonoPadrao(padrao);
+        }
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
+            TMonofasia.GIBSMonoAdValorem.GMonoRet ret = new TMonofasia.GIBSMonoAdValorem.GMonoRet();
+            ret.setVIBSMonoRet("0.00");
+            grupo.setGMonoRet(ret);
+        }
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
+            TMonofasia.GIBSMonoAdValorem.GMonoReten reten = new TMonofasia.GIBSMonoAdValorem.GMonoReten();
+            reten.setVBCMonoReten(vBC);
+            reten.setPAliqMonoReten("0.0000");
+            reten.setVIBSMonoReten("0.00");
+            grupo.setGMonoReten(reten);
+        }
+
+        if (grupo.getGMonoPadrao() == null && grupo.getGMonoRet() == null
+                && grupo.getGMonoReten() == null) {
+            return null;
+        }
+
+        return grupo;
+    }
+
+    private TMonofasia.GCBSMonoAdValorem montaCbsMonoAdValorem(String vBC) {
+        TMonofasia.GCBSMonoAdValorem grupo = new TMonofasia.GCBSMonoAdValorem();
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaPadrao())) {
+            TMonofasia.GCBSMonoAdValorem.GMonoPadrao padrao = new TMonofasia.GCBSMonoAdValorem.GMonoPadrao();
+            padrao.setVBCMono(vBC);
+            padrao.setPAliqMonoCBS("0.0000");
+            padrao.setVCBSMono("0.00");
+            grupo.setGMonoPadrao(padrao);
+        }
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaRetidaAnt())) {
+            TMonofasia.GCBSMonoAdValorem.GMonoRet ret = new TMonofasia.GCBSMonoAdValorem.GMonoRet();
+            ret.setVCBSMonoRet("0.00");
+            grupo.setGMonoRet(ret);
+        }
+
+        if (Boolean.TRUE.equals(classTribIbsCbs.getMonofasiaSujeitaRetencao())) {
+            TMonofasia.GCBSMonoAdValorem.GMonoReten reten = new TMonofasia.GCBSMonoAdValorem.GMonoReten();
+            reten.setVBCMonoReten(vBC);
+            reten.setPAliqMonoReten("0.0000");
+            reten.setVCBSMonoReten("0.00");
+            grupo.setGMonoReten(reten);
+        }
+
+        if (grupo.getGMonoPadrao() == null && grupo.getGMonoRet() == null
+                && grupo.getGMonoReten() == null) {
+            return null;
+        }
+
+        return grupo;
     }
 
     private boolean deveMontarGrupoIBSCBS() {
