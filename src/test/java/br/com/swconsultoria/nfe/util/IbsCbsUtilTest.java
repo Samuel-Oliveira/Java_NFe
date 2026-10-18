@@ -529,27 +529,36 @@ class IbsCbsUtilTest {
     void naoDeveEmitirAliquotaMonofasicaDiferenteDeZeroEnquantoValorForZero() throws NfeException {
         // Alíquota monofásica é própria por produto e não é a alíquota do regime regular
         // configurada nos setters. Emitir alíquota real com valor zerado deixaria o grupo
-        // aritmeticamente incoerente, então ambos ficam zerados.
+        // aritmeticamente incoerente, então ambos ficam zerados. O helper configura as três
+        // alíquotas regulares com valores não-zero justamente para que uma regressão que as
+        // vazasse para cá seja detectada.
         TMonofasia adValorem = calcularMono(true, true, false, false);
         TMonofasia.GIBSMonoAdValorem.GMonoPadrao ibs = adValorem.getGIBSMonoAdValorem().getGMonoPadrao();
 
-        assertEquals(new BigDecimal(ibs.getVIBSMonoUF()).signum() == 0,
-                new BigDecimal(ibs.getPAliqMonoUF()).signum() == 0,
-                "pAliqMonoUF e vIBSMonoUF devem ser ambos zero ou ambos não-zero");
-        assertEquals(new BigDecimal(ibs.getVIBSMonoMun()).signum() == 0,
-                new BigDecimal(ibs.getPAliqMonoMun()).signum() == 0,
-                "pAliqMonoMun e vIBSMonoMun devem ser ambos zero ou ambos não-zero");
+        assertEquals("0.0000", ibs.getPAliqMonoUF(), "pAliqMonoUF não deve receber a alíquota do regime regular");
+        assertEquals("0.0000", ibs.getPAliqMonoMun(), "pAliqMonoMun não deve receber a alíquota do regime regular");
+        assertCoerente(ibs.getPAliqMonoUF(), ibs.getVIBSMonoUF(), "pAliqMonoUF", "vIBSMonoUF");
+        assertCoerente(ibs.getPAliqMonoMun(), ibs.getVIBSMonoMun(), "pAliqMonoMun", "vIBSMonoMun");
 
         TMonofasia.GCBSMonoAdValorem.GMonoPadrao cbs = adValorem.getGCBSMonoAdValorem().getGMonoPadrao();
-        assertEquals(new BigDecimal(cbs.getVCBSMono()).signum() == 0,
-                new BigDecimal(cbs.getPAliqMonoCBS()).signum() == 0,
-                "pAliqMonoCBS e vCBSMono devem ser ambos zero ou ambos não-zero");
+        assertEquals("0.0000", cbs.getPAliqMonoCBS(), "pAliqMonoCBS não deve receber a alíquota do regime regular");
+        assertCoerente(cbs.getPAliqMonoCBS(), cbs.getVCBSMono(), "pAliqMonoCBS", "vCBSMono");
 
         TMonofasia adRem = calcularMono(false, true, false, false);
         TMonofasia.GIBSMonoAdRem.GMonoPadrao ibsAdRem = adRem.getGIBSMonoAdRem().getGMonoPadrao();
-        assertEquals(new BigDecimal(ibsAdRem.getVIBSMono()).signum() == 0,
-                new BigDecimal(ibsAdRem.getAdRemIBS()).signum() == 0,
-                "adRemIBS e vIBSMono devem ser ambos zero ou ambos não-zero");
+        assertCoerente(ibsAdRem.getAdRemIBS(), ibsAdRem.getVIBSMono(), "adRemIBS", "vIBSMono");
+
+        TMonofasia.GCBSMonoAdRem.GMonoPadrao cbsAdRem = adRem.getGCBSMonoAdRem().getGMonoPadrao();
+        assertCoerente(cbsAdRem.getAdRemCBS(), cbsAdRem.getVCBSMono(), "adRemCBS", "vCBSMono");
+    }
+
+    /** Alíquota e valor precisam ser ambos zero ou ambos não-zero. */
+    private void assertCoerente(String aliquota, String valor, String nomeAliquota, String nomeValor) {
+        boolean aliqZero = new BigDecimal(aliquota).signum() == 0;
+        boolean valorZero = new BigDecimal(valor).signum() == 0;
+        assertTrue(aliqZero == valorZero, String.format(
+                "%s=%s e %s=%s são incoerentes: devem ser ambos zero ou ambos não-zero",
+                nomeAliquota, aliquota, nomeValor, valor));
     }
 
     @Test
@@ -566,10 +575,33 @@ class IbsCbsUtilTest {
 
     @Test
     void naoDeveEmitirGrupoMonofasicoVazioQuandoNenhumaFlagEstaAtiva() throws NfeException {
-        TMonofasia mono = calcularMono(false, false, false, false);
+        TMonofasia adRem = calcularMono(false, false, false, false);
+        assertNull(adRem.getGIBSMonoAdRem(), "sem flag de monofasia, não emitir wrapper vazio");
+        assertNull(adRem.getGCBSMonoAdRem(), "sem flag de monofasia, não emitir wrapper vazio");
 
-        assertNull(mono.getGIBSMonoAdRem(), "sem flag de monofasia, não emitir wrapper vazio");
-        assertNull(mono.getGCBSMonoAdRem(), "sem flag de monofasia, não emitir wrapper vazio");
+        TMonofasia adValorem = calcularMono(true, false, false, false);
+        assertNull(adValorem.getGIBSMonoAdValorem(), "o guard também vale para o eixo ad valorem");
+        assertNull(adValorem.getGCBSMonoAdValorem(), "o guard também vale para o eixo ad valorem");
+
+        // Com as 4 modalidades nulas sobram apenas os totais do item, que são obrigatórios
+        // no XSD (as duas sequences de modalidade são minOccurs="0").
+        assertNotNull(adRem.getVTotIBSMonoItem(), "vTotIBSMonoItem é obrigatório e deve sobreviver");
+        assertNotNull(adRem.getVTotCBSMonoItem(), "vTotCBSMonoItem é obrigatório e deve sobreviver");
+    }
+
+    @Test
+    void deveEmitirOsTresSubgruposQuandoTodasAsFlagsEstaoAtivas() throws NfeException {
+        TMonofasia mono = calcularMono(false, true, true, true);
+
+        TMonofasia.GIBSMonoAdRem ibs = mono.getGIBSMonoAdRem();
+        assertNotNull(ibs.getGMonoPadrao(), "gMonoPadrao deve sair com Padrao=true");
+        assertNotNull(ibs.getGMonoRet(), "gMonoRet deve sair com RetidaAnt=true");
+        assertNotNull(ibs.getGMonoReten(), "gMonoReten deve sair com SujeitaRetencao=true");
+
+        TMonofasia.GCBSMonoAdRem cbs = mono.getGCBSMonoAdRem();
+        assertNotNull(cbs.getGMonoPadrao(), "o eixo CBS acompanha as mesmas flags");
+        assertNotNull(cbs.getGMonoRet(), "o eixo CBS acompanha as mesmas flags");
+        assertNotNull(cbs.getGMonoReten(), "o eixo CBS acompanha as mesmas flags");
     }
 
     /**
@@ -586,8 +618,10 @@ class IbsCbsUtilTest {
         cst.setClassificacoesTributarias(Collections.singletonList(ct));
 
         IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        // As tres aliquotas regulares precisam ser nao-zero: e isso que permite detectar
+        // uma regressao que as vaze para os campos monofasicos.
         util.setpAliqIbsUf(new BigDecimal("0.1"));
-        util.setpAliqIbsMun(BigDecimal.ZERO);
+        util.setpAliqIbsMun(new BigDecimal("0.05"));
         util.setpAliqCbs(new BigDecimal("0.9"));
         util.setMonofasiaAdValorem(adValorem);
 

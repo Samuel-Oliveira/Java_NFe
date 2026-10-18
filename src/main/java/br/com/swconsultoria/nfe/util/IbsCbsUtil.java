@@ -425,7 +425,6 @@ public class IbsCbsUtil {
         return grupo;
     }
 
-
     private boolean deveMontarGrupoIBSCBS() {
         return Boolean.TRUE.equals(cstIbsCbs.getIndIBSCBS())
                || Boolean.TRUE.equals(cstIbsCbs.getIndRedAliq())
