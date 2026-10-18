@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2025 rel. 2 (x64) (https://www.altova.com) by PROCERGS (Procergs - Centro de Tecnologia da Informação e Comunicação do Estado do Rio Grande do Sul S.A.) -->
-<xs:schema xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/nfe"
-           elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:editix="http://www.portalfiscal.inf.br/nfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposBasico_v4.00.xsd"/>
 	<xs:include schemaLocation="DFeTiposBasicos_v1.00.xsd"/>
@@ -563,7 +561,7 @@ Preencher com &quot;2B&quot;, quando se tratar de Cupom Fiscal emitido por máqu
 											<xs:documentation>Endereço do emitente</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="IE" type="TIe">
+									<xs:element name="IE" type="TIe" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Inscrição Estadual do Emitente</xs:documentation>
 										</xs:annotation>
@@ -5626,7 +5624,7 @@ Substituição Tributaria;</xs:documentation>
 											<xs:documentation>Valores totais da NF com IBS / CBS</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="vNFTot" type="TDec_1302Opc" minOccurs="0">
+									<xs:element name="vNFTot" type="TDec_1302" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Valor Total da NF considerando os impostos por fora IBS, CBS e IS</xs:documentation>
 										</xs:annotation>

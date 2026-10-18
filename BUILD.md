@@ -123,6 +123,28 @@ A partir desta versão **cada evento individual tem sua própria classe** `DetEv
 
 Os arquivos top-level `DetEvento.java` (anônimo) **não existem mais** — qualquer arquivo de código deve referenciar a classe específica do evento que está manipulando.
 
+## Pós-processamento: namespace XMLDSig em `schemas_eventos`
+
+Regressão da issue #352 (corrigida na PR #356) que **reaparece a cada regeneração** se não for tratada.
+
+Em `schemas`, o `xjc` gera os 8 tipos XMLDSig (`SignatureType`, `SignedInfoType`,
+`SignatureValueType`, `KeyInfoType`, `X509DataType`, `ReferenceType`, `TransformType`,
+`TransformsType`) com `namespace="http://www.w3.org/2000/09/xmldsig#"` nas anotações,
+porque `leiauteNFe_v4.00.xsd` traz o xmldsig via `<xs:import namespace=...>`.
+
+Em `schemas_eventos` um dos passes sobrescreve esses mesmos tipos **sem** o namespace.
+Sem ele o unmarshal descarta silenciosamente `SignedInfo`, `SignatureValue` e `KeyInfo`,
+e o procEvento sai com `<Signature/>` vazio.
+
+Como os dois pacotes geram tipos idênticos a menos da declaração de `package`, o script
+copia a versão correta de `schemas` para `schemas_eventos` ao final, trocando apenas o
+`package`. Isso acompanha automaticamente qualquer mudança futura no
+`xmldsig-core-schema_v1.01.xsd`, sem depender de restauração manual via git.
+
+A regressão é coberta por `SignatureNamespaceTest`. Se o script abortar a cópia com
+aviso (`... nao tem namespace xmldsig#`), significa que a geração de `schemas` também
+perdeu o namespace — investigue o pass NFe antes de prosseguir.
+
 ## O que verificar depois de regerar
 
 ```bash
@@ -235,7 +257,11 @@ Quando a Sefaz publicar um novo evento ou documento:
    - Documentos que nao sao eventos (consultas, inutilizacoes) vao para `schemas`.
    - Se for documento no grupo `schemas`, insira **antes** do pass NFe (que deve continuar sendo o ÚLTIMO).
 4. Rode `mvn exec:exec@regenerate-jaxb`.
-5. Verifique que `DetEvento.java` nao foi alterado (se foi, restaure via git).
+5. Rode `mvn test`. Atenção a dois tipos de quebra esperada:
+   - `SignatureNamespaceTest` → o pós-processamento XMLDSig falhou (ver seção acima).
+   - `IbsCbsTest` → golden files em `src/test/resources/IbsCbs*.xml` ficaram defasados.
+     Se a mudança no XML gerado for legítima, atualize o golden file. Lembre que mexer no
+     conteúdo invalida `DigestValue`/`SignatureValue`, que também precisam ser atualizados.
 6. Commite: XSD(s) nova(s) + `.xjb` novo + linha no script + `.java` gerados.
 
 ## Migrando um projeto consumidor de v4.00.* para v4.1.*
