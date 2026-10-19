@@ -29,10 +29,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Set release version
+      - name: Verify release version
         run: |
+          # O pom e a fonte da verdade da versao. Reescrever o pom aqui, com
+          # versions:set, era desnecessario e deixava o deploy depender de uma
+          # etapa a mais; esta etapa so confere que pom e tag concordam.
           VERSION="${{ github.event.inputs.version }}"
-          # Em push de tag nao ha input: a versao e o proprio nome da tag
           if [ -z "$VERSION" ]; then
             VERSION="${GITHUB_REF_NAME}"
           fi
@@ -40,10 +42,14 @@ jobs:
             echo "Versao nao determinada: informe o input ou use uma tag 4.x" >&2
             exit 1
           fi
+          POM_VERSION=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version)
+          if [ "$VERSION" != "$POM_VERSION" ]; then
+            echo "Versao pedida ($VERSION) difere da do pom ($POM_VERSION)." >&2
+            echo "Ajuste o pom e refaca a tag; nada foi publicado." >&2
+            exit 1
+          fi
           echo "Publicando versao $VERSION"
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
-          mvn versions:set -DnewVersion="$VERSION"
-          mvn versions:commit
 
       - name: Build and test with Java 8
         run: |
