@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.1.3/jar) [![Coverage Status](https://coveralls.io/repos/github/Samuel-Oliveira/Java_NFe/badge.svg?branch=master)](https://coveralls.io/github/Samuel-Oliveira/Java_NFe?branch=master)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.2.0/jar) [![Coverage Status](https://coveralls.io/repos/github/Samuel-Oliveira/Java_NFe/badge.svg?branch=master)](https://coveralls.io/github/Samuel-Oliveira/Java_NFe?branch=master)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
@@ -22,7 +22,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.1.3</version>
+    <version>4.2.0</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.1.3"
+    implementation "br.com.swconsultoria:java-nfe:4.2.0"
 }
 ```
 
@@ -57,6 +57,11 @@ Resumo: `pwsh scripts/migrate.ps1 -ProjectRoot . -BumpPom` (ou `bash scripts/mig
 ________________________________________________________________________________________________
 
 # Historico de Versões
+
+## v4.2.0 - Schemas PL 010f NT 2025.002 v.1.50 e NT 2026.007 v.1.00
+- Alterado Schemas com novo modelo de monofasicos
+- Melhorias no IbsCbsUtil
+- Atualizado Cacert
 
 ## v4.1.3 - Schemas PL 010e e RTC v1.40
 - Correcao de Base de calculo Cclasstrib icms 70

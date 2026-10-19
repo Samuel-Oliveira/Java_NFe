@@ -1,12 +1,6 @@
 # Notas de versão
 
-## v4.2.0 -- nao publicada
-
-> **Numero a confirmar.** A 4.1.3 ja esta publicada no Maven Central (latest e release
-> = 4.1.3) com apenas as tres correcoes da secao seguinte. Todo o resto desta secao veio
-> depois e nunca foi publicado. Subir como 4.1.3 e rejeitado: o Central nao aceita
-> sobrescrever versao. Escolhido 4.2.0 porque ha quebra de compilacao, o que passa de
-> patch.
+## v4.2.0
 
 Primeira versao com os grupos da reforma tributaria (IBS/CBS/IS) conforme a NT
 2025.002-RTC. Vindo da 4.1.3, leia as duas primeiras secoes: ha quebra de compilacao, e

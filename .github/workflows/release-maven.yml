@@ -2,6 +2,10 @@ name: Liberar nova versão Maven
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versao a publicar, ex.: 4.2.0'
+        required: true
   push:
     tags:
       - '4.*'
@@ -28,8 +32,17 @@ jobs:
       - name: Set release version
         run: |
           VERSION="${{ github.event.inputs.version }}"
+          # Em push de tag nao ha input: a versao e o proprio nome da tag
+          if [ -z "$VERSION" ]; then
+            VERSION="${GITHUB_REF_NAME}"
+          fi
+          if [ -z "$VERSION" ]; then
+            echo "Versao nao determinada: informe o input ou use uma tag 4.x" >&2
+            exit 1
+          fi
+          echo "Publicando versao $VERSION"
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
-          mvn versions:set -DnewVersion=$VERSION
+          mvn versions:set -DnewVersion="$VERSION"
           mvn versions:commit
 
       - name: Build and test with Java 8
