@@ -27,8 +27,10 @@
   VB01-10 mantem o vItem igual ao valor do item nesses dois anos, sem acrescimo de
   tributo. A partir de 2027 o vNFTot soma IBS, CBS e as parcelas padrao e de
   retencao da monofasia. Quem emitia nota de 2025 ou 2026 informava vNFTot maior
-  que o devido. O IS nao entra na soma porque IbsCbsUtil nao o calcula: quem tem IS
-  precisa acrescenta-lo por fora
+  que o devido
+- O vIS passa a entrar no vNFTot de 2027 em diante, lido do grupo IS do proprio
+  item. O ICMSTot nao tem campo de Imposto Seletivo, que tem grupo de total
+  proprio (ISTot, W33-10), portanto o vNF nunca o inclui
 - vIBSDiferenca e vCBSDiferenca passam a exigir setAdRemIBSBioComb/setAdRemCBSBioComb,
   a aliquota do biocombustivel, que e coluna propria da tabela e nao se confunde com
   a do produto (UB89b-10). Sem ela o valor nao e calculado: quem dependia do calculo

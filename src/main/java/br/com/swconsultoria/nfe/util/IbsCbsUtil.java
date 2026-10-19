@@ -20,6 +20,7 @@ public class IbsCbsUtil {
     private static final String TOTAL_IBS_UF = "TOTAL_IBS_UF";
     private static final String TOTAL_IBS_MUN = "TOTAL_IBS_MUN";
     private static final String TOTAL_CBS = "TOTAL_CBS";
+    private static final String TOTAL_IS = "TOTAL_IS";
     private static final String TOTAL_DIFERIMENTO_IBS_UF = "TOTAL_DIFERIMENTO_IBS_UF";
     private static final String TOTAL_DIFERIMENTO_IBS_MUN = "TOTAL_DIFERIMENTO_IBS_MUN";
     private static final String TOTAL_DIFERIMENTO_CBS = "TOTAL_DIFERIMENTO_CBS";
@@ -395,6 +396,7 @@ public class IbsCbsUtil {
         mapTotais.put(TOTAL_IBS_UF, BigDecimal.ZERO);
         mapTotais.put(TOTAL_IBS_MUN, BigDecimal.ZERO);
         mapTotais.put(TOTAL_CBS, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_IS, BigDecimal.ZERO);
         mapTotais.put(TOTAL_DIFERIMENTO_IBS_UF, BigDecimal.ZERO);
         mapTotais.put(TOTAL_DIFERIMENTO_IBS_MUN, BigDecimal.ZERO);
         mapTotais.put(TOTAL_DIFERIMENTO_CBS, BigDecimal.ZERO);
@@ -1099,6 +1101,8 @@ public class IbsCbsUtil {
                 .subtract(XmlImpostoUtil.getVFCPUFDest(impostos))
                 .subtract(XmlImpostoUtil.getVICMSMono(impostos))
                 .subtract(XmlImpostoUtil.getVISSQN(impostos));
+
+        mapTotais.merge(TOTAL_IS, XmlImpostoUtil.getVIS(impostos), BigDecimal::add);
     }
 
     /**
@@ -1113,8 +1117,9 @@ public class IbsCbsUtil {
      * retenção, as mesmas que compõem o vTotIBSMonoItem (UB105a-10); o retido
      * anteriormente fica de fora, porque já foi cobrado na etapa anterior da cadeia.
      *
-     * O IS não é somado aqui: esta classe não o calcula. Quem emitir documento com
-     * Imposto Seletivo precisa acrescentá-lo ao resultado a partir de 2027.
+     * O vIS vem do grupo IS do próprio item, lido junto com a base de cálculo do
+     * IBS/CBS. O ICMSTot não tem campo de Imposto Seletivo, que tem grupo de total
+     * próprio (ISTot, W33-10), então o vNF recebido nunca o inclui.
      *
      * O ano vem de {@link #setAnoEmissao(int)} e precisa coincidir com o dhEmi da nota.
      */
@@ -1129,6 +1134,7 @@ public class IbsCbsUtil {
                 .add(mapTotais.getOrDefault(TOTAL_IBS_UF, BigDecimal.ZERO))
                 .add(mapTotais.getOrDefault(TOTAL_IBS_MUN, BigDecimal.ZERO))
                 .add(mapTotais.getOrDefault(TOTAL_CBS, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_IS, BigDecimal.ZERO))
                 .add(mapTotais.getOrDefault(TOTAL_IBS_MONO, BigDecimal.ZERO))
                 .add(mapTotais.getOrDefault(TOTAL_CBS_MONO, BigDecimal.ZERO))
                 .add(mapTotais.getOrDefault(TOTAL_IBS_MONO_RETEN, BigDecimal.ZERO))
