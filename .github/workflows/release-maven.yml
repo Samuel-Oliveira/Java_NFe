@@ -42,6 +42,7 @@ jobs:
             echo "Versao nao determinada: informe o input ou use uma tag 4.x" >&2
             exit 1
           fi
+          mvn -v
           POM_VERSION=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version)
           if [ "$VERSION" != "$POM_VERSION" ]; then
             echo "Versao pedida ($VERSION) difere da do pom ($POM_VERSION)." >&2
