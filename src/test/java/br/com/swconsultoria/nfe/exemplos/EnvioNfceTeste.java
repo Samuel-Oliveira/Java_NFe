@@ -7,28 +7,26 @@ import br.com.swconsultoria.nfe.Nfe;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.enuns.*;
 import br.com.swconsultoria.nfe.exception.NfeException;
-import br.com.swconsultoria.nfe.schemas.TRetConsReciNFe;
-import br.com.swconsultoria.nfe.schemas.TUf;
-import br.com.swconsultoria.nfe.schemas.TUfEmi;
 import br.com.swconsultoria.nfe.schemas.*;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.*;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS;
-import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.COFINS.COFINSAliq;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.ICMS;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS;
-import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Imposto.PIS.PISAliq;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Det.Prod;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Total.ICMSTot;
 import br.com.swconsultoria.nfe.util.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -45,72 +43,8 @@ public class EnvioNfceTeste {
 
             LocalDateTime start = LocalDateTime.now();
 
-            //Informe o Numero da NFCe
-            int numeroNFCe = 9410;
-            //Informe o CNPJ do Emitente da NFCe
-            String cnpj = "10732644000128";
-            //Informe a data de Emissao da NFCe
-            LocalDateTime dataEmissao = LocalDateTime.now();
-            //Informe o cnf da NFCe com 8 digitos
-            String cnf = String.format("%08d", new Random().nextInt(99999999));
-            //Informe o modelo da NFCe
-            String modelo = DocumentoEnum.NFCE.getModelo();
-            //Informe a Serie da NFCe
-            int serie = 1;
-            //Informe o tipo de Emissao da NFCe
-            String tipoEmissao = "1";
-
-            // MontaChave a NFCe
-            ChaveUtil chaveUtil = new ChaveUtil(config.getEstado(), cnpj, modelo, serie, numeroNFCe, tipoEmissao, cnf, dataEmissao);
-            String chave = chaveUtil.getChaveNF();
-            String cdv = chaveUtil.getDigitoVerificador();
-
-            InfNFe infNFe = new InfNFe();
-            infNFe.setId(chave);
-            infNFe.setVersao(ConstantesUtil.VERSAO.NFE);
-
-//            TInfRespTec respTec = new TInfRespTec();
-//            respTec.setCNPJ("99999999999999");
-//            respTec.setEmail("email@dominio.com.br");
-//            respTec.setFone("99999999999");
-//            respTec.setXContato("Nome do Resposavel");
-//            respTec.setIdCSRT("01");
-//            respTec.setHashCSRT(NFCeUtil.geraHashCSRT("Chave Da Nota", "CSRT fornecido pela SEFAZ"));
-//            infNFe.setInfRespTec(respTec);
-
-            //Preenche IDE
-            infNFe.setIde(preencheIde(config, cnf, numeroNFCe, tipoEmissao, modelo, serie, cdv, dataEmissao));
-
-            //Preenche Emitente
-            infNFe.setEmit(preencheEmitente(config, cnpj));
-
-            //Preenche o Destinatario
-            infNFe.setDest(preencheDestinatario());
-
-            //Preenche os dados do Produto da NFCe e adiciona a Lista
-            infNFe.getDet().addAll(preencheDet());
-
-            //Preenche totais da NFCe
-            infNFe.setTotal(preencheTotal());
-
-            //Preenche os dados de Transporte
-            infNFe.setTransp(preencheTransporte());
-
-            // Preenche dados Pagamento
-            infNFe.setPag(preenchePag());
-
-            TNFe nfe = new TNFe();
-            nfe.setInfNFe(infNFe);
-
-            // Monta EnviNfe
-            TEnviNFe enviNFe = new TEnviNFe();
-            enviNFe.setVersao(ConstantesUtil.VERSAO.NFE);
-            enviNFe.setIdLote("1");
-            enviNFe.setIndSinc("1");
-            enviNFe.getNFe().add(nfe);
-
             // Monta e Assina o XML
-            enviNFe = Nfe.montaNfe(config, enviNFe, true);
+            TEnviNFe enviNFe = montaEnviNFe(config);
 
             //Monta QRCode
             String qrCode = preencheQRCode(enviNFe, config);
@@ -268,21 +202,177 @@ public class EnvioNfceTeste {
     /**
      * Preenche Det NFCe
      */
-    private static List<Det> preencheDet() {
+    /**
+     * Combustiveis vendidos na NFCe de teste. Os dados de produto (ANP, NCM, CEST,
+     * adRemICMSRet, pBio) vieram de NFCe reais autorizadas de um posto em GO.
+     *
+     * adRemTotal e a aliquota ad rem IBS+CBS da tabela de aliquotas especificas de
+     * combustiveis (R$ por unidade de medida). A tabela publica o valor TOTAL; a
+     * reparticao entre IBS e CBS usa {@link #PERCENTUAL_IBS}.
+     */
+    private enum Combustivel {
+        //                   ANP           descANP           NCM         CEST       CFOP    vUnCom  qCom      adRemTotal  icmsAdRem  pBio
+        GASOLINA("320102001", "GASOLINA COMUM", "27101259", "0600200", "5656", "6.09", "20.0000", "0.7925", "1.5700", "12.0000"),
+        ETANOL("810101001", "ETANOL COMUM", "22071090", "0600101", "5656", "4.98", "30.0000", "0.1922", null, null),
+        DIESEL("820101012", "OLEO DIESEL B S500-COMUM", "27101921", "0600600", "5656", "7.19", "25.0000", "0.3515", "1.1700", "27.0000");
 
-        //O Preenchimento deve ser feito por produto, Então deve ocorrer uma LIsta
-        Det det = new Det();
-        //O numero do Item deve seguir uma sequencia
-        det.setNItem("1");
+        final String anp;
+        final String descAnp;
+        final String ncm;
+        final String cest;
+        final String cfop;
+        final BigDecimal vUnCom;
+        final BigDecimal qCom;
+        final BigDecimal adRemTotal;
+        /** Aliquota ad rem do ICMS retido (ICMS61). Nulo quando o produto usa ICMS60. */
+        final String icmsAdRemRet;
+        /** Percentual de biocombustivel na mistura. Nulo quando nao se aplica. */
+        final String pBio;
 
-        // Preenche dados do Produto
-        det.setProd(preencheProduto());
+        Combustivel(String anp, String descAnp, String ncm, String cest, String cfop,
+                    String vUnCom, String qCom, String adRemTotal, String icmsAdRemRet, String pBio) {
+            this.anp = anp;
+            this.descAnp = descAnp;
+            this.ncm = ncm;
+            this.cest = cest;
+            this.cfop = cfop;
+            this.vUnCom = new BigDecimal(vUnCom);
+            this.qCom = new BigDecimal(qCom);
+            this.adRemTotal = new BigDecimal(adRemTotal);
+            this.icmsAdRemRet = icmsAdRemRet;
+            this.pBio = pBio;
+        }
 
-        //Preenche dados do Imposto
-        det.setImposto(preencheImposto());
+        BigDecimal vProd() {
+            return vUnCom.multiply(qCom).setScale(2, RoundingMode.HALF_UP);
+        }
 
-        //Retorna a Lista de Det
-        return Collections.singletonList(det);
+        /** Parcela IBS da aliquota ad rem. */
+        BigDecimal adRemIBS() {
+            return adRemTotal.multiply(PERCENTUAL_IBS).setScale(4, RoundingMode.HALF_UP);
+        }
+
+        /** Parcela CBS da aliquota ad rem. */
+        BigDecimal adRemCBS() {
+            return adRemTotal.subtract(adRemIBS()).setScale(4, RoundingMode.HALF_UP);
+        }
+
+        /** Valor do ICMS monofasico retido anteriormente (ICMS61). */
+        BigDecimal vIcmsMonoRet() {
+            return qCom.multiply(new BigDecimal(icmsAdRemRet)).setScale(2, RoundingMode.HALF_UP);
+        }
+    }
+
+    /**
+     * Fracao da aliquota ad rem que cabe ao IBS; o restante vai para a CBS.
+     * 0,10 segue a proporcao das aliquotas de referencia do periodo de teste
+     * (IBS 0,1% e CBS 0,9%), que sao tambem os defaults do IbsCbsUtil.
+     * Ajuste conforme a reparticao oficial antes de uso fiscal.
+     */
+    private static final BigDecimal PERCENTUAL_IBS = new BigDecimal("0.10");
+
+    /** cClassTrib usado pelo posto revendedor: monofasia retida anteriormente. */
+    private static final String C_CLASS_TRIB = "620006";
+
+    private static final String CST_IBSCBS = "620";
+
+    /** Preenchido por {@link #preencheDet()} e consumido por {@link #preencheTotal()}. */
+    private static IbsCbsUtil ibsCbsUtil;
+
+
+    /**
+     * Monta e assina a NFCe de combustiveis (gasolina, etanol e diesel) com os grupos
+     * monofasicos de IBS/CBS. Separado do envio para permitir validar o XML contra o
+     * XSD sem precisar de certificado de producao nem de rede.
+     */
+    static TEnviNFe montaEnviNFe(ConfiguracoesNfe config) throws Exception {
+        return montaEnviNFe(config, "10732644000128");
+    }
+
+    /** O CNPJ precisa bater com o do certificado usado na assinatura. */
+    static TEnviNFe montaEnviNFe(ConfiguracoesNfe config, String cnpj) throws Exception {
+        //Informe o Numero da NFCe
+        int numeroNFCe = 9511;
+        //Informe a data de Emissao da NFCe
+        LocalDateTime dataEmissao = LocalDateTime.now();
+        //Informe o cnf da NFCe com 8 digitos
+        String cnf = String.format("%08d", new Random().nextInt(99999999));
+        //Informe o modelo da NFCe
+        String modelo = DocumentoEnum.NFCE.getModelo();
+        //Informe a Serie da NFCe
+        int serie = 1;
+        //Informe o tipo de Emissao da NFCe
+        String tipoEmissao = "1";
+
+        // MontaChave a NFCe
+        ChaveUtil chaveUtil = new ChaveUtil(config.getEstado(), cnpj, modelo, serie, numeroNFCe, tipoEmissao, cnf, dataEmissao);
+        String chave = chaveUtil.getChaveNF();
+        String cdv = chaveUtil.getDigitoVerificador();
+
+        InfNFe infNFe = new InfNFe();
+        infNFe.setId(chave);
+        infNFe.setVersao(ConstantesUtil.VERSAO.NFE);
+
+        //Preenche IDE
+        infNFe.setIde(preencheIde(config, cnf, numeroNFCe, tipoEmissao, modelo, serie, cdv, dataEmissao));
+
+        //Preenche Emitente
+        infNFe.setEmit(preencheEmitente(config, cnpj));
+
+        //Preenche o Destinatario
+        infNFe.setDest(preencheDestinatario());
+
+        //Preenche os dados do Produto da NFCe e adiciona a Lista
+        infNFe.getDet().addAll(preencheDet());
+
+        //Preenche totais da NFCe
+        infNFe.setTotal(preencheTotal());
+
+        //Preenche os dados de Transporte
+        infNFe.setTransp(preencheTransporte());
+
+        // Preenche dados Pagamento
+        infNFe.setPag(preenchePag());
+
+        TNFe nfe = new TNFe();
+        nfe.setInfNFe(infNFe);
+
+        // Monta EnviNfe
+        TEnviNFe enviNFe = new TEnviNFe();
+        enviNFe.setVersao(ConstantesUtil.VERSAO.NFE);
+        enviNFe.setIdLote("1");
+        enviNFe.setIndSinc("1");
+        enviNFe.getNFe().add(nfe);
+
+        return Nfe.montaNfe(config, enviNFe, true);
+    }
+
+    private static List<Det> preencheDet() throws NfeException, IOException {
+
+        ibsCbsUtil = new IbsCbsUtil(XmlNfeUtil.leXml("src/test/resources/ibscbs.json"), DocumentoEnum.NFCE);
+
+        List<Det> itens = new ArrayList<>();
+        int nItem = 1;
+
+        for (Combustivel c : Combustivel.values()) {
+            Det det = new Det();
+            det.setNItem(String.valueOf(nItem++));
+            det.setProd(preencheProduto(c));
+            det.setImposto(preencheImposto(c));
+
+            // O posto revendedor recebe o combustivel com IBS/CBS ja retido na origem,
+            // entao o grupo preenchido e o gMonoRet, que no XSD leva apenas o valor.
+            ibsCbsUtil.setVIBSMonoRet(c.qCom.multiply(c.adRemIBS()).setScale(2, RoundingMode.HALF_UP));
+            ibsCbsUtil.setVCBSMonoRet(c.qCom.multiply(c.adRemCBS()).setScale(2, RoundingMode.HALF_UP));
+
+            TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(C_CLASS_TRIB, det);
+            det.getImposto().getContent()
+                    .add(new JAXBElement<>(new QName("IBSCBS"), TTribNFe.class, ibsCbs));
+
+            itens.add(det);
+        }
+
+        return itens;
     }
 
     /**
@@ -290,72 +380,78 @@ public class EnvioNfceTeste {
      *
      * @return
      */
-    private static Prod preencheProduto() {
+    private static Prod preencheProduto(Combustivel c) {
         Prod prod = new Prod();
-        prod.setCProd("7898480650104");
-        prod.setCEAN("7898480650104");
+        prod.setCProd(c.anp);
+        prod.setCEAN("SEM GTIN");
         prod.setXProd("NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
-        prod.setNCM("27101932");
-        prod.setCEST("0600500");
-        prod.setIndEscala("S");
-        prod.setCFOP("5102");
-        prod.setUCom("UN");
-        prod.setQCom("1.0000");
-        prod.setVUnCom("13.0000");
-        prod.setVProd("13.00");
-        prod.setCEANTrib("7898480650104");
-        prod.setUTrib("UN");
-        prod.setQTrib("1.0000");
-        prod.setVUnTrib("13.0000");
+        prod.setNCM(c.ncm);
+        prod.setCEST(c.cest);
+        prod.setCFOP(c.cfop);
+        prod.setUCom("LT");
+        prod.setQCom(ObjetoUtil.getValor4Casas(c.qCom));
+        prod.setVUnCom(ObjetoUtil.getValor4Casas(c.vUnCom));
+        prod.setVProd(ObjetoUtil.getValor2Casas(c.vProd()));
+        prod.setCEANTrib("SEM GTIN");
+        prod.setUTrib("L");
+        prod.setQTrib(ObjetoUtil.getValor4Casas(c.qCom));
+        prod.setVUnTrib(ObjetoUtil.getValor4Casas(c.vUnCom));
         prod.setIndTot("1");
+
+        Prod.Comb comb = new Prod.Comb();
+        comb.setCProdANP(c.anp);
+        comb.setDescANP(c.descAnp);
+        comb.setUFCons(TUf.GO);
+        if (c.pBio != null) {
+            comb.setPBio(c.pBio);
+        }
+        prod.setComb(comb);
 
         return prod;
     }
 
     /**
-     * Preenche dados do Imposto da NFCe
+     * Preenche dados do Imposto da NFCe.
      *
-     * @return
+     * Combustivel sai com PIS/COFINS nao tributados (CST 04) e ICMS ja retido:
+     * ICMS61 (monofasico, com aliquota ad rem) para gasolina e diesel, ICMS60
+     * (substituicao tributaria) para o etanol, como nas notas reais do posto.
      */
-    private static Imposto preencheImposto() {
+    private static Imposto preencheImposto(Combustivel c) {
         Imposto imposto = new Imposto();
 
         ICMS icms = new ICMS();
-
-        ICMS.ICMS00 icms00 = new ICMS.ICMS00();
-        icms00.setOrig("0");
-        icms00.setCST("00");
-        icms00.setModBC("0");
-        icms00.setVBC("13.00");
-        icms00.setPICMS("7.00");
-        icms00.setVICMS("0.91");
-
-        icms.setICMS00(icms00);
+        if (c.icmsAdRemRet != null) {
+            ICMS.ICMS61 icms61 = new ICMS.ICMS61();
+            icms61.setOrig("0");
+            icms61.setCST("61");
+            icms61.setQBCMonoRet(ObjetoUtil.getValor4Casas(c.qCom));
+            icms61.setAdRemICMSRet(c.icmsAdRemRet);
+            icms61.setVICMSMonoRet(ObjetoUtil.getValor2Casas(c.vIcmsMonoRet()));
+            icms.setICMS61(icms61);
+        } else {
+            ICMS.ICMS60 icms60 = new ICMS.ICMS60();
+            icms60.setOrig("0");
+            icms60.setCST("60");
+            icms60.setVBCSTRet("0.00");
+            icms60.setPST("0.00");
+            icms60.setVICMSSTRet("0.00");
+            icms.setICMS60(icms60);
+        }
 
         PIS pis = new PIS();
-        PISAliq pisAliq = new PISAliq();
-        pisAliq.setCST("01");
-        pisAliq.setVBC("13.00");
-        pisAliq.setPPIS("1.65");
-        pisAliq.setVPIS("0.21");
-        pis.setPISAliq(pisAliq);
+        PIS.PISNT pisnt = new PIS.PISNT();
+        pisnt.setCST("04");
+        pis.setPISNT(pisnt);
 
         COFINS cofins = new COFINS();
-        COFINSAliq cofinsAliq = new COFINSAliq();
-        cofinsAliq.setCST("01");
-        cofinsAliq.setVBC("13.00");
-        cofinsAliq.setPCOFINS("7.60");
-        cofinsAliq.setVCOFINS("0.99");
-        cofins.setCOFINSAliq(cofinsAliq);
+        COFINS.COFINSNT cofinsnt = new COFINS.COFINSNT();
+        cofinsnt.setCST("04");
+        cofins.setCOFINSNT(cofinsnt);
 
-        JAXBElement<ICMS> icmsElement = new JAXBElement<ICMS>(new QName("ICMS"), ICMS.class, icms);
-        imposto.getContent().add(icmsElement);
-
-        JAXBElement<PIS> pisElement = new JAXBElement<PIS>(new QName("PIS"), PIS.class, pis);
-        imposto.getContent().add(pisElement);
-
-        JAXBElement<COFINS> cofinsElement = new JAXBElement<COFINS>(new QName("COFINS"), COFINS.class, cofins);
-        imposto.getContent().add(cofinsElement);
+        imposto.getContent().add(new JAXBElement<>(new QName("ICMS"), ICMS.class, icms));
+        imposto.getContent().add(new JAXBElement<>(new QName("PIS"), PIS.class, pis));
+        imposto.getContent().add(new JAXBElement<>(new QName("COFINS"), COFINS.class, cofins));
 
         return imposto;
     }
@@ -366,30 +462,58 @@ public class EnvioNfceTeste {
      * @return
      */
     private static Total preencheTotal() {
+        BigDecimal vProd = BigDecimal.ZERO;
+        BigDecimal vIcmsMonoRet = BigDecimal.ZERO;
+        BigDecimal qBCMonoRet = BigDecimal.ZERO;
+
+        for (Combustivel c : Combustivel.values()) {
+            vProd = vProd.add(c.vProd());
+            if (c.icmsAdRemRet != null) {
+                vIcmsMonoRet = vIcmsMonoRet.add(c.vIcmsMonoRet());
+                qBCMonoRet = qBCMonoRet.add(c.qCom);
+            }
+        }
+
         Total total = new Total();
         ICMSTot icmstot = new ICMSTot();
-        icmstot.setVBC("13.00");
-        icmstot.setVICMS("0.91");
+        icmstot.setVBC("0.00");
+        icmstot.setVICMS("0.00");
         icmstot.setVICMSDeson("0.00");
         icmstot.setVFCP("0.00");
         icmstot.setVFCPST("0.00");
         icmstot.setVFCPSTRet("0.00");
         icmstot.setVBCST("0.00");
         icmstot.setVST("0.00");
-        icmstot.setVProd("13.00");
+        // No ICMSTot o qBCMonoRet e TDec_1302 (2 casas); no ICMS61 do item e TDec_1104v (4 casas)
+        icmstot.setQBCMonoRet(ObjetoUtil.getValor2Casas(qBCMonoRet));
+        icmstot.setVICMSMonoRet(ObjetoUtil.getValor2Casas(vIcmsMonoRet));
+        icmstot.setVProd(ObjetoUtil.getValor2Casas(vProd));
         icmstot.setVFrete("0.00");
         icmstot.setVSeg("0.00");
         icmstot.setVDesc("0.00");
         icmstot.setVII("0.00");
         icmstot.setVIPI("0.00");
         icmstot.setVIPIDevol("0.00");
-        icmstot.setVPIS("0.21");
-        icmstot.setVCOFINS("0.99");
+        icmstot.setVPIS("0.00");
+        icmstot.setVCOFINS("0.00");
         icmstot.setVOutro("0.00");
-        icmstot.setVNF("13.00");
+        icmstot.setVNF(ObjetoUtil.getValor2Casas(vProd));
         total.setICMSTot(icmstot);
 
+        // Totais IBS/CBS: vNFTot soma o monofasico ao vNF, e IBSCBSTot traz o gMono
+        total.setVNFTot(ObjetoUtil.getValor2Casas(ibsCbsUtil.calculaVnfTot(icmstot.getVNF())));
+        total.setIBSCBSTot(ibsCbsUtil.preencheTotaisIbsCsb());
+
         return total;
+    }
+
+    /** Soma dos itens, usada no pagamento. */
+    private static BigDecimal totalNota() {
+        BigDecimal vProd = BigDecimal.ZERO;
+        for (Combustivel c : Combustivel.values()) {
+            vProd = vProd.add(c.vProd());
+        }
+        return vProd;
     }
 
     /**
@@ -412,7 +536,7 @@ public class EnvioNfceTeste {
         Pag pag = new Pag();
         Pag.DetPag detPag = new Pag.DetPag();
         detPag.setTPag("01");
-        detPag.setVPag("13.00");
+        detPag.setVPag(ObjetoUtil.getValor2Casas(totalNota()));
         pag.getDetPag().add(detPag);
 
         return pag;

@@ -590,6 +590,199 @@ class IbsCbsUtilTest {
     }
 
     @Test
+    void deveCalcularValorAdRemComAliquotaEspecificaDeCombustivel() throws NfeException {
+        // Gasolina: R$ 0,7925 por litro (tabela de aliquotas especificas).
+        // Repartido aqui como exemplo entre IBS e CBS; 1000 litros.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+        util.setAdRemCBS(new BigDecimal("0.2925"));
+
+        TTribNFe tributo = util.montaImpostosDet(CC_TRIB, criarDetMinimo("5000.00", "1000.0000"));
+        TMonofasia mono = tributo.getGIBSCBSMono();
+
+        TMonofasia.GIBSMonoAdRem.GMonoPadrao ibs = mono.getGIBSMonoAdRem().getGMonoPadrao();
+        assertEquals("1000.0000", ibs.getQBCMono());
+        assertEquals("0.5000", ibs.getAdRemIBS());
+        assertEquals("500.00", ibs.getVIBSMono(), "1000 x 0,5000");
+
+        TMonofasia.GCBSMonoAdRem.GMonoPadrao cbs = mono.getGCBSMonoAdRem().getGMonoPadrao();
+        assertEquals("0.2925", cbs.getAdRemCBS());
+        assertEquals("292.50", cbs.getVCBSMono(), "1000 x 0,2925");
+
+        assertEquals("500.00", mono.getVTotIBSMonoItem());
+        assertEquals("292.50", mono.getVTotCBSMonoItem());
+    }
+
+    @Test
+    void deveCalcularValorAdValoremSobreABaseDoItem() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setMonofasiaAdValorem(true);
+        util.setPAliqMonoUF(new BigDecimal("10"));
+        util.setPAliqMonoMun(new BigDecimal("2"));
+        util.setPAliqMonoCBS(new BigDecimal("8"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"))
+                .getGIBSCBSMono();
+
+        TMonofasia.GIBSMonoAdValorem.GMonoPadrao ibs = mono.getGIBSMonoAdValorem().getGMonoPadrao();
+        assertEquals("1000.00", ibs.getVBCMono());
+        assertEquals("100.00", ibs.getVIBSMonoUF(), "1000 x 10%");
+        assertEquals("20.00", ibs.getVIBSMonoMun(), "1000 x 2%");
+        assertEquals("120.00", ibs.getVIBSMono(), "soma UF + Mun");
+
+        TMonofasia.GCBSMonoAdValorem.GMonoPadrao cbs = mono.getGCBSMonoAdValorem().getGMonoPadrao();
+        assertEquals("80.00", cbs.getVCBSMono(), "1000 x 8%");
+
+        assertEquals("120.00", mono.getVTotIBSMonoItem());
+        assertEquals("80.00", mono.getVTotCBSMonoItem());
+    }
+
+    @Test
+    void deveCalcularRetencaoEUsarAliquotaDoPadraoQuandoNaoInformada() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaSujeitaRetencao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAdRemIBS(new BigDecimal("0.3515"));
+        util.setAdRemCBS(new BigDecimal("0.1000"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "100.0000"))
+                .getGIBSCBSMono();
+
+        TMonofasia.GIBSMonoAdRem.GMonoReten reten = mono.getGIBSMonoAdRem().getGMonoReten();
+        assertEquals("100.0000", reten.getQBCMonoReten(), "sem setQBCMonoReten, usa a quantidade do item");
+        assertEquals("0.3515", reten.getAdRemIBSReten(), "sem aliquota propria de retencao, herda a do padrao");
+        assertEquals("35.15", reten.getVIBSMonoReten(), "100 x 0,3515");
+    }
+
+    @Test
+    void deveUsarAliquotaEQuantidadeProprasDeRetencaoQuandoInformadas() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaSujeitaRetencao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAdRemIBS(new BigDecimal("0.3515"));
+        util.setAdRemIBSReten(new BigDecimal("0.2000"));
+        util.setQBCMonoReten(new BigDecimal("40"));
+
+        TMonofasia.GIBSMonoAdRem.GMonoReten reten = util
+                .montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "100.0000"))
+                .getGIBSCBSMono().getGIBSMonoAdRem().getGMonoReten();
+
+        assertEquals("40.0000", reten.getQBCMonoReten());
+        assertEquals("0.2000", reten.getAdRemIBSReten());
+        assertEquals("8.00", reten.getVIBSMonoReten(), "40 x 0,2000");
+    }
+
+    @Test
+    void deveUsarValorInformadoNoRetidoAnteriormente() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaRetidaAnt(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setVIBSMonoRet(new BigDecimal("12.34"));
+        util.setVCBSMonoRet(new BigDecimal("56.78"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "10.0000"))
+                .getGIBSCBSMono();
+
+        assertEquals("12.34", mono.getGIBSMonoAdRem().getGMonoRet().getVIBSMonoRet());
+        assertEquals("56.78", mono.getGCBSMonoAdRem().getGMonoRet().getVCBSMonoRet());
+        assertEquals("12.34", mono.getVTotIBSMonoItem());
+        assertEquals("56.78", mono.getVTotCBSMonoItem());
+    }
+
+    @Test
+    void deveAcumularTotaisMonofasicosDaNotaEEmitirGMono() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+        util.setAdRemCBS(new BigDecimal("0.2925"));
+
+        // dois itens de 1000 litros cada
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("5000.00", "1000.0000"));
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("5000.00", "1000.0000"));
+
+        TIBSCBSMonoTot totais = util.preencheTotaisIbsCsb();
+
+        assertNotNull(totais.getGMono(), "com valores monofasicos nao-zero, gMono deve ser emitido");
+        assertEquals("1000.00", totais.getGMono().getVIBSMono(), "2 x 500,00");
+        assertEquals("585.00", totais.getGMono().getVCBSMono(), "2 x 292,50");
+    }
+
+    @Test
+    void deveMontarGpBioDiferencaQuandoCClassTribIndicaDiferencaDeBiocombustivel() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setIndPercentualDiferencaBioCombustivel(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAdRemIBS(new BigDecimal("0.1922"));   // EAC: R$ 0,1922 por litro
+        util.setAdRemCBS(new BigDecimal("0.1000"));
+        util.setQBCBioComb(new BigDecimal("50"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "1000.0000"))
+                .getGIBSCBSMono();
+
+        TMonofasia.GIBSMonoAdRem.GpBioDiferenca ibs = mono.getGIBSMonoAdRem().getGpBioDiferenca();
+        assertNotNull(ibs, "IndPercentualDiferencaBioCombustivel=true deve emitir gpBioDiferenca");
+        assertEquals("50.0000", ibs.getQBCBioComb());
+        assertEquals("9.61", ibs.getVIBSDiferenca(), "50 x 0,1922");
+
+        TMonofasia.GCBSMonoAdRem.GpBioDiferenca cbs = mono.getGCBSMonoAdRem().getGpBioDiferenca();
+        assertEquals("5.00", cbs.getVCBSDiferenca(), "50 x 0,1000");
+    }
+
+    @Test
+    void naoDeveMontarGpBioDiferencaQuandoIndicadorEstaDesligado() throws NfeException {
+        TMonofasia mono = calcularMono(false, true, false, false);
+
+        assertNull(mono.getGIBSMonoAdRem().getGpBioDiferenca(),
+                "sem o indicador do cClassTrib, gpBioDiferenca nao deve sair");
+        assertNull(mono.getGCBSMonoAdRem().getGpBioDiferenca(),
+                "sem o indicador do cClassTrib, gpBioDiferenca nao deve sair");
+    }
+
+    @Test
+    void devePermitirInformarValorDaDiferencaDeBioDiretamente() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setIndPercentualDiferencaBioCombustivel(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setQBCBioComb(new BigDecimal("50"));
+        util.setVIBSDiferenca(new BigDecimal("77.77"));
+
+        TMonofasia.GIBSMonoAdRem.GpBioDiferenca bio = util
+                .montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "1000.0000"))
+                .getGIBSCBSMono().getGIBSMonoAdRem().getGpBioDiferenca();
+
+        assertEquals("77.77", bio.getVIBSDiferenca(), "valor informado prevalece sobre o calculado");
+    }
+
+    @Test
     void deveEmitirOsTresSubgruposQuandoTodasAsFlagsEstaoAtivas() throws NfeException {
         TMonofasia mono = calcularMono(false, true, true, true);
 
