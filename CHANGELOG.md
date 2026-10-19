@@ -14,6 +14,18 @@
   for do ano corrente
 - Calculado o qBCBioComb do gpBioDiferenca pela formula da NT (UB89a-10/UB94a-10),
   a partir do pBio do item e do pBioObrig informado em IbsCbsUtil.setPBioObrig
+- MUDANCA DE VALOR EMITIDO: qBCMono e qBCMonoReten passam a usar a quantidade
+  tributavel (qTrib) e nao mais a comercial (qCom). UB86a pede a unidade de medida
+  estabelecida na legislacao, e as formulas da NT sao todas sobre qTrib. Quem vende
+  em unidade diferente da tributavel emitia imposto errado pelo fator de conversao,
+  sem rejeicao
+- MUDANCA DE VALOR EMITIDO: vTotIBSMonoItem e vTotCBSMonoItem deixam de incluir o
+  retido anteriormente, seguindo UB105a-10 e UB105b-10. Os totais da nota (gMono)
+  continuam trazendo as tres parcelas em tags separadas
+- vIBSDiferenca e vCBSDiferenca passam a exigir setAdRemIBSBioComb/setAdRemCBSBioComb,
+  a aliquota do biocombustivel, que e coluna propria da tabela e nao se confunde com
+  a do produto (UB89b-10). Sem ela o valor nao e calculado: quem dependia do calculo
+  anterior, que usava a aliquota do produto, passa a receber 0,00
 - INCOMPATIBILIDADE DE FONTE em gIBSCBSMono: as classes aninhadas
   TMonofasia.GMonoPadrao, .GMonoRet, .GMonoReten e .GMonoDif deixaram de existir.
   Os equivalentes agora sao TMonofasia.G{IBS,CBS}Mono{AdRem,AdValorem}.GMono*.

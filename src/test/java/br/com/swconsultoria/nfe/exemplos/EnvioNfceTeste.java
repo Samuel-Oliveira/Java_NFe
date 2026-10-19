@@ -318,16 +318,18 @@ public class EnvioNfceTeste {
     }
 
     static TEnviNFe montaEnviNFe(ConfiguracoesNfe config, String cnpj) throws Exception {
-        return montaEnviNFe(config, cnpj, ANO_EMISSAO);
+        return montaEnviNFe(config, cnpj, LocalDateTime.now().withYear(ANO_EMISSAO));
     }
 
-    /** O CNPJ precisa bater com o do certificado usado na assinatura. */
-    /** O ano define a modalidade da monofasia e precisa casar com o dhEmi da nota. */
-    static TEnviNFe montaEnviNFe(ConfiguracoesNfe config, String cnpj, int anoEmissao) throws Exception {
+    /**
+     * O CNPJ precisa bater com o do certificado usado na assinatura.
+     *
+     * A modalidade da monofasia e derivada do ano desta data, e nao de um parametro
+     * separado: a SEFAZ valida pelo dhEmi, entao os dois nao podem divergir.
+     */
+    static TEnviNFe montaEnviNFe(ConfiguracoesNfe config, String cnpj, LocalDateTime dataEmissao) throws Exception {
         //Informe o Numero da NFCe
         int numeroNFCe = Integer.parseInt(System.getProperty("numeroNFCe", "9511"));
-        //Informe a data de Emissao da NFCe
-        LocalDateTime dataEmissao = LocalDateTime.now();
         //Informe o cnf da NFCe com 8 digitos
         String cnf = String.format("%08d", new Random().nextInt(99999999));
         //Informe o modelo da NFCe
@@ -356,7 +358,7 @@ public class EnvioNfceTeste {
         infNFe.setDest(preencheDestinatario());
 
         //Preenche os dados do Produto da NFCe e adiciona a Lista
-        infNFe.getDet().addAll(preencheDet(anoEmissao));
+        infNFe.getDet().addAll(preencheDet(dataEmissao.getYear()));
 
         //Preenche totais da NFCe
         infNFe.setTotal(preencheTotal());

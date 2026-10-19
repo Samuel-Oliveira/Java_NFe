@@ -29,9 +29,13 @@ class EnvioNfceCombustivelTest {
     /** CNPJ do NAO_UTILIZE.pfx; a assinatura exige que bata com o emitente. */
     private static final String CNPJ_CERTIFICADO = "99999999999999";
 
+    /** Data fixa: o dhEmi e o ano da monofasia precisam casar, e nao podem seguir o relogio. */
+    private static final java.time.LocalDateTime DATA_EMISSAO =
+            java.time.LocalDateTime.of(2026, 6, 15, 10, 0);
+
     @Test
     void deveMontarNfceDeCombustivelValidaContraOSchema() throws Exception {
-        String xml = XmlNfeUtil.objectToXml(EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, 2026));
+        String xml = XmlNfeUtil.objectToXml(EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, DATA_EMISSAO));
 
         String xsd = Paths.get("schemas", ServicosEnum.ENVIO.getXsd()).toString();
         assertTrue(new Validar().isValidXml(xsd, xml),
@@ -40,7 +44,7 @@ class EnvioNfceCombustivelTest {
 
     @Test
     void deveEmitirGrupoMonofasicoRetidoParaOsTresCombustiveis() throws Exception {
-        TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, 2026);
+        TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, DATA_EMISSAO);
         String xml = XmlNfeUtil.objectToXml(enviNFe);
 
         assertEquals(3, enviNFe.getNFe().get(0).getInfNFe().getDet().size(),
@@ -65,7 +69,7 @@ class EnvioNfceCombustivelTest {
 
     @Test
     void naoDeveInformarValorNoRetidoAnteriormentePorqueASefazCalcula() throws Exception {
-        TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, 2026);
+        TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, DATA_EMISSAO);
         String xml = XmlNfeUtil.objectToXml(enviNFe);
 
         assertTrue(xml.contains("<IBSCBSTot>"), "os totais de IBS/CBS devem estar presentes");

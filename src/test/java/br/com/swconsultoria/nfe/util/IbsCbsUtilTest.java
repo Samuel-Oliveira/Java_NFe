@@ -505,15 +505,17 @@ class IbsCbsUtilTest {
     // -------------------------------------------------------------------------
 
     @Test
-    void deveMontarMonofasiaAdValoremPorPadraoComGruposIbsECbsSeparados() throws NfeException {
-        // Ad valorem e o padrao porque a SEFAZ rejeita ad rem com cStat 1219,
-        // verificado em homologacao da SEFAZ-GO
+    void deveMontarMonofasiaAdValoremEm2026ComGruposIbsECbsSeparados() throws NfeException {
+        // Em 2026 os dois eixos sao ad valorem (UB85a-10 e UB95a-10); informar ad rem
+        // e rejeitado com cStat 1219 (IBS) ou 1245 (CBS). O ano e fixado para o teste
+        // nao depender do relogio: a partir de 2027 a CBS passa a ad rem.
         CstDTO cst = montarCst("620", false, false, false, true, false, false);
         ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
         ct.setMonofasiaPadrao(true);
         cst.setClassificacoesTributarias(Collections.singletonList(ct));
 
         IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2026);
         TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("100.00", "1.0000"))
                 .getGIBSCBSMono();
 
@@ -812,6 +814,60 @@ class IbsCbsUtilTest {
 
         TMonofasia.GCBSMonoAdRem.GpBioDiferenca cbs = mono.getGCBSMonoAdRem().getGpBioDiferenca();
         assertEquals("0.00", cbs.getVCBSDiferenca(), "sem a aliquota do biocombustivel nao se calcula");
+    }
+
+    @Test
+    void totalDoItemDeveSomarPadraoERetencaoMasNaoORetidoAnteriormente() throws NfeException {
+        // UB105a-10/UB105b-10: vTot*MonoItem = padrao + retencao. O retido
+        // anteriormente fica de fora porque o vTot*MonoItem e somado ao vItem
+        // (VB01-10); inclui-lo cobraria do cliente um imposto ja pago na etapa anterior.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        ct.setMonofasiaSujeitaRetencao(true);
+        ct.setMonofasiaRetidaAnt(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.5000"));        // padrao:   10 x 0,5000 = 5,00
+        util.setAdRemIBSReten(new BigDecimal("0.2000"));   // retencao: 10 x 0,2000 = 2,00
+        util.setVIBSMonoRet(new BigDecimal("99.00"));      // retido anteriormente
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "10.0000"))
+                .getGIBSCBSMono();
+
+        assertEquals("5.00", mono.getGIBSMonoAdRem().getGMonoPadrao().getVIBSMono());
+        assertEquals("2.00", mono.getGIBSMonoAdRem().getGMonoReten().getVIBSMonoReten());
+        assertEquals("99.00", mono.getGIBSMonoAdRem().getGMonoRet().getVIBSMonoRet());
+        assertEquals("7.00", mono.getVTotIBSMonoItem(),
+                "5,00 + 2,00; os 99,00 do retido anteriormente nao entram");
+    }
+
+    @Test
+    void totaisDaNotaDevemTrazerAsTresParcelasSeparadas() throws NfeException {
+        // W59-10, W59a-10 e W59c-10: no gMono cada parcela tem tag propria, somando o
+        // campo homonimo dos itens. Diferente do total do item, aqui o retido entra.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        ct.setMonofasiaSujeitaRetencao(true);
+        ct.setMonofasiaRetidaAnt(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+        util.setAdRemIBSReten(new BigDecimal("0.2000"));
+        util.setVIBSMonoRet(new BigDecimal("99.00"));
+
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "10.0000"));
+        TIBSCBSMonoTot.GMono gMono = util.preencheTotaisIbsCsb().getGMono();
+
+        assertNotNull(gMono, "com valores monofasicos nao-zero o gMono deve ser emitido");
+        assertEquals("5.00", gMono.getVIBSMono(), "parcela padrao");
+        assertEquals("2.00", gMono.getVIBSMonoReten(), "parcela de retencao");
+        assertEquals("99.00", gMono.getVIBSMonoRet(), "retido anteriormente tem tag propria");
     }
 
     @Test

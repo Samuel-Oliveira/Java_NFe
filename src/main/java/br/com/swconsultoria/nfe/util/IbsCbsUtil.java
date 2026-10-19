@@ -179,28 +179,29 @@ public class IbsCbsUtil {
     private BigDecimal vCBSMonoRet = BigDecimal.ZERO;
 
     /**
-     * Quantidade tributada sujeita à retenção (qBCMonoReten / vBCMonoReten).
-     * Se não informada, usa a quantidade comercializada do item.
+     * Quantidade tributada sujeita à retenção (qBCMonoReten).
+     * Se não informada, usa a quantidade tributável do item (qTrib), que é a base
+     * quantitativa da monofasia.
      */
     private BigDecimal qBCMonoReten = null;
 
     /**
      * Quantidade de biocombustível (EAC) a recolher ou a ressarcir, para o grupo
      * gpBioDiferenca. Usada quando o cClassTrib tem
-     * IndPercentualDiferencaBioCombustivel=true.
+     * IndPercentualDiferencaBioCombustivel=true e o pBioObrig não foi informado;
+     * com o pBioObrig, a quantidade é calculada pela fórmula da NT.
      */
     private BigDecimal qBCBioComb = BigDecimal.ZERO;
 
     /**
      * Valor do IBS referente à diferença de percentual de biocombustível.
-     * Se não informado, é calculado como qBCBioComb x adRemIBS na modalidade ad rem.
+     * Se não informado, é calculado como qBCBioComb x adRemIBSBioComb na modalidade
+     * ad rem (UB89b-10). Note que a alíquota é a do biocombustível, informada em
+     * {@link #setAdRemIBSBioComb(BigDecimal)}, e não a do produto.
      */
     private BigDecimal vIBSDiferenca = null;
 
-    /**
-     * Valor da CBS referente à diferença de percentual de biocombustível.
-     * Se não informado, é calculado como qBCBioComb x adRemCBS na modalidade ad rem.
-     */
+    /** Equivalente da CBS, calculado com adRemCBSBioComb (UB99b-10). */
     private BigDecimal vCBSDiferenca = null;
 
     /**
