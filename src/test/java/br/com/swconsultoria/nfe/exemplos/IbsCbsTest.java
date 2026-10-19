@@ -140,7 +140,7 @@ class IbsCbsTest {
             TEnviNFe enviNFe = getEnviNFe();
             IbsCbsUtil util = new IbsCbsUtil(getIbsCbsJson(), DocumentoEnum.NFE);
 
-            util.setMonofasiaAdValorem(adValorem);
+            util.setAnoEmissao(adValorem ? 2026 : 2029);
             if (adValorem) {
                 util.setPAliqMonoUF(new BigDecimal("10"));
                 util.setPAliqMonoMun(new BigDecimal("2"));

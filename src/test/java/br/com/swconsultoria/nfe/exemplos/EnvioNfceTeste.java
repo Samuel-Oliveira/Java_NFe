@@ -211,10 +211,10 @@ public class EnvioNfceTeste {
      * reparticao entre IBS e CBS usa {@link #PERCENTUAL_IBS}.
      */
     private enum Combustivel {
-        //                   ANP           descANP           NCM         CEST       CFOP    vUnCom  qCom      adRemTotal  icmsAdRem  pBio
-        GASOLINA("320102001", "GASOLINA COMUM", "27101259", "0600200", "5656", "6.09", "20.0000", "0.7925", "1.5700", "12.0000"),
-        ETANOL("810101001", "ETANOL COMUM", "22071090", "0600101", "5656", "4.98", "30.0000", "0.1922", null, null),
-        DIESEL("820101012", "OLEO DIESEL B S500-COMUM", "27101921", "0600600", "5656", "7.19", "25.0000", "0.3515", "1.1700", "27.0000");
+        //                   ANP           descANP           NCM         CEST       CFOP    vUnCom  qCom      adRemTotal  icmsAdRem  pBio      nBico nTanque vEncIni
+        GASOLINA("320102001", "GASOLINA COMUM", "27101259", "0600200", "5656", "6.09", "20.0000", "0.7925", "1.5700", "12.0000", "21", "2", "109813.421", "GO890004"),
+        ETANOL("810101001", "ETANOL COMUM", "22071090", "0600101", "5656", "4.98", "30.0000", "0.1922", null, null, "17", "1", "48195.000", null),
+        DIESEL("820101012", "OLEO DIESEL B S500-COMUM", "27101921", "0600600", "5656", "7.19", "25.0000", "0.3515", "1.1700", "27.0000", "4", "4", "28474.440", "GO890004");
 
         final String anp;
         final String descAnp;
@@ -228,9 +228,16 @@ public class EnvioNfceTeste {
         final String icmsAdRemRet;
         /** Percentual de biocombustivel na mistura. Nulo quando nao se aplica. */
         final String pBio;
+        /** Bico, tanque e leitura inicial do encerrante, obrigatorios na NFCe de posto. */
+        final String nBico;
+        final String nTanque;
+        final BigDecimal vEncIni;
+        /** Codigo de beneficio fiscal, exigido pela UF quando o CST do ICMS tem beneficio. */
+        final String cBenef;
 
         Combustivel(String anp, String descAnp, String ncm, String cest, String cfop,
-                    String vUnCom, String qCom, String adRemTotal, String icmsAdRemRet, String pBio) {
+                    String vUnCom, String qCom, String adRemTotal, String icmsAdRemRet, String pBio,
+                    String nBico, String nTanque, String vEncIni, String cBenef) {
             this.anp = anp;
             this.descAnp = descAnp;
             this.ncm = ncm;
@@ -241,6 +248,15 @@ public class EnvioNfceTeste {
             this.adRemTotal = new BigDecimal(adRemTotal);
             this.icmsAdRemRet = icmsAdRemRet;
             this.pBio = pBio;
+            this.nBico = nBico;
+            this.nTanque = nTanque;
+            this.vEncIni = new BigDecimal(vEncIni);
+            this.cBenef = cBenef;
+        }
+
+        /** A leitura final do encerrante avanca exatamente a quantidade vendida. */
+        BigDecimal vEncFin() {
+            return vEncIni.add(qCom).setScale(3, RoundingMode.HALF_UP);
         }
 
         BigDecimal vProd() {
@@ -271,8 +287,20 @@ public class EnvioNfceTeste {
      */
     private static final BigDecimal PERCENTUAL_IBS = new BigDecimal("0.10");
 
-    /** cClassTrib usado pelo posto revendedor: monofasia retida anteriormente. */
-    private static final String C_CLASS_TRIB = "620006";
+    /**
+     * cClassTrib da operacao. O padrao 620006 e o do posto revendedor (monofasia
+     * retida anteriormente). Pode ser trocado por -DcClassTrib=620001 para testar
+     * outras classificacoes contra a SEFAZ.
+     */
+    private static final String C_CLASS_TRIB = System.getProperty("cClassTrib", "620006");
+
+    /**
+     * Ano de emissao, que define a modalidade da monofasia pela NT 2025.002-RTC:
+     * 2026 IBS e CBS ad valorem; 2027-2028 IBS ad valorem e CBS ad rem; 2029 ambos
+     * ad rem. Pode ser trocado por -DanoEmissao=2027 para testar a transicao.
+     */
+    private static final int ANO_EMISSAO =
+            Integer.parseInt(System.getProperty("anoEmissao", String.valueOf(java.time.LocalDate.now().getYear())));
 
     private static final String CST_IBSCBS = "620";
 
@@ -292,7 +320,7 @@ public class EnvioNfceTeste {
     /** O CNPJ precisa bater com o do certificado usado na assinatura. */
     static TEnviNFe montaEnviNFe(ConfiguracoesNfe config, String cnpj) throws Exception {
         //Informe o Numero da NFCe
-        int numeroNFCe = 9511;
+        int numeroNFCe = Integer.parseInt(System.getProperty("numeroNFCe", "9511"));
         //Informe a data de Emissao da NFCe
         LocalDateTime dataEmissao = LocalDateTime.now();
         //Informe o cnf da NFCe com 8 digitos
@@ -350,6 +378,7 @@ public class EnvioNfceTeste {
     private static List<Det> preencheDet() throws NfeException, IOException {
 
         ibsCbsUtil = new IbsCbsUtil(XmlNfeUtil.leXml("src/test/resources/ibscbs.json"), DocumentoEnum.NFCE);
+        ibsCbsUtil.setAnoEmissao(ANO_EMISSAO);
 
         List<Det> itens = new ArrayList<>();
         int nItem = 1;
@@ -360,10 +389,16 @@ public class EnvioNfceTeste {
             det.setProd(preencheProduto(c));
             det.setImposto(preencheImposto(c));
 
-            // O posto revendedor recebe o combustivel com IBS/CBS ja retido na origem,
-            // entao o grupo preenchido e o gMonoRet, que no XSD leva apenas o valor.
-            ibsCbsUtil.setVIBSMonoRet(c.qCom.multiply(c.adRemIBS()).setScale(2, RoundingMode.HALF_UP));
-            ibsCbsUtil.setVCBSMonoRet(c.qCom.multiply(c.adRemCBS()).setScale(2, RoundingMode.HALF_UP));
+            // Na monofasia retida anteriormente a SEFAZ calcula o valor por conta
+            // propria (regra UB93a-10) e rejeita com cStat 1240 se o informado divergir.
+            // Como as tabelas de referencia dessa formula ainda nao foram publicadas
+            // ("Implementacao Futura" na NT), o grupo vai zerado no ad valorem.
+            ibsCbsUtil.setPAliqMonoUF(BigDecimal.ZERO);
+            ibsCbsUtil.setPAliqMonoMun(BigDecimal.ZERO);
+            ibsCbsUtil.setPAliqMonoCBS(BigDecimal.ZERO);
+            // Ad rem usa a aliquota especifica do combustivel, repartida entre IBS e CBS
+            ibsCbsUtil.setAdRemIBS(c.adRemIBS());
+            ibsCbsUtil.setAdRemCBS(c.adRemCBS());
 
             TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(C_CLASS_TRIB, det);
             det.getImposto().getContent()
@@ -387,6 +422,9 @@ public class EnvioNfceTeste {
         prod.setXProd("NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
         prod.setNCM(c.ncm);
         prod.setCEST(c.cest);
+        if (c.cBenef != null) {
+            prod.setCBenef(c.cBenef);
+        }
         prod.setCFOP(c.cfop);
         prod.setUCom("LT");
         prod.setQCom(ObjetoUtil.getValor4Casas(c.qCom));
@@ -402,6 +440,15 @@ public class EnvioNfceTeste {
         comb.setCProdANP(c.anp);
         comb.setDescANP(c.descAnp);
         comb.setUFCons(TUf.GO);
+
+        // NFCe de posto e rejeitada (378) sem o encerrante da bomba
+        Prod.Comb.Encerrante encerrante = new Prod.Comb.Encerrante();
+        encerrante.setNBico(c.nBico);
+        encerrante.setNTanque(c.nTanque);
+        encerrante.setVEncIni(c.vEncIni.setScale(3, RoundingMode.HALF_UP).toPlainString());
+        encerrante.setVEncFin(c.vEncFin().toPlainString());
+        comb.setEncerrante(encerrante);
+
         if (c.pBio != null) {
             comb.setPBio(c.pBio);
         }

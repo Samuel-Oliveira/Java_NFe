@@ -99,12 +99,42 @@ public class IbsCbsUtil {
     private String tpOperGov = null;
 
     /**
-     * Modalidade dos grupos de monofasia. A NT que reestruturou o TMonofasia separou
-     * a tributação em ad valorem (percentual sobre base) e ad rem (valor por unidade),
-     * que são mutuamente exclusivas no XSD.
-     * Padrão false (ad rem), modalidade usada em combustíveis.
+     * Ano da emissão, que determina a modalidade dos grupos de monofasia.
+     * A NT 2025.002-RTC define a transição em função do ano, e não do produto ou do
+     * cClassTrib (regras UB85a-10/20 para o IBS e UB95a-10/20 para a CBS):
+     *
+     * <pre>
+     * Ano    IBS         CBS
+     * 2026   AdValorem   AdValorem
+     * 2027   AdValorem   AdRem
+     * 2028   AdValorem   AdRem
+     * 2029   AdRem       AdRem
+     * </pre>
+     *
+     * Informar a modalidade errada é rejeitado: cStat 1219 (ad rem do IBS indevido),
+     * 1220 (ad rem do IBS faltando), 1245, 1246 e 1259 para os equivalentes da CBS.
+     *
+     * O valor precisa coincidir com o ano do dhEmi da nota, porque é por ele que a
+     * SEFAZ valida. Verificado em homologação da SEFAZ-GO: uma nota com dhEmi em 2026
+     * e grupos montados para 2027 é rejeitada com cStat 1259, e para 2029 com 1219.
+     * Por padrão usa o ano corrente, que é o correto quando a nota é emitida hoje.
      */
-    private boolean monofasiaAdValorem = false;
+    private int anoEmissao = java.time.LocalDate.now().getYear();
+
+    /** Ultimo ano em que o IBS monofasico e ad valorem (NT 2025.002-RTC, UB85a-10/20). */
+    private static final int ULTIMO_ANO_IBS_AD_VALOREM = 2028;
+
+    /** Ultimo ano em que a CBS monofasica e ad valorem (NT 2025.002-RTC, UB95a-10/20). */
+    private static final int ULTIMO_ANO_CBS_AD_VALOREM = 2026;
+
+    /**
+     * Percentual obrigatório de biocombustível na mistura (pBioObrig), da tabela
+     * Índice de Mistura de Biocombustível, consultada pelo cProdANP do item.
+     * Necessário para calcular o qBCBioComb do gpBioDiferenca (regras UB89a-10 e
+     * UB94a-10). Sem ele o grupo sai com a quantidade informada em
+     * {@link #setQBCBioComb(BigDecimal)}, ou zero.
+     */
+    private BigDecimal pBioObrig = null;
 
     /**
      * Alíquota ad rem do IBS, em valor por unidade de medida (tabela de alíquotas
@@ -173,8 +203,22 @@ public class IbsCbsUtil {
      */
     private BigDecimal vCBSDiferenca = null;
 
-    public void setMonofasiaAdValorem(boolean monofasiaAdValorem) {
-        this.monofasiaAdValorem = monofasiaAdValorem;
+    public void setAnoEmissao(int anoEmissao) {
+        this.anoEmissao = anoEmissao;
+    }
+
+    public void setPBioObrig(BigDecimal pBioObrig) {
+        this.pBioObrig = pBioObrig;
+    }
+
+    /** No ano informado o IBS monofasico e ad valorem (ate 2028) ou ad rem (de 2029). */
+    private boolean ibsAdValorem() {
+        return anoEmissao <= ULTIMO_ANO_IBS_AD_VALOREM;
+    }
+
+    /** No ano informado a CBS monofasica e ad valorem (ate 2026) ou ad rem (de 2027). */
+    private boolean cbsAdValorem() {
+        return anoEmissao <= ULTIMO_ANO_CBS_AD_VALOREM;
     }
 
     public void setAdRemIBS(BigDecimal adRemIBS) {
@@ -383,7 +427,7 @@ public class IbsCbsUtil {
      *
      * IBS e CBS tem grupos proprios, cada um em uma de duas modalidades mutuamente
      * exclusivas: ad rem (valor por unidade) ou ad valorem (percentual sobre a base).
-     * Ver {@link #setMonofasiaAdValorem(boolean)}.
+     * Ver {@link #setAnoEmissao(int)}.
      *
      * As aliquotas monofasicas sao proprias por produto e nao sao as do regime regular,
      * por isso tem setters dedicados: {@link #setAdRemIBS(BigDecimal)} e
@@ -391,28 +435,35 @@ public class IbsCbsUtil {
      * {@link #setPAliqMonoMun(BigDecimal)} e {@link #setPAliqMonoCBS(BigDecimal)} para
      * ad valorem. Sem elas o grupo sai zerado, que e o comportamento seguro.
      *
+     * A modalidade de cada eixo vem do ano da emissao, nao de escolha do emitente:
+     * em 2027 e 2028 o IBS e ad valorem enquanto a CBS ja e ad rem. Ver
+     * {@link #setAnoEmissao(int)}.
+     *
      * O grupo gMonoDif (diferimento de monofasia) foi removido do XSD, portanto
      * {@code classTribIbsCbs.getMonofasiaDiferimento()} nao tem mais grupo correspondente.
-     * O gpBioDiferenca que surgiu no lugar modela diferenca de biocombustivel, nao
-     * diferimento, e por isso nao e preenchido automaticamente aqui.
      */
     private TMonofasia montaGrupoMono(TNFe.InfNFe.Det det) {
         TMonofasia gMono = new TMonofasia();
         BigDecimal qCom = ObjetoUtil.getBigDecimalOrZero(det.getProd().getQCom());
         BigDecimal qReten = qBCMonoReten != null ? qBCMonoReten : qCom;
+        BigDecimal qBio = quantidadeBioDiferenca(det);
 
         BigDecimal totIBS;
         BigDecimal totCBS;
 
-        if (monofasiaAdValorem) {
-            gMono.setGIBSMonoAdValorem(montaIbsMonoAdValorem(baseCalculo));
-            gMono.setGCBSMonoAdValorem(montaCbsMonoAdValorem(baseCalculo));
+        if (ibsAdValorem()) {
+            gMono.setGIBSMonoAdValorem(montaIbsMonoAdValorem(baseCalculo, qBio));
             totIBS = totalIbsMonoAdValorem(baseCalculo);
+        } else {
+            gMono.setGIBSMonoAdRem(montaIbsMonoAdRem(qCom, qReten, qBio));
+            totIBS = totalIbsMonoAdRem(qCom, qReten);
+        }
+
+        if (cbsAdValorem()) {
+            gMono.setGCBSMonoAdValorem(montaCbsMonoAdValorem(baseCalculo, qBio));
             totCBS = totalCbsMonoAdValorem(baseCalculo);
         } else {
-            gMono.setGIBSMonoAdRem(montaIbsMonoAdRem(qCom, qReten));
-            gMono.setGCBSMonoAdRem(montaCbsMonoAdRem(qCom, qReten));
-            totIBS = totalIbsMonoAdRem(qCom, qReten);
+            gMono.setGCBSMonoAdRem(montaCbsMonoAdRem(qCom, qReten, qBio));
             totCBS = totalCbsMonoAdRem(qCom, qReten);
         }
 
@@ -420,6 +471,41 @@ public class IbsCbsUtil {
         gMono.setVTotCBSMonoItem(ObjetoUtil.getValor2Casas(totCBS));
 
         return gMono;
+    }
+
+    /**
+     * Quantidade de biocombustivel a recolher ou ressarcir (qBCBioComb), conforme as
+     * regras UB89a-10 e UB94a-10 da NT 2025.002-RTC:
+     *
+     * <pre>
+     * cClassTrib 620004: qTrib x (pBio - pBioObrig) / (1 - pBioObrig)   a recolher
+     * cClassTrib 620005: qTrib x (pBioObrig - pBio) / (1 - pBioObrig)   a ressarcir
+     * </pre>
+     *
+     * Os percentuais vem em base 100 no XML e sao normalizados aqui. Sem o pBioObrig
+     * (tabela Indice de Mistura de Biocombustivel, consultada pelo cProdANP) ou sem o
+     * pBio no item, devolve o valor informado em {@link #setQBCBioComb(BigDecimal)}.
+     */
+    private BigDecimal quantidadeBioDiferenca(TNFe.InfNFe.Det det) {
+        if (pBioObrig == null || det.getProd().getComb() == null
+                || det.getProd().getComb().getPBio() == null) {
+            return ObjetoUtil.getOrZero(qBCBioComb);
+        }
+
+        BigDecimal pBio = new BigDecimal(det.getProd().getComb().getPBio()).divide(CEM, SCALE_5, RoundingMode.HALF_UP);
+        BigDecimal obrig = pBioObrig.divide(CEM, SCALE_5, RoundingMode.HALF_UP);
+        BigDecimal divisor = BigDecimal.ONE.subtract(obrig);
+        if (divisor.signum() == 0) {
+            return ObjetoUtil.getOrZero(qBCBioComb);
+        }
+
+        String cClassTrib = classTribIbsCbs.getCClassTrib();
+        BigDecimal diferenca = "620005".equals(cClassTrib)
+                ? obrig.subtract(pBio)
+                : pBio.subtract(obrig);
+
+        BigDecimal qTrib = ObjetoUtil.getBigDecimalOrZero(det.getProd().getQTrib());
+        return qTrib.multiply(diferenca).divide(divisor, 4, RoundingMode.HALF_UP);
     }
 
     /** Valor ad rem: quantidade multiplicada pela aliquota por unidade de medida. */
@@ -471,23 +557,28 @@ public class IbsCbsUtil {
         return Boolean.TRUE.equals(classTribIbsCbs.getIndPercentualDiferencaBioCombustivel());
     }
 
-    /** Diferença de biocombustível do IBS: valor informado ou, em ad rem, qBCBioComb x adRemIBS. */
-    private BigDecimal valorDiferencaBioIBS() {
+    /**
+     * Valor da diferença de biocombustível do IBS. Em ad rem a NT dá a fórmula
+     * (UB89b-10): vIBSDiferenca = qBCBioComb x adRemIBSBioComb. Em ad valorem a fórmula
+     * (UB94b-10) depende da Tabela de Valores de Referência, ainda não publicada, então
+     * apenas o valor informado é usado.
+     */
+    private BigDecimal valorDiferencaBioIBS(BigDecimal qBio, boolean adValorem) {
         if (vIBSDiferenca != null) {
             return vIBSDiferenca;
         }
-        return monofasiaAdValorem ? BigDecimal.ZERO : valorAdRem(ObjetoUtil.getOrZero(qBCBioComb), adRemIBS);
+        return adValorem ? BigDecimal.ZERO : valorAdRem(qBio, adRemIBS);
     }
 
-    /** Diferença de biocombustível da CBS: valor informado ou, em ad rem, qBCBioComb x adRemCBS. */
-    private BigDecimal valorDiferencaBioCBS() {
+    /** Equivalente da CBS. */
+    private BigDecimal valorDiferencaBioCBS(BigDecimal qBio, boolean adValorem) {
         if (vCBSDiferenca != null) {
             return vCBSDiferenca;
         }
-        return monofasiaAdValorem ? BigDecimal.ZERO : valorAdRem(ObjetoUtil.getOrZero(qBCBioComb), adRemCBS);
+        return adValorem ? BigDecimal.ZERO : valorAdRem(qBio, adRemCBS);
     }
 
-    private TMonofasia.GIBSMonoAdRem montaIbsMonoAdRem(BigDecimal qCom, BigDecimal qReten) {
+    private TMonofasia.GIBSMonoAdRem montaIbsMonoAdRem(BigDecimal qCom, BigDecimal qReten, BigDecimal qBio) {
         TMonofasia.GIBSMonoAdRem grupo = new TMonofasia.GIBSMonoAdRem();
 
         if (monoPadrao()) {
@@ -514,15 +605,15 @@ public class IbsCbsUtil {
 
         if (monoDiferencaBio()) {
             TMonofasia.GIBSMonoAdRem.GpBioDiferenca bio = new TMonofasia.GIBSMonoAdRem.GpBioDiferenca();
-            bio.setQBCBioComb(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(qBCBioComb)));
-            bio.setVIBSDiferenca(ObjetoUtil.getValor2Casas(valorDiferencaBioIBS()));
+            bio.setQBCBioComb(ObjetoUtil.getValor4Casas(qBio));
+            bio.setVIBSDiferenca(ObjetoUtil.getValor2Casas(valorDiferencaBioIBS(qBio, false)));
             grupo.setGpBioDiferenca(bio);
         }
 
         return temAlgumSubgrupo() ? grupo : null;
     }
 
-    private TMonofasia.GCBSMonoAdRem montaCbsMonoAdRem(BigDecimal qCom, BigDecimal qReten) {
+    private TMonofasia.GCBSMonoAdRem montaCbsMonoAdRem(BigDecimal qCom, BigDecimal qReten, BigDecimal qBio) {
         TMonofasia.GCBSMonoAdRem grupo = new TMonofasia.GCBSMonoAdRem();
 
         if (monoPadrao()) {
@@ -549,15 +640,15 @@ public class IbsCbsUtil {
 
         if (monoDiferencaBio()) {
             TMonofasia.GCBSMonoAdRem.GpBioDiferenca bio = new TMonofasia.GCBSMonoAdRem.GpBioDiferenca();
-            bio.setQBCBioComb(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(qBCBioComb)));
-            bio.setVCBSDiferenca(ObjetoUtil.getValor2Casas(valorDiferencaBioCBS()));
+            bio.setQBCBioComb(ObjetoUtil.getValor4Casas(qBio));
+            bio.setVCBSDiferenca(ObjetoUtil.getValor2Casas(valorDiferencaBioCBS(qBio, false)));
             grupo.setGpBioDiferenca(bio);
         }
 
         return temAlgumSubgrupo() ? grupo : null;
     }
 
-    private TMonofasia.GIBSMonoAdValorem montaIbsMonoAdValorem(BigDecimal baseReten) {
+    private TMonofasia.GIBSMonoAdValorem montaIbsMonoAdValorem(BigDecimal baseReten, BigDecimal qBio) {
         TMonofasia.GIBSMonoAdValorem grupo = new TMonofasia.GIBSMonoAdValorem();
 
         if (monoPadrao()) {
@@ -589,15 +680,15 @@ public class IbsCbsUtil {
 
         if (monoDiferencaBio()) {
             TMonofasia.GIBSMonoAdValorem.GpBioDiferenca bio = new TMonofasia.GIBSMonoAdValorem.GpBioDiferenca();
-            bio.setQBCBioComb(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(qBCBioComb)));
-            bio.setVIBSDiferenca(ObjetoUtil.getValor2Casas(valorDiferencaBioIBS()));
+            bio.setQBCBioComb(ObjetoUtil.getValor4Casas(qBio));
+            bio.setVIBSDiferenca(ObjetoUtil.getValor2Casas(valorDiferencaBioIBS(qBio, true)));
             grupo.setGpBioDiferenca(bio);
         }
 
         return temAlgumSubgrupo() ? grupo : null;
     }
 
-    private TMonofasia.GCBSMonoAdValorem montaCbsMonoAdValorem(BigDecimal baseReten) {
+    private TMonofasia.GCBSMonoAdValorem montaCbsMonoAdValorem(BigDecimal baseReten, BigDecimal qBio) {
         TMonofasia.GCBSMonoAdValorem grupo = new TMonofasia.GCBSMonoAdValorem();
 
         if (monoPadrao()) {
@@ -624,8 +715,8 @@ public class IbsCbsUtil {
 
         if (monoDiferencaBio()) {
             TMonofasia.GCBSMonoAdValorem.GpBioDiferenca bio = new TMonofasia.GCBSMonoAdValorem.GpBioDiferenca();
-            bio.setQBCBioComb(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(qBCBioComb)));
-            bio.setVCBSDiferenca(ObjetoUtil.getValor2Casas(valorDiferencaBioCBS()));
+            bio.setQBCBioComb(ObjetoUtil.getValor4Casas(qBio));
+            bio.setVCBSDiferenca(ObjetoUtil.getValor2Casas(valorDiferencaBioCBS(qBio, true)));
             grupo.setGpBioDiferenca(bio);
         }
 

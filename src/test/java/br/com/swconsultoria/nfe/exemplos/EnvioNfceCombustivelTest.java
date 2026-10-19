@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -45,9 +46,11 @@ class EnvioNfceCombustivelTest {
         assertEquals(3, enviNFe.getNFe().get(0).getInfNFe().getDet().size(),
                 "a nota deve ter gasolina, etanol e diesel");
         assertEquals(3, contar(xml, "<gIBSCBSMono>"), "cada item deve ter o grupo monofasico");
-        assertEquals(3, contar(xml, "<gIBSMonoAdRem>"), "monofasia de combustivel e ad rem");
-        assertEquals(3, contar(xml, "<gCBSMonoAdRem>"), "IBS e CBS sao eixos independentes");
-        assertEquals(0, contar(xml, "AdValorem"), "nao deve haver grupo ad valorem");
+        // A SEFAZ-GO rejeita o grupo ad rem na monofasia (cStat 1219), validado em
+        // homologacao com 620001, 620002, 620004 e 620006
+        assertEquals(3, contar(xml, "<gIBSMonoAdValorem>"), "a SEFAZ so aceita monofasia ad valorem");
+        assertEquals(3, contar(xml, "<gCBSMonoAdValorem>"), "IBS e CBS sao eixos independentes");
+        assertEquals(0, contar(xml, "AdRem"), "o grupo ad rem e rejeitado com cStat 1219");
 
         // cClassTrib 620006 e monofasia retida anteriormente: so sai o gMonoRet
         assertEquals(0, contar(xml, "<gMonoPadrao>"), "620006 nao tem monofasia padrao");
@@ -59,22 +62,21 @@ class EnvioNfceCombustivelTest {
     }
 
     @Test
-    void deveSomarOsValoresMonofasicosNosTotaisDaNota() throws Exception {
+    void naoDeveInformarValorNoRetidoAnteriormentePorqueASefazCalcula() throws Exception {
         TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO);
         String xml = XmlNfeUtil.objectToXml(enviNFe);
 
         assertTrue(xml.contains("<IBSCBSTot>"), "os totais de IBS/CBS devem estar presentes");
-        assertTrue(xml.contains("<gMono>"),
-                "com valores monofasicos nao-zero, o gMono dos totais deve ser emitido");
 
-        // Aliquota ad rem repartida em IBS (10%) e CBS (90%), aplicada por item:
-        //   gasolina 20L: 0,0793 -> 1,59 IBS | 0,7132 -> 14,26 CBS
-        //   etanol   30L: 0,0192 -> 0,58 IBS | 0,1730 ->  5,19 CBS
-        //   diesel   25L: 0,0352 -> 0,88 IBS | 0,3163 ->  7,91 CBS
-        assertTrue(xml.contains("<vIBSMonoRet>3.05</vIBSMonoRet>"),
-                "total de IBS retido: 1,59 + 0,58 + 0,88");
-        assertTrue(xml.contains("<vCBSMonoRet>27.36</vCBSMonoRet>"),
-                "total de CBS retido: 14,26 + 5,19 + 7,91");
+        // Na monofasia retida anteriormente a SEFAZ calcula o valor e rejeita (cStat 1240)
+        // quando o informado diverge. Com o grupo zerado a nota e autorizada.
+        assertEquals(3, contar(xml, "<vIBSMonoRet>0.00</vIBSMonoRet>"), "IBS retido sai zerado");
+        assertEquals(3, contar(xml, "<vCBSMonoRet>0.00</vCBSMonoRet>"), "CBS retido sai zerado");
+
+        // Consequencia: como nada acumula valor, o gMono dos totais nao e emitido.
+        // O XSD permite a ausencia (minOccurs=0) e a SEFAZ autorizou assim.
+        assertFalse(xml.contains("<gMono>"),
+                "sem valor monofasico acumulado, o gMono dos totais nao deve ser emitido");
     }
 
     private static int contar(String texto, String trecho) {
