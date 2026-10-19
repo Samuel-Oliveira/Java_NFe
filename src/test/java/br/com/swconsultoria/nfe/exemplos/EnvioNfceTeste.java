@@ -297,14 +297,16 @@ public class EnvioNfceTeste {
     /**
      * Ano de emissao, que define a modalidade da monofasia pela NT 2025.002-RTC:
      * 2026 IBS e CBS ad valorem; 2027-2028 IBS ad valorem e CBS ad rem; 2029 ambos
-     * ad rem. Pode ser trocado por -DanoEmissao=2027 para testar a transicao.
+     * ad rem. O -DanoEmissao=2027 move tambem o dhEmi, para que os dois nunca
+     * divirjam; serve para inspecionar o XML gerado, nao para enviar a SEFAZ, que
+     * rejeitaria pela data de emissao futura.
      */
     private static final int ANO_EMISSAO =
             Integer.parseInt(System.getProperty("anoEmissao", String.valueOf(java.time.LocalDate.now().getYear())));
 
     private static final String CST_IBSCBS = "620";
 
-    /** Preenchido por {@link #preencheDet()} e consumido por {@link #preencheTotal()}. */
+    /** Preenchido por {@link #preencheDet(int)} e consumido por {@link #preencheTotal()}. */
     private static IbsCbsUtil ibsCbsUtil;
 
 

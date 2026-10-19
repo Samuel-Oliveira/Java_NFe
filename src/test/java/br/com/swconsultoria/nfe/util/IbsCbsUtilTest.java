@@ -566,11 +566,11 @@ class IbsCbsUtilTest {
     }
 
     @Test
-    void deveMontarMonofasiaAdRemQuandoDesabilitadaPeloSetter() throws NfeException {
+    void deveMontarMonofasiaAdRemEm2029() throws NfeException {
         TMonofasia mono = calcularMono(false, true, false, false);
 
-        assertNotNull(mono.getGIBSMonoAdRem(), "setMonofasiaAdValorem(false) deve emitir gIBSMonoAdRem");
-        assertNotNull(mono.getGCBSMonoAdRem(), "setMonofasiaAdValorem(false) deve emitir gCBSMonoAdRem");
+        assertNotNull(mono.getGIBSMonoAdRem(), "em 2029 o IBS e ad rem");
+        assertNotNull(mono.getGCBSMonoAdRem(), "em 2029 a CBS e ad rem");
         assertNull(mono.getGIBSMonoAdValorem(), "ad valorem e ad rem não coexistem no mesmo eixo");
         assertNull(mono.getGCBSMonoAdValorem(), "ad valorem e ad rem não coexistem no mesmo eixo");
     }
