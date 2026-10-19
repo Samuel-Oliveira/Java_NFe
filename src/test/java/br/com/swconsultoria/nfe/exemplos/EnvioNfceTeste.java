@@ -317,8 +317,13 @@ public class EnvioNfceTeste {
         return montaEnviNFe(config, "10732644000128");
     }
 
-    /** O CNPJ precisa bater com o do certificado usado na assinatura. */
     static TEnviNFe montaEnviNFe(ConfiguracoesNfe config, String cnpj) throws Exception {
+        return montaEnviNFe(config, cnpj, ANO_EMISSAO);
+    }
+
+    /** O CNPJ precisa bater com o do certificado usado na assinatura. */
+    /** O ano define a modalidade da monofasia e precisa casar com o dhEmi da nota. */
+    static TEnviNFe montaEnviNFe(ConfiguracoesNfe config, String cnpj, int anoEmissao) throws Exception {
         //Informe o Numero da NFCe
         int numeroNFCe = Integer.parseInt(System.getProperty("numeroNFCe", "9511"));
         //Informe a data de Emissao da NFCe
@@ -351,7 +356,7 @@ public class EnvioNfceTeste {
         infNFe.setDest(preencheDestinatario());
 
         //Preenche os dados do Produto da NFCe e adiciona a Lista
-        infNFe.getDet().addAll(preencheDet());
+        infNFe.getDet().addAll(preencheDet(anoEmissao));
 
         //Preenche totais da NFCe
         infNFe.setTotal(preencheTotal());
@@ -375,10 +380,10 @@ public class EnvioNfceTeste {
         return Nfe.montaNfe(config, enviNFe, true);
     }
 
-    private static List<Det> preencheDet() throws NfeException, IOException {
+    private static List<Det> preencheDet(int anoEmissao) throws NfeException, IOException {
 
         ibsCbsUtil = new IbsCbsUtil(XmlNfeUtil.leXml("src/test/resources/ibscbs.json"), DocumentoEnum.NFCE);
-        ibsCbsUtil.setAnoEmissao(ANO_EMISSAO);
+        ibsCbsUtil.setAnoEmissao(anoEmissao);
 
         List<Det> itens = new ArrayList<>();
         int nItem = 1;

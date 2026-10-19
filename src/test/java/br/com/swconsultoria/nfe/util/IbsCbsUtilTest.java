@@ -474,6 +474,9 @@ class IbsCbsUtilTest {
         TNFe.InfNFe.Det.Prod prod = new TNFe.InfNFe.Det.Prod();
         prod.setVProd(vProd);
         prod.setQCom(qCom);
+        // qTrib e obrigatorio no XSD e e a base quantitativa da monofasia; aqui as duas
+        // unidades coincidem, que e o caso comum em combustivel (uCom = uTrib = litro)
+        prod.setQTrib(qCom);
         det.setProd(prod);
         det.setImposto(new TNFe.InfNFe.Det.Imposto());
         return det;
@@ -753,8 +756,11 @@ class IbsCbsUtilTest {
 
         assertEquals("12.34", mono.getGIBSMonoAdRem().getGMonoRet().getVIBSMonoRet());
         assertEquals("56.78", mono.getGCBSMonoAdRem().getGMonoRet().getVCBSMonoRet());
-        assertEquals("12.34", mono.getVTotIBSMonoItem());
-        assertEquals("56.78", mono.getVTotCBSMonoItem());
+
+        // UB105a-10 e UB105b-10: vTot*MonoItem = padrao + retencao, sem o retido
+        // anteriormente. Como so o gMonoRet foi emitido, os totais do item ficam zero.
+        assertEquals("0.00", mono.getVTotIBSMonoItem(), "o retido anteriormente nao entra no total do item");
+        assertEquals("0.00", mono.getVTotCBSMonoItem(), "o retido anteriormente nao entra no total do item");
     }
 
     @Test
@@ -789,8 +795,11 @@ class IbsCbsUtilTest {
 
         IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
         util.setAnoEmissao(2029);  // 2029: IBS e CBS ad rem
-        util.setAdRemIBS(new BigDecimal("0.1922"));   // EAC: R$ 0,1922 por litro
-        util.setAdRemCBS(new BigDecimal("0.1000"));
+        // adRemIBS e a aliquota do PRODUTO; o gpBioDiferenca usa a do BIOCOMBUSTIVEL,
+        // que e outra coluna da mesma tabela (UB89b-10). Informar so a do produto nao
+        // deve fazer a lib calcular o vIBSDiferenca.
+        util.setAdRemIBS(new BigDecimal("0.7925"));
+        util.setAdRemCBS(new BigDecimal("0.5000"));
         util.setQBCBioComb(new BigDecimal("50"));
 
         TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "1000.0000"))
@@ -799,10 +808,60 @@ class IbsCbsUtilTest {
         TMonofasia.GIBSMonoAdRem.GpBioDiferenca ibs = mono.getGIBSMonoAdRem().getGpBioDiferenca();
         assertNotNull(ibs, "IndPercentualDiferencaBioCombustivel=true deve emitir gpBioDiferenca");
         assertEquals("50.0000", ibs.getQBCBioComb());
-        assertEquals("9.61", ibs.getVIBSDiferenca(), "50 x 0,1922");
+        assertEquals("0.00", ibs.getVIBSDiferenca(), "sem a aliquota do biocombustivel nao se calcula");
 
         TMonofasia.GCBSMonoAdRem.GpBioDiferenca cbs = mono.getGCBSMonoAdRem().getGpBioDiferenca();
-        assertEquals("5.00", cbs.getVCBSDiferenca(), "50 x 0,1000");
+        assertEquals("0.00", cbs.getVCBSDiferenca(), "sem a aliquota do biocombustivel nao se calcula");
+    }
+
+    @Test
+    void deveUsarQuantidadeTributavelComoBaseDaMonofasiaENaoAComercial() throws NfeException {
+        // UB86a: "a BC em quantidade conforme unidade de medida estabelecida na
+        // legislacao", que e a de uTrib. Quando uCom != uTrib (ex.: venda em caixa,
+        // tributacao por litro) usar qCom erraria o imposto pelo fator de conversao,
+        // e sem rejeicao, porque UB86c-10 so confere a consistencia interna do grupo.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+
+        TNFe.InfNFe.Det det = criarDetMinimo("500.00", "2.0000");  // 2 caixas
+        det.getProd().setQTrib("24.0000");                          // de 12 litros cada
+
+        TMonofasia.GIBSMonoAdRem.GMonoPadrao padrao = util
+                .montaImpostosDet(CC_TRIB, det)
+                .getGIBSCBSMono().getGIBSMonoAdRem().getGMonoPadrao();
+
+        assertEquals("24.0000", padrao.getQBCMono(), "a base e a quantidade tributavel");
+        assertEquals("12.00", padrao.getVIBSMono(), "24 litros x 0,5000, nao 2 caixas");
+    }
+
+    @Test
+    void deveCalcularDiferencaDeBioComAAliquotaDoBiocombustivel() throws NfeException {
+        // UB89b-10: vIBSDiferenca = qBCBioComb x adRemIBSBioComb
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setIndPercentualDiferencaBioCombustivel(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.7925"));          // aliquota do produto: ignorada aqui
+        util.setAdRemIBSBioComb(new BigDecimal("0.1922"));   // EAC: R$ 0,1922 por litro
+        util.setAdRemCBSBioComb(new BigDecimal("0.1000"));
+        util.setQBCBioComb(new BigDecimal("50"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "1000.0000"))
+                .getGIBSCBSMono();
+
+        assertEquals("9.61", mono.getGIBSMonoAdRem().getGpBioDiferenca().getVIBSDiferenca(),
+                "50 x 0,1922, a aliquota do biocombustivel e nao a do produto");
+        assertEquals("5.00", mono.getGCBSMonoAdRem().getGpBioDiferenca().getVCBSDiferenca(),
+                "50 x 0,1000");
     }
 
     @Test

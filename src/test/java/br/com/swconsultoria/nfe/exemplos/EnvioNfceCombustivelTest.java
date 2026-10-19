@@ -31,7 +31,7 @@ class EnvioNfceCombustivelTest {
 
     @Test
     void deveMontarNfceDeCombustivelValidaContraOSchema() throws Exception {
-        String xml = XmlNfeUtil.objectToXml(EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO));
+        String xml = XmlNfeUtil.objectToXml(EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, 2026));
 
         String xsd = Paths.get("schemas", ServicosEnum.ENVIO.getXsd()).toString();
         assertTrue(new Validar().isValidXml(xsd, xml),
@@ -40,17 +40,19 @@ class EnvioNfceCombustivelTest {
 
     @Test
     void deveEmitirGrupoMonofasicoRetidoParaOsTresCombustiveis() throws Exception {
-        TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO);
+        TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, 2026);
         String xml = XmlNfeUtil.objectToXml(enviNFe);
 
         assertEquals(3, enviNFe.getNFe().get(0).getInfNFe().getDet().size(),
                 "a nota deve ter gasolina, etanol e diesel");
         assertEquals(3, contar(xml, "<gIBSCBSMono>"), "cada item deve ter o grupo monofasico");
-        // A SEFAZ-GO rejeita o grupo ad rem na monofasia (cStat 1219), validado em
-        // homologacao com 620001, 620002, 620004 e 620006
-        assertEquals(3, contar(xml, "<gIBSMonoAdValorem>"), "a SEFAZ so aceita monofasia ad valorem");
-        assertEquals(3, contar(xml, "<gCBSMonoAdValorem>"), "IBS e CBS sao eixos independentes");
-        assertEquals(0, contar(xml, "AdRem"), "o grupo ad rem e rejeitado com cStat 1219");
+        // Em 2026 os dois eixos sao ad valorem (NT 2025.002-RTC, UB85a-10 e UB95a-10).
+        // Informar ad rem neste ano e rejeitado com cStat 1219 (IBS) ou 1245 (CBS),
+        // confirmado em homologacao da SEFAZ-GO. A partir de 2027 a CBS passa a ad rem.
+        assertEquals(3, contar(xml, "<gIBSMonoAdValorem>"), "em 2026 o IBS e ad valorem");
+        assertEquals(3, contar(xml, "<gCBSMonoAdValorem>"), "em 2026 a CBS e ad valorem");
+        assertEquals(0, contar(xml, "<gIBSMonoAdRem>"), "ad rem do IBS so a partir de 2029");
+        assertEquals(0, contar(xml, "<gCBSMonoAdRem>"), "ad rem da CBS so a partir de 2027");
 
         // cClassTrib 620006 e monofasia retida anteriormente: so sai o gMonoRet
         assertEquals(0, contar(xml, "<gMonoPadrao>"), "620006 nao tem monofasia padrao");
@@ -63,7 +65,7 @@ class EnvioNfceCombustivelTest {
 
     @Test
     void naoDeveInformarValorNoRetidoAnteriormentePorqueASefazCalcula() throws Exception {
-        TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO);
+        TEnviNFe enviNFe = EnvioNfceTeste.montaEnviNFe(configuracoes(), CNPJ_CERTIFICADO, 2026);
         String xml = XmlNfeUtil.objectToXml(enviNFe);
 
         assertTrue(xml.contains("<IBSCBSTot>"), "os totais de IBS/CBS devem estar presentes");

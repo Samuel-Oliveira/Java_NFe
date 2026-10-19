@@ -203,6 +203,16 @@ public class IbsCbsUtil {
      */
     private BigDecimal vCBSDiferenca = null;
 
+    /**
+     * Alíquota ad rem do IBS sobre o biocombustível (adRemIBSBioComb), coluna própria
+     * da Tabela de Combustíveis Sujeitos à Tributação Monofásica. Não confundir com
+     * {@link #adRemIBS}, que é a alíquota do produto. Usada na regra UB89b-10.
+     */
+    private BigDecimal adRemIBSBioComb = null;
+
+    /** Equivalente da CBS (adRemCBSBioComb), regra UB99b-10. */
+    private BigDecimal adRemCBSBioComb = null;
+
     public void setAnoEmissao(int anoEmissao) {
         this.anoEmissao = anoEmissao;
     }
@@ -279,6 +289,14 @@ public class IbsCbsUtil {
 
     public void setVCBSDiferenca(BigDecimal vCBSDiferenca) {
         this.vCBSDiferenca = vCBSDiferenca;
+    }
+
+    public void setAdRemIBSBioComb(BigDecimal adRemIBSBioComb) {
+        this.adRemIBSBioComb = adRemIBSBioComb;
+    }
+
+    public void setAdRemCBSBioComb(BigDecimal adRemCBSBioComb) {
+        this.adRemCBSBioComb = adRemCBSBioComb;
     }
 
     public void setpAliqIbsUf(BigDecimal pAliqIbsUf) {
@@ -444,8 +462,13 @@ public class IbsCbsUtil {
      */
     private TMonofasia montaGrupoMono(TNFe.InfNFe.Det det) {
         TMonofasia gMono = new TMonofasia();
-        BigDecimal qCom = ObjetoUtil.getBigDecimalOrZero(det.getProd().getQCom());
-        BigDecimal qReten = qBCMonoReten != null ? qBCMonoReten : qCom;
+        // A NT usa a quantidade tributavel como base da monofasia: UB86a pede "a BC em
+        // quantidade conforme unidade de medida estabelecida na legislacao", que e a de
+        // uTrib, e as formulas de UB88a, UB93a e UB89a sao todas sobre qTrib. Usar qCom
+        // erraria o imposto pelo fator de conversao sempre que uCom != uTrib, e sem
+        // rejeicao, porque UB86c-10 so confere a consistencia interna do grupo.
+        BigDecimal qTrib = ObjetoUtil.getBigDecimalOrZero(det.getProd().getQTrib());
+        BigDecimal qReten = qBCMonoReten != null ? qBCMonoReten : qTrib;
         BigDecimal qBio = quantidadeBioDiferenca(det);
 
         BigDecimal totIBS;
@@ -455,16 +478,16 @@ public class IbsCbsUtil {
             gMono.setGIBSMonoAdValorem(montaIbsMonoAdValorem(baseCalculo, qBio));
             totIBS = totalIbsMonoAdValorem(baseCalculo);
         } else {
-            gMono.setGIBSMonoAdRem(montaIbsMonoAdRem(qCom, qReten, qBio));
-            totIBS = totalIbsMonoAdRem(qCom, qReten);
+            gMono.setGIBSMonoAdRem(montaIbsMonoAdRem(qTrib, qReten, qBio));
+            totIBS = totalIbsMonoAdRem(qTrib, qReten);
         }
 
         if (cbsAdValorem()) {
             gMono.setGCBSMonoAdValorem(montaCbsMonoAdValorem(baseCalculo, qBio));
             totCBS = totalCbsMonoAdValorem(baseCalculo);
         } else {
-            gMono.setGCBSMonoAdRem(montaCbsMonoAdRem(qCom, qReten, qBio));
-            totCBS = totalCbsMonoAdRem(qCom, qReten);
+            gMono.setGCBSMonoAdRem(montaCbsMonoAdRem(qTrib, qReten, qBio));
+            totCBS = totalCbsMonoAdRem(qTrib, qReten);
         }
 
         gMono.setVTotIBSMonoItem(ObjetoUtil.getValor2Casas(totIBS));
@@ -558,34 +581,48 @@ public class IbsCbsUtil {
     }
 
     /**
-     * Valor da diferença de biocombustível do IBS. Em ad rem a NT dá a fórmula
-     * (UB89b-10): vIBSDiferenca = qBCBioComb x adRemIBSBioComb. Em ad valorem a fórmula
-     * (UB94b-10) depende da Tabela de Valores de Referência, ainda não publicada, então
-     * apenas o valor informado é usado.
+     * Valor da diferença de biocombustível do IBS.
+     *
+     * Em ad rem a NT dá a fórmula (UB89b-10):
+     * {@code vIBSDiferenca = qBCBioComb x adRemIBSBioComb}. A alíquota é a do
+     * biocombustível, uma coluna própria da Tabela de Combustíveis Sujeitos à
+     * Tributação Monofásica — distinta de {@code adRemIBS} (alíquota do produto) e de
+     * {@code adRemIBSCombPetro}. Usar a do produto erraria o valor por ordens de
+     * grandeza e seria rejeitado com cStat 1227.
+     *
+     * Em ad valorem (UB94b-10) a fórmula depende também da Tabela de Valores de
+     * Referência. Nenhuma das duas tabelas foi publicada, então sem
+     * {@link #setAdRemIBSBioComb(BigDecimal)} o valor não é calculado.
      */
     private BigDecimal valorDiferencaBioIBS(BigDecimal qBio, boolean adValorem) {
         if (vIBSDiferenca != null) {
             return vIBSDiferenca;
         }
-        return adValorem ? BigDecimal.ZERO : valorAdRem(qBio, adRemIBS);
+        if (adValorem || adRemIBSBioComb == null) {
+            return BigDecimal.ZERO;
+        }
+        return valorAdRem(qBio, adRemIBSBioComb);
     }
 
-    /** Equivalente da CBS. */
+    /** Equivalente da CBS: regras UB99b-10 (ad rem) e UB104b-10 (ad valorem). */
     private BigDecimal valorDiferencaBioCBS(BigDecimal qBio, boolean adValorem) {
         if (vCBSDiferenca != null) {
             return vCBSDiferenca;
         }
-        return adValorem ? BigDecimal.ZERO : valorAdRem(qBio, adRemCBS);
+        if (adValorem || adRemCBSBioComb == null) {
+            return BigDecimal.ZERO;
+        }
+        return valorAdRem(qBio, adRemCBSBioComb);
     }
 
-    private TMonofasia.GIBSMonoAdRem montaIbsMonoAdRem(BigDecimal qCom, BigDecimal qReten, BigDecimal qBio) {
+    private TMonofasia.GIBSMonoAdRem montaIbsMonoAdRem(BigDecimal qTrib, BigDecimal qReten, BigDecimal qBio) {
         TMonofasia.GIBSMonoAdRem grupo = new TMonofasia.GIBSMonoAdRem();
 
         if (monoPadrao()) {
             TMonofasia.GIBSMonoAdRem.GMonoPadrao padrao = new TMonofasia.GIBSMonoAdRem.GMonoPadrao();
-            padrao.setQBCMono(ObjetoUtil.getValor4Casas(qCom));
+            padrao.setQBCMono(ObjetoUtil.getValor4Casas(qTrib));
             padrao.setAdRemIBS(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(adRemIBS)));
-            padrao.setVIBSMono(ObjetoUtil.getValor2Casas(valorAdRem(qCom, adRemIBS)));
+            padrao.setVIBSMono(ObjetoUtil.getValor2Casas(valorAdRem(qTrib, adRemIBS)));
             grupo.setGMonoPadrao(padrao);
         }
 
@@ -613,14 +650,14 @@ public class IbsCbsUtil {
         return temAlgumSubgrupo() ? grupo : null;
     }
 
-    private TMonofasia.GCBSMonoAdRem montaCbsMonoAdRem(BigDecimal qCom, BigDecimal qReten, BigDecimal qBio) {
+    private TMonofasia.GCBSMonoAdRem montaCbsMonoAdRem(BigDecimal qTrib, BigDecimal qReten, BigDecimal qBio) {
         TMonofasia.GCBSMonoAdRem grupo = new TMonofasia.GCBSMonoAdRem();
 
         if (monoPadrao()) {
             TMonofasia.GCBSMonoAdRem.GMonoPadrao padrao = new TMonofasia.GCBSMonoAdRem.GMonoPadrao();
-            padrao.setQBCMono(ObjetoUtil.getValor4Casas(qCom));
+            padrao.setQBCMono(ObjetoUtil.getValor4Casas(qTrib));
             padrao.setAdRemCBS(ObjetoUtil.getValor4Casas(ObjetoUtil.getOrZero(adRemCBS)));
-            padrao.setVCBSMono(ObjetoUtil.getValor2Casas(valorAdRem(qCom, adRemCBS)));
+            padrao.setVCBSMono(ObjetoUtil.getValor2Casas(valorAdRem(qTrib, adRemCBS)));
             grupo.setGMonoPadrao(padrao);
         }
 
@@ -735,24 +772,28 @@ public class IbsCbsUtil {
     private BigDecimal acumulaMono(String chavePadrao, BigDecimal vPadrao,
                                    String chaveReten, BigDecimal vReten,
                                    String chaveRet, BigDecimal vRet) {
+        // Os seis totais da nota sao tags separadas no gMono, entao os tres componentes
+        // sao acumulados. Ja o total do item soma apenas padrao e retencao: a NT
+        // (UB105a-10 e UB105b-10) define vTotIBSMonoItem = vIBSMono + vIBSMonoReten,
+        // sem o retido anteriormente. Incluir o vRet seria rejeitado com cStat 1070/1071.
         mapTotais.merge(chavePadrao, vPadrao, BigDecimal::add);
         mapTotais.merge(chaveReten, vReten, BigDecimal::add);
         mapTotais.merge(chaveRet, vRet, BigDecimal::add);
-        return vPadrao.add(vReten).add(vRet);
+        return vPadrao.add(vReten);
     }
 
-    private BigDecimal totalIbsMonoAdRem(BigDecimal qCom, BigDecimal qReten) {
+    private BigDecimal totalIbsMonoAdRem(BigDecimal qTrib, BigDecimal qReten) {
         return acumulaMono(
-                TOTAL_IBS_MONO, monoPadrao() ? valorAdRem(qCom, adRemIBS) : BigDecimal.ZERO,
+                TOTAL_IBS_MONO, monoPadrao() ? valorAdRem(qTrib, adRemIBS) : BigDecimal.ZERO,
                 TOTAL_IBS_MONO_RETEN, monoSujeitaRetencao()
                         ? valorAdRem(qReten, aliqRetenIBSAdRem()) : BigDecimal.ZERO,
                 TOTAL_IBS_MONO_RET, monoRetidaAnt()
                         ? ObjetoUtil.getOrZero(vIBSMonoRet) : BigDecimal.ZERO);
     }
 
-    private BigDecimal totalCbsMonoAdRem(BigDecimal qCom, BigDecimal qReten) {
+    private BigDecimal totalCbsMonoAdRem(BigDecimal qTrib, BigDecimal qReten) {
         return acumulaMono(
-                TOTAL_CBS_MONO, monoPadrao() ? valorAdRem(qCom, adRemCBS) : BigDecimal.ZERO,
+                TOTAL_CBS_MONO, monoPadrao() ? valorAdRem(qTrib, adRemCBS) : BigDecimal.ZERO,
                 TOTAL_CBS_MONO_RETEN, monoSujeitaRetencao()
                         ? valorAdRem(qReten, aliqRetenCBSAdRem()) : BigDecimal.ZERO,
                 TOTAL_CBS_MONO_RET, monoRetidaAnt()

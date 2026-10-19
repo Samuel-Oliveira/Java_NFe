@@ -44,6 +44,8 @@ class IbsCbsTest {
         String cclassTrib = "000001";
 
         IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE);
+        // O dhEmi do golden e de 2026; sem fixar, o teste quebra na virada do ano
+        ibsCbsUtil.setAnoEmissao(2026);
 
         for (TNFe.InfNFe.Det det : enviNFe.getNFe().get(0).getInfNFe().getDet()) {
             TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(cclassTrib, det);
@@ -67,6 +69,8 @@ class IbsCbsTest {
         String cclassTribRegular = "000001";
 
         IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE);
+        // O dhEmi do golden e de 2026; sem fixar, o teste quebra na virada do ano
+        ibsCbsUtil.setAnoEmissao(2026);
 
         for (TNFe.InfNFe.Det det : enviNFe.getNFe().get(0).getInfNFe().getDet()) {
             TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(cclassTrib, det, cclassTribRegular);
@@ -90,6 +94,8 @@ class IbsCbsTest {
         String cclassTrib = "620006";
 
         IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE);
+        // O dhEmi do golden e de 2026; sem fixar, o teste quebra na virada do ano
+        ibsCbsUtil.setAnoEmissao(2026);
 
         for (TNFe.InfNFe.Det det : enviNFe.getNFe().get(0).getInfNFe().getDet()) {
             TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(cclassTrib, det);
@@ -113,6 +119,8 @@ class IbsCbsTest {
         String cclassTrib = "515001";
 
         IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE);
+        // O dhEmi do golden e de 2026; sem fixar, o teste quebra na virada do ano
+        ibsCbsUtil.setAnoEmissao(2026);
 
         for (TNFe.InfNFe.Det det : enviNFe.getNFe().get(0).getInfNFe().getDet()) {
             ibsCbsUtil.setpAliqDiferimento(BigDecimal.valueOf(100));
