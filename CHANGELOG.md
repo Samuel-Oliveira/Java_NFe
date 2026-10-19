@@ -22,6 +22,15 @@
 - MUDANCA DE VALOR EMITIDO: vTotIBSMonoItem e vTotCBSMonoItem deixam de incluir o
   retido anteriormente, seguindo UB105a-10 e UB105b-10. Os totais da nota (gMono)
   continuam trazendo as tres parcelas em tags separadas
+- MUDANCA DE VALOR EMITIDO: vNFTot deixa de somar IBS e CBS em 2025 e 2026. A NT
+  2025.002-RTC define o vNFTot como a soma dos vItem (W60-10), e a Excecao 1 da
+  VB01-10 mantem o vItem igual ao valor do item nesses dois anos, sem acrescimo de
+  tributo. A partir de 2027 o vNFTot soma IBS, CBS e as parcelas padrao e de
+  retencao da monofasia. Quem emitia nota de 2025 ou 2026 informava vNFTot maior
+  que o devido
+- O vIS passa a entrar no vNFTot de 2027 em diante, lido do grupo IS do proprio
+  item. O ICMSTot nao tem campo de Imposto Seletivo, que tem grupo de total
+  proprio (ISTot, W33-10), portanto o vNF nunca o inclui
 - vIBSDiferenca e vCBSDiferenca passam a exigir setAdRemIBSBioComb/setAdRemCBSBioComb,
   a aliquota do biocombustivel, que e coluna propria da tabela e nao se confunde com
   a do produto (UB89b-10). Sem ela o valor nao e calculado: quem dependia do calculo

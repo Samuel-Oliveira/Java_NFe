@@ -20,6 +20,7 @@ public class IbsCbsUtil {
     private static final String TOTAL_IBS_UF = "TOTAL_IBS_UF";
     private static final String TOTAL_IBS_MUN = "TOTAL_IBS_MUN";
     private static final String TOTAL_CBS = "TOTAL_CBS";
+    private static final String TOTAL_IS = "TOTAL_IS";
     private static final String TOTAL_DIFERIMENTO_IBS_UF = "TOTAL_DIFERIMENTO_IBS_UF";
     private static final String TOTAL_DIFERIMENTO_IBS_MUN = "TOTAL_DIFERIMENTO_IBS_MUN";
     private static final String TOTAL_DIFERIMENTO_CBS = "TOTAL_DIFERIMENTO_CBS";
@@ -126,6 +127,12 @@ public class IbsCbsUtil {
 
     /** Ultimo ano em que a CBS monofasica e ad valorem (NT 2025.002-RTC, UB95a-10/20). */
     private static final int ULTIMO_ANO_CBS_AD_VALOREM = 2026;
+
+    /**
+     * Ultimo ano em que IBS, CBS, IS e os totais monofasicos nao entram no total do
+     * item nem no da nota (NT 2025.002-RTC, VB01-10 Excecao 1).
+     */
+    private static final int ULTIMO_ANO_SEM_TRIBUTO_NO_TOTAL = 2026;
 
     /**
      * Percentual obrigatório de biocombustível na mistura (pBioObrig), da tabela
@@ -389,6 +396,7 @@ public class IbsCbsUtil {
         mapTotais.put(TOTAL_IBS_UF, BigDecimal.ZERO);
         mapTotais.put(TOTAL_IBS_MUN, BigDecimal.ZERO);
         mapTotais.put(TOTAL_CBS, BigDecimal.ZERO);
+        mapTotais.put(TOTAL_IS, BigDecimal.ZERO);
         mapTotais.put(TOTAL_DIFERIMENTO_IBS_UF, BigDecimal.ZERO);
         mapTotais.put(TOTAL_DIFERIMENTO_IBS_MUN, BigDecimal.ZERO);
         mapTotais.put(TOTAL_DIFERIMENTO_CBS, BigDecimal.ZERO);
@@ -1093,13 +1101,44 @@ public class IbsCbsUtil {
                 .subtract(XmlImpostoUtil.getVFCPUFDest(impostos))
                 .subtract(XmlImpostoUtil.getVICMSMono(impostos))
                 .subtract(XmlImpostoUtil.getVISSQN(impostos));
+
+        mapTotais.merge(TOTAL_IS, XmlImpostoUtil.getVIS(impostos), BigDecimal::add);
     }
 
+    /**
+     * Valor total da nota com IBS/CBS/IS (vNFTot).
+     *
+     * A regra W60-10 define o vNFTot como a soma dos vItem, e o vItem (VB01-10) soma
+     * ao valor do produto o vIBS, o vCBS, o vIS e os totais monofásicos do item. Mas a
+     * Exceção 1 do VB01-10 manda <b>não somar nenhum deles em 2025 e 2026</b>, de modo
+     * que nesses anos o vNFTot coincide com o vNF.
+     *
+     * A partir de 2027 os tributos entram. Da monofasia entram as parcelas padrão e de
+     * retenção, as mesmas que compõem o vTotIBSMonoItem (UB105a-10); o retido
+     * anteriormente fica de fora, porque já foi cobrado na etapa anterior da cadeia.
+     *
+     * O vIS vem do grupo IS do próprio item, lido junto com a base de cálculo do
+     * IBS/CBS. O ICMSTot não tem campo de Imposto Seletivo, que tem grupo de total
+     * próprio (ISTot, W33-10), então o vNF recebido nunca o inclui.
+     *
+     * O ano vem de {@link #setAnoEmissao(int)} e precisa coincidir com o dhEmi da nota.
+     */
     public BigDecimal calculaVnfTot(String vnf) {
-        return new BigDecimal(vnf)
+        BigDecimal total = new BigDecimal(vnf);
+
+        if (anoEmissao <= ULTIMO_ANO_SEM_TRIBUTO_NO_TOTAL) {
+            return total;
+        }
+
+        return total
                 .add(mapTotais.getOrDefault(TOTAL_IBS_UF, BigDecimal.ZERO))
                 .add(mapTotais.getOrDefault(TOTAL_IBS_MUN, BigDecimal.ZERO))
-                .add(mapTotais.getOrDefault(TOTAL_CBS, BigDecimal.ZERO));
+                .add(mapTotais.getOrDefault(TOTAL_CBS, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_IS, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_IBS_MONO, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_CBS_MONO, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_IBS_MONO_RETEN, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_CBS_MONO_RETEN, BigDecimal.ZERO));
     }
 
     public TIBSCBSMonoTot preencheTotaisIbsCsb() {

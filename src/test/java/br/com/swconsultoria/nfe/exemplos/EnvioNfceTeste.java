@@ -556,7 +556,8 @@ public class EnvioNfceTeste {
         icmstot.setVNF(ObjetoUtil.getValor2Casas(vProd));
         total.setICMSTot(icmstot);
 
-        // Totais IBS/CBS: vNFTot soma o monofasico ao vNF, e IBSCBSTot traz o gMono
+        // Totais IBS/CBS: de 2027 em diante o vNFTot soma o monofasico ao vNF
+        // (VB01-10 Excecao 1); em 2025 e 2026 fica igual ao vNF. IBSCBSTot traz o gMono
         total.setVNFTot(ObjetoUtil.getValor2Casas(ibsCbsUtil.calculaVnfTot(icmstot.getVNF())));
         total.setIBSCBSTot(ibsCbsUtil.preencheTotaisIbsCsb());
 

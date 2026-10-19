@@ -871,6 +871,94 @@ class IbsCbsUtilTest {
     }
 
     @Test
+    void vnfTotNaoDeveSomarTributosEm2025E2026() throws NfeException {
+        // VB01-10 Excecao 1: em 2025 e 2026 o vItem nao soma vIBS, vCBS, vIS nem os
+        // totais monofasicos. Como o vNFTot e a soma dos vItem (W60-10), nesses anos
+        // ele coincide com o vNF.
+        for (int ano : new int[]{2025, 2026}) {
+            IbsCbsUtil util = utilComIbsCbs(ano);
+            util.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"));
+
+            assertEquals(0, new BigDecimal("1000.00").compareTo(util.calculaVnfTot("1000.00")),
+                    "em " + ano + " o vNFTot e igual ao vNF");
+        }
+    }
+
+    @Test
+    void vnfTotDeveSomarTributosAPartirDe2027() throws NfeException {
+        IbsCbsUtil util = utilComIbsCbs(2027);
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"));
+
+        // base 1000,00: IBS UF 10% = 100,00; IBS Mun 2% = 20,00; CBS 8% = 80,00
+        assertEquals(0, new BigDecimal("1200.00").compareTo(util.calculaVnfTot("1000.00")),
+                "a partir de 2027 o vNFTot soma IBS e CBS");
+    }
+
+    @Test
+    void vnfTotDeveSomarMonofasiaSemORetidoAnteriormente() throws NfeException {
+        // Da monofasia entram as parcelas que compoem o vTotIBSMonoItem (padrao e
+        // retencao). O retido anteriormente ja foi cobrado na etapa anterior.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        ct.setMonofasiaRetidaAnt(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.5000"));   // 10 x 0,5000 = 5,00
+        util.setAdRemCBS(new BigDecimal("0.2000"));   // 10 x 0,2000 = 2,00
+        util.setVIBSMonoRet(new BigDecimal("99.00")); // retido: nao entra
+        util.setVCBSMonoRet(new BigDecimal("77.00")); // retido: nao entra
+
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "10.0000"));
+
+        assertEquals(0, new BigDecimal("507.00").compareTo(util.calculaVnfTot("500.00")),
+                "500,00 + 5,00 + 2,00; os 176,00 retidos anteriormente ficam de fora");
+    }
+
+    @Test
+    void vnfTotNaoDeveSomarVisEm2026() throws NfeException {
+        // A Excecao 1 da VB01-10 cita o vIS junto com o vIBS e o vCBS
+        IbsCbsUtil util = utilComIbsCbs(2026);
+        TNFe.InfNFe.Det det = criarDetMinimo("1000.00", "1.0000");
+        adicionarIs(det, "50.00");
+        util.montaImpostosDet(CC_TRIB, det);
+
+        assertEquals(0, new BigDecimal("1000.00").compareTo(util.calculaVnfTot("1000.00")),
+                "em 2026 nem o vIS entra no vNFTot");
+    }
+
+    @Test
+    void vnfTotDeveSomarVisAPartirDe2027() throws NfeException {
+        // O ICMSTot nao tem campo de Imposto Seletivo: o IS tem grupo de total proprio
+        // (ISTot, W33-10), logo o vNF recebido nao o inclui e o vNFTot precisa soma-lo
+        IbsCbsUtil util = utilComIbsCbs(2027);
+        TNFe.InfNFe.Det det = criarDetMinimo("1000.00", "1.0000");
+        adicionarIs(det, "50.00");
+        util.montaImpostosDet(CC_TRIB, det);
+
+        // base 1050,00 (o vIS entra na BC do IBS/CBS): IBS UF 10% = 105,00;
+        // IBS Mun 2% = 21,00; CBS 8% = 84,00; mais o proprio vIS de 50,00
+        assertEquals(0, new BigDecimal("1260.00").compareTo(util.calculaVnfTot("1000.00")),
+                "a partir de 2027 o vNFTot soma IBS, CBS e IS");
+    }
+
+    /** IbsCbsUtil com um cClassTrib de IBS/CBS regular e aliquotas conhecidas. */
+    private IbsCbsUtil utilComIbsCbs(int ano) {
+        CstDTO cst = montarCst("TST", true, false, false, false, false, false);
+        cst.setClassificacoesTributarias(
+                Collections.singletonList(montarClassTrib(CC_TRIB, false, false, false)));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(ano);
+        util.setpAliqIbsUf(new BigDecimal("10"));
+        util.setpAliqIbsMun(new BigDecimal("2"));
+        util.setpAliqCbs(new BigDecimal("8"));
+        return util;
+    }
+
+    @Test
     void deveUsarQuantidadeTributavelComoBaseDaMonofasiaENaoAComercial() throws NfeException {
         // UB86a: "a BC em quantidade conforme unidade de medida estabelecida na
         // legislacao", que e a de uTrib. Quando uCom != uTrib (ex.: venda em caixa,
@@ -1095,6 +1183,12 @@ class IbsCbsUtilTest {
         icms70.setVICMSST("157.23");
         icms.setICMS70(icms70);
         det.getImposto().getContent().add(new ObjectFactory().createTNFeInfNFeDetImpostoICMS(icms));
+    }
+
+    private void adicionarIs(TNFe.InfNFe.Det det, String vIs) {
+        br.com.swconsultoria.nfe.schemas.TIS is = new br.com.swconsultoria.nfe.schemas.TIS();
+        is.setVIS(vIs);
+        det.getImposto().getContent().add(new ObjectFactory().createTNFeInfNFeDetImpostoIS(is));
     }
 
     private void adicionarPisCofins(TNFe.InfNFe.Det det, String vPis, String vCofins) {
