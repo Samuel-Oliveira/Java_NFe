@@ -128,6 +128,12 @@ public class IbsCbsUtil {
     private static final int ULTIMO_ANO_CBS_AD_VALOREM = 2026;
 
     /**
+     * Ultimo ano em que IBS, CBS, IS e os totais monofasicos nao entram no total do
+     * item nem no da nota (NT 2025.002-RTC, VB01-10 Excecao 1).
+     */
+    private static final int ULTIMO_ANO_SEM_TRIBUTO_NO_TOTAL = 2026;
+
+    /**
      * Percentual obrigatório de biocombustível na mistura (pBioObrig), da tabela
      * Índice de Mistura de Biocombustível, consultada pelo cProdANP do item.
      * Necessário para calcular o qBCBioComb do gpBioDiferenca (regras UB89a-10 e
@@ -1095,11 +1101,38 @@ public class IbsCbsUtil {
                 .subtract(XmlImpostoUtil.getVISSQN(impostos));
     }
 
+    /**
+     * Valor total da nota com IBS/CBS/IS (vNFTot).
+     *
+     * A regra W60-10 define o vNFTot como a soma dos vItem, e o vItem (VB01-10) soma
+     * ao valor do produto o vIBS, o vCBS, o vIS e os totais monofásicos do item. Mas a
+     * Exceção 1 do VB01-10 manda <b>não somar nenhum deles em 2025 e 2026</b>, de modo
+     * que nesses anos o vNFTot coincide com o vNF.
+     *
+     * A partir de 2027 os tributos entram. Da monofasia entram as parcelas padrão e de
+     * retenção, as mesmas que compõem o vTotIBSMonoItem (UB105a-10); o retido
+     * anteriormente fica de fora, porque já foi cobrado na etapa anterior da cadeia.
+     *
+     * O IS não é somado aqui: esta classe não o calcula. Quem emitir documento com
+     * Imposto Seletivo precisa acrescentá-lo ao resultado a partir de 2027.
+     *
+     * O ano vem de {@link #setAnoEmissao(int)} e precisa coincidir com o dhEmi da nota.
+     */
     public BigDecimal calculaVnfTot(String vnf) {
-        return new BigDecimal(vnf)
+        BigDecimal total = new BigDecimal(vnf);
+
+        if (anoEmissao <= ULTIMO_ANO_SEM_TRIBUTO_NO_TOTAL) {
+            return total;
+        }
+
+        return total
                 .add(mapTotais.getOrDefault(TOTAL_IBS_UF, BigDecimal.ZERO))
                 .add(mapTotais.getOrDefault(TOTAL_IBS_MUN, BigDecimal.ZERO))
-                .add(mapTotais.getOrDefault(TOTAL_CBS, BigDecimal.ZERO));
+                .add(mapTotais.getOrDefault(TOTAL_CBS, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_IBS_MONO, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_CBS_MONO, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_IBS_MONO_RETEN, BigDecimal.ZERO))
+                .add(mapTotais.getOrDefault(TOTAL_CBS_MONO_RETEN, BigDecimal.ZERO));
     }
 
     public TIBSCBSMonoTot preencheTotaisIbsCsb() {
