@@ -944,6 +944,86 @@ class IbsCbsUtilTest {
                 "a partir de 2027 o vNFTot soma IBS, CBS e IS");
     }
 
+    // -------------------------------------------------------------------------
+    // Ano de emissao derivado do dhEmi
+    // -------------------------------------------------------------------------
+
+    @Test
+    void deveDerivarOAnoDoDhEmiParaDecidirOVnfTot() throws NfeException {
+        // o dhEmi e o campo pelo qual a SEFAZ valida: derivar dele impede que o ano
+        // do calculo divirja do que vai no XML
+        IbsCbsUtil de2026 = utilComIbsCbs("2026-12-30T23:59:59-03:00");
+        de2026.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"));
+        assertEquals(0, new BigDecimal("1000.00").compareTo(de2026.calculaVnfTot("1000.00")),
+                "nota de 2026 nao soma tributo no total, mesmo montada depois da virada");
+
+        IbsCbsUtil de2027 = utilComIbsCbs("2027-01-01T00:00:01-03:00");
+        de2027.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"));
+        assertEquals(0, new BigDecimal("1200.00").compareTo(de2027.calculaVnfTot("1000.00")),
+                "nota de 2027 soma IBS e CBS");
+    }
+
+    @Test
+    void deveDerivarOAnoDoDhEmiParaDecidirAModalidadeDaMonofasia() throws NfeException {
+        // UB85a/UB95a: em 2026 as duas modalidades sao ad valorem; de 2029 ad rem
+        assertNotNull(monofasiaComDhEmi("2026-06-15T10:00:00-03:00").getGIBSMonoAdValorem(),
+                "nota de 2026 sai ad valorem");
+        assertNotNull(monofasiaComDhEmi("2029-06-15T10:00:00-03:00").getGIBSMonoAdRem(),
+                "nota de 2029 sai ad rem");
+    }
+
+    @Test
+    void deveAceitarODhEmiNoFormatoDoSchemaComQualquerFuso() throws NfeException {
+        // o TDateTimeUTC admite de -00:00 a -11:00 e ate +12:00; o ano e o do campo,
+        // nao o do instante convertido para o fuso local
+        IbsCbsUtil util = utilComIbsCbs("2027-01-01T00:00:00+12:00");
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"));
+
+        assertEquals(0, new BigDecimal("1200.00").compareTo(util.calculaVnfTot("1000.00")),
+                "o ano vem do proprio dhEmi, sem reinterpretar o fuso");
+    }
+
+    @Test
+    void deveRecusarDhEmiAusenteOuForaDoFormatoDoSchema() {
+        for (String invalido : new String[]{null, "", "   ", "2026-01-12", "12/01/2026",
+                "2026-01-12T11:27:13", "ontem"}) {
+            NfeException e = assertThrows(NfeException.class,
+                    () -> utilComIbsCbs(invalido),
+                    "dhEmi '" + invalido + "' tem de ser recusado, nao cair no relogio da maquina");
+            assertTrue(e.getMessage().contains("dhEmi"),
+                    "a mensagem precisa dizer qual campo esta errado: " + e.getMessage());
+        }
+    }
+
+    /** gIBSCBSMono de um item monofasico com o dhEmi informado. */
+    private TMonofasia monofasiaComDhEmi(String dhEmi) throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE, dhEmi);
+        util.setPAliqMonoUF(new BigDecimal("10"));
+        util.setPAliqMonoCBS(new BigDecimal("8"));
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+        util.setAdRemCBS(new BigDecimal("0.2000"));
+
+        return util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "10.0000")).getGIBSCBSMono();
+    }
+
+    /** Como {@link #utilComIbsCbs(int)}, mas com o ano vindo do dhEmi. */
+    private IbsCbsUtil utilComIbsCbs(String dhEmi) throws NfeException {
+        CstDTO cst = montarCst("TST", true, false, false, false, false, false);
+        cst.setClassificacoesTributarias(
+                Collections.singletonList(montarClassTrib(CC_TRIB, false, false, false)));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE, dhEmi);
+        util.setpAliqIbsUf(new BigDecimal("10"));
+        util.setpAliqIbsMun(new BigDecimal("2"));
+        util.setpAliqCbs(new BigDecimal("8"));
+        return util;
+    }
+
     /** IbsCbsUtil com um cClassTrib de IBS/CBS regular e aliquotas conhecidas. */
     private IbsCbsUtil utilComIbsCbs(int ano) {
         CstDTO cst = montarCst("TST", true, false, false, false, false, false);

@@ -12,6 +12,8 @@ import lombok.NonNull;
 import javax.xml.bind.JAXBElement;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class IbsCbsUtil {
@@ -118,7 +120,10 @@ public class IbsCbsUtil {
      * O valor precisa coincidir com o ano do dhEmi da nota, porque é por ele que a
      * SEFAZ valida. Verificado em homologação da SEFAZ-GO: uma nota com dhEmi em 2026
      * e grupos montados para 2027 é rejeitada com cStat 1259, e para 2029 com 1219.
-     * Por padrão usa o ano corrente, que é o correto quando a nota é emitida hoje.
+     * Prefira {@link #setDhEmi(String)} ou os construtores que recebem o dhEmi: assim
+     * o ano sai do próprio campo que vai no XML e não tem como divergir dele. O padrão
+     * é o ano corrente, correto só enquanto a nota é montada no mesmo ano em que é
+     * emitida — uma nota de 31/12 montada em 01/01 sai com o ano errado.
      */
     private int anoEmissao = java.time.LocalDate.now().getYear();
 
@@ -221,8 +226,46 @@ public class IbsCbsUtil {
     /** Equivalente da CBS (adRemCBSBioComb), regra UB99b-10. */
     private BigDecimal adRemCBSBioComb = null;
 
+    /**
+     * Ano de emissão informado direto. Use quando não tiver o dhEmi em mãos; havendo
+     * o dhEmi, {@link #setDhEmi(String)} é mais seguro, porque não deixa o ano
+     * divergir do documento.
+     */
     public void setAnoEmissao(int anoEmissao) {
         this.anoEmissao = anoEmissao;
+    }
+
+    /**
+     * Deriva o ano de emissão do dhEmi da própria nota, que é o campo pelo qual a
+     * SEFAZ valida a modalidade da monofasia e o conteúdo do vNFTot. Passando
+     * {@code infNFe.getIde().getDhEmi()} os dois não têm como divergir.
+     *
+     * @param dhEmi data e hora de emissão no formato TDateTimeUTC do Schema
+     *              (AAAA-MM-DDThh:mm:ssTZD), como está em ide/dhEmi.
+     *              Ex.: {@code 2026-01-12T11:27:13-03:00}
+     * @throws NfeException se o valor for nulo, vazio ou não estiver nesse formato.
+     *                      Não cai silenciosamente no relógio da máquina, porque o
+     *                      ano decide valor emitido em documento fiscal
+     */
+    public void setDhEmi(String dhEmi) throws NfeException {
+        this.anoEmissao = extraiAnoEmissao(dhEmi);
+    }
+
+    /**
+     * O Schema exige o deslocamento de fuso no dhEmi (TDateTimeUTC), por isso o valor
+     * é lido como {@link OffsetDateTime} e não como data local.
+     */
+    private static int extraiAnoEmissao(String dhEmi) throws NfeException {
+        if (dhEmi == null || dhEmi.trim().isEmpty()) {
+            throw new NfeException("dhEmi nao informado: passe o valor de ide/dhEmi "
+                    + "ou use setAnoEmissao para informar o ano direto");
+        }
+        try {
+            return OffsetDateTime.parse(dhEmi.trim()).getYear();
+        } catch (DateTimeParseException e) {
+            throw new NfeException("dhEmi '" + dhEmi + "' fora do formato TDateTimeUTC "
+                    + "do Schema (AAAA-MM-DDThh:mm:ssTZD, ex.: 2026-01-12T11:27:13-03:00)", e);
+        }
     }
 
     public void setPBioObrig(BigDecimal pBioObrig) {
@@ -389,6 +432,26 @@ public class IbsCbsUtil {
         this.listaCstIbsCbs = ConsultaTributacao.convertJsonToObject(json, new TypeReference<List<CstDTO>>() {});
         this.documento = documento;
         inicializarTotais();
+    }
+
+    /**
+     * Como {@link #IbsCbsUtil(List, DocumentoEnum)}, derivando o ano de emissão do
+     * dhEmi da nota. Ver {@link #setDhEmi(String)}.
+     */
+    public IbsCbsUtil(@NonNull List<CstDTO> listaCstIbsCbs, @NonNull DocumentoEnum documento,
+                      String dhEmi) throws NfeException {
+        this(listaCstIbsCbs, documento);
+        setDhEmi(dhEmi);
+    }
+
+    /**
+     * Como {@link #IbsCbsUtil(String, DocumentoEnum)}, derivando o ano de emissão do
+     * dhEmi da nota. Ver {@link #setDhEmi(String)}.
+     */
+    public IbsCbsUtil(@NonNull String json, @NonNull DocumentoEnum documento,
+                      String dhEmi) throws NfeException {
+        this(json, documento);
+        setDhEmi(dhEmi);
     }
 
     private void inicializarTotais() {
@@ -1121,7 +1184,7 @@ public class IbsCbsUtil {
      * IBS/CBS. O ICMSTot não tem campo de Imposto Seletivo, que tem grupo de total
      * próprio (ISTot, W33-10), então o vNF recebido nunca o inclui.
      *
-     * O ano vem de {@link #setAnoEmissao(int)} e precisa coincidir com o dhEmi da nota.
+     * O ano decide, e precisa ser o do dhEmi da nota: informe por {@link #setDhEmi(String)}.
      */
     public BigDecimal calculaVnfTot(String vnf) {
         BigDecimal total = new BigDecimal(vnf);

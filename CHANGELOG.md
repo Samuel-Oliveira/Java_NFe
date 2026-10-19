@@ -31,6 +31,14 @@
 - O vIS passa a entrar no vNFTot de 2027 em diante, lido do grupo IS do proprio
   item. O ICMSTot nao tem campo de Imposto Seletivo, que tem grupo de total
   proprio (ISTot, W33-10), portanto o vNF nunca o inclui
+- IbsCbsUtil passa a derivar o ano de emissao do dhEmi da propria nota, por
+  setDhEmi(String) ou pelos construtores que recebem o dhEmi. O ano governa a
+  modalidade da monofasia e o conteudo do vNFTot, e a SEFAZ valida os dois pelo
+  dhEmi: derivando dele nao ha como divergir. O default pelo relogio da maquina
+  continua, mas erra a nota montada do outro lado da virada do ano (dhEmi de
+  31/12 montado em 01/01). dhEmi nulo, vazio ou fora do formato TDateTimeUTC do
+  Schema lanca NfeException em vez de cair no relogio. Mudanca aditiva:
+  setAnoEmissao(int) continua valendo
 - vIBSDiferenca e vCBSDiferenca passam a exigir setAdRemIBSBioComb/setAdRemCBSBioComb,
   a aliquota do biocombustivel, que e coluna propria da tabela e nao se confunde com
   a do produto (UB89b-10). Sem ela o valor nao e calculado: quem dependia do calculo
