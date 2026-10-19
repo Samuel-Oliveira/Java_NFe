@@ -10,8 +10,7 @@
 - A modalidade da monofasia passa a ser derivada do ano de emissao, conforme a
   tabela de transicao da NT 2025.002-RTC (regras UB85a e UB95a): em 2026 IBS e CBS
   sao ad valorem; em 2027 e 2028 o IBS continua ad valorem e a CBS passa a ad rem;
-  de 2029 ambos sao ad rem. Use IbsCbsUtil.setAnoEmissao quando o dhEmi da nota nao
-  for do ano corrente
+  de 2029 ambos sao ad rem. O ano sai do dhEmi da nota: ver IbsCbsUtil.setDhEmi
 - Calculado o qBCBioComb do gpBioDiferenca pela formula da NT (UB89a-10/UB94a-10),
   a partir do pBio do item e do pBioObrig informado em IbsCbsUtil.setPBioObrig
 - MUDANCA DE VALOR EMITIDO: qBCMono e qBCMonoReten passam a usar a quantidade
@@ -31,6 +30,15 @@
 - O vIS passa a entrar no vNFTot de 2027 em diante, lido do grupo IS do proprio
   item. O ICMSTot nao tem campo de Imposto Seletivo, que tem grupo de total
   proprio (ISTot, W33-10), portanto o vNF nunca o inclui
+- IbsCbsUtil passa a derivar o ano de emissao do dhEmi da propria nota, por
+  setDhEmi(String) ou pelos construtores que recebem o dhEmi. O ano governa a
+  modalidade da monofasia e o conteudo do vNFTot, e a SEFAZ valida os dois pelo
+  dhEmi: derivando dele nao ha como divergir. O default pelo relogio da maquina
+  continua, mas erra a nota montada do outro lado da virada do ano (dhEmi de
+  31/12 montado em 01/01). O valor e validado contra o formato TDateTimeUTC do
+  Schema -- ano 20XX, segundos obrigatorios, deslocamento de fuso explicito de
+  -11:00 a +12:00 -- e nulo, vazio ou fora do formato lanca NfeException em vez de
+  cair no relogio. Mudanca aditiva: setAnoEmissao(int) continua valendo
 - vIBSDiferenca e vCBSDiferenca passam a exigir setAdRemIBSBioComb/setAdRemCBSBioComb,
   a aliquota do biocombustivel, que e coluna propria da tabela e nao se confunde com
   a do produto (UB89b-10). Sem ela o valor nao e calculado: quem dependia do calculo
