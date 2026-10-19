@@ -181,6 +181,17 @@ class IbsCbsTest {
         return Nfe.montaNfe(config, enviNFe, false);
     }
 
+    /**
+     * Os goldens acima esperam vNFTot sem IBS/CBS, o que so vale ate 2026 (VB01-10
+     * Excecao 1). Se o dhEmi do fixture mudar de ano, os quatro falham com diff de
+     * bytes; este falha antes, dizendo o motivo.
+     */
+    @Test
+    void oFixtureDosGoldensDeveSerDeAnoSemTributoNoTotal() throws Exception {
+        assertEquals("2026", dhEmi(getEnviNFe()).substring(0, 4),
+                "os goldens assumem nota de 2026");
+    }
+
     private static String dhEmi(TEnviNFe enviNFe) {
         return enviNFe.getNFe().get(0).getInfNFe().getIde().getDhEmi();
     }

@@ -974,7 +974,8 @@ class IbsCbsUtilTest {
 
     @Test
     void deveAceitarODhEmiNoFormatoDoSchemaComQualquerFuso() throws NfeException {
-        // o TDateTimeUTC admite de -00:00 a -11:00 e ate +12:00; o ano e o do campo,
+        // o TDateTimeUTC admite de 00:00 a 11:00 nos dois sinais, mais +12:00, e
+        // recusa -12:00. O ano e o do campo,
         // nao o do instante convertido para o fuso local
         IbsCbsUtil util = utilComIbsCbs("2027-01-01T00:00:00+12:00");
         util.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"));
@@ -984,9 +985,33 @@ class IbsCbsUtilTest {
     }
 
     @Test
+    void deveAceitarTodosOsFusosQueOSchemaPermite() throws NfeException {
+        // apertar a validacao nao pode recusar valor que o Schema aceita: o pattern
+        // vai de 00:00 a 11:00 nos dois sinais, e +12:00 no positivo
+        for (String fuso : new String[]{"-00:00", "+00:00", "-03:00", "-11:00",
+                "+11:00", "+12:00"}) {
+            IbsCbsUtil util = utilComIbsCbs("2027-06-15T10:00:00" + fuso);
+            util.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"));
+
+            assertEquals(0, new BigDecimal("1200.00").compareTo(util.calculaVnfTot("1000.00")),
+                    "fuso " + fuso + " e valido no Schema e tem de ser aceito");
+        }
+    }
+
+    @Test
     void deveRecusarDhEmiAusenteOuForaDoFormatoDoSchema() {
         for (String invalido : new String[]{null, "", "   ", "2026-01-12", "12/01/2026",
-                "2026-01-12T11:27:13", "ontem"}) {
+                "2026-01-12T11:27:13", "ontem",
+                // o Schema exige deslocamento explicito ±hh:00: nao aceita Z nem meia hora
+                "2026-01-12T11:27:13Z", "2026-01-12T11:27:13-03:30",
+                // fora da faixa de fuso do pattern (de -11:00 a +12:00)
+                "2026-01-12T11:27:13-12:00", "2026-01-12T11:27:13+13:00",
+                // segundos obrigatorios, fracao de segundo nao prevista, T maiusculo
+                "2026-01-12T11:27-03:00", "2026-01-12T11:27:13.500-03:00",
+                "2026-01-12t11:27:13-03:00",
+                // o pattern so admite ano 20XX: um ano de outro seculo nao pode virar
+                // anoEmissao e deixar o vNFTot sair sem tributo
+                "1999-01-12T11:27:13-03:00"}) {
             NfeException e = assertThrows(NfeException.class,
                     () -> utilComIbsCbs(invalido),
                     "dhEmi '" + invalido + "' tem de ser recusado, nao cair no relogio da maquina");

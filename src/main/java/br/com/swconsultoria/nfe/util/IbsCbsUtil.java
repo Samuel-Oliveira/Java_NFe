@@ -15,6 +15,7 @@ import java.math.RoundingMode;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class IbsCbsUtil {
 
@@ -252,20 +253,44 @@ public class IbsCbsUtil {
     }
 
     /**
-     * O Schema exige o deslocamento de fuso no dhEmi (TDateTimeUTC), por isso o valor
-     * é lido como {@link OffsetDateTime} e não como data local.
+     * Formato do TDateTimeUTC: ano 20XX, segundos obrigatórios, sem fração de segundo
+     * e com deslocamento de fuso explícito de -11:00 a +12:00. Escrito à mão, e não
+     * copiado do xs:pattern de tiposBasico_v4.00.xsd, porque aquele traz duas vírgulas
+     * dentro de classes de caractere (uma em [-,+] e outra em 0[1,3-9]) que fazem
+     * passar coisas como {@code 2026-01-12T11:27:13,03:00}.
+     *
+     * A validade do calendário em si (31/02, hora 25) fica para o parse.
+     */
+    private static final Pattern FORMATO_DH_EMI = Pattern.compile(
+            "20[0-9]{2}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}([+-](0[0-9]|1[01]):00|[+]12:00)");
+
+    /**
+     * O Schema exige o deslocamento de fuso no dhEmi (TDateTimeUTC), por isso o ano é
+     * o do próprio campo: o valor é lido como {@link OffsetDateTime}, e não convertido
+     * para o fuso local, que mudaria o ano de uma emissão perto da virada.
+     *
+     * Espaço em branco nas pontas é tolerado, embora o Schema não o aceite, porque não
+     * muda o ano e o campo costuma vir de leitura de arquivo.
      */
     private static int extraiAnoEmissao(String dhEmi) throws NfeException {
         if (dhEmi == null || dhEmi.trim().isEmpty()) {
             throw new NfeException("dhEmi nao informado: passe o valor de ide/dhEmi "
                     + "ou use setAnoEmissao para informar o ano direto");
         }
-        try {
-            return OffsetDateTime.parse(dhEmi.trim()).getYear();
-        } catch (DateTimeParseException e) {
-            throw new NfeException("dhEmi '" + dhEmi + "' fora do formato TDateTimeUTC "
-                    + "do Schema (AAAA-MM-DDThh:mm:ssTZD, ex.: 2026-01-12T11:27:13-03:00)", e);
+        String valor = dhEmi.trim();
+        if (!FORMATO_DH_EMI.matcher(valor).matches()) {
+            throw new NfeException(mensagemFormato(dhEmi));
         }
+        try {
+            return OffsetDateTime.parse(valor).getYear();
+        } catch (DateTimeParseException e) {
+            throw new NfeException(mensagemFormato(dhEmi), e);
+        }
+    }
+
+    private static String mensagemFormato(String dhEmi) {
+        return "dhEmi '" + dhEmi + "' fora do formato TDateTimeUTC do Schema "
+                + "(AAAA-MM-DDThh:mm:ssTZD, ex.: 2026-01-12T11:27:13-03:00)";
     }
 
     public void setPBioObrig(BigDecimal pBioObrig) {
