@@ -111,6 +111,29 @@ public class ClassificacaoTributariaDTO implements Serializable {
     @JsonProperty("IndDERE")
     private Boolean indDERE;
 
+    @JsonProperty("IndDIR")
+    private Boolean indDIR;
+
+    @JsonProperty("IndDUIMP")
+    private Boolean indDUIMP;
+
+    /**
+     * Mistura de EAC com gasolina A em percentual inferior ou superior ao obrigatório.
+     * Aciona o grupo gpBioDiferenca da monofasia.
+     */
+    @JsonProperty("IndPercentualDiferencaBioCombustivel")
+    private Boolean indPercentualDiferencaBioCombustivel;
+
+    @JsonProperty("TipoDoacao")
+    private String tipoDoacao;
+
+    @JsonProperty("TipoReceitaBrutaSN")
+    private String tipoReceitaBrutaSN;
+
+    /**
+     * Não é publicado pela SEFAZ na tabela de cClassTrib: preencher manualmente
+     * quando a operação for compra governamental.
+     */
     @JsonProperty("IndCompraGov")
     private Boolean indCompraGov;
 

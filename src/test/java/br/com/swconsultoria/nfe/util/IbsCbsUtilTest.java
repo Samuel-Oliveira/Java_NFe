@@ -474,6 +474,9 @@ class IbsCbsUtilTest {
         TNFe.InfNFe.Det.Prod prod = new TNFe.InfNFe.Det.Prod();
         prod.setVProd(vProd);
         prod.setQCom(qCom);
+        // qTrib e obrigatorio no XSD e e a base quantitativa da monofasia; aqui as duas
+        // unidades coincidem, que e o caso comum em combustivel (uCom = uTrib = litro)
+        prod.setQTrib(qCom);
         det.setProd(prod);
         det.setImposto(new TNFe.InfNFe.Det.Imposto());
         return det;
@@ -502,27 +505,74 @@ class IbsCbsUtilTest {
     // -------------------------------------------------------------------------
 
     @Test
-    void deveMontarMonofasiaAdRemPorPadraoComGruposIbsECbsSeparados() throws NfeException {
-        TMonofasia mono = calcularMono(false, true, false, false);
+    void deveMontarMonofasiaAdValoremEm2026ComGruposIbsECbsSeparados() throws NfeException {
+        // Em 2026 os dois eixos sao ad valorem (UB85a-10 e UB95a-10); informar ad rem
+        // e rejeitado com cStat 1219 (IBS) ou 1245 (CBS). O ano e fixado para o teste
+        // nao depender do relogio: a partir de 2027 a CBS passa a ad rem.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
 
-        assertNotNull(mono.getGIBSMonoAdRem(), "ad rem é o padrão: gIBSMonoAdRem deve ser emitido");
-        assertNotNull(mono.getGCBSMonoAdRem(), "IBS e CBS são eixos independentes: ambos emitidos");
-        assertNull(mono.getGIBSMonoAdValorem(), "as duas modalidades do mesmo eixo são exclusivas");
-        assertNull(mono.getGCBSMonoAdValorem(), "as duas modalidades do mesmo eixo são exclusivas");
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2026);
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("100.00", "1.0000"))
+                .getGIBSCBSMono();
 
-        assertNotNull(mono.getGIBSMonoAdRem().getGMonoPadrao(), "MonofasiaPadrao=true deve emitir gMonoPadrao");
-        assertNull(mono.getGIBSMonoAdRem().getGMonoRet(), "RetidaAnt=false não deve emitir gMonoRet");
-        assertNull(mono.getGIBSMonoAdRem().getGMonoReten(), "SujeitaRetencao=false não deve emitir gMonoReten");
+        assertNotNull(mono.getGIBSMonoAdValorem(), "ad valorem e o padrao: gIBSMonoAdValorem deve ser emitido");
+        assertNotNull(mono.getGCBSMonoAdValorem(), "IBS e CBS são eixos independentes: ambos emitidos");
+        assertNull(mono.getGIBSMonoAdRem(), "as duas modalidades do mesmo eixo são exclusivas");
+        assertNull(mono.getGCBSMonoAdRem(), "as duas modalidades do mesmo eixo são exclusivas");
+
+        assertNotNull(mono.getGIBSMonoAdValorem().getGMonoPadrao(), "MonofasiaPadrao=true deve emitir gMonoPadrao");
+        assertNull(mono.getGIBSMonoAdValorem().getGMonoRet(), "RetidaAnt=false não deve emitir gMonoRet");
+        assertNull(mono.getGIBSMonoAdValorem().getGMonoReten(), "SujeitaRetencao=false não deve emitir gMonoReten");
     }
 
     @Test
-    void deveMontarMonofasiaAdValoremQuandoHabilitadaPeloSetter() throws NfeException {
-        TMonofasia mono = calcularMono(true, true, false, false);
+    void deveUsarModalidadesDiferentesPorEixoEntre2027E2028() throws NfeException {
+        // NT 2025.002-RTC: em 2027 e 2028 o IBS ainda e ad valorem enquanto a CBS
+        // ja e ad rem. Informar errado gera cStat 1219/1220 (IBS) ou 1245/1246 (CBS).
+        for (int ano : new int[]{2027, 2028}) {
+            TMonofasia mono = calcularMonoNoAno(ano);
 
-        assertNotNull(mono.getGIBSMonoAdValorem(), "setMonofasiaAdValorem(true) deve emitir gIBSMonoAdValorem");
-        assertNotNull(mono.getGCBSMonoAdValorem(), "setMonofasiaAdValorem(true) deve emitir gCBSMonoAdValorem");
-        assertNull(mono.getGIBSMonoAdRem(), "ad valorem e ad rem não coexistem no mesmo eixo");
-        assertNull(mono.getGCBSMonoAdRem(), "ad valorem e ad rem não coexistem no mesmo eixo");
+            assertNotNull(mono.getGIBSMonoAdValorem(), "em " + ano + " o IBS e ad valorem");
+            assertNull(mono.getGIBSMonoAdRem(), "em " + ano + " o IBS nao pode ser ad rem");
+            assertNotNull(mono.getGCBSMonoAdRem(), "em " + ano + " a CBS ja e ad rem");
+            assertNull(mono.getGCBSMonoAdValorem(), "em " + ano + " a CBS nao pode ser ad valorem");
+        }
+    }
+
+    @Test
+    void deveSeguirATabelaDeTransicaoDaNtEmCadaAno() throws NfeException {
+        TMonofasia em2026 = calcularMonoNoAno(2026);
+        assertNotNull(em2026.getGIBSMonoAdValorem(), "2026: IBS ad valorem");
+        assertNotNull(em2026.getGCBSMonoAdValorem(), "2026: CBS ad valorem");
+
+        TMonofasia em2029 = calcularMonoNoAno(2029);
+        assertNotNull(em2029.getGIBSMonoAdRem(), "2029: IBS ad rem");
+        assertNotNull(em2029.getGCBSMonoAdRem(), "2029: CBS ad rem");
+    }
+
+    private TMonofasia calcularMonoNoAno(int ano) throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(ano);
+        return util.montaImpostosDet(CC_TRIB, criarDetMinimo("100.00", "1.0000")).getGIBSCBSMono();
+    }
+
+    @Test
+    void deveMontarMonofasiaAdRemEm2029() throws NfeException {
+        TMonofasia mono = calcularMono(false, true, false, false);
+
+        assertNotNull(mono.getGIBSMonoAdRem(), "em 2029 o IBS e ad rem");
+        assertNotNull(mono.getGCBSMonoAdRem(), "em 2029 a CBS e ad rem");
+        assertNull(mono.getGIBSMonoAdValorem(), "ad valorem e ad rem não coexistem no mesmo eixo");
+        assertNull(mono.getGCBSMonoAdValorem(), "ad valorem e ad rem não coexistem no mesmo eixo");
     }
 
     @Test
@@ -590,6 +640,384 @@ class IbsCbsUtilTest {
     }
 
     @Test
+    void deveCalcularValorAdRemComAliquotaEspecificaDeCombustivel() throws NfeException {
+        // Gasolina: R$ 0,7925 por litro (tabela de aliquotas especificas).
+        // Repartido aqui como exemplo entre IBS e CBS; 1000 litros.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);  // 2029: IBS e CBS ad rem
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+        util.setAdRemCBS(new BigDecimal("0.2925"));
+
+        TTribNFe tributo = util.montaImpostosDet(CC_TRIB, criarDetMinimo("5000.00", "1000.0000"));
+        TMonofasia mono = tributo.getGIBSCBSMono();
+
+        TMonofasia.GIBSMonoAdRem.GMonoPadrao ibs = mono.getGIBSMonoAdRem().getGMonoPadrao();
+        assertEquals("1000.0000", ibs.getQBCMono());
+        assertEquals("0.5000", ibs.getAdRemIBS());
+        assertEquals("500.00", ibs.getVIBSMono(), "1000 x 0,5000");
+
+        TMonofasia.GCBSMonoAdRem.GMonoPadrao cbs = mono.getGCBSMonoAdRem().getGMonoPadrao();
+        assertEquals("0.2925", cbs.getAdRemCBS());
+        assertEquals("292.50", cbs.getVCBSMono(), "1000 x 0,2925");
+
+        assertEquals("500.00", mono.getVTotIBSMonoItem());
+        assertEquals("292.50", mono.getVTotCBSMonoItem());
+    }
+
+    @Test
+    void deveCalcularValorAdValoremSobreABaseDoItem() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2026);  // 2026: IBS e CBS ad valorem
+        util.setPAliqMonoUF(new BigDecimal("10"));
+        util.setPAliqMonoMun(new BigDecimal("2"));
+        util.setPAliqMonoCBS(new BigDecimal("8"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"))
+                .getGIBSCBSMono();
+
+        TMonofasia.GIBSMonoAdValorem.GMonoPadrao ibs = mono.getGIBSMonoAdValorem().getGMonoPadrao();
+        assertEquals("1000.00", ibs.getVBCMono());
+        assertEquals("100.00", ibs.getVIBSMonoUF(), "1000 x 10%");
+        assertEquals("20.00", ibs.getVIBSMonoMun(), "1000 x 2%");
+        assertEquals("120.00", ibs.getVIBSMono(), "soma UF + Mun");
+
+        TMonofasia.GCBSMonoAdValorem.GMonoPadrao cbs = mono.getGCBSMonoAdValorem().getGMonoPadrao();
+        assertEquals("80.00", cbs.getVCBSMono(), "1000 x 8%");
+
+        assertEquals("120.00", mono.getVTotIBSMonoItem());
+        assertEquals("80.00", mono.getVTotCBSMonoItem());
+    }
+
+    @Test
+    void deveCalcularRetencaoEUsarAliquotaDoPadraoQuandoNaoInformada() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaSujeitaRetencao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);  // 2029: IBS e CBS ad rem
+        util.setAdRemIBS(new BigDecimal("0.3515"));
+        util.setAdRemCBS(new BigDecimal("0.1000"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "100.0000"))
+                .getGIBSCBSMono();
+
+        TMonofasia.GIBSMonoAdRem.GMonoReten reten = mono.getGIBSMonoAdRem().getGMonoReten();
+        assertEquals("100.0000", reten.getQBCMonoReten(), "sem setQBCMonoReten, usa a quantidade do item");
+        assertEquals("0.3515", reten.getAdRemIBSReten(), "sem aliquota propria de retencao, herda a do padrao");
+        assertEquals("35.15", reten.getVIBSMonoReten(), "100 x 0,3515");
+    }
+
+    @Test
+    void deveUsarAliquotaEQuantidadeProprasDeRetencaoQuandoInformadas() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaSujeitaRetencao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);  // 2029: IBS e CBS ad rem
+        util.setAdRemIBS(new BigDecimal("0.3515"));
+        util.setAdRemIBSReten(new BigDecimal("0.2000"));
+        util.setQBCMonoReten(new BigDecimal("40"));
+
+        TMonofasia.GIBSMonoAdRem.GMonoReten reten = util
+                .montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "100.0000"))
+                .getGIBSCBSMono().getGIBSMonoAdRem().getGMonoReten();
+
+        assertEquals("40.0000", reten.getQBCMonoReten());
+        assertEquals("0.2000", reten.getAdRemIBSReten());
+        assertEquals("8.00", reten.getVIBSMonoReten(), "40 x 0,2000");
+    }
+
+    @Test
+    void deveUsarValorInformadoNoRetidoAnteriormente() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaRetidaAnt(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);  // 2029: IBS e CBS ad rem
+        util.setVIBSMonoRet(new BigDecimal("12.34"));
+        util.setVCBSMonoRet(new BigDecimal("56.78"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "10.0000"))
+                .getGIBSCBSMono();
+
+        assertEquals("12.34", mono.getGIBSMonoAdRem().getGMonoRet().getVIBSMonoRet());
+        assertEquals("56.78", mono.getGCBSMonoAdRem().getGMonoRet().getVCBSMonoRet());
+
+        // UB105a-10 e UB105b-10: vTot*MonoItem = padrao + retencao, sem o retido
+        // anteriormente. Como so o gMonoRet foi emitido, os totais do item ficam zero.
+        assertEquals("0.00", mono.getVTotIBSMonoItem(), "o retido anteriormente nao entra no total do item");
+        assertEquals("0.00", mono.getVTotCBSMonoItem(), "o retido anteriormente nao entra no total do item");
+    }
+
+    @Test
+    void deveAcumularTotaisMonofasicosDaNotaEEmitirGMono() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);  // 2029: IBS e CBS ad rem
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+        util.setAdRemCBS(new BigDecimal("0.2925"));
+
+        // dois itens de 1000 litros cada
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("5000.00", "1000.0000"));
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("5000.00", "1000.0000"));
+
+        TIBSCBSMonoTot totais = util.preencheTotaisIbsCsb();
+
+        assertNotNull(totais.getGMono(), "com valores monofasicos nao-zero, gMono deve ser emitido");
+        assertEquals("1000.00", totais.getGMono().getVIBSMono(), "2 x 500,00");
+        assertEquals("585.00", totais.getGMono().getVCBSMono(), "2 x 292,50");
+    }
+
+    @Test
+    void deveMontarGpBioDiferencaQuandoCClassTribIndicaDiferencaDeBiocombustivel() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setIndPercentualDiferencaBioCombustivel(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);  // 2029: IBS e CBS ad rem
+        // adRemIBS e a aliquota do PRODUTO; o gpBioDiferenca usa a do BIOCOMBUSTIVEL,
+        // que e outra coluna da mesma tabela (UB89b-10). Informar so a do produto nao
+        // deve fazer a lib calcular o vIBSDiferenca.
+        util.setAdRemIBS(new BigDecimal("0.7925"));
+        util.setAdRemCBS(new BigDecimal("0.5000"));
+        util.setQBCBioComb(new BigDecimal("50"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "1000.0000"))
+                .getGIBSCBSMono();
+
+        TMonofasia.GIBSMonoAdRem.GpBioDiferenca ibs = mono.getGIBSMonoAdRem().getGpBioDiferenca();
+        assertNotNull(ibs, "IndPercentualDiferencaBioCombustivel=true deve emitir gpBioDiferenca");
+        assertEquals("50.0000", ibs.getQBCBioComb());
+        assertEquals("0.00", ibs.getVIBSDiferenca(), "sem a aliquota do biocombustivel nao se calcula");
+
+        TMonofasia.GCBSMonoAdRem.GpBioDiferenca cbs = mono.getGCBSMonoAdRem().getGpBioDiferenca();
+        assertEquals("0.00", cbs.getVCBSDiferenca(), "sem a aliquota do biocombustivel nao se calcula");
+    }
+
+    @Test
+    void totalDoItemDeveSomarPadraoERetencaoMasNaoORetidoAnteriormente() throws NfeException {
+        // UB105a-10/UB105b-10: vTot*MonoItem = padrao + retencao. O retido
+        // anteriormente fica de fora porque o vTot*MonoItem e somado ao vItem
+        // (VB01-10); inclui-lo cobraria do cliente um imposto ja pago na etapa anterior.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        ct.setMonofasiaSujeitaRetencao(true);
+        ct.setMonofasiaRetidaAnt(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.5000"));        // padrao:   10 x 0,5000 = 5,00
+        util.setAdRemIBSReten(new BigDecimal("0.2000"));   // retencao: 10 x 0,2000 = 2,00
+        util.setVIBSMonoRet(new BigDecimal("99.00"));      // retido anteriormente
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "10.0000"))
+                .getGIBSCBSMono();
+
+        assertEquals("5.00", mono.getGIBSMonoAdRem().getGMonoPadrao().getVIBSMono());
+        assertEquals("2.00", mono.getGIBSMonoAdRem().getGMonoReten().getVIBSMonoReten());
+        assertEquals("99.00", mono.getGIBSMonoAdRem().getGMonoRet().getVIBSMonoRet());
+        assertEquals("7.00", mono.getVTotIBSMonoItem(),
+                "5,00 + 2,00; os 99,00 do retido anteriormente nao entram");
+    }
+
+    @Test
+    void totaisDaNotaDevemTrazerAsTresParcelasSeparadas() throws NfeException {
+        // W59-10, W59a-10 e W59c-10: no gMono cada parcela tem tag propria, somando o
+        // campo homonimo dos itens. Diferente do total do item, aqui o retido entra.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        ct.setMonofasiaSujeitaRetencao(true);
+        ct.setMonofasiaRetidaAnt(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+        util.setAdRemIBSReten(new BigDecimal("0.2000"));
+        util.setVIBSMonoRet(new BigDecimal("99.00"));
+
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "10.0000"));
+        TIBSCBSMonoTot.GMono gMono = util.preencheTotaisIbsCsb().getGMono();
+
+        assertNotNull(gMono, "com valores monofasicos nao-zero o gMono deve ser emitido");
+        assertEquals("5.00", gMono.getVIBSMono(), "parcela padrao");
+        assertEquals("2.00", gMono.getVIBSMonoReten(), "parcela de retencao");
+        assertEquals("99.00", gMono.getVIBSMonoRet(), "retido anteriormente tem tag propria");
+    }
+
+    @Test
+    void deveUsarQuantidadeTributavelComoBaseDaMonofasiaENaoAComercial() throws NfeException {
+        // UB86a: "a BC em quantidade conforme unidade de medida estabelecida na
+        // legislacao", que e a de uTrib. Quando uCom != uTrib (ex.: venda em caixa,
+        // tributacao por litro) usar qCom erraria o imposto pelo fator de conversao,
+        // e sem rejeicao, porque UB86c-10 so confere a consistencia interna do grupo.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setMonofasiaPadrao(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.5000"));
+
+        TNFe.InfNFe.Det det = criarDetMinimo("500.00", "2.0000");  // 2 caixas
+        det.getProd().setQTrib("24.0000");                          // de 12 litros cada
+
+        TMonofasia.GIBSMonoAdRem.GMonoPadrao padrao = util
+                .montaImpostosDet(CC_TRIB, det)
+                .getGIBSCBSMono().getGIBSMonoAdRem().getGMonoPadrao();
+
+        assertEquals("24.0000", padrao.getQBCMono(), "a base e a quantidade tributavel");
+        assertEquals("12.00", padrao.getVIBSMono(), "24 litros x 0,5000, nao 2 caixas");
+    }
+
+    @Test
+    void deveCalcularDiferencaDeBioComAAliquotaDoBiocombustivel() throws NfeException {
+        // UB89b-10: vIBSDiferenca = qBCBioComb x adRemIBSBioComb
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setIndPercentualDiferencaBioCombustivel(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);
+        util.setAdRemIBS(new BigDecimal("0.7925"));          // aliquota do produto: ignorada aqui
+        util.setAdRemIBSBioComb(new BigDecimal("0.1922"));   // EAC: R$ 0,1922 por litro
+        util.setAdRemCBSBioComb(new BigDecimal("0.1000"));
+        util.setQBCBioComb(new BigDecimal("50"));
+
+        TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "1000.0000"))
+                .getGIBSCBSMono();
+
+        assertEquals("9.61", mono.getGIBSMonoAdRem().getGpBioDiferenca().getVIBSDiferenca(),
+                "50 x 0,1922, a aliquota do biocombustivel e nao a do produto");
+        assertEquals("5.00", mono.getGCBSMonoAdRem().getGpBioDiferenca().getVCBSDiferenca(),
+                "50 x 0,1000");
+    }
+
+    @Test
+    void deveCalcularQBCBioCombPelaFormulaDaNtQuandoPBioObrigInformado() throws NfeException {
+        // NT 2025.002-RTC, UB94a-10 / 620004 (a recolher):
+        //   qBCBioComb = qTrib x (pBio - pBioObrig) / (1 - pBioObrig)
+        //   100 x (0,30 - 0,27) / (1 - 0,27) = 100 x 0,03 / 0,73 = 4,1096
+        TMonofasia.GIBSMonoAdValorem.GpBioDiferenca bio =
+                calcularBio("620004", "30.0000", new BigDecimal("27"));
+
+        assertEquals("4.1096", bio.getQBCBioComb(), "gasolina com EAC acima do obrigatorio");
+    }
+
+    @Test
+    void deveInverterAFormulaDoBioNoCClassTrib620005() throws NfeException {
+        // 620005 (a ressarcir): qBCBioComb = qTrib x (pBioObrig - pBio) / (1 - pBioObrig)
+        //   100 x (0,27 - 0,20) / 0,73 = 9,5890
+        TMonofasia.GIBSMonoAdValorem.GpBioDiferenca bio =
+                calcularBio("620005", "20.0000", new BigDecimal("27"));
+
+        assertEquals("9.5890", bio.getQBCBioComb(), "mistura abaixo do obrigatorio: ressarcir");
+    }
+
+    @Test
+    void deveUsarQuantidadeInformadaNoBioQuandoPBioObrigDesconhecido() throws NfeException {
+        // Sem o pBioObrig (tabela Indice de Mistura, consultada pelo cProdANP) nao da
+        // para aplicar a formula, entao vale o valor informado pelo integrador.
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib("620004", false, false, false);
+        ct.setIndPercentualDiferencaBioCombustivel(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2026);
+        util.setQBCBioComb(new BigDecimal("7.5"));
+
+        TMonofasia.GIBSMonoAdValorem.GpBioDiferenca bio = util
+                .montaImpostosDet("620004", criarDetComBio("100.0000", "30.0000"))
+                .getGIBSCBSMono().getGIBSMonoAdValorem().getGpBioDiferenca();
+
+        assertEquals("7.5000", bio.getQBCBioComb());
+    }
+
+    private TMonofasia.GIBSMonoAdValorem.GpBioDiferenca calcularBio(
+            String cClassTrib, String pBio, BigDecimal pBioObrig) throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(cClassTrib, false, false, false);
+        ct.setIndPercentualDiferencaBioCombustivel(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2026);
+        util.setPBioObrig(pBioObrig);
+
+        return util.montaImpostosDet(cClassTrib, criarDetComBio("100.0000", pBio))
+                .getGIBSCBSMono().getGIBSMonoAdValorem().getGpBioDiferenca();
+    }
+
+    /** Item de combustivel com qTrib e pBio, que a formula do gpBioDiferenca consome. */
+    private TNFe.InfNFe.Det criarDetComBio(String qTrib, String pBio) {
+        TNFe.InfNFe.Det det = criarDetMinimo("500.00", qTrib);
+        det.getProd().setQTrib(qTrib);
+        TNFe.InfNFe.Det.Prod.Comb comb = new TNFe.InfNFe.Det.Prod.Comb();
+        comb.setCProdANP("320102001");
+        comb.setDescANP("GASOLINA COMUM");
+        comb.setPBio(pBio);
+        det.getProd().setComb(comb);
+        return det;
+    }
+
+    @Test
+    void naoDeveMontarGpBioDiferencaQuandoIndicadorEstaDesligado() throws NfeException {
+        TMonofasia mono = calcularMono(false, true, false, false);
+
+        assertNull(mono.getGIBSMonoAdRem().getGpBioDiferenca(),
+                "sem o indicador do cClassTrib, gpBioDiferenca nao deve sair");
+        assertNull(mono.getGCBSMonoAdRem().getGpBioDiferenca(),
+                "sem o indicador do cClassTrib, gpBioDiferenca nao deve sair");
+    }
+
+    @Test
+    void devePermitirInformarValorDaDiferencaDeBioDiretamente() throws NfeException {
+        CstDTO cst = montarCst("620", false, false, false, true, false, false);
+        ClassificacaoTributariaDTO ct = montarClassTrib(CC_TRIB, false, false, false);
+        ct.setIndPercentualDiferencaBioCombustivel(true);
+        cst.setClassificacoesTributarias(Collections.singletonList(ct));
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE);
+        util.setAnoEmissao(2029);  // 2029: IBS e CBS ad rem
+        util.setQBCBioComb(new BigDecimal("50"));
+        util.setVIBSDiferenca(new BigDecimal("77.77"));
+
+        TMonofasia.GIBSMonoAdRem.GpBioDiferenca bio = util
+                .montaImpostosDet(CC_TRIB, criarDetMinimo("500.00", "1000.0000"))
+                .getGIBSCBSMono().getGIBSMonoAdRem().getGpBioDiferenca();
+
+        assertEquals("77.77", bio.getVIBSDiferenca(), "valor informado prevalece sobre o calculado");
+    }
+
+    @Test
     void deveEmitirOsTresSubgruposQuandoTodasAsFlagsEstaoAtivas() throws NfeException {
         TMonofasia mono = calcularMono(false, true, true, true);
 
@@ -623,7 +1051,7 @@ class IbsCbsUtilTest {
         util.setpAliqIbsUf(new BigDecimal("0.1"));
         util.setpAliqIbsMun(new BigDecimal("0.05"));
         util.setpAliqCbs(new BigDecimal("0.9"));
-        util.setMonofasiaAdValorem(adValorem);
+        util.setAnoEmissao(adValorem ? 2026 : 2029);
 
         TMonofasia mono = util.montaImpostosDet(CC_TRIB, criarDetMinimo("100.00", "1.0000")).getGIBSCBSMono();
         assertNotNull(mono, "IndIBSCBSMono=true deve emitir gIBSCBSMono");
