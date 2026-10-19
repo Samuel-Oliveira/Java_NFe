@@ -306,7 +306,7 @@ public class EnvioNfceTeste {
 
     private static final String CST_IBSCBS = "620";
 
-    /** Preenchido por {@link #preencheDet(String)} e consumido por {@link #preencheTotal()}. */
+    /** Preenchido por {@link #preencheDet(InfNFe)} e consumido por {@link #preencheTotal()}. */
     private static IbsCbsUtil ibsCbsUtil;
 
 
@@ -360,8 +360,8 @@ public class EnvioNfceTeste {
         infNFe.setDest(preencheDestinatario());
 
         //Preenche os dados do Produto da NFCe e adiciona a Lista
-        // o dhEmi ja montado no ide e a fonte do ano: um so lugar, sem divergir
-        infNFe.getDet().addAll(preencheDet(infNFe.getIde().getDhEmi()));
+        // o ano sai do dhEmi do ide desta nota: um so lugar, sem divergir
+        infNFe.getDet().addAll(preencheDet(infNFe));
 
         //Preenche totais da NFCe
         infNFe.setTotal(preencheTotal());
@@ -385,10 +385,10 @@ public class EnvioNfceTeste {
         return Nfe.montaNfe(config, enviNFe, true);
     }
 
-    private static List<Det> preencheDet(String dhEmi) throws NfeException, IOException {
+    private static List<Det> preencheDet(InfNFe infNFe) throws NfeException, IOException {
 
         ibsCbsUtil = new IbsCbsUtil(XmlNfeUtil.leXml("src/test/resources/ibscbs.json"),
-                DocumentoEnum.NFCE, dhEmi);
+                DocumentoEnum.NFCE, infNFe);
 
         List<Det> itens = new ArrayList<>();
         int nItem = 1;

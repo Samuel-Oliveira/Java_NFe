@@ -43,8 +43,8 @@ class IbsCbsTest {
         String json = getIbsCbsJson();
         String cclassTrib = "000001";
 
-        // o ano sai do dhEmi do proprio golden: nao fixa data nem quebra na virada
-        IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE, dhEmi(enviNFe));
+        // o ano sai do dhEmi da propria nota: nao fixa data nem quebra na virada
+        IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE, infNFe(enviNFe));
 
         for (TNFe.InfNFe.Det det : enviNFe.getNFe().get(0).getInfNFe().getDet()) {
             TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(cclassTrib, det);
@@ -67,8 +67,8 @@ class IbsCbsTest {
         String cclassTrib = "550001";
         String cclassTribRegular = "000001";
 
-        // o ano sai do dhEmi do proprio golden: nao fixa data nem quebra na virada
-        IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE, dhEmi(enviNFe));
+        // o ano sai do dhEmi da propria nota: nao fixa data nem quebra na virada
+        IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE, infNFe(enviNFe));
 
         for (TNFe.InfNFe.Det det : enviNFe.getNFe().get(0).getInfNFe().getDet()) {
             TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(cclassTrib, det, cclassTribRegular);
@@ -91,8 +91,8 @@ class IbsCbsTest {
         String json = getIbsCbsJson();
         String cclassTrib = "620006";
 
-        // o ano sai do dhEmi do proprio golden: nao fixa data nem quebra na virada
-        IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE, dhEmi(enviNFe));
+        // o ano sai do dhEmi da propria nota: nao fixa data nem quebra na virada
+        IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE, infNFe(enviNFe));
 
         for (TNFe.InfNFe.Det det : enviNFe.getNFe().get(0).getInfNFe().getDet()) {
             TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(cclassTrib, det);
@@ -115,8 +115,8 @@ class IbsCbsTest {
         String json = getIbsCbsJson();
         String cclassTrib = "515001";
 
-        // o ano sai do dhEmi do proprio golden: nao fixa data nem quebra na virada
-        IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE, dhEmi(enviNFe));
+        // o ano sai do dhEmi da propria nota: nao fixa data nem quebra na virada
+        IbsCbsUtil ibsCbsUtil = new IbsCbsUtil(json, DocumentoEnum.NFE, infNFe(enviNFe));
 
         for (TNFe.InfNFe.Det det : enviNFe.getNFe().get(0).getInfNFe().getDet()) {
             ibsCbsUtil.setpAliqDiferimento(BigDecimal.valueOf(100));
@@ -188,12 +188,12 @@ class IbsCbsTest {
      */
     @Test
     void oFixtureDosGoldensDeveSerDeAnoSemTributoNoTotal() throws Exception {
-        assertEquals("2026", dhEmi(getEnviNFe()).substring(0, 4),
+        assertEquals("2026", infNFe(getEnviNFe()).getIde().getDhEmi().substring(0, 4),
                 "os goldens assumem nota de 2026");
     }
 
-    private static String dhEmi(TEnviNFe enviNFe) {
-        return enviNFe.getNFe().get(0).getInfNFe().getIde().getDhEmi();
+    private static TNFe.InfNFe infNFe(TEnviNFe enviNFe) {
+        return enviNFe.getNFe().get(0).getInfNFe();
     }
 
     private static String getIbsCbsJson() throws IOException {

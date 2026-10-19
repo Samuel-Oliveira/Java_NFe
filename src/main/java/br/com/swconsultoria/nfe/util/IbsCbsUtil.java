@@ -238,8 +238,10 @@ public class IbsCbsUtil {
 
     /**
      * Deriva o ano de emissão do dhEmi da própria nota, que é o campo pelo qual a
-     * SEFAZ valida a modalidade da monofasia e o conteúdo do vNFTot. Passando
-     * {@code infNFe.getIde().getDhEmi()} os dois não têm como divergir.
+     * SEFAZ valida a modalidade da monofasia e o conteúdo do vNFTot.
+     *
+     * Tendo a infNFe em mãos, prefira {@link #setDhEmi(TNFe.InfNFe)}, que lê o campo
+     * aqui dentro e não deixa passar uma data que não seja a do documento.
      *
      * @param dhEmi data e hora de emissão no formato TDateTimeUTC do Schema
      *              (AAAA-MM-DDThh:mm:ssTZD), como está em ide/dhEmi.
@@ -250,6 +252,39 @@ public class IbsCbsUtil {
      */
     public void setDhEmi(String dhEmi) throws NfeException {
         this.anoEmissao = extraiAnoEmissao(dhEmi);
+    }
+
+    /**
+     * Como {@link #setDhEmi(String)}, lendo o dhEmi da própria nota. É a forma mais
+     * segura: o campo é lido aqui dentro, então não há como passar uma data que não
+     * seja a do documento.
+     *
+     * Nota: {@code setDhEmi(null)} não compila, por ambiguidade com a sobrecarga de
+     * String. Isso é proposital — a chamada sempre estaria errada, e errar em tempo
+     * de compilação é melhor que em tempo de execução. Para o caso raro de precisar
+     * passar um nulo, qualifique com cast.
+     *
+     * @param infNFe a infNFe com o ide já preenchido
+     * @throws NfeException se infNFe, ide ou dhEmi estiverem nulos, ou se o dhEmi não
+     *                      estiver no formato TDateTimeUTC do Schema
+     */
+    public void setDhEmi(TNFe.InfNFe infNFe) throws NfeException {
+        this.anoEmissao = extraiAnoEmissao(dhEmiDe(infNFe));
+    }
+
+    /**
+     * Mensagem própria para cada nível, porque "dhEmi nao informado" num caso de ide
+     * nulo manda o integrador procurar no lugar errado.
+     */
+    private static String dhEmiDe(TNFe.InfNFe infNFe) throws NfeException {
+        if (infNFe == null) {
+            throw new NfeException("infNFe nao informada: nao ha de onde tirar o dhEmi");
+        }
+        if (infNFe.getIde() == null) {
+            throw new NfeException("ide da infNFe nao preenchido: preencha o ide, "
+                    + "com o dhEmi, antes de montar os impostos de IBS/CBS");
+        }
+        return infNFe.getIde().getDhEmi();
     }
 
     /**
@@ -477,6 +512,26 @@ public class IbsCbsUtil {
                       String dhEmi) throws NfeException {
         this(json, documento);
         setDhEmi(dhEmi);
+    }
+
+    /**
+     * Como {@link #IbsCbsUtil(List, DocumentoEnum)}, derivando o ano de emissão do
+     * dhEmi da nota. Ver {@link #setDhEmi(TNFe.InfNFe)}.
+     */
+    public IbsCbsUtil(@NonNull List<CstDTO> listaCstIbsCbs, @NonNull DocumentoEnum documento,
+                      TNFe.InfNFe infNFe) throws NfeException {
+        this(listaCstIbsCbs, documento);
+        setDhEmi(infNFe);
+    }
+
+    /**
+     * Como {@link #IbsCbsUtil(String, DocumentoEnum)}, derivando o ano de emissão do
+     * dhEmi da nota. Ver {@link #setDhEmi(TNFe.InfNFe)}.
+     */
+    public IbsCbsUtil(@NonNull String json, @NonNull DocumentoEnum documento,
+                      TNFe.InfNFe infNFe) throws NfeException {
+        this(json, documento);
+        setDhEmi(infNFe);
     }
 
     private void inicializarTotais() {

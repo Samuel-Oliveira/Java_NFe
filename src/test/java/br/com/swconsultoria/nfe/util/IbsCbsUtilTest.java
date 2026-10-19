@@ -985,6 +985,49 @@ class IbsCbsUtilTest {
     }
 
     @Test
+    void deveLerODhEmiDaPropriaInfNFe() throws NfeException {
+        CstDTO cst = montarCst("TST", true, false, false, false, false, false);
+        cst.setClassificacoesTributarias(
+                Collections.singletonList(montarClassTrib(CC_TRIB, false, false, false)));
+
+        TNFe.InfNFe infNFe = new TNFe.InfNFe();
+        TNFe.InfNFe.Ide ide = new TNFe.InfNFe.Ide();
+        ide.setDhEmi("2027-03-10T08:30:00-03:00");
+        infNFe.setIde(ide);
+
+        IbsCbsUtil util = new IbsCbsUtil(Collections.singletonList(cst), DocumentoEnum.NFE, infNFe);
+        util.setpAliqIbsUf(new BigDecimal("10"));
+        util.setpAliqIbsMun(new BigDecimal("2"));
+        util.setpAliqCbs(new BigDecimal("8"));
+        util.montaImpostosDet(CC_TRIB, criarDetMinimo("1000.00", "1.0000"));
+
+        assertEquals(0, new BigDecimal("1200.00").compareTo(util.calculaVnfTot("1000.00")),
+                "o ano tem de sair do dhEmi do ide da nota passada");
+    }
+
+    @Test
+    void deveDizerQualNivelFaltaQuandoNaoDaParaLerODhEmiDaInfNFe() {
+        CstDTO cst = montarCst("TST", true, false, false, false, false, false);
+        cst.setClassificacoesTributarias(
+                Collections.singletonList(montarClassTrib(CC_TRIB, false, false, false)));
+        java.util.List<CstDTO> lista = Collections.singletonList(cst);
+
+        NfeException semNota = assertThrows(NfeException.class,
+                () -> new IbsCbsUtil(lista, DocumentoEnum.NFE, (TNFe.InfNFe) null));
+        assertTrue(semNota.getMessage().contains("infNFe"), semNota.getMessage());
+
+        NfeException semIde = assertThrows(NfeException.class,
+                () -> new IbsCbsUtil(lista, DocumentoEnum.NFE, new TNFe.InfNFe()));
+        assertTrue(semIde.getMessage().contains("ide"), semIde.getMessage());
+
+        TNFe.InfNFe semDhEmi = new TNFe.InfNFe();
+        semDhEmi.setIde(new TNFe.InfNFe.Ide());
+        NfeException faltaDhEmi = assertThrows(NfeException.class,
+                () -> new IbsCbsUtil(lista, DocumentoEnum.NFE, semDhEmi));
+        assertTrue(faltaDhEmi.getMessage().contains("dhEmi"), faltaDhEmi.getMessage());
+    }
+
+    @Test
     void deveAceitarTodosOsFusosQueOSchemaPermite() throws NfeException {
         // apertar a validacao nao pode recusar valor que o Schema aceita: o pattern
         // vai de 00:00 a 11:00 nos dois sinais, e +12:00 no positivo

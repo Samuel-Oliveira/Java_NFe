@@ -39,6 +39,12 @@
   Schema -- ano 20XX, segundos obrigatorios, deslocamento de fuso explicito de
   -11:00 a +12:00 -- e nulo, vazio ou fora do formato lanca NfeException em vez de
   cair no relogio. Mudanca aditiva: setAnoEmissao(int) continua valendo
+- setDhEmi e os construtores aceitam tambem a propria TNFe.InfNFe, lendo o
+  ide/dhEmi por dentro: e a forma mais segura, porque nao da para passar uma
+  data que nao seja a do documento. infNFe, ide ou dhEmi nulos lancam
+  NfeException dizendo qual nivel falta. Nota: setDhEmi(null) literal nao
+  compila, por ambiguidade entre as sobrecargas -- a chamada sempre estaria
+  errada, e falhar na compilacao e melhor que em execucao
 - vIBSDiferenca e vCBSDiferenca passam a exigir setAdRemIBSBioComb/setAdRemCBSBioComb,
   a aliquota do biocombustivel, que e coluna propria da tabela e nao se confunde com
   a do produto (UB89b-10). Sem ela o valor nao e calculado: quem dependia do calculo
