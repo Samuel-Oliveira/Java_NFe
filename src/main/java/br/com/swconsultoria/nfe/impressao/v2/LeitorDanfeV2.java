@@ -25,7 +25,10 @@ import java.util.Map;
  *     (gMonoPadrao/vBCMono, pAliqMonoUF, vIBSMonoUF, pAliqMonoMun, vIBSMonoMun, pAliqMonoCBS, vCBSMono)</li>
  *     <li>vIBS: valor do IBS do item sem a abertura UF/Município: gIBSCBS/vIBS, vIBSMono, gTransfCred/vIBS ou
  *     gAjusteCompet/vIBS; vCBS também cobre vCBSMono, gTransfCred/vCBS e gAjusteCompet/vCBS</li>
- *     <li>monofásico ad rem: qBCMono (base em quantidade), adRemIBS, adRemCBS, vIBSMono, vCBSMono</li>
+ *     <li>monofásico ad rem: qBCMono (base em quantidade), adRemIBS, adRemCBS, vIBSMono, vCBSMono.
+ *     O schema permite IBS e CBS em regimes diferentes no mesmo item (ad rem num, ad valorem no outro), mas o
+ *     leitor assume o mesmo regime nos dois, como ocorre na tributação de combustíveis: no caso misto,
+ *     vBCIBSCBS vem do ad valorem e qBCMono do ad rem, e o template padrão imprime só a base em R$</li>
  *     <li>monofásico, demais: vIBSMonoReten, vCBSMonoReten (retenção), vIBSMonoRet, vCBSMonoRet (retido
  *     anteriormente), vIBSDiferenca, vCBSDiferenca (biocombustível), vTotIBSMonoItem, vTotCBSMonoItem</li>
  *     <li>ajuste de competência: competApur</li>

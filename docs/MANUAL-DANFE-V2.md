@@ -308,6 +308,8 @@ O grupo `imposto/IBSCBS` do item é uma escolha entre `gIBSCBS`, `gIBSCBSMono`, 
 | monofásico ad rem | (vazio; a base é `qBCMono`, em quantidade) | (vazio; a alíquota é `adRemIBS` / `adRemCBS`, em R$ por unidade) | (vazio) | `vIBSMono`, `vCBSMono` |
 | `gTransfCred` / `gAjusteCompet` | (vazio) | (vazio) | (vazio) | `vIBS`, `vCBS` |
 
+O leitor assume que IBS e CBS do mesmo item usam o mesmo regime monofásico (ambos ad rem ou ambos ad valorem), como na tributação de combustíveis. O schema permite misturar; nesse caso `vBCIBSCBS` vem do ad valorem, `qBCMono` do ad rem e o template padrão imprime só a base em R$.
+
 `ibsCbsTot.vIBS` (soma de IBS UF e Município) e `supl.urlChave` são lidos e ficam disponíveis para templates próprios, mas o template padrão não os imprime.
 
 Métodos de decisão (usados pelo template para exibir ou ocultar blocos):

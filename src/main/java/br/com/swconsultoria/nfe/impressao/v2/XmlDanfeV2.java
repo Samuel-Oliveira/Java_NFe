@@ -13,6 +13,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,13 +49,18 @@ public class XmlDanfeV2 {
             factory.setXIncludeAware(false);
             factory.setExpandEntityReferences(false);
             this.documento = factory.newDocumentBuilder().parse(new InputSource(new StringReader(conteudo)));
+        } catch (Exception e) {
+            throw new DanfeException("Erro ao ler o XML da NF-e: " + e.getMessage(), e);
+        }
 
-            // As expressões são internas (ou de templates próprios, que são confiáveis); defesa em profundidade barata
+        // As expressões são internas (ou de templates próprios, que são confiáveis); defesa em profundidade barata.
+        // Falha aqui é da JVM, não do XML, por isso a mensagem é outra.
+        try {
             XPathFactory xpathFactory = XPathFactory.newInstance();
             xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             this.xpath = xpathFactory.newXPath();
-        } catch (Exception e) {
-            throw new DanfeException("Erro ao ler o XML da NF-e: " + e.getMessage(), e);
+        } catch (XPathFactoryConfigurationException e) {
+            throw new DanfeException("Erro ao configurar o XPath do DANFE", e);
         }
     }
 
