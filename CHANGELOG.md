@@ -1,5 +1,24 @@
 # Notas de versão
 
+## Nao lancado
+
+### Adicoes
+
+- **DANFE v2 da NF-e (modelo 55)** no leiaute da NT 2026.010 (DANFE Reforma Tributaria:
+  IBS/CBS/IS, producao em 01/12/2026), em Thymeleaf + openhtmltopdf em vez de Jasper.
+  Pacote `br.com.swconsultoria.nfe.impressao.v2`: `ImpressaoDanfeV2Util.impressaoPadraoNFe(xml)`
+  e `impressaoPdfArquivo`, `impressaoPdfByte`, `impressaoHtml`, `gerarHtml` e `impressaoDireta`,
+  com `ImpressaoDanfeV2DTO` para logo, template proprio, orientacao (automatica pelo `tpImp`,
+  retrato ou paisagem) e canhoto. Imprime CRT, os totais de IBS/CBS/IS, as colunas de bases,
+  aliquotas (efetiva quando ha `gRed`) e valores por item, o QR Code de `infNFeSupl` e so os
+  quadros facultativos presentes no XML; o bloco de dados adicionais fica encostado no rodape da
+  ultima folha, como no DANFE Jasper. Erros saem como `DanfeException`. A impressao Jasper
+  (`ImpressaoNfeUtil`) nao muda; NFC-e e CC-e continuam nela.
+- Dependencias novas `org.thymeleaf:thymeleaf` 3.1.2.RELEASE e
+  `com.openhtmltopdf:openhtmltopdf-pdfbox` 1.0.10, em escopo `provided` como as do Jasper: o
+  projeto consumidor as declara (junto com barbecue e zxing, usados no codigo de barras e no QR
+  Code). Manual de integracao em `docs/MANUAL-DANFE-V2.md`.
+
 ## v4.2.0
 
 Primeira versao com os grupos da reforma tributaria (IBS/CBS/IS) conforme a NT
