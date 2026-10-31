@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NF-e fictícia (homologação) com os grupos da Reforma Tributária, para teste do DANFE v2 -->
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe35261212345678000195550010000001231000001234" versao="4.00">
+      <ide>
+        <cUF>35</cUF>
+        <cNF>00000123</cNF>
+        <natOp>VENDA DE MERCADORIA ADQUIRIDA DE TERCEIROS</natOp>
+        <mod>55</mod>
+        <serie>1</serie>
+        <nNF>123</nNF>
+        <dhEmi>2026-12-01T10:15:30-03:00</dhEmi>
+        <dhSaiEnt>2026-12-01T14:00:00-03:00</dhSaiEnt>
+        <tpNF>1</tpNF>
+        <idDest>1</idDest>
+        <cMunFG>3550308</cMunFG>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>4</cDV>
+        <tpAmb>2</tpAmb>
+        <finNFe>1</finNFe>
+        <indFinal>0</indFinal>
+        <indPres>1</indPres>
+        <procEmi>0</procEmi>
+        <verProc>JavaDanfe 2.0</verProc>
+      </ide>
+      <emit>
+        <CNPJ>12345678000195</CNPJ>
+        <xNome>EMPRESA EXEMPLO LTDA</xNome>
+        <xFant>EXEMPLO</xFant>
+        <enderEmit>
+          <xLgr>Rua Exemplo</xLgr>
+          <nro>100</nro>
+          <xCpl>Sala 2</xCpl>
+          <xBairro>Centro</xBairro>
+          <cMun>3550308</cMun>
+          <xMun>São Paulo</xMun>
+          <UF>SP</UF>
+          <CEP>01001000</CEP>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+          <fone>1133334444</fone>
+        </enderEmit>
+        <IE>111222333444</IE>
+        <IM>12345</IM>
+        <CNAE>4711302</CNAE>
+        <CRT>3</CRT>
+      </emit>
+      <dest>
+        <CNPJ>98765432000110</CNPJ>
+        <xNome>CLIENTE EXEMPLO S/A</xNome>
+        <enderDest>
+          <xLgr>Avenida Cliente</xLgr>
+          <nro>200</nro>
+          <xBairro>Jardim Industrial</xBairro>
+          <cMun>3509502</cMun>
+          <xMun>Campinas</xMun>
+          <UF>SP</UF>
+          <CEP>13010000</CEP>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+          <fone>19988887777</fone>
+        </enderDest>
+        <indIEDest>1</indIEDest>
+        <IE>555666777888</IE>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>1001</cProd>
+          <cEAN>SEM GTIN</cEAN>
+          <xProd>PARAFUSO SEXTAVADO ACO INOX M8 X 40MM</xProd>
+          <NCM>73181500</NCM>
+          <CFOP>5102</CFOP>
+          <uCom>CX</uCom>
+          <qCom>10.0000</qCom>
+          <vUnCom>150.0000000000</vUnCom>
+          <vProd>1500.00</vProd>
+          <cEANTrib>SEM GTIN</cEANTrib>
+          <uTrib>CX</uTrib>
+          <qTrib>10.0000</qTrib>
+          <vUnTrib>150.0000000000</vUnTrib>
+          <indTot>1</indTot>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS00>
+              <orig>0</orig>
+              <CST>00</CST>
+              <modBC>3</modBC>
+              <vBC>1500.00</vBC>
+              <pICMS>18.00</pICMS>
+              <vICMS>270.00</vICMS>
+            </ICMS00>
+          </ICMS>
+          <IPI>
+            <cEnq>999</cEnq>
+            <IPITrib>
+              <CST>50</CST>
+              <vBC>1500.00</vBC>
+              <pIPI>5.00</pIPI>
+              <vIPI>75.00</vIPI>
+            </IPITrib>
+          </IPI>
+          <IBSCBS>
+            <CST>000</CST>
+            <cClassTrib>000001</cClassTrib>
+            <gIBSCBS>
+              <vBC>1500.00</vBC>
+              <gIBSUF>
+                <pIBSUF>0.1000</pIBSUF>
+                <vIBSUF>1.50</vIBSUF>
+              </gIBSUF>
+              <gIBSMun>
+                <pIBSMun>0.0000</pIBSMun>
+                <vIBSMun>0.00</vIBSMun>
+              </gIBSMun>
+              <vIBS>1.50</vIBS>
+              <gCBS>
+                <pCBS>0.9000</pCBS>
+                <vCBS>13.50</vCBS>
+              </gCBS>
+            </gIBSCBS>
+          </IBSCBS>
+        </imposto>
+        <infAdProd>Lote 2026-11 / validade indeterminada</infAdProd>
+      </det>
+      <det nItem="2">
+        <prod>
+          <cProd>2002</cProd>
+          <cEAN>SEM GTIN</cEAN>
+          <xProd>REFRIGERANTE COLA LATA 350ML</xProd>
+          <NCM>22021000</NCM>
+          <CFOP>5405</CFOP>
+          <uCom>UN</uCom>
+          <qCom>48.0000</qCom>
+          <vUnCom>3.2500000000</vUnCom>
+          <vProd>156.00</vProd>
+          <cEANTrib>SEM GTIN</cEANTrib>
+          <uTrib>UN</uTrib>
+          <qTrib>48.0000</qTrib>
+          <vUnTrib>3.2500000000</vUnTrib>
+          <indTot>1</indTot>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS60>
+              <orig>0</orig>
+              <CST>60</CST>
+            </ICMS60>
+          </ICMS>
+          <IS>
+            <CSTIS>000</CSTIS>
+            <cClassTribIS>000001</cClassTribIS>
+            <vBCIS>156.00</vBCIS>
+            <pIS>2.0000</pIS>
+            <vIS>3.12</vIS>
+          </IS>
+          <IBSCBS>
+            <CST>200</CST>
+            <cClassTrib>200032</cClassTrib>
+            <gIBSCBS>
+              <vBC>156.00</vBC>
+              <gIBSUF>
+                <pIBSUF>0.1000</pIBSUF>
+                <gRed>
+                  <pRedAliq>60.0000</pRedAliq>
+                  <pAliqEfet>0.0400</pAliqEfet>
+                </gRed>
+                <vIBSUF>0.06</vIBSUF>
+              </gIBSUF>
+              <gIBSMun>
+                <pIBSMun>0.0000</pIBSMun>
+                <vIBSMun>0.00</vIBSMun>
+              </gIBSMun>
+              <vIBS>0.06</vIBS>
+              <gCBS>
+                <pCBS>0.9000</pCBS>
+                <gRed>
+                  <pRedAliq>60.0000</pRedAliq>
+                  <pAliqEfet>0.3600</pAliqEfet>
+                </gRed>
+                <vCBS>0.56</vCBS>
+              </gCBS>
+            </gIBSCBS>
+          </IBSCBS>
+        </imposto>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>1500.00</vBC>
+          <vICMS>270.00</vICMS>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vFCP>0.00</vFCP>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vFCPST>0.00</vFCPST>
+          <vFCPSTRet>0.00</vFCPSTRet>
+          <vProd>1656.00</vProd>
+          <vFrete>50.00</vFrete>
+          <vSeg>0.00</vSeg>
+          <vDesc>6.00</vDesc>
+          <vII>0.00</vII>
+          <vIPI>75.00</vIPI>
+          <vIPIDevol>0.00</vIPIDevol>
+          <vPIS>0.00</vPIS>
+          <vCOFINS>0.00</vCOFINS>
+          <vOutro>0.00</vOutro>
+          <vNF>1775.00</vNF>
+        </ICMSTot>
+        <ISTot>
+          <vIS>3.12</vIS>
+        </ISTot>
+        <IBSCBSTot>
+          <vBCIBSCBS>1656.00</vBCIBSCBS>
+          <gIBS>
+            <gIBSUF>
+              <vDif>0.00</vDif>
+              <vDevTrib>0.00</vDevTrib>
+              <vIBSUF>1.56</vIBSUF>
+            </gIBSUF>
+            <gIBSMun>
+              <vDif>0.00</vDif>
+              <vDevTrib>0.00</vDevTrib>
+              <vIBSMun>0.00</vIBSMun>
+            </gIBSMun>
+            <vIBS>1.56</vIBS>
+            <vCredPres>0.00</vCredPres>
+            <vCredPresCondSus>0.00</vCredPresCondSus>
+          </gIBS>
+          <gCBS>
+            <vDif>0.00</vDif>
+            <vDevTrib>0.00</vDevTrib>
+            <vCBS>14.06</vCBS>
+            <vCredPres>0.00</vCredPres>
+            <vCredPresCondSus>0.00</vCredPresCondSus>
+          </gCBS>
+        </IBSCBSTot>
+      </total>
+      <transp>
+        <modFrete>0</modFrete>
+        <transporta>
+          <CNPJ>22222222000122</CNPJ>
+          <xNome>TRANSPORTADORA EXEMPLO LTDA</xNome>
+          <IE>333333333333</IE>
+          <xEnder>Rodovia Exemplo, km 10</xEnder>
+          <xMun>Jundiaí</xMun>
+          <UF>SP</UF>
+        </transporta>
+        <veicTransp>
+          <placa>ABC1D23</placa>
+          <UF>SP</UF>
+          <RNTC>12345678</RNTC>
+        </veicTransp>
+        <vol>
+          <qVol>11</qVol>
+          <esp>VOLUME</esp>
+          <marca>EXEMPLO</marca>
+          <nVol>001</nVol>
+          <pesoL>45.500</pesoL>
+          <pesoB>48.250</pesoB>
+        </vol>
+      </transp>
+      <cobr>
+        <fat>
+          <nFat>123</nFat>
+          <vOrig>1775.00</vOrig>
+          <vDesc>0.00</vDesc>
+          <vLiq>1775.00</vLiq>
+        </fat>
+        <dup><nDup>001</nDup><dVenc>2026-12-31</dVenc><vDup>443.75</vDup></dup>
+        <dup><nDup>002</nDup><dVenc>2027-01-30</dVenc><vDup>443.75</vDup></dup>
+        <dup><nDup>003</nDup><dVenc>2027-03-01</dVenc><vDup>443.75</vDup></dup>
+        <dup><nDup>004</nDup><dVenc>2027-03-31</dVenc><vDup>443.75</vDup></dup>
+      </cobr>
+      <pag>
+        <detPag>
+          <tPag>15</tPag>
+          <vPag>1775.00</vPag>
+        </detPag>
+      </pag>
+      <infAdic>
+        <infAdFisco>Documento emitido em ambiente de homologação.</infAdFisco>
+        <infCpl>Documento emitido a título de exemplo de leiaute (Reforma Tributária - IBS/CBS/IS). Pedido de compra 4500012345.</infCpl>
+      </infAdic>
+    </infNFe>
+    <infNFeSupl>
+      <qrCode>https://www.homologacao.nfe.fazenda.gov.br/consulta?p=35261212345678000195550010000001231000001234|2|2|1|ABCDEF0123456789</qrCode>
+      <urlChave>www.nfe.fazenda.gov.br/consulta</urlChave>
+    </infNFeSupl>
+  </NFe>
+  <protNFe versao="4.00">
+    <infProt>
+      <tpAmb>2</tpAmb>
+      <verAplic>SP_NFE_PL_010</verAplic>
+      <chNFe>35261212345678000195550010000001231000001234</chNFe>
+      <dhRecbto>2026-12-01T10:15:45-03:00</dhRecbto>
+      <nProt>135260000012345</nProt>
+      <digVal>AAAAAAAAAAAAAAAAAAAAAAAAAAA=</digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+    </infProt>
+  </protNFe>
+</nfeProc>

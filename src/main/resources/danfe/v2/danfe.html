@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!--
+  DANFE v2 - NF-e modelo 55 - leiaute NT 2026.010 (Reforma Tributária: IBS/CBS/IS).
+  Retrato (tpImp=1) e paisagem (tpImp=2) no mesmo template, controlados pela variável "paisagem".
+  O HTML precisa ser XHTML bem formado (tags fechadas) para o openhtmltopdf.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="'DANFE ' + ${fmt.primeiro(danfe.chave, '')}">DANFE</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 43mm 7mm 7mm 7mm;
+            @top-center { content: element(cabecalho); vertical-align: bottom; }
+        }
+        @page :first {
+            margin-top: 7mm;
+            @top-center { content: none; }
+        }
+        body { font-family: Helvetica, Arial, sans-serif; font-size: 7pt; color: #000; margin: 0; }
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        /* Sem overflow: hidden em td/th: impede o openhtmltopdf de repetir o thead dos itens */
+        td, th { padding: 0.3mm 0.8mm; vertical-align: top; }
+
+        /* Blocos: borda superior/esquerda no bloco e direita/inferior nas células, para não duplicar linhas */
+        .bloco { border-top: 0.6pt solid #000; border-left: 0.6pt solid #000; }
+        .bloco td { border-right: 0.6pt solid #000; border-bottom: 0.6pt solid #000; overflow: hidden; }
+        .bloco table table td, .bloco td.semborda { border: 0; }
+
+        .rot { font-size: 5pt; color: #333; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
+        .val { font-size: 7pt; height: 3.2mm; white-space: nowrap; overflow: hidden; }
+        .direita { text-align: right; }
+        .titulo { font-size: 6.5pt; font-weight: bold; margin: 1.2mm 0 0.3mm 0; }
+
+        /* Canhoto */
+        .canhoto { border-bottom: 0.8pt dashed #000; padding-bottom: 1.5mm; margin-bottom: 1.5mm; }
+        .canhoto td { border: 0.6pt solid #000; }
+        .canhoto-texto { font-size: 6pt; font-weight: bold; min-height: 4mm; } /* min-height: nome longo quebra em 2 linhas */
+        .canhoto-nfe { text-align: center; font-size: 7pt; vertical-align: middle; }
+        .canhoto-nfe-titulo { font-size: 11pt; font-weight: bold; }
+        .canhoto-assinatura .val { height: 5mm; }
+
+        /* Cabeçalho */
+        .emitente { text-align: center; }
+        /* O quadro do emitente tem altura fixa (ver fragmentos.html): o excedente é cortado em vez de empurrar os itens */
+        .emitente-caixa { height: 25mm; overflow: hidden; }
+        .logo { float: left; width: 20mm; height: 20mm; text-align: center; }
+        .logo img { max-width: 20mm; max-height: 20mm; }
+        .emitente-dados { font-size: 6.5pt; }
+        .emitente-nome { font-size: 9pt; font-weight: bold; margin: 1mm 0 1mm 0; }
+        .emitente-nome-longo { font-size: 7.5pt; margin: 0.5mm 0 0.5mm 0; }
+        .danfe-id { text-align: center; }
+        .danfe-titulo { font-size: 12pt; font-weight: bold; }
+        .danfe-sub { font-size: 5pt; }
+        .tipo-nf { width: 70%; margin: 0.8mm auto 0.8mm auto; }
+        .bloco .tipo-nf td { border: 0; }
+        .tipo-nf-legenda { font-size: 5.5pt; text-align: left; width: 75%; }
+        .bloco .tipo-nf td.tipo-nf-caixa { border: 0.6pt solid #000; font-size: 9pt; font-weight: bold; text-align: center; vertical-align: middle; width: 25%; }
+        .danfe-numero { font-size: 6.5pt; font-weight: bold; }
+        .folha-atual::after { content: counter(page); }
+        .folha-total::after { content: counter(pages); }
+        .chave { padding: 0; }
+        .barras { height: 11mm; padding: 1mm 2mm 0.5mm 2mm; text-align: center; border-bottom: 0.6pt solid #000; }
+        .barras img { width: 100%; height: 10mm; }
+        .chave-acesso { padding: 0.3mm 0.8mm; border-bottom: 0.6pt solid #000; }
+        .chave-numero { font-weight: bold; text-align: center; font-size: 7.5pt; }
+        .consulta { padding: 0.8mm; font-size: 5.5pt; text-align: center; }
+        .cabecalho-continuacao { position: running(cabecalho); width: 100%; }
+
+        /* Itens: -fs-table-paginate (repete o thead em cada folha) só funciona com border-collapse: separate */
+        .itens { margin-top: 0.3mm; -fs-table-paginate: paginate; border-collapse: separate; border-spacing: 0; border-left: 0.6pt solid #000; border-top: 0.6pt solid #000; }
+        .itens > thead > tr > th { border-right: 0.6pt solid #000; border-bottom: 0.6pt solid #000; font-size: 5pt; font-weight: bold; text-align: center; vertical-align: middle; padding: 0.5mm 0.4mm; }
+        .itens > tbody > tr > td { border-right: 0.6pt solid #000; border-bottom: 0.6pt solid #000; font-size: 5.5pt; padding: 0.5mm 0.8mm; }
+        .itens > tbody > tr { page-break-inside: avoid; }
+        .item-descricao { font-size: 6pt; }
+        .item-info { color: #555; font-size: 5pt; }
+        .item-classif { color: #555; font-size: 5pt; text-align: right; }
+        .num { text-align: right; }
+        .centro { text-align: center; }
+        table.mini td { border: 0; padding: 0; font-size: 5pt; white-space: nowrap; overflow: hidden; }
+        table.mini td.l { color: #555; }
+        table.mini td.v { text-align: right; }
+
+        /* Dados adicionais: o espaçador #espaco-dados-adicionais recebe, em ImpressaoDanfeV2Util.htmlParaPdf, a altura
+           que sobra na folha, para o bloco #dados-adicionais encostar no rodapé da última folha (como no DANFE Jasper).
+           Por isso o bloco não pode ter margem superior própria: o respiro fica no espaçador. */
+        #espaco-dados-adicionais { height: 1.2mm; }
+        .adicionais { page-break-inside: avoid; }
+        .adicionais .titulo { margin-top: 0; }
+        .adicionais td { height: 30mm; }
+        .adicionais .texto { font-size: 6pt; white-space: pre-wrap; }
+        .qrcode { text-align: center; }
+        .qrcode img { width: 27mm; height: 27mm; margin-top: 0.5mm; }
+        .qrcode-titulo { font-weight: bold; font-size: 6pt; }
+
+        .marca-dagua { position: fixed; z-index: -1; top: 110mm; left: 0; width: 100%; text-align: center; font-size: 42pt; font-weight: bold; color: #e3e3e3; transform: rotate(-30deg); }
+    </style>
+    <style th:if="${paisagem}">
+        @page { size: A4 landscape; }
+        .titulo { margin: 0.6mm 0 0.2mm 0; }
+        #espaco-dados-adicionais { height: 0.6mm; }
+        .adicionais td { height: 19mm; }
+        .qrcode img { width: 17mm; height: 17mm; }
+        .marca-dagua { top: 70mm; }
+    </style>
+    <style th:if="${paisagem and exibirCanhoto}">
+        /* Faixa de 25mm à direita reservada ao canhoto. Vale para todas as folhas: o cabeçalho repetido precisa da mesma largura do fluxo.
+           A regra @top-center é redeclarada por inteiro para não depender de como o openhtmltopdf mescla caixas de margem de regras @page distintas. */
+        @page {
+            @top-center { content: element(cabecalho); vertical-align: bottom; padding-right: 25mm; }
+        }
+        .conteudo { margin-right: 25mm; }
+        .canhoto-paisagem { position: absolute; top: 0; right: 0; width: 22mm; height: 196mm; border-left: 0.8pt dashed #000; }
+        .canhoto-paisagem .canhoto { border-bottom: 0; margin: 0; padding: 0; }
+        /* Girado a partir do canto inferior esquerdo; a caixa original não pode passar da altura da folha (geraria folha em branco) */
+        .canhoto-giro { position: absolute; top: 176mm; left: 22mm; width: 196mm; height: 20mm; transform-origin: 0 100%; transform: rotate(-90deg); }
+        .canhoto-giro .canhoto-texto { height: 7mm; }
+        .canhoto-giro .canhoto-assinatura .val { height: 6mm; }
+    </style>
+</head>
+<body>
+
+<div class="marca-dagua" th:if="${danfe.homologacao}">SEM VALOR FISCAL</div>
+
+<!-- Cabeçalho repetido a partir da 2ª folha (margem superior das páginas seguintes) -->
+<div class="cabecalho-continuacao" th:insert="~{fragmentos :: cabecalho}"></div>
+
+<div class="canhoto-paisagem" th:if="${paisagem and exibirCanhoto}" th:insert="~{fragmentos :: canhoto}"></div>
+
+<div class="conteudo">
+
+    <th:block th:if="${!paisagem and exibirCanhoto}"><div th:replace="~{fragmentos :: canhoto}"></div></th:block>
+
+    <div th:replace="~{fragmentos :: cabecalho}"></div>
+
+    <!-- Destinatário / Remetente -->
+    <div class="titulo">DESTINATÁRIO / REMETENTE</div>
+    <div class="bloco">
+        <table><tr>
+            <td th:replace="~{fragmentos :: campo('NOME / RAZÃO SOCIAL', ${danfe.dest.xNome}, '62%')}"></td>
+            <td th:replace="~{fragmentos :: campo('CNPJ / CPF', ${fmt.documento(fmt.primeiro(danfe.dest.CNPJ, fmt.primeiro(danfe.dest.CPF, danfe.dest.idEstrangeiro)))}, '22%')}"></td>
+            <td th:replace="~{fragmentos :: campo('DATA DA EMISSÃO', ${fmt.data(danfe.ide.dhEmi)}, '16%')}"></td>
+        </tr></table>
+        <table><tr>
+            <td th:replace="~{fragmentos :: campo('ENDEREÇO', ${fmt.endereco(danfe.dest)}, '46%')}"></td>
+            <td th:replace="~{fragmentos :: campo('BAIRRO / DISTRITO', ${danfe.dest.xBairro}, '22%')}"></td>
+            <td th:replace="~{fragmentos :: campo('CEP', ${fmt.cep(danfe.dest.CEP)}, '16%')}"></td>
+            <td th:replace="~{fragmentos :: campo('DATA DA ENTRADA / SAÍDA', ${fmt.data(danfe.ide.dhSaiEnt)}, '16%')}"></td>
+        </tr></table>
+        <table><tr>
+            <td th:replace="~{fragmentos :: campo('MUNICÍPIO', ${danfe.dest.xMun}, '32%')}"></td>
+            <td th:replace="~{fragmentos :: campo('FONE / FAX', ${fmt.fone(danfe.dest.fone)}, '18%')}"></td>
+            <td th:replace="~{fragmentos :: campo('UF', ${danfe.dest.UF}, '6%')}"></td>
+            <td th:replace="~{fragmentos :: campo('INSCRIÇÃO ESTADUAL', ${danfe.dest.IE}, '28%')}"></td>
+            <td th:replace="~{fragmentos :: campo('HORA DA SAÍDA', ${fmt.hora(danfe.ide.dhSaiEnt)}, '16%')}"></td>
+        </tr></table>
+    </div>
+
+    <!-- Fatura / Duplicatas (facultativo) -->
+    <th:block th:if="${danfe.exibirFatura}">
+        <div class="titulo">FATURA / DUPLICATAS</div>
+        <div class="bloco">
+            <table th:each="linha : ${danfe.faturaLinhas}"><tr>
+                <th:block th:each="dup : ${linha}">
+                    <td th:replace="~{fragmentos :: campo('FATURA/DUPLICATA', ${dup != null ? dup.nDup : ''}, '13%')}"></td>
+                    <td th:replace="~{fragmentos :: campo('VENCIMENTO', ${dup != null ? fmt.data(dup.dVenc) : ''}, '10%')}"></td>
+                    <td th:replace="~{fragmentos :: campo('VALOR', ${dup != null ? fmt.valor(dup.vDup) : ''}, '10.33%')}"></td>
+                </th:block>
+            </tr></table>
+        </div>
+    </th:block>
+
+    <!-- Total dos produtos e total da nota -->
+    <div class="titulo">TOTAL DOS PRODUTOS E TOTAL DA NOTA</div>
+    <div class="bloco">
+        <table><tr>
+            <td th:replace="~{fragmentos :: campo('VALOR TOTAL DOS PRODUTOS', ${fmt.valor(danfe.icmsTot.vProd)}, '20%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO FRETE', ${fmt.valor(danfe.icmsTot.vFrete)}, '20%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO SEGURO', ${fmt.valor(danfe.icmsTot.vSeg)}, '20%')}"></td>
+            <td th:replace="~{fragmentos :: campo('DESCONTO', ${fmt.valor(danfe.icmsTot.vDesc)}, '20%')}"></td>
+            <td th:replace="~{fragmentos :: campo('OUTRAS DESPESAS ACESSÓRIAS', ${fmt.valor(danfe.icmsTot.vOutro)}, '20%')}"></td>
+        </tr></table>
+        <table><tr>
+            <td th:replace="~{fragmentos :: campo('VALOR TOTAL DA NOTA', ${fmt.valor(danfe.icmsTot.vNF)}, '100%')}"></td>
+        </tr></table>
+    </div>
+
+    <!-- Total do ICMS / IPI -->
+    <div class="titulo">TOTAL DO ICMS / IPI</div>
+    <div class="bloco">
+        <table><tr>
+            <td th:replace="~{fragmentos :: campo('BASE DE CÁLCULO DO ICMS', ${fmt.valor(danfe.icmsTot.vBC)}, '20%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO ICMS', ${fmt.valor(danfe.icmsTot.vICMS)}, '20%')}"></td>
+            <td th:replace="~{fragmentos :: campo('BASE DE CÁLCULO DO ICMS ST', ${fmt.valor(danfe.icmsTot.vBCST)}, '20%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO ICMS ST', ${fmt.valor(danfe.icmsTot.vST)}, '20%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO IPI', ${fmt.valor(danfe.icmsTot.vIPI)}, '20%')}"></td>
+        </tr></table>
+        <table th:if="${danfe.exibirLinhaFcp}"><tr>
+            <td th:replace="~{fragmentos :: campo('VALOR DO FCP', ${fmt.valor(danfe.icmsTot.vFCP)}, '25%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO FCP RETIDO POR ST', ${fmt.valor(danfe.icmsTot.vFCPST)}, '25%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO DIFAL NA UF DE DESTINO', ${fmt.valor(danfe.icmsTot.vICMSUFDest)}, '25%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO FCP NA UF DE DESTINO', ${fmt.valor(danfe.icmsTot.vFCPUFDest)}, '25%')}"></td>
+        </tr></table>
+        <table th:if="${danfe.exibirLinhaIcmsMono}"><tr>
+            <td th:replace="~{fragmentos :: campo('BC DO ICMS MONOFÁSICO', ${fmt.quantidade(danfe.icmsTot.qBCMono)}, '25%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO ICMS MONOFÁSICO', ${fmt.valor(danfe.icmsTot.vICMSMono)}, '25%')}"></td>
+            <td th:replace="~{fragmentos :: campo('BC DO ICMS MONOFÁSICO POR RETENÇÃO', ${fmt.quantidade(danfe.icmsTot.qBCMonoReten)}, '25%')}"></td>
+            <td th:replace="~{fragmentos :: campo('VALOR DO ICMS MONOFÁSICO POR RETENÇÃO', ${fmt.valor(danfe.icmsTot.vICMSMonoReten)}, '25%')}"></td>
+        </tr></table>
+    </div>
+
+    <!-- Total do IBS / CBS / IS (NT 2026.010 item 4.1) -->
+    <th:block th:if="${danfe.exibirIbsCbsIs}">
+        <div class="titulo">TOTAL DO IBS / CBS / IS</div>
+        <div class="bloco">
+            <table><tr>
+                <td th:replace="~{fragmentos :: campo('BASE DE CÁLCULO DO IBS / CBS', ${fmt.valor(danfe.ibsCbsTot.vBCIBSCBS)}, '20%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DA CBS', ${fmt.valor(danfe.ibsCbsTot.vCBS)}, '20%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IBS UF', ${fmt.valor(danfe.ibsCbsTot.vIBSUF)}, '20%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IBS MUNICÍPIO', ${fmt.valor(danfe.ibsCbsTot.vIBSMun)}, '20%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IMPOSTO SELETIVO', ${fmt.valor(danfe.isTot.vIS)}, '20%')}"></td>
+            </tr></table>
+            <table th:if="${danfe.exibirLinhaIbsCbsMono}"><tr>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IBS MONOFÁSICO', ${fmt.valor(danfe.ibsCbsTot.vIBSMono)}, '25%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DA CBS MONOFÁSICA', ${fmt.valor(danfe.ibsCbsTot.vCBSMono)}, '25%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IBS MONOFÁSICO POR RETENÇÃO', ${fmt.valor(danfe.ibsCbsTot.vIBSMonoReten)}, '25%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DA CBS MONOFÁSICA POR RETENÇÃO', ${fmt.valor(danfe.ibsCbsTot.vCBSMonoReten)}, '25%')}"></td>
+            </tr></table>
+            <table th:if="${danfe.exibirLinhaIbsCbsMonoRet}"><tr>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IBS MONOFÁSICO RETIDO ANTERIORMENTE', ${fmt.valor(danfe.ibsCbsTot.vIBSMonoRet)}, '50%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DA CBS MONOFÁSICA RETIDA ANTERIORMENTE', ${fmt.valor(danfe.ibsCbsTot.vCBSMonoRet)}, '50%')}"></td>
+            </tr></table>
+        </div>
+    </th:block>
+
+    <!-- Cálculo do ISSQN (facultativo) -->
+    <th:block th:if="${danfe.exibirIssqn}">
+        <div class="titulo">CÁLCULO DO ISSQN</div>
+        <div class="bloco">
+            <table><tr>
+                <td th:replace="~{fragmentos :: campo('INSCRIÇÃO MUNICIPAL', ${danfe.emit.IM}, '25%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR TOTAL DOS SERVIÇOS', ${fmt.valor(danfe.issqnTot.vServ)}, '25%')}"></td>
+                <td th:replace="~{fragmentos :: campo('BASE DE CÁLCULO DO ISSQN', ${fmt.valor(danfe.issqnTot.vBC)}, '25%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DO ISSQN', ${fmt.valor(danfe.issqnTot.vISS)}, '25%')}"></td>
+            </tr></table>
+        </div>
+    </th:block>
+
+    <!-- Transportador / Volumes transportados (facultativo) -->
+    <th:block th:if="${danfe.exibirTransporte}">
+        <div class="titulo">TRANSPORTADOR / VOLUMES TRANSPORTADOS</div>
+        <div class="bloco">
+            <table><tr>
+                <td th:replace="~{fragmentos :: campo('NOME / RAZÃO SOCIAL', ${danfe.transp.xNome}, '30%')}"></td>
+                <td th:replace="~{fragmentos :: campo('FRETE POR CONTA', ${fmt.modFrete(danfe.transp.modFrete)}, '16%')}"></td>
+                <td th:replace="~{fragmentos :: campo('CÓDIGO ANTT', ${danfe.transp.RNTC}, '12%')}"></td>
+                <td th:replace="~{fragmentos :: campo('PLACA DO VEÍCULO', ${danfe.transp.placa}, '12%')}"></td>
+                <td th:replace="~{fragmentos :: campo('UF', ${danfe.transp.placaUF}, '6%')}"></td>
+                <td th:replace="~{fragmentos :: campo('CNPJ / CPF', ${fmt.documento(fmt.primeiro(danfe.transp.CNPJ, danfe.transp.CPF))}, '24%')}"></td>
+            </tr></table>
+            <table><tr>
+                <td th:replace="~{fragmentos :: campo('ENDEREÇO', ${danfe.transp.xEnder}, '46%')}"></td>
+                <td th:replace="~{fragmentos :: campo('MUNICÍPIO', ${danfe.transp.xMun}, '30%')}"></td>
+                <td th:replace="~{fragmentos :: campo('UF', ${danfe.transp.UF}, '6%')}"></td>
+                <td th:replace="~{fragmentos :: campo('INSCRIÇÃO ESTADUAL', ${danfe.transp.IE}, '18%')}"></td>
+            </tr></table>
+            <table><tr>
+                <td th:replace="~{fragmentos :: campo('QUANTIDADE', ${danfe.transp.qVol}, '14%')}"></td>
+                <td th:replace="~{fragmentos :: campo('ESPÉCIE', ${danfe.transp.esp}, '18%')}"></td>
+                <td th:replace="~{fragmentos :: campo('MARCA', ${danfe.transp.marca}, '18%')}"></td>
+                <td th:replace="~{fragmentos :: campo('NUMERAÇÃO', ${danfe.transp.nVol}, '18%')}"></td>
+                <td th:replace="~{fragmentos :: campo('PESO BRUTO', ${fmt.peso(danfe.transp.pesoB)}, '16%')}"></td>
+                <td th:replace="~{fragmentos :: campo('PESO LÍQUIDO', ${fmt.peso(danfe.transp.pesoL)}, '16%')}"></td>
+            </tr></table>
+        </div>
+    </th:block>
+
+    <!-- Dados dos produtos / serviços (NT 2026.010 item 4.3) -->
+    <div class="titulo">DADOS DOS PRODUTOS / SERVIÇOS</div>
+    <table class="itens">
+        <thead>
+        <tr>
+            <th style="width:24%">DESCRIÇÃO DO PRODUTO / SERVIÇO</th>
+            <th style="width:6%">CST / CFOP</th>
+            <th style="width:8%">QTD / UN</th>
+            <th style="width:8%">VLR UNIT</th>
+            <th style="width:9%">VLR TOTAL</th>
+            <th style="width:13%">BASES DE CÁLCULO</th>
+            <th style="width:14%">ALÍQUOTAS</th>
+            <th style="width:18%">VALOR DOS TRIBUTOS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${danfe.itens}">
+            <td>
+                <div class="item-descricao" th:text="${fmt.primeiro(item.cProd, '')} + ' - ' + ${fmt.primeiro(item.xProd, '')}">Produto</div>
+                <div class="item-info" th:if="${item.infAdProd != null}" th:text="${item.infAdProd}">informações adicionais</div>
+                <!-- Monofásico (retenção, retido, diferença) e ajuste de competência: valores sem coluna própria -->
+                <th:block th:with="complemento=${fmt.complementoIbsCbs(item)}">
+                    <div class="item-info" th:if="${complemento != ''}" th:text="${complemento}">complemento IBS/CBS</div>
+                </th:block>
+                <div class="item-classif" th:text="'[NCM ' + ${fmt.primeiro(item.NCM, '')} + ']' + (${item.cClassTrib != null} ? ' [cClassTrib ' + ${item.cClassTrib} + ']' : '')">[NCM]</div>
+            </td>
+            <td class="centro">
+                <div th:text="${fmt.cst(item.orig, item.CST)}">000</div>
+                <div class="item-info" th:if="${item.cstIBSCBS != null}" th:text="'IBS/CBS ' + ${item.cstIBSCBS}">IBS/CBS 000</div>
+                <div th:text="${item.CFOP}">5102</div>
+            </td>
+            <td class="num">
+                <div th:text="${fmt.quantidade(item.qCom)}">1,00</div>
+                <div class="item-info" th:text="'[' + ${fmt.primeiro(item.uCom, '')} + ']'">[UN]</div>
+            </td>
+            <td class="num" th:text="${fmt.quantidade(item.vUnCom)}">0,00</td>
+            <td class="num" th:text="${fmt.valor(item.vProd)}">0,00</td>
+            <!-- IBS/CBS: gIBSCBS e monofásico ad valorem usam base em R$ e alíquota em %; o monofásico ad rem usa base em
+                 quantidade (qBCMono) e alíquota em R$ por unidade (adRem), sem abertura UF/Município; transferência de
+                 crédito e ajuste de competência só têm valor (vIBS e vCBS). Ver LeitorDanfeV2. -->
+            <td>
+                <table class="mini">
+                    <tr><td class="l">ICMS</td><td class="v" th:text="${fmt.valor(item.vBCICMS)}"></td></tr>
+                    <tr><td class="l" th:text="${item.vBCIBSCBS == null and item.qBCMono != null} ? 'IBS/CBS QTD' : 'IBS/CBS'">IBS/CBS</td><td class="v" th:text="${item.vBCIBSCBS != null} ? ${fmt.valor(item.vBCIBSCBS)} : ${fmt.quantidade(item.qBCMono)}"></td></tr>
+                    <tr><td class="l">IS</td><td class="v" th:text="${fmt.valor(item.vBCIS)}"></td></tr>
+                    <tr><td class="l">IPI</td><td class="v" th:text="${fmt.valor(item.vBCIPI)}"></td></tr>
+                </table>
+            </td>
+            <td>
+                <table class="mini">
+                    <tr><td class="l" style="width:30%">ICMS</td><td class="v" style="width:23%" th:text="${fmt.aliquota(item.pICMS)}"></td><td class="l" style="width:18%;padding-left:1mm">CBS</td><td class="v" style="width:29%" th:text="${item.adRemCBS != null} ? ${fmt.adRem(item.adRemCBS)} : ${fmt.aliquota(item.pCBS)}"></td></tr>
+                    <tr><td class="l" th:text="${item.adRemIBS != null} ? 'IBS' : 'IBS UF'">IBS UF</td><td class="v" th:text="${item.adRemIBS != null} ? ${fmt.adRem(item.adRemIBS)} : ${fmt.aliquota(item.pIBSUF)}"></td><td class="l" style="padding-left:1mm">IPI</td><td class="v" th:text="${fmt.aliquota(item.pIPI)}"></td></tr>
+                    <tr><td class="l">IBS MUN</td><td class="v" th:text="${fmt.aliquota(item.pIBSMun)}"></td><td class="l" style="padding-left:1mm">IS</td><td class="v" th:text="${fmt.aliquota(item.pIS)}"></td></tr>
+                </table>
+            </td>
+            <td>
+                <table class="mini">
+                    <tr><td class="l" style="width:24%">ICMS</td><td class="v" style="width:26%" th:text="${fmt.valor(item.vICMS)}"></td><td class="l" style="width:14%;padding-left:1mm">CBS</td><td class="v" style="width:36%" th:text="${fmt.valor(item.vCBS)}"></td></tr>
+                    <tr><td class="l" th:text="${item.vIBSUF == null and item.vIBS != null} ? 'IBS' : 'IBS UF'">IBS UF</td><td class="v" th:text="${fmt.valor(fmt.primeiro(item.vIBSUF, item.vIBS))}"></td><td class="l" style="padding-left:1mm">IPI</td><td class="v" th:text="${fmt.valor(item.vIPI)}"></td></tr>
+                    <tr><td class="l">IBS MUN</td><td class="v" th:text="${fmt.valor(item.vIBSMun)}"></td><td class="l" style="padding-left:1mm">IS</td><td class="v" th:text="${fmt.valor(item.vIS)}"></td></tr>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Dados adicionais + QR Code (facultativo, NT 2026.010 item 4.5). O espaçador e o id do bloco são os
+         marcadores que ImpressaoDanfeV2Util.htmlParaPdf usa para encostar o bloco no rodapé da última folha. -->
+    <div id="espaco-dados-adicionais"></div>
+    <div class="adicionais" id="dados-adicionais">
+        <div class="titulo">DADOS ADICIONAIS</div>
+        <div class="bloco">
+            <table><tr>
+                <td th:style="${danfe.exibirQrCode} ? 'width:56%' : 'width:65%'">
+                    <div class="rot">INFORMAÇÕES COMPLEMENTARES</div>
+                    <div class="texto" th:text="${danfe.infAdic.infCpl}">informações complementares</div>
+                </td>
+                <td th:style="${danfe.exibirQrCode} ? 'width:26%' : 'width:35%'">
+                    <div class="rot">RESERVADO AO FISCO</div>
+                    <div class="texto" th:text="${danfe.infAdic.infAdFisco}">reservado ao fisco</div>
+                </td>
+                <td class="qrcode" style="width:18%" th:if="${danfe.exibirQrCode}">
+                    <div class="qrcode-titulo">QR CODE</div>
+                    <img th:src="${qrCode}" alt="QR Code" />
+                </td>
+            </tr></table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

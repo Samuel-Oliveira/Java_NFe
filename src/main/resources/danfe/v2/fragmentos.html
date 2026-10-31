@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+  Fragmentos do DANFE v2. Podem ser reaproveitados em templates customizados:
+    th:replace="~{fragmentos :: campo('RÓTULO', ${valor}, '25%')}"
+    th:replace="~{fragmentos :: cabecalho}"
+    th:replace="~{fragmentos :: canhoto}"
+  Variáveis disponíveis: danfe, fmt, xml, logo, codigoBarras, qrCode, paisagem, exibirCanhoto, parametros.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<body>
+
+<!-- Célula de campo: rótulo pequeno + valor -->
+<table><tr>
+<td th:fragment="campo(rotulo, valor, largura)" th:style="'width:' + ${largura}">
+    <div class="rot" th:text="${rotulo}">RÓTULO</div>
+    <div class="val" th:text="${valor}">valor</div>
+</td>
+</tr></table>
+
+<!-- Quadro de identificação do emitente / DANFE / chave (repetido em todas as folhas) -->
+<div th:fragment="cabecalho" class="bloco cabecalho">
+    <table>
+        <tr>
+            <td class="emitente" style="width:37%">
+                <!-- Altura fixa: o cabeçalho das folhas seguintes vive numa margem fixa, então o quadro não pode crescer com o texto -->
+                <div class="emitente-caixa">
+                    <div class="logo" th:if="${logo != null}"><img th:src="${logo}" alt="logo" /></div>
+                    <div class="emitente-dados">
+                        <div class="emitente-nome" th:classappend="${danfe.emit.xNome != null and #strings.length(danfe.emit.xNome) > 40} ? 'emitente-nome-longo'" th:text="${danfe.emit.xNome}">EMPRESA</div>
+                        <div th:text="${fmt.endereco(danfe.emit)} + ' - ' + ${fmt.primeiro(danfe.emit.xBairro, '')}">Rua, 100 - Bairro</div>
+                        <div th:text="${fmt.primeiro(danfe.emit.xMun, '')} + '/' + ${fmt.primeiro(danfe.emit.UF, '')} + ' - CEP ' + ${fmt.cep(danfe.emit.CEP)}">Cidade/UF - CEP</div>
+                        <div th:if="${danfe.emit.fone != null}" th:text="'Fone: ' + ${fmt.fone(danfe.emit.fone)}">Fone</div>
+                    </div>
+                </div>
+            </td>
+            <td class="danfe-id" style="width:17%">
+                <div class="danfe-titulo">DANFE</div>
+                <div class="danfe-sub">DOCUMENTO AUXILIAR DA NOTA FISCAL ELETRÔNICA</div>
+                <table class="tipo-nf"><tr>
+                    <td class="tipo-nf-legenda">0 - ENTRADA<br />1 - SAÍDA</td>
+                    <td class="tipo-nf-caixa" th:text="${danfe.ide.tpNF}">1</td>
+                </tr></table>
+                <div class="danfe-numero" th:text="'Nº ' + ${fmt.numeroNota(danfe.ide.nNF)}">Nº 000.000.001</div>
+                <div class="danfe-numero" th:text="'SÉRIE ' + ${fmt.serie(danfe.ide.serie)}">SÉRIE 001</div>
+                <div class="danfe-numero">FOLHA <span class="folha-atual"></span>/<span class="folha-total"></span></div>
+            </td>
+            <td class="chave" style="width:46%">
+                <div class="barras"><img th:if="${codigoBarras != null}" th:src="${codigoBarras}" alt="código de barras" /></div>
+                <div class="chave-acesso">
+                    <div class="rot">CHAVE DE ACESSO</div>
+                    <div class="val chave-numero" th:text="${fmt.chave(danfe.chave)}">0000 0000</div>
+                </div>
+                <div class="consulta">Consulte a autenticidade no portal nacional da NF-e www.nfe.fazenda.gov.br/portal ou no site da SEFAZ autorizadora</div>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td th:replace="~{fragmentos :: campo('NATUREZA DA OPERAÇÃO', ${danfe.ide.natOp}, '54%')}"></td>
+            <td style="width:46%">
+                <div class="rot">PROTOCOLO DE AUTORIZAÇÃO DE USO</div>
+                <div class="val direita" th:text="${danfe.prot.nProt != null} ? ${danfe.prot.nProt} + ' - ' + ${fmt.dataHora(danfe.prot.dhRecbto)} : ''">000 - 00/00/0000</div>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td th:replace="~{fragmentos :: campo('INSCRIÇÃO ESTADUAL', ${danfe.emit.IE}, '34%')}"></td>
+            <td th:replace="~{fragmentos :: campo('INSCRIÇÃO ESTADUAL DO SUBSTITUTO TRIBUTÁRIO', ${danfe.emit.IEST}, '36%')}"></td>
+            <td style="width:30%">
+                <div class="rot">CNPJ / CPF</div>
+                <div class="val direita" th:text="${fmt.documento(fmt.primeiro(danfe.emit.CNPJ, danfe.emit.CPF))}">00.000.000/0000-00</div>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td th:replace="~{fragmentos :: campo('CÓDIGO DO REGIME TRIBUTÁRIO', ${fmt.crt(danfe.emit.CRT)}, '47%')}"></td>
+            <!-- NT 2026.010: campo reservado; não imprimir conteúdo enquanto a tag não for publicada.
+                 A chave do parâmetro é ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO -->
+            <td th:replace="~{fragmentos :: campo('TIPO DE REGIME DE APURAÇÃO DO IBS E DA CBS', ${parametros.tipoRegimeApuracao}, '53%')}"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- Canhoto (retrato: horizontal no topo; paisagem: vertical à direita) -->
+<div th:fragment="canhoto" class="canhoto">
+    <table th:if="${!paisagem}">
+        <tr>
+            <td colspan="2" style="width:82%">
+                <div class="canhoto-texto" th:text="'RECEBEMOS DE ' + ${fmt.primeiro(danfe.emit.xNome, '')} + ' OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL ELETRÔNICA INDICADA AO LADO'">RECEBEMOS DE</div>
+            </td>
+            <td rowspan="2" class="canhoto-nfe" style="width:18%">
+                <div class="canhoto-nfe-titulo">NF-e</div>
+                <div th:text="'Nº ' + ${fmt.numeroNota(danfe.ide.nNF)}">Nº</div>
+                <div th:text="'SÉRIE ' + ${fmt.serie(danfe.ide.serie)}">SÉRIE</div>
+            </td>
+        </tr>
+        <tr class="canhoto-assinatura">
+            <td th:replace="~{fragmentos :: campo('DATA DE RECEBIMENTO', '', '22%')}"></td>
+            <td th:replace="~{fragmentos :: campo('IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR', '', '60%')}"></td>
+        </tr>
+    </table>
+    <div class="canhoto-giro" th:if="${paisagem}">
+        <table>
+            <tr>
+                <td rowspan="2" class="canhoto-nfe" style="width:16%">
+                    <div class="canhoto-nfe-titulo">NF-e</div>
+                    <div th:text="'Nº ' + ${fmt.numeroNota(danfe.ide.nNF)}">Nº</div>
+                    <div th:text="'SÉRIE ' + ${fmt.serie(danfe.ide.serie)}">SÉRIE</div>
+                </td>
+                <td colspan="2" style="width:84%">
+                    <div class="canhoto-texto" th:text="'RECEBEMOS DE ' + ${fmt.primeiro(danfe.emit.xNome, '')} + ' OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL ELETRÔNICA INDICADA AO LADO'">RECEBEMOS DE</div>
+                </td>
+            </tr>
+            <tr class="canhoto-assinatura">
+                <td th:replace="~{fragmentos :: campo('DATA DE RECEBIMENTO', '', '28%')}"></td>
+                <td th:replace="~{fragmentos :: campo('IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR', '', '56%')}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
