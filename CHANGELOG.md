@@ -26,6 +26,31 @@
   Nacional **nao existem no PL 010g**. Enquanto a SEFAZ nao publicar o Schema, essa NT fica
   sem implementacao.
 
+### Correcoes
+
+- `XmlNfeUtil.objectToElement` passa a marshallar tambem as classes de evento sem
+  `@XmlRootElement`, informando o elemento raiz explicitamente com o namespace lido do
+  `@XmlSchema` do package. O `detEvento` e anonimo no Schema do EConf, entao o
+  `DetEventoConciliacaoFinanceira` nao recebe a anotacao na geracao e o evento generico
+  lancava "Erro Ao Converter Objeto em Elemento" antes mesmo de sair da maquina.
+
+### Exemplos
+
+- `EnvioNfeTeste` passa a montar o grupo `IBSCBS` por item e os totais `IBSCBSTot` e
+  `vNFTot`. A homologacao ja rejeita a NF-e modelo 55 sem o grupo, com **1115 - Grupo
+  IBSCBS nao informado**; o exemplo da NFC-e tinha sido atualizado na reforma e o da
+  NF-e nao.
+- `EventoGenericoTeste` usava o payload do EConf (110750) para o evento 112110, o que
+  rendia **493 - Evento nao atende o Schema XML especifico**. Passa a usar
+  `DetEvento112110`.
+- `EpecTeste` tinha `"X"` literal em sete campos e chave fixa; passa a gerar a chave com
+  `tpEmis=4`, que o EPEC exige (rejeicao 484), e a usar dados validos.
+- `ConsultaCadastroTeste` consultava um CNPJ nao cadastrado em GO (rejeicao 259); passa a
+  consultar o proprio emitente.
+- Numero, chave, protocolo, sequencia, faixa de inutilizacao e caminho do XML viraram
+  propriedades de sistema, com os valores atuais como padrao. Era o dado fixo que garantia
+  as rejeicoes 539, 573 e 563 a cada execucao, e e o que permite encadear os exemplos.
+
 ### Quebra a compilacao
 
 - `TTribNFCe` perdeu `getGIBSCBSMono()` e `setGIBSCBSMono()`: o PL 010g removeu o grupo

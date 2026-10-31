@@ -22,7 +22,7 @@ public class ConsultaXmlTeste {
             ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO);
 
             //Informe a chave a ser Consultada
-            String chave = "52260610732644000128550010000927561865874165";
+            String chave = System.getProperty("chave", "52260610732644000128550010000927561865874165");
 
             //Efetua a consulta
 			TRetConsSitNFe retorno = Nfe.consultaXml(config, chave, DocumentoEnum.NFE);

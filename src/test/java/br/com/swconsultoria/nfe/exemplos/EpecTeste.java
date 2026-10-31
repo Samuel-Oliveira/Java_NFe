@@ -8,10 +8,12 @@ import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
 import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schemas_eventos.TEnvEventoEpec;
 import br.com.swconsultoria.nfe.schemas_eventos.TRetEnvEventoEpec;
+import br.com.swconsultoria.nfe.util.ChaveUtil;
 import br.com.swconsultoria.nfe.util.EpecUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 /**
  * @author Samuel Oliveira
@@ -29,20 +31,27 @@ public class EpecTeste {
             //Para isso Foi criado o Objeto Epec
             Evento epec = new Evento();
             //Informe a chave da Epec
-            epec.setChave("52190310732644000128550010000125491000125491");
+            // O EPEC so aceita chave com tpEmis=4 (rejeicao 484): ela e montada aqui,
+            // e nao fixada, para refletir a nota que sera emitida em contingencia.
+            String cnpjEmit = "10732644000128";
+            int numeroNfe = Integer.parseInt(System.getProperty("numeroNfeEpec", "94000"));
+            String cnf = String.format("%08d", new Random().nextInt(99999999));
+            ChaveUtil chaveUtil = new ChaveUtil(EstadosEnum.GO, cnpjEmit, "55", 1,
+                    numeroNfe, "4", cnf, LocalDateTime.now());
+            epec.setChave(chaveUtil.getChaveNF().replace("NFe", ""));
             //Informe o CNPJ do emitente
             epec.setCnpj("10732644000128");
             //Informe a data do EPEC
             epec.setDataEvento(LocalDateTime.now());
             //Preenche os Dados do Evento EPEC
             EventoEpec eventoEpec = new EventoEpec();
-            eventoEpec.setCnpjDestinatario("X");
-            eventoEpec.setvST("X");
-            eventoEpec.setvNF("X");
-            eventoEpec.setvICMS("X");
-            eventoEpec.setTipoNF("X");
-            eventoEpec.setIeEmitente("X");
-            eventoEpec.setIeDestinatario("X");
+            eventoEpec.setCnpjDestinatario("10732644000128");
+            eventoEpec.setvST("0.00");
+            eventoEpec.setvNF("13.00");
+            eventoEpec.setvICMS("0.00");
+            eventoEpec.setTipoNF("1");
+            eventoEpec.setIeEmitente("104519304");
+            eventoEpec.setIeDestinatario("104519304");
             eventoEpec.setEstadoDestinatario(EstadosEnum.GO);
             epec.setEventoEpec(eventoEpec);
 

@@ -24,10 +24,15 @@ import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Total;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Total.ICMSTot;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Transp;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
+import br.com.swconsultoria.nfe.util.IbsCbsUtil;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +48,15 @@ public class EnvioNfeTeste {
         Envia();
     }
 
+    /**
+     * cClassTrib do item. 000001 e tributacao integral; a tabela vem do
+     * ibscbs.json, o mesmo arquivo publicado pela SEFAZ.
+     */
+    private static final String C_CLASS_TRIB = System.getProperty("cClassTrib", "000001");
+
+    /** Preenchido por preencheDet e consumido por preencheTotal. */
+    private static IbsCbsUtil ibsCbsUtil;
+
     private static void Envia() {
 
         try {
@@ -50,7 +64,7 @@ public class EnvioNfeTeste {
             ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO);
 
             //Informe o Numero da NFe
-            int numeroNfe = 92758;
+            int numeroNfe = Integer.parseInt(System.getProperty("numeroNfe", "92758"));
             //Informe o CNPJ do Emitente da NFe
             String cnpj = "10732644000128";
             //Informe a data de Emissao da NFe
@@ -84,7 +98,7 @@ public class EnvioNfeTeste {
             infNFe.setEntrega(dadosEntrega(infNFe));
 
             //Preenche os dados do Produto da Nfe e adiciona a Lista
-            infNFe.getDet().addAll(preencheDet());
+            infNFe.getDet().addAll(preencheDet(infNFe));
 
 
 
@@ -277,7 +291,16 @@ public class EnvioNfeTeste {
     /**
      * Preenche Det Nfe
      */
-    private static List<InfNFe.Det> preencheDet() {
+    /**
+     * O grupo IBSCBS passou a ser exigido na homologacao: sem ele a nota e
+     * rejeitada com 1115 (Grupo IBSCBS nao informado). O ano sai do dhEmi do
+     * proprio ide, para nao divergir do documento.
+     */
+    private static List<InfNFe.Det> preencheDet(InfNFe infNFe) throws Exception {
+
+        ibsCbsUtil = new IbsCbsUtil(XmlNfeUtil.leXml("src/test/resources/ibscbs.json"),
+                DocumentoEnum.NFE, infNFe);
+
 
         //O Preenchimento deve ser feito por produto, Então deve ocorrer uma LIsta
         InfNFe.Det det = new InfNFe.Det();
@@ -291,6 +314,11 @@ public class EnvioNfeTeste {
         det.setImposto(preencheImposto());
 
         det.setInfAdProd("Informações Adicionais do Produto");
+
+        //Preenche o grupo IBS/CBS da Reforma Tributaria
+        TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(C_CLASS_TRIB, det);
+        det.getImposto().getContent()
+                .add(new JAXBElement<>(new QName("IBSCBS"), TTribNFe.class, ibsCbs));
 
         //Retorna a Lista de Det
         return Collections.singletonList(det);
@@ -393,6 +421,11 @@ public class EnvioNfeTeste {
         icmstot.setVNF("13.00");
         icmstot.setVTotTrib("5.00");
         total.setICMSTot(icmstot);
+
+        //Totais do IBS/CBS e o total geral do documento (vNFTot)
+        total.setIBSCBSTot(ibsCbsUtil.preencheTotaisIbsCsb());
+        BigDecimal vNfTot = ibsCbsUtil.calculaVnfTot(icmstot.getVNF());
+        total.setVNFTot(ObjetoUtil.getValor2Casas(vNfTot));
 
         return total;
     }

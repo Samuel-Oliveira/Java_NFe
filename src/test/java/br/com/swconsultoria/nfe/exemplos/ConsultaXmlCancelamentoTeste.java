@@ -29,7 +29,7 @@ public class ConsultaXmlCancelamentoTeste {
             ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO);
 
             //Informe a chave a ser Consultada
-            String chave = "52240610732644000128550010000927431392573498";
+            String chave = System.getProperty("chave", "52240610732644000128550010000927431392573498");
 
             //Efetua a consulta
 			TRetConsSitNFe retorno = Nfe.consultaXml(config, chave, DocumentoEnum.NFE);
@@ -62,8 +62,8 @@ public class ConsultaXmlCancelamentoTeste {
 				retCance.setInfEvento(infEvento);
 
 				Evento cancela = new Evento();
-				cancela.setChave("52240610732644000128550010000927431392573498");
-				cancela.setProtocolo("152230024577165");
+				cancela.setChave(System.getProperty("chave", "52240610732644000128550010000927431392573498"));
+				cancela.setProtocolo(System.getProperty("protocolo", "152230024577165"));
 				cancela.setCnpj("10732644000128");
 				cancela.setMotivo("Teste de Cancelamento");
 				cancela.setDataEvento(LocalDateTime.of(2024,6,13,15,4,50));
