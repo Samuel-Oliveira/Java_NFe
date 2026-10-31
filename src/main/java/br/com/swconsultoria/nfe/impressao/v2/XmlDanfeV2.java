@@ -28,7 +28,7 @@ import java.util.Map;
 public class XmlDanfeV2 {
 
     private final Document documento;
-    private final XPath xpath = XPathFactory.newInstance().newXPath();
+    private final XPath xpath;
     private final Map<String, XPathExpression> expressoes = new HashMap<>();
 
     public XmlDanfeV2(String xml) {
@@ -48,6 +48,11 @@ public class XmlDanfeV2 {
             factory.setXIncludeAware(false);
             factory.setExpandEntityReferences(false);
             this.documento = factory.newDocumentBuilder().parse(new InputSource(new StringReader(conteudo)));
+
+            // As expressões são internas (ou de templates próprios, que são confiáveis); defesa em profundidade barata
+            XPathFactory xpathFactory = XPathFactory.newInstance();
+            xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            this.xpath = xpathFactory.newXPath();
         } catch (Exception e) {
             throw new DanfeException("Erro ao ler o XML da NF-e: " + e.getMessage(), e);
         }

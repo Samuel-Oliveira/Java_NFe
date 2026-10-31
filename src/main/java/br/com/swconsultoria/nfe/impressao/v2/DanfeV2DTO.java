@@ -15,6 +15,9 @@ import java.util.Map;
  */
 public class DanfeV2DTO {
 
+    /** Duplicatas por linha no quadro "Fatura / Duplicatas". */
+    private static final int DUPLICATAS_POR_LINHA = 3;
+
     private String chave;
     private final Map<String, String> ide = new LinkedHashMap<>();
     private final Map<String, String> emit = new LinkedHashMap<>();
@@ -109,14 +112,14 @@ public class DanfeV2DTO {
     }
 
     /**
-     * Duplicatas agrupadas em linhas de 3, como no quadro "Fatura / Duplicatas".
+     * Duplicatas agrupadas em linhas de {@value #DUPLICATAS_POR_LINHA}, como no quadro "Fatura / Duplicatas".
      * A última linha é completada com null para manter as colunas.
      */
     public List<List<Map<String, String>>> getFaturaLinhas() {
         List<List<Map<String, String>>> linhas = new ArrayList<>();
-        for (int i = 0; i < duplicatas.size(); i += 3) {
+        for (int i = 0; i < duplicatas.size(); i += DUPLICATAS_POR_LINHA) {
             List<Map<String, String>> linha = new ArrayList<>();
-            for (int j = i; j < i + 3; j++) {
+            for (int j = i; j < i + DUPLICATAS_POR_LINHA; j++) {
                 linha.add(j < duplicatas.size() ? duplicatas.get(j) : null);
             }
             linhas.add(linha);

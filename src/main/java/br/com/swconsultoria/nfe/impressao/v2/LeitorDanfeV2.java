@@ -13,15 +13,37 @@ import java.util.Map;
  * As chaves dos Maps são os nomes das tags do XML. Exceções (nomes derivados, para evitar colisão):
  * <ul>
  *     <li>transp: placaUF (veicTransp/UF); os dados de vol são do primeiro volume</li>
- *     <li>item: CST (CST ou CSOSN do ICMS), vBCICMS, vBCIPI, vBCIBSCBS</li>
+ *     <li>item: CST (CST ou CSOSN do ICMS), cstIBSCBS (IBSCBS/CST), vBCICMS, vBCIPI, vBCIBSCBS</li>
  *     <li>item: pIBSUF, pIBSMun e pCBS já trazem a alíquota efetiva (gRed/pAliqEfet) quando informada,
  *     conforme regra da NT 2026.010 item 4.3; a alíquota vigente fica em pIBSUFVigente, pIBSMunVigente e pCBSVigente</li>
  * </ul>
+ * O grupo imposto/IBSCBS do item é uma escolha entre gIBSCBS, gIBSCBSMono, gTransfCred e gAjusteCompet
+ * (TTribNFe do schema). As chaves do item são as mesmas para os quatro casos, para o template não precisar
+ * saber qual grupo veio:
+ * <ul>
+ *     <li>vBCIBSCBS, pIBSUF, vIBSUF, pIBSMun, vIBSMun, pCBS, vCBS: gIBSCBS, ou monofásico ad valorem
+ *     (gMonoPadrao/vBCMono, pAliqMonoUF, vIBSMonoUF, pAliqMonoMun, vIBSMonoMun, pAliqMonoCBS, vCBSMono)</li>
+ *     <li>vIBS: valor do IBS do item sem a abertura UF/Município: gIBSCBS/vIBS, vIBSMono, gTransfCred/vIBS ou
+ *     gAjusteCompet/vIBS; vCBS também cobre vCBSMono, gTransfCred/vCBS e gAjusteCompet/vCBS</li>
+ *     <li>monofásico ad rem: qBCMono (base em quantidade), adRemIBS, adRemCBS, vIBSMono, vCBSMono</li>
+ *     <li>monofásico, demais: vIBSMonoReten, vCBSMonoReten (retenção), vIBSMonoRet, vCBSMonoRet (retido
+ *     anteriormente), vIBSDiferenca, vCBSDiferenca (biocombustível), vTotIBSMonoItem, vTotCBSMonoItem</li>
+ *     <li>ajuste de competência: competApur</li>
+ * </ul>
+ * Ficam disponíveis para templates próprios, embora o template padrão não os imprima: ibsCbsTot.vIBS
+ * (soma de IBS UF e Município, já impressos separados) e supl.urlChave.
  */
 public final class LeitorDanfeV2 {
 
     private static final String IBSCBS_TOT = "total/IBSCBSTot/";
     private static final String IBSCBS_ITEM = "imposto/IBSCBS/gIBSCBS/";
+    private static final String IBSCBS_ITEM_MONO = "imposto/IBSCBS/gIBSCBSMono/";
+    private static final String IBS_AD_REM = IBSCBS_ITEM_MONO + "gIBSMonoAdRem/";
+    private static final String IBS_AD_VALOREM = IBSCBS_ITEM_MONO + "gIBSMonoAdValorem/";
+    private static final String CBS_AD_REM = IBSCBS_ITEM_MONO + "gCBSMonoAdRem/";
+    private static final String CBS_AD_VALOREM = IBSCBS_ITEM_MONO + "gCBSMonoAdValorem/";
+    private static final String TRANSF_CRED = "imposto/IBSCBS/gTransfCred/";
+    private static final String AJUSTE_COMPET = "imposto/IBSCBS/gAjusteCompet/";
 
     private LeitorDanfeV2() {
     }
@@ -62,7 +84,9 @@ public final class LeitorDanfeV2 {
                 "vIBSMono", IBSCBS_TOT + "gMono/vIBSMono",
                 "vCBSMono", IBSCBS_TOT + "gMono/vCBSMono",
                 "vIBSMonoReten", IBSCBS_TOT + "gMono/vIBSMonoReten",
-                "vCBSMonoReten", IBSCBS_TOT + "gMono/vCBSMonoReten");
+                "vCBSMonoReten", IBSCBS_TOT + "gMono/vCBSMonoReten",
+                "vIBSMonoRet", IBSCBS_TOT + "gMono/vIBSMonoRet",
+                "vCBSMonoRet", IBSCBS_TOT + "gMono/vCBSMonoRet");
         copia(xml, infNFe, danfe.getIsTot(), "total/ISTot/", "vIS");
         copia(xml, infNFe, danfe.getIssqnTot(), "total/ISSQNtot/", "vServ", "vBC", "vISS");
 
@@ -97,6 +121,7 @@ public final class LeitorDanfeV2 {
         copia(xml, det, item, "prod/", "cProd", "cEAN", "xProd", "NCM", "CEST", "CFOP", "uCom", "qCom", "vUnCom", "vProd");
         copia(xml, det, item, "", "infAdProd");
 
+        // Nas uniões de XPath ("a | b") vale o primeiro nó na ordem do documento; os grupos são mutuamente exclusivos
         copiaMapeado(xml, det, item,
                 "orig", "imposto/ICMS/*/orig",
                 "CST", "imposto/ICMS/*/CST | imposto/ICMS/*/CSOSN",
@@ -106,14 +131,33 @@ public final class LeitorDanfeV2 {
                 "vBCIPI", "imposto/IPI/IPITrib/vBC",
                 "pIPI", "imposto/IPI/IPITrib/pIPI",
                 "vIPI", "imposto/IPI/IPITrib/vIPI",
+                "cstIBSCBS", "imposto/IBSCBS/CST",
                 "cClassTrib", "imposto/IBSCBS/cClassTrib",
-                "vBCIBSCBS", IBSCBS_ITEM + "vBC",
-                "pIBSUFVigente", IBSCBS_ITEM + "gIBSUF/pIBSUF",
-                "vIBSUF", IBSCBS_ITEM + "gIBSUF/vIBSUF",
-                "pIBSMunVigente", IBSCBS_ITEM + "gIBSMun/pIBSMun",
-                "vIBSMun", IBSCBS_ITEM + "gIBSMun/vIBSMun",
-                "pCBSVigente", IBSCBS_ITEM + "gCBS/pCBS",
-                "vCBS", IBSCBS_ITEM + "gCBS/vCBS",
+                "vBCIBSCBS", IBSCBS_ITEM + "vBC | " + IBS_AD_VALOREM + "gMonoPadrao/vBCMono | " + CBS_AD_VALOREM + "gMonoPadrao/vBCMono",
+                "pIBSUFVigente", IBSCBS_ITEM + "gIBSUF/pIBSUF | " + IBS_AD_VALOREM + "gMonoPadrao/pAliqMonoUF",
+                "vIBSUF", IBSCBS_ITEM + "gIBSUF/vIBSUF | " + IBS_AD_VALOREM + "gMonoPadrao/vIBSMonoUF",
+                "pIBSMunVigente", IBSCBS_ITEM + "gIBSMun/pIBSMun | " + IBS_AD_VALOREM + "gMonoPadrao/pAliqMonoMun",
+                "vIBSMun", IBSCBS_ITEM + "gIBSMun/vIBSMun | " + IBS_AD_VALOREM + "gMonoPadrao/vIBSMonoMun",
+                "vIBS", IBSCBS_ITEM + "vIBS | " + IBS_AD_REM + "gMonoPadrao/vIBSMono | " + IBS_AD_VALOREM + "gMonoPadrao/vIBSMono | "
+                        + TRANSF_CRED + "vIBS | " + AJUSTE_COMPET + "vIBS",
+                "pCBSVigente", IBSCBS_ITEM + "gCBS/pCBS | " + CBS_AD_VALOREM + "gMonoPadrao/pAliqMonoCBS",
+                "vCBS", IBSCBS_ITEM + "gCBS/vCBS | " + CBS_AD_REM + "gMonoPadrao/vCBSMono | " + CBS_AD_VALOREM + "gMonoPadrao/vCBSMono | "
+                        + TRANSF_CRED + "vCBS | " + AJUSTE_COMPET + "vCBS",
+                // Monofásico ad rem: base em quantidade e alíquota em R$ por unidade (TMonofasia)
+                "qBCMono", IBS_AD_REM + "gMonoPadrao/qBCMono | " + CBS_AD_REM + "gMonoPadrao/qBCMono",
+                "adRemIBS", IBS_AD_REM + "gMonoPadrao/adRemIBS",
+                "adRemCBS", CBS_AD_REM + "gMonoPadrao/adRemCBS",
+                "vIBSMono", IBS_AD_REM + "gMonoPadrao/vIBSMono | " + IBS_AD_VALOREM + "gMonoPadrao/vIBSMono",
+                "vCBSMono", CBS_AD_REM + "gMonoPadrao/vCBSMono | " + CBS_AD_VALOREM + "gMonoPadrao/vCBSMono",
+                "vIBSMonoReten", IBS_AD_REM + "gMonoReten/vIBSMonoReten | " + IBS_AD_VALOREM + "gMonoReten/vIBSMonoReten",
+                "vCBSMonoReten", CBS_AD_REM + "gMonoReten/vCBSMonoReten | " + CBS_AD_VALOREM + "gMonoReten/vCBSMonoReten",
+                "vIBSMonoRet", IBS_AD_REM + "gMonoRet/vIBSMonoRet | " + IBS_AD_VALOREM + "gMonoRet/vIBSMonoRet",
+                "vCBSMonoRet", CBS_AD_REM + "gMonoRet/vCBSMonoRet | " + CBS_AD_VALOREM + "gMonoRet/vCBSMonoRet",
+                "vIBSDiferenca", IBS_AD_REM + "gpBioDiferenca/vIBSDiferenca | " + IBS_AD_VALOREM + "gpBioDiferenca/vIBSDiferenca",
+                "vCBSDiferenca", CBS_AD_REM + "gpBioDiferenca/vCBSDiferenca | " + CBS_AD_VALOREM + "gpBioDiferenca/vCBSDiferenca",
+                "vTotIBSMonoItem", IBSCBS_ITEM_MONO + "vTotIBSMonoItem",
+                "vTotCBSMonoItem", IBSCBS_ITEM_MONO + "vTotCBSMonoItem",
+                "competApur", AJUSTE_COMPET + "competApur",
                 "vBCIS", "imposto/IS/vBCIS",
                 "pIS", "imposto/IS/pIS",
                 "vIS", "imposto/IS/vIS");

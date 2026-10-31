@@ -2,6 +2,7 @@ package br.com.swconsultoria.nfe.impressao.v2;
 
 import br.com.swconsultoria.nfe.exception.DanfeException;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
+import com.openhtmltopdf.util.XRLog;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
@@ -12,23 +13,33 @@ import org.junit.jupiter.api.Test;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * DANFE v2 (Thymeleaf) com as NF-e fictícias de homologação de src/test/resources:
- * DanfeV2Rtc.xml (2 itens, IBSCBS com e sem gRed, IS, duplicatas, transporte e QR Code)
- * e DanfeV2Rtc50Itens.xml (50 itens, para a quebra de página).
+ * DanfeV2Rtc.xml (2 itens, IBSCBS com e sem gRed, IS, duplicatas, transporte e QR Code),
+ * DanfeV2Rtc50Itens.xml (50 itens, para a quebra de página), DanfeV2Mono.xml (monofásico ad rem e ad valorem,
+ * transferência de crédito e ajuste de competência) e DanfeV2SemRtc.xml (NF-e sem RTC e sem protocolo).
  */
 class ImpressaoDanfeV2UtilTest {
 
     private static String xml;
     private static String xml50Itens;
+    private static String xmlMono;
+    private static String xmlSemRtc;
 
     @BeforeAll
     static void leXmls() throws IOException {
+        // A biblioteca não mexe no log do openhtmltopdf; aqui só para não poluir a saída do build
+        for (String logger : XRLog.listRegisteredLoggers()) {
+            XRLog.setLevel(logger, Level.WARNING);
+        }
         xml = XmlNfeUtil.leXml("src/test/resources/DanfeV2Rtc.xml");
         xml50Itens = XmlNfeUtil.leXml("src/test/resources/DanfeV2Rtc50Itens.xml");
+        xmlMono = XmlNfeUtil.leXml("src/test/resources/DanfeV2Mono.xml");
+        xmlSemRtc = XmlNfeUtil.leXml("src/test/resources/DanfeV2SemRtc.xml");
     }
 
     @Test
@@ -40,8 +51,11 @@ class ImpressaoDanfeV2UtilTest {
         assertTrue(html.contains("3526 1212 3456 7800 0195 5500 1000 0001 2310 0000 1234"), "chave em grupos de 4");
         assertTrue(html.contains("1.775,00"), "vNF");
         assertTrue(html.contains("TOTAL DO IBS / CBS / IS"));
+        assertTrue(html.contains("1.656,00"), "base de cálculo total do IBS/CBS");
+        assertTrue(html.contains("IBS/CBS 000") && html.contains("IBS/CBS 200"), "CST do IBS/CBS de cada item");
         assertTrue(html.contains("SEM VALOR FISCAL"), "tpAmb=2 imprime a marca d'água");
         assertTrue(html.contains("data:image/png;base64,"), "logo, código de barras e QR Code em data URI");
+        assertFalse(html.contains("null"), "nenhuma concatenação imprime o literal null");
     }
 
     @Test
@@ -55,6 +69,100 @@ class ImpressaoDanfeV2UtilTest {
         assertEquals("0.3600", item2.get("pCBS"), "com gRed imprime pAliqEfet (NT 2026.010 item 4.3)");
         assertEquals("0.0400", item2.get("pIBSUF"));
         assertEquals("0.9000", item2.get("pCBSVigente"));
+        assertEquals("000", item1.get("cstIBSCBS"));
+        assertEquals("200", item2.get("cstIBSCBS"));
+        assertEquals("1.50", item1.get("vIBS"), "gIBSCBS/vIBS também fica disponível");
+        assertNull(item1.get("qBCMono"), "item gIBSCBS não tem chaves do monofásico");
+    }
+
+    @Test
+    void itensMonofasicosTransferenciaEAjusteCoerentesComOTotal() throws IOException {
+        DanfeV2DTO danfe = LeitorDanfeV2.ler(new XmlDanfeV2(xmlMono));
+
+        assertEquals(4, danfe.getItens().size());
+        Map<String, String> adRem = danfe.getItens().get(0);
+        Map<String, String> adValorem = danfe.getItens().get(1);
+        Map<String, String> transferencia = danfe.getItens().get(2);
+        Map<String, String> ajuste = danfe.getItens().get(3);
+
+        // Ad rem (CST 620): base em quantidade, alíquota em R$/unidade, valor sem abertura UF/Município
+        assertEquals("620", adRem.get("cstIBSCBS"));
+        assertNull(adRem.get("vBCIBSCBS"));
+        assertEquals("1000.0000", adRem.get("qBCMono"));
+        assertEquals("0.0500", adRem.get("adRemIBS"));
+        assertEquals("0.2000", adRem.get("adRemCBS"));
+        assertEquals("50.00", adRem.get("vIBS"));
+        assertEquals("200.00", adRem.get("vCBS"));
+        assertNull(adRem.get("vIBSUF"));
+        assertNull(adRem.get("pIBSUF"));
+        assertEquals("10.00", adRem.get("vIBSMonoReten"));
+        assertEquals("30.00", adRem.get("vCBSMonoReten"));
+        assertEquals("60.00", adRem.get("vTotIBSMonoItem"));
+
+        // Ad valorem: entra nas mesmas colunas do gIBSCBS (base em R$ e alíquota em %)
+        assertEquals("5000.00", adValorem.get("vBCIBSCBS"));
+        assertEquals("0.1000", adValorem.get("pIBSUF"));
+        assertEquals("5.00", adValorem.get("vIBSUF"));
+        assertEquals("0.0000", adValorem.get("pIBSMun"));
+        assertEquals("0.9000", adValorem.get("pCBS"));
+        assertEquals("45.00", adValorem.get("vCBS"));
+        assertEquals("1.00", adValorem.get("vIBSMonoRet"));
+        assertEquals("2.00", adValorem.get("vCBSMonoRet"));
+        assertNull(adValorem.get("adRemIBS"));
+
+        // Transferência de crédito (CST 800) e ajuste de competência (CST 811): só valores
+        assertEquals("800", transferencia.get("cstIBSCBS"));
+        assertEquals("10.00", transferencia.get("vIBS"));
+        assertEquals("30.00", transferencia.get("vCBS"));
+        assertEquals("811", ajuste.get("cstIBSCBS"));
+        assertEquals("1.00", ajuste.get("vIBS"));
+        assertEquals("3.00", ajuste.get("vCBS"));
+        assertEquals("2026-11", ajuste.get("competApur"));
+
+        // Totais: o quadro de IBS/CBS/IS e a linha de monofasia saem com os valores do XML
+        assertTrue(danfe.isExibirIbsCbsIs());
+        assertTrue(danfe.isExibirLinhaIbsCbsMono());
+        assertEquals("55.00", danfe.getIbsCbsTot().get("vIBSMono"));
+        assertEquals("245.00", danfe.getIbsCbsTot().get("vCBSMono"));
+
+        ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(xmlMono);
+        String html = ImpressaoDanfeV2Util.gerarHtml(impressao);
+        assertTrue(html.contains("VALOR DO IBS MONOFÁSICO"));
+        assertTrue(html.contains("IBS/CBS QTD") && html.contains("1.000,00"), "base em quantidade do ad rem");
+        assertTrue(html.contains("0,0500") && html.contains("0,2000"), "alíquotas ad rem");
+        assertTrue(html.contains("IBS/CBS 620") && html.contains("IBS/CBS 800") && html.contains("IBS/CBS 811"));
+        assertTrue(html.contains("Retenção monofásica IBS 10,00 CBS 30,00"));
+        assertTrue(html.contains("Retido anteriormente IBS 1,00 CBS 2,00"));
+        assertTrue(html.contains("Ajuste de competência 11/2026"));
+        assertFalse(html.contains("null"));
+        assertEquals(1, folhas(ImpressaoDanfeV2Util.impressaoPdfByte(impressao)));
+    }
+
+    @Test
+    void notaSemGruposOpcionaisNaoImprimeQuadrosFacultativos() throws IOException {
+        DanfeV2DTO danfe = LeitorDanfeV2.ler(new XmlDanfeV2(xmlSemRtc));
+
+        assertFalse(danfe.isExibirIbsCbsIs());
+        assertFalse(danfe.isExibirQrCode());
+        assertFalse(danfe.isExibirFatura());
+        assertFalse(danfe.isExibirTransporte(), "só modFrete não basta");
+        assertFalse(danfe.isExibirIssqn());
+        assertTrue(danfe.getProt().isEmpty());
+        assertEquals("35261212345678000195550010000004561000004567", danfe.getChave(), "sem protNFe a chave vem do infNFe/@Id");
+        assertEquals("102", danfe.getItens().get(0).get("CST"), "CSOSN no lugar do CST");
+        assertNull(danfe.getItens().get(0).get("cstIBSCBS"));
+
+        ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(xmlSemRtc);
+        impressao.removerLogo();
+        String html = ImpressaoDanfeV2Util.gerarHtml(impressao);
+        assertFalse(html.contains("TOTAL DO IBS / CBS / IS"));
+        assertFalse(html.contains("QR CODE"));
+        assertFalse(html.contains("FATURA / DUPLICATAS"));
+        assertFalse(html.contains("TRANSPORTADOR / VOLUMES"));
+        assertFalse(html.contains("class=\"logo\""), "removerLogo: o template não gera o bloco do logo");
+        assertFalse(html.contains("null"), "nenhuma concatenação imprime o literal null");
+        assertTrue(html.contains("1 - SIMPLES NACIONAL"));
+        assertEquals(1, folhas(ImpressaoDanfeV2Util.impressaoPdfByte(impressao)));
     }
 
     @Test
@@ -88,13 +196,20 @@ class ImpressaoDanfeV2UtilTest {
 
     @Test
     void quebraDePaginaCom50Itens() throws IOException {
+        // O que importa é quebrar em várias folhas, repetir o cabeçalho e não cortar item; a contagem exata
+        // (hoje 3 em retrato e 4 em paisagem) muda a cada ajuste de CSS e não é o contrato
         ImpressaoDanfeV2DTO retrato = ImpressaoDanfeV2Util.impressaoPadraoNFe(xml50Itens);
         retrato.setOrientacao(OrientacaoDanfeEnum.RETRATO);
-        assertEquals(3, folhas(ImpressaoDanfeV2Util.impressaoPdfByte(retrato)));
+        byte[] pdfRetrato = ImpressaoDanfeV2Util.impressaoPdfByte(retrato);
+        assertTrue(folhas(pdfRetrato) >= 3, "retrato em várias folhas");
+        assertTrue(textoDaUltimaFolha(pdfRetrato, 0f, 0.25f).contains("DANFE"), "cabeçalho repetido na última folha");
+        assertTrue(textoDaUltimaFolha(pdfRetrato, 0f, 1f).contains("DISJUNTOR TERMOMAGNETICO"), "item 50 na última folha");
 
         ImpressaoDanfeV2DTO paisagem = ImpressaoDanfeV2Util.impressaoPadraoNFe(xml50Itens);
         paisagem.setOrientacao(OrientacaoDanfeEnum.PAISAGEM);
-        assertEquals(4, folhas(ImpressaoDanfeV2Util.impressaoPdfByte(paisagem)));
+        byte[] pdfPaisagem = ImpressaoDanfeV2Util.impressaoPdfByte(paisagem);
+        assertTrue(folhas(pdfPaisagem) > folhas(pdfRetrato), "paisagem cabe menos itens por folha");
+        assertTrue(textoDaUltimaFolha(pdfPaisagem, 0f, 0.25f).contains("DANFE"));
     }
 
     @Test
@@ -105,11 +220,11 @@ class ImpressaoDanfeV2UtilTest {
         assertTrue(textoDaUltimaFolha(retrato, 0.80f, 1f).contains("RESERVADO AO FISCO"), "bloco nos últimos 20% da folha");
         assertFalse(textoDaUltimaFolha(retrato, 0.25f, 0.75f).contains("RESERVADO AO FISCO"), "bloco fora do meio da folha");
 
-        // 50 itens em paisagem: mesmo número de folhas e o bloco no rodapé da última
+        // 50 itens em paisagem: várias folhas e o bloco no rodapé da última
         ImpressaoDanfeV2DTO paisagem = ImpressaoDanfeV2Util.impressaoPadraoNFe(xml50Itens);
         paisagem.setOrientacao(OrientacaoDanfeEnum.PAISAGEM);
         byte[] pdf50 = ImpressaoDanfeV2Util.impressaoPdfByte(paisagem);
-        assertEquals(4, folhas(pdf50));
+        assertTrue(folhas(pdf50) >= 3);
         assertTrue(textoDaUltimaFolha(pdf50, 0.80f, 1f).contains("RESERVADO AO FISCO"));
 
         // Sem os marcadores (template próprio), o PDF continua saindo, com o bloco logo após os itens
@@ -134,6 +249,11 @@ class ImpressaoDanfeV2UtilTest {
         impressao.setTemplate("d:/nao/existe/danfe.html");
         DanfeException erro = assertThrows(DanfeException.class, () -> ImpressaoDanfeV2Util.gerarHtml(impressao));
         assertTrue(erro.getMessage().startsWith("Erro ao processar o template"));
+
+        // Caminho inválido (InvalidPathException no Windows, NoSuchFileException nos demais): sempre DanfeException
+        ImpressaoDanfeV2DTO valida = ImpressaoDanfeV2Util.impressaoPadraoNFe(xml);
+        assertThrows(DanfeException.class, () -> ImpressaoDanfeV2Util.impressaoHtml(valida, "nao/existe/da|nfe\0.html"));
+        assertThrows(DanfeException.class, () -> ImpressaoDanfeV2Util.impressaoPdfArquivo(valida, "nao/existe/da|nfe\0.pdf"));
     }
 
     @Test
@@ -166,6 +286,9 @@ class ImpressaoDanfeV2UtilTest {
         assertEquals("25/12/2026 10:30:00", fmt.dataHora("2026-12-25T10:30:00-03:00"));
         assertEquals("000", fmt.cst("0", "00"));
         assertEquals("", fmt.valor(null));
+        assertEquals("0,0500", fmt.adRem("0.0500"));
+        assertEquals("11/2026", fmt.competencia("2026-11"));
+        assertEquals("", fmt.complementoIbsCbs(null));
     }
 
     private static int folhas(byte[] pdf) throws IOException {

@@ -7,7 +7,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
-    <title th:text="'DANFE ' + ${danfe.chave}">DANFE</title>
+    <title th:text="'DANFE ' + ${fmt.primeiro(danfe.chave, '')}">DANFE</title>
     <style>
         @page {
             size: A4 portrait;
@@ -215,10 +215,11 @@
         <div class="titulo">TOTAL DO IBS / CBS / IS</div>
         <div class="bloco">
             <table><tr>
-                <td th:replace="~{fragmentos :: campo('VALOR DA CBS', ${fmt.valor(danfe.ibsCbsTot.vCBS)}, '25%')}"></td>
-                <td th:replace="~{fragmentos :: campo('VALOR DO IBS UF', ${fmt.valor(danfe.ibsCbsTot.vIBSUF)}, '25%')}"></td>
-                <td th:replace="~{fragmentos :: campo('VALOR DO IBS MUNICÍPIO', ${fmt.valor(danfe.ibsCbsTot.vIBSMun)}, '25%')}"></td>
-                <td th:replace="~{fragmentos :: campo('VALOR DO IMPOSTO SELETIVO', ${fmt.valor(danfe.isTot.vIS)}, '25%')}"></td>
+                <td th:replace="~{fragmentos :: campo('BASE DE CÁLCULO DO IBS / CBS', ${fmt.valor(danfe.ibsCbsTot.vBCIBSCBS)}, '20%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DA CBS', ${fmt.valor(danfe.ibsCbsTot.vCBS)}, '20%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IBS UF', ${fmt.valor(danfe.ibsCbsTot.vIBSUF)}, '20%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IBS MUNICÍPIO', ${fmt.valor(danfe.ibsCbsTot.vIBSMun)}, '20%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IMPOSTO SELETIVO', ${fmt.valor(danfe.isTot.vIS)}, '20%')}"></td>
             </tr></table>
             <table th:if="${danfe.exibirLinhaIbsCbsMono}"><tr>
                 <td th:replace="~{fragmentos :: campo('VALOR DO IBS MONOFÁSICO', ${fmt.valor(danfe.ibsCbsTot.vIBSMono)}, '25%')}"></td>
@@ -289,39 +290,47 @@
         <tbody>
         <tr th:each="item : ${danfe.itens}">
             <td>
-                <div class="item-descricao" th:text="${item.cProd} + ' - ' + ${item.xProd}">Produto</div>
+                <div class="item-descricao" th:text="${fmt.primeiro(item.cProd, '')} + ' - ' + ${fmt.primeiro(item.xProd, '')}">Produto</div>
                 <div class="item-info" th:if="${item.infAdProd != null}" th:text="${item.infAdProd}">informações adicionais</div>
-                <div class="item-classif" th:text="'[NCM ' + ${item.NCM} + ']' + (${item.cClassTrib != null} ? ' [cClassTrib ' + ${item.cClassTrib} + ']' : '')">[NCM]</div>
+                <!-- Monofásico (retenção, retido, diferença) e ajuste de competência: valores sem coluna própria -->
+                <th:block th:with="complemento=${fmt.complementoIbsCbs(item)}">
+                    <div class="item-info" th:if="${complemento != ''}" th:text="${complemento}">complemento IBS/CBS</div>
+                </th:block>
+                <div class="item-classif" th:text="'[NCM ' + ${fmt.primeiro(item.NCM, '')} + ']' + (${item.cClassTrib != null} ? ' [cClassTrib ' + ${item.cClassTrib} + ']' : '')">[NCM]</div>
             </td>
             <td class="centro">
                 <div th:text="${fmt.cst(item.orig, item.CST)}">000</div>
+                <div class="item-info" th:if="${item.cstIBSCBS != null}" th:text="'IBS/CBS ' + ${item.cstIBSCBS}">IBS/CBS 000</div>
                 <div th:text="${item.CFOP}">5102</div>
             </td>
             <td class="num">
                 <div th:text="${fmt.quantidade(item.qCom)}">1,00</div>
-                <div class="item-info" th:text="'[' + ${item.uCom} + ']'">[UN]</div>
+                <div class="item-info" th:text="'[' + ${fmt.primeiro(item.uCom, '')} + ']'">[UN]</div>
             </td>
             <td class="num" th:text="${fmt.quantidade(item.vUnCom)}">0,00</td>
             <td class="num" th:text="${fmt.valor(item.vProd)}">0,00</td>
+            <!-- IBS/CBS: gIBSCBS e monofásico ad valorem usam base em R$ e alíquota em %; o monofásico ad rem usa base em
+                 quantidade (qBCMono) e alíquota em R$ por unidade (adRem), sem abertura UF/Município; transferência de
+                 crédito e ajuste de competência só têm valor (vIBS e vCBS). Ver LeitorDanfeV2. -->
             <td>
                 <table class="mini">
                     <tr><td class="l">ICMS</td><td class="v" th:text="${fmt.valor(item.vBCICMS)}"></td></tr>
-                    <tr><td class="l">IBS/CBS</td><td class="v" th:text="${fmt.valor(item.vBCIBSCBS)}"></td></tr>
+                    <tr><td class="l" th:text="${item.vBCIBSCBS == null and item.qBCMono != null} ? 'IBS/CBS QTD' : 'IBS/CBS'">IBS/CBS</td><td class="v" th:text="${item.vBCIBSCBS != null} ? ${fmt.valor(item.vBCIBSCBS)} : ${fmt.quantidade(item.qBCMono)}"></td></tr>
                     <tr><td class="l">IS</td><td class="v" th:text="${fmt.valor(item.vBCIS)}"></td></tr>
                     <tr><td class="l">IPI</td><td class="v" th:text="${fmt.valor(item.vBCIPI)}"></td></tr>
                 </table>
             </td>
             <td>
                 <table class="mini">
-                    <tr><td class="l" style="width:30%">ICMS</td><td class="v" style="width:23%" th:text="${fmt.aliquota(item.pICMS)}"></td><td class="l" style="width:18%;padding-left:1mm">CBS</td><td class="v" style="width:29%" th:text="${fmt.aliquota(item.pCBS)}"></td></tr>
-                    <tr><td class="l">IBS UF</td><td class="v" th:text="${fmt.aliquota(item.pIBSUF)}"></td><td class="l" style="padding-left:1mm">IPI</td><td class="v" th:text="${fmt.aliquota(item.pIPI)}"></td></tr>
+                    <tr><td class="l" style="width:30%">ICMS</td><td class="v" style="width:23%" th:text="${fmt.aliquota(item.pICMS)}"></td><td class="l" style="width:18%;padding-left:1mm">CBS</td><td class="v" style="width:29%" th:text="${item.adRemCBS != null} ? ${fmt.adRem(item.adRemCBS)} : ${fmt.aliquota(item.pCBS)}"></td></tr>
+                    <tr><td class="l" th:text="${item.adRemIBS != null} ? 'IBS' : 'IBS UF'">IBS UF</td><td class="v" th:text="${item.adRemIBS != null} ? ${fmt.adRem(item.adRemIBS)} : ${fmt.aliquota(item.pIBSUF)}"></td><td class="l" style="padding-left:1mm">IPI</td><td class="v" th:text="${fmt.aliquota(item.pIPI)}"></td></tr>
                     <tr><td class="l">IBS MUN</td><td class="v" th:text="${fmt.aliquota(item.pIBSMun)}"></td><td class="l" style="padding-left:1mm">IS</td><td class="v" th:text="${fmt.aliquota(item.pIS)}"></td></tr>
                 </table>
             </td>
             <td>
                 <table class="mini">
                     <tr><td class="l" style="width:24%">ICMS</td><td class="v" style="width:26%" th:text="${fmt.valor(item.vICMS)}"></td><td class="l" style="width:14%;padding-left:1mm">CBS</td><td class="v" style="width:36%" th:text="${fmt.valor(item.vCBS)}"></td></tr>
-                    <tr><td class="l">IBS UF</td><td class="v" th:text="${fmt.valor(item.vIBSUF)}"></td><td class="l" style="padding-left:1mm">IPI</td><td class="v" th:text="${fmt.valor(item.vIPI)}"></td></tr>
+                    <tr><td class="l" th:text="${item.vIBSUF == null and item.vIBS != null} ? 'IBS' : 'IBS UF'">IBS UF</td><td class="v" th:text="${fmt.valor(fmt.primeiro(item.vIBSUF, item.vIBS))}"></td><td class="l" style="padding-left:1mm">IPI</td><td class="v" th:text="${fmt.valor(item.vIPI)}"></td></tr>
                     <tr><td class="l">IBS MUN</td><td class="v" th:text="${fmt.valor(item.vIBSMun)}"></td><td class="l" style="padding-left:1mm">IS</td><td class="v" th:text="${fmt.valor(item.vIS)}"></td></tr>
                 </table>
             </td>

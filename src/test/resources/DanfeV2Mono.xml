@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NF-e fictícia (homologação) de combustíveis, com as quatro alternativas do grupo imposto/IBSCBS do item:
+     item 1 monofásico ad rem (CST 620, base em quantidade e alíquota em R$/litro, com retenção),
+     item 2 monofásico ad valorem (CST 620, com retido anteriormente),
+     item 3 transferência de crédito (CST 800) e item 4 ajuste de competência (CST 811). Os totais fecham com os itens. -->
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe35261212345678000195550010000007891000007890" versao="4.00">
+      <ide>
+        <cUF>35</cUF>
+        <cNF>00000789</cNF>
+        <natOp>VENDA DE COMBUSTIVEL</natOp>
+        <mod>55</mod>
+        <serie>1</serie>
+        <nNF>789</nNF>
+        <dhEmi>2026-12-02T08:30:00-03:00</dhEmi>
+        <tpNF>1</tpNF>
+        <idDest>1</idDest>
+        <cMunFG>3550308</cMunFG>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>0</cDV>
+        <tpAmb>2</tpAmb>
+        <finNFe>1</finNFe>
+        <indFinal>0</indFinal>
+        <indPres>1</indPres>
+        <procEmi>0</procEmi>
+        <verProc>JavaDanfe 2.0</verProc>
+      </ide>
+      <emit>
+        <CNPJ>12345678000195</CNPJ>
+        <xNome>DISTRIBUIDORA EXEMPLO DE COMBUSTIVEIS LTDA</xNome>
+        <enderEmit>
+          <xLgr>Avenida Industrial</xLgr>
+          <nro>1000</nro>
+          <xBairro>Distrito Industrial</xBairro>
+          <cMun>3550308</cMun>
+          <xMun>São Paulo</xMun>
+          <UF>SP</UF>
+          <CEP>04001000</CEP>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+          <fone>1133334444</fone>
+        </enderEmit>
+        <IE>111222333444</IE>
+        <CRT>3</CRT>
+      </emit>
+      <dest>
+        <CNPJ>98765432000110</CNPJ>
+        <xNome>POSTO EXEMPLO LTDA</xNome>
+        <enderDest>
+          <xLgr>Rodovia Exemplo</xLgr>
+          <nro>km 25</nro>
+          <xBairro>Zona Rural</xBairro>
+          <cMun>3509502</cMun>
+          <xMun>Campinas</xMun>
+          <UF>SP</UF>
+          <CEP>13010000</CEP>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+        </enderDest>
+        <indIEDest>1</indIEDest>
+        <IE>555666777888</IE>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>GAS01</cProd>
+          <cEAN>SEM GTIN</cEAN>
+          <xProd>GASOLINA C COMUM</xProd>
+          <NCM>27101259</NCM>
+          <CFOP>5656</CFOP>
+          <uCom>L</uCom>
+          <qCom>1000.0000</qCom>
+          <vUnCom>6.1900000000</vUnCom>
+          <vProd>6190.00</vProd>
+          <cEANTrib>SEM GTIN</cEANTrib>
+          <uTrib>L</uTrib>
+          <qTrib>1000.0000</qTrib>
+          <vUnTrib>6.1900000000</vUnTrib>
+          <indTot>1</indTot>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS61>
+              <orig>0</orig>
+              <CST>61</CST>
+              <qBCMonoRet>1000.0000</qBCMonoRet>
+              <adRemICMSRet>1.3700</adRemICMSRet>
+              <vICMSMonoRet>1370.00</vICMSMonoRet>
+            </ICMS61>
+          </ICMS>
+          <IBSCBS>
+            <CST>620</CST>
+            <cClassTrib>620006</cClassTrib>
+            <gIBSCBSMono>
+              <gIBSMonoAdRem>
+                <gMonoPadrao>
+                  <qBCMono>1000.0000</qBCMono>
+                  <adRemIBS>0.0500</adRemIBS>
+                  <vIBSMono>50.00</vIBSMono>
+                </gMonoPadrao>
+                <gMonoReten>
+                  <qBCMonoReten>1000.0000</qBCMonoReten>
+                  <adRemIBSReten>0.0100</adRemIBSReten>
+                  <vIBSMonoReten>10.00</vIBSMonoReten>
+                </gMonoReten>
+              </gIBSMonoAdRem>
+              <gCBSMonoAdRem>
+                <gMonoPadrao>
+                  <qBCMono>1000.0000</qBCMono>
+                  <adRemCBS>0.2000</adRemCBS>
+                  <vCBSMono>200.00</vCBSMono>
+                </gMonoPadrao>
+                <gMonoReten>
+                  <qBCMonoReten>1000.0000</qBCMonoReten>
+                  <adRemCBSReten>0.0300</adRemCBSReten>
+                  <vCBSMonoReten>30.00</vCBSMonoReten>
+                </gMonoReten>
+              </gCBSMonoAdRem>
+              <vTotIBSMonoItem>60.00</vTotIBSMonoItem>
+              <vTotCBSMonoItem>230.00</vTotCBSMonoItem>
+            </gIBSCBSMono>
+          </IBSCBS>
+        </imposto>
+      </det>
+      <det nItem="2">
+        <prod>
+          <cProd>DIE01</cProd>
+          <cEAN>SEM GTIN</cEAN>
+          <xProd>OLEO DIESEL B S10</xProd>
+          <NCM>27101921</NCM>
+          <CFOP>5656</CFOP>
+          <uCom>L</uCom>
+          <qCom>1000.0000</qCom>
+          <vUnCom>5.0000000000</vUnCom>
+          <vProd>5000.00</vProd>
+          <cEANTrib>SEM GTIN</cEANTrib>
+          <uTrib>L</uTrib>
+          <qTrib>1000.0000</qTrib>
+          <vUnTrib>5.0000000000</vUnTrib>
+          <indTot>1</indTot>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS61>
+              <orig>0</orig>
+              <CST>61</CST>
+              <qBCMonoRet>1000.0000</qBCMonoRet>
+              <adRemICMSRet>1.0600</adRemICMSRet>
+              <vICMSMonoRet>1060.00</vICMSMonoRet>
+            </ICMS61>
+          </ICMS>
+          <IBSCBS>
+            <CST>620</CST>
+            <cClassTrib>620006</cClassTrib>
+            <gIBSCBSMono>
+              <gIBSMonoAdValorem>
+                <gMonoPadrao>
+                  <vBCMono>5000.00</vBCMono>
+                  <pAliqMonoUF>0.1000</pAliqMonoUF>
+                  <vIBSMonoUF>5.00</vIBSMonoUF>
+                  <pAliqMonoMun>0.0000</pAliqMonoMun>
+                  <vIBSMonoMun>0.00</vIBSMonoMun>
+                  <vIBSMono>5.00</vIBSMono>
+                </gMonoPadrao>
+                <gMonoRet>
+                  <vIBSMonoRet>1.00</vIBSMonoRet>
+                </gMonoRet>
+              </gIBSMonoAdValorem>
+              <gCBSMonoAdValorem>
+                <gMonoPadrao>
+                  <vBCMono>5000.00</vBCMono>
+                  <pAliqMonoCBS>0.9000</pAliqMonoCBS>
+                  <vCBSMono>45.00</vCBSMono>
+                </gMonoPadrao>
+                <gMonoRet>
+                  <vCBSMonoRet>2.00</vCBSMonoRet>
+                </gMonoRet>
+              </gCBSMonoAdValorem>
+              <vTotIBSMonoItem>5.00</vTotIBSMonoItem>
+              <vTotCBSMonoItem>45.00</vTotCBSMonoItem>
+            </gIBSCBSMono>
+          </IBSCBS>
+        </imposto>
+      </det>
+      <det nItem="3">
+        <prod>
+          <cProd>TRC01</cProd>
+          <cEAN>SEM GTIN</cEAN>
+          <xProd>TRANSFERENCIA DE CREDITO DE IBS E CBS</xProd>
+          <NCM>00000000</NCM>
+          <CFOP>5949</CFOP>
+          <uCom>UN</uCom>
+          <qCom>1.0000</qCom>
+          <vUnCom>0.0000000000</vUnCom>
+          <vProd>0.00</vProd>
+          <cEANTrib>SEM GTIN</cEANTrib>
+          <uTrib>UN</uTrib>
+          <qTrib>1.0000</qTrib>
+          <vUnTrib>0.0000000000</vUnTrib>
+          <indTot>0</indTot>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS90>
+              <orig>0</orig>
+              <CST>90</CST>
+            </ICMS90>
+          </ICMS>
+          <IBSCBS>
+            <CST>800</CST>
+            <cClassTrib>800001</cClassTrib>
+            <gTransfCred>
+              <vIBS>10.00</vIBS>
+              <vCBS>30.00</vCBS>
+            </gTransfCred>
+          </IBSCBS>
+        </imposto>
+      </det>
+      <det nItem="4">
+        <prod>
+          <cProd>AJC01</cProd>
+          <cEAN>SEM GTIN</cEAN>
+          <xProd>AJUSTE DE COMPETENCIA DE IBS E CBS</xProd>
+          <NCM>00000000</NCM>
+          <CFOP>5949</CFOP>
+          <uCom>UN</uCom>
+          <qCom>1.0000</qCom>
+          <vUnCom>0.0000000000</vUnCom>
+          <vProd>0.00</vProd>
+          <cEANTrib>SEM GTIN</cEANTrib>
+          <uTrib>UN</uTrib>
+          <qTrib>1.0000</qTrib>
+          <vUnTrib>0.0000000000</vUnTrib>
+          <indTot>0</indTot>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS90>
+              <orig>0</orig>
+              <CST>90</CST>
+            </ICMS90>
+          </ICMS>
+          <IBSCBS>
+            <CST>811</CST>
+            <cClassTrib>811001</cClassTrib>
+            <gAjusteCompet>
+              <competApur>2026-11</competApur>
+              <vIBS>1.00</vIBS>
+              <vCBS>3.00</vCBS>
+            </gAjusteCompet>
+          </IBSCBS>
+        </imposto>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>0.00</vBC>
+          <vICMS>0.00</vICMS>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vFCP>0.00</vFCP>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vFCPST>0.00</vFCPST>
+          <vFCPSTRet>0.00</vFCPSTRet>
+          <qBCMonoRet>2000.0000</qBCMonoRet>
+          <vICMSMonoRet>2430.00</vICMSMonoRet>
+          <vProd>11190.00</vProd>
+          <vFrete>0.00</vFrete>
+          <vSeg>0.00</vSeg>
+          <vDesc>0.00</vDesc>
+          <vII>0.00</vII>
+          <vIPI>0.00</vIPI>
+          <vIPIDevol>0.00</vIPIDevol>
+          <vPIS>0.00</vPIS>
+          <vCOFINS>0.00</vCOFINS>
+          <vOutro>0.00</vOutro>
+          <vNF>11190.00</vNF>
+        </ICMSTot>
+        <IBSCBSTot>
+          <vBCIBSCBS>5000.00</vBCIBSCBS>
+          <gIBS>
+            <gIBSUF>
+              <vDif>0.00</vDif>
+              <vDevTrib>0.00</vDevTrib>
+              <vIBSUF>5.00</vIBSUF>
+            </gIBSUF>
+            <gIBSMun>
+              <vDif>0.00</vDif>
+              <vDevTrib>0.00</vDevTrib>
+              <vIBSMun>0.00</vIBSMun>
+            </gIBSMun>
+            <vIBS>5.00</vIBS>
+            <vCredPres>0.00</vCredPres>
+            <vCredPresCondSus>0.00</vCredPresCondSus>
+          </gIBS>
+          <gCBS>
+            <vDif>0.00</vDif>
+            <vDevTrib>0.00</vDevTrib>
+            <vCBS>45.00</vCBS>
+            <vCredPres>0.00</vCredPres>
+            <vCredPresCondSus>0.00</vCredPresCondSus>
+          </gCBS>
+          <gMono>
+            <vIBSMono>55.00</vIBSMono>
+            <vCBSMono>245.00</vCBSMono>
+            <vIBSMonoReten>10.00</vIBSMonoReten>
+            <vCBSMonoReten>30.00</vCBSMonoReten>
+            <vIBSMonoRet>1.00</vIBSMonoRet>
+            <vCBSMonoRet>2.00</vCBSMonoRet>
+          </gMono>
+        </IBSCBSTot>
+      </total>
+      <transp>
+        <modFrete>0</modFrete>
+      </transp>
+      <pag>
+        <detPag>
+          <tPag>15</tPag>
+          <vPag>11190.00</vPag>
+        </detPag>
+      </pag>
+      <infAdic>
+        <infAdFisco>Documento emitido em ambiente de homologação.</infAdFisco>
+        <infCpl>Exemplo de NF-e de combustíveis com IBS/CBS monofásico (ad rem e ad valorem), transferência de crédito e ajuste de competência.</infCpl>
+      </infAdic>
+    </infNFe>
+  </NFe>
+  <protNFe versao="4.00">
+    <infProt>
+      <tpAmb>2</tpAmb>
+      <verAplic>SP_NFE_PL_010</verAplic>
+      <chNFe>35261212345678000195550010000007891000007890</chNFe>
+      <dhRecbto>2026-12-02T08:30:15-03:00</dhRecbto>
+      <nProt>135260000078901</nProt>
+      <digVal>AAAAAAAAAAAAAAAAAAAAAAAAAAA=</digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+    </infProt>
+  </protNFe>
+</nfeProc>

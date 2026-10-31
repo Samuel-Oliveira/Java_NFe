@@ -37,6 +37,55 @@ public class FormatadorDanfeV2 {
         return numero(valor, "#,##0.000");
     }
 
+    /** Alíquota ad rem do IBS/CBS monofásico (R$ por unidade de medida): 4 casas decimais, sem símbolo. */
+    public String adRem(String valor) {
+        return numero(valor, "#,##0.0000");
+    }
+
+    /**
+     * Linha complementar de um item para os valores do IBS/CBS que não cabem nas colunas de bases, alíquotas e
+     * valores: retenção, retido anteriormente e diferença de biocombustível do monofásico, e a competência do
+     * ajuste. Só cita o que existe no XML; "" quando não há nada.
+     */
+    public String complementoIbsCbs(Map<String, String> item) {
+        if (item == null) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        junta(sb, "Retenção monofásica", item.get("vIBSMonoReten"), item.get("vCBSMonoReten"));
+        junta(sb, "Retido anteriormente", item.get("vIBSMonoRet"), item.get("vCBSMonoRet"));
+        junta(sb, "Diferença biocombustível", item.get("vIBSDiferenca"), item.get("vCBSDiferenca"));
+        if (!vazio(item.get("competApur"))) {
+            separa(sb).append("Ajuste de competência ").append(competencia(item.get("competApur")));
+        }
+        return sb.toString();
+    }
+
+    /** Competência aaaa-mm (TCompetApur) para mm/aaaa. */
+    public String competencia(String valor) {
+        if (vazio(valor) || valor.length() < 7) {
+            return vazio(valor) ? "" : valor;
+        }
+        return valor.substring(5, 7) + "/" + valor.substring(0, 4);
+    }
+
+    private void junta(StringBuilder sb, String rotulo, String ibs, String cbs) {
+        if (vazio(ibs) && vazio(cbs)) {
+            return;
+        }
+        separa(sb).append(rotulo);
+        if (!vazio(ibs)) {
+            sb.append(" IBS ").append(valor(ibs));
+        }
+        if (!vazio(cbs)) {
+            sb.append(" CBS ").append(valor(cbs));
+        }
+    }
+
+    private static StringBuilder separa(StringBuilder sb) {
+        return sb.length() == 0 ? sb : sb.append(" - ");
+    }
+
     /** CNPJ (14 dígitos) ou CPF (11 dígitos); outros valores são devolvidos como estão. */
     public String documento(String valor) {
         if (vazio(valor)) {

@@ -6,7 +6,6 @@ import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import com.openhtmltopdf.render.BlockBox;
 import com.openhtmltopdf.render.Box;
 import com.openhtmltopdf.render.PageBox;
-import com.openhtmltopdf.util.XRLog;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPageable;
 import org.thymeleaf.TemplateEngine;
@@ -27,10 +26,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
 
 import static br.com.swconsultoria.nfe.impressao.ConstantesImpressaoNfeUtil.PATH_LOGO_NFE;
 
@@ -39,6 +38,10 @@ import static br.com.swconsultoria.nfe.impressao.ConstantesImpressaoNfeUtil.PATH
  * e PDF (openhtmltopdf). Leiaute conforme NT 2026.010 (Reforma Tributária - IBS/CBS/IS), retrato ou paisagem.
  * Convive com a impressão Jasper de {@link br.com.swconsultoria.nfe.impressao.ImpressaoNfeUtil}.
  * Todos os erros são lançados como {@link DanfeException}.
+ * <p>
+ * O openhtmltopdf registra várias linhas INFO (java.util.logging) a cada PDF. Esta classe não altera essa
+ * configuração, que é da aplicação; para silenciar, use {@code com.openhtmltopdf.util.XRLog.setLevel} ou
+ * {@code XRLog.setLoggingEnabled(false)} na inicialização da aplicação.
  */
 public final class ImpressaoDanfeV2Util {
 
@@ -48,18 +51,19 @@ public final class ImpressaoDanfeV2Util {
     public static final String ID_DADOS_ADICIONAIS = "dados-adicionais";
     /** id (no HTML) do espaçador vazio logo antes do bloco de dados adicionais; a altura dele é calculada em {@link #htmlParaPdf}. */
     public static final String ID_ESPACO_DADOS_ADICIONAIS = "espaco-dados-adicionais";
+    /**
+     * Chave em {@link ImpressaoDanfeV2DTO#getParametros()} do campo "Tipo de Regime de Apuração do IBS e da CBS"
+     * do template padrão. A NT 2026.010 reserva o campo e a tag ainda não foi publicada, por isso ele sai vazio
+     * a menos que a aplicação informe o valor.
+     */
+    public static final String PARAM_TIPO_REGIME_APURACAO = "tipoRegimeApuracao";
     /** Folga entre o fim do bloco de dados adicionais e o fim da área útil da folha, em mm. */
     private static final float FOLGA_RODAPE_MM = 1f;
+    /** Lado da imagem do QR Code gerada pelo zxing, em pixels; o CSS do template define o tamanho impresso. */
+    private static final int TAMANHO_QRCODE_PX = 400;
 
     private static final TemplateEngine TEMPLATE_ENGINE = criaTemplateEngine();
     private static final FormatadorDanfeV2 FORMATADOR = new FormatadorDanfeV2();
-
-    static {
-        // O openhtmltopdf registra várias linhas INFO a cada PDF; mantém apenas avisos e erros
-        for (String logger : XRLog.listRegisteredLoggers()) {
-            XRLog.setLevel(logger, Level.WARNING);
-        }
-    }
 
     private ImpressaoDanfeV2Util() {
     }
@@ -94,7 +98,7 @@ public final class ImpressaoDanfeV2Util {
         contexto.setVariable("codigoBarras", danfe.getChave() == null ? null
                 : ImagemDanfeV2Util.dataUri(ImagemDanfeV2Util.codigoBarras128(danfe.getChave())));
         contexto.setVariable("qrCode", danfe.isExibirQrCode()
-                ? ImagemDanfeV2Util.dataUri(ImagemDanfeV2Util.qrCode(danfe.getSupl().get("qrCode"), 400)) : null);
+                ? ImagemDanfeV2Util.dataUri(ImagemDanfeV2Util.qrCode(danfe.getSupl().get("qrCode"), TAMANHO_QRCODE_PX)) : null);
         contexto.setVariable("parametros", impressao.getParametros());
 
         String template = impressao.getTemplate() == null ? TEMPLATE_PADRAO : impressao.getTemplate();
@@ -112,7 +116,7 @@ public final class ImpressaoDanfeV2Util {
     public static void impressaoHtml(ImpressaoDanfeV2DTO impressao, String destinoHtml) {
         try {
             Files.write(Paths.get(destinoHtml), gerarHtml(impressao).getBytes(StandardCharsets.UTF_8));
-        } catch (IOException e) {
+        } catch (IOException | InvalidPathException e) {
             throw new DanfeException("Erro ao gravar HTML " + destinoHtml, e);
         }
     }
@@ -130,7 +134,7 @@ public final class ImpressaoDanfeV2Util {
     public static void impressaoPdfArquivo(ImpressaoDanfeV2DTO impressao, String destinoPdf) {
         try {
             Files.write(Paths.get(destinoPdf), impressaoPdfByte(impressao));
-        } catch (IOException e) {
+        } catch (IOException | InvalidPathException e) {
             throw new DanfeException("Erro ao gravar PDF " + destinoPdf, e);
         }
     }
@@ -182,7 +186,10 @@ public final class ImpressaoDanfeV2Util {
             int altura = alturaDoEspacoAteORodape(renderer, espaco, dadosAdicionais);
             if (altura > 0) {
                 float pixels = altura / (float) renderer.getSharedContext().getDotsPerPixel();
-                espaco.setAttribute("style", "height:" + String.format(Locale.ROOT, "%.2f", pixels) + "px");
+                // Preserva um estilo inline que um template próprio tenha dado ao espaçador
+                String estilo = espaco.getAttribute("style");
+                espaco.setAttribute("style", (estilo.isEmpty() ? "" : estilo + ";")
+                        + "height:" + String.format(Locale.ROOT, "%.2f", pixels) + "px");
                 try (PdfBoxRenderer ajustado = novoRenderer(null, documento, saidaAjustada)) {
                     ajustado.layout();
                     // Se algum arredondamento empurrou o bloco para outra folha, vale a diagramação original
@@ -197,8 +204,9 @@ public final class ImpressaoDanfeV2Util {
             }
             renderer.createPDF();
             return saida.toByteArray();
-        } catch (Exception e) {
-            throw new DanfeException("Erro ao gerar PDF do DANFE", e);
+        } catch (IOException | RuntimeException e) {
+            // RuntimeException também: getRootBox()/getElementBoxes() são API interna do openhtmltopdf
+            throw new DanfeException("Erro ao gerar PDF do DANFE (" + e.getClass().getSimpleName() + ")", e);
         }
     }
 

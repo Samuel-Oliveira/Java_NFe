@@ -1,4 +1,4 @@
-# Manual de integração — DANFE v2 (java-nfe 4.3.0-SNAPSHOT)
+# Manual de integração — DANFE v2 (java-nfe 4.3.0)
 
 Guia para implementar o novo DANFE da NF-e (modelo 55) num sistema que usa a biblioteca `java-nfe`.
 O DANFE v2 segue a **NT 2026.010 — DANFE Reforma Tributária (IBS/CBS/IS)**, que entra em produção em **01/12/2026**.
@@ -25,24 +25,24 @@ As duas versões **convivem no mesmo jar**. NFC-e e CC-e continuam usando a API 
 
 ## 2. Dependência
 
-A versão `4.3.0-SNAPSHOT` está instalada **apenas no repositório Maven local** desta máquina (`D:\maven-repository`, definido como `localRepository` em `%USERPROFILE%\.m2\settings.xml`), em 30/10/2026. Não está publicada no Maven Central: lá a última é a `4.2.0`, que **não** tem a v2. A `4.2.0` do repositório local não foi alterada; só troque a versão da dependência quando for testar.
+A versão `4.3.0` está instalada **apenas no repositório Maven local** desta máquina (`D:\maven-repository`, definido como `localRepository` em `%USERPROFILE%\.m2\settings.xml`), em 30/10/2026. Não está publicada no Maven Central: lá a última é a `4.2.0`, que **não** tem a v2. A `4.2.0` do repositório local não foi alterada; só troque a versão da dependência quando for testar.
 
 **Maven**
 ```xml
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.3.0-SNAPSHOT</version>
+    <version>4.3.0</version>
 </dependency>
 ```
 
 **Gradle** (o `mavenLocal()` respeita o `localRepository` do `settings.xml`)
 ```groovy
 repositories { mavenLocal(); mavenCentral() }
-dependencies { implementation "br.com.swconsultoria:java-nfe:4.3.0-SNAPSHOT" }
+dependencies { implementation "br.com.swconsultoria:java-nfe:4.3.0" }
 ```
 
-Arquivos instalados em `D:\maven-repository\br\com\swconsultoria\java-nfe\4.3.0-SNAPSHOT\`: `java-nfe-4.3.0-SNAPSHOT.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom`. O jar é "fino" (as dependências normais do `java-nfe`, como `java-certificado`, vêm por transitividade pelo `.pom`).
+Arquivos instalados em `D:\maven-repository\br\com\swconsultoria\java-nfe\4.3.0\`: `java-nfe-4.3.0.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom`. O jar é "fino" (as dependências normais do `java-nfe`, como `java-certificado`, vêm por transitividade pelo `.pom`).
 
 **Regerar a versão local** (após alterar a biblioteca), no diretório `D:\Projetos\java_nfe\Java_NFe`. O Maven não está no PATH: use o que vem com o IntelliJ.
 ```bash
@@ -102,6 +102,13 @@ No Gradle são as mesmas coordenadas com `implementation`. Se o DANFE v1 (Jasper
   - **Spring Boot 2.x** traz Thymeleaf 3.0.x. A v2 precisa da 3.1.x. Force `thymeleaf` 3.1.2 no `dependencyManagement` ou exclua a versão antiga. Spring Boot 3.x já usa a 3.1.
   - **PDFBox 3.x** no projeto é incompatível com o openhtmltopdf 1.0.10, que precisa da 2.0.x.
 - Se o projeto não tiver uma implementação de SLF4J, aparece o aviso `SLF4J: No SLF4J providers were found`. É inofensivo.
+- **Log do openhtmltopdf:** a cada PDF ele registra várias linhas INFO pelo `java.util.logging`. A biblioteca **não altera** essa configuração, que pertence à aplicação. Para silenciar, na inicialização do sistema:
+  ```java
+  for (String logger : com.openhtmltopdf.util.XRLog.listRegisteredLoggers()) {
+      com.openhtmltopdf.util.XRLog.setLevel(logger, java.util.logging.Level.WARNING);
+  }
+  // ou, para desligar de vez: XRLog.setLoggingEnabled(false);
+  ```
 - **Thread-safety:** `ImpressaoDanfeV2Util` é stateless e pode ser chamado em paralelo. Crie um `ImpressaoDanfeV2DTO` por impressão.
 
 ### 2.3 Teste rápido da dependência
@@ -192,11 +199,13 @@ impressao.setOrientacao(OrientacaoDanfeEnum.PAISAGEM);
 impressao.setExibirCanhoto(false);
 
 // Parâmetros livres, disponíveis no template como ${parametros.nome}
-impressao.getParametros().put("tipoRegimeApuracao", "...");   // usado pelo template padrão (ver 7.3)
+impressao.getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, "...");   // usado pelo template padrão (ver 7.3)
 
 // Template próprio (arquivo .html Thymeleaf)
 impressao.setTemplate("c:/templates/meu-danfe.html");
 ```
+
+> **Caminhos são configuração do servidor, nunca entrada do usuário final.** `setTemplate` e `setLogoArquivo` abrem o arquivo informado onde ele estiver (o template é procurado primeiro como caminho no sistema de arquivos e só depois no classpath), do mesmo modo que o `setJasper` da v1. Um caminho vindo de um campo de tela ou de uma requisição permitiria ler ou executar como template qualquer arquivo que a aplicação enxergue.
 
 ### 5.1 Template próprio
 
@@ -224,14 +233,14 @@ Use quando o leiaute padrão não atender, por exemplo para um bloco extra ou um
 ```
 
 **Métodos de `fmt`:**
-- valores: `valor`, `quantidade`, `aliquota` (já com `%`), `peso`;
+- valores: `valor`, `quantidade`, `aliquota` (já com `%`), `adRem` (R$ por unidade, 4 casas), `peso`;
 - documentos e contato: `documento` (CNPJ/CPF), `cep`, `fone`, `chave` (grupos de 4);
 - numeração: `numeroNota` (000.000.000), `serie` (000);
-- datas: `data`, `hora`, `dataHora` (a partir de ISO);
+- datas: `data`, `hora`, `dataHora` (a partir de ISO), `competencia` (aaaa-mm para mm/aaaa);
 - códigos: `modFrete`, `crt`, `cst(orig, cst)`;
-- textos: `endereco(grupo)`, `primeiro(a, b)`.
+- textos: `endereco(grupo)`, `primeiro(a, b)`, `complementoIbsCbs(item)` (retenção, retido, diferença e competência do IBS/CBS numa linha).
 
-Todos aceitam null e devolvem `""`. Os números arredondam HALF_UP.
+Todos aceitam null e devolvem `""`. Os números arredondam HALF_UP. Ao concatenar valores do XML com `+`, passe-os por `fmt.primeiro(valor, '')` ou por outro método do `fmt`: o OGNL imprime `null` como texto quando a tag não existe.
 
 ### 5.2 Regras obrigatórias para templates (openhtmltopdf + Thymeleaf)
 
@@ -267,7 +276,7 @@ Cada grupo é um `Map<String,String>` cuja **chave é o nome da tag no XML** e o
 | `dest` | `dest/` + `dest/enderDest/` | CNPJ, CPF, idEstrangeiro, xNome, IE, email, xLgr, nro, xCpl, xBairro, xMun, UF, CEP, fone |
 | `prot` | `//protNFe/infProt/` | nProt, dhRecbto, chNFe, cStat |
 | `icmsTot` | `total/ICMSTot/` | vBC, vICMS, vICMSDeson, vFCPUFDest, vICMSUFDest, vICMSUFRemet, vFCP, vBCST, vST, vFCPST, vFCPSTRet, qBCMono, vICMSMono, qBCMonoReten, vICMSMonoReten, qBCMonoRet, vICMSMonoRet, vProd, vFrete, vSeg, vDesc, vII, vIPI, vIPIDevol, vPIS, vCOFINS, vOutro, vNF, vTotTrib |
-| `ibsCbsTot` | `total/IBSCBSTot/` | vBCIBSCBS, vIBSUF (`gIBS/gIBSUF`), vIBSMun (`gIBS/gIBSMun`), vIBS, vCBS (`gCBS`), vIBSMono, vCBSMono, vIBSMonoReten, vCBSMonoReten (`gMono`) |
+| `ibsCbsTot` | `total/IBSCBSTot/` | vBCIBSCBS, vIBSUF (`gIBS/gIBSUF`), vIBSMun (`gIBS/gIBSMun`), vIBS, vCBS (`gCBS`), vIBSMono, vCBSMono, vIBSMonoReten, vCBSMonoReten, vIBSMonoRet, vCBSMonoRet (`gMono`) |
 | `isTot` | `total/ISTot/` | vIS |
 | `issqnTot` | `total/ISSQNtot/` | vServ, vBC, vISS |
 | `transp` | `transp/` | modFrete; da transportadora: CNPJ, CPF, xNome, IE, xEnder, xMun, UF; do veículo: placa, **placaUF**, RNTC; do **primeiro** `vol`: qVol, esp, marca, nVol, pesoL, pesoB |
@@ -281,12 +290,25 @@ Cada grupo é um `Map<String,String>` cuja **chave é o nome da tag no XML** e o
 - **CST** (CST ou CSOSN do ICMS).
 - **vBCICMS**, pICMS, vICMS.
 - **vBCIPI**, pIPI, vIPI.
-- cClassTrib, **vBCIBSCBS**.
-- pIBSUF, vIBSUF, pIBSMun, vIBSMun, pCBS, vCBS.
+- **cstIBSCBS** (`IBSCBS/CST`), cClassTrib, **vBCIBSCBS**.
+- pIBSUF, vIBSUF, pIBSMun, vIBSMun, vIBS, pCBS, vCBS.
 - **pIBSUFVigente**, **pIBSMunVigente**, **pCBSVigente**.
+- monofásico (`gIBSCBSMono`): qBCMono, adRemIBS, adRemCBS, vIBSMono, vCBSMono, vIBSMonoReten, vCBSMonoReten, vIBSMonoRet, vCBSMonoRet, vIBSDiferenca, vCBSDiferenca, vTotIBSMonoItem, vTotCBSMonoItem.
+- ajuste de competência (`gAjusteCompet`): competApur.
 - vBCIS, pIS, vIS.
 
 Os nomes em **negrito** são derivados, criados para evitar colisão entre tags de mesmo nome.
+
+O grupo `imposto/IBSCBS` do item é uma escolha entre `gIBSCBS`, `gIBSCBSMono`, `gTransfCred` e `gAjusteCompet` (`TTribNFe` do schema). As chaves são as mesmas nos quatro casos, para o template não precisar saber de onde vieram:
+
+| Grupo do item | vBCIBSCBS | pIBSUF / pIBSMun / pCBS | vIBSUF / vIBSMun | vIBS / vCBS |
+|---|---|---|---|---|
+| `gIBSCBS` | `vBC` | `pIBSUF`... (ou `gRed/pAliqEfet`) | `vIBSUF`, `vIBSMun` | `vIBS`, `gCBS/vCBS` |
+| monofásico ad valorem | `gMonoPadrao/vBCMono` | `pAliqMonoUF`, `pAliqMonoMun`, `pAliqMonoCBS` | `vIBSMonoUF`, `vIBSMonoMun` | `vIBSMono`, `vCBSMono` |
+| monofásico ad rem | (vazio; a base é `qBCMono`, em quantidade) | (vazio; a alíquota é `adRemIBS` / `adRemCBS`, em R$ por unidade) | (vazio) | `vIBSMono`, `vCBSMono` |
+| `gTransfCred` / `gAjusteCompet` | (vazio) | (vazio) | (vazio) | `vIBS`, `vCBS` |
+
+`ibsCbsTot.vIBS` (soma de IBS UF e Município) e `supl.urlChave` são lidos e ficam disponíveis para templates próprios, mas o template padrão não os imprime.
 
 Métodos de decisão (usados pelo template para exibir ou ocultar blocos):
 - `isPaisagem`, `isHomologacao`;
@@ -313,7 +335,7 @@ Métodos de decisão (usados pelo template para exibir ou ocultar blocos):
   9. Transporte.
   10. Produtos.
   11. Dados adicionais com QR Code.
-- **Itens:** colunas Descrição (com `[NCM] [cClassTrib]`), CST/CFOP, QTD/UN, VLR UNIT, VLR TOTAL, **Bases de cálculo** (ICMS, IBS/CBS, IS, IPI), **Alíquotas** (ICMS/CBS, IBS UF/IPI, IBS MUN/IS) e **Valor dos tributos**.
+- **Itens:** colunas Descrição (com `[NCM] [cClassTrib]`), CST/CFOP (com o CST do IBS/CBS numa segunda linha), QTD/UN, VLR UNIT, VLR TOTAL, **Bases de cálculo** (ICMS, IBS/CBS, IS, IPI), **Alíquotas** (ICMS/CBS, IBS UF/IPI, IBS MUN/IS) e **Valor dos tributos**. Num item monofásico ad rem a linha de base vira "IBS/CBS QTD" (quantidade), as alíquotas saem em R$ por unidade e o valor do IBS sai numa linha única "IBS", sem abertura UF/Município; o mesmo vale para o valor de transferência de crédito e de ajuste de competência. Retenção, retido anteriormente, diferença de biocombustível e competência do ajuste saem numa linha complementar sob a descrição (`fmt.complementoIbsCbs`).
 - **Dados adicionais encostados no rodapé da última folha**, como no DANFE Jasper: quando os itens não enchem a folha, o espaço que sobra fica em branco entre a tabela de itens e o bloco. Numa nota de várias folhas o bloco fica no pé da última (no Jasper ele fica sempre no pé da folha 1). O PDF é diagramado duas vezes para isso (ver 5.2, regra 10).
 - **Retrato** (`tpImp=1`): canhoto horizontal no topo.
 - **Paisagem** (`tpImp=2`): canhoto vertical à direita, na faixa de 25 mm.
@@ -340,17 +362,13 @@ Um quadro ou campo cuja informação não existe no XML **não é impresso**, e 
 | QR Code | Existe `infNFeSupl/qrCode` |
 | Canhoto | `setExibirCanhoto(true)` (padrão) |
 
-O campo "Tipo de Regime de Apuração do IBS e da CBS" é reservado e **sai vazio**, porque a tag ainda não foi publicada. Quando a NT futura sair, preencha via `parametros.tipoRegimeApuracao` ou, de preferência, peça a leitura da tag no `LeitorDanfeV2`.
+O campo "Tipo de Regime de Apuração do IBS e da CBS" é reservado e **sai vazio**, porque a tag ainda não foi publicada. Quando a NT futura sair, preencha via `getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, ...)` ou, de preferência, peça a leitura da tag no `LeitorDanfeV2`.
 
 ---
 
 ## 8. Pendências e limitações conhecidas
 
-1. **XPaths do grupo IBSCBS precisam ser validados.** A NT 2026.010 cita só tags e IDs (UB14, W41...). Os caminhos usados seguem a estrutura da NT 2025.002:
-   - itens: `imposto/IBSCBS/gIBSCBS/gIBSUF/pIBSUF`;
-   - totais: `total/IBSCBSTot/gIBS/gIBSUF/vIBSUF`, `total/ISTot/vIS`.
-
-   **Compare com o schema (PL) vigente em `schemas/` e com um XML real autorizado.** Todos os caminhos estão em `LeitorDanfeV2` (constantes `IBSCBS_TOT` e `IBSCBS_ITEM`). A compra governamental pode usar `gTribCompraGov` em vez de `gRed`: confira.
+1. **XPaths do grupo IBSCBS conferidos contra o schema, não contra nota real.** Os caminhos de item (`gIBSCBS`, `gIBSCBSMono`, `gTransfCred`, `gAjusteCompet`) e de totais (`IBSCBSTot`, `ISTot`) batem com `schemas/DFeTiposBasicos_v1.00.xsd` (`TTribNFe`, `TCIBS_NFe`, `TMonofasia`, `TIBSCBSMonoTot`, `TISTot`). Falta conferir com um XML real autorizado. Todos os caminhos estão em `LeitorDanfeV2`. A compra governamental pode usar `gTribCompraGov` em vez de `gRed`: confira.
 2. **Código do produto:** o modelo da NT não mostra a coluna CÓDIGO. A v2 imprime `cProd - xProd` na descrição para manter a informação exigida pelo Manual do DANFE. Confirme com o fiscal ou contador do cliente.
 3. **QR Code no DANFE 55:** só aparece se o XML trouxer `infNFeSupl/qrCode`. As regras de formação serão definidas em NT futura (item 4.5).
 4. **Não há preview em janela** (ver seção 4).
@@ -369,7 +387,7 @@ O campo "Tipo de Regime de Apuração do IBS e da CBS" é reservado e **sai vazi
 
 ## 9. Checklist de implementação (projeto consumidor)
 
-1. Apontar para `java-nfe:4.3.0-SNAPSHOT` (seção 2), declarar as dependências `provided` (2.1), resolver conflitos de Thymeleaf e PDFBox (2.2) e rodar o teste rápido (2.3).
+1. Apontar para `java-nfe:4.3.0` (seção 2), declarar as dependências `provided` (2.1), resolver conflitos de Thymeleaf e PDFBox (2.2) e rodar o teste rápido (2.3).
 2. Localizar no sistema todos os pontos que imprimem o DANFE da NF-e com a v1. Procure por `impressaoPadraoNFe`, `ImpressaoNfeUtil.` e `JasperNFeEnum.NFE`.
 3. Criar um serviço próprio, por exemplo `DanfeNfeService`, que:
    - recebe o XML autorizado (String);
@@ -396,7 +414,8 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 | 2 | Item 2 do exemplo (tem `gRed`) | Alíquotas CBS 0,36% e IBS UF 0,04% (efetivas), não 0,90% e 0,10% |
 | 3 | `setOrientacao(PAISAGEM)` | 1 folha paisagem com o canhoto vertical à direita |
 | 4 | `DanfeV2Rtc50Itens.xml` | Retrato: 3 folhas (itens 1–11, 12–34, 35–50 + dados adicionais). Paisagem: 4 folhas (1–5, 6–21, 22–37, 38–50 + dados adicionais). Cada folha repete o quadro do emitente e o cabeçalho dos itens; "FOLHA n/total" correto; nenhum item cortado entre folhas; o bloco de dados adicionais nunca é dividido (pode ir inteiro para uma folha nova) |
-| 5 | XML real antigo (sem IBSCBS) | Sem quadro IBS/CBS/IS; colunas IBS/CBS/IS vazias; nenhum erro |
+| 4a | `DanfeV2Mono.xml` (combustíveis) | Item 1 ad rem: base "IBS/CBS QTD 1.000,00", alíquotas IBS 0,0500 e CBS 0,2000, valores IBS 50,00 e CBS 200,00, linha "Retenção monofásica IBS 10,00 CBS 30,00". Item 2 ad valorem: base 5.000,00, IBS UF 0,10%, CBS 0,90%. Itens 3 e 4 só com valores de IBS/CBS e "Ajuste de competência 11/2026". Quadro de totais com a linha "VALOR DO IBS MONOFÁSICO 55,00" |
+| 5 | XML real antigo (sem IBSCBS), ou `DanfeV2SemRtc.xml` | Sem quadro IBS/CBS/IS; colunas IBS/CBS/IS vazias; nenhum erro; sem `protNFe` a chave vem do `Id` e o protocolo sai em branco |
 | 6 | Nota sem `cobr`, sem transportadora, sem QR Code | Esses quadros não aparecem |
 | 7 | `setExibirCanhoto(false)` | Sem canhoto; na paisagem o conteúdo ocupa a largura toda |
 | 8 | Logo do cliente (PNG/JPEG) | Logo no quadro do emitente sem distorção; `removerLogo()` imprime sem logo |
@@ -421,7 +440,9 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 | PDF com folha em branco no final | Elemento posicionado que ultrapassa a altura da página |
 | Cabeçalho dos itens não repete | `overflow: hidden` em `td/th` ou ausência de `border-collapse: separate` |
 | CST impresso como "0" em vez de "000" | Concatenação com `+` no template (use `fmt.cst`) |
-| Valores do IBS/CBS vazios num XML que os tem | XPath diferente do schema real (pendência 8.1) |
+| Valores do IBS/CBS vazios num XML que os tem | XPath diferente do schema real (pendência 8.1); confira em qual dos quatro grupos de `imposto/IBSCBS` o item está (seção 6) |
+| Texto `null` impresso | Template próprio concatenando um valor ausente com `+`; use `fmt.primeiro(valor, '')` (seção 5.1) |
+| Muitas linhas INFO do openhtmltopdf no log | Comportamento padrão da biblioteca de PDF; silencie na aplicação (seção 2.2) |
 | Acentos trocados | XML lido com o charset errado antes de chegar à biblioteca |
 
 ---
@@ -444,4 +465,4 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 | `src/test/java/.../nfe/impressao/v2/ImpressaoDanfeV2UtilTest.java` | Testes JUnit |
 | `src/test/java/.../nfe/impressao/TesteImpressaoDanfeV2*.java` | Exemplos de uso |
 
-Se precisar de uma mudança na biblioteca, altere-a, regere a versão local (seção 2) e recompile o projeto consumidor. Como a versão é `-SNAPSHOT`, o Maven pega o novo jar do repositório local sem mudar a dependência.
+Se precisar de uma mudança na biblioteca, altere-a, regere a versão local (seção 2) e recompile o projeto consumidor. O `mvn install` substitui o jar da `4.3.0` no repositório local, então a dependência do consumidor não muda.
