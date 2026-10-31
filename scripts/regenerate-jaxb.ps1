@@ -419,7 +419,7 @@ Invoke-XjcPass `
 # dinamicamente em scripts/bindings/auto/ para renomear DetEvento -> DetEvento<codigo>.
 # ============================================================
 $EventosIndividuais = @(
-    'e110001', 'e110110', 'e110111', 'e110112', 'e110140',
+    'e110001', 'e110110', 'e110111', 'e110112', 'e110140', 'e110300',
     'e112110', 'e112120', 'e112130', 'e112140', 'e112150',
     'e210200', 'e210210', 'e210220', 'e210240',
     'e211110', 'e211120', 'e211124', 'e211128', 'e211130', 'e211140', 'e211150',
@@ -444,6 +444,7 @@ function Resolve-EventoXsd([string]$evento) {
 
 $passNum = 15
 $schemasEventosDir = Join-Path $JavaSrcDir ('br/com/swconsultoria/nfe/schemas_eventos' -replace '/', [IO.Path]::DirectorySeparatorChar)
+$PkgSchemasDir     = Join-Path $JavaSrcDir ('br/com/swconsultoria/nfe/schemas' -replace '/', [IO.Path]::DirectorySeparatorChar)
 
 foreach ($evento in $EventosIndividuais) {
     $xsdName = Resolve-EventoXsd $evento
@@ -484,8 +485,27 @@ foreach ($evento in $EventosIndividuais) {
         Write-Host "    extraido: $detEventoClass.java" -ForegroundColor DarkGray
     }
 
-    # Limpar pacote temporario (todas as outras classes — TUf, TCnpj etc. — sao
-    # duplicatas das do package principal e nao sao necessarias).
+    # Alem do DetEvento, o XSD do evento pode definir tipos proprios que nao
+    # existem em nenhum outro package — foi o caso do TEventoPgto, do e110300.
+    # Sem extrair esses, a classe do evento nao compila. O que ja existe em
+    # schemas/ ou schemas_eventos/ e duplicata e fica de fora.
+    if (Test-Path $tmpDir) {
+        Get-ChildItem -Path $tmpDir -Filter '*.java' | Where-Object {
+            $_.Name -notin @('DetEvento.java', 'ObjectFactory.java', 'package-info.java')
+        } | ForEach-Object {
+            $jaExiste = (Test-Path (Join-Path $PkgSchemasDir $_.Name)) -or `
+                        (Test-Path (Join-Path $schemasEventosDir $_.Name))
+            if (-not $jaExiste) {
+                $corpo = Get-Content -Path $_.FullName -Raw -Encoding UTF8
+                $corpo = $corpo -replace [regex]::Escape("package $tmpPkg;"), "package $BasePkg.schemas_eventos;"
+                Set-Content -Path (Join-Path $schemasEventosDir $_.Name) -Value $corpo -Encoding UTF8 -NoNewline
+                Write-Host "    extraido (tipo proprio do evento): $($_.Name)" -ForegroundColor DarkGray
+            }
+        }
+    }
+
+    # Limpar pacote temporario (o que sobrou sao duplicatas das classes do
+    # package principal — TUf, TCnpj etc. — e nao sao necessarias).
     if (Test-Path $tmpDir) {
         Remove-Item -Path $tmpDir -Recurse -Force
     }

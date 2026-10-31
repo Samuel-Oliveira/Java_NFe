@@ -163,6 +163,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TPgtoVinc }
+     * 
+     */
+    public TPgtoVinc createTPgtoVinc() {
+        return new TPgtoVinc();
+    }
+
+    /**
      * Create an instance of {@link TCIBS }
      * 
      */
@@ -1019,6 +1027,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TPgtoVinc.GPgto }
+     * 
+     */
+    public TPgtoVinc.GPgto createTPgtoVincGPgto() {
+        return new TPgtoVinc.GPgto();
+    }
+
+    /**
      * Create an instance of {@link TCIBS.GIBSUF }
      * 
      */
@@ -1576,6 +1592,14 @@ public class ObjectFactory {
      */
     public TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN900 createTNFeInfNFeDetImpostoICMSICMSSN900() {
         return new TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN900();
+    }
+
+    /**
+     * Create an instance of {@link TNFe.InfNFe.Det.Imposto.ICMS.ICMSPrevistoPagtoAntecip }
+     * 
+     */
+    public TNFe.InfNFe.Det.Imposto.ICMS.ICMSPrevistoPagtoAntecip createTNFeInfNFeDetImpostoICMSICMSPrevistoPagtoAntecip() {
+        return new TNFe.InfNFe.Det.Imposto.ICMS.ICMSPrevistoPagtoAntecip();
     }
 
     /**

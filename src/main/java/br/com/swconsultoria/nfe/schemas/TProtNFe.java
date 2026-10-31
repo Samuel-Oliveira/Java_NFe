@@ -237,8 +237,8 @@ public class TProtNFe {
         @XmlElement(required = true)
         protected String xMotivo;
         @XmlElementRefs({
-            @XmlElementRef(name = "cMsg", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-            @XmlElementRef(name = "xMsg", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false)
+            @XmlElementRef(name = "xMsg", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+            @XmlElementRef(name = "cMsg", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false)
         })
         protected List<JAXBElement<String>> cMsgAndXMsg;
         @XmlAttribute(name = "Id")
