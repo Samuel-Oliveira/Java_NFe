@@ -34,6 +34,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -53,6 +54,20 @@ public class EnvioNfeTeste {
      * ibscbs.json, o mesmo arquivo publicado pela SEFAZ.
      */
     private static final String C_CLASS_TRIB = System.getProperty("cClassTrib", "000001");
+
+    /** Todo cClassTrib 620* e combustivel e exige o grupo comb. */
+    private static boolean ehCombustivel() {
+        return C_CLASS_TRIB.startsWith("62");
+    }
+
+    /**
+     * So estes tres sao monofasia retida anteriormente. O 620001 e o 620002 sao
+     * monofasia padrao: pedem outro grupo de ICMS e nao levam valor retido, entao
+     * cair no mesmo ramo renderia documento contraditorio.
+     */
+    private static boolean ehMonofasiaRetida() {
+        return Arrays.asList("620004", "620005", "620006").contains(C_CLASS_TRIB);
+    }
 
     /** Preenchido por preencheDet e consumido por preencheTotal. */
     private static IbsCbsUtil ibsCbsUtil;
@@ -306,7 +321,7 @@ public class EnvioNfeTeste {
         // confere pela tabela por produto, que ainda nao foi publicada. Hoje ela
         // calcula zero e recusa qualquer outro valor com 1240, entao o padrao e
         // zero. Quando a tabela sair, informe aqui o valor retido de fato.
-        if (C_CLASS_TRIB.startsWith("62")) {
+        if (ehMonofasiaRetida()) {
             ibsCbsUtil.setVIBSMonoRet(new BigDecimal(System.getProperty("vIBSMonoRet", "0.00")));
             ibsCbsUtil.setVCBSMonoRet(new BigDecimal(System.getProperty("vCBSMonoRet", "0.00")));
         }
@@ -360,7 +375,7 @@ public class EnvioNfeTeste {
         // cClassTrib de combustivel (620*) exige o grupo comb, senao a SEFAZ
         // rejeita com 1106. Os codigos abaixo sao os do oleo diesel, coerentes
         // com o NCM e o CEST que passam a valer neste caso.
-        if (C_CLASS_TRIB.startsWith("62")) {
+        if (ehCombustivel()) {
             prod.setNCM("27101921");
             prod.setCEST("0600600");
             // ICMS61 em GO exige o codigo de beneficio fiscal (rejeicao 930)
@@ -368,6 +383,7 @@ public class EnvioNfeTeste {
             // Combustivel e vendido em litro: unidade diferente e rejeitada com 854
             prod.setUCom("LT");
             prod.setUTrib("L");
+            prod.setCFOP("5656");
             Prod.Comb comb = new Prod.Comb();
             comb.setCProdANP("820101012");
             comb.setDescANP("OLEO DIESEL B S500-COMUM");
@@ -388,7 +404,7 @@ public class EnvioNfeTeste {
 
         Imposto.ICMS icms = new Imposto.ICMS();
 
-        if (C_CLASS_TRIB.startsWith("62")) {
+        if (ehMonofasiaRetida()) {
             // Combustivel monofasico retido anteriormente: o ICMS tem de ser o 61,
             // nao o 60, senao a SEFAZ rejeita com 858 (grupo de tributacao indevido).
             Imposto.ICMS.ICMS61 icms61 = new Imposto.ICMS.ICMS61();
@@ -459,6 +475,11 @@ public class EnvioNfeTeste {
         icmstot.setVCOFINS("0.99");
         icmstot.setVOutro("0.00");
         icmstot.setVNF("13.00");
+        if (ehMonofasiaRetida()) {
+            // O item declara o ICMS monofasico retido; o total precisa acompanhar
+            icmstot.setQBCMonoRet("1.00");
+            icmstot.setVICMSMonoRet("1.17");
+        }
         icmstot.setVTotTrib("5.00");
         total.setICMSTot(icmstot);
 

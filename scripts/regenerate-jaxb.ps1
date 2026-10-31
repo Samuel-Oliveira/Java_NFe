@@ -444,7 +444,6 @@ function Resolve-EventoXsd([string]$evento) {
 
 $passNum = 15
 $schemasEventosDir = Join-Path $JavaSrcDir ('br/com/swconsultoria/nfe/schemas_eventos' -replace '/', [IO.Path]::DirectorySeparatorChar)
-$PkgSchemasDir     = Join-Path $JavaSrcDir ('br/com/swconsultoria/nfe/schemas' -replace '/', [IO.Path]::DirectorySeparatorChar)
 
 foreach ($evento in $EventosIndividuais) {
     $xsdName = Resolve-EventoXsd $evento
@@ -493,9 +492,14 @@ foreach ($evento in $EventosIndividuais) {
         Get-ChildItem -Path $tmpDir -Filter '*.java' | Where-Object {
             $_.Name -notin @('DetEvento.java', 'ObjectFactory.java', 'package-info.java')
         } | ForEach-Object {
-            $jaExiste = (Test-Path (Join-Path $PkgSchemasDir $_.Name)) -or `
-                        (Test-Path (Join-Path $schemasEventosDir $_.Name))
-            if (-not $jaExiste) {
+            # So vale o que ja existe em schemas_eventos: a classe extraida e gravada
+            # ali e referencia o tipo por nome simples, no mesmo package. Existir em
+            # schemas nao satisfaz essa referencia, e pular por causa disso deixaria o
+            # DetEvento sem compilar, sem mensagem nenhuma.
+            $jaExiste = Test-Path (Join-Path $schemasEventosDir $_.Name)
+            if ($jaExiste) {
+                Write-Host "    ja existe em schemas_eventos, nao copiado: $($_.Name)" -ForegroundColor DarkGray
+            } else {
                 $corpo = Get-Content -Path $_.FullName -Raw -Encoding UTF8
                 $corpo = $corpo -replace [regex]::Escape("package $tmpPkg;"), "package $BasePkg.schemas_eventos;"
                 Set-Content -Path (Join-Path $schemasEventosDir $_.Name) -Value $corpo -Encoding UTF8 -NoNewline
