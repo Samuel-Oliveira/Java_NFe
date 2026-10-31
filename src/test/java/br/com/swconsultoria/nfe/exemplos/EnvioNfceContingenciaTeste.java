@@ -48,7 +48,7 @@ public class EnvioNfceContingenciaTeste {
             LocalDateTime start = LocalDateTime.now();
 
             //Informe o Numero da NFCe
-            int numeroNFCe = 7812559;
+            int numeroNFCe = Integer.parseInt(System.getProperty("numeroNFCeContingencia", "7812559"));
             //Informe o CNPJ do Emitente da NFCe
             String cnpj = "10732644000128";
             //Informe a data de Emissao da NFCe

@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PL_006u - 21/07/14 - Inclusão do tipo Básico TPlaca // v2.0-->
+<!-- PL_006u - 06/05/14 - Alterações Fuso-Horario // v2.0-->
 <!-- PL_006h - 13/05/11 - correções da NT 2011/004  // v2.0-->
 <!-- PL_006f - 29/05/10 - correcao do tipo TDec_1504 para limitar a quantidade de decimais para 4  // v2.0-->
 <!-- PL_006f - 09/05/10 - eliminação da possibilidade informar a Inscrição produtor rural na IEDest  // v2.0-->
@@ -65,7 +68,7 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{44}"/>
+			<xs:pattern value="[0-9]{6}[0-9A-Z]{12}[0-9]{26}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TProt">
@@ -92,7 +95,17 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{3}"/>
+			<xs:maxLength value="4"/>
+			<xs:pattern value="[0-9]{3,4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TCnpjBase">
+		<xs:annotation>
+			<xs:documentation>Tipo CNPJ Base</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:pattern value="[A-Z0-9]{8}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCnpj">
@@ -101,7 +114,7 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{14}"/>
+			<xs:pattern value="[0-9A-Z]{12}[0-9]{2}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCnpjVar">
@@ -110,7 +123,7 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{3,14}"/>
+			<xs:pattern value="[0-9A-Z]{12}[0-9]{2}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCnpjOpc">
@@ -120,7 +133,7 @@
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
 			<xs:maxLength value="14"/>
-			<xs:pattern value="[0-9]{0}|[0-9]{14}"/>
+			<xs:pattern value="[0-9]{0}|[0-9A-Z]{12}[0-9]{2}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCpf">
@@ -822,24 +835,6 @@ acrescentado:
 			<xs:pattern value="0|0\.[0-9]{2,4}|[1-9]{1}[0-9]{0,2}(\.[0-9]{2,4})?"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="TDec1302">
-		<xs:annotation>
-			<xs:documentation>Tipo Decimal com 15 dígitos, sendo 13 de corpo e 2 decimais</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<!--
-		=== BLOCO RESTAURADO PELO java-nfe (NAO E' DA SEFAZ) ===
-		A Sefaz removeu os tipos abaixo desta XSD, mas eles continuam referenciados por
-		leiauteEvento_v1.00.xsd, leiauteEventoCancNFe_v1.00.xsd, leiauteCCe_v1.00.xsd,
-		e110130/e110131/e110192/e110193 e outros leiautes de evento v1.00.
-		Sem eles a geracao JAXB (xjc) e a validacao em runtime (Validar.validaXml) falham
-		com "src-resolve: nao e' possivel resolver o nome 'TCOrgaoIBGE'".
-		Remover este bloco assim que a Sefaz corrigir a XSD original. Ver BUILD.md.
-	-->
 	<xs:simpleType name="TDec_1104Neg">
 		<xs:annotation>
 			<xs:documentation>Tipo Decimal com até 15 dígitos, sendo 11 de corpo e até 4 decimais, aceitando valores negativos</xs:documentation>
@@ -847,6 +842,15 @@ acrescentado:
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
 			<xs:pattern value="0|0\.[0-9]{1,4}|[1-9]{1}[0-9]{0,10}|[1-9]{1}[0-9]{0,10}(\.[0-9]{1,4})?|-0\.[0-9]{1,4}|-[1-9]{1}[0-9]{0,10}|-[1-9]{1}[0-9]{0,10}(\.[0-9]{1,4})?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TDec1302">
+		<xs:annotation>
+			<xs:documentation>Tipo Decimal com 15 dígitos, sendo 13 de corpo e 2 decimais</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:pattern value="0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TPlaca">
@@ -918,4 +922,44 @@ acrescentado:
 			<xs:element name="Exponent" type="xs:base64Binary"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:group name="ECT_Evento">
+		<xs:sequence>
+			<xs:element name="cRastreio">
+				<xs:annotation>
+					<xs:documentation>Código de rastreamento da ECT</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[A-Za-z0-9]{13}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dhPostagem" type="nfe:TDateTimeUTC">
+				<xs:annotation>
+					<xs:documentation>Data e hora da postagem, no formato AAAA-MM-DDThh:mm:ssTZD</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UFAgencia" type="nfe:TUf">
+				<xs:annotation>
+					<xs:documentation>UF da agência em que foi feita a postagem</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cMunAgencia" type="nfe:TCodMunIBGE">
+				<xs:annotation>
+					<xs:documentation>Código IBGE do município que fez a postagem</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xAgencia">
+				<xs:annotation>
+					<xs:documentation>Nome da agência em que foi feita a postagem</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="nfe:TString">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="150"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
 </xs:schema>

@@ -34,9 +34,9 @@ public class InutilizarTeste {
             //Informe a serie
             int serie = 1;
             //Informe a numeracao Inicial
-            int numeroInicial = 243;
+            int numeroInicial = Integer.parseInt(System.getProperty("inutNumeroInicial", "243"));
             //Informe a numeracao Final
-            int numeroFinal = 244;
+            int numeroFinal = Integer.parseInt(System.getProperty("inutNumeroFinal", "244"));
             //Informe a Justificativa da Inutilizacao
             String justificativa = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
             //Informe a data do Cancelamento

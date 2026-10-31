@@ -24,11 +24,17 @@ import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Total;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Total.ICMSTot;
 import br.com.swconsultoria.nfe.schemas.TNFe.InfNFe.Transp;
 import br.com.swconsultoria.nfe.util.ChaveUtil;
+import br.com.swconsultoria.nfe.util.IbsCbsUtil;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import br.com.swconsultoria.nfe.util.ConstantesUtil;
 import br.com.swconsultoria.nfe.util.RetornoUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -43,6 +49,29 @@ public class EnvioNfeTeste {
         Envia();
     }
 
+    /**
+     * cClassTrib do item. 000001 e tributacao integral; a tabela vem do
+     * ibscbs.json, o mesmo arquivo publicado pela SEFAZ.
+     */
+    private static final String C_CLASS_TRIB = System.getProperty("cClassTrib", "000001");
+
+    /** Todo cClassTrib 620* e combustivel e exige o grupo comb. */
+    private static boolean ehCombustivel() {
+        return C_CLASS_TRIB.startsWith("62");
+    }
+
+    /**
+     * So estes tres sao monofasia retida anteriormente. O 620001 e o 620002 sao
+     * monofasia padrao: pedem outro grupo de ICMS e nao levam valor retido, entao
+     * cair no mesmo ramo renderia documento contraditorio.
+     */
+    private static boolean ehMonofasiaRetida() {
+        return Arrays.asList("620004", "620005", "620006").contains(C_CLASS_TRIB);
+    }
+
+    /** Preenchido por preencheDet e consumido por preencheTotal. */
+    private static IbsCbsUtil ibsCbsUtil;
+
     private static void Envia() {
 
         try {
@@ -50,7 +79,7 @@ public class EnvioNfeTeste {
             ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.GO, AmbienteEnum.HOMOLOGACAO);
 
             //Informe o Numero da NFe
-            int numeroNfe = 92758;
+            int numeroNfe = Integer.parseInt(System.getProperty("numeroNfe", "92758"));
             //Informe o CNPJ do Emitente da NFe
             String cnpj = "10732644000128";
             //Informe a data de Emissao da NFe
@@ -84,7 +113,7 @@ public class EnvioNfeTeste {
             infNFe.setEntrega(dadosEntrega(infNFe));
 
             //Preenche os dados do Produto da Nfe e adiciona a Lista
-            infNFe.getDet().addAll(preencheDet());
+            infNFe.getDet().addAll(preencheDet(infNFe));
 
 
 
@@ -277,7 +306,26 @@ public class EnvioNfeTeste {
     /**
      * Preenche Det Nfe
      */
-    private static List<InfNFe.Det> preencheDet() {
+    /**
+     * O grupo IBSCBS passou a ser exigido na homologacao: sem ele a nota e
+     * rejeitada com 1115 (Grupo IBSCBS nao informado). O ano sai do dhEmi do
+     * proprio ide, para nao divergir do documento.
+     */
+    private static List<InfNFe.Det> preencheDet(InfNFe infNFe) throws Exception {
+
+        ibsCbsUtil = new IbsCbsUtil(XmlNfeUtil.leXml("src/test/resources/ibscbs.json"),
+                DocumentoEnum.NFE, infNFe);
+
+        // Na monofasia retida anteriormente o valor e informado pelo emitente, mas
+        // o grupo gMonoRet carrega so o valor, sem base nem aliquota: a SEFAZ o
+        // confere pela tabela por produto, que ainda nao foi publicada. Hoje ela
+        // calcula zero e recusa qualquer outro valor com 1240, entao o padrao e
+        // zero. Quando a tabela sair, informe aqui o valor retido de fato.
+        if (ehMonofasiaRetida()) {
+            ibsCbsUtil.setVIBSMonoRet(new BigDecimal(System.getProperty("vIBSMonoRet", "0.00")));
+            ibsCbsUtil.setVCBSMonoRet(new BigDecimal(System.getProperty("vCBSMonoRet", "0.00")));
+        }
+
 
         //O Preenchimento deve ser feito por produto, Então deve ocorrer uma LIsta
         InfNFe.Det det = new InfNFe.Det();
@@ -291,6 +339,11 @@ public class EnvioNfeTeste {
         det.setImposto(preencheImposto());
 
         det.setInfAdProd("Informações Adicionais do Produto");
+
+        //Preenche o grupo IBS/CBS da Reforma Tributaria
+        TTribNFe ibsCbs = ibsCbsUtil.montaImpostosDet(C_CLASS_TRIB, det);
+        det.getImposto().getContent()
+                .add(new JAXBElement<>(new QName("IBSCBS"), TTribNFe.class, ibsCbs));
 
         //Retorna a Lista de Det
         return Collections.singletonList(det);
@@ -319,6 +372,26 @@ public class EnvioNfeTeste {
         prod.setVUnTrib("13.0000");
         prod.setIndTot("1");
 
+        // cClassTrib de combustivel (620*) exige o grupo comb, senao a SEFAZ
+        // rejeita com 1106. Os codigos abaixo sao os do oleo diesel, coerentes
+        // com o NCM e o CEST que passam a valer neste caso.
+        if (ehCombustivel()) {
+            prod.setNCM("27101921");
+            prod.setCEST("0600600");
+            // ICMS61 em GO exige o codigo de beneficio fiscal (rejeicao 930)
+            prod.setCBenef("GO890004");
+            // Combustivel e vendido em litro: unidade diferente e rejeitada com 854
+            prod.setUCom("LT");
+            prod.setUTrib("L");
+            prod.setCFOP("5656");
+            Prod.Comb comb = new Prod.Comb();
+            comb.setCProdANP("820101012");
+            comb.setDescANP("OLEO DIESEL B S500-COMUM");
+            comb.setUFCons(TUf.GO);
+            comb.setPBio("27.0000");
+            prod.setComb(comb);
+        }
+
         return prod;
     }
 
@@ -331,15 +404,26 @@ public class EnvioNfeTeste {
 
         Imposto.ICMS icms = new Imposto.ICMS();
 
-        Imposto.ICMS.ICMS60 icms60 = new Imposto.ICMS.ICMS60();
-        icms60.setOrig("0");
-        icms60.setCST("60");
-        icms60.setVBCSTRet("0.00");
-        icms60.setPST("0.00");
-        icms60.setVICMSSTRet("0.00");
-        icms60.setVICMSSubstituto("0.00");
-
-        icms.setICMS60(icms60);
+        if (ehMonofasiaRetida()) {
+            // Combustivel monofasico retido anteriormente: o ICMS tem de ser o 61,
+            // nao o 60, senao a SEFAZ rejeita com 858 (grupo de tributacao indevido).
+            Imposto.ICMS.ICMS61 icms61 = new Imposto.ICMS.ICMS61();
+            icms61.setOrig("0");
+            icms61.setCST("61");
+            icms61.setQBCMonoRet("1.0000");
+            icms61.setAdRemICMSRet("1.1700");
+            icms61.setVICMSMonoRet("1.17");
+            icms.setICMS61(icms61);
+        } else {
+            Imposto.ICMS.ICMS60 icms60 = new Imposto.ICMS.ICMS60();
+            icms60.setOrig("0");
+            icms60.setCST("60");
+            icms60.setVBCSTRet("0.00");
+            icms60.setPST("0.00");
+            icms60.setVICMSSTRet("0.00");
+            icms60.setVICMSSubstituto("0.00");
+            icms.setICMS60(icms60);
+        }
 
         PIS pis = new PIS();
         PISAliq pisAliq = new PISAliq();
@@ -391,8 +475,18 @@ public class EnvioNfeTeste {
         icmstot.setVCOFINS("0.99");
         icmstot.setVOutro("0.00");
         icmstot.setVNF("13.00");
+        if (ehMonofasiaRetida()) {
+            // O item declara o ICMS monofasico retido; o total precisa acompanhar
+            icmstot.setQBCMonoRet("1.00");
+            icmstot.setVICMSMonoRet("1.17");
+        }
         icmstot.setVTotTrib("5.00");
         total.setICMSTot(icmstot);
+
+        //Totais do IBS/CBS e o total geral do documento (vNFTot)
+        total.setIBSCBSTot(ibsCbsUtil.preencheTotaisIbsCsb());
+        BigDecimal vNfTot = ibsCbsUtil.calculaVnfTot(icmstot.getVNF());
+        total.setVNFTot(ObjetoUtil.getValor2Casas(vNfTot));
 
         return total;
     }

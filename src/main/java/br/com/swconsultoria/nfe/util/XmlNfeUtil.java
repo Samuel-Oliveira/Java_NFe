@@ -228,12 +228,31 @@ public class XmlNfeUtil {
         return serializer.writeToString(node);
     }
 
+    private static String namespaceDoPackage(Class<?> classe) {
+        javax.xml.bind.annotation.XmlSchema schema =
+                classe.getPackage().getAnnotation(javax.xml.bind.annotation.XmlSchema.class);
+        return schema != null ? schema.namespace() : javax.xml.XMLConstants.NULL_NS_URI;
+    }
+
     public static <T> Element objectToElement(Object objeto, Class<T> classe) throws NfeException {
         try {
             Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             JAXBContext context = JAXBContext.newInstance(classe);
             Marshaller marshaller = context.createMarshaller();
-            marshaller.marshal(objeto, document);
+
+            if (classe.isAnnotationPresent(javax.xml.bind.annotation.XmlRootElement.class)) {
+                marshaller.marshal(objeto, document);
+            } else {
+                // Ha eventos cujo detEvento e anonimo no XSD (o da Conciliacao
+                // Financeira, por exemplo): a classe gerada nao recebe
+                // @XmlRootElement e o JAXB recusa marshallar sozinho, o que
+                // deixava o evento generico inutilizavel. Aqui o elemento raiz
+                // e informado explicitamente, com o namespace declarado no
+                // package-info da classe.
+                marshaller.marshal(new JAXBElement<>(
+                        new QName(namespaceDoPackage(classe), "detEvento"), classe, classe.cast(objeto)),
+                        document);
+            }
 
             return document.getDocumentElement();
 

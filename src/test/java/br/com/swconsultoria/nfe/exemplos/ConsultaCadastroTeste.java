@@ -23,7 +23,7 @@ public class ConsultaCadastroTeste {
 
             try {
                 //Envia a Consulta
-                TRetConsCad retorno = Nfe.consultaCadastro(config, PessoaEnum.JURIDICA, "30081357000617", EstadosEnum.GO);
+                TRetConsCad retorno = Nfe.consultaCadastro(config, PessoaEnum.JURIDICA, System.getProperty("cnpjConsulta", "10732644000128"), EstadosEnum.GO);
 
                 //Valida o Retorno da Consulta Cadastro
                 RetornoUtil.validaConsultaCadastro(retorno);

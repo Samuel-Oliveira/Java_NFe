@@ -26,9 +26,9 @@ public class EnvioNfeXmlTeste {
         try {
 
             // Inicia As Configurações
-            ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.MT, AmbienteEnum.HOMOLOGACAO);
+            ConfiguracoesNfe config = ConfiguracaoTeste.iniciaConfiguracoes(EstadosEnum.valueOf(System.getProperty("ufXml", "MT")), AmbienteEnum.HOMOLOGACAO);
 
-            String caminhoXML = "d:/teste/nfe.xml";
+            String caminhoXML = System.getProperty("caminhoXML", "d:/teste/nfe.xml");
 
             // Le Xml do Arquivo
             String xml = XmlNfeUtil.leXml(caminhoXML);
@@ -38,7 +38,7 @@ public class EnvioNfeXmlTeste {
 //            enviNFe = Nfe.montaNfe(config, enviNFe, true);
 
             // Envia a Nfe para a Sefaz
-            TRetEnviNFe retorno = Nfe.enviarNfe(config, enviNFe, DocumentoEnum.NFE);
+            TRetEnviNFe retorno = Nfe.enviarNfe(config, enviNFe, DocumentoEnum.valueOf(System.getProperty("docXml", "NFE")));
 
             //Valida se o Retorno é Assincrono
             if (RetornoUtil.isRetornoAssincrono(retorno)) {
@@ -49,7 +49,7 @@ public class EnvioNfeXmlTeste {
 
                 //Define Numero de tentativas que irá tentar a Consulta
                 while (tentativa < 15) {
-                    retornoNfe = Nfe.consultaRecibo(config, recibo, DocumentoEnum.NFE);
+                    retornoNfe = Nfe.consultaRecibo(config, recibo, DocumentoEnum.valueOf(System.getProperty("docXml", "NFE")));
                     if (retornoNfe.getCStat().equals(StatusEnum.LOTE_EM_PROCESSAMENTO.getCodigo())) {
                         System.out.println("INFO: Lote Em Processamento, vai tentar novamente apos 1 Segundo.");
                         Thread.sleep(1000);

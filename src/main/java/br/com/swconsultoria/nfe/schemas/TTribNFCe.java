@@ -22,10 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="CST" type="{http://www.portalfiscal.inf.br/nfe}TCST"/>
  *         &lt;element name="cClassTrib" type="{http://www.portalfiscal.inf.br/nfe}TcClassTrib"/>
  *         &lt;element name="indDoacao" type="{http://www.portalfiscal.inf.br/nfe}TIndDoacao" minOccurs="0"/>
- *         &lt;choice minOccurs="0">
- *           &lt;element name="gIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TCIBS_NFe"/>
- *           &lt;element name="gIBSCBSMono" type="{http://www.portalfiscal.inf.br/nfe}TMonofasia"/>
- *         &lt;/choice>
+ *         &lt;element name="gIBSCBS" type="{http://www.portalfiscal.inf.br/nfe}TCIBS_NFe" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -39,8 +36,7 @@ import javax.xml.bind.annotation.XmlType;
     "cst",
     "cClassTrib",
     "indDoacao",
-    "gibscbs",
-    "gibscbsMono"
+    "gibscbs"
 })
 public class TTribNFCe {
 
@@ -51,8 +47,6 @@ public class TTribNFCe {
     protected String indDoacao;
     @XmlElement(name = "gIBSCBS")
     protected TCIBSNFe gibscbs;
-    @XmlElement(name = "gIBSCBSMono")
-    protected TMonofasia gibscbsMono;
 
     /**
      * Obtém o valor da propriedade cst.
@@ -148,30 +142,6 @@ public class TTribNFCe {
      */
     public void setGIBSCBS(TCIBSNFe value) {
         this.gibscbs = value;
-    }
-
-    /**
-     * Obtém o valor da propriedade gibscbsMono.
-     * 
-     * @return
-     *     possible object is
-     *     {@link TMonofasia }
-     *     
-     */
-    public TMonofasia getGIBSCBSMono() {
-        return gibscbsMono;
-    }
-
-    /**
-     * Define o valor da propriedade gibscbsMono.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TMonofasia }
-     *     
-     */
-    public void setGIBSCBSMono(TMonofasia value) {
-        this.gibscbsMono = value;
     }
 
 }

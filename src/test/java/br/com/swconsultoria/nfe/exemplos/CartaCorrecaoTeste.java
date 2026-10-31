@@ -32,7 +32,7 @@ public class CartaCorrecaoTeste {
             //Para isso Foi criado o Objeto Cancela
             Evento cce = new Evento();
             //Informe a chave da Nota a ser feita a CArta de Correção
-            cce.setChave("52250810732644000128550010000927501960446967");
+            cce.setChave(System.getProperty("chave", "52250810732644000128550010000927501960446967"));
             //Informe o CNPJ do emitente
             cce.setCnpj("10732644000128");
             //Informe o Texto da Carta de Correção
@@ -40,7 +40,7 @@ public class CartaCorrecaoTeste {
             //Informe a data da Carta de Correção
             cce.setDataEvento(LocalDateTime.now());
             //Informe a sequencia do Evento
-            cce.setSequencia(1);
+            cce.setSequencia(Integer.parseInt(System.getProperty("cceSequencia", "1")));
 
 			// Monta o Evento
             TEnvEventoCartaCorrecao envEvento = CartaCorrecaoUtil.montaCCe(cce,config);
