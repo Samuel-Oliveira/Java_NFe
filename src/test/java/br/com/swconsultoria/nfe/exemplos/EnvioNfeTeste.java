@@ -301,6 +301,16 @@ public class EnvioNfeTeste {
         ibsCbsUtil = new IbsCbsUtil(XmlNfeUtil.leXml("src/test/resources/ibscbs.json"),
                 DocumentoEnum.NFE, infNFe);
 
+        // Na monofasia retida anteriormente o valor e informado pelo emitente, mas
+        // o grupo gMonoRet carrega so o valor, sem base nem aliquota: a SEFAZ o
+        // confere pela tabela por produto, que ainda nao foi publicada. Hoje ela
+        // calcula zero e recusa qualquer outro valor com 1240, entao o padrao e
+        // zero. Quando a tabela sair, informe aqui o valor retido de fato.
+        if (C_CLASS_TRIB.startsWith("62")) {
+            ibsCbsUtil.setVIBSMonoRet(new BigDecimal(System.getProperty("vIBSMonoRet", "0.00")));
+            ibsCbsUtil.setVCBSMonoRet(new BigDecimal(System.getProperty("vCBSMonoRet", "0.00")));
+        }
+
 
         //O Preenchimento deve ser feito por produto, Então deve ocorrer uma LIsta
         InfNFe.Det det = new InfNFe.Det();
@@ -347,6 +357,25 @@ public class EnvioNfeTeste {
         prod.setVUnTrib("13.0000");
         prod.setIndTot("1");
 
+        // cClassTrib de combustivel (620*) exige o grupo comb, senao a SEFAZ
+        // rejeita com 1106. Os codigos abaixo sao os do oleo diesel, coerentes
+        // com o NCM e o CEST que passam a valer neste caso.
+        if (C_CLASS_TRIB.startsWith("62")) {
+            prod.setNCM("27101921");
+            prod.setCEST("0600600");
+            // ICMS61 em GO exige o codigo de beneficio fiscal (rejeicao 930)
+            prod.setCBenef("GO890004");
+            // Combustivel e vendido em litro: unidade diferente e rejeitada com 854
+            prod.setUCom("LT");
+            prod.setUTrib("L");
+            Prod.Comb comb = new Prod.Comb();
+            comb.setCProdANP("820101012");
+            comb.setDescANP("OLEO DIESEL B S500-COMUM");
+            comb.setUFCons(TUf.GO);
+            comb.setPBio("27.0000");
+            prod.setComb(comb);
+        }
+
         return prod;
     }
 
@@ -359,15 +388,26 @@ public class EnvioNfeTeste {
 
         Imposto.ICMS icms = new Imposto.ICMS();
 
-        Imposto.ICMS.ICMS60 icms60 = new Imposto.ICMS.ICMS60();
-        icms60.setOrig("0");
-        icms60.setCST("60");
-        icms60.setVBCSTRet("0.00");
-        icms60.setPST("0.00");
-        icms60.setVICMSSTRet("0.00");
-        icms60.setVICMSSubstituto("0.00");
-
-        icms.setICMS60(icms60);
+        if (C_CLASS_TRIB.startsWith("62")) {
+            // Combustivel monofasico retido anteriormente: o ICMS tem de ser o 61,
+            // nao o 60, senao a SEFAZ rejeita com 858 (grupo de tributacao indevido).
+            Imposto.ICMS.ICMS61 icms61 = new Imposto.ICMS.ICMS61();
+            icms61.setOrig("0");
+            icms61.setCST("61");
+            icms61.setQBCMonoRet("1.0000");
+            icms61.setAdRemICMSRet("1.1700");
+            icms61.setVICMSMonoRet("1.17");
+            icms.setICMS61(icms61);
+        } else {
+            Imposto.ICMS.ICMS60 icms60 = new Imposto.ICMS.ICMS60();
+            icms60.setOrig("0");
+            icms60.setCST("60");
+            icms60.setVBCSTRet("0.00");
+            icms60.setPST("0.00");
+            icms60.setVICMSSTRet("0.00");
+            icms60.setVICMSSubstituto("0.00");
+            icms.setICMS60(icms60);
+        }
 
         PIS pis = new PIS();
         PISAliq pisAliq = new PISAliq();

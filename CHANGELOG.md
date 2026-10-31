@@ -40,6 +40,12 @@
   `vNFTot`. A homologacao ja rejeita a NF-e modelo 55 sem o grupo, com **1115 - Grupo
   IBSCBS nao informado**; o exemplo da NFC-e tinha sido atualizado na reforma e o da
   NF-e nao.
+- `EnvioNfeTeste` emite NF-e 55 **monofasica** com `-DcClassTrib=620006`: passa a montar o
+  grupo `comb` (rejeicao 1106 sem ele), ICMS 61 em vez de 60 (858), `cBenef` (930) e unidade
+  em litro (854). O grupo `gMonoRet` so carrega o valor, sem base nem aliquota, e a SEFAZ o
+  confere pela tabela por produto, que ainda nao foi publicada: hoje ela calcula zero e
+  recusa qualquer outro valor com **1240**, entao o exemplo informa zero e documenta onde
+  trocar quando a tabela sair.
 - `EventoGenericoTeste` usava o payload do EConf (110750) para o evento 112110, o que
   rendia **493 - Evento nao atende o Schema XML especifico**. Passa a usar
   `DetEvento112110`.
