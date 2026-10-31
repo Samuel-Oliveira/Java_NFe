@@ -227,6 +227,10 @@
                 <td th:replace="~{fragmentos :: campo('VALOR DO IBS MONOFÁSICO POR RETENÇÃO', ${fmt.valor(danfe.ibsCbsTot.vIBSMonoReten)}, '25%')}"></td>
                 <td th:replace="~{fragmentos :: campo('VALOR DA CBS MONOFÁSICA POR RETENÇÃO', ${fmt.valor(danfe.ibsCbsTot.vCBSMonoReten)}, '25%')}"></td>
             </tr></table>
+            <table th:if="${danfe.exibirLinhaIbsCbsMonoRet}"><tr>
+                <td th:replace="~{fragmentos :: campo('VALOR DO IBS MONOFÁSICO RETIDO ANTERIORMENTE', ${fmt.valor(danfe.ibsCbsTot.vIBSMonoRet)}, '50%')}"></td>
+                <td th:replace="~{fragmentos :: campo('VALOR DA CBS MONOFÁSICA RETIDA ANTERIORMENTE', ${fmt.valor(danfe.ibsCbsTot.vCBSMonoRet)}, '50%')}"></td>
+            </tr></table>
         </div>
     </th:block>
 

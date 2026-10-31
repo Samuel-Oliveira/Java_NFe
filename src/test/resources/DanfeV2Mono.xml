@@ -2,7 +2,9 @@
 <!-- NF-e fictícia (homologação) de combustíveis, com as quatro alternativas do grupo imposto/IBSCBS do item:
      item 1 monofásico ad rem (CST 620, base em quantidade e alíquota em R$/litro, com retenção),
      item 2 monofásico ad valorem (CST 620, com retido anteriormente),
-     item 3 transferência de crédito (CST 800) e item 4 ajuste de competência (CST 811). Os totais fecham com os itens. -->
+     item 3 transferência de crédito (CST 800) e item 4 ajuste de competência (CST 811).
+     Os totais fecham com os itens: como nenhum item tem gIBSCBS, vBCIBSCBS, gIBS e gCBS vêm zerados e todo o
+     IBS/CBS da nota está em gMono (padrão 50+5 e 200+45, retenção 10 e 30, retido anteriormente 1 e 2). -->
 <nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
   <NFe>
     <infNFe Id="NFe35261212345678000195550010000007891000007890" versao="4.00">
@@ -277,26 +279,26 @@
           <vNF>11190.00</vNF>
         </ICMSTot>
         <IBSCBSTot>
-          <vBCIBSCBS>5000.00</vBCIBSCBS>
+          <vBCIBSCBS>0.00</vBCIBSCBS>
           <gIBS>
             <gIBSUF>
               <vDif>0.00</vDif>
               <vDevTrib>0.00</vDevTrib>
-              <vIBSUF>5.00</vIBSUF>
+              <vIBSUF>0.00</vIBSUF>
             </gIBSUF>
             <gIBSMun>
               <vDif>0.00</vDif>
               <vDevTrib>0.00</vDevTrib>
               <vIBSMun>0.00</vIBSMun>
             </gIBSMun>
-            <vIBS>5.00</vIBS>
+            <vIBS>0.00</vIBS>
             <vCredPres>0.00</vCredPres>
             <vCredPresCondSus>0.00</vCredPresCondSus>
           </gIBS>
           <gCBS>
             <vDif>0.00</vDif>
             <vDevTrib>0.00</vDevTrib>
-            <vCBS>45.00</vCBS>
+            <vCBS>0.00</vCBS>
             <vCredPres>0.00</vCredPres>
             <vCredPresCondSus>0.00</vCredPresCondSus>
           </gCBS>

@@ -150,6 +150,11 @@ public class DanfeV2DTO {
         return algumDiferenteDeZero(ibsCbsTot, "vIBSMono", "vCBSMono", "vIBSMonoReten", "vCBSMonoReten");
     }
 
+    /** Linha do IBS/CBS monofásico retido anteriormente (gMono/vIBSMonoRet e vCBSMonoRet). */
+    public boolean isExibirLinhaIbsCbsMonoRet() {
+        return algumDiferenteDeZero(ibsCbsTot, "vIBSMonoRet", "vCBSMonoRet");
+    }
+
     public boolean isExibirIssqn() {
         return !issqnTot.isEmpty();
     }

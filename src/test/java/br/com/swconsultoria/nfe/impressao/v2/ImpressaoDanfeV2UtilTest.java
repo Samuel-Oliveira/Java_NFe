@@ -12,8 +12,11 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,7 +54,7 @@ class ImpressaoDanfeV2UtilTest {
         assertTrue(html.contains("3526 1212 3456 7800 0195 5500 1000 0001 2310 0000 1234"), "chave em grupos de 4");
         assertTrue(html.contains("1.775,00"), "vNF");
         assertTrue(html.contains("TOTAL DO IBS / CBS / IS"));
-        assertTrue(html.contains("1.656,00"), "base de cálculo total do IBS/CBS");
+        assertEquals("1.656,00", valorDoCampo(html, "BASE DE CÁLCULO DO IBS / CBS"), "base de cálculo total do IBS/CBS");
         assertTrue(html.contains("IBS/CBS 000") && html.contains("IBS/CBS 200"), "CST do IBS/CBS de cada item");
         assertTrue(html.contains("SEM VALOR FISCAL"), "tpAmb=2 imprime a marca d'água");
         assertTrue(html.contains("data:image/png;base64,"), "logo, código de barras e QR Code em data URI");
@@ -119,16 +122,25 @@ class ImpressaoDanfeV2UtilTest {
         assertEquals("3.00", ajuste.get("vCBS"));
         assertEquals("2026-11", ajuste.get("competApur"));
 
-        // Totais: o quadro de IBS/CBS/IS e a linha de monofasia saem com os valores do XML
+        // Totais: a nota só tem monofásico, então gMono é a soma dos itens e gIBS/gCBS vêm zerados
         assertTrue(danfe.isExibirIbsCbsIs());
         assertTrue(danfe.isExibirLinhaIbsCbsMono());
-        assertEquals("55.00", danfe.getIbsCbsTot().get("vIBSMono"));
-        assertEquals("245.00", danfe.getIbsCbsTot().get("vCBSMono"));
+        assertTrue(danfe.isExibirLinhaIbsCbsMonoRet());
+        Map<String, String> tot = danfe.getIbsCbsTot();
+        assertEquals(new BigDecimal(adRem.get("vIBS")).add(new BigDecimal(adValorem.get("vIBS"))), new BigDecimal(tot.get("vIBSMono")));
+        assertEquals(new BigDecimal(adRem.get("vCBS")).add(new BigDecimal(adValorem.get("vCBS"))), new BigDecimal(tot.get("vCBSMono")));
+        assertEquals(new BigDecimal(adRem.get("vIBSMonoReten")), new BigDecimal(tot.get("vIBSMonoReten")));
+        assertEquals(new BigDecimal(adValorem.get("vIBSMonoRet")), new BigDecimal(tot.get("vIBSMonoRet")));
+        assertEquals(0, new BigDecimal(tot.get("vIBSUF")).signum(), "sem item gIBSCBS o IBS normal é zero");
+        assertEquals(0, new BigDecimal(tot.get("vCBS")).signum());
 
         ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(xmlMono);
         String html = ImpressaoDanfeV2Util.gerarHtml(impressao);
-        assertTrue(html.contains("VALOR DO IBS MONOFÁSICO"));
-        assertTrue(html.contains("IBS/CBS QTD") && html.contains("1.000,00"), "base em quantidade do ad rem");
+        assertEquals("55,00", valorDoCampo(html, "VALOR DO IBS MONOFÁSICO"));
+        assertEquals("245,00", valorDoCampo(html, "VALOR DA CBS MONOFÁSICA"));
+        assertEquals("1,00", valorDoCampo(html, "VALOR DO IBS MONOFÁSICO RETIDO ANTERIORMENTE"));
+        assertEquals("2,00", valorDoCampo(html, "VALOR DA CBS MONOFÁSICA RETIDA ANTERIORMENTE"));
+        assertTrue(html.contains("IBS/CBS QTD</td><td class=\"v\">1.000,00<"), "base em quantidade do ad rem");
         assertTrue(html.contains("0,0500") && html.contains("0,2000"), "alíquotas ad rem");
         assertTrue(html.contains("IBS/CBS 620") && html.contains("IBS/CBS 800") && html.contains("IBS/CBS 811"));
         assertTrue(html.contains("Retenção monofásica IBS 10,00 CBS 30,00"));
@@ -289,6 +301,12 @@ class ImpressaoDanfeV2UtilTest {
         assertEquals("0,0500", fmt.adRem("0.0500"));
         assertEquals("11/2026", fmt.competencia("2026-11"));
         assertEquals("", fmt.complementoIbsCbs(null));
+    }
+
+    /** Valor impresso logo abaixo do rótulo de um campo do fragmento "campo" (rótulo + valor), ou null se o rótulo não existe. */
+    private static String valorDoCampo(String html, String rotulo) {
+        Matcher m = Pattern.compile(Pattern.quote(rotulo) + "</div>\\s*<div class=\"val[^\"]*\">([^<]*)</div>").matcher(html);
+        return m.find() ? m.group(1) : null;
     }
 
     private static int folhas(byte[] pdf) throws IOException {

@@ -25,7 +25,7 @@ As duas versões **convivem no mesmo jar**. NFC-e e CC-e continuam usando a API 
 
 ## 2. Dependência
 
-A versão `4.3.0` está instalada **apenas no repositório Maven local** desta máquina (`D:\maven-repository`, definido como `localRepository` em `%USERPROFILE%\.m2\settings.xml`), em 30/10/2026. Não está publicada no Maven Central: lá a última é a `4.2.0`, que **não** tem a v2. A `4.2.0` do repositório local não foi alterada; só troque a versão da dependência quando for testar.
+A v2 entra na versão `4.3.0`. Enquanto ela não estiver publicada no Maven Central (a última publicada é a `4.2.0`, que **não** tem a v2), gere-a a partir do código-fonte e instale no repositório Maven local, como descrito em "Gerar a versão local" abaixo.
 
 **Maven**
 ```xml
@@ -36,19 +36,17 @@ A versão `4.3.0` está instalada **apenas no repositório Maven local** desta m
 </dependency>
 ```
 
-**Gradle** (o `mavenLocal()` respeita o `localRepository` do `settings.xml`)
+**Gradle** (o `mavenLocal()` é necessário enquanto a versão vier do repositório local)
 ```groovy
 repositories { mavenLocal(); mavenCentral() }
 dependencies { implementation "br.com.swconsultoria:java-nfe:4.3.0" }
 ```
 
-Arquivos instalados em `D:\maven-repository\br\com\swconsultoria\java-nfe\4.3.0\`: `java-nfe-4.3.0.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom`. O jar é "fino" (as dependências normais do `java-nfe`, como `java-certificado`, vêm por transitividade pelo `.pom`).
-
-**Regerar a versão local** (após alterar a biblioteca), no diretório `D:\Projetos\java_nfe\Java_NFe`. O Maven não está no PATH: use o que vem com o IntelliJ.
+**Gerar a versão local** (a partir do checkout deste repositório):
 ```bash
-"/c/Program Files/JetBrains/IntelliJ IDEA 2026.1.1/plugins/maven/lib/maven3/bin/mvn" clean install -Dgpg.skip
+mvn clean install -Dgpg.skip
 ```
-`-Dgpg.skip` pula a assinatura GPG da fase `verify`. Os testes (mais de 2.200, incluindo os da v2) rodam no build; `-DskipTests` pula. Para um jar com todas as dependências (projetos sem Maven/Gradle) acrescente `-Passembly`: ele **substitui** o jar fino no `target/` e no repositório local, e mesmo assim **não** inclui as bibliotecas `provided` da seção 2.1, que precisam ir para o classpath à parte.
+Isso instala `java-nfe-4.3.0.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom` no repositório Maven local. O jar é "fino" (as dependências normais do `java-nfe`, como `java-certificado`, vêm por transitividade pelo `.pom`). `-Dgpg.skip` pula a assinatura GPG da fase `verify`. Os testes (mais de 2.200, incluindo os da v2) rodam no build; `-DskipTests` pula. Para um jar com todas as dependências (projetos sem Maven/Gradle) acrescente `-Passembly`: ele **substitui** o jar fino no `target/` e no repositório local, e mesmo assim **não** inclui as bibliotecas `provided` da seção 2.1, que precisam ir para o classpath à parte.
 
 ### 2.1 Dependências que o projeto consumidor precisa declarar
 
@@ -83,7 +81,7 @@ Como já acontece com o Jasper do DANFE v1, as bibliotecas de impressão são `p
 </dependency>
 ```
 
-No Gradle são as mesmas coordenadas com `implementation`. Se o DANFE v1 (Jasper) continuar em uso no mesmo sistema, mantenha também `jasperreports` e `jasperreports-fonts`. Todas essas bibliotecas já estão no `D:\maven-repository`, então o build do consumidor funciona offline.
+No Gradle são as mesmas coordenadas com `implementation`. Se o DANFE v1 (Jasper) continuar em uso no mesmo sistema, mantenha também `jasperreports` e `jasperreports-fonts`.
 
 ### 2.2 Requisitos e conflitos possíveis
 
@@ -122,9 +120,10 @@ import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 public class TesteDanfeV2 {
     public static void main(String[] args) throws Exception {
-        String xml = XmlNfeUtil.leXml("D:/Projetos/java_nfe/Java_NFe/src/test/resources/DanfeV2Rtc.xml");
+        // DanfeV2Rtc.xml fica em src/test/resources deste repositório
+        String xml = XmlNfeUtil.leXml("caminho/para/DanfeV2Rtc.xml");
         ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(xml);
-        ImpressaoDanfeV2Util.impressaoPdfArquivo(impressao, "d:/teste/danfe-v2.pdf");
+        ImpressaoDanfeV2Util.impressaoPdfArquivo(impressao, "danfe-v2.pdf");
     }
 }
 ```
@@ -260,7 +259,7 @@ Todos aceitam null e devolvem `""`. Os números arredondam HALF_UP. Ao concatena
 7. **Nada pode passar da área da página.** Um elemento posicionado que ultrapassa a altura da folha gera uma folha em branco.
 8. **O quadro do emitente tem altura fixa** (`.emitente-caixa`, 25 mm): o cabeçalho repetido nas folhas 2+ vive na margem superior fixa de 43 mm e não pode crescer com o texto. Nome com mais de 40 caracteres sai em fonte menor; o excedente é cortado.
 9. **Na paisagem, a faixa de 25 mm do canhoto só existe com `exibirCanhoto`** (está num `<style th:if="${paisagem and exibirCanhoto}">` separado). Sem canhoto o conteúdo usa a largura toda.
-10. **Para o bloco de dados adicionais encostar no rodapé**, o template precisa de um `<div id="espaco-dados-adicionais"></div>` vazio e **sem atributo `style`** imediatamente antes do bloco com `id="dados-adicionais"`, e o bloco não pode ter margem superior (o respiro fica na altura padrão do espaçador, no CSS). `ImpressaoDanfeV2Util.htmlParaPdf` diagrama o documento, mede quanto sobra na folha em que o bloco caiu, grava essa altura como `style` do espaçador e diagrama de novo. Sem os dois marcadores o bloco sai logo após os itens. Os ids estão nas constantes `ID_ESPACO_DADOS_ADICIONAIS` e `ID_DADOS_ADICIONAIS`.
+10. **Para o bloco de dados adicionais encostar no rodapé**, o template precisa de um `<div id="espaco-dados-adicionais"></div>` vazio imediatamente antes do bloco com `id="dados-adicionais"`, e o bloco não pode ter margem superior (o respiro fica na altura padrão do espaçador, no CSS). `ImpressaoDanfeV2Util.htmlParaPdf` diagrama o documento, mede quanto sobra na folha em que o bloco caiu, acrescenta essa altura ao `style` do espaçador (um `style` inline que o template já tenha é preservado, mas o `height` calculado prevalece) e diagrama de novo. Sem os dois marcadores o bloco sai logo após os itens. Os ids estão nas constantes `ID_ESPACO_DADOS_ADICIONAIS` e `ID_DADOS_ADICIONAIS`.
 
 ---
 
@@ -316,7 +315,7 @@ Métodos de decisão (usados pelo template para exibir ou ocultar blocos):
 - `isPaisagem`, `isHomologacao`;
 - `isExibirFatura`, `getFaturaLinhas` (duplicatas em linhas de 3);
 - `isExibirLinhaFcp`, `isExibirLinhaIcmsMono`;
-- `isExibirIbsCbsIs`, `isExibirLinhaIbsCbsMono`;
+- `isExibirIbsCbsIs`, `isExibirLinhaIbsCbsMono`, `isExibirLinhaIbsCbsMonoRet`;
 - `isExibirIssqn`, `isExibirTransporte`, `isExibirQrCode`.
 
 ---
@@ -358,7 +357,8 @@ Um quadro ou campo cuja informação não existe no XML **não é impresso**, e 
 | Linha FCP/DIFAL | Algum valor diferente de zero entre vFCP, vFCPST, vICMSUFDest, vFCPUFDest (vFCP e vFCPST são obrigatórias e vêm como 0.00 em toda NF-e 4.00, por isso presença não basta) |
 | Linha ICMS monofásico | Algum valor diferente de zero entre qBCMono, vICMSMono, qBCMonoReten, vICMSMonoReten |
 | Total IBS/CBS/IS | Existe `IBSCBSTot` ou `ISTot` (notas antigas não mostram o quadro) |
-| Linha IBS/CBS monofásico | Algum valor diferente de zero em `gMono` |
+| Linha IBS/CBS monofásico | Algum valor diferente de zero entre vIBSMono, vCBSMono, vIBSMonoReten, vCBSMonoReten (`gMono`) |
+| Linha IBS/CBS monofásico retido anteriormente | Algum valor diferente de zero entre vIBSMonoRet, vCBSMonoRet (`gMono`) |
 | ISSQN | Existe `ISSQNtot` |
 | Transporte | Existe `transporta`, `veicTransp` ou `vol` (só `modFrete` não basta) |
 | QR Code | Existe `infNFeSupl/qrCode` |
@@ -406,17 +406,17 @@ O campo "Tipo de Regime de Apuração do IBS e da CBS" é reservado e **sai vazi
 
 ## 10. Testes de aceitação
 
-Use o XML fictício de exemplo da biblioteca (`D:\Projetos\java_nfe\Java_NFe\src\test\resources\DanfeV2Rtc.xml`). Ele traz IBSCBS com e sem `gRed`, IS, quatro duplicatas, transporte, QR Code e é de homologação. Para a quebra de página use o `DanfeV2Rtc50Itens.xml`, que fica na mesma pasta: 50 itens que alternam entre três combinações (ICMS00 com IPI, ICMS60 com IS e `gRed`, e ICMS00 sem IPI), alguns com descrição longa e `infAdProd`, com totais que fecham. Teste também com XMLs reais do sistema.
+Use o XML fictício de exemplo da biblioteca (`src/test/resources/DanfeV2Rtc.xml` neste repositório). Ele traz IBSCBS com e sem `gRed`, IS, quatro duplicatas, transporte, QR Code e é de homologação. Para a quebra de página use o `DanfeV2Rtc50Itens.xml`, que fica na mesma pasta: 50 itens que alternam entre três combinações (ICMS00 com IPI, ICMS60 com IS e `gRed`, e ICMS00 sem IPI), alguns com descrição longa e `infAdProd`, com totais que fecham. Teste também com XMLs reais do sistema.
 
-Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os cenários 1, 2, 3, 4, 8 e 9 abaixo; os exemplos `TesteImpressaoDanfeV2` e `TesteImpressaoDanfeV2QuebraPagina` (em `src/test/java/.../nfe/impressao`) geram os PDFs em `d:/teste` para conferência visual.
+Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os cenários 1, 2, 3, 4, 4a, 5, 6, 8 e 9 abaixo; os exemplos `TesteImpressaoDanfeV2` e `TesteImpressaoDanfeV2QuebraPagina` (em `src/test/java/.../nfe/impressao`) geram os PDFs em `d:/teste` para conferência visual.
 
 | # | Cenário | Esperado |
 |---|---|---|
 | 1 | XML de exemplo, padrão | 1 folha retrato; quadro "TOTAL DO IBS / CBS / IS" com CBS 14,06, IBS UF 1,56, IS 3,12; marca "SEM VALOR FISCAL"; bloco "DADOS ADICIONAIS" no pé da folha, com o espaço livre entre os itens e ele |
 | 2 | Item 2 do exemplo (tem `gRed`) | Alíquotas CBS 0,36% e IBS UF 0,04% (efetivas), não 0,90% e 0,10% |
 | 3 | `setOrientacao(PAISAGEM)` | 1 folha paisagem com o canhoto vertical à direita |
-| 4 | `DanfeV2Rtc50Itens.xml` | Retrato: 3 folhas (itens 1–11, 12–34, 35–50 + dados adicionais). Paisagem: 4 folhas (1–5, 6–21, 22–37, 38–50 + dados adicionais). Cada folha repete o quadro do emitente e o cabeçalho dos itens; "FOLHA n/total" correto; nenhum item cortado entre folhas; o bloco de dados adicionais nunca é dividido (pode ir inteiro para uma folha nova) |
-| 4a | `DanfeV2Mono.xml` (combustíveis) | Item 1 ad rem: base "IBS/CBS QTD 1.000,00", alíquotas IBS 0,0500 e CBS 0,2000, valores IBS 50,00 e CBS 200,00, linha "Retenção monofásica IBS 10,00 CBS 30,00". Item 2 ad valorem: base 5.000,00, IBS UF 0,10%, CBS 0,90%. Itens 3 e 4 só com valores de IBS/CBS e "Ajuste de competência 11/2026". Quadro de totais com a linha "VALOR DO IBS MONOFÁSICO 55,00" |
+| 4 | `DanfeV2Rtc50Itens.xml` | Várias folhas (com o CSS atual: 3 em retrato, itens 1–11, 12–34, 35–50 + dados adicionais; 4 em paisagem, 1–5, 6–21, 22–37, 38–50 + dados adicionais; a contagem muda com ajustes de CSS e não é critério). Cada folha repete o quadro do emitente e o cabeçalho dos itens; "FOLHA n/total" correto; nenhum item cortado entre folhas; o bloco de dados adicionais nunca é dividido (pode ir inteiro para uma folha nova) |
+| 4a | `DanfeV2Mono.xml` (combustíveis) | Item 1 ad rem: base "IBS/CBS QTD 1.000,00", alíquotas IBS 0,0500 e CBS 0,2000, valores IBS 50,00 e CBS 200,00, linha "Retenção monofásica IBS 10,00 CBS 30,00". Item 2 ad valorem: base 5.000,00, IBS UF 0,10%, CBS 0,90%. Itens 3 e 4 só com valores de IBS/CBS e "Ajuste de competência 11/2026". Quadro de totais com base, CBS e IBS zerados (a nota só tem monofásico), a linha "VALOR DO IBS MONOFÁSICO 55,00 / CBS 245,00" e a linha de retido anteriormente "1,00 / 2,00" |
 | 5 | XML real antigo (sem IBSCBS), ou `DanfeV2SemRtc.xml` | Sem quadro IBS/CBS/IS; colunas IBS/CBS/IS vazias; nenhum erro; sem `protNFe` a chave vem do `Id` e o protocolo sai em branco |
 | 6 | Nota sem `cobr`, sem transportadora, sem QR Code | Esses quadros não aparecem |
 | 7 | `setExibirCanhoto(false)` | Sem canhoto; na paisagem o conteúdo ocupa a largura toda |
@@ -433,12 +433,12 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 | Sintoma | Causa provável |
 |---|---|
 | `NoClassDefFoundError` de `org.thymeleaf`, `com.openhtmltopdf`, `net.sourceforge.barbecue` ou `com.google.zxing` | Dependência `provided` não declarada no projeto consumidor (seção 2.1) |
-| `ClassNotFoundException: br.com.swconsultoria.nfe.impressao.v2...` | O projeto ainda aponta para a `4.2.0` (sem a v2) ou resolveu a dependência de outro repositório; confira a versão e o `localRepository` (seção 2) |
+| `ClassNotFoundException: br.com.swconsultoria.nfe.impressao.v2...` | O projeto ainda aponta para a `4.2.0` (sem a v2) ou resolveu a dependência de outro repositório; confira a versão e o repositório Maven local (seção 2) |
 | `NoSuchMethodError` do Thymeleaf ou PDFBox | Conflito de versão (seção 2.2) |
 | `DanfeException: Erro ao processar o template ...` | Caminho do arquivo errado, HTML malformado ou expressão inválida no template próprio (seção 5.2); a causa original do Thymeleaf vem em `getCause()` |
 | Cabeçalho das folhas 2+ em cima dos itens | Template próprio cujo quadro do emitente cresce com o texto; mantenha a altura fixa de `.emitente-caixa` (o cabeçalho repetido vive na margem superior de 43mm) |
 | Faixa em branco à direita na paisagem | Template próprio aplicando a faixa do canhoto sem testar `exibirCanhoto` |
-| Bloco de dados adicionais logo após os itens, no meio da folha | Template próprio sem os marcadores da regra 10 da seção 5.2, ou com `style` no espaçador |
+| Bloco de dados adicionais logo após os itens, no meio da folha | Template próprio sem os marcadores da regra 10 da seção 5.2, ou com o bloco maior que a folha |
 | PDF com folha em branco no final | Elemento posicionado que ultrapassa a altura da página |
 | Cabeçalho dos itens não repete | `overflow: hidden` em `td/th` ou ausência de `border-collapse: separate` |
 | CST impresso como "0" em vez de "000" | Concatenação com `+` no template (use `fmt.cst`) |
@@ -451,7 +451,7 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 
 ## 12. Onde está o código da biblioteca
 
-`D:\Projetos\java_nfe\Java_NFe`, pacote `br.com.swconsultoria.nfe.impressao.v2` (este manual fica em `docs/MANUAL-DANFE-V2.md`)
+Pacote `br.com.swconsultoria.nfe.impressao.v2` deste repositório (este manual fica em `docs/MANUAL-DANFE-V2.md`)
 
 | Arquivo | Função |
 |---|---|
