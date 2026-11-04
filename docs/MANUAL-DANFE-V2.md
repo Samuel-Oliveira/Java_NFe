@@ -232,7 +232,7 @@ Use quando o leiaute padrão não atender, por exemplo para um bloco extra ou um
 ```
 
 **Métodos de `fmt`:**
-- valores: `valor`, `quantidade`, `aliquota` (já com `%`), `adRem` (R$ por unidade, 4 casas), `peso`;
+- valores: `valor`, `quantidade`, `valorUnitario` (2 a 10 casas, sem arredondar o XML), `aliquota` (já com `%`), `adRem` (R$ por unidade, 4 casas), `peso`;
 - documentos e contato: `documento` (CNPJ/CPF), `cep`, `fone`, `chave` (grupos de 4);
 - numeração: `numeroNota` (000.000.000), `serie` (000);
 - datas: `data`, `hora`, `dataHora` (a partir de ISO), `competencia` (aaaa-mm para mm/aaaa);
@@ -360,7 +360,7 @@ Um quadro ou campo cuja informação não existe no XML **não é impresso**, e 
 | Linha IBS/CBS monofásico | Algum valor diferente de zero entre vIBSMono, vCBSMono, vIBSMonoReten, vCBSMonoReten (`gMono`) |
 | Linha IBS/CBS monofásico retido anteriormente | Algum valor diferente de zero entre vIBSMonoRet, vCBSMonoRet (`gMono`) |
 | ISSQN | Existe `ISSQNtot` |
-| Transporte | Existe `transporta`, `veicTransp` ou `vol` (só `modFrete` não basta) |
+| Transporte | Existe `transp/modFrete`, obrigatório no XML: sem transportadora, o quadro sai só com "FRETE POR CONTA" preenchido |
 | QR Code | Existe `infNFeSupl/qrCode` |
 | Canhoto | `setExibirCanhoto(true)` (padrão) |
 
@@ -418,7 +418,7 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 | 4 | `DanfeV2Rtc50Itens.xml` | Várias folhas (com o CSS atual: 3 em retrato, itens 1–11, 12–34, 35–50 + dados adicionais; 4 em paisagem, 1–5, 6–21, 22–37, 38–50 + dados adicionais; a contagem muda com ajustes de CSS e não é critério). Cada folha repete o quadro do emitente e o cabeçalho dos itens; "FOLHA n/total" correto; nenhum item cortado entre folhas; o bloco de dados adicionais nunca é dividido (pode ir inteiro para uma folha nova) |
 | 4a | `DanfeV2Mono.xml` (combustíveis) | Item 1 ad rem: base "IBS/CBS QTD 1.000,00", alíquotas IBS 0,0500 e CBS 0,2000, valores IBS 50,00 e CBS 200,00, linha "Retenção monofásica IBS 10,00 CBS 30,00". Item 2 ad valorem: base 5.000,00, IBS UF 0,10%, CBS 0,90%. Itens 3 e 4 só com valores de IBS/CBS e "Ajuste de competência 11/2026". Quadro de totais com base, CBS e IBS zerados (a nota só tem monofásico), a linha "VALOR DO IBS MONOFÁSICO 55,00 / CBS 245,00" e a linha de retido anteriormente "1,00 / 2,00" |
 | 5 | XML real antigo (sem IBSCBS), ou `DanfeV2SemRtc.xml` | Sem quadro IBS/CBS/IS; colunas IBS/CBS/IS vazias; nenhum erro; sem `protNFe` a chave vem do `Id` e o protocolo sai em branco |
-| 6 | Nota sem `cobr`, sem transportadora, sem QR Code | Esses quadros não aparecem |
+| 6 | Nota sem `cobr`, sem transportadora, sem QR Code | Fatura e QR Code não aparecem; o quadro de transporte sai só com "FRETE POR CONTA" |
 | 7 | `setExibirCanhoto(false)` | Sem canhoto; na paisagem o conteúdo ocupa a largura toda |
 | 8 | Logo do cliente (PNG/JPEG) | Logo no quadro do emitente sem distorção; `removerLogo()` imprime sem logo |
 | 8a | Emitente com `xNome` de 60 caracteres e endereço longo | O quadro do emitente não cresce (altura fixa, nome em fonte menor); nas folhas 2+ o cabeçalho não invade os itens |

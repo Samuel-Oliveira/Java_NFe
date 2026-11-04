@@ -1,5 +1,15 @@
 # Notas de versão
 
+### Correcoes do DANFE v2
+
+- **Modalidade do frete:** o quadro de transporte passa a sair sempre que o XML traz
+  `transp/modFrete`, que e obrigatorio. Antes, nota sem transportadora, veiculo e volumes
+  saia sem "FRETE POR CONTA". Quem usa `isExibirTransporte` em template proprio passa a
+  receber `true` nessas notas.
+- **Valor unitario:** `vUnCom` passa a sair com todas as casas do XML (2 a 10, limite do
+  Schema), pelo novo `fmt.valorUnitario`. Antes, parava em 4 casas e arredondava:
+  `5.893217` saia `5,8932`. `fmt.quantidade` continua com 2 a 4 casas.
+
 ### Schemas: PL 010g v1.03
 
 - Schemas atualizados para o **PL 010g v1.03**: `leiauteNFe_v4.00`, `DFeTiposBasicos_v1.00`,
