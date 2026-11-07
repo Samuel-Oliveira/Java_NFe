@@ -21,9 +21,14 @@ public class FormatadorDanfeV2 {
         return numero(valor, "#,##0.00");
     }
 
-    /** Quantidade/valor unitário: 2 a 4 casas decimais. */
+    /** Quantidade: 2 a 4 casas decimais. */
     public String quantidade(String valor) {
         return numero(valor, "#,##0.00##");
+    }
+
+    /** Valor unitário: 2 a 10 casas decimais, o limite do Schema (TDec_1110v). Não arredonda o que veio no XML. */
+    public String valorUnitario(String valor) {
+        return numero(valor, "#,##0.00########");
     }
 
     /** Alíquota com símbolo: 18,00% */
