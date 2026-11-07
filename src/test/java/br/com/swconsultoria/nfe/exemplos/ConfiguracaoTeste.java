@@ -27,7 +27,11 @@ public class ConfiguracaoTeste {
             Logger.getLogger("").setLevel(Level.WARNING);
         }
 
-        Certificado certificado = CertificadoService.certificadoPfx("d:/teste/certificado.pfx", "123456");
+        // Caminho e senha podem vir por -Dcertificado e -DsenhaCertificado, para
+        // rodar os exemplos sem editar o fonte. Os valores abaixo sao o padrao.
+        Certificado certificado = CertificadoService.certificadoPfx(
+                System.getProperty("certificado", "d:/teste/certificado.pfx"),
+                System.getProperty("senhaCertificado", "123456"));
 
         return ConfiguracoesNfe.criarConfiguracoes(estado, ambiente, certificado, "./schemas");
     }
