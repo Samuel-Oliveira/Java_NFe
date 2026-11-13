@@ -223,6 +223,9 @@
 	<field name="desconto" class="java.lang.String">
 		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/total/ICMSTot/vDesc]]></fieldDescription>
 	</field>
+	<field name="frete" class="java.lang.String">
+		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/total/ICMSTot/vFrete]]></fieldDescription>
+	</field>
 	<field name="tpEmis" class="java.lang.String">
 		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/ide/tpEmis]]></fieldDescription>
 	</field>
@@ -506,6 +509,35 @@ $F{tPag}.equals("21")?"   Crédito Loja":
 						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new Double($F{desconto})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="138" y="17" width="9" height="9" uuid="a8f3c2e1-4b5d-6e7f-8a9b-0c1d2e3f4a5b">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<printWhenExpression><![CDATA[(!$F{frete}.equals("0.00"))]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[R$]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="17" width="100" height="9" uuid="b9f4d3e2-5c6d-7e8f-9a0b-1c2d3e4f5a6b">
+						<printWhenExpression><![CDATA[(!$F{frete}.equals("0.00"))]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<text><![CDATA[    Taxa de entrega]]></text>
+				</staticText>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField-42" mode="Transparent" x="147" y="17" width="53" height="9" uuid="c0a5e4f3-6d7e-8f9a-0b1c-2d3e4f5a6b7c">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<printWhenExpression><![CDATA[(!$F{frete}.equals("0.00"))]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new Double($F{frete})]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="1" y="25" width="100" height="9" uuid="f54cbb53-54c1-4918-a9ac-bb91e67252cf"/>
