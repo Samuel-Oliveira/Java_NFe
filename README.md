@@ -58,7 +58,7 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.23.0 - Schemas PL 010g
+## v4.3.0 - Schemas PL 010g
 - Adicionado DANFE v2 da NF-e no leiaute da NT 2026.010 (Reforma Tributária: IBS/CBS/IS) com Thymeleaf no lugar do Jasper (Ver manual em [docs/MANUAL-DANFE-V2.md](docs/MANUAL-DANFE-V2.md) e exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/impressao/TesteImpressaoDanfeV2.java)
 - Atualizado Schemas
 

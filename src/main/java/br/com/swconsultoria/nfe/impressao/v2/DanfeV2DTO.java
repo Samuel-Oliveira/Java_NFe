@@ -101,10 +101,11 @@ public class DanfeV2DTO {
     }
 
     /**
-     * tpAmb = 2 (homologação): o DANFE recebe a marca "SEM VALOR FISCAL".
+     * tpAmb = 2 (homologação) OU nota ainda sem protocolo de autorização (pré-visualização/rascunho,
+     * mesmo em ambiente de produção): o DANFE recebe a marca "SEM VALOR FISCAL".
      */
     public boolean isHomologacao() {
-        return "2".equals(ide.get("tpAmb"));
+        return "2".equals(ide.get("tpAmb")) || prot.get("nProt") == null;
     }
 
     public boolean isExibirFatura() {
