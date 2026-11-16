@@ -77,6 +77,8 @@
         .item-info { color: #555; font-size: 5pt; }
         .item-classif { color: #555; font-size: 5pt; text-align: right; }
         .num { text-align: right; }
+        /* vUnCom vai até 10 casas: acima de 10 caracteres não cabe em 7pt e o início do número seria cortado */
+        .num-longo { font-size: 5pt; word-wrap: break-word; }
         .centro { text-align: center; }
         table.mini td { border: 0; padding: 0; font-size: 5pt; white-space: nowrap; overflow: hidden; }
         table.mini td.l { color: #555; }
@@ -247,7 +249,7 @@
         </div>
     </th:block>
 
-    <!-- Transportador / Volumes transportados (facultativo) -->
+    <!-- Transportador / Volumes transportados: sai com o modFrete, que é obrigatório no XML -->
     <th:block th:if="${danfe.exibirTransporte}">
         <div class="titulo">TRANSPORTADOR / VOLUMES TRANSPORTADOS</div>
         <div class="bloco">
@@ -311,7 +313,7 @@
                 <div th:text="${fmt.quantidade(item.qCom)}">1,00</div>
                 <div class="item-info" th:text="'[' + ${fmt.primeiro(item.uCom, '')} + ']'">[UN]</div>
             </td>
-            <td class="num" th:text="${fmt.quantidade(item.vUnCom)}">0,00</td>
+            <td class="num" th:classappend="${fmt.valorUnitario(item.vUnCom).length() > 10} ? 'num-longo'" th:text="${fmt.valorUnitario(item.vUnCom)}">0,00</td>
             <td class="num" th:text="${fmt.valor(item.vProd)}">0,00</td>
             <!-- IBS/CBS: gIBSCBS e monofásico ad valorem usam base em R$ e alíquota em %; o monofásico ad rem usa base em
                  quantidade (qBCMono) e alíquota em R$ por unidade (adRem), sem abertura UF/Município; transferência de

@@ -4,7 +4,7 @@
 
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.3.0</version>
+    <version>4.3.1</version>
     <name>Java_NFe</name>
     <description>Api java para consumo do webService de nota fiscal eletronica</description>
     <url>https://github.com/Samuel-Oliveira/Java_NFe</url>
@@ -42,6 +42,7 @@
         <jmockit.version>1.49</jmockit.version>
         <junit-jupiter.version>5.13.3</junit-jupiter.version>
         <lombok.version>1.18.38</lombok.version>
+        <jackson.version>2.14.1</jackson.version>
         <jasper.version>6.20.6</jasper.version>
         <barbecue.version>1.5-beta1</barbecue.version>
         <zxing.version>3.2.1</zxing.version>
@@ -100,6 +101,11 @@
             <groupId>br.com.swconsultoria</groupId>
             <artifactId>java_certificado</artifactId>
             <version>${java-certificado.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

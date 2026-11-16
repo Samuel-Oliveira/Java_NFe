@@ -373,6 +373,17 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
  *                             &lt;/element>
+ *                             &lt;element name="tpRegimeIBSCBS" minOccurs="0">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                                   &lt;whiteSpace value="preserve"/>
+ *                                   &lt;enumeration value="1"/>
+ *                                   &lt;enumeration value="2"/>
+ *                                   &lt;enumeration value="3"/>
+ *                                   &lt;enumeration value="4"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
  *                             &lt;element name="ISUFEmit" minOccurs="0">
  *                               &lt;simpleType>
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -711,6 +722,18 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *                                             &lt;whiteSpace value="preserve"/>
  *                                             &lt;enumeration value="1"/>
+ *                                           &lt;/restriction>
+ *                                         &lt;/simpleType>
+ *                                       &lt;/element>
+ *                                       &lt;element name="cAtivSN" minOccurs="0">
+ *                                         &lt;simpleType>
+ *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                                             &lt;whiteSpace value="preserve"/>
+ *                                             &lt;enumeration value="01"/>
+ *                                             &lt;enumeration value="02"/>
+ *                                             &lt;enumeration value="03"/>
+ *                                             &lt;enumeration value="04"/>
+ *                                             &lt;enumeration value="90"/>
  *                                           &lt;/restriction>
  *                                         &lt;/simpleType>
  *                                       &lt;/element>
@@ -4332,6 +4355,17 @@ public class TNFe {
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
      *                   &lt;/element>
+     *                   &lt;element name="tpRegimeIBSCBS" minOccurs="0">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *                         &lt;whiteSpace value="preserve"/>
+     *                         &lt;enumeration value="1"/>
+     *                         &lt;enumeration value="2"/>
+     *                         &lt;enumeration value="3"/>
+     *                         &lt;enumeration value="4"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
      *                   &lt;element name="ISUFEmit" minOccurs="0">
      *                     &lt;simpleType>
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -4670,6 +4704,18 @@ public class TNFe {
      *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
      *                                   &lt;whiteSpace value="preserve"/>
      *                                   &lt;enumeration value="1"/>
+     *                                 &lt;/restriction>
+     *                               &lt;/simpleType>
+     *                             &lt;/element>
+     *                             &lt;element name="cAtivSN" minOccurs="0">
+     *                               &lt;simpleType>
+     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *                                   &lt;whiteSpace value="preserve"/>
+     *                                   &lt;enumeration value="01"/>
+     *                                   &lt;enumeration value="02"/>
+     *                                   &lt;enumeration value="03"/>
+     *                                   &lt;enumeration value="04"/>
+     *                                   &lt;enumeration value="90"/>
      *                                 &lt;/restriction>
      *                               &lt;/simpleType>
      *                             &lt;/element>
@@ -10919,6 +10965,18 @@ public class TNFe {
          *                       &lt;/restriction>
          *                     &lt;/simpleType>
          *                   &lt;/element>
+         *                   &lt;element name="cAtivSN" minOccurs="0">
+         *                     &lt;simpleType>
+         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+         *                         &lt;whiteSpace value="preserve"/>
+         *                         &lt;enumeration value="01"/>
+         *                         &lt;enumeration value="02"/>
+         *                         &lt;enumeration value="03"/>
+         *                         &lt;enumeration value="04"/>
+         *                         &lt;enumeration value="90"/>
+         *                       &lt;/restriction>
+         *                     &lt;/simpleType>
+         *                   &lt;/element>
          *                   &lt;element name="DI" maxOccurs="100" minOccurs="0">
          *                     &lt;complexType>
          *                       &lt;complexContent>
@@ -15100,18 +15158,18 @@ public class TNFe {
             public static class Imposto {
 
                 @XmlElementRefs({
-                    @XmlElementRef(name = "COFINSST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "IPI", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "ICMS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "ISSQN", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "PISST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "IS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "IBSCBS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "II", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "PIS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "vTotTrib", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "PIS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "IS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "ISSQN", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "IPI", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "ICMSUFDest", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "ICMS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
                     @XmlElementRef(name = "COFINS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
-                    @XmlElementRef(name = "ICMSUFDest", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false)
+                    @XmlElementRef(name = "COFINSST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "II", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "PISST", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false),
+                    @XmlElementRef(name = "IBSCBS", namespace = "http://www.portalfiscal.inf.br/nfe", type = JAXBElement.class, required = false)
                 })
                 protected List<JAXBElement<?>> content;
 
@@ -15121,8 +15179,8 @@ public class TNFe {
                  * <p>
                  * Você está obtendo esta propriedade "catch-all" pelo seguinte motivo: 
                  * O nome do campo "IPI" é usado por duas partes diferentes de um esquema. Consulte: 
-                 * linha 4468 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
-                 * linha 4436 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
+                 * linha 4507 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
+                 * linha 4475 de file:/D:/Workspace/Java_NFe/schemas/leiauteNFe_v4.00.xsd
                  * <p>
                  * Para eliminar esta propriedade, aplique uma personalização de propriedade a uma 
                  * das seguintes declarações, a fim de alterar seus nomes: 
@@ -15143,18 +15201,18 @@ public class TNFe {
                  * 
                  * <p>
                  * Objects of the following type(s) are allowed in the list
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINSST }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TIpi }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TIS }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TTribNFe }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PIS }{@code >}
                  * {@link JAXBElement }{@code <}{@link String }{@code >}
-                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PIS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TIS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ISSQN }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TIpi }{@code >}
                  * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMSUFDest }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINS }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.COFINSST }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.II }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.PISST }{@code >}
+                 * {@link JAXBElement }{@code <}{@link TTribNFe }{@code >}
                  * 
                  * 
                  */
@@ -29328,6 +29386,18 @@ public class TNFe {
              *             &lt;/restriction>
              *           &lt;/simpleType>
              *         &lt;/element>
+             *         &lt;element name="cAtivSN" minOccurs="0">
+             *           &lt;simpleType>
+             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+             *               &lt;whiteSpace value="preserve"/>
+             *               &lt;enumeration value="01"/>
+             *               &lt;enumeration value="02"/>
+             *               &lt;enumeration value="03"/>
+             *               &lt;enumeration value="04"/>
+             *               &lt;enumeration value="90"/>
+             *             &lt;/restriction>
+             *           &lt;/simpleType>
+             *         &lt;/element>
              *         &lt;element name="DI" maxOccurs="100" minOccurs="0">
              *           &lt;complexType>
              *             &lt;complexContent>
@@ -30029,6 +30099,7 @@ public class TNFe {
                 "vOutro",
                 "indTot",
                 "indBemMovelUsado",
+                "cAtivSN",
                 "di",
                 "detExport",
                 "xPed",
@@ -30094,6 +30165,7 @@ public class TNFe {
                 @XmlElement(required = true)
                 protected String indTot;
                 protected String indBemMovelUsado;
+                protected String cAtivSN;
                 @XmlElement(name = "DI")
                 protected List<TNFe.InfNFe.Det.Prod.DI> di;
                 protected List<TNFe.InfNFe.Det.Prod.DetExport> detExport;
@@ -30863,6 +30935,30 @@ public class TNFe {
                  */
                 public void setIndBemMovelUsado(String value) {
                     this.indBemMovelUsado = value;
+                }
+
+                /**
+                 * Obtém o valor da propriedade cAtivSN.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getCAtivSN() {
+                    return cAtivSN;
+                }
+
+                /**
+                 * Define o valor da propriedade cAtivSN.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setCAtivSN(String value) {
+                    this.cAtivSN = value;
                 }
 
                 /**
@@ -34761,6 +34857,17 @@ public class TNFe {
          *             &lt;/restriction>
          *           &lt;/simpleType>
          *         &lt;/element>
+         *         &lt;element name="tpRegimeIBSCBS" minOccurs="0">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+         *               &lt;whiteSpace value="preserve"/>
+         *               &lt;enumeration value="1"/>
+         *               &lt;enumeration value="2"/>
+         *               &lt;enumeration value="3"/>
+         *               &lt;enumeration value="4"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
          *         &lt;element name="ISUFEmit" minOccurs="0">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -34789,6 +34896,7 @@ public class TNFe {
             "im",
             "cnae",
             "crt",
+            "tpRegimeIBSCBS",
             "isufEmit"
         })
         public static class Emit {
@@ -34812,6 +34920,7 @@ public class TNFe {
             protected String cnae;
             @XmlElement(name = "CRT", required = true)
             protected String crt;
+            protected String tpRegimeIBSCBS;
             @XmlElement(name = "ISUFEmit")
             protected String isufEmit;
 
@@ -35053,6 +35162,30 @@ public class TNFe {
              */
             public void setCRT(String value) {
                 this.crt = value;
+            }
+
+            /**
+             * Obtém o valor da propriedade tpRegimeIBSCBS.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getTpRegimeIBSCBS() {
+                return tpRegimeIBSCBS;
+            }
+
+            /**
+             * Define o valor da propriedade tpRegimeIBSCBS.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setTpRegimeIBSCBS(String value) {
+                this.tpRegimeIBSCBS = value;
             }
 
             /**

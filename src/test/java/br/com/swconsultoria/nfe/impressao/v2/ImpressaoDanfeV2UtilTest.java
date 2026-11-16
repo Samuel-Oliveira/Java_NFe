@@ -157,7 +157,7 @@ class ImpressaoDanfeV2UtilTest {
         assertFalse(danfe.isExibirIbsCbsIs());
         assertFalse(danfe.isExibirQrCode());
         assertFalse(danfe.isExibirFatura());
-        assertFalse(danfe.isExibirTransporte(), "só modFrete não basta");
+        assertTrue(danfe.isExibirTransporte(), "modFrete é obrigatório no XML: o quadro sai mesmo sem transportadora");
         assertFalse(danfe.isExibirIssqn());
         assertTrue(danfe.getProt().isEmpty());
         assertEquals("35261212345678000195550010000004561000004567", danfe.getChave(), "sem protNFe a chave vem do infNFe/@Id");
@@ -170,11 +170,43 @@ class ImpressaoDanfeV2UtilTest {
         assertFalse(html.contains("TOTAL DO IBS / CBS / IS"));
         assertFalse(html.contains("QR CODE"));
         assertFalse(html.contains("FATURA / DUPLICATAS"));
-        assertFalse(html.contains("TRANSPORTADOR / VOLUMES"));
+        assertEquals("9 - Sem Frete", valorDoCampo(html, "FRETE POR CONTA"), "o XML traz só o modFrete");
         assertFalse(html.contains("class=\"logo\""), "removerLogo: o template não gera o bloco do logo");
         assertFalse(html.contains("null"), "nenhuma concatenação imprime o literal null");
         assertTrue(html.contains("1 - SIMPLES NACIONAL"));
         assertEquals(1, folhas(ImpressaoDanfeV2Util.impressaoPdfByte(impressao)));
+    }
+
+    @Test
+    void modalidadeDoFreteSaiMesmoSemTransportadora() {
+        String soModFrete = xmlSemRtc.replace("<modFrete>9</modFrete>", "<modFrete>0</modFrete>");
+        assertNotEquals(xmlSemRtc, soModFrete);
+
+        String html = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFe(soModFrete));
+
+        assertEquals("0 - Remetente", valorDoCampo(html, "FRETE POR CONTA"));
+    }
+
+    @Test
+    void valorUnitarioImprimeTodasAsCasasDoXml() {
+        assertEquals("13,00", new FormatadorDanfeV2().valorUnitario("13.000000"));
+        assertEquals("5,899", new FormatadorDanfeV2().valorUnitario("5.8990"));
+        assertEquals("5,893217", new FormatadorDanfeV2().valorUnitario("5.893217"));
+        assertEquals("1.234,1234567891", new FormatadorDanfeV2().valorUnitario("1234.1234567891"), "o Schema aceita até 10 casas");
+        assertEquals("", new FormatadorDanfeV2().valorUnitario(null));
+
+        String comSeisCasas = xmlSemRtc.replaceFirst("<vUnCom>[^<]*</vUnCom>", "<vUnCom>5.893217</vUnCom>");
+        assertNotEquals(xmlSemRtc, comSeisCasas);
+
+        String html = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFe(comSeisCasas));
+
+        assertTrue(html.contains(">5,893217<"), "vUnCom no DANFE com as casas do XML, sem arredondar");
+        assertFalse(html.contains("num-longo\""), "até 10 caracteres cabe na coluna em 7pt");
+
+        String comDezCasas = xmlSemRtc.replaceFirst("<vUnCom>[^<]*</vUnCom>", "<vUnCom>1234.1234567891</vUnCom>");
+        String htmlLongo = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFe(comDezCasas));
+
+        assertTrue(htmlLongo.contains("num-longo\">1.234,1234567891<"), "valor longo em fonte menor para não cortar o início");
     }
 
     @Test

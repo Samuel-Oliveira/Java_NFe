@@ -160,13 +160,9 @@ public class DanfeV2DTO {
         return !issqnTot.isEmpty();
     }
 
+    /** O modFrete é obrigatório no XML: sem transportadora, o quadro sai só com a modalidade do frete. */
     public boolean isExibirTransporte() {
-        for (String chaveTransp : transp.keySet()) {
-            if (!"modFrete".equals(chaveTransp)) {
-                return true;
-            }
-        }
-        return false;
+        return !transp.isEmpty();
     }
 
     public boolean isExibirQrCode() {
