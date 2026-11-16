@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;element name="gTransfCred" type="{http://www.portalfiscal.inf.br/nfe}TTransfCred"/>
  *           &lt;element name="gAjusteCompet" type="{http://www.portalfiscal.inf.br/nfe}TAjusteCompet"/>
  *         &lt;/choice>
+ *         &lt;element name="gTribSN" type="{http://www.portalfiscal.inf.br/nfe}TTribSN" minOccurs="0"/>
  *         &lt;element name="gEstornoCred" type="{http://www.portalfiscal.inf.br/nfe}TEstornoCred" minOccurs="0"/>
  *         &lt;choice minOccurs="0">
  *           &lt;element name="gCredPresOper" type="{http://www.portalfiscal.inf.br/nfe}TCredPresOper"/>
@@ -50,6 +51,7 @@ import javax.xml.bind.annotation.XmlType;
     "gibscbsMono",
     "gTransfCred",
     "gAjusteCompet",
+    "gTribSN",
     "gEstornoCred",
     "gCredPresOper",
     "gCredPresIBSZFM"
@@ -67,6 +69,7 @@ public class TTribNFe {
     protected TMonofasia gibscbsMono;
     protected TTransfCred gTransfCred;
     protected TAjusteCompet gAjusteCompet;
+    protected TTribSN gTribSN;
     protected TEstornoCred gEstornoCred;
     protected TCredPresOper gCredPresOper;
     protected TCredPresIBSZFM gCredPresIBSZFM;
@@ -237,6 +240,30 @@ public class TTribNFe {
      */
     public void setGAjusteCompet(TAjusteCompet value) {
         this.gAjusteCompet = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade gTribSN.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TTribSN }
+     *     
+     */
+    public TTribSN getGTribSN() {
+        return gTribSN;
+    }
+
+    /**
+     * Define o valor da propriedade gTribSN.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TTribSN }
+     *     
+     */
+    public void setGTribSN(TTribSN value) {
+        this.gTribSN = value;
     }
 
     /**

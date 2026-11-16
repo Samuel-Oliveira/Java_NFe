@@ -1,4 +1,4 @@
-# Manual de integração — DANFE v2 (java-nfe 4.3.0)
+# Manual de integração — DANFE v2 (java-nfe 4.3.*)
 
 Guia para implementar o novo DANFE da NF-e (modelo 55) num sistema que usa a biblioteca `java-nfe`.
 O DANFE v2 segue a **NT 2026.010 — DANFE Reforma Tributária (IBS/CBS/IS)**, que entra em produção em **01/12/2026**.
@@ -25,7 +25,7 @@ As duas versões **convivem no mesmo jar**. NFC-e e CC-e continuam usando a API 
 
 ## 2. Dependência
 
-A v2 entra na versão `4.3.0`. Enquanto ela não estiver publicada no Maven Central (a última publicada é a `4.2.0`, que **não** tem a v2), gere-a a partir do código-fonte e instale no repositório Maven local, como descrito em "Gerar a versão local" abaixo.
+A v2 entra na versão `4.3.*`. Enquanto ela não estiver publicada no Maven Central (a última publicada é a `4.2.0`, que **não** tem a v2), gere-a a partir do código-fonte e instale no repositório Maven local, como descrito em "Gerar a versão local" abaixo.
 
 **Maven**
 ```xml

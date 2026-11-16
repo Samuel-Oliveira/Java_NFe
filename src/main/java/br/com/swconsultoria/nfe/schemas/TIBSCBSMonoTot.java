@@ -102,6 +102,18 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="gTribSN" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="vIBSSN" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                   &lt;element name="vCBSSN" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -116,7 +128,8 @@ import javax.xml.bind.annotation.XmlType;
     "gibs",
     "gcbs",
     "gMono",
-    "gEstornoCred"
+    "gEstornoCred",
+    "gTribSN"
 })
 public class TIBSCBSMonoTot {
 
@@ -128,6 +141,7 @@ public class TIBSCBSMonoTot {
     protected TIBSCBSMonoTot.GCBS gcbs;
     protected TIBSCBSMonoTot.GMono gMono;
     protected TIBSCBSMonoTot.GEstornoCred gEstornoCred;
+    protected TIBSCBSMonoTot.GTribSN gTribSN;
 
     /**
      * Obtém o valor da propriedade vbcibscbs.
@@ -247,6 +261,30 @@ public class TIBSCBSMonoTot {
      */
     public void setGEstornoCred(TIBSCBSMonoTot.GEstornoCred value) {
         this.gEstornoCred = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade gTribSN.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TIBSCBSMonoTot.GTribSN }
+     *     
+     */
+    public TIBSCBSMonoTot.GTribSN getGTribSN() {
+        return gTribSN;
+    }
+
+    /**
+     * Define o valor da propriedade gTribSN.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TIBSCBSMonoTot.GTribSN }
+     *     
+     */
+    public void setGTribSN(TIBSCBSMonoTot.GTribSN value) {
+        this.gTribSN = value;
     }
 
 
@@ -1103,6 +1141,89 @@ public class TIBSCBSMonoTot {
          */
         public void setVCBSMonoRet(String value) {
             this.vcbsMonoRet = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Classe Java de anonymous complex type.
+     * 
+     * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="vIBSSN" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *         &lt;element name="vCBSSN" type="{http://www.portalfiscal.inf.br/nfe}TDec1302RTC"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "vibssn",
+        "vcbssn"
+    })
+    public static class GTribSN {
+
+        @XmlElement(name = "vIBSSN", required = true)
+        protected String vibssn;
+        @XmlElement(name = "vCBSSN", required = true)
+        protected String vcbssn;
+
+        /**
+         * Obtém o valor da propriedade vibssn.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getVIBSSN() {
+            return vibssn;
+        }
+
+        /**
+         * Define o valor da propriedade vibssn.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setVIBSSN(String value) {
+            this.vibssn = value;
+        }
+
+        /**
+         * Obtém o valor da propriedade vcbssn.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getVCBSSN() {
+            return vcbssn;
+        }
+
+        /**
+         * Define o valor da propriedade vcbssn.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setVCBSSN(String value) {
+            this.vcbssn = value;
         }
 
     }

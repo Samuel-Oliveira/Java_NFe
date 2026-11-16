@@ -1,4 +1,4 @@
-# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.3.0/jar) [![Coverage Status](https://coveralls.io/repos/github/Samuel-Oliveira/Java_NFe/badge.svg?branch=master)](https://coveralls.io/github/Samuel-Oliveira/Java_NFe?branch=master)
+# Java-NFe [![MIT License](https://img.shields.io/github/license/Samuel-Oliveira/Java_NFe.svg) ](https://github.com/Samuel-Oliveira/Java_NFe/blob/master/LICENSE) [![Maven Central](https://img.shields.io/maven-central/v/br.com.swconsultoria/java-nfe.svg?label=Maven%20Central)](https://search.maven.org/artifact/br.com.swconsultoria/java-nfe/4.3.1/jar) [![Coverage Status](https://coveralls.io/repos/github/Samuel-Oliveira/Java_NFe/badge.svg?branch=master)](https://coveralls.io/github/Samuel-Oliveira/Java_NFe?branch=master)
 Biblioteca Java para consumo do WebService de NFe/NFCe
 
 ### Powered by
@@ -22,7 +22,7 @@ Para Iniciar :
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.3.0</version>
+    <version>4.3.1</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ repositories {
     }
 }
 dependencies {
-    implementation "br.com.swconsultoria:java-nfe:4.3.0"
+    implementation "br.com.swconsultoria:java-nfe:4.3.1"
 }
 ```
 
@@ -58,7 +58,12 @@ ________________________________________________________________________________
 
 # Historico de Versões
 
-## v4.23.0 - Schemas PL 010g
+## v4.3.1 - Schemas PL 010h
+- Schemas atualizados para o PL 010h v1.03, com a NT 2026.005 (Simples Nacional): campos tpRegimeIBSCBS e cAtivSN, grupo gTribSN e evento 412140
+- Jackson passa a ser declarado no pom (quem usava a lib sem o Jasper tomava NoClassDefFoundError no IbsCbsUtil)
+- Exemplo novo EnvioNfceIbsCbsProducaoTeste, para medir se a producao da UF ja aceita o layout monofasico reformulado
+
+## v4.3.0 - Schemas PL 010g
 - Adicionado DANFE v2 da NF-e no leiaute da NT 2026.010 (Reforma Tributária: IBS/CBS/IS) com Thymeleaf no lugar do Jasper (Ver manual em [docs/MANUAL-DANFE-V2.md](docs/MANUAL-DANFE-V2.md) e exemplo em: https://github.com/Samuel-Oliveira/Java_NFe/blob/master/src/test/java/br/com/swconsultoria/nfe/impressao/TesteImpressaoDanfeV2.java)
 - Atualizado Schemas
 

@@ -36,8 +36,6 @@ public class ObjectFactory {
     private final static QName _NFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "NFe");
     private final static QName _ProcInutNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ProcInutNFe");
     private final static QName _EnviNFe_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "enviNFe");
-    private final static QName _TProtNFeInfProtCMsg_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "cMsg");
-    private final static QName _TProtNFeInfProtXMsg_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "xMsg");
     private final static QName _TNFeInfNFeDetImpostoICMS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "ICMS");
     private final static QName _TNFeInfNFeDetImpostoPISST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PISST");
     private final static QName _TNFeInfNFeDetImpostoCOFINSST_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINSST");
@@ -50,6 +48,8 @@ public class ObjectFactory {
     private final static QName _TNFeInfNFeDetImpostoCOFINS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "COFINS");
     private final static QName _TNFeInfNFeDetImpostoIS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "IS");
     private final static QName _TNFeInfNFeDetImpostoPIS_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "PIS");
+    private final static QName _TProtNFeInfProtCMsg_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "cMsg");
+    private final static QName _TProtNFeInfProtXMsg_QNAME = new QName("http://www.portalfiscal.inf.br/nfe", "xMsg");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.swconsultoria.nfe.schemas
@@ -112,6 +112,14 @@ public class ObjectFactory {
      */
     public TIBSCBSTot.GIBS createTIBSCBSTotGIBS() {
         return new TIBSCBSTot.GIBS();
+    }
+
+    /**
+     * Create an instance of {@link TTribSN }
+     * 
+     */
+    public TTribSN createTTribSN() {
+        return new TTribSN();
     }
 
     /**
@@ -819,6 +827,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TIBSCBSMonoTot.GTribSN }
+     * 
+     */
+    public TIBSCBSMonoTot.GTribSN createTIBSCBSMonoTotGTribSN() {
+        return new TIBSCBSMonoTot.GTribSN();
+    }
+
+    /**
      * Create an instance of {@link TIBSCBSMonoTot.GIBS.GIBSUF }
      * 
      */
@@ -888,6 +904,22 @@ public class ObjectFactory {
      */
     public TIBSCBSTot.GIBS.GIBSMun createTIBSCBSTotGIBSGIBSMun() {
         return new TIBSCBSTot.GIBS.GIBSMun();
+    }
+
+    /**
+     * Create an instance of {@link TTribSN.GIBSSN }
+     * 
+     */
+    public TTribSN.GIBSSN createTTribSNGIBSSN() {
+        return new TTribSN.GIBSSN();
+    }
+
+    /**
+     * Create an instance of {@link TTribSN.GCBSSN }
+     * 
+     */
+    public TTribSN.GCBSSN createTTribSNGCBSSN() {
+        return new TTribSN.GCBSSN();
     }
 
     /**
@@ -1855,24 +1887,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "cMsg", scope = TProtNFe.InfProt.class)
-    public JAXBElement<String> createTProtNFeInfProtCMsg(String value) {
-        return new JAXBElement<String>(_TProtNFeInfProtCMsg_QNAME, String.class, TProtNFe.InfProt.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "xMsg", scope = TProtNFe.InfProt.class)
-    public JAXBElement<String> createTProtNFeInfProtXMsg(String value) {
-        return new JAXBElement<String>(_TProtNFeInfProtXMsg_QNAME, String.class, TProtNFe.InfProt.class, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TNFe.InfNFe.Det.Imposto.ICMS }{@code >}}
      * 
      */
@@ -1978,6 +1992,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "PIS", scope = TNFe.InfNFe.Det.Imposto.class)
     public JAXBElement<TNFe.InfNFe.Det.Imposto.PIS> createTNFeInfNFeDetImpostoPIS(TNFe.InfNFe.Det.Imposto.PIS value) {
         return new JAXBElement<TNFe.InfNFe.Det.Imposto.PIS>(_TNFeInfNFeDetImpostoPIS_QNAME, TNFe.InfNFe.Det.Imposto.PIS.class, TNFe.InfNFe.Det.Imposto.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "cMsg", scope = TProtNFe.InfProt.class)
+    public JAXBElement<String> createTProtNFeInfProtCMsg(String value) {
+        return new JAXBElement<String>(_TProtNFeInfProtCMsg_QNAME, String.class, TProtNFe.InfProt.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.portalfiscal.inf.br/nfe", name = "xMsg", scope = TProtNFe.InfProt.class)
+    public JAXBElement<String> createTProtNFeInfProtXMsg(String value) {
+        return new JAXBElement<String>(_TProtNFeInfProtXMsg_QNAME, String.class, TProtNFe.InfProt.class, value);
     }
 
 }
