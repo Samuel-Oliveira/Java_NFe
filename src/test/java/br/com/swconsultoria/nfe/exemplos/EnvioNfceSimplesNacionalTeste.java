@@ -36,7 +36,8 @@ import java.util.List;
  * recusado). Os demais parametros: -Dnumero e -Dserie (padrao serie 2); -Dmodelo
  * (65 = NFC-e, padrao; 55 = NF-e para destinatario nao contribuinte,
  * indIEDest=9); -Dcfop troca o CFOP do item; -DcBenef troca o do diesel;
- * -Dambiente (padrao HOMOLOGACAO) e -Duf (padrao GO).
+ * -Dambiente (padrao HOMOLOGACAO) e -Duf (padrao GO). Os do emitente (-DcnpjEmit
+ * ate -DcepEmit) estao no comentario dos campos, logo abaixo da classe.
  *
  *   normal        CRT=3 + ICMS00                          (controle da loja)
  *   normalativ    CRT=3 + ICMS00 + cAtivSN=01
@@ -59,25 +60,27 @@ import java.util.List;
  *   sn102tribsn   sn102regime + gTribSN no item e no total
  *   icmsvazio     CRT=1 + elemento ICMS sem nenhum grupo dentro
  *
- * Resultado medido em GO, homologacao, 19/11/2026, com DOIS emitentes - um de
- * regime normal e um optante do Simples - e identico nos dois, o que mostra que
- * a SEFAZ decide por estas regras pelo CONTEUDO do XML e nao pelo cadastro dela:
+ * Resultado medido em GO, homologacao, 19/11/2026, com dois emitentes: um de
+ * regime normal (R) e um optante do Simples (S). Nas linhas medidas com os dois
+ * (R+S) o resultado foi identico, o que mostra que a SEFAZ decide por estas
+ * regras pelo CONTEUDO do XML e nao pelo cadastro dela; as demais foram medidas
+ * com um so, indicado na ultima coluna:
  *
- *   cenario                                    NFC-e (65)   NF-e (55)
- *   CRT=3 + ICMS00 (controle)                  100          -
- *   CRT=1 + ICMS00                             590          590
- *   CRT=1 + ICMSSN102                          100          100
- *   CRT=1 + ICMSSN500, ST retido preenchido    100          -
- *   CRT=1 + ICMSSN500, ST retido zerado        100          -
- *   CRT=1 + ICMSSN101                          383          600
- *   CRT=1 + ICMSSN202                          740          -
- *   CRT=1 + ICMSSN102 e vBC/vICMS no total     531          -
- *   CRT=3 + ICMSSN102                          591          -
- *   CRT=3 + ICMS60 zerado, loja e etanol       100          -
- *   CRT=1 + ICMS60 zerado, loja e etanol       590          -
- *   CRT=3 + ICMS61 (controle do combustivel)   100          -
- *   CRT=1 + ICMS61                             100          -
- *   cAtivSN / tpRegimeIBSCBS / gTribSN         100          100
+ *   cenario                                    NFC-e (65)   NF-e (55)   emitente
+ *   CRT=3 + ICMS00 (controle)                  100          -           R+S
+ *   CRT=1 + ICMS00                             590          590         R+S
+ *   CRT=1 + ICMSSN102                          100          100         R+S
+ *   CRT=1 + ICMSSN500, ST retido preenchido    100          -           R+S
+ *   CRT=1 + ICMSSN500, ST retido zerado        100          -           S
+ *   CRT=1 + ICMSSN101                          383          600         R+S
+ *   CRT=1 + ICMSSN202                          740          -           S
+ *   CRT=1 + ICMSSN102 e vBC/vICMS no total     531          -           R+S
+ *   CRT=3 + ICMSSN102                          591          -           R+S
+ *   CRT=3 + ICMS60 zerado, loja e etanol       100          -           S
+ *   CRT=1 + ICMS60 zerado, loja e etanol       590          -           S
+ *   CRT=3 + ICMS61 (controle do combustivel)   100          -           S
+ *   CRT=1 + ICMS61                             100          -           S
+ *   cAtivSN / tpRegimeIBSCBS / gTribSN         100          100         R
  *   ICMS sem filho                             falha no schema local
  *
  * O 383 e o 600 do CSOSN 101 nao dependem do percentual de credito (medido com
@@ -315,7 +318,8 @@ public class EnvioNfceSimplesNacionalTeste {
     }
 
     /**
-     * Etanol aditivado, 22,272 L a R$ 4,49 = R$ 100,00. Mesma estrutura de item
+     * Etanol aditivado, 22,272 L a R$ 4,49 = R$ 100,00128, que vai como vProd
+     * 100,00 dentro da tolerancia de arredondamento. Mesma estrutura de item
      * de NFC-e de posto ja aceita pela SEFAZ-GO: NCM, CEST e encerrante, sem pBio,
      * sem origComb e sem cBenef.
      */
