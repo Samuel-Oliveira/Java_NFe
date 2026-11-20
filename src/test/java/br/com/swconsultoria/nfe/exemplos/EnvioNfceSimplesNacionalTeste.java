@@ -15,6 +15,8 @@ import br.com.swconsultoria.nfe.util.WebServiceUtil;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Mede o que a SEFAZ aceita de um emitente do SIMPLES NACIONAL (CRT=1), em
@@ -30,22 +32,28 @@ import java.time.LocalDateTime;
  *    gTribSN no item e no total)? Eles existem no PL 010h, mas a producao foi
  *    adiada de 16/11 para 14/12/2026 pelo aviso do Comite Gestor de 12/11.
  *
- * Um cenario por execucao, com -Dcenario, -Dnumero e -Dmodelo (65 = NFC-e,
- * padrao; 55 = NF-e para destinatario nao contribuinte, indIEDest=9). -Dcfop
- * troca o CFOP do item:
+ * Um cenario por execucao, escolhido por -Dcenario (cenario fora da lista e
+ * recusado). Os demais parametros: -Dnumero e -Dserie (padrao serie 2); -Dmodelo
+ * (65 = NFC-e, padrao; 55 = NF-e para destinatario nao contribuinte,
+ * indIEDest=9); -Dcfop troca o CFOP do item; -DcBenef troca o do diesel;
+ * -Dambiente (padrao HOMOLOGACAO) e -Duf (padrao GO).
  *
  *   normal        CRT=3 + ICMS00                          (controle da loja)
  *   normalativ    CRT=3 + ICMS00 + cAtivSN=01
  *   normal102     CRT=3 + ICMSSN102
- *   normal61      CRT=3 + ICMS61, item de combustivel     (controle do combustivel)
+ *   normal60      CRT=3 + ICMS60 zerado + CFOP 5405       (controle do ST da loja)
+ *   normal60e     CRT=3 + ICMS60 zerado, item de etanol   (controle do etanol)
+ *   normal61      CRT=3 + ICMS61, item de diesel          (controle do monofasico)
  *   sn00          CRT=1 + ICMS00
  *   sn102         CRT=1 + ICMSSN102
  *   sn102tot      CRT=1 + ICMSSN102, mas vBC e vICMS no ICMSTot
  *   sn101         CRT=1 + ICMSSN101 (-DpCredSN e -DvCredSN trocam o credito)
- *   sn202         CRT=1 + ICMSSN202 com ICMS-ST de 19,00 + CFOP 5403
+ *   sn202         CRT=1 + ICMSSN202 com ICMS-ST de 19,00 (-Dcfop=5403 da a 725)
  *   sn500         CRT=1 + ICMSSN500 com ST retido preenchido + CFOP 5405
  *   sn500zero     CRT=1 + ICMSSN500 com ST retido zerado + CFOP 5405
- *   sn61          CRT=1 + ICMS61, item de combustivel
+ *   sn60          CRT=1 + ICMS60 zerado + CFOP 5405
+ *   sn60e         CRT=1 + ICMS60 zerado, item de etanol
+ *   sn61          CRT=1 + ICMS61, item de diesel
  *   sn102ativ     sn102 + cAtivSN=01
  *   sn102regime   sn102ativ + tpRegimeIBSCBS=1 no emit
  *   sn102tribsn   sn102regime + gTribSN no item e no total
@@ -65,6 +73,8 @@ import java.time.LocalDateTime;
  *   CRT=1 + ICMSSN202                          740          -
  *   CRT=1 + ICMSSN102 e vBC/vICMS no total     531          -
  *   CRT=3 + ICMSSN102                          591          -
+ *   CRT=3 + ICMS60 zerado, loja e etanol       100          -
+ *   CRT=1 + ICMS60 zerado, loja e etanol       590          -
  *   CRT=3 + ICMS61 (controle do combustivel)   100          -
  *   CRT=1 + ICMS61                             100          -
  *   cAtivSN / tpRegimeIBSCBS / gTribSN         100          100
@@ -75,7 +85,9 @@ import java.time.LocalDateTime;
  * contribuinte, periodo.
  *
  * O CST 61 e EXCECAO a regra 590: emitente do Simples vende combustivel
- * monofasico com o CST 61 do regime normal, porque nao ha CSOSN equivalente.
+ * monofasico com o CST 61 do regime normal, porque nao ha CSOSN equivalente. O
+ * CST 60 NAO e: com CRT=1 da 590 tanto no item de loja quanto no etanol, porque
+ * o ICMS cobrado anteriormente por ST tem CSOSN proprio (500).
  *
  * O 740 ("Item com Repasse de ICMS retido por Substituto Tributario") do CSOSN
  * 202 sai igual com CFOP 5102 e 5405: a NFC-e nao aceita ICMS-ST cobrado na
@@ -120,10 +132,19 @@ public class EnvioNfceSimplesNacionalTeste {
 
     private static final String CENARIO = System.getProperty("cenario", "normal");
 
+    /** Os cenarios do javadoc da classe. Um erro de digitacao nao pode virar medicao de outro cenario. */
+    private static final List<String> CENARIOS = Arrays.asList(
+            "normal", "normalativ", "normal102", "normal60", "normal60e", "normal61",
+            "sn00", "sn102", "sn102tot", "sn101", "sn202", "sn500", "sn500zero", "sn60", "sn60e", "sn61",
+            "sn102ativ", "sn102regime", "sn102tribsn", "icmsvazio");
+
     /** 65 = NFC-e (padrao), 55 = NF-e. A regra do CRT e a mesma, mas vale medir as duas. */
     private static final boolean NFE = "55".equals(System.getProperty("modelo", "65"));
 
     public static void main(String[] args) {
+        if (!CENARIOS.contains(CENARIO)) {
+            throw new IllegalArgumentException("Cenario desconhecido: " + CENARIO + ". Use um de " + CENARIOS);
+        }
         try {
             AmbienteEnum ambiente = AmbienteEnum.valueOf(System.getProperty("ambiente", "HOMOLOGACAO"));
             EstadosEnum estado = EstadosEnum.valueOf(System.getProperty("uf", "GO"));
@@ -176,8 +197,24 @@ public class EnvioNfceSimplesNacionalTeste {
         return !CENARIO.startsWith("normal");
     }
 
-    private static boolean combustivel() {
+    /** Diesel S10 com ICMS monofasico (CST 61). */
+    private static boolean diesel() {
         return CENARIO.endsWith("61");
+    }
+
+    /** Etanol aditivado com ICMS60 zerado, fora do monofasico do ICMS. */
+    private static boolean etanol() {
+        return CENARIO.endsWith("60e");
+    }
+
+    /** Item de pista: PIS/COFINS 04 e IBSCBS so com CST 620 e cClassTrib. */
+    private static boolean combustivel() {
+        return diesel() || etanol();
+    }
+
+    /** ICMS60 zerado, como o emissor monta para o ICMS cobrado anteriormente por ST. */
+    private static boolean icms60() {
+        return CENARIO.endsWith("60") || etanol();
     }
 
     /** ICMS-ST da propria operacao (o emitente e o substituto): so o CSOSN 202. */
@@ -211,10 +248,9 @@ public class EnvioNfceSimplesNacionalTeste {
         if (combustivel()) {
             return "5656";
         }
-        if (stDaOperacao()) {
-            return "5403";
-        }
-        return CENARIO.startsWith("sn500") ? "5405" : "5102";
+        // ST retido anteriormente (contribuinte substituido). O sn202 fica no 5102: com o 5403,
+        // que seria o do substituto, a NFC-e para antes, na 725 do CFOP.
+        return CENARIO.startsWith("sn500") || icms60() ? "5405" : "5102";
     }
 
     private static String montaXml(String id, String cNF, String dhEmi, String tpAmb, EstadosEnum estado) {
@@ -239,7 +275,7 @@ public class EnvioNfceSimplesNacionalTeste {
                 + (temRegime() ? "<tpRegimeIBSCBS>1</tpRegimeIBSCBS>" : "")
                 + "</emit>"
                 + destinatario()
-                + "<det nItem=\"1\">" + (combustivel() ? prodCombustivel(estado) : prodLoja())
+                + "<det nItem=\"1\">" + (diesel() ? prodDiesel(estado) : etanol() ? prodEtanol(estado) : prodLoja())
                 + "<imposto><vTotTrib>0.00</vTotTrib>"
                 + "<ICMS>" + grupoIcms() + "</ICMS>"
                 + pisCofins()
@@ -252,7 +288,7 @@ public class EnvioNfceSimplesNacionalTeste {
                 + "<vBCST>" + (stDaOperacao() ? V_PROD : "0.00") + "</vBCST>"
                 + "<vST>" + (stDaOperacao() ? "19.00" : "0.00") + "</vST>"
                 + "<vFCPST>0.00</vFCPST><vFCPSTRet>0.00</vFCPSTRet>"
-                + (combustivel() ? "<qBCMonoRet>16.00</qBCMonoRet><vICMSMonoRet>18.72</vICMSMonoRet>" : "")
+                + (diesel() ? "<qBCMonoRet>16.00</qBCMonoRet><vICMSMonoRet>18.72</vICMSMonoRet>" : "")
                 + "<vProd>" + V_PROD + "</vProd><vFrete>0.00</vFrete><vSeg>0.00</vSeg><vDesc>0.00</vDesc>"
                 + "<vII>0.00</vII><vIPI>0.00</vIPI><vIPIDevol>0.00</vIPIDevol><vPIS>0.00</vPIS>"
                 + "<vCOFINS>0.00</vCOFINS><vOutro>0.00</vOutro><vNF>" + vNF() + "</vNF>"
@@ -278,8 +314,27 @@ public class EnvioNfceSimplesNacionalTeste {
                 + "</prod>";
     }
 
+    /**
+     * Etanol aditivado, 22,272 L a R$ 4,49 = R$ 100,00. Mesma estrutura de item
+     * de NFC-e de posto ja aceita pela SEFAZ-GO: NCM, CEST e encerrante, sem pBio,
+     * sem origComb e sem cBenef.
+     */
+    private static String prodEtanol(EstadosEnum estado) {
+        return "<prod><cProd>810101002</cProd><cEAN>SEM GTIN</cEAN>"
+                + "<xProd>NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xProd>"
+                + "<NCM>22071090</NCM><CEST>0600101</CEST>"
+                + "<CFOP>" + cfop() + "</CFOP>"
+                + "<uCom>LT</uCom><qCom>22.2720</qCom><vUnCom>4.49</vUnCom><vProd>" + V_PROD + "</vProd>"
+                + "<cEANTrib>SEM GTIN</cEANTrib><uTrib>LT</uTrib><qTrib>22.2720</qTrib>"
+                + "<vUnTrib>4.4900</vUnTrib><indTot>1</indTot>"
+                + "<comb><cProdANP>810101002</cProdANP><descANP>ETANOL ADITIVADO</descANP>"
+                + "<UFCons>" + estado + "</UFCons>"
+                + "<encerrante><nBico>1</nBico><nTanque>1</nTanque>"
+                + "<vEncIni>1000.000</vEncIni><vEncFin>1022.272</vEncFin></encerrante></comb></prod>";
+    }
+
     /** Diesel S10, 16 L a R$ 6,25 = R$ 100,00; ICMS monofasico retido de 1,17/L = 18,72. */
-    private static String prodCombustivel(EstadosEnum estado) {
+    private static String prodDiesel(EstadosEnum estado) {
         return "<prod><cProd>820101034</cProd><cEAN>SEM GTIN</cEAN>"
                 + "<xProd>NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xProd>"
                 + "<NCM>27101921</NCM><CEST>0600600</CEST>"
@@ -347,6 +402,13 @@ public class EnvioNfceSimplesNacionalTeste {
                 return "<ICMSSN101><orig>0</orig><CSOSN>101</CSOSN>"
                         + "<pCredSN>" + System.getProperty("pCredSN", "19.0000") + "</pCredSN>"
                         + "<vCredICMSSN>" + System.getProperty("vCredSN", "19.00") + "</vCredICMSSN></ICMSSN101>";
+            case "sn60":
+            case "normal60":
+            case "sn60e":
+            case "normal60e":
+                // Valores zerados, que e o que o emissor manda no ICMS cobrado anteriormente por ST.
+                return "<ICMS60><orig>0</orig><CST>60</CST><vBCSTRet>0.00</vBCSTRet><pST>0.00</pST>"
+                        + "<vICMSSTRet>0.00</vICMSSTRet></ICMS60>";
             case "sn61":
             case "normal61":
                 return "<ICMS61><orig>0</orig><CST>61</CST><qBCMonoRet>16.0000</qBCMonoRet>"
