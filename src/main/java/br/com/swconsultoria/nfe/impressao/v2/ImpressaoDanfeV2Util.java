@@ -53,8 +53,9 @@ public final class ImpressaoDanfeV2Util {
     public static final String ID_ESPACO_DADOS_ADICIONAIS = "espaco-dados-adicionais";
     /**
      * Chave em {@link ImpressaoDanfeV2DTO#getParametros()} do campo "Tipo de Regime de Apuração do IBS e da CBS"
-     * do template padrão. Por padrão o campo vem de emit/tpRegimeIBSCBS (tag criada pela NT 2026.005); quando a
-     * aplicação informa este parâmetro, ele tem prioridade sobre o XML.
+     * do template padrão. Por padrão o campo vem de emit/tpRegimeIBSCBS (tag criada pela NT 2026.005). Quando a
+     * chave existe no Map com valor não nulo, ela tem prioridade sobre o XML, inclusive "", que deixa o campo em
+     * branco. Para usar o XML, não informe a chave.
      */
     public static final String PARAM_TIPO_REGIME_APURACAO = "tipoRegimeApuracao";
     /** Folga entre o fim do bloco de dados adicionais e o fim da área útil da folha, em mm. */

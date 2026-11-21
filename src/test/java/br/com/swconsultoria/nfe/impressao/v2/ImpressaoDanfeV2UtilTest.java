@@ -212,6 +212,29 @@ class ImpressaoDanfeV2UtilTest {
     }
 
     @Test
+    void parametroVazioDoTipoDeRegimeDeApuracaoDeixaOCampoEmBranco() {
+        String comRegime = xml.replace("<CRT>3</CRT>", "<CRT>3</CRT><tpRegimeIBSCBS>4</tpRegimeIBSCBS>");
+        ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(comRegime);
+        impressao.getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, "");
+
+        assertEquals("", valorDoCampo(ImpressaoDanfeV2Util.gerarHtml(impressao),
+                "TIPO DE REGIME DE APURAÇÃO DO IBS E DA CBS"));
+    }
+
+    @Test
+    void tipoRegimeApuracaoDescreveOsQuatroCodigosDoSchema() {
+        FormatadorDanfeV2 fmt = new FormatadorDanfeV2();
+        assertEquals("1 - SIMPLES NACIONAL - COM REGIME REGULAR", fmt.tipoRegimeApuracao("1"));
+        assertEquals("2 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - SEM REGIME REGULAR", fmt.tipoRegimeApuracao("2"));
+        assertEquals("3 - OPÇÃO PENDENTE PELO SN (EXCESSO SUBLIMITE) - SEM REGIME REGULAR",
+                fmt.tipoRegimeApuracao("3"));
+        assertEquals("4 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - COM REGIME REGULAR", fmt.tipoRegimeApuracao("4"));
+        assertEquals("9", fmt.tipoRegimeApuracao("9"), "fora da enumeração devolve o código");
+        assertEquals("", fmt.tipoRegimeApuracao(null));
+        assertEquals("", fmt.tipoRegimeApuracao("  "));
+    }
+
+    @Test
     void valorUnitarioImprimeTodasAsCasasDoXml() {
         assertEquals("13,00", new FormatadorDanfeV2().valorUnitario("13.000000"));
         assertEquals("5,899", new FormatadorDanfeV2().valorUnitario("5.8990"));

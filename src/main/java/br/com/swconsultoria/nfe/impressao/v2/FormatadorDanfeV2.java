@@ -211,9 +211,9 @@ public class FormatadorDanfeV2 {
             return "";
         }
         switch (valor) {
-            case "1": return "1 - SIMPLES NACIONAL COM REGIME REGULAR";
+            case "1": return "1 - SIMPLES NACIONAL - COM REGIME REGULAR";
             case "2": return "2 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - SEM REGIME REGULAR";
-            case "3": return "3 - OPÇÃO PENDENTE PELO SN (EXC. SUBLIMITE) - SEM REGIME REGULAR";
+            case "3": return "3 - OPÇÃO PENDENTE PELO SN (EXCESSO SUBLIMITE) - SEM REGIME REGULAR";
             case "4": return "4 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - COM REGIME REGULAR";
             default: return valor;
         }

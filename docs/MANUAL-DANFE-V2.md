@@ -198,7 +198,7 @@ impressao.setOrientacao(OrientacaoDanfeEnum.PAISAGEM);
 impressao.setExibirCanhoto(false);
 
 // Parâmetros livres, disponíveis no template como ${parametros.nome}
-impressao.getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, "...");   // usado pelo template padrão (ver 7.3)
+impressao.getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, "...");   // usado pelo template padrão; tem prioridade sobre o XML (ver 7.3)
 
 // Template próprio (arquivo .html Thymeleaf)
 impressao.setTemplate("c:/templates/meu-danfe.html");
@@ -236,7 +236,7 @@ Use quando o leiaute padrão não atender, por exemplo para um bloco extra ou um
 - documentos e contato: `documento` (CNPJ/CPF), `cep`, `fone`, `chave` (grupos de 4);
 - numeração: `numeroNota` (000.000.000), `serie` (000);
 - datas: `data`, `hora`, `dataHora` (a partir de ISO), `competencia` (aaaa-mm para mm/aaaa);
-- códigos: `modFrete`, `crt`, `cst(orig, cst)`;
+- códigos: `modFrete`, `crt`, `tipoRegimeApuracao`, `cst(orig, cst)`;
 - textos: `endereco(grupo)`, `primeiro(a, b)`, `complementoIbsCbs(item)` (retenção, retido, diferença e competência do IBS/CBS numa linha).
 
 Todos aceitam null e devolvem `""`. Os números arredondam HALF_UP. Ao concatenar valores do XML com `+`, passe-os por `fmt.primeiro(valor, '')` ou por outro método do `fmt`: o OGNL imprime `null` como texto quando a tag não existe.
@@ -271,7 +271,7 @@ Cada grupo é um `Map<String,String>` cuja **chave é o nome da tag no XML** e o
 |---|---|---|
 | `chave` | `protNFe/infProt/chNFe` ou `@Id` | (String) |
 | `ide` | `ide/` | cUF, natOp, mod, serie, nNF, dhEmi, dhSaiEnt, tpNF, tpImp, tpEmis, tpAmb, finNFe, verProc, dhCont, xJust |
-| `emit` | `emit/` + `emit/enderEmit/` | CNPJ, CPF, xNome, xFant, IE, IEST, IM, CRT, xLgr, nro, xCpl, xBairro, xMun, UF, CEP, fone |
+| `emit` | `emit/` + `emit/enderEmit/` | CNPJ, CPF, xNome, xFant, IE, IEST, IM, CRT, tpRegimeIBSCBS, xLgr, nro, xCpl, xBairro, xMun, UF, CEP, fone |
 | `dest` | `dest/` + `dest/enderDest/` | CNPJ, CPF, idEstrangeiro, xNome, IE, email, xLgr, nro, xCpl, xBairro, xMun, UF, CEP, fone |
 | `prot` | `//protNFe/infProt/` | nProt, dhRecbto, chNFe, cStat |
 | `icmsTot` | `total/ICMSTot/` | vBC, vICMS, vICMSDeson, vFCPUFDest, vICMSUFDest, vICMSUFRemet, vFCP, vBCST, vST, vFCPST, vFCPSTRet, qBCMono, vICMSMono, qBCMonoReten, vICMSMonoReten, qBCMonoRet, vICMSMonoRet, vProd, vFrete, vSeg, vDesc, vII, vIPI, vIPIDevol, vPIS, vCOFINS, vOutro, vNF, vTotTrib |
@@ -364,7 +364,7 @@ Um quadro ou campo cuja informação não existe no XML **não é impresso**, e 
 | QR Code | Existe `infNFeSupl/qrCode` |
 | Canhoto | `setExibirCanhoto(true)` (padrão) |
 
-O campo "Tipo de Regime de Apuração do IBS e da CBS" é reservado e **sai vazio**, porque a tag ainda não foi publicada. Quando a NT futura sair, preencha via `getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, ...)` ou, de preferência, peça a leitura da tag no `LeitorDanfeV2`.
+O campo "Tipo de Regime de Apuração do IBS e da CBS" vem de `emit/tpRegimeIBSCBS` (NT 2026.005), impresso por `fmt.tipoRegimeApuracao`, e sai vazio sem a tag. `PARAM_TIPO_REGIME_APURACAO`, quando informado com valor não nulo, tem prioridade sobre o XML.
 
 ---
 
