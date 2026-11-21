@@ -17,7 +17,7 @@ mvn test --no-transfer-progress
 mvn test --no-transfer-progress "-Dtest=NomeDaClasseTest"
 ```
 
-- `mvn test` roda os `*Test.java` (JUnit 5, surefire com JMockit como javaagent). Dois deles ficam em `exemplos/` (`IbsCbsTest`, `EnvioNfceCombustivelTest`) e usam HOMOLOGACAO.
+- `mvn test` roda os `*Test.java` (JUnit 5, surefire com JMockit como javaagent). Dois deles ficam em `exemplos/` (`IbsCbsTest`, `EnvioNfceCombustivelTest`) e usam HOMOLOGACAO. `util/WebServiceUtilTest` usa `AmbienteEnum.PRODUCAO` só para montar URL, sem chamar serviço.
 - Os `*Teste.java` de `exemplos/` e os `TesteImpressao*.java` de `impressao/` são programas com `main`, sem `@Test`. Os de `exemplos/` falam com a SEFAZ usando certificado real. O padrão `Test*` do surefire casa com `TesteImpressao*`, mas sem `@Test` o JUnit não executa nada.
 
 ## Segurança dos programas com `main`
