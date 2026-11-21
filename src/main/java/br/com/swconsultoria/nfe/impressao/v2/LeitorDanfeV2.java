@@ -61,7 +61,8 @@ public final class LeitorDanfeV2 {
         copia(xml, infNFe, danfe.getIde(), "ide/", "cUF", "natOp", "mod", "serie", "nNF", "dhEmi", "dhSaiEnt",
                 "tpNF", "tpImp", "tpEmis", "tpAmb", "finNFe", "verProc", "dhCont", "xJust");
 
-        copia(xml, infNFe, danfe.getEmit(), "emit/", "CNPJ", "CPF", "xNome", "xFant", "IE", "IEST", "IM", "CRT");
+        copia(xml, infNFe, danfe.getEmit(), "emit/", "CNPJ", "CPF", "xNome", "xFant", "IE", "IEST", "IM", "CRT",
+                "tpRegimeIBSCBS");
         copia(xml, infNFe, danfe.getEmit(), "emit/enderEmit/", "xLgr", "nro", "xCpl", "xBairro", "xMun", "UF", "CEP", "fone");
 
         copia(xml, infNFe, danfe.getDest(), "dest/", "CNPJ", "CPF", "idEstrangeiro", "xNome", "IE", "email");
