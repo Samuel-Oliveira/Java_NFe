@@ -205,6 +205,20 @@ public class FormatadorDanfeV2 {
         }
     }
 
+    /** Tipo de Regime de Apuração do IBS e da CBS (emit/tpRegimeIBSCBS, NT 2026.005). */
+    public String tipoRegimeApuracao(String valor) {
+        if (vazio(valor)) {
+            return "";
+        }
+        switch (valor) {
+            case "1": return "1 - SIMPLES NACIONAL COM REGIME REGULAR";
+            case "2": return "2 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - SEM REGIME REGULAR";
+            case "3": return "3 - OPÇÃO PENDENTE PELO SN (EXC. SUBLIMITE) - SEM REGIME REGULAR";
+            case "4": return "4 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - COM REGIME REGULAR";
+            default: return valor;
+        }
+    }
+
     /** Logradouro, número e complemento de um grupo de endereço (emit ou dest): "Rua X, 10 - Sala 2" */
     public String endereco(Map<String, String> grupo) {
         if (grupo == null || vazio(grupo.get("xLgr"))) {

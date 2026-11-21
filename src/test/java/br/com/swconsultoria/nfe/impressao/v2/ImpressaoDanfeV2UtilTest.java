@@ -188,6 +188,30 @@ class ImpressaoDanfeV2UtilTest {
     }
 
     @Test
+    void tipoDeRegimeDeApuracaoSaiDoXml() {
+        String comRegime = xml.replace("<CRT>3</CRT>", "<CRT>3</CRT><tpRegimeIBSCBS>4</tpRegimeIBSCBS>");
+        assertNotEquals(xml, comRegime);
+
+        String html = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFe(comRegime));
+        assertEquals("4 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - COM REGIME REGULAR",
+                valorDoCampo(html, "TIPO DE REGIME DE APURAÇÃO DO IBS E DA CBS"));
+
+        String semRegime = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFe(xml));
+        assertEquals("", valorDoCampo(semRegime, "TIPO DE REGIME DE APURAÇÃO DO IBS E DA CBS"),
+                "sem a tag no XML o campo fica vazio");
+    }
+
+    @Test
+    void parametroDoTipoDeRegimeDeApuracaoTemPrioridadeSobreOXml() {
+        String comRegime = xml.replace("<CRT>3</CRT>", "<CRT>3</CRT><tpRegimeIBSCBS>4</tpRegimeIBSCBS>");
+        ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(comRegime);
+        impressao.getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, "TEXTO DA APLICAÇÃO");
+
+        assertEquals("TEXTO DA APLICAÇÃO",
+                valorDoCampo(ImpressaoDanfeV2Util.gerarHtml(impressao), "TIPO DE REGIME DE APURAÇÃO DO IBS E DA CBS"));
+    }
+
+    @Test
     void valorUnitarioImprimeTodasAsCasasDoXml() {
         assertEquals("13,00", new FormatadorDanfeV2().valorUnitario("13.000000"));
         assertEquals("5,899", new FormatadorDanfeV2().valorUnitario("5.8990"));
