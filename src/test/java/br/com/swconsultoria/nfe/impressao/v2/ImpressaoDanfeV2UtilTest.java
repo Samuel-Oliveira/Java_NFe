@@ -205,6 +205,9 @@ class ImpressaoDanfeV2UtilTest {
     void parametroDoTipoDeRegimeDeApuracaoTemPrioridadeSobreOXml() {
         String comRegime = xml.replace("<CRT>3</CRT>", "<CRT>3</CRT><tpRegimeIBSCBS>4</tpRegimeIBSCBS>");
         ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(comRegime);
+        assertEquals("4 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - COM REGIME REGULAR",
+                valorDoCampo(ImpressaoDanfeV2Util.gerarHtml(impressao), "TIPO DE REGIME DE APURAÇÃO DO IBS E DA CBS"),
+                "pré-condição: sem o parâmetro o campo vem do XML");
         impressao.getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, "TEXTO DA APLICAÇÃO");
 
         assertEquals("TEXTO DA APLICAÇÃO",
@@ -215,6 +218,9 @@ class ImpressaoDanfeV2UtilTest {
     void parametroVazioDoTipoDeRegimeDeApuracaoDeixaOCampoEmBranco() {
         String comRegime = xml.replace("<CRT>3</CRT>", "<CRT>3</CRT><tpRegimeIBSCBS>4</tpRegimeIBSCBS>");
         ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(comRegime);
+        assertEquals("4 - OPÇÃO PENDENTE PELO SIMPLES NACIONAL - COM REGIME REGULAR",
+                valorDoCampo(ImpressaoDanfeV2Util.gerarHtml(impressao), "TIPO DE REGIME DE APURAÇÃO DO IBS E DA CBS"),
+                "pré-condição: sem o parâmetro o campo vem do XML");
         impressao.getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, "");
 
         assertEquals("", valorDoCampo(ImpressaoDanfeV2Util.gerarHtml(impressao),

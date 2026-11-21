@@ -11,9 +11,9 @@
   `5.893217` saia `5,8932`. `fmt.quantidade` continua com 2 a 4 casas.
 - **Tipo de regime de apuracao do IBS e da CBS:** o campo passa a vir de
   `emit/tpRegimeIBSCBS` (NT 2026.005), pelo novo `fmt.tipoRegimeApuracao`, que imprime
-  o codigo com a descricao do Schema (1 a 4). Antes, saia sempre vazio. Sem a tag, continua
-  vazio. O `PARAM_TIPO_REGIME_APURACAO`, quando informado com valor nao nulo, continua com
-  prioridade sobre o XML, inclusive `""`.
+  o codigo com uma descricao curta do Schema (1 a 4). Antes, so saia preenchido pelo
+  `PARAM_TIPO_REGIME_APURACAO`. Sem a tag e sem o parametro, continua vazio. O parametro,
+  quando informado com valor nao nulo, tem prioridade sobre o XML, inclusive `""`.
 
 ### Schemas: PL 010h v1.03
 

@@ -364,7 +364,7 @@ Um quadro ou campo cuja informação não existe no XML **não é impresso**, e 
 | QR Code | Existe `infNFeSupl/qrCode` |
 | Canhoto | `setExibirCanhoto(true)` (padrão) |
 
-O campo "Tipo de Regime de Apuração do IBS e da CBS" vem de `emit/tpRegimeIBSCBS` (NT 2026.005), impresso por `fmt.tipoRegimeApuracao`, e sai vazio sem a tag. `PARAM_TIPO_REGIME_APURACAO`, quando informado com valor não nulo, tem prioridade sobre o XML.
+O campo "Tipo de Regime de Apuração do IBS e da CBS" vem de `emit/tpRegimeIBSCBS` (NT 2026.005), impresso por `fmt.tipoRegimeApuracao`, e sai vazio sem a tag. `PARAM_TIPO_REGIME_APURACAO`, quando informado com valor não nulo, tem prioridade sobre o XML, inclusive `""`, que deixa o campo em branco. Para usar o XML, não informe a chave.
 
 ---
 
