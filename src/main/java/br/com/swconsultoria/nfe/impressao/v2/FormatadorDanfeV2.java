@@ -219,6 +219,68 @@ public class FormatadorDanfeV2 {
         }
     }
 
+    /**
+     * Forma de pagamento (pag/detPag/tPag) por extenso, para o DANFE Simplificado Tipo 2. Com 99 (Outros) usa a
+     * descrição do xPag quando informada; código desconhecido devolve o próprio código.
+     */
+    public String formaPagamento(String tPag, String xPag) {
+        if (vazio(tPag)) {
+            return vazio(xPag) ? "" : xPag;
+        }
+        switch (tPag) {
+            case "01": return "Dinheiro";
+            case "02": return "Cheque";
+            case "03": return "Cartão de Crédito";
+            case "04": return "Cartão de Débito";
+            case "05": return "Cartão da Loja";
+            case "10": return "Vale Alimentação";
+            case "11": return "Vale Refeição";
+            case "12": return "Vale Presente";
+            case "13": return "Vale Combustível";
+            case "15": return "Boleto Bancário";
+            case "16": return "Depósito Bancário";
+            case "17": return "PIX";
+            case "18": return "Transferência Bancária";
+            case "19": return "Programa de Fidelidade";
+            case "20": return "PIX";
+            case "21": return "Crédito em Loja";
+            case "22": return "Pagamento Eletrônico";
+            case "90": return "Sem Pagamento";
+            case "99": return vazio(xPag) ? "Outros" : xPag;
+            default: return tPag;
+        }
+    }
+
+    /**
+     * Rótulo da identificação do consumidor do DANFE Simplificado Tipo 2 (Divisão VI), a partir do grupo dest:
+     * "CONSUMIDOR CNPJ:", "CONSUMIDOR CPF:", "CONSUMIDOR ID. ESTRANGEIRO:" ou "CONSUMIDOR NÃO IDENTIFICADO".
+     * O número vem de {@link #documento(String)} sobre o primeiro de CNPJ, CPF e idEstrangeiro.
+     */
+    public String consumidor(Map<String, String> dest) {
+        if (dest != null && !vazio(dest.get("CNPJ"))) {
+            return "CONSUMIDOR CNPJ:";
+        }
+        if (dest != null && !vazio(dest.get("CPF"))) {
+            return "CONSUMIDOR CPF:";
+        }
+        if (dest != null && !vazio(dest.get("idEstrangeiro"))) {
+            return "CONSUMIDOR ID. ESTRANGEIRO:";
+        }
+        return "CONSUMIDOR NÃO IDENTIFICADO";
+    }
+
+    /** O valor existe e é diferente de zero (valor não numérico conta como presente). */
+    public boolean naoZero(String valor) {
+        if (vazio(valor)) {
+            return false;
+        }
+        try {
+            return new BigDecimal(valor.trim()).signum() != 0;
+        } catch (NumberFormatException e) {
+            return true;
+        }
+    }
+
     /** Logradouro, número e complemento de um grupo de endereço (emit ou dest): "Rua X, 10 - Sala 2" */
     public String endereco(Map<String, String> grupo) {
         if (grupo == null || vazio(grupo.get("xLgr"))) {
@@ -232,6 +294,31 @@ public class FormatadorDanfeV2 {
             sb.append(" - ").append(grupo.get("xCpl"));
         }
         return sb.toString();
+    }
+
+    /**
+     * Endereço completo de um grupo (emit ou dest), sem o país, numa linha:
+     * "Rua X, 10 - Sala 2, Centro, São Paulo - SP, CEP 01001-000". Partes ausentes são omitidas.
+     */
+    public String enderecoCompleto(Map<String, String> grupo) {
+        if (grupo == null) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder(endereco(grupo));
+        acrescenta(sb, ", ", grupo.get("xBairro"));
+        String municipio = vazio(grupo.get("xMun")) ? "" : grupo.get("xMun")
+                + (vazio(grupo.get("UF")) ? "" : " - " + grupo.get("UF"));
+        acrescenta(sb, ", ", municipio);
+        acrescenta(sb, ", CEP ", cep(grupo.get("CEP")));
+        return sb.toString();
+    }
+
+    /** Junta a parte com o separador; no início da linha, o separador perde a vírgula (", CEP " vira "CEP "). */
+    private static void acrescenta(StringBuilder sb, String separador, String parte) {
+        if (vazio(parte)) {
+            return;
+        }
+        sb.append(sb.length() > 0 ? separador : separador.substring(2)).append(parte);
     }
 
     /**

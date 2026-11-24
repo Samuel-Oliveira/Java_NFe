@@ -6,15 +6,13 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.oned.Code128Writer;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import net.sourceforge.barbecue.Barcode;
-import net.sourceforge.barbecue.BarcodeException;
-import net.sourceforge.barbecue.BarcodeFactory;
-import net.sourceforge.barbecue.BarcodeImageHandler;
-import net.sourceforge.barbecue.output.OutputException;
 
 import javax.imageio.ImageIO;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,12 +21,11 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Geração das imagens do DANFE v2 (código de barras, QR Code) e conversão para data URI.
- * Usa as mesmas bibliotecas do leiaute Jasper (barbecue e zxing), já dependências do projeto.
+ * Geração das imagens da impressão v2 (código de barras, QR Code) e conversão para data URI, com o zxing.
  */
 public final class ImagemDanfeV2Util {
 
-    /** Largura de cada barra em pixels: a chave em Code-128C tem ~300 módulos, logo ~900 px; o CSS redimensiona. */
+    /** Largura de cada módulo em pixels: a chave em Code-128C tem 277 módulos, logo ~830 px; o CSS redimensiona. */
     private static final int LARGURA_BARRA = 3;
     private static final int ALTURA_BARRAS = 80;
 
@@ -46,21 +43,26 @@ public final class ImagemDanfeV2Util {
     }
 
     /**
-     * Código de barras CODE-128 da chave de acesso, em PNG (128C quando o conteúdo é numérico de tamanho par,
-     * como a chave de 44 dígitos; é o mesmo tipo usado no danfe.jrxml).
+     * Código de barras CODE-128 da chave de acesso, em PNG, sem margem nem texto. O zxing usa o conjunto C (dois
+     * dígitos por símbolo) nas sequências numéricas, como o DANFE pede para a chave de 44 dígitos.
      */
     public static byte[] codigoBarras128(String conteudo) {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            boolean numericoPar = conteudo.matches("\\d+") && conteudo.length() % 2 == 0;
-            Barcode barcode = numericoPar ? BarcodeFactory.createCode128C(conteudo) : BarcodeFactory.createCode128(conteudo);
-            barcode.setDrawingText(false);
-            barcode.setDrawingQuietSection(false);
-            barcode.setBarWidth(LARGURA_BARRA);
-            barcode.setBarHeight(ALTURA_BARRAS);
-            BufferedImage imagem = BarcodeImageHandler.getImage(barcode);
+            boolean[] modulos = new Code128Writer().encode(conteudo);
+            BufferedImage imagem = new BufferedImage(modulos.length * LARGURA_BARRA, ALTURA_BARRAS, BufferedImage.TYPE_BYTE_BINARY);
+            Graphics2D g = imagem.createGraphics();
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, imagem.getWidth(), imagem.getHeight());
+            g.setColor(Color.BLACK);
+            for (int i = 0; i < modulos.length; i++) {
+                if (modulos[i]) {
+                    g.fillRect(i * LARGURA_BARRA, 0, LARGURA_BARRA, ALTURA_BARRAS);
+                }
+            }
+            g.dispose();
             ImageIO.write(imagem, "png", out);
             return out.toByteArray();
-        } catch (BarcodeException | OutputException | IOException e) {
+        } catch (IllegalArgumentException | IOException e) {
             throw new DanfeException("Erro ao gerar código de barras", e);
         }
     }

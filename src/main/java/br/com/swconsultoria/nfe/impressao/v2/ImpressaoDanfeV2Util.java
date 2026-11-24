@@ -30,13 +30,21 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static br.com.swconsultoria.nfe.impressao.ConstantesImpressaoNfeUtil.PATH_LOGO_NFCE;
 import static br.com.swconsultoria.nfe.impressao.ConstantesImpressaoNfeUtil.PATH_LOGO_NFE;
 
 /**
- * Classe responsavel pela impressão do DANFE v2 da NF-e (modelo 55): XML da NF-e, template Thymeleaf (HTML)
- * e PDF (openhtmltopdf). Leiaute conforme NT 2026.010 (Reforma Tributária - IBS/CBS/IS), retrato ou paisagem.
- * Convive com a impressão Jasper de {@link br.com.swconsultoria.nfe.impressao.ImpressaoNfeUtil}.
+ * Classe responsavel pela impressão da biblioteca: XML, template Thymeleaf (HTML) e PDF (openhtmltopdf).
+ * O template padrão é escolhido pelo XML:
+ * <ul>
+ *     <li>NF-e (modelo 55): DANFE no leiaute da NT 2026.010 (Reforma Tributária - IBS/CBS/IS), retrato ou paisagem;
+ *     com tpImp=6, o DANFE Simplificado Tipo 2 da NT 2026.003, em bobina;</li>
+ *     <li>NFC-e (modelo 65): DANFE NFC-e, em bobina, no mesmo template do Simplificado Tipo 2;</li>
+ *     <li>evento (procEventoNFe): Carta de Correção eletrônica (tpEvento 110110), em A4.</li>
+ * </ul>
  * Todos os erros são lançados como {@link DanfeException}.
  * <p>
  * O openhtmltopdf registra várias linhas INFO (java.util.logging) a cada PDF. Esta classe não altera essa
@@ -45,8 +53,28 @@ import static br.com.swconsultoria.nfe.impressao.ConstantesImpressaoNfeUtil.PATH
  */
 public final class ImpressaoDanfeV2Util {
 
-    /** Template padrão (classpath: /danfe/v2/danfe.html). */
+    /** Template padrão do DANFE A4 da NF-e (classpath: /danfe/v2/danfe.html). */
     public static final String TEMPLATE_PADRAO = "danfe";
+    /**
+     * Template do DANFE em bobina (classpath: /danfe/v2/danfe-bobina.html): o da NFC-e (modelo 65) e o Simplificado
+     * Tipo 2 da NF-e (tpImp=6), usado sem template informado nesses dois casos. Para imprimir o DANFE A4 de uma NF-e
+     * com tpImp=6, informe {@link #TEMPLATE_PADRAO} em {@link ImpressaoDanfeV2DTO#setTemplate(String)}.
+     */
+    public static final String TEMPLATE_BOBINA = "danfe-bobina";
+    /**
+     * Template da Carta de Correção eletrônica (classpath: /danfe/v2/cce.html), usado sem template informado quando
+     * o XML é de um evento 110110. Os demais eventos só saem com template próprio.
+     */
+    public static final String TEMPLATE_CCE = "cce";
+    /**
+     * id (no HTML) do {@code <style>} com a regra {@code @page { size: <largura>mm <altura>mm; ... }} de um DANFE em
+     * bobina. Com ele, {@link #htmlParaPdf} troca a altura da folha pela altura do conteúdo.
+     */
+    public static final String ID_PAGINA_BOBINA = "pagina-bobina";
+    /** Altura da folha da primeira diagramação da bobina, em mm; fica abaixo do limite de 200 polegadas do PDF. */
+    public static final int ALTURA_MAXIMA_BOBINA_MM = 5000;
+    /** A partir desta largura de papel (mm), o QR Code do DANFE em bobina sai ao lado da identificação. */
+    public static final int LARGURA_MINIMA_QRCODE_LATERAL_MM = 72;
     /** id (no HTML) do bloco de dados adicionais, que é encostado no rodapé da última folha em {@link #htmlParaPdf}. */
     public static final String ID_DADOS_ADICIONAIS = "dados-adicionais";
     /** id (no HTML) do espaçador vazio logo antes do bloco de dados adicionais; a altura dele é calculada em {@link #htmlParaPdf}. */
@@ -60,6 +88,10 @@ public final class ImpressaoDanfeV2Util {
     public static final String PARAM_TIPO_REGIME_APURACAO = "tipoRegimeApuracao";
     /** Folga entre o fim do bloco de dados adicionais e o fim da área útil da folha, em mm. */
     private static final float FOLGA_RODAPE_MM = 1f;
+    /** Folga entre o fim do conteúdo e o pé da folha da bobina, em mm: evita que um arredondamento gere outra folha. */
+    private static final float FOLGA_BOBINA_MM = 1f;
+    /** "size: 80mm 5000mm" da regra @page da bobina; o grupo 1 é a largura, mantida no ajuste da altura. */
+    private static final Pattern TAMANHO_BOBINA = Pattern.compile("(size\\s*:\\s*[0-9.]+mm\\s+)[0-9.]+mm");
     /** Lado da imagem do QR Code gerada pelo zxing, em pixels; o CSS do template define o tamanho impresso. */
     private static final int TAMANHO_QRCODE_PX = 400;
 
@@ -70,10 +102,10 @@ public final class ImpressaoDanfeV2Util {
     }
 
     /**
-     * Gera Objeto padrão para impressão do DANFE v2: logo padrão de NF-e, orientação pelo tpImp do XML e canhoto.
+     * Gera Objeto padrão para impressão do DANFE da NF-e: logo padrão de NF-e, orientação pelo tpImp do XML e
+     * canhoto. Com tpImp=6 sai o DANFE Simplificado Tipo 2, em bobina de 80 mm.
      *
      * @param xml XML autorizado (nfeProc) ou NFe sem protocolo
-     * @return
      */
     public static ImpressaoDanfeV2DTO impressaoPadraoNFe(String xml) {
         ImpressaoDanfeV2DTO impressao = new ImpressaoDanfeV2DTO();
@@ -83,32 +115,95 @@ public final class ImpressaoDanfeV2Util {
     }
 
     /**
-     * Gera o HTML do DANFE.
+     * Gera Objeto padrão para impressão do DANFE NFC-e: logo padrão de NFC-e, bobina de 80 mm. A URL de consulta
+     * pela chave vem do infNFeSupl/urlChave do XML.
+     *
+     * @param xml XML autorizado (nfeProc) ou NFe sem protocolo (contingência off-line)
+     */
+    public static ImpressaoDanfeV2DTO impressaoPadraoNFCe(String xml) {
+        ImpressaoDanfeV2DTO impressao = new ImpressaoDanfeV2DTO();
+        impressao.setXml(xml);
+        impressao.setLogo(ImpressaoDanfeV2Util.class.getResourceAsStream(PATH_LOGO_NFCE));
+        return impressao;
+    }
+
+    /**
+     * Gera Objeto padrão para impressão da Carta de Correção eletrônica, em A4 e sem logo (o XML do evento não
+     * traz o nome do emitente; um logo próprio entra com {@link ImpressaoDanfeV2DTO#setLogo(byte[])}).
+     *
+     * @param xml procEventoNFe da CC-e, ou o evento sem o retorno da SEFAZ
+     */
+    public static ImpressaoDanfeV2DTO impressaoPadraoCCe(String xml) {
+        ImpressaoDanfeV2DTO impressao = new ImpressaoDanfeV2DTO();
+        impressao.setXml(xml);
+        return impressao;
+    }
+
+    /**
+     * Gera o HTML do documento (DANFE ou CC-e), com o template informado ou o padrão do tipo de XML.
      */
     public static String gerarHtml(ImpressaoDanfeV2DTO impressao) {
         XmlDanfeV2 xml = new XmlDanfeV2(impressao.getXml());
-        DanfeV2DTO danfe = LeitorDanfeV2.ler(xml);
 
         Context contexto = new Context();
-        contexto.setVariable("danfe", danfe);
         contexto.setVariable("xml", xml);
         contexto.setVariable("fmt", FORMATADOR);
-        contexto.setVariable("paisagem", isPaisagem(impressao, danfe));
-        contexto.setVariable("exibirCanhoto", impressao.isExibirCanhoto());
         contexto.setVariable("logo", ImagemDanfeV2Util.dataUri(impressao.getLogo()));
-        contexto.setVariable("codigoBarras", danfe.getChave() == null ? null
-                : ImagemDanfeV2Util.dataUri(ImagemDanfeV2Util.codigoBarras128(danfe.getChave())));
-        contexto.setVariable("qrCode", danfe.isExibirQrCode()
-                ? ImagemDanfeV2Util.dataUri(ImagemDanfeV2Util.qrCode(danfe.getSupl().get("qrCode"), TAMANHO_QRCODE_PX)) : null);
         contexto.setVariable("parametros", impressao.getParametros());
 
-        String template = impressao.getTemplate() == null ? TEMPLATE_PADRAO : impressao.getTemplate();
+        String template = isEvento(xml) ? preparaEvento(impressao, xml, contexto) : preparaDanfe(impressao, xml, contexto);
         try {
             return TEMPLATE_ENGINE.process(template, contexto);
         } catch (TemplateEngineException e) {
             // Template inexistente, HTML inválido ou erro numa expressão: mantém o contrato de só lançar DanfeException
             throw new DanfeException("Erro ao processar o template " + template + ": " + e.getMessage(), e);
         }
+    }
+
+    /** XML de evento: sem infNFe e com evento/infEvento (procEventoNFe ou evento). */
+    private static boolean isEvento(XmlDanfeV2 xml) {
+        return xml.no("//infNFe") == null && xml.no("//evento/infEvento") != null;
+    }
+
+    /** Variáveis do DANFE (NF-e e NFC-e) e o template a usar. */
+    private static String preparaDanfe(ImpressaoDanfeV2DTO impressao, XmlDanfeV2 xml, Context contexto) {
+        DanfeV2DTO danfe = LeitorDanfeV2.ler(xml);
+        contexto.setVariable("danfe", danfe);
+        contexto.setVariable("paisagem", isPaisagem(impressao, danfe));
+        contexto.setVariable("exibirCanhoto", impressao.isExibirCanhoto());
+        contexto.setVariable("codigoBarras", codigoBarras(danfe.getChave()));
+        contexto.setVariable("qrCode", danfe.isExibirQrCode()
+                ? ImagemDanfeV2Util.dataUri(ImagemDanfeV2Util.qrCode(danfe.getSupl().get("qrCode"), TAMANHO_QRCODE_PX)) : null);
+        // DANFE em bobina: a altura da folha é a máxima aqui e vira a do conteúdo em htmlParaPdf
+        contexto.setVariable("larguraPapelMm", impressao.getLarguraPapelMm());
+        contexto.setVariable("alturaPaginaMm", ALTURA_MAXIMA_BOBINA_MM);
+        contexto.setVariable("qrCodeLateral", impressao.getLarguraPapelMm() >= LARGURA_MINIMA_QRCODE_LATERAL_MM);
+        contexto.setVariable("viaEstabelecimento", impressao.isViaEstabelecimento());
+
+        if (impressao.getTemplate() != null) {
+            return impressao.getTemplate();
+        }
+        return danfe.isBobina() ? TEMPLATE_BOBINA : TEMPLATE_PADRAO;
+    }
+
+    /** Variáveis do evento e o template a usar; sem template próprio, só a CC-e tem leiaute. */
+    private static String preparaEvento(ImpressaoDanfeV2DTO impressao, XmlDanfeV2 xml, Context contexto) {
+        EventoV2DTO evento = LeitorEventoV2.ler(xml);
+        contexto.setVariable("evento", evento);
+        contexto.setVariable("codigoBarras", codigoBarras(evento.getChave()));
+
+        if (impressao.getTemplate() != null) {
+            return impressao.getTemplate();
+        }
+        if (!evento.isCartaCorrecao()) {
+            throw new DanfeException("O evento " + evento.getEvento().get("tpEvento")
+                    + " não tem leiaute de impressão padrão; informe um template próprio.");
+        }
+        return TEMPLATE_CCE;
+    }
+
+    private static String codigoBarras(String chave) {
+        return chave == null ? null : ImagemDanfeV2Util.dataUri(ImagemDanfeV2Util.codigoBarras128(chave));
     }
 
     /**
@@ -168,12 +263,16 @@ public final class ImpressaoDanfeV2Util {
     /**
      * Converte um HTML (XHTML bem formado) em PDF.
      * <p>
-     * Como no DANFE Jasper, o bloco de dados adicionais fica encostado no rodapé da última folha e o espaço que
+     * Como no antigo DANFE Jasper, o bloco de dados adicionais fica encostado no rodapé da última folha e o espaço que
      * sobra depois dos itens fica em branco entre os dois. O openhtmltopdf não tem "última folha" nem altura
      * flexível, então o documento é diagramado uma vez para medir quanto sobra na folha em que o bloco caiu, o
      * espaçador {@value #ID_ESPACO_DADOS_ADICIONAIS} recebe essa altura e o documento é diagramado de novo.
      * Sem os marcadores {@value #ID_ESPACO_DADOS_ADICIONAIS} e {@value #ID_DADOS_ADICIONAIS} (template próprio),
      * o bloco sai logo após os itens.
+     * <p>
+     * DANFE em bobina (DANFE Simplificado Tipo 2): com o {@code <style id="pagina-bobina">}, o documento é
+     * diagramado numa folha de {@value #ALTURA_MAXIMA_BOBINA_MM} mm e diagramado de novo com a altura do conteúdo,
+     * para o PDF sair numa folha só, do tamanho do cupom. A regra precisa de margem 0 (o respiro fica no body).
      */
     public static byte[] htmlParaPdf(String html) {
         try (ByteArrayOutputStream saida = new ByteArrayOutputStream();
@@ -182,6 +281,22 @@ public final class ImpressaoDanfeV2Util {
             renderer.layout();
 
             Document documento = renderer.getDocument();
+            Element paginaBobina = elementoPorId(documento, ID_PAGINA_BOBINA);
+            if (paginaBobina != null) {
+                String regra = regraNaAlturaDoConteudo(renderer, paginaBobina.getTextContent());
+                if (regra != null) {
+                    paginaBobina.setTextContent(regra);
+                    try (PdfBoxRenderer ajustado = novoRenderer(null, documento, saidaAjustada)) {
+                        ajustado.layout();
+                        ajustado.createPDF();
+                        renderer.getPdfDocument().close(); // close() do renderer não fecha o PDDocument que não foi gravado
+                        return saidaAjustada.toByteArray();
+                    }
+                }
+                renderer.createPDF();
+                return saida.toByteArray();
+            }
+
             Element espaco = elementoPorId(documento, ID_ESPACO_DADOS_ADICIONAIS);
             Element dadosAdicionais = elementoPorId(documento, ID_DADOS_ADICIONAIS);
             int altura = alturaDoEspacoAteORodape(renderer, espaco, dadosAdicionais);
@@ -245,6 +360,21 @@ public final class ImpressaoDanfeV2Util {
         int folga = Math.round(renderer.getSharedContext().getDPI() / 25.4f * FOLGA_RODAPE_MM);
         int altura = folha.getBottom() - folga - caixaBloco.getHeight() - caixaEspaco.getAbsY();
         return altura - caixaEspaco.getHeight() > folga ? altura : 0;
+    }
+
+    /**
+     * Regra @page da bobina com a altura da folha trocada pela altura do conteúdo (mais a folga), ou null quando
+     * não há o que ajustar: regra sem "size: Lmm Amm" ou conteúdo que já não coube numa folha.
+     */
+    private static String regraNaAlturaDoConteudo(PdfBoxRenderer renderer, String regra) {
+        Matcher tamanho = TAMANHO_BOBINA.matcher(regra);
+        BlockBox raiz = renderer.getRootBox();
+        if (!tamanho.find() || raiz.getLayer().getPages().size() != 1) {
+            return null;
+        }
+        float unidadesPorMm = renderer.getSharedContext().getDPI() / 25.4f;
+        float alturaMm = raiz.getHeight() / unidadesPorMm + FOLGA_BOBINA_MM;
+        return tamanho.replaceFirst("$1" + String.format(Locale.ROOT, "%.1f", alturaMm) + "mm");
     }
 
     /** Índice da folha em que o elemento termina, ou -1 se ele não foi diagramado. */
