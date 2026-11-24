@@ -19,6 +19,10 @@
   evento 110110 na CC-e.
 - Codigo de barras da chave pelo zxing (`Code128Writer`, conjunto C, 277 modulos), no lugar do
   barbecue.
+- As dependencias de impressao (`thymeleaf`, `openhtmltopdf-pdfbox`, `zxing core` e `javase`)
+  deixam de ser `provided` e vem por transitividade: quem usa o `java-nfe` nao declara mais nada
+  para imprimir. O `jcommander`, que o `zxing javase` traria so para a linha de comando, fica
+  excluido. Quem nao imprime pode excluir as quatro no proprio `pom.xml`.
 
 ### DANFE Simplificado Tipo 2 (NT 2026.003)
 

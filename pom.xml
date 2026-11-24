@@ -184,30 +184,33 @@
             <scope>provided</scope>
         </dependency>
         <!-- Impressão (impressao.v2): template Thymeleaf -> HTML -> PDF, com código de barras e QR Code do zxing.
-             Ficam a cargo do projeto consumidor que imprime; quem só transmite não precisa delas -->
+             Vêm por transitividade para o projeto consumidor; quem só transmite e não quer o peso pode excluí-las -->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>${zxing.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
             <version>${zxing.version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <!-- Só a linha de comando do zxing usa; a geração de imagem (MatrixToImageWriter) não -->
+                <exclusion>
+                    <groupId>com.beust</groupId>
+                    <artifactId>jcommander</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
             <version>${thymeleaf.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.openhtmltopdf</groupId>
             <artifactId>openhtmltopdf-pdfbox</artifactId>
             <version>${openhtmltopdf.version}</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

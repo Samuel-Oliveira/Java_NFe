@@ -17,9 +17,10 @@ pacote `br.com.swconsultoria.nfe.impressao.v2` (Thymeleaf → PDF), que já cobr
 | `getParametros().put("Logo", stream)` | `setLogo(stream)` |
 | `throws JRException, ...` | `DanfeException` (unchecked) |
 
-No `pom.xml` do projeto consumidor, as dependências de impressão passam a ser `thymeleaf`, `openhtmltopdf-pdfbox`,
-`zxing core` e `zxing javase` (versões em [docs/MANUAL-DANFE-V2.md](docs/MANUAL-DANFE-V2.md), seção 2.1);
-`jasperreports`, `jasperreports-fonts` e `barbecue` podem sair. Quem depende de um `.jasper` próprio pode ficar na
+As dependências de impressão (`thymeleaf`, `openhtmltopdf-pdfbox`, `zxing core` e `zxing javase`) deixam de ser
+`provided` e vêm por transitividade com o `java-nfe`: o `pom.xml` do projeto consumidor não precisa declará-las, e
+`jasperreports`, `jasperreports-fonts` e `barbecue` podem sair. Quem não imprime e não quer o peso pode excluí-las
+([docs/MANUAL-DANFE-V2.md](docs/MANUAL-DANFE-V2.md), seção 2.1). Quem depende de um `.jasper` próprio pode ficar na
 `4.3.1` até refazer o leiaute. O manual traz os leiautes (DANFE A4, DANFE em bobina da NFC-e e do Simplificado Tipo
 2, CC-e), a personalização e os testes de aceitação.
 

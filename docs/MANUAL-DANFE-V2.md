@@ -50,37 +50,34 @@ dependencies { implementation "br.com.swconsultoria:java-nfe:4.3.0" }
 ```bash
 mvn clean install -Dgpg.skip
 ```
-Isso instala `java-nfe-4.3.0.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom` no repositório Maven local. O jar é "fino" (as dependências normais do `java-nfe`, como `java-certificado`, vêm por transitividade pelo `.pom`). `-Dgpg.skip` pula a assinatura GPG da fase `verify`. Os testes (mais de 2.200, incluindo os da v2) rodam no build; `-DskipTests` pula. Para um jar com todas as dependências (projetos sem Maven/Gradle) acrescente `-Passembly`: ele **substitui** o jar fino no `target/` e no repositório local, e mesmo assim **não** inclui as bibliotecas `provided` da seção 2.1, que precisam ir para o classpath à parte.
+Isso instala `java-nfe-4.3.0.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom` no repositório Maven local. O jar é "fino" (as dependências normais do `java-nfe`, como `java-certificado`, vêm por transitividade pelo `.pom`). `-Dgpg.skip` pula a assinatura GPG da fase `verify`. Os testes (mais de 2.200, incluindo os da v2) rodam no build; `-DskipTests` pula. Para um jar com todas as dependências (projetos sem Maven/Gradle) acrescente `-Passembly`: ele **substitui** o jar fino no `target/` e no repositório local, já com as bibliotecas de impressão da seção 2.1.
 
-### 2.1 Dependências que o projeto consumidor precisa declarar
+### 2.1 Dependências de impressão
 
-As bibliotecas de impressão são `provided` no `java-nfe`: **não vêm por transitividade**, e um sistema que só transmite notas não precisa delas. Para imprimir, declare no projeto consumidor:
+As bibliotecas de impressão **vêm por transitividade** com o `java-nfe` (escopo `compile`): o projeto consumidor não declara nada além do próprio `java-nfe`. São elas:
+
+| Biblioteca | Versão | Para quê |
+|---|---|---|
+| `org.thymeleaf:thymeleaf` | 3.1.2.RELEASE | template HTML |
+| `com.openhtmltopdf:openhtmltopdf-pdfbox` | 1.0.10 | HTML para PDF |
+| `com.google.zxing:core` / `javase` | 3.2.1 | código de barras e QR Code |
+
+Um sistema que só transmite notas e não quer o peso delas pode excluí-las no próprio `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>org.thymeleaf</groupId>
-    <artifactId>thymeleaf</artifactId>
-    <version>3.1.2.RELEASE</version>
-</dependency>
-<dependency>
-    <groupId>com.openhtmltopdf</groupId>
-    <artifactId>openhtmltopdf-pdfbox</artifactId>
-    <version>1.0.10</version>
-</dependency>
-<!-- código de barras e QR Code -->
-<dependency>
-    <groupId>com.google.zxing</groupId>
-    <artifactId>core</artifactId>
-    <version>3.2.1</version>
-</dependency>
-<dependency>
-    <groupId>com.google.zxing</groupId>
-    <artifactId>javase</artifactId>
-    <version>3.2.1</version>
+    <groupId>br.com.swconsultoria</groupId>
+    <artifactId>java-nfe</artifactId>
+    <version>...</version>
+    <exclusions>
+        <exclusion><groupId>org.thymeleaf</groupId><artifactId>*</artifactId></exclusion>
+        <exclusion><groupId>com.openhtmltopdf</groupId><artifactId>*</artifactId></exclusion>
+        <exclusion><groupId>com.google.zxing</groupId><artifactId>*</artifactId></exclusion>
+    </exclusions>
 </dependency>
 ```
 
-No Gradle são as mesmas coordenadas com `implementation`. `jasperreports`, `jasperreports-fonts` e `barbecue`, que a v1 exigia, podem sair do projeto se nada mais nele as usar.
+Até a 4.3.1 elas eram `provided` e o consumidor as declarava; essas declarações podem sair (ou ficar, desde que nas mesmas versões). `jasperreports`, `jasperreports-fonts` e `barbecue`, que a v1 exigia, podem sair do projeto se nada mais nele as usar.
 
 ### 2.2 Requisitos e conflitos possíveis
 
@@ -95,7 +92,7 @@ No Gradle são as mesmas coordenadas com `implementation`. `jasperreports`, `jas
   | `slf4j-api` | 2.0.7 |
   | `org.apache.pdfbox:pdfbox` / `fontbox` / `xmpbox` | 2.0.24 |
 
-- Verifique conflitos no projeto consumidor:
+- Verifique conflitos no projeto consumidor: o Maven fica com a versão mais próxima da raiz, então uma versão que o projeto já declare (ou herde de um BOM) vence a do `java-nfe`:
   - **Spring Boot 2.x** traz Thymeleaf 3.0.x. A v2 precisa da 3.1.x. Force `thymeleaf` 3.1.2 no `dependencyManagement` ou exclua a versão antiga. Spring Boot 3.x já usa a 3.1.
   - **PDFBox 3.x** no projeto é incompatível com o openhtmltopdf 1.0.10, que precisa da 2.0.x.
 - Se o projeto não tiver uma implementação de SLF4J, aparece o aviso `SLF4J: No SLF4J providers were found`. É inofensivo.
@@ -110,7 +107,7 @@ No Gradle são as mesmas coordenadas com `implementation`. `jasperreports`, `jas
 
 ### 2.3 Teste rápido da dependência
 
-Antes de mexer no sistema, confirme que a versão local e as dependências `provided` estão corretas com uma classe descartável:
+Antes de mexer no sistema, confirme que a versão local e as dependências de impressão chegaram com uma classe descartável:
 
 ```java
 import br.com.swconsultoria.nfe.impressao.v2.ImpressaoDanfeV2DTO;
@@ -127,7 +124,7 @@ public class TesteDanfeV2 {
 }
 ```
 
-Esperado: um PDF de 1 folha em retrato, com a marca "SEM VALOR FISCAL", o quadro "TOTAL DO IBS / CBS / IS" e o QR Code. Um `NoClassDefFoundError` aqui é dependência `provided` faltando (seção 11).
+Esperado: um PDF de 1 folha em retrato, com a marca "SEM VALOR FISCAL", o quadro "TOTAL DO IBS / CBS / IS" e o QR Code. Um `NoClassDefFoundError` aqui é dependência de impressão excluída ou trocada no projeto (seção 11).
 
 ---
 
@@ -451,7 +448,7 @@ O DANFE NFC-e sai pelo mesmo template de bobina do Simplificado Tipo 2, porque a
 
 ## 9. Checklist de implementação (projeto consumidor)
 
-1. Apontar para `java-nfe:4.3.0` (seção 2), declarar as dependências `provided` (2.1), resolver conflitos de Thymeleaf e PDFBox (2.2) e rodar o teste rápido (2.3).
+1. Apontar para a versão nova do `java-nfe` (seção 2), tirar do projeto as declarações de Jasper e barbecue que só a v1 usava (2.1), resolver conflitos de Thymeleaf e PDFBox (2.2) e rodar o teste rápido (2.3).
 2. Localizar no sistema todos os pontos que imprimem com a v1. Procure por `ImpressaoNfeUtil.`, `ImpressaoDTO` e `JasperNFeEnum`: NF-e, NFC-e e CC-e. Depois da atualização eles não compilam.
 3. Criar um serviço próprio, por exemplo `ImpressaoFiscalService`, que:
    - recebe o XML autorizado (String);
@@ -499,7 +496,7 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 
 | Sintoma | Causa provável |
 |---|---|
-| `NoClassDefFoundError` de `org.thymeleaf`, `com.openhtmltopdf` ou `com.google.zxing` | Dependência `provided` não declarada no projeto consumidor (seção 2.1) |
+| `NoClassDefFoundError` de `org.thymeleaf`, `com.openhtmltopdf` ou `com.google.zxing` | Dependência de impressão excluída no `pom.xml` do projeto consumidor, ou classpath montado à mão sem ela (seção 2.1) |
 | `ImpressaoNfeUtil`, `ImpressaoDTO` ou `JasperNFeEnum` não compila | A impressão Jasper foi removida; troque pela v2 (seção 4) |
 | `ClassNotFoundException: br.com.swconsultoria.nfe.impressao.v2...` | O projeto ainda aponta para a `4.2.0` (sem a v2) ou resolveu a dependência de outro repositório; confira a versão e o repositório Maven local (seção 2) |
 | `NoSuchMethodError` do Thymeleaf ou PDFBox | Conflito de versão (seção 2.2) |
