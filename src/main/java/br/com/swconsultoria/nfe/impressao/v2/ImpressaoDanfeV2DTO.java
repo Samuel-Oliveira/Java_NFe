@@ -12,25 +12,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Model responsavel por armazenar as informações da impressão do DANFE v2 (Thymeleaf).
- * A fonte de dados é sempre o XML da NF-e. Obtenha o padrão com {@link ImpressaoDanfeV2Util#impressaoPadraoNFe(String)}.
+ * Model responsavel por armazenar as informações da impressão (Thymeleaf): DANFE da NF-e, DANFE NFC-e e CC-e.
+ * A fonte de dados é sempre o XML. Obtenha o padrão com {@link ImpressaoDanfeV2Util#impressaoPadraoNFe(String)},
+ * {@link ImpressaoDanfeV2Util#impressaoPadraoNFCe(String)} ou {@link ImpressaoDanfeV2Util#impressaoPadraoCCe(String)}.
  * <p>
- * Customizações equivalentes às do layout Jasper ({@link br.com.swconsultoria.nfe.impressao.ImpressaoDTO}):
+ * Customizações:
  * <ul>
  *     <li>logo: {@link #setLogo(InputStream)} / {@link #setLogo(byte[])} / {@link #setLogoArquivo(String)};
  *     {@link #removerLogo()} imprime sem logo (setLogo(null) não compila por causa das sobrecargas)</li>
  *     <li>template: caminho de um arquivo .html Thymeleaf próprio no lugar do padrão</li>
  *     <li>parametros: valores livres disponíveis no template como ${parametros.nome}</li>
- *     <li>orientacao e exibirCanhoto</li>
+ *     <li>orientacao e exibirCanhoto (DANFE A4)</li>
+ *     <li>larguraPapelMm e viaEstabelecimento (DANFE em bobina: NFC-e e Simplificado Tipo 2)</li>
  * </ul>
  */
 public class ImpressaoDanfeV2DTO {
+
+    /** Largura padrão da bobina do DANFE NFC-e e do Simplificado Tipo 2, em mm. */
+    public static final int LARGURA_PAPEL_PADRAO_MM = 80;
+    /** Largura mínima do papel do DANFE em bobina (Ajuste SINIEF 19/16; NT 2026.003 item 3.3), em mm. */
+    public static final int LARGURA_PAPEL_MINIMA_MM = 56;
 
     private String xml;
     private byte[] logo;
     private String template;
     private OrientacaoDanfeEnum orientacao = OrientacaoDanfeEnum.AUTOMATICA;
     private boolean exibirCanhoto = true;
+    private int larguraPapelMm = LARGURA_PAPEL_PADRAO_MM;
+    private boolean viaEstabelecimento;
     private Map<String, Object> parametros;
 
     public String getXml() {
@@ -96,7 +105,9 @@ public class ImpressaoDanfeV2DTO {
     }
 
     /**
-     * Caminho de um template Thymeleaf (.html) próprio. Null usa o template padrão.
+     * Caminho de um template Thymeleaf próprio, terminado em .html, .htm ou .xhtml (sem extensão o nome só é
+     * procurado no classpath, entre os padrões). Null usa o template padrão do tipo de XML; um dos nomes padrão
+     * (ImpressaoDanfeV2Util.TEMPLATE_PADRAO, TEMPLATE_BOBINA, TEMPLATE_CCE) força aquele leiaute.
      * O template pode reaproveitar os fragmentos padrão: th:replace="~{fragmentos :: campo(...)}"
      */
     public void setTemplate(String template) {
@@ -117,6 +128,38 @@ public class ImpressaoDanfeV2DTO {
 
     public void setExibirCanhoto(boolean exibirCanhoto) {
         this.exibirCanhoto = exibirCanhoto;
+    }
+
+    public int getLarguraPapelMm() {
+        return larguraPapelMm;
+    }
+
+    /**
+     * Largura do papel (bobina) do DANFE NFC-e e do Simplificado Tipo 2, em mm: 80 (padrão), 58 etc. A altura da folha
+     * acompanha o conteúdo. Abaixo de 72 mm o QR Code sai centralizado; a partir daí, ao lado da identificação.
+     * Não se aplica ao DANFE A4.
+     *
+     * @throws DanfeException largura menor que {@value #LARGURA_PAPEL_MINIMA_MM} mm (NT 2026.003 item 3.3)
+     */
+    public void setLarguraPapelMm(int larguraPapelMm) {
+        if (larguraPapelMm < LARGURA_PAPEL_MINIMA_MM) {
+            throw new DanfeException("Largura do papel do DANFE em bobina menor que "
+                    + LARGURA_PAPEL_MINIMA_MM + " mm: " + larguraPapelMm);
+        }
+        this.larguraPapelMm = larguraPapelMm;
+    }
+
+    public boolean isViaEstabelecimento() {
+        return viaEstabelecimento;
+    }
+
+    /**
+     * DANFE em bobina (NFC-e ou Simplificado Tipo 2) em contingência: a segunda via, que fica no estabelecimento
+     * até a autorização da nota, sai com "Via do Estabelecimento" ao lado da data de emissão (NT 2026.003 item
+     * 3.1.9). Sem esta marca, a nota em contingência sai como "Via do Consumidor". Imprima as duas.
+     */
+    public void setViaEstabelecimento(boolean viaEstabelecimento) {
+        this.viaEstabelecimento = viaEstabelecimento;
     }
 
     public Map<String, Object> getParametros() {

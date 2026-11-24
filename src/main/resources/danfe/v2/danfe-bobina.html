@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--
+  DANFE em bobina, divisões I a IX, num template só para os dois documentos, que têm o mesmo leiaute:
+  - DANFE NFC-e (modelo 65): Manual de Especificações Técnicas do DANFE NFC-e e QR Code;
+  - DANFE Simplificado Tipo 2 (NF-e modelo 55 com tpImp=6): NT 2026.003, que reproduz o leiaute da NFC-e.
+  Mudam só o título da divisão I e o rótulo da divisão VII (danfe.nfce).
+  Bobina de largura ${larguraPapelMm} mm. A altura da folha acompanha o conteúdo: ImpressaoDanfeV2Util.htmlParaPdf
+  diagrama com a altura máxima e troca a altura do @page do <style id="pagina-bobina"> pela altura medida. Por isso a
+  margem da folha é 0 e o respiro fica no padding do body.
+  QR Code ao lado da identificação (figura 1A) a partir de 72 mm de papel; abaixo disso, centralizado (figura 1B).
+  O HTML precisa ser XHTML bem formado (tags fechadas) para o openhtmltopdf.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="(${danfe.nfce} ? 'DANFE NFC-e ' : 'DANFE Simplificado Tipo 2 ') + ${fmt.primeiro(danfe.chave, '')}">DANFE</title>
+    <style id="pagina-bobina" th:text="'@page { size: ' + ${larguraPapelMm} + 'mm ' + ${alturaPaginaMm} + 'mm; margin: 0; }'">@page { size: 80mm 5000mm; margin: 0; }</style>
+    <style>
+        html { margin: 0; padding: 0; }
+        /* NT 2026.003 item 3.3: margem lateral mínima de 2 mm */
+        body { font-family: Helvetica, Arial, sans-serif; font-size: 7pt; color: #000; margin: 0; padding: 2mm 3mm 3mm 3mm; }
+        body.estreito { font-size: 6pt; padding: 2mm 2.5mm 3mm 2.5mm; }
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        td, th { padding: 0; vertical-align: top; }
+        .negrito { font-weight: bold; }
+        .centro { text-align: center; }
+        .num { text-align: right; }
+        .divisao { margin-top: 1.5mm; }
+        .linha-pontilhada { border-top: 0.8pt dotted #000; margin: 1mm 0; }
+        .texto { white-space: pre-wrap; word-wrap: break-word; }
+        /* Números e datas não quebram no meio ("98.765.432/" + "0001-10"); a linha quebra nos espaços entre eles */
+        .nw { white-space: nowrap; }
+
+        /* Divisão I - cabeçalho, com o logo à esquerda (opcional) */
+        .logo { width: 14mm; padding-right: 1.5mm; vertical-align: middle; }
+        .logo img { max-width: 14mm; max-height: 14mm; }
+        .titulo { font-weight: bold; margin-top: 0.5mm; }
+
+        /* Contingência: em destaque, abaixo do cabeçalho entre linhas e abaixo da identificação (item 3.1.9) */
+        .contingencia { text-align: center; margin: 1.5mm 0; }
+        .contingencia.esquerda { text-align: left; }
+        .contingencia-faixa { border-top: 1.5pt solid #000; border-bottom: 1.5pt solid #000; padding: 0.8mm 0; }
+        .contingencia-titulo { font-size: 9pt; font-weight: bold; }
+        body.estreito .contingencia-titulo, .contingencia.esquerda .contingencia-titulo { font-size: 8pt; }
+
+        /* Divisão II - itens */
+        .itens th { font-weight: bold; text-align: left; padding-bottom: 0.3mm; }
+        .itens th.num { text-align: right; }
+        .itens td { padding: 0.2mm 0; word-wrap: break-word; }
+        .itens .c-desc { width: 49%; padding-right: 0.8mm; }
+        .itens .c-qtd { width: 19%; }
+        .itens .c-vun { width: 15%; }
+        .itens .c-vtot { width: 17%; }
+
+        /* Divisões III e III-A - totais, IBS/CBS e pagamento */
+        .totais td { padding: 0.1mm 0; }
+        .totais td.num { width: 35%; }
+        .tributos td.rotulo { padding-left: 20%; }
+
+        /* Divisão IV - consulta pela chave */
+        .chave { word-wrap: break-word; }
+        /* 44 dígitos e 10 espaços em Helvetica 5pt: 48 mm, cabem nos 53 mm úteis do papel de 58 mm */
+        body.estreito .chave { font-size: 5pt; }
+
+        /* Divisões V a VII - QR Code (25 mm no mínimo, com 10% de margem segura), consumidor e identificação */
+        .qr-lateral { width: 31mm; padding-right: 2mm; }
+        .qr-lateral img, .qr-centro img { width: 27mm; height: 27mm; padding: 1.5mm; }
+        .qr-centro { text-align: center; margin-top: 1mm; }
+        .identificacao div { margin-bottom: 0.6mm; }
+    </style>
+</head>
+<body th:classappend="${qrCodeLateral} ? '' : 'estreito'">
+
+<!-- Divisão I - Informações do cabeçalho -->
+<table>
+    <tr>
+        <td class="logo" th:if="${logo != null}"><img th:src="${logo}" alt="logo" /></td>
+        <td class="emitente">
+            <div>
+                <span th:text="${danfe.emit.CNPJ != null} ? 'CNPJ: ' + ${fmt.documento(danfe.emit.CNPJ)} : 'CPF: ' + ${fmt.documento(danfe.emit.CPF)}">CNPJ: 00.000.000/0000-00</span>
+                <span class="negrito" th:text="${danfe.emit.xNome}">RAZÃO SOCIAL DA EMPRESA</span>
+            </div>
+            <div th:text="${fmt.enderecoCompleto(danfe.emit)}">Rua, 100, Bairro, Cidade - UF, CEP 00000-000</div>
+            <div class="titulo" th:text="${danfe.nfce} ? 'Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica' : 'DANFE Simplificado Tipo 2'">DANFE Simplificado Tipo 2</div>
+        </td>
+    </tr>
+</table>
+
+<div class="contingencia contingencia-faixa" th:if="${danfe.contingenciaPendente}">
+    <div class="contingencia-titulo">EMITIDA EM CONTINGÊNCIA</div>
+    <div>Pendente de autorização</div>
+</div>
+
+<!-- Divisão II - Detalhes dos produtos/serviços -->
+<table class="itens divisao">
+    <thead>
+    <tr>
+        <th class="c-desc">Código Descrição</th>
+        <th class="c-qtd num">Qtde UN</th>
+        <th class="c-vun num">Vl Unit</th>
+        <th class="c-vtot num">Vl Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Código e descrição na mesma célula: um código longo (GTIN) não espreme a descrição numa coluna estreita -->
+    <tr th:each="item : ${danfe.itens}">
+        <td class="c-desc"><span class="nw" th:text="${item.cProd}">003277</span> <span th:text="${item.xProd}">PRODUTO</span></td>
+        <td class="c-qtd num" th:text="${fmt.quantidade(item.qCom)} + ' ' + ${fmt.primeiro(item.uCom, '')}">1,00 UN</td>
+        <td class="c-vun num" th:text="${fmt.valorUnitario(item.vUnCom)}">27,64</td>
+        <td class="c-vtot num" th:text="${fmt.valor(item.vProd)}">27,64</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Divisão III - Totais. Acréscimos e desconto só com valor; "Valor a Pagar" só se houver algum deles -->
+<table class="totais divisao">
+    <tr><td>Qtde. total de itens</td><td class="num" th:text="${#lists.size(danfe.itens)}">1</td></tr>
+    <tr><td>Valor total R$</td><td class="num" th:text="${fmt.valor(danfe.icmsTot.vProd)}">0,00</td></tr>
+    <tr th:if="${fmt.naoZero(danfe.icmsTot.vFrete)}"><td>Frete R$</td><td class="num" th:text="${fmt.valor(danfe.icmsTot.vFrete)}">0,00</td></tr>
+    <tr th:if="${fmt.naoZero(danfe.icmsTot.vSeg)}"><td>Seguro R$</td><td class="num" th:text="${fmt.valor(danfe.icmsTot.vSeg)}">0,00</td></tr>
+    <tr th:if="${fmt.naoZero(danfe.icmsTot.vOutro)}"><td>Outras despesas R$</td><td class="num" th:text="${fmt.valor(danfe.icmsTot.vOutro)}">0,00</td></tr>
+    <tr th:if="${fmt.naoZero(danfe.icmsTot.vDesc)}"><td>Desconto R$</td><td class="num" th:text="'-' + ${fmt.valor(danfe.icmsTot.vDesc)}">-0,00</td></tr>
+</table>
+
+<!-- Divisão III-A - Novos tributos (LC 214/2025), quando existirem; o IS só se houver -->
+<th:block th:if="${danfe.exibirIbsCbsIs}">
+    <div class="linha-pontilhada"></div>
+    <table class="totais tributos">
+        <tr><td class="rotulo">(+) CBS R$</td><td class="num" th:text="${fmt.valor(fmt.primeiro(danfe.cbsTotal, '0'))}">0,00</td></tr>
+        <tr><td class="rotulo">(+) IBS R$</td><td class="num" th:text="${fmt.valor(fmt.primeiro(danfe.ibsTotal, '0'))}">0,00</td></tr>
+        <tr th:if="${danfe.exibirLinhaIs}"><td class="rotulo">(+) IS R$</td><td class="num" th:text="${fmt.valor(danfe.isTot.vIS)}">0,00</td></tr>
+    </table>
+    <div class="linha-pontilhada"></div>
+</th:block>
+
+<table class="totais">
+    <tr class="negrito" th:if="${danfe.exibirAcrescimoDesconto}"><td>Valor a Pagar R$</td><td class="num" th:text="${fmt.valor(danfe.icmsTot.vNF)}">0,00</td></tr>
+</table>
+
+<!-- Forma de pagamento, valor pago e troco (obrigatório) -->
+<table class="totais divisao">
+    <tr><td>FORMA PAGAMENTO</td><td class="num">VALOR PAGO R$</td></tr>
+    <tr th:each="pagamento : ${danfe.pagamentos}">
+        <td th:text="${fmt.formaPagamento(pagamento.tPag, pagamento.xPag)}">Dinheiro</td>
+        <td class="num" th:text="${fmt.valor(pagamento.vPag)}">0,00</td>
+    </tr>
+    <tr><td>Troco R$</td><td class="num" th:text="${fmt.valor(fmt.primeiro(danfe.pag.vTroco, '0'))}">0,00</td></tr>
+</table>
+
+<!-- Divisão IV - Consulta pela chave de acesso (11 blocos de 4 dígitos) -->
+<div class="centro divisao">
+    <div class="negrito">Consulte pela Chave de Acesso em</div>
+    <div class="chave" th:text="${danfe.supl.urlChave}">www.sefaz.uf.gov.br/nfe/consulta</div>
+    <div class="chave" th:text="${fmt.chave(danfe.chave)}">0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000</div>
+</div>
+
+<!-- Divisões V (QR Code), VI (consumidor) e VII (identificação da NF-e e protocolo) -->
+<table class="divisao">
+    <tr>
+        <td class="qr-lateral" th:if="${qrCodeLateral and qrCode != null}"><img th:src="${qrCode}" alt="QR Code" /></td>
+        <td class="identificacao" th:classappend="${qrCodeLateral} ? '' : 'centro'">
+            <div>
+                <span class="negrito" th:text="${fmt.consumidor(danfe.dest)}">CONSUMIDOR NÃO IDENTIFICADO</span>
+                <span class="negrito nw" th:text="${fmt.documentoConsumidor(danfe.dest)}">00.000.000/0000-00</span>
+                <span th:if="${danfe.dest.xNome != null}" th:text="${danfe.dest.xNome}">Nome</span>
+                <th:block th:if="${danfe.dest.xLgr != null}"><br /><span th:text="${fmt.enderecoCompleto(danfe.dest)}">Endereço</span></th:block>
+            </div>
+            <div>
+                <span class="negrito" th:text="${danfe.nfce} ? 'NFC-e' : 'NF-e'">NF-e</span>
+                <span class="negrito nw" th:text="'nº ' + ${fmt.numeroNota(danfe.ide.nNF)}">nº 000.000.001</span>
+                <span class="negrito nw" th:text="'Série ' + ${fmt.serie(danfe.ide.serie)}">Série 001</span>
+                <span class="negrito nw" th:text="${fmt.dataHora(danfe.ide.dhEmi)}">01/01/2026 00:00:00</span>
+                <!-- Contingência: a segunda via fica no estabelecimento até a autorização; a via sai ao lado da data
+                     de emissão (item 3.1.9) e só desce de linha quando não cabe -->
+                <span class="negrito nw" th:if="${viaEstabelecimento}">- Via do Estabelecimento</span>
+                <span class="negrito nw" th:if="${!viaEstabelecimento and danfe.contingenciaPendente}">- Via do Consumidor</span>
+            </div>
+            <th:block th:if="${danfe.prot.nProt != null}">
+                <div><span class="negrito">Protocolo de autorização:</span> <span class="nw" th:text="${danfe.prot.nProt}">000000000000000</span></div>
+                <div><span class="negrito">Data de autorização</span> <span class="nw" th:text="${fmt.dataHora(danfe.prot.dhRecbto)}">01/01/2026 00:00:00</span></div>
+            </th:block>
+            <div class="contingencia" th:if="${danfe.contingenciaPendente}" th:classappend="${qrCodeLateral} ? 'esquerda'">
+                <div class="contingencia-titulo">EMITIDA EM CONTINGÊNCIA</div>
+                <div>Pendente de autorização</div>
+            </div>
+            <div class="qr-centro" th:if="${!qrCodeLateral and qrCode != null}"><img th:src="${qrCode}" alt="QR Code" /></div>
+        </td>
+    </tr>
+</table>
+
+<!-- Divisão VIII - Mensagem fiscal: ambiente de homologação, pré-visualização e infAdFisco -->
+<div class="centro divisao" th:if="${danfe.ambienteHomologacao or danfe.preVisualizacao or danfe.infAdic.infAdFisco != null}">
+    <div class="negrito" th:if="${danfe.ambienteHomologacao}">EMITIDA EM AMBIENTE DE HOMOLOGAÇÃO - SEM VALOR FISCAL</div>
+    <div class="negrito" th:if="${danfe.preVisualizacao}">PRÉ-VISUALIZAÇÃO - SEM VALOR FISCAL</div>
+    <div class="texto" th:if="${danfe.infAdic.infAdFisco != null}" th:text="${danfe.infAdic.infAdFisco}">mensagem fiscal</div>
+</div>
+
+<!-- Divisão IX - Mensagem de interesse do contribuinte: Lei 12.741/2012 (vTotTrib) e infCpl -->
+<div class="centro divisao" th:if="${danfe.exibirTributosTotais or danfe.infAdic.infCpl != null}">
+    <div th:if="${danfe.exibirTributosTotais}" th:text="'Tributos Totais Incidentes (Lei Federal 12.741/2012): R$ ' + ${fmt.valor(danfe.icmsTot.vTotTrib)}">Tributos Totais Incidentes</div>
+    <div class="texto" th:if="${danfe.infAdic.infCpl != null}" th:text="${danfe.infAdic.infCpl}">informações complementares</div>
+</div>
+
+</body>
+</html>

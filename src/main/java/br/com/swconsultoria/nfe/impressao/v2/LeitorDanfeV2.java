@@ -33,8 +33,10 @@ import java.util.Map;
  *     anteriormente), vIBSDiferenca, vCBSDiferenca (biocombustível), vTotIBSMonoItem, vTotCBSMonoItem</li>
  *     <li>ajuste de competência: competApur</li>
  * </ul>
- * Ficam disponíveis para templates próprios, embora o template padrão não os imprima: ibsCbsTot.vIBS
- * (soma de IBS UF e Município, já impressos separados) e supl.urlChave.
+ * Ficam disponíveis para templates próprios, embora o template padrão (A4) não os imprima: ibsCbsTot.vIBS
+ * (soma de IBS UF e Município, já impressos separados), supl.urlChave, pagamentos (pag/detPag: indPag, tPag,
+ * xPag, vPag), pag.vTroco e prot.cMsg/xMsg (o primeiro par). Os do pagamento, a urlChave e o vIBS saem no
+ * DANFE Simplificado Tipo 2.
  */
 public final class LeitorDanfeV2 {
 
@@ -59,7 +61,7 @@ public final class LeitorDanfeV2 {
         DanfeV2DTO danfe = new DanfeV2DTO();
 
         copia(xml, infNFe, danfe.getIde(), "ide/", "cUF", "natOp", "mod", "serie", "nNF", "dhEmi", "dhSaiEnt",
-                "tpNF", "tpImp", "tpEmis", "tpAmb", "finNFe", "verProc", "dhCont", "xJust");
+                "tpNF", "tpImp", "tpEmis", "tpAmb", "finNFe", "indPres", "verProc", "dhCont", "xJust");
 
         copia(xml, infNFe, danfe.getEmit(), "emit/", "CNPJ", "CPF", "xNome", "xFant", "IE", "IEST", "IM", "CRT",
                 "tpRegimeIBSCBS");
@@ -70,7 +72,8 @@ public final class LeitorDanfeV2 {
 
         Node infProt = xml.no("//protNFe/infProt");
         if (infProt != null) {
-            copia(xml, infProt, danfe.getProt(), "", "nProt", "dhRecbto", "chNFe", "cStat");
+            // cMsg/xMsg: o primeiro par do grupo PR13 (mensagem da SEFAZ ou alerta da NT 2026.002)
+            copia(xml, infProt, danfe.getProt(), "", "nProt", "dhRecbto", "chNFe", "cStat", "cMsg", "xMsg");
         }
         danfe.setChave(chave(xml, infNFe, danfe.getProt().get("chNFe")));
 
@@ -106,6 +109,13 @@ public final class LeitorDanfeV2 {
         copiaMapeado(xml, xml.getDocumento(), danfe.getSupl(),
                 "qrCode", "//infNFeSupl/qrCode",
                 "urlChave", "//infNFeSupl/urlChave");
+
+        for (Node detPag : xml.nos(infNFe, "pag/detPag")) {
+            Map<String, String> pagamento = new LinkedHashMap<>();
+            copia(xml, detPag, pagamento, "", "indPag", "tPag", "xPag", "vPag");
+            danfe.getPagamentos().add(pagamento);
+        }
+        copia(xml, infNFe, danfe.getPag(), "pag/", "vTroco");
 
         for (Node dup : xml.nos(infNFe, "cobr/dup")) {
             Map<String, String> duplicata = new LinkedHashMap<>();
@@ -181,7 +191,7 @@ public final class LeitorDanfeV2 {
         return id != null && id.startsWith("NFe") ? id.substring(3) : id;
     }
 
-    private static void copia(XmlDanfeV2 xml, Object contexto, Map<String, String> destino, String prefixo, String... tags) {
+    static void copia(XmlDanfeV2 xml, Object contexto, Map<String, String> destino, String prefixo, String... tags) {
         for (String tag : tags) {
             coloca(destino, tag, xml.valor(contexto, prefixo + tag));
         }
@@ -190,13 +200,13 @@ public final class LeitorDanfeV2 {
     /**
      * Pares chave, expressão XPath.
      */
-    private static void copiaMapeado(XmlDanfeV2 xml, Object contexto, Map<String, String> destino, String... chaveExpressao) {
+    static void copiaMapeado(XmlDanfeV2 xml, Object contexto, Map<String, String> destino, String... chaveExpressao) {
         for (int i = 0; i < chaveExpressao.length; i += 2) {
             coloca(destino, chaveExpressao[i], xml.valor(contexto, chaveExpressao[i + 1]));
         }
     }
 
-    private static void coloca(Map<String, String> destino, String chave, String valor) {
+    static void coloca(Map<String, String> destino, String chave, String valor) {
         if (valor != null && !valor.trim().isEmpty()) {
             destino.put(chave, valor);
         }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+  Carta de Correção eletrônica (evento 110110 da NF-e), em A4 retrato.
+  Variáveis: evento (EventoV2DTO), fmt, xml, logo, codigoBarras, parametros. Reaproveita o fragmento "campo".
+  O HTML precisa ser XHTML bem formado (tags fechadas) para o openhtmltopdf.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="'CC-e ' + ${fmt.primeiro(evento.chave, '')}">CC-e</title>
+    <style>
+        @page { size: A4 portrait; margin: 10mm; }
+        body { font-family: Helvetica, Arial, sans-serif; font-size: 8pt; color: #000; margin: 0; }
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        td { padding: 0.5mm 1mm; vertical-align: top; }
+
+        /* Blocos e campos: mesmas classes do DANFE A4, para o fragmento "campo" */
+        .bloco { border-top: 0.6pt solid #000; border-left: 0.6pt solid #000; }
+        .bloco td { border-right: 0.6pt solid #000; border-bottom: 0.6pt solid #000; overflow: hidden; }
+        .bloco table table td { border: 0; }
+        .rot { font-size: 5.5pt; color: #333; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
+        .val { font-size: 8pt; height: 3.6mm; white-space: nowrap; overflow: hidden; }
+        .titulo { font-size: 7pt; font-weight: bold; margin: 2mm 0 0.5mm 0; }
+
+        .identificacao { text-align: center; vertical-align: middle; }
+        .logo { float: left; width: 22mm; height: 22mm; text-align: center; }
+        .logo img { max-width: 22mm; max-height: 22mm; }
+        .cce-sigla { font-size: 20pt; font-weight: bold; }
+        .cce-nome { font-size: 10pt; font-weight: bold; }
+        .cce-sub { font-size: 6.5pt; margin-top: 1mm; }
+        .barras { height: 12mm; padding: 1.5mm 2mm 0.5mm 2mm; text-align: center; border-bottom: 0.6pt solid #000; }
+        .barras img { width: 100%; height: 11mm; }
+        .chave-numero { font-weight: bold; text-align: center; font-size: 8.5pt; }
+        .consulta { font-size: 6pt; text-align: center; padding: 1mm; }
+
+        .texto { white-space: pre-wrap; word-wrap: break-word; font-size: 9pt; line-height: 1.35; }
+        .correcao td { height: 90mm; }
+        .condicoes .texto { font-size: 7.5pt; }
+
+        .marca-dagua { position: fixed; z-index: -1; top: 120mm; left: 0; width: 100%; text-align: center; font-size: 42pt; font-weight: bold; color: #e3e3e3; transform: rotate(-30deg); }
+    </style>
+</head>
+<body>
+
+<div class="marca-dagua" th:if="${evento.homologacao}">SEM VALOR FISCAL</div>
+
+<!-- Identificação do evento e chave de acesso da NF-e corrigida -->
+<div class="bloco">
+    <table>
+        <tr>
+            <td class="identificacao" style="width:52%">
+                <div class="logo" th:if="${logo != null}"><img th:src="${logo}" alt="logo" /></div>
+                <div class="cce-sigla">CC-e</div>
+                <div class="cce-nome">CARTA DE CORREÇÃO ELETRÔNICA</div>
+                <div class="cce-sub" th:text="'NF-e nº ' + ${fmt.numeroNota(evento.numero)} + ' - SÉRIE ' + ${fmt.serie(evento.serie)}">NF-e nº 000.000.001 - SÉRIE 001</div>
+            </td>
+            <td style="width:48%; padding:0">
+                <div class="barras"><img th:if="${codigoBarras != null}" th:src="${codigoBarras}" alt="código de barras" /></div>
+                <div style="padding:0.5mm 1mm; border-bottom:0.6pt solid #000">
+                    <div class="rot">CHAVE DE ACESSO DA NF-e</div>
+                    <div class="val chave-numero" th:text="${fmt.chave(evento.chave)}">0000 0000</div>
+                </div>
+                <div class="consulta">Consulte a autenticidade no portal nacional da NF-e www.nfe.fazenda.gov.br/portal ou no site da SEFAZ autorizadora</div>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td th:replace="~{fragmentos :: campo('CNPJ / CPF DO EMITENTE', ${fmt.documento(fmt.primeiro(evento.evento.CNPJ, evento.evento.CPF))}, '28%')}"></td>
+            <td th:replace="~{fragmentos :: campo('CNPJ / CPF DO DESTINATÁRIO', ${fmt.documento(fmt.primeiro(evento.retEvento.CNPJDest, evento.retEvento.CPFDest))}, '28%')}"></td>
+            <td th:replace="~{fragmentos :: campo('DATA E HORA DO EVENTO', ${fmt.dataHora(evento.evento.dhEvento)}, '24%')}"></td>
+            <td th:replace="~{fragmentos :: campo('SEQUÊNCIA DA CORREÇÃO', ${evento.evento.nSeqEvento}, '20%')}"></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td th:replace="~{fragmentos :: campo('PROTOCOLO DE REGISTRO DO EVENTO', ${evento.retEvento.nProt}, '28%')}"></td>
+            <td th:replace="~{fragmentos :: campo('DATA E HORA DO REGISTRO', ${fmt.dataHora(evento.retEvento.dhRegEvento)}, '28%')}"></td>
+            <td th:replace="~{fragmentos :: campo('SITUAÇÃO', ${evento.retEvento.cStat != null} ? ${evento.retEvento.cStat} + ' - ' + ${fmt.primeiro(evento.retEvento.xMotivo, '')} : '', '44%')}"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- Texto da correção (detEvento/xCorrecao) -->
+<div class="titulo">CORREÇÃO</div>
+<div class="bloco correcao">
+    <table><tr><td><div class="texto" th:text="${evento.detEvento.xCorrecao}">correção</div></td></tr></table>
+</div>
+
+<!-- Condições de uso (detEvento/xCondUso, texto fixo do schema) -->
+<div class="titulo">CONDIÇÕES DE USO</div>
+<div class="bloco condicoes">
+    <table><tr><td><div class="texto" th:text="${evento.detEvento.xCondUso}">condições de uso</div></td></tr></table>
+</div>
+
+</body>
+</html>

@@ -24,7 +24,7 @@ mvn test --no-transfer-progress "-Dtest=NomeDaClasseTest"
 
 - Nunca execute uma classe `*Teste` (`main`) sem pedido explícito, e confira o `AmbienteEnum` antes.
 - Apontam para PRODUCAO: `ConsultaTributacaoTeste`, `EConfTeste` (GO) e `StatusServicoTeste` (MG).
-- Escolhem o ambiente por `-Dambiente` (padrão HOMOLOGACAO): `CancelarTeste`, `EnvioNfceIbsCbsProducaoTeste` e `EnvioNfceSimplesNacionalTeste`. Em PRODUCAO, os dois últimos AUTORIZAM nota fiscal de verdade.
+- Escolhem o ambiente por `-Dambiente` (padrão HOMOLOGACAO): `CancelarTeste`, `EnvioNfceIbsCbsProducaoTeste`, `EnvioNfceSimplesNacionalTeste` e `EnvioNfeDanfeSimplificadoTipo2Teste`. Em PRODUCAO, os três últimos AUTORIZAM nota fiscal de verdade.
 - Os demais de `exemplos/` usam HOMOLOGACAO. Ainda assim não os rode sem necessidade.
 - Série 890 em GO devolve rejeição 999 em qualquer ambiente; para teste, use número alto com série baixa.
 

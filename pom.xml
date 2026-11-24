@@ -43,8 +43,6 @@
         <junit-jupiter.version>5.13.3</junit-jupiter.version>
         <lombok.version>1.18.38</lombok.version>
         <jackson.version>2.14.1</jackson.version>
-        <jasper.version>6.20.6</jasper.version>
-        <barbecue.version>1.5-beta1</barbecue.version>
         <zxing.version>3.2.1</zxing.version>
         <thymeleaf.version>3.1.2.RELEASE</thymeleaf.version>
         <openhtmltopdf.version>1.0.10</openhtmltopdf.version>
@@ -185,48 +183,34 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>net.sf.jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
-            <version>${jasper.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.jasperreports</groupId>
-            <artifactId>jasperreports-fonts</artifactId>
-            <version>${jasper.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.barbecue</groupId>
-            <artifactId>barbecue</artifactId>
-            <version>${barbecue.version}</version>
-            <scope>provided</scope>
-        </dependency>
+        <!-- Impressão (impressao.v2): template Thymeleaf -> HTML -> PDF, com código de barras e QR Code do zxing.
+             Vêm por transitividade para o projeto consumidor; quem só transmite e não quer o peso pode excluí-las -->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>${zxing.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
             <version>${zxing.version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <!-- Só a linha de comando do zxing usa; a geração de imagem (MatrixToImageWriter) não -->
+                <exclusion>
+                    <groupId>com.beust</groupId>
+                    <artifactId>jcommander</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!-- DANFE v2 (impressao.v2): template Thymeleaf -> HTML -> PDF. Como as do Jasper, ficam a cargo do projeto consumidor -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
             <version>${thymeleaf.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.openhtmltopdf</groupId>
             <artifactId>openhtmltopdf-pdfbox</artifactId>
             <version>${openhtmltopdf.version}</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

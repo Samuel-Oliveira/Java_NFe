@@ -30,6 +30,8 @@ public class DanfeV2DTO {
     private final Map<String, String> transp = new LinkedHashMap<>();
     private final Map<String, String> infAdic = new LinkedHashMap<>();
     private final Map<String, String> supl = new LinkedHashMap<>();
+    private final Map<String, String> pag = new LinkedHashMap<>();
+    private final List<Map<String, String>> pagamentos = new ArrayList<>();
     private final List<Map<String, String>> duplicatas = new ArrayList<>();
     private final List<Map<String, String>> itens = new ArrayList<>();
 
@@ -83,6 +85,16 @@ public class DanfeV2DTO {
 
     public Map<String, String> getSupl() {
         return supl;
+    }
+
+    /** Grupo pag fora do detPag: vTroco. */
+    public Map<String, String> getPag() {
+        return pag;
+    }
+
+    /** Formas de pagamento (pag/detPag), na ordem do XML. */
+    public List<Map<String, String>> getPagamentos() {
+        return pagamentos;
     }
 
     public List<Map<String, String>> getDuplicatas() {
@@ -167,6 +179,86 @@ public class DanfeV2DTO {
 
     public boolean isExibirQrCode() {
         return supl.get("qrCode") != null;
+    }
+
+    /** tpImp = 6 (DANFE Simplificado Tipo 2, NT 2026.003). */
+    public boolean isSimplificadoTipo2() {
+        return "6".equals(ide.get("tpImp"));
+    }
+
+    /** mod = 65 (NFC-e). */
+    public boolean isNfce() {
+        return "65".equals(ide.get("mod"));
+    }
+
+    /** DANFE em bobina: o da NFC-e ou o Simplificado Tipo 2 da NF-e. */
+    public boolean isBobina() {
+        return isNfce() || isSimplificadoTipo2();
+    }
+
+    /** tpAmb = 2. Diferente de {@link #isHomologacao()}, não considera a falta de protocolo. */
+    public boolean isAmbienteHomologacao() {
+        return "2".equals(ide.get("tpAmb"));
+    }
+
+    /**
+     * Emitida em contingência e ainda sem protocolo de autorização: tpEmis diferente de 1 (normal) e das SEFAZ
+     * virtuais (6 e 7, que autorizam on-line). Depois de autorizada (nfeProc com protocolo), deixa de ser pendente.
+     */
+    public boolean isContingenciaPendente() {
+        String tpEmis = ide.get("tpEmis");
+        return tpEmis != null && !"1".equals(tpEmis) && !"6".equals(tpEmis) && !"7".equals(tpEmis)
+                && prot.get("nProt") == null;
+    }
+
+    /** Produção, emissão normal e sem protocolo: pré-visualização, sem valor fiscal. */
+    public boolean isPreVisualizacao() {
+        return !isAmbienteHomologacao() && !isContingenciaPendente() && prot.get("nProt") == null;
+    }
+
+    /** Linhas de frete, seguro, outras despesas e desconto do DANFE Simplificado Tipo 2: só com algum valor. */
+    public boolean isExibirAcrescimoDesconto() {
+        return algumDiferenteDeZero(icmsTot, "vFrete", "vSeg", "vOutro", "vDesc");
+    }
+
+    /** Linha do Imposto Seletivo no DANFE Simplificado Tipo 2: só se houver IS (NT 2026.003 item 3.1.4). */
+    public boolean isExibirLinhaIs() {
+        return algumDiferenteDeZero(isTot, "vIS");
+    }
+
+    /** Tributos totais incidentes (Lei 12.741/2012), do ICMSTot/vTotTrib: só com valor. */
+    public boolean isExibirTributosTotais() {
+        return algumDiferenteDeZero(icmsTot, "vTotTrib");
+    }
+
+    /**
+     * CBS da nota para o "(+) CBS R$" do DANFE Simplificado Tipo 2: gCBS/vCBS mais a CBS monofásica (gMono/vCBSMono),
+     * como texto do XML (ponto decimal). Null quando a nota não tem nenhum dos dois.
+     */
+    public String getCbsTotal() {
+        return soma(ibsCbsTot, "vCBS", "vCBSMono");
+    }
+
+    /** IBS da nota (UF e Município) para o "(+) IBS R$": gIBS/vIBS mais o IBS monofásico (gMono/vIBSMono). */
+    public String getIbsTotal() {
+        return soma(ibsCbsTot, "vIBS", "vIBSMono");
+    }
+
+    private static String soma(Map<String, String> mapa, String... chaves) {
+        BigDecimal total = null;
+        for (String c : chaves) {
+            String valor = mapa.get(c);
+            if (valor == null) {
+                continue;
+            }
+            try {
+                BigDecimal parcela = new BigDecimal(valor.trim());
+                total = total == null ? parcela : total.add(parcela);
+            } catch (NumberFormatException e) {
+                return valor;
+            }
+        }
+        return total == null ? null : total.toPlainString();
     }
 
     /** Alguma das chaves tem valor diferente de zero (valor não numérico conta como presente). */

@@ -1,3 +1,38 @@
+# Guia de migração — impressão Jasper → Thymeleaf
+
+A versão seguinte à `4.3.1` **remove a impressão Jasper**: `ImpressaoNfeUtil`, `ImpressaoDTO`, `JasperNFeEnum`, os
+`.jrxml`/`.jasper` e as dependências `jasperreports`, `jasperreports-fonts` e `barbecue`. A impressão oficial é a do
+pacote `br.com.swconsultoria.nfe.impressao.v2` (Thymeleaf → PDF), que já cobre os três documentos da v1:
+
+| Antes (Jasper) | Depois (v2) |
+|---|---|
+| `ImpressaoNfeUtil.impressaoPadraoNFe(xml)` | `ImpressaoDanfeV2Util.impressaoPadraoNFe(xml)` |
+| `ImpressaoNfeUtil.impressaoPadraoNFCe(xml, urlConsulta)` | `ImpressaoDanfeV2Util.impressaoPadraoNFCe(xml)` (a URL vem do `infNFeSupl/urlChave`) |
+| `ImpressaoNfeUtil.impressaoPadraoCCe(xml)` | `ImpressaoDanfeV2Util.impressaoPadraoCCe(xml)` |
+| `ImpressaoDTO` | `ImpressaoDanfeV2DTO` |
+| `ImpressaoNfeUtil.geraImpressao(impressao)` (devolvia `JasperPrint`) e `carregaJasperResources(caminho)` | não existem: use `gerarHtml` (HTML) ou `impressaoPdfByte` (PDF) |
+| `ImpressaoNfeUtil.impressaoPdfArquivo / impressaoPdfByte / impressaoHtml / impressaoDireta` | os métodos de mesmo nome em `ImpressaoDanfeV2Util` |
+| `impressaoPreview` (`JasperViewer`) | não existe: gere o PDF e abra num visualizador |
+| `impressaoDireta(..., SimplePrintServiceExporterConfiguration)` | não existe: gere o PDF e imprima com PDFBox/`PrinterJob` |
+| `setJasper(...)` / `setPathExpression(...)` | `setTemplate("caminho/meu-template.html")` (o caminho precisa terminar em `.html`, `.htm` ou `.xhtml`); um `.jasper` próprio precisa ser refeito em Thymeleaf |
+| `getParametros().put("Logo", stream)` | `setLogo(stream)` |
+| `throws JRException, ...` | `DanfeException` (unchecked) |
+
+Quem já usa a v2 também tem duas mudanças:
+
+- uma NF-e com `tpImp=6`, que saía no DANFE A4, passa a sair no DANFE Simplificado Tipo 2 em bobina pela mesma
+  `impressaoPadraoNFe`; para manter o A4, `setTemplate(ImpressaoDanfeV2Util.TEMPLATE_PADRAO)`;
+- `setTemplate` com um caminho sem extensão `.html`, `.htm` ou `.xhtml` deixa de ser procurado no disco.
+
+As dependências de impressão (`thymeleaf`, `openhtmltopdf-pdfbox`, `zxing core` e `zxing javase`) deixam de ser
+`provided` e vêm por transitividade com o `java-nfe`: o `pom.xml` do projeto consumidor não precisa declará-las, e
+`jasperreports`, `jasperreports-fonts` e `barbecue` podem sair. Quem não imprime e não quer o peso pode excluí-las
+([docs/MANUAL-DANFE-V2.md](docs/MANUAL-DANFE-V2.md), seção 2.1). Quem depende de um `.jasper` próprio pode ficar na
+`4.3.1` até refazer o leiaute. O manual traz os leiautes (DANFE A4, DANFE em bobina da NFC-e e do Simplificado Tipo
+2, CC-e), a personalização e os testes de aceitação.
+
+---
+
 # Guia de migração — v4.00.* → v4.1.*
 
 > 💡 **Resumo rápido:** rode `pwsh scripts/migrate.ps1 -ProjectRoot . -BumpPom` (ou o equivalente bash) no seu projeto consumidor da lib, depois `mvn test-compile`. Os detalhes abaixo cobrem o que muda e o que o script não consegue migrar automaticamente.

@@ -6,7 +6,8 @@ import br.com.swconsultoria.nfe.impressao.v2.OrientacaoDanfeEnum;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 
 /**
- * DANFE v2 (Thymeleaf, leiaute NT 2026.010 - IBS/CBS/IS). Só NF-e modelo 55; a v1 (Jasper) continua em {@link TesteImpressaoNFe}.
+ * DANFE v2 da NF-e (Thymeleaf, leiaute NT 2026.010 - IBS/CBS/IS). NFC-e e CC-e: {@link TesteImpressaoNFCe} e
+ * {@link TesteImpressaoCCe}; DANFE Simplificado Tipo 2: {@link TesteImpressaoDanfeSimplificadoTipo2}.
  */
 public class TesteImpressaoDanfeV2 {
 

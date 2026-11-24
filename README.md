@@ -40,6 +40,11 @@ dependencies {
 
 Veja a Wiki https://github.com/Samuel-Oliveira/Java_NFe/wiki, para ter um Tutorial Completo.
 
+- Impressão (DANFE NF-e, DANFE NFC-e, DANFE Simplificado Tipo 2 e CC-e): Thymeleaf → PDF, pelo
+  `ImpressaoDanfeV2Util`. As bibliotecas de impressão (`thymeleaf`, `openhtmltopdf-pdfbox` e `zxing`) vêm junto
+  com o `java-nfe`, sem declarar nada. Manual em [docs/MANUAL-DANFE-V2.md](docs/MANUAL-DANFE-V2.md).
+  A impressão Jasper foi removida depois da 4.3.1: veja o [MIGRATION.md](MIGRATION.md).
+
 ________________________________________________________________________________________________
 
 ## ⚠️ Atualizando de v4.00.x para v4.1.*?
