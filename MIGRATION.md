@@ -1,3 +1,30 @@
+# Guia de migração — impressão Jasper → Thymeleaf
+
+A versão seguinte à `4.3.1` **remove a impressão Jasper**: `ImpressaoNfeUtil`, `ImpressaoDTO`, `JasperNFeEnum`, os
+`.jrxml`/`.jasper` e as dependências `jasperreports`, `jasperreports-fonts` e `barbecue`. A impressão oficial é a do
+pacote `br.com.swconsultoria.nfe.impressao.v2` (Thymeleaf → PDF), que já cobre os três documentos da v1:
+
+| Antes (Jasper) | Depois (v2) |
+|---|---|
+| `ImpressaoNfeUtil.impressaoPadraoNFe(xml)` | `ImpressaoDanfeV2Util.impressaoPadraoNFe(xml)` |
+| `ImpressaoNfeUtil.impressaoPadraoNFCe(xml, urlConsulta)` | `ImpressaoDanfeV2Util.impressaoPadraoNFCe(xml)` (a URL vem do `infNFeSupl/urlChave`) |
+| `ImpressaoNfeUtil.impressaoPadraoCCe(xml)` | `ImpressaoDanfeV2Util.impressaoPadraoCCe(xml)` |
+| `ImpressaoDTO` | `ImpressaoDanfeV2DTO` |
+| `ImpressaoNfeUtil.impressaoPdfArquivo / impressaoPdfByte / impressaoHtml / impressaoDireta` | os métodos de mesmo nome em `ImpressaoDanfeV2Util` |
+| `impressaoPreview` (`JasperViewer`) | não existe: gere o PDF e abra num visualizador |
+| `impressaoDireta(..., SimplePrintServiceExporterConfiguration)` | não existe: gere o PDF e imprima com PDFBox/`PrinterJob` |
+| `setJasper(...)` / `setPathExpression(...)` | `setTemplate("caminho/meu-template.html")`; um `.jasper` próprio precisa ser refeito em Thymeleaf |
+| `getParametros().put("Logo", stream)` | `setLogo(stream)` |
+| `throws JRException, ...` | `DanfeException` (unchecked) |
+
+No `pom.xml` do projeto consumidor, as dependências de impressão passam a ser `thymeleaf`, `openhtmltopdf-pdfbox`,
+`zxing core` e `zxing javase` (versões em [docs/MANUAL-DANFE-V2.md](docs/MANUAL-DANFE-V2.md), seção 2.1);
+`jasperreports`, `jasperreports-fonts` e `barbecue` podem sair. Quem depende de um `.jasper` próprio pode ficar na
+`4.3.1` até refazer o leiaute. O manual traz os leiautes (DANFE A4, DANFE em bobina da NFC-e e do Simplificado Tipo
+2, CC-e), a personalização e os testes de aceitação.
+
+---
+
 # Guia de migração — v4.00.* → v4.1.*
 
 > 💡 **Resumo rápido:** rode `pwsh scripts/migrate.ps1 -ProjectRoot . -BumpPom` (ou o equivalente bash) no seu projeto consumidor da lib, depois `mvn test-compile`. Os detalhes abaixo cobrem o que muda e o que o script não consegue migrar automaticamente.

@@ -1,5 +1,49 @@
 # Notas de versão
 
+### Impressao: Jasper removido, Thymeleaf passa a ser a impressao oficial
+
+- **Quebra de compatibilidade.** Saem `ImpressaoNfeUtil`, `ImpressaoDTO`, `JasperNFeEnum`, os
+  `.jrxml`/`.jasper` (DANFE da NF-e e sua fatura, DANFE NFC-e e CC-e) e as dependencias
+  `jasperreports`, `jasperreports-fonts` e `barbecue`. De `ConstantesImpressaoNfeUtil` ficam so
+  `PATH_LOGO_NFE` e `PATH_LOGO_NFCE`. Troca de cada chamada no `MIGRATION.md`; quem tem `.jasper`
+  proprio pode ficar na 4.3.1 ate refazer o leiaute.
+- **DANFE NFC-e** em Thymeleaf: `ImpressaoDanfeV2Util.impressaoPadraoNFCe(xml)`, em bobina, pelo
+  mesmo template do DANFE Simplificado Tipo 2 (`danfe-bobina.html`, `TEMPLATE_BOBINA`), que reproduz
+  o leiaute da NFC-e. Mudam o titulo da divisao I e o rotulo "NFC-e". A URL de consulta vem do
+  `infNFeSupl/urlChave`; a v1 a recebia por parametro.
+- **CC-e** em Thymeleaf: `ImpressaoDanfeV2Util.impressaoPadraoCCe(xml)`, em A4 (`cce.html`,
+  `TEMPLATE_CCE`), com o leitor novo `LeitorEventoV2` / `EventoV2DTO`. Imprime tambem o destinatario,
+  a data de registro e a situacao do evento, e a chave inteira (o Jasper cortava o ultimo bloco).
+  Outros eventos saem com template proprio.
+- O `gerarHtml` escolhe o template pelo XML: NF-e no A4 (bobina com `tpImp=6`), NFC-e na bobina,
+  evento 110110 na CC-e.
+- Codigo de barras da chave pelo zxing (`Code128Writer`, conjunto C, 277 modulos), no lugar do
+  barbecue.
+
+### DANFE Simplificado Tipo 2 (NT 2026.003)
+
+- A NF-e com `tpImp=6` (Ajuste SINIEF 13/26, NF-e no lugar da NFC-e) passa a sair no
+  **DANFE Simplificado Tipo 2**, um cupom em bobina, pelo mesmo `ImpressaoDanfeV2Util`:
+  `impressaoPadraoNFe` escolhe o template de bobina (`danfe-bobina.html`) pelo `tpImp`.
+  Antes, a nota com `tpImp=6` saia no DANFE A4; para manter o A4, informe
+  `setTemplate(ImpressaoDanfeV2Util.TEMPLATE_PADRAO)`.
+- Divisoes I a IX da NT: cabecalho, itens, totais (acrescimos e desconto so com valor),
+  "(+) CBS / IBS / IS", forma de pagamento e troco, consulta pela chave, QR Code ao lado
+  (papel de 72 mm ou mais) ou centralizado, consumidor, identificacao e protocolo, mensagem
+  fiscal e Lei 12.741/2012. Em contingencia sem protocolo, "EMITIDA EM CONTINGENCIA /
+  Pendente de autorizacao" nos dois lugares exigidos e "Via do Consumidor" ou, com o novo
+  `setViaEstabelecimento(true)`, "Via do Estabelecimento".
+- O PDF sai numa folha so, da largura do papel (`setLarguraPapelMm`, padrao 80, minimo 56) e
+  da altura do conteudo: `htmlParaPdf` mede o documento e diagrama de novo quando o template
+  traz o `<style id="pagina-bobina">`.
+- `DanfeV2DTO` ganha `pagamentos` (`pag/detPag`), `pag` (`vTroco`), `ide.indPres`,
+  `prot.cMsg`/`xMsg` e os metodos de decisao do leiaute novo; `FormatadorDanfeV2` ganha
+  `formaPagamento`, `consumidor`, `enderecoCompleto` e `naoZero`.
+- Exemplo `EnvioNfeDanfeSimplificadoTipo2Teste`, que mede na SEFAZ a NF-e com `tpImp=6`. Em
+  GO homologacao (23/11/2026) ela e autorizada, inclusive em contingencia off-line
+  (`tpEmis=9`), e as regras da NT 2026.002 estao ligadas (394, 716, 711), mas o destinatario
+  continua obrigatorio (719).
+
 ### Correcoes do DANFE v2
 
 - **Modalidade do frete:** o quadro de transporte passa a sair sempre que o XML traz

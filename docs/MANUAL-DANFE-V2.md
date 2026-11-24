@@ -1,7 +1,10 @@
-# Manual de integração — DANFE v2 (java-nfe 4.3.*)
+# Manual de integração — impressão v2 (DANFE NF-e, DANFE NFC-e e CC-e)
 
-Guia para implementar o novo DANFE da NF-e (modelo 55) num sistema que usa a biblioteca `java-nfe`.
-O DANFE v2 segue a **NT 2026.010 — DANFE Reforma Tributária (IBS/CBS/IS)**, que entra em produção em **01/12/2026**.
+Guia para implementar a impressão da biblioteca `java-nfe` num sistema: o DANFE da NF-e (modelo 55), o DANFE NFC-e
+(modelo 65) e a Carta de Correção eletrônica. O DANFE da NF-e segue a **NT 2026.010 — DANFE Reforma Tributária
+(IBS/CBS/IS)**, em produção desde **01/12/2026**.
+
+> **A impressão Jasper (v1) foi removida** na versão seguinte à `4.3.1`: `ImpressaoNfeUtil`, `ImpressaoDTO`, `JasperNFeEnum`, os `.jrxml`/`.jasper` e as dependências `jasperreports` e `barbecue`. A v2 é a impressão oficial. A seção 4 e o [MIGRATION.md](../MIGRATION.md) mostram a troca.
 
 > Leia o documento inteiro antes de começar. A seção 9 traz um checklist de implementação e a seção 10 os testes de aceitação.
 
@@ -9,17 +12,18 @@ O DANFE v2 segue a **NT 2026.010 — DANFE Reforma Tributária (IBS/CBS/IS)**, q
 
 ## 1. O que mudou em relação à v1
 
-| | v1 (atual) | v2 (nova) |
+| | v1 (removida) | v2 (oficial) |
 |---|---|---|
 | Motor | JasperReports (`.jrxml`/`.jasper`) | Thymeleaf (HTML/CSS) → PDF via openhtmltopdf |
-| Documentos | NF-e, NFC-e, CC-e | **Somente NF-e modelo 55** |
-| Leiaute NF-e | Antigo (sem IBS/CBS/IS) | NT 2026.010: retrato e paisagem |
+| Documentos | NF-e, NFC-e, CC-e | NF-e, NFC-e, CC-e |
+| Leiaute NF-e | Antigo (sem IBS/CBS/IS) | NT 2026.010: retrato e paisagem; NT 2026.003: DANFE Simplificado Tipo 2 em bobina (`tpImp=6`, seção 7.4) |
+| Leiaute NFC-e | Bobina de 72 mm | Bobina de 80 mm (ou outra largura), no mesmo template do Simplificado Tipo 2 (seção 7.5) |
 | Fonte de dados | XML | XML (sempre; não existe montagem manual de objeto) |
 | Pacote | `br.com.swconsultoria.nfe.impressao` | `br.com.swconsultoria.nfe.impressao.v2` |
 | Classes | `ImpressaoNfeUtil` + `ImpressaoDTO` | `ImpressaoDanfeV2Util` + `ImpressaoDanfeV2DTO` |
 | Exceções | Checked (`JRException`, `IOException`...) | `DanfeException` (RuntimeException) |
 
-As duas versões **convivem no mesmo jar**. NFC-e e CC-e continuam usando a API v1 (Jasper). Só o DANFE da NF-e deve migrar para a v2. Todo o resto do `java-nfe` (envio, consultas, eventos, `IbsCbsUtil`...) é o mesmo da `4.2.0`.
+Todo o resto do `java-nfe` (envio, consultas, eventos, `IbsCbsUtil`...) não muda.
 
 ---
 
@@ -50,7 +54,7 @@ Isso instala `java-nfe-4.3.0.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom` no 
 
 ### 2.1 Dependências que o projeto consumidor precisa declarar
 
-Como já acontece com o Jasper do DANFE v1, as bibliotecas de impressão são `provided` no `java-nfe`: **não vêm por transitividade**. Para a v2 declare no projeto consumidor:
+As bibliotecas de impressão são `provided` no `java-nfe`: **não vêm por transitividade**, e um sistema que só transmite notas não precisa delas. Para imprimir, declare no projeto consumidor:
 
 ```xml
 <dependency>
@@ -63,12 +67,7 @@ Como já acontece com o Jasper do DANFE v1, as bibliotecas de impressão são `p
     <artifactId>openhtmltopdf-pdfbox</artifactId>
     <version>1.0.10</version>
 </dependency>
-<!-- código de barras e QR Code: as mesmas que o DANFE v1 já exige -->
-<dependency>
-    <groupId>net.sourceforge.barbecue</groupId>
-    <artifactId>barbecue</artifactId>
-    <version>1.5-beta1</version>
-</dependency>
+<!-- código de barras e QR Code -->
 <dependency>
     <groupId>com.google.zxing</groupId>
     <artifactId>core</artifactId>
@@ -81,7 +80,7 @@ Como já acontece com o Jasper do DANFE v1, as bibliotecas de impressão são `p
 </dependency>
 ```
 
-No Gradle são as mesmas coordenadas com `implementation`. Se o DANFE v1 (Jasper) continuar em uso no mesmo sistema, mantenha também `jasperreports` e `jasperreports-fonts`.
+No Gradle são as mesmas coordenadas com `implementation`. `jasperreports`, `jasperreports-fonts` e `barbecue`, que a v1 exigia, podem sair do projeto se nada mais nele as usar.
 
 ### 2.2 Requisitos e conflitos possíveis
 
@@ -141,6 +140,8 @@ import br.com.swconsultoria.nfe.impressao.v2.ImpressaoDanfeV2Util;
 String xml = /* XML autorizado (nfeProc) como String */;
 
 ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoNFe(xml);   // logo padrão, orientação pelo tpImp, com canhoto
+// ou: ImpressaoDanfeV2Util.impressaoPadraoNFCe(xmlNfce)                          // DANFE NFC-e em bobina, logo da NFC-e (seção 7.5)
+// ou: ImpressaoDanfeV2Util.impressaoPadraoCCe(xmlProcEvento)                     // Carta de Correção em A4, sem logo (seção 7.6)
 
 byte[] pdf = ImpressaoDanfeV2Util.impressaoPdfByte(impressao);                 // PDF em memória
 ImpressaoDanfeV2Util.impressaoPdfArquivo(impressao, "danfe.pdf");              // PDF em arquivo
@@ -150,22 +151,28 @@ ImpressaoDanfeV2Util.impressaoDireta(impressao);                               /
 ImpressaoDanfeV2Util.impressaoDireta(impressao, printService);                 // impressora específica (javax.print.PrintService)
 ```
 
-**XML aceito:** `nfeProc` (com `protNFe`) ou `NFe` sem protocolo. Neste caso a chave vem do `infNFe/@Id` e o protocolo sai em branco. O XML deve vir como String já decodificada (`XmlNfeUtil.leXml` serve; o BOM de arquivos UTF-8 é descartado). Se você lê arquivos de outro jeito, use o charset correto (normalmente UTF-8).
+**XML aceito:** `nfeProc` (com `protNFe`) ou `NFe` sem protocolo. Neste caso a chave vem do `infNFe/@Id` e o protocolo sai em branco. Para a CC-e, `procEventoNFe` ou o `evento` sem o retorno. O template padrão é escolhido pelo XML: modelo 55 no A4 (ou na bobina com `tpImp=6`), modelo 65 na bobina, evento 110110 na CC-e. O XML deve vir como String já decodificada (`XmlNfeUtil.leXml` serve; o BOM de arquivos UTF-8 é descartado). Se você lê arquivos de outro jeito, use o charset correto (normalmente UTF-8).
 
 **Erros:** tudo lança `br.com.swconsultoria.nfe.exception.DanfeException` (a mesma da v1):
 - XML vazio ou malformado;
-- XML sem `infNFe`;
+- XML sem `infNFe` nem `evento/infEvento`;
+- evento que não é CC-e sem template próprio;
 - template próprio inexistente ou inválido;
 - falha ao gravar o arquivo;
 - impressora não encontrada.
 
 ---
 
-## 4. Migração v1 → v2 (somente NF-e)
+## 4. Migração v1 → v2
+
+A v1 não existe mais no jar: o código que a usa não compila depois da atualização. Troque assim:
 
 | v1 | v2 |
 |---|---|
 | `ImpressaoNfeUtil.impressaoPadraoNFe(xml)` | `ImpressaoDanfeV2Util.impressaoPadraoNFe(xml)` |
+| `ImpressaoNfeUtil.impressaoPadraoNFCe(xml, urlConsulta)` | `ImpressaoDanfeV2Util.impressaoPadraoNFCe(xml)`: a URL de consulta vem do `infNFeSupl/urlChave` do XML, obrigatório na NFC-e 4.00 |
+| `ImpressaoNfeUtil.impressaoPadraoCCe(xml)` | `ImpressaoDanfeV2Util.impressaoPadraoCCe(xml)` |
+| `ImpressaoDTO` | `ImpressaoDanfeV2DTO` |
 | `ImpressaoNfeUtil.impressaoPdfArquivo(impressao, destino)` | `ImpressaoDanfeV2Util.impressaoPdfArquivo(impressao, destino)` |
 | `ImpressaoNfeUtil.impressaoPdfByte(impressao)` | `ImpressaoDanfeV2Util.impressaoPdfByte(impressao)` |
 | `ImpressaoNfeUtil.impressaoHtml(impressao, destino)` | `ImpressaoDanfeV2Util.impressaoHtml(impressao, destino)` |
@@ -173,10 +180,11 @@ ImpressaoDanfeV2Util.impressaoDireta(impressao, printService);                 /
 | `ImpressaoNfeUtil.impressaoDireta(impressao, impressora, SimplePrintServiceExporterConfiguration)` | Não existe. Para controlar cópias e bandeja, gere o PDF (`impressaoPdfByte`) e imprima com PDFBox/`PrinterJob` no seu código |
 | `ImpressaoNfeUtil.impressaoPreview(impressao)` (`JasperViewer`) | **Não existe.** Gere o PDF e abra num visualizador (`Desktop.getDesktop().open(arquivo)`, componente PDF da aplicação, navegador) |
 | `impressao.getParametros().put("Logo", inputStream)` | `impressao.setLogo(inputStream)` |
-| `impressao.setJasper(meuJasperReport)` | `impressao.setTemplate("caminho/meu-danfe.html")` |
+| `impressao.setJasper(meuJasperReport)`, `setPathExpression(...)` | `impressao.setTemplate("caminho/meu-danfe.html")`: um `.jasper` próprio precisa ser refeito como template Thymeleaf (seção 5.1) |
+| `ConstantesImpressaoNfeUtil.PATH_NFE`, `PATH_NFCE`, `PATH_CCE`, `PARAM_LOGO_NFE`, `PARAM_LOGO_NFCE` | Removidas (eram do datasource Jasper); `PATH_LOGO_NFE` e `PATH_LOGO_NFCE` continuam |
 | `throws JRException, IOException, ...` | `DanfeException` (unchecked) |
 
-Recomendação: deixe a escolha entre v1 e v2 configurável (feature flag) durante a transição, para poder voltar ao leiaute antigo se aparecer algum problema em produção.
+Quem precisa manter um `.jasper` próprio por mais tempo pode ficar na `4.3.1`, a última versão com a v1, até refazer o leiaute.
 
 ---
 
@@ -197,6 +205,10 @@ impressao.setOrientacao(OrientacaoDanfeEnum.PAISAGEM);
 // Canhoto (NT 2026.010 permite suprimir quando o emitente não usa)
 impressao.setExibirCanhoto(false);
 
+// DANFE Simplificado Tipo 2 (tpImp=6, seção 7.4): largura da bobina e segunda via da contingência
+impressao.setLarguraPapelMm(58);           // padrão 80; mínimo 56 (NT 2026.003 item 3.3)
+impressao.setViaEstabelecimento(true);     // "Via do Estabelecimento" em vez de "Via do Consumidor"
+
 // Parâmetros livres, disponíveis no template como ${parametros.nome}
 impressao.getParametros().put(ImpressaoDanfeV2Util.PARAM_TIPO_REGIME_APURACAO, "...");   // usado pelo template padrão; tem prioridade sobre o XML (ver 7.3)
 
@@ -214,14 +226,16 @@ Use quando o leiaute padrão não atender, por exemplo para um bloco extra ou um
 
 | Variável | Tipo | Uso |
 |---|---|---|
-| `danfe` | `DanfeV2DTO` | Dados da nota (ver seção 6) |
+| `danfe` | `DanfeV2DTO` | Dados da nota (ver seção 6); não existe no template de evento |
+| `evento` | `EventoV2DTO` | Dados do evento (seção 7.6); só no template de evento |
 | `fmt` | `FormatadorDanfeV2` | Formatação: `${fmt.valor(danfe.icmsTot.vNF)}` |
 | `xml` | `XmlDanfeV2` | Qualquer campo do XML via XPath: `${xml.valor('//infNFe/ide/tpEmis')}` |
 | `logo` | String (data URI) ou null | `<img th:if="${logo != null}" th:src="${logo}" />` |
-| `codigoBarras` | String (data URI) | Code-128C da chave (barbecue, o mesmo do `danfe.jrxml`) |
+| `codigoBarras` | String (data URI) | Code-128C da chave (zxing) |
 | `qrCode` | String (data URI) ou null | QR Code do `infNFeSupl/qrCode` (zxing) |
-| `paisagem` | boolean | Orientação resolvida |
-| `exibirCanhoto` | boolean | |
+| `paisagem` | boolean | Orientação resolvida (DANFE A4) |
+| `exibirCanhoto` | boolean | (DANFE A4) |
+| `larguraPapelMm`, `alturaPaginaMm`, `qrCodeLateral`, `viaEstabelecimento` | int / boolean | DANFE em bobina (seção 7.4) |
 | `parametros` | `Map<String,Object>` | Valores livres de `getParametros()` |
 
 **Fragmentos reaproveitáveis** (arquivo `fragmentos.html` do jar). Um template próprio pode referenciá-los, porque os nomes que não existem como arquivo são buscados no classpath:
@@ -270,10 +284,10 @@ Cada grupo é um `Map<String,String>` cuja **chave é o nome da tag no XML** e o
 | Grupo | Origem (relativa a `infNFe`) | Chaves |
 |---|---|---|
 | `chave` | `protNFe/infProt/chNFe` ou `@Id` | (String) |
-| `ide` | `ide/` | cUF, natOp, mod, serie, nNF, dhEmi, dhSaiEnt, tpNF, tpImp, tpEmis, tpAmb, finNFe, verProc, dhCont, xJust |
+| `ide` | `ide/` | cUF, natOp, mod, serie, nNF, dhEmi, dhSaiEnt, tpNF, tpImp, tpEmis, tpAmb, finNFe, indPres, verProc, dhCont, xJust |
 | `emit` | `emit/` + `emit/enderEmit/` | CNPJ, CPF, xNome, xFant, IE, IEST, IM, CRT, tpRegimeIBSCBS, xLgr, nro, xCpl, xBairro, xMun, UF, CEP, fone |
 | `dest` | `dest/` + `dest/enderDest/` | CNPJ, CPF, idEstrangeiro, xNome, IE, email, xLgr, nro, xCpl, xBairro, xMun, UF, CEP, fone |
-| `prot` | `//protNFe/infProt/` | nProt, dhRecbto, chNFe, cStat |
+| `prot` | `//protNFe/infProt/` | nProt, dhRecbto, chNFe, cStat, cMsg, xMsg (o primeiro par) |
 | `icmsTot` | `total/ICMSTot/` | vBC, vICMS, vICMSDeson, vFCPUFDest, vICMSUFDest, vICMSUFRemet, vFCP, vBCST, vST, vFCPST, vFCPSTRet, qBCMono, vICMSMono, qBCMonoReten, vICMSMonoReten, qBCMonoRet, vICMSMonoRet, vProd, vFrete, vSeg, vDesc, vII, vIPI, vIPIDevol, vPIS, vCOFINS, vOutro, vNF, vTotTrib |
 | `ibsCbsTot` | `total/IBSCBSTot/` | vBCIBSCBS, vIBSUF (`gIBS/gIBSUF`), vIBSMun (`gIBS/gIBSMun`), vIBS, vCBS (`gCBS`), vIBSMono, vCBSMono, vIBSMonoReten, vCBSMonoReten, vIBSMonoRet, vCBSMonoRet (`gMono`) |
 | `isTot` | `total/ISTot/` | vIS |
@@ -282,6 +296,8 @@ Cada grupo é um `Map<String,String>` cuja **chave é o nome da tag no XML** e o
 | `infAdic` | `infAdic/` | infCpl, infAdFisco |
 | `supl` | `//infNFeSupl/` | qrCode, urlChave |
 | `duplicatas` | `cobr/dup` | lista de Maps: nDup, dVenc, vDup |
+| `pagamentos` | `pag/detPag` | lista de Maps: indPag, tPag, xPag, vPag |
+| `pag` | `pag/` | vTroco |
 | `itens` | `det` | lista de Maps (abaixo) |
 
 **Chaves de cada item:**
@@ -316,11 +332,12 @@ Métodos de decisão (usados pelo template para exibir ou ocultar blocos):
 - `isExibirFatura`, `getFaturaLinhas` (duplicatas em linhas de 3);
 - `isExibirLinhaFcp`, `isExibirLinhaIcmsMono`;
 - `isExibirIbsCbsIs`, `isExibirLinhaIbsCbsMono`, `isExibirLinhaIbsCbsMonoRet`;
-- `isExibirIssqn`, `isExibirTransporte`, `isExibirQrCode`.
+- `isExibirIssqn`, `isExibirTransporte`, `isExibirQrCode`;
+- do DANFE Simplificado Tipo 2: `isSimplificadoTipo2`, `isAmbienteHomologacao` (só `tpAmb=2`), `isContingenciaPendente`, `isPreVisualizacao`, `isExibirAcrescimoDesconto`, `isExibirLinhaIs`, `isExibirTributosTotais`, `getCbsTotal` e `getIbsTotal` (gCBS/gIBS mais o monofásico de `gMono`).
 
 ---
 
-## 7. Regras da NT 2026.010 implementadas
+## 7. Leiautes e regras implementados
 
 ### 7.1 Leiaute
 
@@ -366,6 +383,51 @@ Um quadro ou campo cuja informação não existe no XML **não é impresso**, e 
 
 O campo "Tipo de Regime de Apuração do IBS e da CBS" vem de `emit/tpRegimeIBSCBS` (NT 2026.005), impresso por `fmt.tipoRegimeApuracao`, e sai vazio sem a tag. `PARAM_TIPO_REGIME_APURACAO`, quando informado com valor não nulo, tem prioridade sobre o XML, inclusive `""`, que deixa o campo em branco. Para usar o XML, não informe a chave.
 
+### 7.4 DANFE Simplificado Tipo 2 (NT 2026.003, `tpImp=6`)
+
+A NF-e emitida no lugar de uma NFC-e (Ajuste SINIEF 13/26, regras na NT 2026.002) usa o **DANFE Simplificado Tipo 2**, um cupom em bobina. Com `tpImp=6` no XML, `impressaoPadraoNFe` já sai nesse leiaute, pelo template `danfe/v2/danfe-bobina.html` (`TEMPLATE_BOBINA`), o mesmo do DANFE NFC-e (seção 7.5); o resto da API é o mesmo (`impressaoPdfByte`, `impressaoDireta` etc.). Para imprimir o DANFE A4 de uma nota com `tpImp=6`, informe `setTemplate(ImpressaoDanfeV2Util.TEMPLATE_PADRAO)`.
+
+- **Papel:** bobina de 80 mm por padrão (`setLarguraPapelMm`, mínimo 56 mm). A altura da folha acompanha o conteúdo: o PDF sai numa folha só, do tamanho do cupom, e a nota não quebra em folhas. Margem lateral de 3 mm (a NT pede 2 mm no mínimo).
+- **QR Code:** a partir de 72 mm de papel, ao lado do consumidor e da identificação (figura 1A da NT); abaixo disso, centralizado (figura 1B). Sai com 27 mm mais 1,5 mm de margem segura de cada lado (a NT pede 25 mm no mínimo).
+- **Divisões, na ordem da NT:**
+  1. Cabeçalho: logo (opcional), CNPJ ou CPF, razão social, endereço sem o país e "DANFE Simplificado Tipo 2".
+  2. Itens: código e descrição, quantidade e unidade, valor unitário e valor total.
+  3. Totais: quantidade de itens distintos, valor total, frete, seguro, outras despesas e desconto (cada linha só com valor).
+  4. Novos tributos, quando existe `IBSCBSTot` ou `ISTot`: "(+) CBS R$", "(+) IBS R$" (UF e Município) e "(+) IS R$" (só se houver IS). CBS e IBS somam o monofásico de `gMono`.
+  5. "Valor a Pagar R$" (`vNF`), só com acréscimo ou desconto; forma de pagamento (`tPag` por extenso, `xPag` no 99) com o valor pago; troco, sempre (0,00 sem `vTroco`).
+  6. "Consulte pela Chave de Acesso em", `infNFeSupl/urlChave` e a chave em 11 blocos.
+  7. QR Code, consumidor ("CONSUMIDOR CNPJ:", "CPF:", "ID. ESTRANGEIRO:" ou "NÃO IDENTIFICADO", com nome e endereço quando há) e identificação: número, série, data e hora de emissão, protocolo e data de autorização.
+  8. Mensagem fiscal: "EMITIDA EM AMBIENTE DE HOMOLOGAÇÃO - SEM VALOR FISCAL" (`tpAmb=2`), "PRÉ-VISUALIZAÇÃO - SEM VALOR FISCAL" (produção sem protocolo e sem contingência) e `infAdFisco`.
+  9. Contribuinte: "Tributos Totais Incidentes (Lei Federal 12.741/2012)" com `vTotTrib` (só com valor) e `infCpl`.
+- **Contingência off-line** (`tpEmis` diferente de 1, 6 e 7, ainda sem protocolo): "EMITIDA EM CONTINGÊNCIA / Pendente de autorização" abaixo do cabeçalho, entre linhas, e abaixo da identificação; o protocolo é suprimido. A NT exige uma **segunda via**, que fica no estabelecimento até a autorização: imprima duas vezes, a segunda com `setViaEstabelecimento(true)`. Ao lado da data de emissão sai "Via do Consumidor" ou "Via do Estabelecimento". Depois de autorizada (nfeProc com protocolo), a nota volta a sair sem a contingência e com o protocolo.
+- **PDF em bobina num template próprio:** declare a página num `<style id="pagina-bobina">` com `@page { size: <largura>mm <altura>mm; margin: 0; }` e ponha o respiro no `padding` do `body`. `htmlParaPdf` diagrama com essa altura (o template padrão usa `ALTURA_MAXIMA_BOBINA_MM`), mede o conteúdo e diagrama de novo com a altura dele. Sem o `<style>` com esse id, a página fica com a altura declarada.
+
+**Situação na SEFAZ (medida em GO, homologação, 23/11/2026, com o exemplo `EnvioNfeDanfeSimplificadoTipo2Teste`):** a NF-e com `tpImp=6` e QR Code v3 é autorizada (100), também em contingência off-line (`tpEmis=9`, QR Code v3 assinado). As regras da NT 2026.002 estão ligadas: sem QR Code dá 394, com `indFinal=0` dá 716 e `tpEmis=9` com `tpImp=1` dá 711. Mas o destinatário continua obrigatório: sem ele dá 719, embora a W16-40 e a E01-20 da NT sugiram que seria opcional como na NFC-e.
+
+### 7.5 DANFE NFC-e (modelo 65)
+
+O DANFE NFC-e sai pelo mesmo template de bobina do Simplificado Tipo 2, porque a NT 2026.003 reproduz o leiaute do Manual do DANFE NFC-e. Tudo da seção 7.4 vale para ele: papel, QR Code, divisões, contingência off-line com as duas vias e o PDF numa folha da altura do cupom. Mudam o título da divisão I ("Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica") e o rótulo da identificação ("NFC-e nº").
+
+- `impressaoPadraoNFCe(xml)` põe o logo da NFC-e (`/img/nfce.png`); o template é escolhido pelo `mod=65` do XML, então `impressaoPadraoNFe` também imprime a NFC-e, só que com o logo da NF-e.
+- A URL de consulta pela chave vem do `infNFeSupl/urlChave`, obrigatório na NFC-e 4.00. A v1 a recebia por parâmetro.
+- Diferenças em relação ao Jasper: bobina de 80 mm em vez de 72 mm; endereço completo em vez de logradouro e número; IE do emitente e "Total formas de pagamento" não saem (o Manual do DANFE NFC-e não os pede); entram o bloco "(+) CBS / IBS / IS", a contingência e a mensagem de homologação.
+
+### 7.6 Carta de Correção eletrônica (evento 110110)
+
+`impressaoPadraoCCe(xml)` imprime a CC-e em A4 a partir do `procEventoNFe` (ou do `evento` ainda sem o retorno), pelo template `danfe/v2/cce.html` (`TEMPLATE_CCE`). O leitor é o `LeitorEventoV2`, que monta o `EventoV2DTO`, exposto ao template como `evento`:
+
+| Grupo | Origem | Chaves |
+|---|---|---|
+| `evento` | `evento/infEvento` | Id, cOrgao, tpAmb, CNPJ, CPF, chNFe, dhEvento, tpEvento, nSeqEvento, verEvento |
+| `detEvento` | `evento/infEvento/detEvento` | descEvento, xCorrecao, xCondUso |
+| `retEvento` | `retEvento/infEvento` | verAplic, cStat, xMotivo, xEvento, CNPJDest, CPFDest, dhRegEvento, nProt |
+
+`getChave`, `getModelo`, `getSerie` e `getNumero` (os três últimos tirados da chave), `isCartaCorrecao` e `isHomologacao` (`tpAmb=2` ou sem protocolo de registro, que imprime a marca "SEM VALOR FISCAL").
+
+- **Leiaute:** "CC-e / Carta de Correção Eletrônica" com o número e a série da NF-e; código de barras e chave da NF-e; CNPJ/CPF do emitente e do destinatário; data do evento; sequência; protocolo e data do registro; situação (`cStat - xMotivo`); o texto da correção; as condições de uso do XML.
+- **Logo:** sai sem, porque o XML do evento não traz o nome do emitente. Um logo próprio entra com `setLogo`.
+- **Outros eventos:** sem template próprio, um evento que não é CC-e lança `DanfeException`. Com `setTemplate`, qualquer evento da NF-e pode ser impresso com as mesmas variáveis.
+
 ---
 
 ## 8. Pendências e limitações conhecidas
@@ -374,10 +436,10 @@ O campo "Tipo de Regime de Apuração do IBS e da CBS" vem de `emit/tpRegimeIBSC
 2. **Código do produto:** o modelo da NT não mostra a coluna CÓDIGO. A v2 imprime `cProd - xProd` na descrição para manter a informação exigida pelo Manual do DANFE. Confirme com o fiscal ou contador do cliente.
 3. **QR Code no DANFE 55:** só aparece se o XML trouxer `infNFeSupl/qrCode`. As regras de formação serão definidas em NT futura (item 4.5).
 4. **Não há preview em janela** (ver seção 4).
-5. **Impressão direta** foi compilada, mas **não foi testada numa impressora real**. Teste no ambiente do cliente.
-6. **Contingência e cancelamento:** a v2 não imprime tarjas de contingência (`tpEmis` diferente de 1) nem de nota cancelada/denegada. Se o sistema precisar disso, peça a inclusão na biblioteca ou faça num template próprio usando `danfe.ide.tpEmis` ou `xml.valor(...)`.
+5. **Impressão direta** foi compilada, mas **não foi testada numa impressora real**, nem A4 nem térmica. Teste no ambiente do cliente.
+6. **Contingência e cancelamento:** o DANFE A4 não imprime tarjas de contingência (`tpEmis` diferente de 1) nem de nota cancelada/denegada; o DANFE em bobina (NFC-e e Simplificado Tipo 2) imprime a de contingência (seção 7.4). Se o sistema precisar disso no A4, peça a inclusão na biblioteca ou faça num template próprio usando `danfe.ide.tpEmis` ou `xml.valor(...)`.
 7. **Volumes:** só o primeiro `transp/vol` é impresso.
-8. **DANFE simplificado** (`tpImp=3`) não existe: cai no retrato.
+8. **DANFE simplificado** (`tpImp=3`) não existe: cai no retrato. O DANFE Simplificado **Tipo 2** (`tpImp=6`) existe (seção 7.4).
 9. **Desempenho** (medido em Java 8):
    - a primeira geração na JVM leva cerca de 2 s (aquecimento de Thymeleaf e PDFBox);
    - depois, notas pequenas levam de 100 a 300 ms;
@@ -390,13 +452,14 @@ O campo "Tipo de Regime de Apuração do IBS e da CBS" vem de `emit/tpRegimeIBSC
 ## 9. Checklist de implementação (projeto consumidor)
 
 1. Apontar para `java-nfe:4.3.0` (seção 2), declarar as dependências `provided` (2.1), resolver conflitos de Thymeleaf e PDFBox (2.2) e rodar o teste rápido (2.3).
-2. Localizar no sistema todos os pontos que imprimem o DANFE da NF-e com a v1. Procure por `impressaoPadraoNFe`, `ImpressaoNfeUtil.` e `JasperNFeEnum.NFE`.
-3. Criar um serviço próprio, por exemplo `DanfeNfeService`, que:
+2. Localizar no sistema todos os pontos que imprimem com a v1. Procure por `ImpressaoNfeUtil.`, `ImpressaoDTO` e `JasperNFeEnum`: NF-e, NFC-e e CC-e. Depois da atualização eles não compilam.
+3. Criar um serviço próprio, por exemplo `ImpressaoFiscalService`, que:
    - recebe o XML autorizado (String);
-   - monta `ImpressaoDanfeV2Util.impressaoPadraoNFe(xml)`;
-   - aplica a configuração do emitente: logo cadastrado (`setLogo`), uso de canhoto, orientação (normalmente `AUTOMATICA`);
+   - monta `impressaoPadraoNFe`, `impressaoPadraoNFCe` ou `impressaoPadraoCCe`;
+   - aplica a configuração do emitente: logo cadastrado (`setLogo`), uso de canhoto e orientação (A4), largura da bobina (NFC-e e Simplificado Tipo 2);
+   - na contingência off-line da NFC-e, imprime a segunda via com `setViaEstabelecimento(true)`;
    - devolve `byte[]` do PDF e expõe a impressão direta.
-4. Trocar as chamadas v1 da NF-e pelo novo serviço, mantendo uma feature flag para voltar à v1. **Não alterar** NFC-e nem CC-e.
+4. Trocar as chamadas v1 pelo novo serviço (seção 4). Um `.jasper` próprio precisa virar template Thymeleaf; até lá, fique na `4.3.1`.
 5. Substituir o preview do Jasper (se houver) pela abertura do PDF.
 6. Tratar `DanfeException`: registrar o erro em log e mostrar uma mensagem amigável.
 7. Garantir que o XML é lido com o charset correto, normalmente UTF-8.
@@ -425,6 +488,10 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 | 9 | XML inválido ou sem `infNFe` | `DanfeException` com mensagem clara |
 | 10 | NF-e real de produção (`tpAmb=1`) | Sem marca d'água; protocolo e chave corretos; código de barras legível por leitor |
 | 11 | Impressão direta na impressora do cliente | Imprime em A4 na orientação correta |
+| 12 | `DanfeSimplificadoTipo2.xml` (`tpImp=6`) | Cupom de 80 mm numa folha da altura do conteúdo, QR Code ao lado da identificação, outras despesas 2,00, desconto -8,00, (+) CBS 1,75, (+) IBS 0,20, (+) IS 0,78, valor a pagar 194,28, troco 5,72; com `setLarguraPapelMm(58)`, QR Code centralizado e a chave numa linha (`ImpressaoDanfeSimplificadoTipo2Test`; o exemplo `TesteImpressaoDanfeSimplificadoTipo2` gera o PDF) |
+| 13 | O mesmo com `tpEmis=9` e sem `protNFe` | "EMITIDA EM CONTINGÊNCIA / Pendente de autorização" duas vezes, sem protocolo, "Via do Consumidor"; com `setViaEstabelecimento(true)`, "Via do Estabelecimento" |
+| 14 | `DanfeNfce.xml` com `impressaoPadraoNFCe` | Cupom de 80 mm com o logo da NFC-e, "Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica", "CONSUMIDOR CPF: 123.456.789-09", PIX 100,00 e "NFC-e nº 000.000.321" (`ImpressaoNfceECceTest`; o exemplo `TesteImpressaoNFCe` gera o PDF) |
+| 15 | `CartaCorrecao.xml` com `impressaoPadraoCCe` | 1 folha A4 com "CARTA DE CORREÇÃO ELETRÔNICA", NF-e nº 000.000.123 série 001, a chave inteira, emitente e destinatário, sequência 2, protocolo, "135 - Evento registrado e vinculado a NF-e", a correção e as condições de uso; marca "SEM VALOR FISCAL" (`ImpressaoNfceECceTest`; o exemplo `TesteImpressaoCCe` gera o PDF) |
 
 ---
 
@@ -432,7 +499,8 @@ Na biblioteca, `ImpressaoDanfeV2UtilTest` (JUnit, roda no `mvn test`) cobre os c
 
 | Sintoma | Causa provável |
 |---|---|
-| `NoClassDefFoundError` de `org.thymeleaf`, `com.openhtmltopdf`, `net.sourceforge.barbecue` ou `com.google.zxing` | Dependência `provided` não declarada no projeto consumidor (seção 2.1) |
+| `NoClassDefFoundError` de `org.thymeleaf`, `com.openhtmltopdf` ou `com.google.zxing` | Dependência `provided` não declarada no projeto consumidor (seção 2.1) |
+| `ImpressaoNfeUtil`, `ImpressaoDTO` ou `JasperNFeEnum` não compila | A impressão Jasper foi removida; troque pela v2 (seção 4) |
 | `ClassNotFoundException: br.com.swconsultoria.nfe.impressao.v2...` | O projeto ainda aponta para a `4.2.0` (sem a v2) ou resolveu a dependência de outro repositório; confira a versão e o repositório Maven local (seção 2) |
 | `NoSuchMethodError` do Thymeleaf ou PDFBox | Conflito de versão (seção 2.2) |
 | `DanfeException: Erro ao processar o template ...` | Caminho do arquivo errado, HTML malformado ou expressão inválida no template próprio (seção 5.2); a causa original do Thymeleaf vem em `getCause()` |
@@ -455,16 +523,17 @@ Pacote `br.com.swconsultoria.nfe.impressao.v2` deste repositório (este manual f
 
 | Arquivo | Função |
 |---|---|
-| `ImpressaoDanfeV2Util.java` | API pública (`impressaoPadraoNFe`, HTML, PDF, impressão direta), Thymeleaf e openhtmltopdf |
-| `ImpressaoDanfeV2DTO.java` | Configuração (logo, template, orientação, canhoto, parâmetros) |
+| `ImpressaoDanfeV2Util.java` | API pública (`impressaoPadraoNFe`, `impressaoPadraoNFCe`, `impressaoPadraoCCe`, HTML, PDF, impressão direta), escolha do template, Thymeleaf e openhtmltopdf |
+| `ImpressaoDanfeV2DTO.java` | Configuração (logo, template, orientação, canhoto, parâmetros; largura do papel e via do DANFE em bobina) |
 | `OrientacaoDanfeEnum.java` | AUTOMATICA / RETRATO / PAISAGEM |
-| `LeitorDanfeV2.java` | XPaths e regras da NT (alíquota efetiva) |
-| `DanfeV2DTO.java` | Dados e regras de exibição |
+| `LeitorDanfeV2.java` | XPaths da NF-e/NFC-e e regras da NT (alíquota efetiva) |
+| `DanfeV2DTO.java` | Dados e regras de exibição do DANFE |
+| `LeitorEventoV2.java` / `EventoV2DTO.java` | XPaths e dados do evento (CC-e) |
 | `XmlDanfeV2.java` | DOM sem namespace + XPath (protegido contra XXE), exposto como `xml` |
 | `FormatadorDanfeV2.java` | Formatação (`fmt`) |
-| `ImagemDanfeV2Util.java` | Code-128 (barbecue), QR Code (zxing) e data URI |
-| `src/main/resources/danfe/v2/danfe.html` / `fragmentos.html` | Templates padrão |
-| `src/test/java/.../nfe/impressao/v2/ImpressaoDanfeV2UtilTest.java` | Testes JUnit |
-| `src/test/java/.../nfe/impressao/TesteImpressaoDanfeV2*.java` | Exemplos de uso |
+| `ImagemDanfeV2Util.java` | Code-128 e QR Code (zxing) e data URI |
+| `src/main/resources/danfe/v2/danfe.html` / `danfe-bobina.html` / `cce.html` / `fragmentos.html` | Templates padrão: DANFE A4, DANFE em bobina (NFC-e e Simplificado Tipo 2), CC-e e fragmentos |
+| `src/test/java/.../nfe/impressao/v2/*Test.java` | Testes JUnit |
+| `src/test/java/.../nfe/impressao/TesteImpressao*.java` | Exemplos de uso |
 
 Se precisar de uma mudança na biblioteca, altere-a, regere a versão local (seção 2) e recompile o projeto consumidor. O `mvn install` substitui o jar da `4.3.0` no repositório local, então a dependência do consumidor não muda.
