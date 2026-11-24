@@ -1,15 +1,12 @@
 package br.com.swconsultoria.nfe.impressao;
 
+/**
+ * Recursos padrão da impressão. Os caminhos de datasource e os nomes de parâmetro do leiaute Jasper foram
+ * removidos junto com ele; a impressão é a do pacote {@code impressao.v2}.
+ */
 public class ConstantesImpressaoNfeUtil {
     private ConstantesImpressaoNfeUtil() {}
 
-    //PATHS
-    public static final String PATH_NFE = "/nfeProc/NFe/infNFe/det";
-    public static final String PATH_NFCE = "/";
-    public static final String PATH_CCE = "/procEventoNFe";
-    //PARAM LOGO
-    public static final String PARAM_LOGO_NFE = "Logo";
-    public static final String PARAM_LOGO_NFCE = "Logo";
     //PATH LOGO
     public static final String PATH_LOGO_NFE = "/img/nfe.png";
     public static final String PATH_LOGO_NFCE = "/img/nfce.png";
