@@ -28,6 +28,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -92,6 +94,8 @@ public final class ImpressaoDanfeV2Util {
     private static final float FOLGA_BOBINA_MM = 1f;
     /** "size: 80mm 5000mm" da regra @page da bobina; o grupo 1 é a largura, mantida no ajuste da altura. */
     private static final Pattern TAMANHO_BOBINA = Pattern.compile("(size\\s*:\\s*[0-9.]+mm\\s+)[0-9.]+mm");
+    /** Padrões de nome que o resolver de arquivo aceita: um template próprio é um caminho de arquivo HTML. */
+    private static final String[] EXTENSOES_TEMPLATE_PROPRIO = {"*.html", "*.htm", "*.xhtml"};
     /** Lado da imagem do QR Code gerada pelo zxing, em pixels; o CSS do template define o tamanho impresso. */
     private static final int TAMANHO_QRCODE_PX = 400;
 
@@ -196,8 +200,9 @@ public final class ImpressaoDanfeV2Util {
             return impressao.getTemplate();
         }
         if (!evento.isCartaCorrecao()) {
-            throw new DanfeException("O evento " + evento.getEvento().get("tpEvento")
-                    + " não tem leiaute de impressão padrão; informe um template próprio.");
+            String tpEvento = evento.getEvento().get("tpEvento");
+            throw new DanfeException((tpEvento == null ? "O XML do evento não traz o tpEvento"
+                    : "O evento " + tpEvento + " não tem leiaute de impressão padrão") + "; informe um template próprio.");
         }
         return TEMPLATE_CCE;
     }
@@ -288,9 +293,13 @@ public final class ImpressaoDanfeV2Util {
                     paginaBobina.setTextContent(regra);
                     try (PdfBoxRenderer ajustado = novoRenderer(null, documento, saidaAjustada)) {
                         ajustado.layout();
-                        ajustado.createPDF();
-                        renderer.getPdfDocument().close(); // close() do renderer não fecha o PDDocument que não foi gravado
-                        return saidaAjustada.toByteArray();
+                        // Se algum arredondamento gerou outra folha, vale a diagramação original
+                        if (totalFolhas(ajustado) == 1) {
+                            ajustado.createPDF();
+                            renderer.getPdfDocument().close(); // close() do renderer não fecha o PDDocument que não foi gravado
+                            return saidaAjustada.toByteArray();
+                        }
+                        ajustado.getPdfDocument().close();
                     }
                 }
                 renderer.createPDF();
@@ -427,17 +436,10 @@ public final class ImpressaoDanfeV2Util {
     }
 
     /**
-     * Templates customizados são buscados primeiro como arquivo; os nomes não encontrados
-     * (ex.: "danfe", "fragmentos") caem no classpath /danfe/v2/.
+     * Templates próprios (caminho de arquivo terminado em .html, .htm ou .xhtml) são buscados primeiro no disco;
+     * os nomes padrão, sem extensão ("danfe", "danfe-bobina", "cce", "fragmentos"), só no classpath /danfe/v2/.
      */
     private static TemplateEngine criaTemplateEngine() {
-        FileTemplateResolver arquivo = new FileTemplateResolver();
-        arquivo.setOrder(1);
-        arquivo.setCheckExistence(true);
-        arquivo.setCacheable(false);
-        arquivo.setTemplateMode(TemplateMode.HTML);
-        arquivo.setCharacterEncoding(StandardCharsets.UTF_8.name());
-
         ClassLoaderTemplateResolver classpath = new ClassLoaderTemplateResolver(ImpressaoDanfeV2Util.class.getClassLoader());
         classpath.setOrder(2);
         classpath.setCheckExistence(true);
@@ -447,8 +449,24 @@ public final class ImpressaoDanfeV2Util {
         classpath.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
         TemplateEngine engine = new TemplateEngine();
-        engine.addTemplateResolver(arquivo);
+        engine.addTemplateResolver(resolverDeArquivo());
         engine.addTemplateResolver(classpath);
         return engine;
+    }
+
+    /**
+     * Resolver dos templates próprios no disco. Só aceita nomes com extensão de HTML: sem esse filtro, um arquivo ou
+     * uma pasta chamada "cce" ou "danfe" no diretório de trabalho da aplicação tomaria o lugar do template padrão
+     * (o Thymeleaf testa a existência com File.exists(), verdadeiro também para pasta).
+     */
+    static FileTemplateResolver resolverDeArquivo() {
+        FileTemplateResolver arquivo = new FileTemplateResolver();
+        arquivo.setOrder(1);
+        arquivo.setResolvablePatterns(new HashSet<>(Arrays.asList(EXTENSOES_TEMPLATE_PROPRIO)));
+        arquivo.setCheckExistence(true);
+        arquivo.setCacheable(false);
+        arquivo.setTemplateMode(TemplateMode.HTML);
+        arquivo.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        return arquivo;
     }
 }

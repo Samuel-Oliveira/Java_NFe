@@ -161,7 +161,7 @@
         <td class="identificacao" th:classappend="${qrCodeLateral} ? '' : 'centro'">
             <div>
                 <span class="negrito" th:text="${fmt.consumidor(danfe.dest)}">CONSUMIDOR NÃO IDENTIFICADO</span>
-                <span class="negrito nw" th:text="${fmt.documento(fmt.primeiro(danfe.dest.CNPJ, fmt.primeiro(danfe.dest.CPF, danfe.dest.idEstrangeiro)))}">00.000.000/0000-00</span>
+                <span class="negrito nw" th:text="${fmt.documentoConsumidor(danfe.dest)}">00.000.000/0000-00</span>
                 <span th:if="${danfe.dest.xNome != null}" th:text="${danfe.dest.xNome}">Nome</span>
                 <th:block th:if="${danfe.dest.xLgr != null}"><br /><span th:text="${fmt.enderecoCompleto(danfe.dest)}">Endereço</span></th:block>
             </div>
@@ -170,9 +170,10 @@
                 <span class="negrito nw" th:text="'nº ' + ${fmt.numeroNota(danfe.ide.nNF)}">nº 000.000.001</span>
                 <span class="negrito nw" th:text="'Série ' + ${fmt.serie(danfe.ide.serie)}">Série 001</span>
                 <span class="negrito nw" th:text="${fmt.dataHora(danfe.ide.dhEmi)}">01/01/2026 00:00:00</span>
-                <!-- Contingência: a segunda via fica no estabelecimento até a autorização (item 3.1.9) -->
-                <th:block th:if="${viaEstabelecimento}"><br /><span class="negrito">Via do Estabelecimento</span></th:block>
-                <th:block th:if="${!viaEstabelecimento and danfe.contingenciaPendente}"><br /><span class="negrito">Via do Consumidor</span></th:block>
+                <!-- Contingência: a segunda via fica no estabelecimento até a autorização; a via sai ao lado da data
+                     de emissão (item 3.1.9) e só desce de linha quando não cabe -->
+                <span class="negrito nw" th:if="${viaEstabelecimento}">- Via do Estabelecimento</span>
+                <span class="negrito nw" th:if="${!viaEstabelecimento and danfe.contingenciaPendente}">- Via do Consumidor</span>
             </div>
             <th:block th:if="${danfe.prot.nProt != null}">
                 <div><span class="negrito">Protocolo de autorização:</span> <span class="nw" th:text="${danfe.prot.nProt}">000000000000000</span></div>

@@ -269,6 +269,21 @@ public class FormatadorDanfeV2 {
         return "CONSUMIDOR NÃO IDENTIFICADO";
     }
 
+    /**
+     * Número que acompanha o rótulo de {@link #consumidor(Map)}: CNPJ ou CPF formatados, ou o idEstrangeiro como veio
+     * no XML (ele tem letras, que {@link #documento(String)} descartaria). "" sem destinatário identificado.
+     */
+    public String documentoConsumidor(Map<String, String> dest) {
+        if (dest == null) {
+            return "";
+        }
+        String cnpjCpf = primeiro(dest.get("CNPJ"), dest.get("CPF"));
+        if (!cnpjCpf.isEmpty()) {
+            return documento(cnpjCpf);
+        }
+        return vazio(dest.get("idEstrangeiro")) ? "" : dest.get("idEstrangeiro");
+    }
+
     /** O valor existe e é diferente de zero (valor não numérico conta como presente). */
     public boolean naoZero(String valor) {
         if (vazio(valor)) {

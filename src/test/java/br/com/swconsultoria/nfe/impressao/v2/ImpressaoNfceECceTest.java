@@ -11,11 +11,16 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.thymeleaf.util.PatternSpec;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -154,6 +159,51 @@ class ImpressaoNfceECceTest {
         ImpressaoDanfeV2DTO comTemplate = ImpressaoDanfeV2Util.impressaoPadraoCCe(cancelamento);
         comTemplate.setTemplate(ImpressaoDanfeV2Util.TEMPLATE_CCE);
         assertDoesNotThrow(() -> ImpressaoDanfeV2Util.gerarHtml(comTemplate), "template informado vale para qualquer evento");
+    }
+
+    @Test
+    void eventoSemTpEventoDizOQueFalta() {
+        String semTipo = cce.replace("<tpEvento>110110</tpEvento>", "");
+
+        DanfeException erro = assertThrows(DanfeException.class,
+                () -> ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoCCe(semTipo)));
+        assertTrue(erro.getMessage().contains("não traz o tpEvento"), erro.getMessage());
+    }
+
+    @Test
+    void nomesPadraoNaoSaoProcuradosNoDisco() {
+        // Uma pasta "cce" ou "danfe" no diretório de trabalho da aplicação não pode tomar o lugar do template padrão
+        PatternSpec arquivo = ImpressaoDanfeV2Util.resolverDeArquivo().getResolvablePatternSpec();
+        for (String padrao : new String[]{ImpressaoDanfeV2Util.TEMPLATE_PADRAO, ImpressaoDanfeV2Util.TEMPLATE_BOBINA,
+                ImpressaoDanfeV2Util.TEMPLATE_CCE, "fragmentos"}) {
+            assertFalse(arquivo.matches(padrao), padrao);
+        }
+        assertTrue(arquivo.matches("d:/templates/meu-danfe.html"));
+        assertTrue(arquivo.matches("templates\\meu-danfe.xhtml"));
+        assertTrue(arquivo.matches("meu-danfe.htm"));
+    }
+
+    @Test
+    void templateProprioEmArquivoHtml(@TempDir Path pasta) throws IOException {
+        Path template = pasta.resolve("minha-cce.html");
+        Files.write(template, ("<html xmlns:th=\"http://www.thymeleaf.org\"><body>"
+                + "<p th:text=\"'Chave ' + ${evento.chave}\">x</p></body></html>").getBytes(StandardCharsets.UTF_8));
+        ImpressaoDanfeV2DTO impressao = ImpressaoDanfeV2Util.impressaoPadraoCCe(cce);
+        impressao.setTemplate(template.toString());
+
+        assertTrue(ImpressaoDanfeV2Util.gerarHtml(impressao).contains("Chave " + CHAVE_CCE));
+    }
+
+    @Test
+    void idEstrangeiroSaiComoVeioNoXml() {
+        String estrangeiro = nfce.replace("<CPF>12345678909</CPF>", "<idEstrangeiro>AB12345678901</idEstrangeiro>");
+        assertNotEquals(nfce, estrangeiro);
+
+        String html = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFCe(estrangeiro));
+
+        assertTrue(html.contains("CONSUMIDOR ID. ESTRANGEIRO:"));
+        assertTrue(html.contains(">AB12345678901<"), "sem passar pela máscara de CPF/CNPJ");
+        assertEquals("", new FormatadorDanfeV2().documentoConsumidor(null));
     }
 
     @Test

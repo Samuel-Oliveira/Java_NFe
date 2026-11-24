@@ -22,7 +22,11 @@
 - As dependencias de impressao (`thymeleaf`, `openhtmltopdf-pdfbox`, `zxing core` e `javase`)
   deixam de ser `provided` e vem por transitividade: quem usa o `java-nfe` nao declara mais nada
   para imprimir. O `jcommander`, que o `zxing javase` traria so para a linha de comando, fica
-  excluido. Quem nao imprime pode excluir as quatro no proprio `pom.xml`.
+  excluido. Quem nao imprime pode excluir as quatro no proprio `pom.xml`. Com elas vem o
+  `slf4j-api` 2.0.7 do Thymeleaf: projeto com binding SLF4J 1.7 deve fixar a 1.7 (manual, 2.2).
+- **Template proprio:** o caminho em `setTemplate` precisa terminar em `.html`, `.htm` ou `.xhtml`.
+  Os nomes sem extensao so sao procurados no jar, para que uma pasta ou arquivo `cce` ou `danfe`
+  no diretorio de trabalho nao tome o lugar do template padrao.
 
 ### DANFE Simplificado Tipo 2 (NT 2026.003)
 

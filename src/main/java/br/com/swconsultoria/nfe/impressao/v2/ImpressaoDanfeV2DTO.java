@@ -105,7 +105,9 @@ public class ImpressaoDanfeV2DTO {
     }
 
     /**
-     * Caminho de um template Thymeleaf (.html) próprio. Null usa o template padrão.
+     * Caminho de um template Thymeleaf próprio, terminado em .html, .htm ou .xhtml (sem extensão o nome só é
+     * procurado no classpath, entre os padrões). Null usa o template padrão do tipo de XML; um dos nomes padrão
+     * (ImpressaoDanfeV2Util.TEMPLATE_PADRAO, TEMPLATE_BOBINA, TEMPLATE_CCE) força aquele leiaute.
      * O template pode reaproveitar os fragmentos padrão: th:replace="~{fragmentos :: campo(...)}"
      */
     public void setTemplate(String template) {

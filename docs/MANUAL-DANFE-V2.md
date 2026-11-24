@@ -4,7 +4,7 @@ Guia para implementar a impressão da biblioteca `java-nfe` num sistema: o DANFE
 (modelo 65) e a Carta de Correção eletrônica. O DANFE da NF-e segue a **NT 2026.010 — DANFE Reforma Tributária
 (IBS/CBS/IS)**, em produção desde **01/12/2026**.
 
-> **A impressão Jasper (v1) foi removida** na versão seguinte à `4.3.1`: `ImpressaoNfeUtil`, `ImpressaoDTO`, `JasperNFeEnum`, os `.jrxml`/`.jasper` e as dependências `jasperreports` e `barbecue`. A v2 é a impressão oficial. A seção 4 e o [MIGRATION.md](../MIGRATION.md) mostram a troca.
+> **A impressão Jasper (v1) foi removida** na versão seguinte à `4.3.1`: `ImpressaoNfeUtil`, `ImpressaoDTO`, `JasperNFeEnum`, os `.jrxml`/`.jasper` e as dependências `jasperreports`, `jasperreports-fonts` e `barbecue`. A v2 é a impressão oficial. A seção 4 e o [MIGRATION.md](../MIGRATION.md) mostram a troca.
 
 > Leia o documento inteiro antes de começar. A seção 9 traz um checklist de implementação e a seção 10 os testes de aceitação.
 
@@ -29,28 +29,28 @@ Todo o resto do `java-nfe` (envio, consultas, eventos, `IbsCbsUtil`...) não mud
 
 ## 2. Dependência
 
-A v2 entra na versão `4.3.*`. Enquanto ela não estiver publicada no Maven Central (a última publicada é a `4.2.0`, que **não** tem a v2), gere-a a partir do código-fonte e instale no repositório Maven local, como descrito em "Gerar a versão local" abaixo.
+O DANFE v2 da NF-e entrou na `4.3.0`. O DANFE NFC-e, o Simplificado Tipo 2, a CC-e e a remoção do Jasper entram na versão seguinte à `4.3.1`. Antes de ela sair no Maven Central, gere-a a partir do código-fonte e instale no repositório Maven local, como descrito em "Gerar a versão local" abaixo. Nos exemplos, `<versão>` é a do `pom.xml` deste repositório.
 
 **Maven**
 ```xml
 <dependency>
     <groupId>br.com.swconsultoria</groupId>
     <artifactId>java-nfe</artifactId>
-    <version>4.3.0</version>
+    <version><versão></version>
 </dependency>
 ```
 
 **Gradle** (o `mavenLocal()` é necessário enquanto a versão vier do repositório local)
 ```groovy
 repositories { mavenLocal(); mavenCentral() }
-dependencies { implementation "br.com.swconsultoria:java-nfe:4.3.0" }
+dependencies { implementation "br.com.swconsultoria:java-nfe:<versão>" }
 ```
 
 **Gerar a versão local** (a partir do checkout deste repositório):
 ```bash
 mvn clean install -Dgpg.skip
 ```
-Isso instala `java-nfe-4.3.0.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom` no repositório Maven local. O jar é "fino" (as dependências normais do `java-nfe`, como `java-certificado`, vêm por transitividade pelo `.pom`). `-Dgpg.skip` pula a assinatura GPG da fase `verify`. Os testes (mais de 2.200, incluindo os da v2) rodam no build; `-DskipTests` pula. Para um jar com todas as dependências (projetos sem Maven/Gradle) acrescente `-Passembly`: ele **substitui** o jar fino no `target/` e no repositório local, já com as bibliotecas de impressão da seção 2.1.
+Isso instala `java-nfe-<versão>.jar`, `-sources.jar`, `-javadoc.jar` e o `.pom` no repositório Maven local. **Atenção:** se o `pom.xml` ainda estiver com o número de uma versão publicada (por exemplo `4.3.1`), o install sobrescreve no repositório local o jar publicado com esse número; um projeto que queira continuar na versão publicada, com Jasper, passa a receber esta. Antes de instalar, confira o número no `pom.xml`. O jar é "fino" (as dependências normais do `java-nfe`, como `java-certificado`, vêm por transitividade pelo `.pom`). `-Dgpg.skip` pula a assinatura GPG da fase `verify`. Os testes (mais de 2.200, incluindo os da v2) rodam no build; `-DskipTests` pula. Para um jar com todas as dependências (projetos sem Maven/Gradle) acrescente `-Passembly`: ele **substitui** o jar fino no `target/` e no repositório local, já com as bibliotecas de impressão da seção 2.1.
 
 ### 2.1 Dependências de impressão
 
@@ -77,6 +77,8 @@ Um sistema que só transmite notas e não quer o peso delas pode excluí-las no 
 </dependency>
 ```
 
+No Gradle, o equivalente é `implementation("br.com.swconsultoria:java-nfe:<versão>") { exclude group: "org.thymeleaf"; exclude group: "com.openhtmltopdf"; exclude group: "com.google.zxing" }`.
+
 Até a 4.3.1 elas eram `provided` e o consumidor as declarava; essas declarações podem sair (ou ficar, desde que nas mesmas versões). `jasperreports`, `jasperreports-fonts` e `barbecue`, que a v1 exigia, podem sair do projeto se nada mais nele as usar.
 
 ### 2.2 Requisitos e conflitos possíveis
@@ -95,7 +97,17 @@ Até a 4.3.1 elas eram `provided` e o consumidor as declarava; essas declaraçõ
 - Verifique conflitos no projeto consumidor: o Maven fica com a versão mais próxima da raiz, então uma versão que o projeto já declare (ou herde de um BOM) vence a do `java-nfe`:
   - **Spring Boot 2.x** traz Thymeleaf 3.0.x. A v2 precisa da 3.1.x. Force `thymeleaf` 3.1.2 no `dependencyManagement` ou exclua a versão antiga. Spring Boot 3.x já usa a 3.1.
   - **PDFBox 3.x** no projeto é incompatível com o openhtmltopdf 1.0.10, que precisa da 2.0.x.
-- Se o projeto não tiver uma implementação de SLF4J, aparece o aviso `SLF4J: No SLF4J providers were found`. É inofensivo.
+- **SLF4J:** o Thymeleaf traz o `slf4j-api` 2.0.7, a única origem de SLF4J no `java-nfe`.
+  - Projeto sem implementação de SLF4J: aparece o aviso `SLF4J: No SLF4J providers were found`, inofensivo.
+  - Projeto com binding SLF4J **1.7** (logback 1.2.x, `slf4j-log4j12`, `log4j-slf4j-impl`): se a API 2.0 vencer a resolução (no Gradle vence a maior versão; no Maven, a mais próxima da raiz), o binding 1.7 não é encontrado e **o log da aplicação inteira some**, com o mesmo aviso. Fixe a 1.7 (o Thymeleaf 3.1.2 só usa `Logger` e `LoggerFactory`, que existem nela) ou migre o binding para a 2.x:
+    ```xml
+    <dependencyManagement><dependencies>
+        <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.36</version></dependency>
+    </dependencies></dependencyManagement>
+    ```
+    ```groovy
+    dependencies { constraints { implementation('org.slf4j:slf4j-api') { version { strictly '1.7.36' } } } }
+    ```
 - **Log do openhtmltopdf:** a cada PDF ele registra várias linhas INFO pelo `java.util.logging`. A biblioteca **não altera** essa configuração, que pertence à aplicação. Para silenciar, na inicialização do sistema:
   ```java
   for (String logger : com.openhtmltopdf.util.XRLog.listRegisteredLoggers()) {
@@ -217,7 +229,9 @@ impressao.setTemplate("c:/templates/meu-danfe.html");
 
 ### 5.1 Template próprio
 
-Use quando o leiaute padrão não atender, por exemplo para um bloco extra ou uma marca do cliente. O ponto de partida recomendado é copiar o template padrão, que está dentro do jar em `danfe/v2/danfe.html`, e alterá-lo. O código-fonte fica em `src/main/resources/danfe/v2/`.
+Use quando o leiaute padrão não atender, por exemplo para um bloco extra ou uma marca do cliente. O ponto de partida recomendado é copiar o template padrão, que está dentro do jar em `danfe/v2/danfe.html` (ou `danfe-bobina.html`, `cce.html`), e alterá-lo. O código-fonte fica em `src/main/resources/danfe/v2/`.
+
+O caminho informado em `setTemplate` precisa terminar em `.html`, `.htm` ou `.xhtml`: só esses nomes são procurados no disco. Um nome sem extensão é procurado apenas entre os templates do jar, e é assim que `setTemplate(TEMPLATE_PADRAO)`, `TEMPLATE_BOBINA` ou `TEMPLATE_CCE` forçam um leiaute padrão. Isso impede que uma pasta ou um arquivo chamado `cce` ou `danfe` no diretório de trabalho da aplicação tome o lugar do template padrão.
 
 **Variáveis disponíveis no template:**
 
@@ -384,7 +398,7 @@ O campo "Tipo de Regime de Apuração do IBS e da CBS" vem de `emit/tpRegimeIBSC
 
 A NF-e emitida no lugar de uma NFC-e (Ajuste SINIEF 13/26, regras na NT 2026.002) usa o **DANFE Simplificado Tipo 2**, um cupom em bobina. Com `tpImp=6` no XML, `impressaoPadraoNFe` já sai nesse leiaute, pelo template `danfe/v2/danfe-bobina.html` (`TEMPLATE_BOBINA`), o mesmo do DANFE NFC-e (seção 7.5); o resto da API é o mesmo (`impressaoPdfByte`, `impressaoDireta` etc.). Para imprimir o DANFE A4 de uma nota com `tpImp=6`, informe `setTemplate(ImpressaoDanfeV2Util.TEMPLATE_PADRAO)`.
 
-- **Papel:** bobina de 80 mm por padrão (`setLarguraPapelMm`, mínimo 56 mm). A altura da folha acompanha o conteúdo: o PDF sai numa folha só, do tamanho do cupom, e a nota não quebra em folhas. Margem lateral de 3 mm (a NT pede 2 mm no mínimo).
+- **Papel:** bobina de 80 mm por padrão (`setLarguraPapelMm`, mínimo 56 mm). A altura da folha acompanha o conteúdo: o PDF sai numa folha só, do tamanho do cupom, e a nota não quebra em folhas. Margem lateral de 3 mm, ou 2,5 mm abaixo de 72 mm de papel (a NT pede 2 mm no mínimo).
 - **QR Code:** a partir de 72 mm de papel, ao lado do consumidor e da identificação (figura 1A da NT); abaixo disso, centralizado (figura 1B). Sai com 27 mm mais 1,5 mm de margem segura de cada lado (a NT pede 25 mm no mínimo).
 - **Divisões, na ordem da NT:**
   1. Cabeçalho: logo (opcional), CNPJ ou CPF, razão social, endereço sem o país e "DANFE Simplificado Tipo 2".
@@ -396,7 +410,7 @@ A NF-e emitida no lugar de uma NFC-e (Ajuste SINIEF 13/26, regras na NT 2026.002
   7. QR Code, consumidor ("CONSUMIDOR CNPJ:", "CPF:", "ID. ESTRANGEIRO:" ou "NÃO IDENTIFICADO", com nome e endereço quando há) e identificação: número, série, data e hora de emissão, protocolo e data de autorização.
   8. Mensagem fiscal: "EMITIDA EM AMBIENTE DE HOMOLOGAÇÃO - SEM VALOR FISCAL" (`tpAmb=2`), "PRÉ-VISUALIZAÇÃO - SEM VALOR FISCAL" (produção sem protocolo e sem contingência) e `infAdFisco`.
   9. Contribuinte: "Tributos Totais Incidentes (Lei Federal 12.741/2012)" com `vTotTrib` (só com valor) e `infCpl`.
-- **Contingência off-line** (`tpEmis` diferente de 1, 6 e 7, ainda sem protocolo): "EMITIDA EM CONTINGÊNCIA / Pendente de autorização" abaixo do cabeçalho, entre linhas, e abaixo da identificação; o protocolo é suprimido. A NT exige uma **segunda via**, que fica no estabelecimento até a autorização: imprima duas vezes, a segunda com `setViaEstabelecimento(true)`. Ao lado da data de emissão sai "Via do Consumidor" ou "Via do Estabelecimento". Depois de autorizada (nfeProc com protocolo), a nota volta a sair sem a contingência e com o protocolo.
+- **Contingência off-line** (`tpEmis` diferente de 1, 6 e 7, ainda sem protocolo): "EMITIDA EM CONTINGÊNCIA / Pendente de autorização" abaixo do cabeçalho, entre linhas, e abaixo da identificação; o protocolo é suprimido. A NT exige uma **segunda via**, que fica no estabelecimento até a autorização: imprima duas vezes, a segunda com `setViaEstabelecimento(true)`. Ao lado da data de emissão sai "- Via do Consumidor" ou "- Via do Estabelecimento" (desce de linha só quando não cabe). Com `setViaEstabelecimento(true)` a marca sai também fora da contingência, para quem quiser uma via da loja. Depois de autorizada (nfeProc com protocolo), a nota volta a sair sem a contingência e com o protocolo.
 - **PDF em bobina num template próprio:** declare a página num `<style id="pagina-bobina">` com `@page { size: <largura>mm <altura>mm; margin: 0; }` e ponha o respiro no `padding` do `body`. `htmlParaPdf` diagrama com essa altura (o template padrão usa `ALTURA_MAXIMA_BOBINA_MM`), mede o conteúdo e diagrama de novo com a altura dele. Sem o `<style>` com esse id, a página fica com a altura declarada.
 
 **Situação na SEFAZ (medida em GO, homologação, 23/11/2026, com o exemplo `EnvioNfeDanfeSimplificadoTipo2Teste`):** a NF-e com `tpImp=6` e QR Code v3 é autorizada (100), também em contingência off-line (`tpEmis=9`, QR Code v3 assinado). As regras da NT 2026.002 estão ligadas: sem QR Code dá 394, com `indFinal=0` dá 716 e `tpEmis=9` com `tpImp=1` dá 711. Mas o destinatário continua obrigatório: sem ele dá 719, embora a W16-40 e a E01-20 da NT sugiram que seria opcional como na NFC-e.
@@ -533,4 +547,4 @@ Pacote `br.com.swconsultoria.nfe.impressao.v2` deste repositório (este manual f
 | `src/test/java/.../nfe/impressao/v2/*Test.java` | Testes JUnit |
 | `src/test/java/.../nfe/impressao/TesteImpressao*.java` | Exemplos de uso |
 
-Se precisar de uma mudança na biblioteca, altere-a, regere a versão local (seção 2) e recompile o projeto consumidor. O `mvn install` substitui o jar da `4.3.0` no repositório local, então a dependência do consumidor não muda.
+Se precisar de uma mudança na biblioteca, altere-a, regere a versão local (seção 2) e recompile o projeto consumidor. O `mvn install` substitui no repositório local o jar da versão que está no `pom.xml`, então a dependência do consumidor não muda.
