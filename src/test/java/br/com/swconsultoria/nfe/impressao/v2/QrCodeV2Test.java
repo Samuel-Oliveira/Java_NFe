@@ -1,5 +1,6 @@
 package br.com.swconsultoria.nfe.impressao.v2;
 
+import br.com.swconsultoria.nfe.exception.DanfeException;
 import br.com.swconsultoria.nfe.util.XmlNfeUtil;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
@@ -30,26 +31,33 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Zona de silêncio do QR Code (ISO/IEC 18004: 4 módulos) e dimensões mínimas na bobina (NT 2026.003, item 3.4:
- * imagem de 25 mm no mínimo, sendo 22 mm de conteúdo e 3 mm de margem segura).
+ * Margem do QR Code dentro da imagem (ISO/IEC 18004: 4 módulos; NT 2026.003, item 3.4: 10% do lado acima de 25 mm) e
+ * dimensões mínimas na bobina (imagem de 25 mm no mínimo, sendo 22 mm de conteúdo e 3 mm de margem segura).
  */
 class QrCodeV2Test {
 
     private static final float PONTOS_POR_MM = 72f / 25.4f;
     private static final String CHAVE = "35261212345678000195550020000007891000007890";
-    /** Consulta online (QR v3): o conteúdo mais curto que a NF-e usa. */
+    /** O menor QR da NF-e: a URL de consulta mais curta (PB) com o QR v3 online, 37 módulos. */
+    private static final String QR_MINIMO = "http://www.sefaz.pb.gov.br/nfce?p=" + CHAVE + "|3|1";
+    /** Consulta online (QR v3) de SP. */
     private static final String QR_ONLINE = "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode?p=" + CHAVE + "|3|2";
-    /** Contingência off-line (QR v3 com data, valor, destinatário e assinatura): conteúdo longo, mais módulos. */
+    /**
+     * Contingência off-line (QR v3 com dia, valor, destinatário e assinatura). A assinatura é SHA1withRSA em Base64
+     * (NFCeUtil): com chave RSA de 2048 bits, 256 bytes e 344 caracteres, o código passa de 72 módulos.
+     */
     private static final String QR_OFFLINE = QR_ONLINE + "|01|194.28|2|98765432000110|"
-            + "QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==";
+            + Base64.getEncoder().encodeToString(bytes(256));
 
     private static String xmlTipo2;
     private static String xmlNfce;
@@ -64,24 +72,42 @@ class QrCodeV2Test {
     }
 
     @Test
-    void imagemTemExatamenteQuatroModulosDeMargemSemSobra() throws IOException {
+    void margemDentroDaImagemSemSobra() throws IOException {
         // 0: um pixel por módulo; 360: múltiplo exato de 41 + 4, onde a margem 2 caberia sem sobra; 400: o tamanho
         // usado pelo ImpressaoDanfeV2Util
-        for (String conteudo : new String[]{QR_ONLINE, QR_OFFLINE}) {
+        for (String conteudo : new String[]{QR_MINIMO, QR_ONLINE, QR_OFFLINE}) {
             for (int tamanho : new int[]{0, 100, 360, 400}) {
                 BufferedImage imagem = ImageIO.read(new ByteArrayInputStream(ImagemDanfeV2Util.qrCode(conteudo, tamanho)));
                 Qr qr = Qr.medir(imagem);
                 String caso = conteudo.length() + " caracteres em " + tamanho + " px";
+                int margem = qr.margemEsquerda;
 
                 assertTrue(imagem.getWidth() >= tamanho, caso + ": pelo menos o tamanho pedido");
                 assertEquals(imagem.getWidth(), imagem.getHeight(), caso);
                 assertEquals(0, imagem.getWidth() % qr.ladoEmModulos(), caso + ": múltiplo exato dos módulos");
-                assertEquals(4, qr.margemEsquerda, caso + ": margem esquerda");
-                assertEquals(4, qr.margemSuperior, caso + ": margem de cima");
-                assertEquals(4, qr.margemDireita, caso + ": margem direita");
-                assertEquals(4, qr.margemInferior, caso + ": margem de baixo");
+                assertEquals(margem, qr.margemSuperior, caso + ": margem de cima igual à esquerda");
+                assertEquals(margem, qr.margemDireita, caso + ": margem direita");
+                assertEquals(margem, qr.margemInferior, caso + ": margem de baixo");
+                assertTrue(margem >= 4, caso + ": zona de silêncio de " + margem + " módulos (ISO/IEC 18004)");
+                assertTrue(2.0 * margem / qr.ladoEmModulos() >= 0.10, caso + ": margem segura de 10% do lado");
+                assertEquals(Math.max(4, (int) Math.ceil(qr.modulos / 18.0)), margem, caso + ": sem margem a mais que o necessário");
             }
         }
+    }
+
+    @Test
+    void extremosReaisDoQrDaNfe() throws IOException {
+        Qr minimo = Qr.medir(ImageIO.read(new ByteArrayInputStream(ImagemDanfeV2Util.qrCode(QR_MINIMO, 400))));
+        assertEquals(37, minimo.modulos, "o menor QR da NF-e é a versão 5");
+
+        Qr offline = Qr.medir(ImageIO.read(new ByteArrayInputStream(ImagemDanfeV2Util.qrCode(QR_OFFLINE, 400))));
+        assertTrue(offline.modulos > 72, "a assinatura de 344 caracteres passa de 72 módulos: " + offline.modulos);
+        assertTrue(offline.margemEsquerda > 4, "com 4 módulos a margem ficaria abaixo de 10% do lado");
+    }
+
+    @Test
+    void tamanhoNegativoEhRecusado() {
+        assertThrows(DanfeException.class, () -> ImagemDanfeV2Util.qrCode(QR_ONLINE, -1));
     }
 
     @Test
@@ -90,11 +116,12 @@ class QrCodeV2Test {
         ImpressaoDanfeV2DTO estreito = ImpressaoDanfeV2Util.impressaoPadraoNFe(xmlTipo2);
         estreito.setLarguraPapelMm(58);
         ImpressaoDanfeV2DTO nfce = ImpressaoDanfeV2Util.impressaoPadraoNFCe(xmlNfce);
-        ImpressaoDanfeV2DTO offline = ImpressaoDanfeV2Util.impressaoPadraoNFe(xmlTipo2.replaceAll(
-                "<qrCode>[^<]*</qrCode>", "<qrCode>" + QR_OFFLINE.replace("&", "&amp;") + "</qrCode>"));
+        ImpressaoDanfeV2DTO offline = ImpressaoDanfeV2Util.impressaoPadraoNFe(comQrCode(QR_OFFLINE));
+        ImpressaoDanfeV2DTO minimo = ImpressaoDanfeV2Util.impressaoPadraoNFe(comQrCode(QR_MINIMO));
 
-        String[] nomes = {"Tipo 2 em 80 mm (lateral)", "Tipo 2 em 58 mm (centralizado)", "NFC-e", "Tipo 2 off-line"};
-        ImpressaoDanfeV2DTO[] impressoes = {tipo2, estreito, nfce, offline};
+        String[] nomes = {"Tipo 2 em 80 mm (lateral)", "Tipo 2 em 58 mm (centralizado)", "NFC-e", "Tipo 2 off-line",
+                "Tipo 2 com o menor QR"};
+        ImpressaoDanfeV2DTO[] impressoes = {tipo2, estreito, nfce, offline, minimo};
         for (int i = 0; i < impressoes.length; i++) {
             try (PDDocument documento = PDDocument.load(ImpressaoDanfeV2Util.impressaoPdfByte(impressoes[i]))) {
                 QrDesenhado desenhado = QrDesenhado.procurar(documento);
@@ -106,12 +133,26 @@ class QrCodeV2Test {
                 double margemMm = moduloMm * Math.min(Math.min(qr.margemEsquerda, qr.margemDireita),
                         Math.min(qr.margemSuperior, qr.margemInferior));
 
+                assertEquals(30, ladoMm, 0.1, nomes[i] + ": imagem de 30 mm, como no CSS da bobina");
                 assertTrue(ladoMm >= 25, nomes[i] + ": imagem de " + ladoMm + " mm (mínimo 25)");
                 assertTrue(conteudoMm >= 22, nomes[i] + ": conteúdo de " + conteudoMm + " mm (mínimo 22)");
                 assertTrue(margemMm * 2 >= 3 && margemMm * 2 >= ladoMm * 0.10,
                         nomes[i] + ": margem segura de " + margemMm + " mm de cada lado (3 mm ou 10% no total)");
             }
         }
+    }
+
+    private static String comQrCode(String qrCode) {
+        return xmlTipo2.replaceAll("<qrCode>[^<]*</qrCode>",
+                Matcher.quoteReplacement("<qrCode>" + qrCode.replace("&", "&amp;") + "</qrCode>"));
+    }
+
+    private static byte[] bytes(int quantidade) {
+        byte[] bytes = new byte[quantidade];
+        for (int i = 0; i < quantidade; i++) {
+            bytes[i] = (byte) (i * 37 + 11);
+        }
+        return bytes;
     }
 
     /** Medidas de um QR Code numa imagem: módulos do código e margem branca de cada lado, em módulos. */

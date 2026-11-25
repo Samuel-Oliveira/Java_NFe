@@ -96,7 +96,10 @@ public final class ImpressaoDanfeV2Util {
     private static final Pattern TAMANHO_BOBINA = Pattern.compile("(size\\s*:\\s*[0-9.]+mm\\s+)[0-9.]+mm");
     /** Padrões de nome que o resolver de arquivo aceita: um template próprio é um caminho de arquivo HTML. */
     private static final String[] EXTENSOES_TEMPLATE_PROPRIO = {"*.html", "*.htm", "*.xhtml"};
-    /** Lado da imagem do QR Code gerada pelo zxing, em pixels; o CSS do template define o tamanho impresso. */
+    /**
+     * Lado mínimo da imagem do QR Code, em pixels: a imagem sai com um múltiplo exato dos módulos, um pouco maior. O
+     * CSS do template define o tamanho impresso.
+     */
     private static final int TAMANHO_QRCODE_PX = 400;
 
     private static final TemplateEngine TEMPLATE_ENGINE = criaTemplateEngine();
