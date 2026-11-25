@@ -259,6 +259,18 @@ class ImpressaoDanfeSimplificadoTipo2Test {
     }
 
     @Test
+    void cnpjAlfanumericoSaiComAsLetras() {
+        // CNPJ alfanumérico do emitente na tag e dentro da chave (Id, chNFe e QR Code); o DV não é conferido na impressão
+        String alfanumerico = xml.replace("12345678000195", "12ABC345000195");
+        assertNotEquals(xml, alfanumerico);
+
+        String html = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFe(alfanumerico));
+
+        assertTrue(html.contains("12.ABC.345/0001-95"), "CNPJ do emitente com a máscara de CNPJ");
+        assertTrue(html.contains("3526 1212 ABC3 4500 0195 5500 2000 0007 8910 0000 7890"), "chave com as letras");
+    }
+
+    @Test
     void formatador() {
         FormatadorDanfeV2 fmt = new FormatadorDanfeV2();
 

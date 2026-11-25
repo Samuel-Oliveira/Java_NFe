@@ -91,16 +91,19 @@ public class FormatadorDanfeV2 {
         return sb.length() == 0 ? sb : sb.append(" - ");
     }
 
-    /** CNPJ (14 dígitos) ou CPF (11 dígitos); outros valores são devolvidos como estão. */
+    /**
+     * CNPJ (14 caracteres, inclusive o alfanumérico: 12 letras ou dígitos e 2 dígitos verificadores) ou CPF
+     * (11 dígitos); outros valores são devolvidos como estão.
+     */
     public String documento(String valor) {
         if (vazio(valor)) {
             return "";
         }
-        String d = digitos(valor);
-        if (d.length() == 14) {
+        String d = alfanumericos(valor);
+        if (d.matches("[0-9A-Z]{12}[0-9]{2}")) {
             return d.substring(0, 2) + "." + d.substring(2, 5) + "." + d.substring(5, 8) + "/" + d.substring(8, 12) + "-" + d.substring(12);
         }
-        if (d.length() == 11) {
+        if (d.matches("[0-9]{11}")) {
             return d.substring(0, 3) + "." + d.substring(3, 6) + "." + d.substring(6, 9) + "-" + d.substring(9);
         }
         return valor;
@@ -128,13 +131,13 @@ public class FormatadorDanfeV2 {
         return valor;
     }
 
-    /** Chave de acesso em grupos de 4 dígitos. */
+    /** Chave de acesso em grupos de 4 caracteres (a chave com CNPJ alfanumérico traz letras). */
     public String chave(String valor) {
         if (vazio(valor)) {
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        String d = digitos(valor);
+        String d = alfanumericos(valor);
         for (int i = 0; i < d.length(); i += 4) {
             if (i > 0) {
                 sb.append(' ');
@@ -270,8 +273,10 @@ public class FormatadorDanfeV2 {
     }
 
     /**
-     * Número que acompanha o rótulo de {@link #consumidor(Map)}: CNPJ ou CPF formatados, ou o idEstrangeiro como veio
-     * no XML (ele tem letras, que {@link #documento(String)} descartaria). "" sem destinatário identificado.
+     * Documento do destinatário (rótulo de {@link #consumidor(Map)} na bobina, "CNPJ / CPF" no A4): CNPJ ou CPF
+     * formatados, ou o idEstrangeiro como veio no XML. Ele não passa por {@link #documento(String)}, que mascararia como
+     * CNPJ um ID estrangeiro de 14 caracteres terminado em 2 dígitos (o IVA sueco SE556677889901, por exemplo) e como
+     * CPF um de 11 dígitos. "" sem destinatário identificado.
      */
     public String documentoConsumidor(Map<String, String> dest) {
         if (dest == null) {
@@ -365,6 +370,11 @@ public class FormatadorDanfeV2 {
 
     private static String digitos(String valor) {
         return valor.replaceAll("\\D", "");
+    }
+
+    /** Só letras e dígitos, com as letras em maiúsculas (CNPJ e chave alfanuméricos). */
+    private static String alfanumericos(String valor) {
+        return valor.replaceAll("[^0-9A-Za-z]", "").toUpperCase(Locale.ROOT);
     }
 
     private static boolean vazio(String valor) {

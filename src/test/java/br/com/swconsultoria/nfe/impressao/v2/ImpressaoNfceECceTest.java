@@ -207,6 +207,22 @@ class ImpressaoNfceECceTest {
     }
 
     @Test
+    void idEstrangeiroNoDanfeA4NaoGanhaMascara() throws IOException {
+        // 14 caracteres terminados em 2 dígitos (IVA sueco) e 11 dígitos (CUIT argentino): sem máscara de CNPJ ou CPF
+        String a4 = XmlNfeUtil.leXml("src/test/resources/DanfeV2Rtc.xml");
+        for (String id : new String[]{"SE556677889901", "20123456789"}) {
+            String estrangeiro = a4.replace("<CNPJ>98765432000110</CNPJ>", "<idEstrangeiro>" + id + "</idEstrangeiro>");
+            assertNotEquals(a4, estrangeiro);
+
+            String html = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFe(estrangeiro));
+
+            assertTrue(html.contains(">" + id + "<"), "idEstrangeiro " + id + " sai como veio no quadro do destinatário");
+        }
+        String html = ImpressaoDanfeV2Util.gerarHtml(ImpressaoDanfeV2Util.impressaoPadraoNFe(a4));
+        assertTrue(html.contains("98.765.432/0001-10"), "o CNPJ do destinatário continua com máscara");
+    }
+
+    @Test
     void codigoDeBarrasDaChaveEmCode128C() throws Exception {
         BufferedImage imagem = ImageIO.read(new ByteArrayInputStream(ImagemDanfeV2Util.codigoBarras128(CHAVE_CCE)));
 

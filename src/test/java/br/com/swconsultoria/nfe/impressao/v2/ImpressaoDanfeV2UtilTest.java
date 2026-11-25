@@ -378,6 +378,11 @@ class ImpressaoDanfeV2UtilTest {
         assertEquals("1,01", fmt.valor("1.005"), "HALF_UP, não HALF_EVEN");
         assertEquals("18,00%", fmt.aliquota("18.00"));
         assertEquals("12.345.678/0001-95", fmt.documento("12345678000195"));
+        assertEquals("12.ABC.345/0001-95", fmt.documento("12ABC345000195"), "CNPJ alfanumérico, não CPF");
+        assertEquals("12.ABC.345/0001-95", fmt.documento("12.abc.345/0001-95"));
+        assertEquals("123.456.789-09", fmt.documento("12345678909"));
+        assertEquals("3526 1212 ABC3 4500 0195 5500 2000 0007 8910 0000 7890",
+                fmt.chave("35261212ABC345000195550020000007891000007890"), "chave com CNPJ alfanumérico, com as letras");
         assertEquals("000.000.123", fmt.numeroNota("123"));
         assertEquals("001", fmt.serie("1"));
         assertEquals("25/12/2026 10:30:00", fmt.dataHora("2026-12-25T10:30:00-03:00"));
