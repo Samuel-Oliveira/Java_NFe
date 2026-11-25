@@ -29,7 +29,8 @@
   `DanfeException` para tamanho negativo.
 - CNPJ alfanumerico na impressao v2: o CNPJ sai com a mascara de CNPJ (`12.ABC.345/0001-95`), e nao
   mais com a de CPF, e a chave de acesso mantem as letras (antes elas eram descartadas e a chave saia
-  com menos de 44 caracteres).
+  com menos de 44 caracteres). O `idEstrangeiro` do destinatario sai como veio tambem no DANFE A4, como
+  na bobina: antes, um de 11 digitos saia com mascara de CPF e um de 14 com a de CNPJ.
 - As dependencias de impressao (`thymeleaf`, `openhtmltopdf-pdfbox`, `zxing core` e `javase`)
   deixam de ser `provided` e vem por transitividade: quem usa o `java-nfe` nao declara mais nada
   para imprimir. O `jcommander`, que o `zxing javase` traria so para a linha de comando, fica
