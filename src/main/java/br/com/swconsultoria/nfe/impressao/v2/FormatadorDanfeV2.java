@@ -273,8 +273,10 @@ public class FormatadorDanfeV2 {
     }
 
     /**
-     * Número que acompanha o rótulo de {@link #consumidor(Map)}: CNPJ ou CPF formatados, ou o idEstrangeiro como veio
-     * no XML (ele tem letras, que {@link #documento(String)} descartaria). "" sem destinatário identificado.
+     * Documento do destinatário (rótulo de {@link #consumidor(Map)} na bobina, "CNPJ / CPF" no A4): CNPJ ou CPF
+     * formatados, ou o idEstrangeiro como veio no XML. Ele não passa por {@link #documento(String)}, que mascararia como
+     * CNPJ um ID estrangeiro de 14 caracteres terminado em 2 dígitos (o IVA sueco SE556677889901, por exemplo) e como
+     * CPF um de 11 dígitos. "" sem destinatário identificado.
      */
     public String documentoConsumidor(Map<String, String> dest) {
         if (dest == null) {

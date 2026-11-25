@@ -141,7 +141,7 @@
     <div class="bloco">
         <table><tr>
             <td th:replace="~{fragmentos :: campo('NOME / RAZÃO SOCIAL', ${danfe.dest.xNome}, '62%')}"></td>
-            <td th:replace="~{fragmentos :: campo('CNPJ / CPF', ${fmt.documento(fmt.primeiro(danfe.dest.CNPJ, fmt.primeiro(danfe.dest.CPF, danfe.dest.idEstrangeiro)))}, '22%')}"></td>
+            <td th:replace="~{fragmentos :: campo('CNPJ / CPF', ${fmt.documentoConsumidor(danfe.dest)}, '22%')}"></td>
             <td th:replace="~{fragmentos :: campo('DATA DA EMISSÃO', ${fmt.data(danfe.ide.dhEmi)}, '16%')}"></td>
         </tr></table>
         <table><tr>
