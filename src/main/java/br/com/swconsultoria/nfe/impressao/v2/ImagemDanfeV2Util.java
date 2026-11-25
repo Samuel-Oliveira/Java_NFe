@@ -28,6 +28,8 @@ public final class ImagemDanfeV2Util {
     /** Largura de cada módulo em pixels: a chave em Code-128C tem 277 módulos, logo ~830 px; o CSS redimensiona. */
     private static final int LARGURA_BARRA = 3;
     private static final int ALTURA_BARRAS = 80;
+    /** Zona de silêncio mínima do QR Code, em módulos (ISO/IEC 18004). */
+    static final int ZONA_SILENCIO_MINIMA_QR_MODULOS = 4;
 
     private ImagemDanfeV2Util() {
     }
@@ -68,20 +70,44 @@ public final class ImagemDanfeV2Util {
     }
 
     /**
-     * QR Code em PNG (tamanho em pixels).
+     * QR Code em PNG com a zona de silêncio dentro da imagem: 4 módulos no mínimo (ISO/IEC 18004) e, nos códigos
+     * grandes (QR v3 off-line, com a assinatura), o bastante para as duas margens somarem 10% do lado, a margem
+     * segura da NT 2026.003, item 3.4 ({@link #margemQrCode}). O lado tem pelo menos {@code tamanho} pixels e é um
+     * múltiplo exato dos módulos com a margem: não sobra branco de arredondamento.
      */
     public static byte[] qrCode(String conteudo, int tamanho) {
+        if (tamanho < 0) {
+            throw new DanfeException("Tamanho do QR Code negativo: " + tamanho);
+        }
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-            hints.put(EncodeHintType.MARGIN, 0);
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-            BitMatrix matriz = new QRCodeWriter().encode(conteudo, BarcodeFormat.QR_CODE, tamanho, tamanho, hints);
+            hints.put(EncodeHintType.MARGIN, 0);
+            QRCodeWriter writer = new QRCodeWriter();
+            // Tamanho 0 e margem 0: um pixel por módulo, só para contar os módulos do código
+            int modulos = writer.encode(conteudo, BarcodeFormat.QR_CODE, 0, 0, hints).getWidth();
+            int margem = margemQrCode(modulos);
+            int ladoEmModulos = modulos + 2 * margem;
+            long lado = ladoEmModulos * Math.max(1L, ((long) tamanho + ladoEmModulos - 1) / ladoEmModulos);
+            if (lado > Integer.MAX_VALUE) {
+                throw new DanfeException("Tamanho do QR Code grande demais: " + tamanho);
+            }
+            hints.put(EncodeHintType.MARGIN, margem);
+            BitMatrix matriz = writer.encode(conteudo, BarcodeFormat.QR_CODE, (int) lado, (int) lado, hints);
             MatrixToImageWriter.writeToStream(matriz, "PNG", out);
             return out.toByteArray();
         } catch (WriterException | IOException e) {
             throw new DanfeException("Erro ao gerar QR Code", e);
         }
+    }
+
+    /**
+     * Margem do QR Code em módulos, de cada lado, para um código de {@code modulos} módulos: 4 no mínimo e, acima de
+     * 72 módulos, o bastante para as duas margens somarem 10% do lado (2m / (n + 2m) >= 0,10, ou seja, m >= n / 18).
+     */
+    static int margemQrCode(int modulos) {
+        return Math.max(ZONA_SILENCIO_MINIMA_QR_MODULOS, (modulos + 17) / 18);
     }
 
     private static String tipo(byte[] b) {

@@ -19,6 +19,14 @@
   evento 110110 na CC-e.
 - Codigo de barras da chave pelo zxing (`Code128Writer`, conjunto C, 277 modulos), no lugar do
   barbecue.
+- QR Code com a zona de silencio dentro da imagem, sem sobra de arredondamento: 4 modulos no minimo
+  (ISO/IEC 18004) e, no QR v3 off-line (com a assinatura), o bastante para a margem somar 10% do lado.
+  Na bobina a imagem passa a 30 mm, ocupando o mesmo espaco dos 27 mm com 1,5 mm de margem de antes:
+  o codigo fica com 24,7 mm ou mais e a margem atende a NT 2026.003, item 3.4 (25 mm, sendo 22 de
+  conteudo; acima disso, margem de 10%). No A4 a imagem segue com 27 mm (17 mm em paisagem) e o codigo
+  do QR online encolhe uns 10% para dar lugar a margem. `ImagemDanfeV2Util.qrCode` devolve uma imagem
+  com pelo menos o `tamanho` pedido (multiplo exato dos modulos), nao mais exatamente ele, e lanca
+  `DanfeException` para tamanho negativo.
 - As dependencias de impressao (`thymeleaf`, `openhtmltopdf-pdfbox`, `zxing core` e `javase`)
   deixam de ser `provided` e vem por transitividade: quem usa o `java-nfe` nao declara mais nada
   para imprimir. O `jcommander`, que o `zxing javase` traria so para a linha de comando, fica
