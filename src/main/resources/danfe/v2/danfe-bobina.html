@@ -62,9 +62,11 @@
         /* 44 dígitos e 10 espaços em Helvetica 5pt: 48 mm, cabem nos 53 mm úteis do papel de 58 mm */
         body.estreito .chave { font-size: 5pt; }
 
-        /* Divisões V a VII - QR Code (25 mm no mínimo, com 10% de margem segura), consumidor e identificação */
+        /* Divisões V a VII - QR Code, consumidor e identificação. NT 2026.003, 3.4: imagem de 25 mm no mínimo, com
+           22 mm de conteúdo e 3 mm de margem segura. A imagem de 30 mm já traz a zona de silêncio de 4 módulos
+           (ImagemDanfeV2Util.qrCode): o código fica com 30 * n / (n + 8) mm, 24,7 mm ou mais (n >= 37). */
         .qr-lateral { width: 31mm; padding-right: 2mm; }
-        .qr-lateral img, .qr-centro img { width: 27mm; height: 27mm; padding: 1.5mm; }
+        .qr-lateral img, .qr-centro img { width: 30mm; height: 30mm; }
         .qr-centro { text-align: center; margin-top: 1mm; }
         .identificacao div { margin-bottom: 0.6mm; }
     </style>

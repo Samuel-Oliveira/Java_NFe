@@ -28,6 +28,8 @@ public final class ImagemDanfeV2Util {
     /** Largura de cada módulo em pixels: a chave em Code-128C tem 277 módulos, logo ~830 px; o CSS redimensiona. */
     private static final int LARGURA_BARRA = 3;
     private static final int ALTURA_BARRAS = 80;
+    /** Zona de silêncio do QR Code, em módulos (ISO/IEC 18004). */
+    static final int ZONA_SILENCIO_QR_MODULOS = 4;
 
     private ImagemDanfeV2Util() {
     }
@@ -68,15 +70,22 @@ public final class ImagemDanfeV2Util {
     }
 
     /**
-     * QR Code em PNG (tamanho em pixels).
+     * QR Code em PNG com a zona de silêncio de {@value #ZONA_SILENCIO_QR_MODULOS} módulos (ISO/IEC 18004) dentro da
+     * imagem. O lado tem pelo menos {@code tamanho} pixels e é um múltiplo exato do número de módulos (código mais
+     * margem): não sobra branco de arredondamento, e o código ocupa a fração n / (n + 8) do lado em que o CSS
+     * desenhar a imagem.
      */
     public static byte[] qrCode(String conteudo, int tamanho) {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-            hints.put(EncodeHintType.MARGIN, 0);
+            hints.put(EncodeHintType.MARGIN, ZONA_SILENCIO_QR_MODULOS);
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-            BitMatrix matriz = new QRCodeWriter().encode(conteudo, BarcodeFormat.QR_CODE, tamanho, tamanho, hints);
+            QRCodeWriter writer = new QRCodeWriter();
+            // Tamanho 0: um pixel por módulo, só para saber quantos módulos o código tem com a margem
+            int modulos = writer.encode(conteudo, BarcodeFormat.QR_CODE, 0, 0, hints).getWidth();
+            int lado = modulos * Math.max(1, (tamanho + modulos - 1) / modulos);
+            BitMatrix matriz = writer.encode(conteudo, BarcodeFormat.QR_CODE, lado, lado, hints);
             MatrixToImageWriter.writeToStream(matriz, "PNG", out);
             return out.toByteArray();
         } catch (WriterException | IOException e) {

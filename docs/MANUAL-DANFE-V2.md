@@ -399,7 +399,7 @@ O campo "Tipo de Regime de Apuração do IBS e da CBS" vem de `emit/tpRegimeIBSC
 A NF-e emitida no lugar de uma NFC-e (Ajuste SINIEF 13/26, regras na NT 2026.002) usa o **DANFE Simplificado Tipo 2**, um cupom em bobina. Com `tpImp=6` no XML, `impressaoPadraoNFe` já sai nesse leiaute, pelo template `danfe/v2/danfe-bobina.html` (`TEMPLATE_BOBINA`), o mesmo do DANFE NFC-e (seção 7.5); o resto da API é o mesmo (`impressaoPdfByte`, `impressaoDireta` etc.). Para imprimir o DANFE A4 de uma nota com `tpImp=6`, informe `setTemplate(ImpressaoDanfeV2Util.TEMPLATE_PADRAO)`.
 
 - **Papel:** bobina de 80 mm por padrão (`setLarguraPapelMm`, mínimo 56 mm). A altura da folha acompanha o conteúdo: o PDF sai numa folha só, do tamanho do cupom, e a nota não quebra em folhas. Margem lateral de 3 mm, ou 2,5 mm abaixo de 72 mm de papel (a NT pede 2 mm no mínimo).
-- **QR Code:** a partir de 72 mm de papel, ao lado do consumidor e da identificação (figura 1A da NT); abaixo disso, centralizado (figura 1B). Sai com 27 mm mais 1,5 mm de margem segura de cada lado (a NT pede 25 mm no mínimo).
+- **QR Code:** a partir de 72 mm de papel, ao lado do consumidor e da identificação (figura 1A da NT); abaixo disso, centralizado (figura 1B). A imagem sai com 30 mm e já traz a zona de silêncio de 4 módulos (ISO/IEC 18004); o código ocupa uns 25 mm, 24,7 mm no pior caso. A NT pede imagem de 25 mm no mínimo, com 22 mm de conteúdo e 3 mm de margem segura.
 - **Divisões, na ordem da NT:**
   1. Cabeçalho: logo (opcional), CNPJ ou CPF, razão social, endereço sem o país e "DANFE Simplificado Tipo 2".
   2. Itens: código e descrição, quantidade e unidade, valor unitário e valor total.
